@@ -156,7 +156,7 @@ public class DestinatarioPage extends BasePage {
                 String notificationStatus;
                 do {
                     Assertions.assertTrue(maxAttemptsPolling <= 9, "La notifica risulta ancora in stato WAITING dopo 9 tentativi");
-                    log.info(responseOfCreateNotification.getNotificationRequestId());
+                    log.info("responseOfCreateNotification.getNotificationRequestId(): {}",responseOfCreateNotification.getNotificationRequestId());
                     getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
                     notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
                     if (!notificationStatus.equals("ACCEPTED")) {

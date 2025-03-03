@@ -1435,15 +1435,17 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void visualizzaTimeline(String check) {
         webTool.waitTime(10);
-        if(StringUtils.isNotEmpty(check)) {
-            List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+        if (StringUtils.isNotEmpty(check)) {
+            List<WebElement> viewMore = getWebDriverWait(30).withMessage("Non trovato la scritta Vedi poiu dettagli")
+                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"))));
             viewMore.get(0).click();
             String size = Integer.toString(viewMore.size());
             if (size.equals("2")) {
                 viewMore.get(1).click();
             }
 
-            List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+            List<WebElement> findKeyWord = getWebDriverWait(30).withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
+                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"))));
 
             if (findKeyWord.get(0).isDisplayed()) {
                 logger.info("Si visualizza la timeline correttamente");

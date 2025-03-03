@@ -17,7 +17,7 @@ public class AppPortalUrlFactory  {
 
     public String getPortalUrl(AppPortalUrl portal) {
         String env = webDriverConfig.getEnvironment();
-        logger.info("env: {}", env);
+        logger.info("getPortalUrl env : {}", env);
         String token = "";
         switch (portal) {
             case PA_URL -> {
@@ -38,7 +38,6 @@ public class AppPortalUrlFactory  {
                 break;
             }
             default -> {
-                logger.error("Tipologia di portale non specificato o errato!");
                 Assertions.fail("Tipologia di portale non specificato o errato!");
             }
 
