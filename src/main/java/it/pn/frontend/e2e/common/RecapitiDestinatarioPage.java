@@ -105,7 +105,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuChiudiPopUp() {
-        //By chiudiButtonBy = By.xpath("//button[contains(text(),'Chiudi')]");
         logger.info("Log clickSuChiudiPopUp");
         getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Annulla')]"))));
         WebElement chiudiButtonBy = driver.findElement(By.xpath("//h2[@id='dialog-title']/following-sibling::div/button[contains(text(),'Annulla')]"));
@@ -159,7 +158,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             }
             logger.info("Il pop-up di conferma viene visualizzato correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il pop-up di conferma NON viene visualizzato correttamente con errori: " + e.getMessage());
             Assertions.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
         }
     }
@@ -174,7 +172,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             }
             logger.info("Il codice otp viene inserito correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
             Assertions.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
@@ -219,7 +216,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             annullaButton = driver.findElement(By.id("code-cancel-button"));
             annullaButton.click();
         } catch (TimeoutException e) {
-            logger.error("Il bottone annulla non è cliccabile con errore: " + e.getMessage());
             Assertions.fail("Il bottone annulla non è cliccabile con errore: " + e.getMessage());
         }
     }
@@ -269,7 +265,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(40).withMessage("PEC associata non presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-typography"))));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
-            logger.error("pec associata non trovata" + e.getMessage());
+            logger.error("pec associata non trovata {}", e.getMessage());
             return false;
         }
     }
@@ -296,7 +292,6 @@ public class RecapitiDestinatarioPage extends BasePage {
            // WebElement pecAssociata = driver.findElement(By.xpath("//p[contains(text(), 'Validazione PEC in corso')]"));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Validazione PEC in corso')]"))));
         } catch (TimeoutException e) {
-            logger.error("Pec non associata con errore:" + e.getMessage());
             Assertions.fail("Pec non associata con errore:" + e.getMessage());
         }
     }
@@ -335,7 +330,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(5).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'PEC associata')]")));
             return true;
         } catch (TimeoutException e) {
-            logger.error("Pec inserita non presente con errore:" + e.getMessage());
+            logger.error("Pec inserita non presente con errore: {}", e.getMessage());
             return false;
         }
     }
@@ -359,7 +354,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             WebElement modificaButtonBy = driver.findElement(By.id("modifyContact-default_pec"));
             modificaButtonBy.click();
         } catch (TimeoutException e) {
-            logger.error("Non si riesce a cliccare o vedere il bottone modifica PEC con errore:" + e.getMessage());
             Assertions.fail("Non si riesce a cliccare o vedere il bottone modifica PEC con errore:" + e.getMessage());
         }
     }
@@ -374,7 +368,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             clearWebElementField(pecField);
             logger.info("testo email pec cancellata");
         } catch (TimeoutException e) {
-            logger.error("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
             Assertions.fail("Non si riesce a cancellare il testo della  email PEC :" + e.getMessage());
         }
     }
@@ -411,7 +404,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).withMessage("Non è stato caricato il bottone annulla del modal").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("buttonAnnulla"))));
             getWebDriverWait(10).withMessage("Non è stato caricato il bottone conferma del modal").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@aria-labelledby='dialog-title']//button[contains(text(),'Conferma')]"))));
         } catch (TimeoutException e) {
-            logger.info("Non è stato caricato un elemento del pop up con errore: " + e.getMessage());
+            logger.info("Non è stato caricato un elemento del pop up con errore: {}", e.getMessage());
         }
         WebElement titlePopUp = driver.findElement(By.id("dialog-title"));
         return titlePopUp.getText();
@@ -504,7 +497,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid = 'courtesyContacts']//div//p[contains(text(),'" + email + "')]"))));
             return true;
         } catch (TimeoutException e) {
-            logger.error("email associata non presente con errore" + e.getMessage());
+            logger.error("email associata non presente con errore {}", e.getMessage());
             return false;
         }
     }
@@ -569,7 +562,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             attivaButton = driver.findElement(By.id("default_pec-button"));
             return Boolean.parseBoolean(attivaButton.getAttribute("disabled"));
         } catch (NoSuchElementException | TimeoutException e) {
-            logger.error("bottone non disabilitato " + e.getMessage());
+            logger.error("bottone non disabilitato {}", e.getMessage());
             return false;
         }
     }
@@ -654,7 +647,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("buttonAnnulla"))));
             logger.info("pulsante annulla eliminazione visibile");
         } catch (TimeoutException e) {
-            logger.error("caricamento pop-up con errore:" + e.getMessage());
             Assertions.fail("caricamento pop-up con errore:" + e.getMessage());
         }
     }
@@ -686,7 +678,6 @@ public class RecapitiDestinatarioPage extends BasePage {
                     ExpectedConditions.attributeToBe(By.id("default_pec"), "readonly", "")));
             logger.info("pec modificabile");
         } catch (TimeoutException e) {
-            logger.error("pec non modificabile con errore:" + e.getMessage());
             Assertions.fail("pec non modificabile con errore:" + e.getMessage());
         }
     }
@@ -699,7 +690,6 @@ public class RecapitiDestinatarioPage extends BasePage {
                     ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-typography"))));
             logger.info("pec non modificabile");
         } catch (TimeoutException e) {
-            logger.error("pec modificabile con errore:" + e.getMessage());
             Assertions.fail("pec modificabile con errore:" + e.getMessage());
         }
     }
@@ -728,14 +718,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuBottoneCellulareDiCortesia(String actionButton) {
-        getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//form[contains(., 'Numero di cellulare')]//button[contains(text(), '" + actionButton + "')]"))));
+        getWebDriverWait(10).withMessage("Il bottone non è cliccabile Su Bottone Cellulare Di Cortesia").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//form[contains(., 'Numero di cellulare')]//button[contains(text(), '" + actionButton + "')]"))));
         WebElement bottoneActionBy = driver.findElement(By.xpath("//form[contains(., 'Numero di cellulare')]//button[contains(text(), '" + actionButton + "')]"));
         bottoneActionBy.click();
     }
 
     public void clickSuBottoneEmailDiCortesia(String actionButton) {
         WebElement bottoneActionBy = driver.findElement(By.xpath("//button[contains(text(), '" + actionButton + "')]"));
-        getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOf(bottoneActionBy));
+        getWebDriverWait(10).withMessage("Il bottone non è cliccabile Su Bottone Email Di Cortesia").until(ExpectedConditions.visibilityOf(bottoneActionBy));
         bottoneActionBy.click();
     }
 
@@ -747,7 +737,6 @@ public class RecapitiDestinatarioPage extends BasePage {
                     ExpectedConditions.attributeToBe(driver.findElement(By.id("default_sms")), "value", "")
             ));
         } catch (TimeoutException e) {
-            logger.error("Input numero di cellulare non visualizzato o non vuoto con errore: " + e.getMessage());
             Assertions.fail("Input numero di cellulare non visualizzato o non vuoto con errore: " + e.getMessage());
         }
     }
@@ -757,7 +746,6 @@ public class RecapitiDestinatarioPage extends BasePage {
           //  inserimentoMailField = driver.findElement(By.id("default_email"));
             getWebDriverWait(10).withMessage("Campo email non modificabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))));
         } catch (TimeoutException e) {
-            logger.error("Campo email non modificabile con errore: " + e.getMessage());
             Assertions.fail("Campo email non modificabile con errore: " + e.getMessage());
         }
     }
@@ -775,7 +763,6 @@ public class RecapitiDestinatarioPage extends BasePage {
                     ExpectedConditions.visibilityOf(driver.findElement(By.id("confirmButton"))),
                     ExpectedConditions.attributeToBe(driver.findElement(By.id("confirmButton")), "disabled", "true")));
         } catch (TimeoutException e) {
-            logger.error("Qualche componente del pop up non viene visualizzato con errore: " + e.getMessage());
             Assertions.fail("Qualche componente del pop up non viene visualizzato con errore: " + e.getMessage());
         }
     }
@@ -799,7 +786,6 @@ public class RecapitiDestinatarioPage extends BasePage {
                     ExpectedConditions.visibilityOf(driver.findElement(By.id("codeModalErrorTitle")))
             ));
         } catch (TimeoutException e) {
-            logger.error("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());
             Assertions.fail("Il messaggio di errore non viene visualizzato correttamente con errore: " + e.getMessage());
         }
     }
@@ -1031,5 +1017,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void verificaDaAttivareDomicilioDigitale() {
+        verificaPresenza("Impossibile trovare Il domicilio digitale della tua impresa ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h6[contains(text(), 'domicilio digitale')]")
+        ));
+        verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Da attivare')]")
+        ));
+        verificaPresenza("Impossibile Cliccare su Inizia ", ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[contains(text(),'Inizia')]")
+        ));
     }
 }
