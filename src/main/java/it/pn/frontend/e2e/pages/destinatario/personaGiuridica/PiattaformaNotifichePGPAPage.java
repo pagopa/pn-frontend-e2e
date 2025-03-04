@@ -117,10 +117,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void waitLoadPiattaformaNotificaPage(String ragioneSociale) {
         try {
-           // WebElement titlePageBy = driver.findElement(By.id("Notifiche di " + ragioneSociale + "-page"));
-           // WebElement codiceIunTextFieldBy = driver.findElement(By.id("iunMatch"));
-           // WebElement dataInizioFieldBy = driver.findElement(By.id("startDate"));
-           // WebElement dataFineFieldBy = driver.findElement(By.id("endDate"));
             getWebDriverWait(50).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche di " + ragioneSociale + "-page"))));
             getWebDriverWait(40).withMessage("Il campo codice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("iunMatch"))));
             getWebDriverWait(40).withMessage("Il campo data inizio della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("startDate"))));
@@ -174,8 +170,7 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickRecapitiButton() {
-        getWebDriverWait(10).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Recapiti"))));
-        recapitiButton = driver.findElement(By.id("side-item-Recapiti"));
+        recapitiButton = getWebDriverWait(10).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Recapiti"))));
         js().executeScript("arguments[0].click()", recapitiButton);
     }
 

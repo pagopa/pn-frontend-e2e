@@ -4,12 +4,10 @@ import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -939,4 +937,81 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public void disattivaRecapitiDomicilioDigitale() {
+        try {
+
+            WebElement disattivaButton = getWebDriverWait(5).withMessage("Non è presente dentro Il domicilio digitale della tua impresa il testo Disattiva")
+                    .until(ExpectedConditions.elementToBeClickable(
+                            driver.findElement(By.xpath("//h6[contains(text(), 'domicilio digitale')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]"))));
+
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                logger.info("Bottone Disattiva trovato, lo clicco!");
+                disattivaButton.click();
+                clickSuConfermaElimina();
+            }
+        } catch (NoSuchElementException e) {
+            logger.info("Bottone Disattiva non presente.");
+        }
+
+
+    }
+
+    public void clickInizia() {
+        WebElement button = getWebDriverWait(5).withMessage("Impossibile Cliccare su Inizia").
+                until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[contains(text(),'Inizia')]")
+        ));
+        button.click();
+    }
+
+    public void clickAttiva() {
+        WebElement button = getWebDriverWait(5).withMessage("Impossibile Cliccare su Attiva")
+                .until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[@data-testid='activateButton']")));
+        button.click();
+    }
+
+    public void clickNonOra() {
+        WebElement nonOraButton = getWebDriverWait(5).withMessage("Impossibile Cliccare su Non Ora")
+                .until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[contains(text(),'Non ora')]")));
+        nonOraButton.click();
+    }
+
+    public void clickLoFaroPiuTardi() {
+        WebElement loFaroPiuTardi = getWebDriverWait(5).withMessage("Impossibile Cliccare su Lo faro piu tardi")
+                .until(ExpectedConditions.elementToBeClickable(
+                By.id("dialog-confirm-button")));
+        loFaroPiuTardi.click();
+    }
+
+    public void clickTornaAiTuoiRecapiti() {
+        WebElement tornaAiTuoiRecapiti = getWebDriverWait(5).withMessage("Impossibile Cliccare su Torna ai tuoi recapiti")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='wizard-feedback-button']")));
+        tornaAiTuoiRecapiti.click();
+    }
+
+    public void verificaAttivazioneDomicilioDigitaleDellaTuaImpresa() {
+        verificaPresenzaInDomicilioDigitale("Impossibile trovare Il domicilio digitale della tua impresa ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h6[contains(text(), 'domicilio digitale')]")
+        ));
+
+        verificaPresenzaInDomicilioDigitale("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Attivo')]")
+        ));
+
+        verificaPresenzaInDomicilioDigitale("Impossibile trovare Gestisci ", ExpectedConditions.elementToBeClickable(
+                By.xpath("//h6[contains(text(), 'domicilio digitale')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Gestisci')]")
+        ));
+
+        verificaPresenzaInDomicilioDigitale("Impossibile trovare Disattiva ", ExpectedConditions.elementToBeClickable(
+                By.xpath("//h6[contains(text(), 'domicilio digitale')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")
+        ));
+    }
+
+    private void verificaPresenzaInDomicilioDigitale(String message, ExpectedCondition<WebElement> isTrue) {
+        WebElement titolo = getWebDriverWait(15).withMessage(message)
+                .until(isTrue);
+        Assertions.assertNotNull(titolo);
+    }
 }

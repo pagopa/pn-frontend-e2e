@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
@@ -232,4 +233,38 @@ public class RecapitiPGPagoPaTest extends BasePage {
        }
     }
 
+    @And("Disattiva Recapiti Domicilio Digitale")
+    public void disattivaRecapitiDomicilioDigitale() {
+        recapitiDestinatarioPage.disattivaRecapitiDomicilioDigitale();
+    }
+
+    @When("Click Inizia")
+    public void clickInizia() {
+        recapitiDestinatarioPage.clickInizia();
+    }
+
+    @And("Click Attiva")
+    public void clickAttiva() {
+        recapitiDestinatarioPage.clickAttiva();
+    }
+
+    @And("Click Non ora")
+    public void clickNonOra() {
+        recapitiDestinatarioPage.clickNonOra();
+    }
+
+    @And("Click Lo Faro piu tardi")
+    public void clickLoFaroPiuTardi() {
+        recapitiDestinatarioPage.clickLoFaroPiuTardi();
+    }
+
+    @And("Click Torna ai tuoi recapiti")
+    public void clickTornaAiTuoiRecapiti() {
+        recapitiDestinatarioPage.clickTornaAiTuoiRecapiti();
+    }
+
+    @Then("Verifica Attivazione Domicilio digitale della tua impresa")
+    public void verificaAttivazioneDomicilioDigitaleDellaTuaImpresa() {
+        recapitiDestinatarioPage.verificaAttivazioneDomicilioDigitaleDellaTuaImpresa();
+    }
 }
