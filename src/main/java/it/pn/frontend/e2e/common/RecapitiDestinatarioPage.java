@@ -993,24 +993,24 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void verificaAttivazioneDomicilioDigitaleDellaTuaImpresa() {
-        verificaPresenzaInDomicilioDigitale("Impossibile trovare Il domicilio digitale della tua impresa ", ExpectedConditions.visibilityOfElementLocated(
+        verificaPresenza("Impossibile trovare Il domicilio digitale della tua impresa ", ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//h6[contains(text(), 'domicilio digitale')]")
         ));
 
-        verificaPresenzaInDomicilioDigitale("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
+        verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Attivo')]")
         ));
 
-        verificaPresenzaInDomicilioDigitale("Impossibile trovare Gestisci ", ExpectedConditions.elementToBeClickable(
+        verificaPresenza("Impossibile trovare Gestisci ", ExpectedConditions.elementToBeClickable(
                 By.xpath("//h6[contains(text(), 'domicilio digitale')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Gestisci')]")
         ));
 
-        verificaPresenzaInDomicilioDigitale("Impossibile trovare Disattiva ", ExpectedConditions.elementToBeClickable(
+        verificaPresenza("Impossibile trovare Disattiva ", ExpectedConditions.elementToBeClickable(
                 By.xpath("//h6[contains(text(), 'domicilio digitale')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")
         ));
     }
 
-    private void verificaPresenzaInDomicilioDigitale(String message, ExpectedCondition<WebElement> isTrue) {
+    private void verificaPresenza(String message, ExpectedCondition<WebElement> isTrue) {
         WebElement titolo = getWebDriverWait(15).withMessage(message)
                 .until(isTrue);
         Assertions.assertNotNull(titolo);
@@ -1020,5 +1020,16 @@ public class RecapitiDestinatarioPage extends BasePage {
         getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div//..//button[contains(text(), 'app IO')]"))));
         WebElement bottoneActionBy = driver.findElement(By.xpath("//div//..//button[contains(text(), 'app IO')]"));
         bottoneActionBy.click();
+    }
+
+    public void clickAnnulla() {
+        WebElement annulla = getWebDriverWait(15)
+                .withMessage("Non è presente il bottone Annulla")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//button[contains(text(), 'Annulla')]")));
+        annulla.click();
+    }
+
+    public void verificaDaAttivareDomicilioDigitale() {
     }
 }

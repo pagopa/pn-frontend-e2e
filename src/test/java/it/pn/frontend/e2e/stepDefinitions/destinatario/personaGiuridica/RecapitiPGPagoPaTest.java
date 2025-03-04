@@ -246,8 +246,18 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.clickTornaAiTuoiRecapiti();
     }
 
-    @Then("Verifica Attivazione Domicilio digitale della tua impresa")
+    @Then("Verifica Attivazione Domicilio digitale")
     public void verificaAttivazioneDomicilioDigitaleDellaTuaImpresa() {
         recapitiDestinatarioPage.verificaAttivazioneDomicilioDigitaleDellaTuaImpresa();
+    }
+
+    @And("Click Annulla")
+    public void clickAnnulla() {
+        recapitiDestinatarioPage.clickAnnulla();
+    }
+
+    @Then("Verifica Da Attivare Domicilio digitale")
+    public void verificaDaAttivareDomicilioDigitale() {
+        recapitiDestinatarioPage.verificaDaAttivareDomicilioDigitale();
     }
 }
