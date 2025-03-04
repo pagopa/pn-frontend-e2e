@@ -1014,4 +1014,10 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .until(isTrue);
         Assertions.assertNotNull(titolo);
     }
+
+    public void clickSuBottoneCollegaSENDaIO() {
+        getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div//..//button[contains(text(), 'app IO')]"))));
+        WebElement bottoneActionBy = driver.findElement(By.xpath("//div//..//button[contains(text(), 'app IO')]"));
+        bottoneActionBy.click();
+    }
 }

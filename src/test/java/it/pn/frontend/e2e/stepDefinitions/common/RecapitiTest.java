@@ -182,6 +182,12 @@ public class RecapitiTest extends BasePage {
         }
     }
 
+    @And("Nella pagina I Tuoi Recapiti si disattiva il domicilio digitale attivo")
+    public void nellaPaginaITuoiRecapitiSiDisattivaIlDomicilioDigitaleAttivo() {
+        logger.info("Si disattiva il domicilio digitale attivo");
+        recapitiDestinatarioPage.disattivaRecapitiDomicilioDigitale();
+    }
+
     @And("Si inserisce il codice OTP errato {string} per tre volte e si controlla il messaggio di errore")
     public void siInserisceIlCodiceOTPErratoPerTreVolteESiControllaIlMessaggioDiErrore(String OTP) {
         logger.info("Si inserisce un codice OTP errato per 3 volte e si controlla il messaggio di errore");
@@ -197,4 +203,11 @@ public class RecapitiTest extends BasePage {
             recapitiDestinatarioPage.confermaButtonEliminaClick();
         }
     }
+
+    @And("Si clicca su 'Collega SEND a IO'")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneCollegaSENDaIO() {
+        logger.info("Si clicca su 'Collega SEND a IO'");
+        recapitiDestinatarioPage.clickSuBottoneCollegaSENDaIO();
+    }
+
 }
