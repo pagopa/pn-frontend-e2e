@@ -17,7 +17,8 @@ Feature: Rework della pagina dei contatti
 
 
     #    verificare mancano pezzi inerente a SEND sull'appIO e indirizzo email
-    And Disattiva Recapiti Domicilio Digitale
+    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva "email"
     When Click Inizia
     And Click Attiva
     And Click Non ora

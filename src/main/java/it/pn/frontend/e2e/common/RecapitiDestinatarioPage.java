@@ -937,20 +937,21 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void disattivaRecapitiDomicilioDigitale() {
+    public void verificaAndOrDisattiva(String testo) {
         try {
-
-            WebElement disattivaButton = getWebDriverWait(5).withMessage("Non è presente dentro Il domicilio digitale della tua impresa il testo Disattiva")
-                    .until(ExpectedConditions.elementToBeClickable(
-                            driver.findElement(By.xpath("//h6[contains(text(), 'domicilio digitale')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]"))));
-
+            WebElement disattivaButton = getWebDriverWait(5).withMessage("Non è presente dentro '" + testo + "' il testo 'Disattiva'")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
-                logger.info("Bottone Disattiva trovato, lo clicco!");
+                logger.info("Bottone 'Disattiva' trovato, lo clicco!");
                 disattivaButton.click();
-                clickSuConfermaElimina();
+                clickSuConfermaElimina(); // Funzione che esegue un altro click o conferma
+            } else {
+                logger.warn("Bottone 'Disattiva' trovato ma non è visibile o abilitato.");
             }
-        } catch (NoSuchElementException e) {
-            logger.info("Bottone Disattiva non presente.");
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva' non presente.");
+        } catch (Exception e) {
+            logger.error("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva'.", e);
         }
 
 
@@ -1014,4 +1015,5 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .until(isTrue);
         Assertions.assertNotNull(titolo);
     }
+
 }

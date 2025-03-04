@@ -4,37 +4,20 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.common.DettaglioNotificaSection;
-import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.HooksNew;
-import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
-import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
-import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
-import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
-import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
-import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-
-import java.util.Map;
 
 public class RecapitiPGPagoPaTest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPagoPaTest");
@@ -233,9 +216,9 @@ public class RecapitiPGPagoPaTest extends BasePage {
        }
     }
 
-    @And("Disattiva Recapiti Domicilio Digitale")
-    public void disattivaRecapitiDomicilioDigitale() {
-        recapitiDestinatarioPage.disattivaRecapitiDomicilioDigitale();
+    @And("Verifica e Disattiva {string}")
+    public void verificaAndOrDisattiva(String testo) {
+        recapitiDestinatarioPage.verificaAndOrDisattiva(testo);
     }
 
     @When("Click Inizia")
