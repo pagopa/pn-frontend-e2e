@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciPEC_PG
   @addressBook2
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_4] Attivazione Domicilio Digitale SEND Annulla PG - I tuoi Recapiti
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_4] Attivazione Domicilio Digitale SEND - Inserisci PEC PG
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

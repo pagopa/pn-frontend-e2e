@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_AttivazioneDomicilioDigitaleSEND_InserirePEC_PF
   @addressBook1
 
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_4] Attivazione Domicilio Digitale SEND PF - I tuoi Recapiti
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_4] Attivazione Domicilio Digitale SEND - Inserisci PEC PF
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
