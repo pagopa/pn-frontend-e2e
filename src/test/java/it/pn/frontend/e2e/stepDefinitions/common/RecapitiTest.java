@@ -182,6 +182,11 @@ public class RecapitiTest extends BasePage {
         }
     }
 
+    @And("Nella pagina I Tuoi Recapiti si controlla che IO non sia attivato")
+    public void nellaPaginaITuoiRecapitiSiControllaCheNonIONonSiaAttivato() {
+        logger.info("Si controlla che app IO non sia attivata");
+        recapitiDestinatarioPage.verificaDaAttivareIO();
+    }
 
     @And("Si inserisce il codice OTP errato {string} per tre volte e si controlla il messaggio di errore")
     public void siInserisceIlCodiceOTPErratoPerTreVolteESiControllaIlMessaggioDiErrore(String OTP) {
@@ -205,4 +210,9 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.clickSuBottoneCollegaSENDaIO();
     }
 
+    @And("Si visualizza correttamente il banner di recapito di cortesia mancante")
+    public void siVisualizzaCorrettamenteIlBannerDiDomicilioMancante() {
+        logger.info("Si visualizza correttamente il banner di recapito di cortesia mancante");
+        recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancante();
+    }
 }

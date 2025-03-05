@@ -250,8 +250,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void insertPhone(String cellulare) {
 
-        inserimentoPhoneField = getWebDriverWait(30).withMessage("l'input numero telefono non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_sms"))));
-//        inserimentoPhoneField = driver.findElement(By.id("default_sms"));
+        getWebDriverWait(30).withMessage("l'input numero telefono non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_sms"))));
+        inserimentoPhoneField = driver.findElement(By.id("default_sms"));
         if (inserimentoPhoneField.isDisplayed()) {
             inserimentoPhoneField.sendKeys(cellulare);
         } else {
@@ -1026,6 +1026,24 @@ public class RecapitiDestinatarioPage extends BasePage {
         verificaPresenza("Impossibile Cliccare su Inizia ", ExpectedConditions.elementToBeClickable(
                 By.xpath("//button[contains(text(),'Inizia')]")
         ));
+    }
+
+    public void verificaDaAttivareIO () {
+        verificaPresenza("Impossibile trovare sezione integrazione IO ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h6[contains(text(), 'app IO')]")
+        ));
+        verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h6[contains(text(), 'app IO')]//following::span[contains(text(), 'Da attivare')]")
+        ));
+        verificaPresenza("Impossibile Cliccare su Scarica app IO ", ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[contains(text(),'Scarica')]")
+        ));
+    }
+
+    public void checkBannerRecapitoCortesiaMancante() {
+        getWebDriverWait(10).withMessage("Il banner di recapito di cortesia mancante non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='addDomicileBanner']"))));
+        getWebDriverWait(10).withMessage("Il banner di recapito di cortesia mancante non mostra la corretta descrizione").until(
+                ExpectedConditions.attributeToBe(driver.findElements(By.xpath("//div[@data-testid='addDomicileBanner']//..//p")).get(1), "innerText", "Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND."));
     }
 
     public void cliccaBottone(String testo) {
