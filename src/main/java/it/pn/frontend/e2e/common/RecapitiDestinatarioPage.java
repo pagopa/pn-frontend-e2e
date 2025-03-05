@@ -152,7 +152,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
             confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
             annullaButton = driver.findElement(By.id("code-cancel-button"));
-            boolean checkButton = !confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
+            boolean checkButton = confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
             if (!checkButton) {
                 Assertions.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
             }
@@ -250,8 +250,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void insertPhone(String cellulare) {
 
-        getWebDriverWait(30).withMessage("l'input numero telefono non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_sms"))));
-        inserimentoPhoneField = driver.findElement(By.id("default_sms"));
+        inserimentoPhoneField = getWebDriverWait(30).withMessage("l'input numero telefono non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_sms"))));
+//        inserimentoPhoneField = driver.findElement(By.id("default_sms"));
         if (inserimentoPhoneField.isDisplayed()) {
             inserimentoPhoneField.sendKeys(cellulare);
         } else {
@@ -1026,5 +1026,20 @@ public class RecapitiDestinatarioPage extends BasePage {
         verificaPresenza("Impossibile Cliccare su Inizia ", ExpectedConditions.elementToBeClickable(
                 By.xpath("//button[contains(text(),'Inizia')]")
         ));
+    }
+
+    public void cliccaBottone(String testo) {
+        WebElement button = getWebDriverWait(5)
+                .withMessage("Non è presente il bottone '" + testo + "'")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//button[contains(text(), '" + testo + "')]")));
+        button.click();
+    }
+
+    public void verificaPagina(String testo) {
+        getWebDriverWait(5)
+                .withMessage("Il testo '" + testo + "'")
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.xpath("//*[contains(text(), '" + testo + "')]")));
     }
 }
