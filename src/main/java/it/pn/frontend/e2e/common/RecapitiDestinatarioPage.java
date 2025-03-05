@@ -1027,4 +1027,22 @@ public class RecapitiDestinatarioPage extends BasePage {
                 By.xpath("//button[contains(text(),'Inizia')]")
         ));
     }
+
+    public void verificaDaAttivareIO () {
+        verificaPresenza("Impossibile trovare sezione integrazione IO ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h6[contains(text(), 'app IO')]")
+        ));
+        verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//h6[contains(text(), 'app IO')]//following::span[contains(text(), 'Da attivare')]")
+        ));
+        verificaPresenza("Impossibile Cliccare su Scarica app IO ", ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[contains(text(),'Scarica')]")
+        ));
+    }
+
+    public void checkBannerRecapitoCortesiaMancante() {
+        getWebDriverWait(10).withMessage("Il banner di recapito di cortesia mancante non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='addDomicileBanner']"))));
+        getWebDriverWait(10).withMessage("Il banner di recapito di cortesia mancante non mostra la corretta descrizione").until(
+                ExpectedConditions.attributeToBe(driver.findElements(By.xpath("//div[@data-testid='addDomicileBanner']//..//p")).get(1), "innerText", "Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND."));
+    }
 }

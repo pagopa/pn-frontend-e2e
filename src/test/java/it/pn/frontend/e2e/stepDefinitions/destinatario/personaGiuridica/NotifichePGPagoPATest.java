@@ -176,6 +176,12 @@ public class NotifichePGPagoPATest extends BasePage {
         piattaformaNotifichePGPAPage.clickNotificheENotificheDelegate();
     }
 
+    @And("Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa")
+    public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheImpresa() {
+        logger.info("Si clicca correttamente su notifiche dell' impresa");
+
+        piattaformaNotifichePGPAPage.clickNotificheENotificheImpresa();
+    }
 
     @And("Nella Pagina Notifiche destinatario si clicca solo su notifiche delegate")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSoloSuNotificheDelegate() {
@@ -476,4 +482,5 @@ public class NotifichePGPagoPATest extends BasePage {
             Assertions.fail("Il codice SHA  all'interno del file  NON è corretto");
         }
     }
+
 }
