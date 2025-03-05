@@ -266,8 +266,18 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.cliccaBottone(testo);
     }
 
+    @And("Click Bottone Esci PG")
+    public void cliccaBottoneEsciPG() {
+        recapitiDestinatarioPage.cliccaBottoneEsciPG();
+    }
+
     @And("Verifica Pagina {string}")
     public void verificaPagina(String testo) {
         recapitiDestinatarioPage.verificaPagina(testo);
+    }
+
+    @And("Click Inserisci Email Pop-Up")
+    public void clickInserisciEmailPopUp() {
+        recapitiDestinatarioPage.clickInserisciEmailPopUp();
     }
 }

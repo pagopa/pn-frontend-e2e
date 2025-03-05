@@ -1,12 +1,19 @@
 Feature: Rework della pagina dei contatti
 
   @TestSuite
-  @TA_attivazioneDomicilioSEND_DoppiaConferma_PG
+  @TA_attivazioneDomicilioSEND_DoppiaConferma_PF
   @addressBook2
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_7_9] Attivazione Domicilio Digitale SEND PG - Doppia conferma
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_7_9] Attivazione Domicilio Digitale SEND PF - Doppia conferma
 
-   Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
+   #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    Given Login Page persona fisica test viene visualizzata
+    Given Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica e Disattiva "domicilio digitale"
     And Verifica e Disattiva "email"
@@ -18,7 +25,7 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "Non rischiare di leggere in ritardo le tue notifiche"
     And Verifica Pagina "Senza un indirizzo email o un altro recapito non possiamo informarti quando ricevi una comunicazione"
     And Click Inserisci Email Pop-Up
-    When Verifica Pagina "La tua mail per ricevere aggiornamenti"
+    And Verifica Pagina "La tua mail per ricevere aggiornamenti"
     And Verifica Pagina "Indirizzo email"
     And Click Non ora
     And Click Lo Faro piu tardi

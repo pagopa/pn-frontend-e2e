@@ -1047,17 +1047,33 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void cliccaBottone(String testo) {
-        WebElement button = getWebDriverWait(5)
+        WebElement button = getWebDriverWait(15)
                 .withMessage("Non è presente il bottone '" + testo + "'")
                 .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("//button[contains(text(), '" + testo + "')]")));
         button.click();
     }
 
+    public void cliccaBottoneEsciPG() {
+        WebElement button = getWebDriverWait(15)
+                .withMessage("Non è presente il bottone Esci")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("(//button[contains(text(), 'Esci')])[2]")));
+        button.click();
+    }
+
+
+
     public void verificaPagina(String testo) {
         getWebDriverWait(5)
                 .withMessage("Il testo '" + testo + "'")
                 .until(ExpectedConditions.presenceOfElementLocated(
                         By.xpath("//*[contains(text(), '" + testo + "')]")));
+    }
+
+    public void clickInserisciEmailPopUp() {
+        WebElement bottoneInserisciEmail = getWebDriverWait(5).withMessage("Bottone Inserisci email non trovato")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-close-button")));
+        bottoneInserisciEmail.click();
     }
 }
