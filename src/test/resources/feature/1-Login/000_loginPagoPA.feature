@@ -12,6 +12,7 @@ Feature: Login pagoPA
       | pwd    | test     |
       | comune | Verona   |
     Then Home page mittente viene visualizzata correttamente
+    And Click entra su Send Mittente
     And Logout da portale mittente
 
   @TA_loginpersonaFisica_x
@@ -41,5 +42,6 @@ Feature: Login pagoPA
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
+    And Click entra su Send Persona Giuridica
     And Logout da portale persona giuridica
 

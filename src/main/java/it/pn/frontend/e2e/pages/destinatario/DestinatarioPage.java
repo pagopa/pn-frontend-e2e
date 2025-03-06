@@ -102,7 +102,6 @@ public class DestinatarioPage extends BasePage {
             if (isTextboxInvalid.equals(ariaInvalidInizio) || isTextboxInvalid.equals(ariaInvalidFine)) {
                 log.info("Almeno un campo data è in stato invalido");
             } else {
-                log.error("Nessuno dei campi data è passato allo stato invalido");
                 Assertions.fail("Nessuno dei campi data è passato allo stato invalido");
             }
         } catch (TimeoutException e) {
@@ -127,6 +126,7 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void clickSulDettaglioNotificaDelegante() {
+        //NON Utilizzata
         getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElements(By.id("notificationsTable.body.row")).get(0)));
         WebElement singolaNotificaDelegante = driver.findElements(By.id("notificationsTable.body.row")).get(0);
         log.info("Si clicca sulla prima notifica del delegante");
@@ -235,13 +235,11 @@ public class DestinatarioPage extends BasePage {
 
     public void controlloEntiRadice(List<String> enti) {
         for (String ente : enti) {
-            // WebElement enteRadice = driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"));
             getWebDriverWait(15).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"))));
         }
     }
 
     public void checkBannerAnnullamentoNotifica() {
-       // WebElement bannerAnnullamentoNotificaBy = driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"));
         getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"))));
         getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));

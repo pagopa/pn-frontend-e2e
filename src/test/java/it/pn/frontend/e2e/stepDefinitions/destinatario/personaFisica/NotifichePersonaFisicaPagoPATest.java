@@ -159,7 +159,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
         if (numeroRigheNotifiche != 0) {
             logger.info("Si visualizza correttamente l'elenco notifiche");
         } else {
-            logger.error("NON visualizza correttamente l'elenco notifiche");
             Assertions.fail("NON visualizza correttamente l'elenco notifiche");
         }
     }
@@ -380,6 +379,7 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
 
     @And("Si clicca sulla notifica del delegante")
     public void siCliccaSullaNotificaDelDelegante() {
+        //NON Utilizzata
         destinatarioPage.clickSulDettaglioNotificaDelegante();
     }
 

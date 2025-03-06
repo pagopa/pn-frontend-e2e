@@ -2,7 +2,6 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.model.webViewMultiLanguage.WaitLoadAccediAreaRiservataPgLanguage;
-import it.pn.frontend.e2e.model.webViewMultiLanguage.WaitLoadSelezionaImpresaLanguage;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -13,8 +12,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
+import java.text.MessageFormat;
 
 
 public class AccediAreaRiservataPGPage extends BasePage {
@@ -40,8 +39,7 @@ public class AccediAreaRiservataPGPage extends BasePage {
             getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(spidButton));
             logger.info("Accedi Area Riservata Page caricata correttamente");
         } catch (TimeoutException e ){
-            logger.error("Accedi Area Riservata Page non caricata correttamente con errore: "+e.getMessage());
-            Assertions.fail("Accedi Area Riservata Page non caricata correttamente con errore: "+e.getMessage());
+            Assertions.fail(MessageFormat.format("Accedi Area Riservata Page non caricata correttamente con errore: {0}", e.getMessage()));
         }
 
     }
@@ -71,5 +69,13 @@ public class AccediAreaRiservataPGPage extends BasePage {
             default:
                 return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageIt() + "')]";
         }
+    }
+
+    public void clickScegliAmbienteSendBottonePersonaGiuridica(String ambiente) {
+        WebElement forwardButton = getWebDriverWait(10)
+                .withMessage("Il bottone per l Ambiente  '"+ambiente+"' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[contains(@aria-label, '"+ambiente+"')]/ancestor::div[contains(@class, 'MuiCard-root')]//button")));
+
+        forwardButton.click();
     }
 }

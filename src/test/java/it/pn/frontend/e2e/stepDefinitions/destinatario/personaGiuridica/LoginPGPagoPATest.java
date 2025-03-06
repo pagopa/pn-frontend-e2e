@@ -439,4 +439,19 @@ public class LoginPGPagoPATest extends BasePage {
         destinatarioPage.clickProdotto(xpath);
     }
 
+    @And("Click entra su Send Persona Giuridica")
+    public void clickEntraSuSendPersonaGiuridica() {
+        String environment = webDriverConfig.getEnvironment();
+        switch (environment) {
+            case "dev" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("DEV");
+            case "test" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("TEST");
+            case "uat" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("UAT");
+            case "hotfix" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("HOTFIX");
+            case "collaudo" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("COLL");
+
+            default -> {
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
+    }
 }

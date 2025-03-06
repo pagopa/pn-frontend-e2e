@@ -9,6 +9,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.text.MessageFormat;
 /*
 * Modifiche principali
 Iniezione WebDriver con Spring: Il costruttore della classe utilizza @Autowired, permettendo a Spring di gestire automaticamente il driver.
@@ -34,11 +36,10 @@ public class AcccediAreaRiservataPAPage extends BasePage {
 
     public void waitLoadLoginPageMittente(){
         try{
-           // WebElement titoloLabel = driver.findElement(By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']"));
             getWebDriverWait(45).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']"))));
             logger.info("Accedi Area Riservata Page caricata");
         }catch (TimeoutException e){
-            Assertions.fail("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : "+e.getMessage());
+            Assertions.fail(MessageFormat.format("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : {0}", e.getMessage()));
         }
     }
 
@@ -54,9 +55,12 @@ public class AcccediAreaRiservataPAPage extends BasePage {
         }
     }
 
-    public void clickTestBottone(){
-        getWebDriverWait(5).until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.id("forward_prod-pn-test"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.id("forward_prod-pn-test")))));
-        testButton = driver.findElement(By.id("forward_prod-pn-test"));
-        testButton.click();
+    public void clickScegliAmbienteSendBottoneMittente(String idButton){
+        WebElement forwardButton = getWebDriverWait(10)
+                .withMessage("Il bottone con id '"+idButton+"' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id(idButton)));
+
+        forwardButton.click();
     }
+
 }

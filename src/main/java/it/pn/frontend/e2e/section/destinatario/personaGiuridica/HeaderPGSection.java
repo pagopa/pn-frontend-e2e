@@ -47,7 +47,7 @@ public class HeaderPGSection extends BasePage {
 
     public void selezionaSecondoEsciButtonPG() {
         try {
-            List<WebElement> esciButtons = getWebDriverWait(15)
+            List<WebElement> esciButtons = getWebDriverWait(25)
                     .withMessage("Il bottone Esci PG non è presente")
                     .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("(//button[contains(text(),'Esci')])[2]")));
 

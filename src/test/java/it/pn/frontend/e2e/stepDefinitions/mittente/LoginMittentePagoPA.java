@@ -492,7 +492,6 @@ public class LoginMittentePagoPA extends BasePage {
         webTool.waitTime(2);
 
         headerPASection.waitLoadHeaderSection();
-        logger.info("primo selezionaEsciButton");
         headerPASection.selezionaEsciButton();
 
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -502,6 +501,7 @@ public class LoginMittentePagoPA extends BasePage {
         }
 //        Nuove specifiche UI
         headerPASection.selezionaSecondoEsciButtonPA();
+        headerPASection.selezionaEsciButton();
         webTool.waitTime(5);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
     }
@@ -525,7 +525,7 @@ public class LoginMittentePagoPA extends BasePage {
 
     @And("Si clicca sul bottone test")
     public void clickTestButton() {
-        acccediAreaRiservataPAPage.clickTestBottone();
+        acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-test");
     }
 
     @And("Si clicca bottone accetta cookies")
@@ -561,5 +561,21 @@ public class LoginMittentePagoPA extends BasePage {
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
         }
         selezionaEntePAPage.selezionaAccedi();
+    }
+
+    @And("Click entra su Send Mittente")
+    public void clickEntraSuSendMittente() {
+        String environment = webDriverConfig.getEnvironment();
+        switch (environment) {
+            case "dev" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-dev");
+            case "test" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-test");
+//            case "uat" -> acccediAreaRiservataPAPage.clickUatBottone();
+            case "hotfix" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-hotfix");
+            case "collaudo" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-coll");
+
+            default -> {
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
     }
 }
