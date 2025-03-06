@@ -404,11 +404,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
         String[] arraySplitDateDa = da.split("/");
 
-        // List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
-        List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+        List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
+        //List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
 
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList.get(2).click();
+        dataFieldList.get(0).click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
@@ -453,7 +453,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         webTool.waitTime(3);
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList.get(3).click();
+        dataFieldList.get(1).click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
