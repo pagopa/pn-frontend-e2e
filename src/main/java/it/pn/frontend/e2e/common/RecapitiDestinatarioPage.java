@@ -1076,4 +1076,5 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("dialog-close-button")));
         bottoneInserisciEmail.click();
     }
+
 }

@@ -280,4 +280,9 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void clickInserisciEmailPopUp() {
         recapitiDestinatarioPage.clickInserisciEmailPopUp();
     }
+
+    @When("Click Modifica Email")
+    public void clickModificaEmail() {
+        recapitiDestinatarioPage.clickSuModifica();
+    }
 }

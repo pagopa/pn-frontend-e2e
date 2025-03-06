@@ -172,7 +172,6 @@ public class ITuoiRecapitiPage extends BasePage {
                 pecInput.sendKeys(Keys.BACK_SPACE);
             }
         } catch (TimeoutException e) {
-            logger.error("Non si riesce ad cancellare il testo della  email :" + e.getMessage());
             Assertions.fail("Non si riesce ad cancellare il testo della  email :" + e.getMessage());
         }
     }
@@ -210,9 +209,6 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void checkPostModifica() {
-        // WebElement saveButton = driver.findElement(By.id("saveContact-default_email"));
-        // WebElement cancelButton = driver.findElement(By.xpath("//button[contains(text(),'Annulla')]"));
-        // WebElement emailField = driver.findElement(By.id("default_email"));
         getWebDriverWait(10).withMessage("Non si visualizza il bottone salva e non è cliccabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOf(driver.findElement(By.id("saveContact-default_email"))),
                 ExpectedConditions.elementToBeClickable(driver.findElement(By.id("saveContact-default_email")))));
@@ -253,4 +249,11 @@ public class ITuoiRecapitiPage extends BasePage {
             Assertions.fail("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
         }
     }
+    public void clickConfermaEmail() {
+        webTool.waitTime(2);
+        WebElement confermaEmail = getWebDriverWait(10).withMessage("Non si visualizza il bottone salva e non è cliccabile").until(
+                ExpectedConditions.elementToBeClickable(driver.findElement(By.id("saveContact-default_email"))));
+        confermaEmail.click();
+    }
+
 }

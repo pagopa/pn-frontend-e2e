@@ -1122,5 +1122,12 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.sendOTP(dataPopulationConfig.getPersonaGiuridica().getOTPCellulare());
         recapitiDestinatarioPage.confermaButtonClickPopUp();
     }
+
+    @And("Si inserisce la nuova Email del PF e clicca su Conferma")
+    public void siInserisceLaNuovaEmailDelPFeCliccaSuConferma() {
+        iTuoiRecapitiPage.cancellaTesto();
+        iTuoiRecapitiPage.insertEmail(dataPopulationConfig.getPersonaFisica().getEmail());
+        iTuoiRecapitiPage.clickConfermaEmail();
+    }
 }
 
