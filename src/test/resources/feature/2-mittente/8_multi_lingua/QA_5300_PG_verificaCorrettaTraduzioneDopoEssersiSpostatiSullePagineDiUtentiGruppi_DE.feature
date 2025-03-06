@@ -13,7 +13,8 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Tedesco"
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 
     When Nella Pagina Notifiche persona giuridica si clicca su utenti "Benutzer"
     And Verifica traduzione testo "Benutzer hinzufügen"

@@ -292,7 +292,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaSl());
                 informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneSl());
             }
-            default -> logger.warn("Lingua non riconosciuta: " + lingua);
+            default -> logger.warn("Lingua non riconosciuta: {}", lingua);
         }
 
         informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
@@ -1994,7 +1994,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Verifica traduzione testo {string}")
     public void verificaTraduzioneTesto(String testo) {
         Assertions.assertTrue(isTextPresent(testo), "Il testo '"+testo+"' non è presente!");
-        logger.info("Verifica traduzione testo: "+testo);
+        logger.info("Verifica traduzione testo: {}",testo);
     }
 
     private boolean isTextPresent(String testo) {
@@ -2013,7 +2013,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Entro dentro la prima notifica")
     public void entroDentroLaPrimaNotifica() {
-        piattaformaNotifichePage.entroDentroLaPrimaNotifica();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
     @When("Seleziona voce menu laterale {string}")
@@ -2084,7 +2084,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Attendi secondi {string}")
     public void attendiSecondi(String secondi) {
         webTool.waitTime(Integer.parseInt(secondi));
-        logger.info("Attesa secondi: "+secondi);
+        logger.info("Attesa secondi: {}",secondi);
     }
 
     @When("Click torna alle deleghe")

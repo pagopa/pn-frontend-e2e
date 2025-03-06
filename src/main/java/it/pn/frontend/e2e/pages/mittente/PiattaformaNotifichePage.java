@@ -542,20 +542,15 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
 
             attesaCaricamentoPagina();
-            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
-
-
-            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
-            WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
-            buttonRighePagine.click();
-
-            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
-            WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
-            pageSize50.click();
+            verificaEsistenzaTabellaNotifiche();
+            buttonRighePagine();
+            selezionaPage50();
 
             webTool.waitTime(10);
            // notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
-            List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
+            List<WebElement> notifiche = getWebDriverWait(10)
+                    .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
+
 
             Calendar calendar = GregorianCalendar.getInstance();
             logger.info("CALENDAR: " + calendar);
@@ -570,12 +565,13 @@ public class PiattaformaNotifichePage extends BasePage {
                 // int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
                 int randomNumber = 0;
                 if (notifiche.size()>1){
-                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);;
+                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
                 }
 
                 logger.info("ELENCO NOTIFICHE : " + notifiche.size());
                 logger.info("NOTIFICA SELEZIONATA: " + randomNumber);
-                notifiche.get(randomNumber).click();
+//                notifiche.get(randomNumber).click();
+                clickRowNotificationIndex(notifiche.get(randomNumber));
                 /**
                  if (notifiche.size() >= index) {
                  logger.info("NOTIFICA SELEZIONATA: " + index);
@@ -602,18 +598,14 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
 
             attesaCaricamentoPagina();
-            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
-
-            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
-            WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
-            buttonRighePagine.click();
-
-            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
-            WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
-            pageSize50.click();
+            verificaEsistenzaTabellaNotifiche();
+            buttonRighePagine();
+            selezionaPage50();
 
             webTool.waitTime(10);
-            List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
+            List<WebElement> notifiche = getWebDriverWait(10)
+                    .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
+
 
             logger.info("Scenario " + hooksNew.getScenario());
 
@@ -633,7 +625,8 @@ public class PiattaformaNotifichePage extends BasePage {
                 logger.info("ROWS TABLE..." + randomNumber);
                 logger.info("ROWS SELEZIONATA: " + randomNumber);
 
-                notifiche.get(randomNumber).click();
+//                notifiche.get(randomNumber).click();
+                clickRowNotificationIndex(notifiche.get(randomNumber));
                 /**
                  if (notifiche.size() > index) {
                  logger.info("ROWS SELEZIONATA1: " + index);
@@ -664,11 +657,8 @@ public class PiattaformaNotifichePage extends BasePage {
         waitLoadPage();
         try {
             attesaCaricamentoPagina();
-
             verificaEsistenzaTabellaNotifiche();
-
             buttonRighePagine();
-
             selezionaPage50();
 
             List<WebElement> notifiche = getWebDriverWait(10)
@@ -677,23 +667,20 @@ public class PiattaformaNotifichePage extends BasePage {
             if (!notifiche.isEmpty()) {
                 WebElement primaNotifica = notifiche.get(0);
 
-                clickFirstRow(primaNotifica);
+                clickRowNotificationIndex(primaNotifica);
                 logger.info("Cliccato sul primo pulsante 'Vedi Dettaglio'");
             } else {
-                logger.warn("Nessuna notifica trovata");
                 Assertions.fail("Nessuna notifica trovata");
             }
         } catch (TimeoutException e) {
-            logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         }
     }
 
-    private void clickFirstRow(WebElement primaNotifica) {
+    private void clickRowNotificationIndex(WebElement primaNotifica) {
         WebElement buttonVediDettaglio = getWebDriverWait(5)
                 .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(primaNotifica.findElement(By.xpath(".//button[contains(text(),'Vedi dettaglio')]"))));
-
         buttonVediDettaglio.click();
     }
 
@@ -1734,10 +1721,12 @@ public class PiattaformaNotifichePage extends BasePage {
         element.click();
     }
 
-    public void entroDentroLaPrimaNotifica() {
-        WebElement firstRowButton = getWebDriverWait(10).withMessage("Prima notifica non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//tr[@class='MuiTableRow-root css-g76qb5'])[1]//td[3]//button"))));
-        firstRowButton.click();
-    }
+//    public void entroDentroLaPrimaNotifica() {
+//        WebElement firstRowButton = getWebDriverWait(10)
+//                .withMessage("Prima notifica non trovata")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//tr[@class='MuiTableRow-root css-g76qb5'])[1]//td[3]//button"))));
+//        firstRowButton.click();
+//    }
 
     public void cambiaLinguaFooter(String lingua) {
         WebElement menuLingua = getWebDriverWait(10).withMessage("Seleziona: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(

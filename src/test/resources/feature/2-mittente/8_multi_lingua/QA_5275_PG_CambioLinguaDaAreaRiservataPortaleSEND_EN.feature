@@ -13,7 +13,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Inglese"
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+ #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Delegations of authority"
     And Verifica traduzione testo "Contact details"

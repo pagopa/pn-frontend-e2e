@@ -434,9 +434,16 @@ public class LoginPGPagoPATest extends BasePage {
         return token;
     }
 
-    @And("Si clicca su prodotto {string}")
-    public void siCliccaSuProdotto(String xpath) {
-        destinatarioPage.clickProdotto(xpath);
+//    @And("Si clicca su prodotto {string}")
+//    public void siCliccaSuProdotto(String xpath) {
+////        destinatarioPage.clickProdotto(xpath);
+//        clickEntraSuSendPersonaGiuridica();
+//    }
+
+    @And("Si clicca su prodotto")
+    public void siCliccaSuProdotto() {
+//        destinatarioPage.clickProdotto(xpath);
+        clickEntraSuSendPersonaGiuridica();
     }
 
     @And("Click entra su Send Persona Giuridica")

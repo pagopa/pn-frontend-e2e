@@ -13,7 +13,8 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Tedesco"
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
     And Refresh pagina
     When Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"

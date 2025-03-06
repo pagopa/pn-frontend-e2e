@@ -13,7 +13,8 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Francese"
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+  #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Procurations"

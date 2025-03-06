@@ -13,7 +13,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
       | ragioneSociale | Convivio Spa   |
 #   Cambio lingua
     When Cambia lingua footer "Tedesco"
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+ #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #    And Attendi secondi "3"
     And Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"

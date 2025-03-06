@@ -380,7 +380,8 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     @And("Si clicca sulla notifica del delegante")
     public void siCliccaSullaNotificaDelDelegante() {
         //NON Utilizzata
-        destinatarioPage.clickSulDettaglioNotificaDelegante();
+//        destinatarioPage.clickSulDettaglioNotificaDelegante();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
     @And("Si controlla il dettaglio della notifica")

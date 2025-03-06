@@ -13,7 +13,8 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Sloveno"
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
     And Attendi secondi "3"
     And Seleziona voce menu laterale "Obvestila"
     And Verifica traduzione testo "Prenosi pooblastil"
