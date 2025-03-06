@@ -9,8 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 /*
 * Modifiche principali
 Iniezione WebDriver con Spring: Il costruttore della classe utilizza @Autowired, permettendo a Spring di gestire automaticamente il driver.
@@ -40,7 +38,6 @@ public class AcccediAreaRiservataPAPage extends BasePage {
             getWebDriverWait(45).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']"))));
             logger.info("Accedi Area Riservata Page caricata");
         }catch (TimeoutException e){
-            logger.error("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : "+e.getMessage());
             Assertions.fail("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : "+e.getMessage());
         }
     }
@@ -53,7 +50,6 @@ public class AcccediAreaRiservataPAPage extends BasePage {
             spidButton.click();
             logger.info("click sul bottone SPID effettuato");
         }catch (TimeoutException e){
-            logger.error("Il bottone SPID non è cliccabile con errore : "+e.getMessage());
             Assertions.fail("Il bottone SPID non è cliccabile con errore : "+e.getMessage());
         }
     }

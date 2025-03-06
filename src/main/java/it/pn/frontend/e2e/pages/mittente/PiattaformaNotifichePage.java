@@ -190,7 +190,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButtonMittente() {
-        getWebDriverWait(20).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable( driver.findElement(By.id("filter-button"))));
+        getWebDriverWait(30).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable( driver.findElement(By.id("filter-button"))));
         filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
         filtraNotificaButtonMittente.click();
         logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
@@ -662,26 +662,63 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaPrimaNotifica() {
         waitLoadPage();
         try {
-            //List<WebElement> notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
             attesaCaricamentoPagina();
-            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
 
-            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
-            WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
+            getWebDriverWait(30)
+                    .withMessage("La tabella delle notifiche non è caricata correttamente")
+                    .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
+
+            WebElement buttonRighePagine = getWebDriverWait(10)
+                    .withMessage("Impossibile trovare Botton Righe per pagina ")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("rows-per-page")));
             buttonRighePagine.click();
 
-            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
-            WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
+            WebElement pageSize50 = getWebDriverWait(3)
+                    .withMessage("Impossibile trovare pageSize-50")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("pageSize-50")));
             pageSize50.click();
 
-            webTool.waitTime(10);
+            getWebDriverWait(10)
+                    .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
             List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
 
-            notifiche.get(0).click();
+            if (!notifiche.isEmpty()) {
+                WebElement primaNotifica = notifiche.get(0);
+                WebElement buttonVediDettaglio = getWebDriverWait(5)
+                        .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
+                        .until(ExpectedConditions.elementToBeClickable(primaNotifica.findElement(By.xpath(".//button[contains(text(),'Vedi dettaglio')]"))));
+
+                buttonVediDettaglio.click();
+                logger.info("Cliccato sul primo pulsante 'Vedi Dettaglio'");
+            } else {
+                logger.warn("Nessuna notifica trovata");
+                Assertions.fail("Nessuna notifica trovata");
+            }
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         }
+//        try {
+//            //List<WebElement> notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
+//            attesaCaricamentoPagina();
+//            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
+//
+//            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
+//            WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
+//            buttonRighePagine.click();
+//
+//            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
+//            WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
+//            pageSize50.click();
+//
+//            webTool.waitTime(10);
+//            List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
+//
+//            notifiche.get(0).click();
+//        } catch (TimeoutException e) {
+//            logger.error("Notifica non trovata con errore: " + e.getMessage());
+//            Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
+//        }
     }
 
     public void selezionaNotificaIUN(String IUN) {

@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 
 public class HeaderPGSection extends BasePage {
 
@@ -30,14 +32,10 @@ public class HeaderPGSection extends BasePage {
 
     public void waitLoadHeaderPGPage() {
         try {
-           // webTool.waitTime(30);
-           // WebElement titlePageBy = driver.findElement(By.xpath("//a[@title = 'Sito di PagoPA S.p.A.']"));
-           // WebElement esciButtonBy = driver.findElement(By.xpath("//button[@title = 'Esci']"));
             getWebDriverWait(60).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]"))));
             getWebDriverWait(60).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@title = 'Esci']"))));
             logger.info("HeaderSectionPG caricata correttamente");
         } catch (TimeoutException e) {
-            logger.error("HeaderSectionPG non caricata correttamente con errore: " + e.getMessage());
             Assertions.fail("HeaderSectionPG non caricata correttamente con errore: " + e.getMessage());
         }
     }
@@ -45,5 +43,25 @@ public class HeaderPGSection extends BasePage {
     public void clickEsciButton() {
         esciButton = driver.findElement(By.xpath("//button[@title = 'Esci']"));
         esciButton.click();
+    }
+
+    public void selezionaSecondoEsciButtonPG() {
+        try {
+            List<WebElement> esciButtons = getWebDriverWait(15)
+                    .withMessage("Il bottone Esci PG non è presente")
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("(//button[contains(text(),'Esci')])[2]")));
+
+            if (!esciButtons.isEmpty()) {
+                esciButton = getWebDriverWait(10)
+                        .withMessage("Impossibile cliccare sul secondo bottone Esci del Pop-up PG")
+                        .until(ExpectedConditions.elementToBeClickable(esciButtons.get(0)));
+                esciButton.click();
+                logger.info("Cliccato sul secondo bottone Esci del Pop-up PG");
+            } else {
+                logger.warn("Il secondo bottone Esci non è presente, nessuna azione eseguita PG");
+            }
+        } catch (TimeoutException e) {
+            Assertions.fail("Il secondo bottone Esci non cliccabile PG con errore: " + e.getMessage());
+        }
     }
 }

@@ -40,9 +40,7 @@ public class LoginMittentePagoPA extends BasePage {
 
     // Percorso del file token specificato nelle configurazioni, con valore di default 'tokenLogin.yaml'
    // @Value("${token.login.file:tokenLogin.yaml}")
-   // private String FILE_TOKEN_LOGIN;
 
-//    private Map<String, Object> datiMittente1;
     private Map<String, String> urlMittente;
 
     @Autowired
@@ -115,7 +113,6 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginPageMittenteVieneVisualizzata(Map<String,String> datiMittenteTable) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
         String variabileAmbiente = webDriverConfig.getEnvironment();
-//        this.datiMittente = dataPopulation.readDataPopulation("mittente.yaml");
         switch (variabileAmbiente) {
             case "dev" -> driver.get(webDriverConfig.getUrlMittente());
             case "test", "uat" ->
@@ -128,7 +125,6 @@ public class LoginMittentePagoPA extends BasePage {
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange() {
 
-       // String environment = System.getProperty("environment");
         String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
@@ -327,9 +323,8 @@ public class LoginMittentePagoPA extends BasePage {
         }
 
         if (urlWithTokenFound) {
-            logger.info("procedura di login from spid provata : " + numProvaLogin);
+            logger.info("procedura di login from spid provata : {}", numProvaLogin);
         } else {
-            logger.info("procedura di login from spid provata : " + numProvaLogin);
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlMittente.get("urlPortale") + "' è : " + this.urlMittente.get("responseCode"));
         }
 
@@ -352,49 +347,49 @@ public class LoginMittentePagoPA extends BasePage {
 
         String cookiesNameFromSpidLoginMittente = spidLoginMittente.getCookieName();
         if (cookiesNameFromSpidLoginMittente != null) {
-            logger.info("cookiesNameFromSpidLoginMittente : " + cookiesNameFromSpidLoginMittente);
+            logger.info("cookiesNameFromSpidLoginMittente : {}", cookiesNameFromSpidLoginMittente);
         } else {
             Assertions.fail("cookiesNameFromSpidLoginMittente is null");
         }
 
         String cookiesValueFromSpidLoginMittente = spidLoginMittente.getCookieValue();
         if (cookiesValueFromSpidLoginMittente != null) {
-            logger.info("cookiesValueFromSpidLoginMittente : " + cookiesValueFromSpidLoginMittente);
+            logger.info("cookiesValueFromSpidLoginMittente : {}", cookiesValueFromSpidLoginMittente);
         } else {
             Assertions.fail("cookiesValueFromSpidLoginMittente is null");
         }
 
         String cookiesDomainFromSpidLoginMittente = spidLoginMittente.getCookieDomain();
         if (cookiesDomainFromSpidLoginMittente != null) {
-            logger.info("cookiesDomainFromSpidLoginMittente : " + cookiesDomainFromSpidLoginMittente);
+            logger.info("cookiesDomainFromSpidLoginMittente : {}", cookiesDomainFromSpidLoginMittente);
         } else {
             Assertions.fail("cookiesDomainFromSpidLoginMittente is null");
         }
 
         String cookiesPathFromSpidLoginMittente = spidLoginMittente.getCookiePath();
         if (cookiesPathFromSpidLoginMittente != null) {
-            logger.info("cookiesPathFromSpidLoginMittente : " + cookiesPathFromSpidLoginMittente);
+            logger.info("cookiesPathFromSpidLoginMittente : {}", cookiesPathFromSpidLoginMittente);
         } else {
             Assertions.fail("cookiesPathFromSpidLoginMittente is null");
         }
 
         boolean cookiesHttOnlyFromSpidLoginMittente = spidLoginMittente.getCookieHttpOnly();
         if (cookiesHttOnlyFromSpidLoginMittente) {
-            logger.info("cookiesHttOnlyFromSpidLoginMittente : " + cookiesHttOnlyFromSpidLoginMittente);
+            logger.info("cookiesHttOnlyFromSpidLoginMittente : {}", cookiesHttOnlyFromSpidLoginMittente);
         } else {
             Assertions.fail("cookiesHttOnlyFromSpidLoginMittente : " + cookiesHttOnlyFromSpidLoginMittente);
         }
 
         String requestKeyFromSpidLoginMittente = spidLoginMittente.getRequestKey();
         if (requestKeyFromSpidLoginMittente != null) {
-            logger.info("requestKeyFromSpidLoginMittente : " + requestKeyFromSpidLoginMittente);
+            logger.info("requestKeyFromSpidLoginMittente : {}", requestKeyFromSpidLoginMittente);
         } else {
             Assertions.fail("requestKeyFromSpidLoginMittente is null");
         }
 
         String relayStateFromSpidLoginMittente = spidLoginMittente.getRelayState();
         if (relayStateFromSpidLoginMittente != null) {
-            logger.info("relayStateFromSpidLoginMittente : " + relayStateFromSpidLoginMittente);
+            logger.info("relayStateFromSpidLoginMittente : {}", relayStateFromSpidLoginMittente);
         } else {
             Assertions.fail("relayStateFromSpidLoginMittente is null");
         }
@@ -421,7 +416,7 @@ public class LoginMittentePagoPA extends BasePage {
 
         String requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin = spidTestEnvWestEuropeAzureContainerIoLogin.getRequestKeyOutput();
         if (requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin != null) {
-            logger.info("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin : " + requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin);
+            logger.info("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin : {}", requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin);
         } else {
             Assertions.fail("requestKeyFromSpidTestEnvWestEuropeAzureContainerIoLogin is null");
         }
@@ -439,14 +434,14 @@ public class LoginMittentePagoPA extends BasePage {
 
         String samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getSamlResponseOutput();
         if (samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
-            logger.info("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
+            logger.info("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : {} ", samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
         } else {
             Assertions.fail("samlResponseFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
         }
 
         String relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getRelayStateOutput();
         if (relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
-            logger.info("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : " + relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
+            logger.info("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : {}" , relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
         } else {
             Assertions.fail("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
         }
@@ -462,7 +457,7 @@ public class LoginMittentePagoPA extends BasePage {
         this.urlMittente = spidAcsMittente.getSpidAcsMittenteResponse();
 
         if (this.urlMittente.get("urlPortale") != null) {
-            logger.info("urlMittente : " + this.urlMittente.get("urlPortale"));
+            logger.info("urlMittente : {}", this.urlMittente.get("urlPortale"));
         } else {
             Assertions.fail("urlMittente è null ");
         }
@@ -497,6 +492,7 @@ public class LoginMittentePagoPA extends BasePage {
         webTool.waitTime(2);
 
         headerPASection.waitLoadHeaderSection();
+        logger.info("primo selezionaEsciButton");
         headerPASection.selezionaEsciButton();
 
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -504,7 +500,8 @@ public class LoginMittentePagoPA extends BasePage {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-
+//        Nuove specifiche UI
+        headerPASection.selezionaSecondoEsciButtonPA();
         webTool.waitTime(5);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
     }
@@ -555,7 +552,7 @@ public class LoginMittentePagoPA extends BasePage {
         webTool.waitTime(2);
 
         if(comune.equalsIgnoreCase("Viggiu")){
-            logger.info("Entro come comune di "+comune);
+            logger.info("Entro come comune di {}",comune);
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
         }
