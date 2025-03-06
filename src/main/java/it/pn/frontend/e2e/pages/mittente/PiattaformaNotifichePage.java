@@ -440,9 +440,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
         logger.info("DATA INIZIO FIELD: " + dataInizioField.getAttribute("value"));
 
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
+        getWebDriverWait(3).withMessage("value mostrato" + da).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
 
-        dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
+        dataFineField = getWebDriverWait(10).withMessage("endDate visibile").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
 
         String[] arraySplitDateA = a.split("/");
 
