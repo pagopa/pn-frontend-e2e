@@ -21,4 +21,3 @@ Feature: Rework della pagina dei contatti
     And Aspetta 5 secondi
     And Si visualizza correttamente la Pagina Notifiche persona fisica
     And Si visualizza correttamente il banner di recapito di cortesia mancante
-    # Then Nella pagina I Tuoi Recapiti si controlla che non ci sia una email di cortesia impostata

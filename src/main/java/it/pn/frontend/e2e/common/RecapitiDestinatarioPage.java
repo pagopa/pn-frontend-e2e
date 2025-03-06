@@ -83,6 +83,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     @FindBy(id = "default_pec-typography")
     WebElement pecEmail;
 
+    @FindBy(xpath = "//div[@data-testid='addDomicileBanner']")
+    WebElement bannerDomicilioMancante;
+
     private WebTool webTool;
 
 
@@ -1041,8 +1044,13 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void checkBannerRecapitoCortesiaMancante() {
-        getWebDriverWait(10).withMessage("Il banner di recapito di cortesia mancante non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='addDomicileBanner']"))));
-        getWebDriverWait(10).withMessage("Il banner di recapito di cortesia mancante non mostra la corretta descrizione").until(
-                ExpectedConditions.attributeToBe(driver.findElements(By.xpath("//div[@data-testid='addDomicileBanner']//..//p")).get(1), "innerText", "Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND."));
+
+        //getWebDriverWait(20).withMessage("Il banner di recapito di cortesia mancante non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='addDomicileBanner']"))));
+        /*getWebDriverWait(20).withMessage("").until(
+                ExpectedConditions.attributeToBe(driver.findElements(By.xpath("//div[@data-testid='addDomicileBanner']//..//p")).get(1), "innerText", ""));*/
+        verificaPresenza("Il banner di recapito di cortesia mancante non è presente", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@data-testid='addDomicileBanner']")));
+        verificaPresenza("Il banner di recapito di cortesia mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND.')]")));
     }
 }
