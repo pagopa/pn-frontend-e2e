@@ -119,7 +119,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
         } else {
-            logger.error("La chiamata per inviare l'otp NON è stata effettuata");
             Assertions.fail("La chiamata per inviare l'otp NON è stata effettuata");
         }
     }
@@ -422,8 +421,10 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
             setOTP(OTP);
-            logger.info("RECUPERO OTP........"+OTP);
-            if (persona.equalsIgnoreCase("personaGiuridica")) {
+            logger.info("RECUPERO OTP........" + OTP);
+            if (persona.equalsIgnoreCase("cellulare")) {
+                dataPopulationConfig.getPersonaGiuridica().setOTPCellulare(OTP);
+            } else if (persona.equalsIgnoreCase("personaGiuridica")) {
                 dataPopulationConfig.getPersonaGiuridica().setOTPMail(OTP);
             } else {
                 dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
@@ -440,13 +441,14 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
                 setOTP(OTP);
-                if (persona.equalsIgnoreCase("personaGiuridica")) {
+                if (persona.equalsIgnoreCase("cellulare")) {
+                    dataPopulationConfig.getPersonaGiuridica().setOTPCellulare(OTP);
+                } else if (persona.equalsIgnoreCase("personaGiuridica")) {
                     dataPopulationConfig.getPersonaGiuridica().setOTPMail(OTP);
                 } else {
                     dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
                 }
             } else {
-                logger.error("La chiamata non ha risposto correttamente con codice:" + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
             }
         }
@@ -1091,8 +1093,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     }
 
     private boolean changeStartUrl(String startUrl, boolean results, String persona){
+        if(persona.equalsIgnoreCase("cellulare")){
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getCellulare());
 
-        if(persona.equalsIgnoreCase("personaGiuridica")) {
+        }
+       else if(persona.equalsIgnoreCase("personaGiuridica")) {
             logger.info("MAIL111.................."+dataPopulationConfig.getPersonaGiuridica().getMail());
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
         }else {
@@ -1109,6 +1114,20 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmailPec());
         }
         return results;
+    }
+
+    @And("Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Cellulare")
+    public void nellaPaginaITuoiRecapitiPersonaGiuridicaSiInserisceLOTPRicevutoViaCellulare() {
+        logger.info("Si inserisce il codice OTP del cellulare: "+dataPopulationConfig.getPersonaGiuridica().getOTPCellulare());
+        iTuoiRecapitiPage.sendOTP(dataPopulationConfig.getPersonaGiuridica().getOTPCellulare());
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
+    }
+
+    @And("Si inserisce la nuova Email del PF e clicca su Conferma")
+    public void siInserisceLaNuovaEmailDelPFeCliccaSuConferma() {
+        iTuoiRecapitiPage.cancellaTesto();
+        iTuoiRecapitiPage.insertEmail(dataPopulationConfig.getPersonaFisica().getEmail());
+        iTuoiRecapitiPage.clickConfermaEmail();
     }
 }
 

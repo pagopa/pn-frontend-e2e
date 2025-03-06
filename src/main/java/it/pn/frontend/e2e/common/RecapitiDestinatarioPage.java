@@ -155,7 +155,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
             confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
             annullaButton = driver.findElement(By.id("code-cancel-button"));
-            boolean checkButton = !confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
+            boolean checkButton = confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
             if (!checkButton) {
                 Assertions.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
             }
@@ -1053,4 +1053,36 @@ public class RecapitiDestinatarioPage extends BasePage {
         verificaPresenza("Il banner di recapito di cortesia mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND.')]")));
     }
+
+    public void cliccaBottone(String testo) {
+        WebElement button = getWebDriverWait(15)
+                .withMessage("Non è presente il bottone '" + testo + "'")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//button[contains(text(), '" + testo + "')]")));
+        button.click();
+    }
+
+    public void cliccaBottoneEsciPG() {
+        WebElement button = getWebDriverWait(15)
+                .withMessage("Non è presente il bottone Esci")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("(//button[contains(text(), 'Esci')])[2]")));
+        button.click();
+    }
+
+
+
+    public void verificaPagina(String testo) {
+        getWebDriverWait(5)
+                .withMessage("Il testo '" + testo + "'")
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.xpath("//*[contains(text(), '" + testo + "')]")));
+    }
+
+    public void clickInserisciEmailPopUp() {
+        WebElement bottoneInserisciEmail = getWebDriverWait(5).withMessage("Bottone Inserisci email non trovato")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-close-button")));
+        bottoneInserisciEmail.click();
+    }
+
 }

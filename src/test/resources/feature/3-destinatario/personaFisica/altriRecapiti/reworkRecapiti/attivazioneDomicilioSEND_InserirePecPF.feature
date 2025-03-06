@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
   @TestSuite
-  @TA_AttivazioneDomicilioDigitaleSEND_PF
+  @TA_AttivazioneDomicilioDigitaleSEND_InserirePEC_PF
   @addressBook1
 
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_1] Attivazione Domicilio Digitale SEND - I tuoi Recapiti PF
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_4] Attivazione Domicilio Digitale SEND - Inserisci PEC PF
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
@@ -17,9 +17,10 @@ Feature: Rework della pagina dei contatti
     #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica e Disattiva "domicilio digitale"
     And Verifica e Disattiva "email"
+
     When Click Inizia
-    And Click Attiva
-    And Click Non ora
-    And Click Lo Faro piu tardi
-    And Click Torna ai tuoi recapiti
-    Then Verifica Attivazione Domicilio digitale
+    And Click Bottone "Inserisci PEC"
+    Then Verifica Pagina "Usa una PEC come domicilio digitale"
+    And Verifica Pagina "Inserisci la tua PEC"
+    And Verifica Pagina "Quando un ente invia una notifica su SEND"
+    And Verifica Pagina "Indirizzo PEC"

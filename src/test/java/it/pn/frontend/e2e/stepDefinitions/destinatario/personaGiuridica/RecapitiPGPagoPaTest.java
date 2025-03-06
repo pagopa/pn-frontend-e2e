@@ -260,4 +260,29 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void verificaDaAttivareDomicilioDigitale() {
         recapitiDestinatarioPage.verificaDaAttivareDomicilioDigitale();
     }
+
+    @And("Click Bottone {string}")
+    public void cliccaBottone(String testo) {
+        recapitiDestinatarioPage.cliccaBottone(testo);
+    }
+
+    @And("Click Bottone Esci PG")
+    public void cliccaBottoneEsciPG() {
+        recapitiDestinatarioPage.cliccaBottoneEsciPG();
+    }
+
+    @And("Verifica Pagina {string}")
+    public void verificaPagina(String testo) {
+        recapitiDestinatarioPage.verificaPagina(testo);
+    }
+
+    @And("Click Inserisci Email Pop-Up")
+    public void clickInserisciEmailPopUp() {
+        recapitiDestinatarioPage.clickInserisciEmailPopUp();
+    }
+
+    @When("Click Modifica Email")
+    public void clickModificaEmail() {
+        recapitiDestinatarioPage.clickSuModifica();
+    }
 }
