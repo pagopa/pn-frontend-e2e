@@ -1196,7 +1196,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     return false;
                 }
             }
-            if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected() && !inputElement.getAttribute("value").equalsIgnoreCase("it")) {
+            if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected() && !inputElement.getAttribute("value").equalsIgnoreCase("it") && !inputElement.getAttribute("value").equalsIgnoreCase("REGISTERED_LETTER_890")) {
                 return false;
             }
         }
