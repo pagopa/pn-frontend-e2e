@@ -31,6 +31,6 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
 
     Examples:
       | inizioArcoTemporale | fineArcoTemporale |
-      | 01/03/2024          | 01/02/2024        |
+      | 01/03/2025          | 01/02/2025        |
 
 
