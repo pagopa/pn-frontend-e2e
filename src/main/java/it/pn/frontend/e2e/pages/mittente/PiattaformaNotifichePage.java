@@ -285,15 +285,17 @@ public class PiattaformaNotifichePage extends BasePage {
         webTool.waitTime(2);
         String[] arraySplitDateDa = da.split("/");
 
-        List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
-        if (dataFieldList != null && dataFieldList.size() == 5) {
+        List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
+        logger.info("datafield list size {}", dataFieldList.size());
+        //old calendar format
+        /*if (dataFieldList != null && dataFieldList.size() == 5) {
             dataFieldList.get(2).click();
         } else if (dataFieldList != null && dataFieldList.size() == 3) {
             dataFieldList.get(1).click();
-        }
+        }*/
 
         // Step 2: Click on the input field to open the calendar pop-up
-        //dataFieldList.get(0).click();
+        dataFieldList.get(0).click();
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
 
@@ -337,13 +339,14 @@ public class PiattaformaNotifichePage extends BasePage {
         webTool.waitTime(2);
         // Step 2: Click on the input field to open the calendar pop-up
 
-        if (dataFieldList != null && dataFieldList.size() == 5) {
+        //old calendar format
+        /*if (dataFieldList != null && dataFieldList.size() == 5) {
             dataFieldList.get(3).click();
         } else if (dataFieldList != null && dataFieldList.size() == 3) {
             dataFieldList.get(2).click();
-        }
+        }*/
 
-        //dataFieldList.get(1).click();
+        dataFieldList.get(1).click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
