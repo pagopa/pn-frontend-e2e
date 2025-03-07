@@ -11,4 +11,4 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Logout da portale mittente
+#    And Logout da portale mittente

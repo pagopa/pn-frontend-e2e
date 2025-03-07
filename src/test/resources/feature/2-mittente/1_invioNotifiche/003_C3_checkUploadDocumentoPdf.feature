@@ -33,5 +33,5 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati si carica un atto
     Then Si visualizza correttamente il codice hash del documento
-    And Logout da portale mittente
+#    And Logout da portale mittente
 

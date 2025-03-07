@@ -21,7 +21,7 @@ Feature: il mittente inserisce i dati fino alla sezione Destinatario
     #And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 1
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
-    And Logout da portale mittente
+#    And Logout da portale mittente
     Examples:
       | numero destinatari |
       | 2                  |

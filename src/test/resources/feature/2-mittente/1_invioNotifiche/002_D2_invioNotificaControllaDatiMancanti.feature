@@ -38,5 +38,5 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | modalitaInvio     | A/R                |
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Logout da portale mittente
+#    And Logout da portale mittente
 

@@ -24,4 +24,4 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
-    And Logout da portale mittente
+#    And Logout da portale mittente

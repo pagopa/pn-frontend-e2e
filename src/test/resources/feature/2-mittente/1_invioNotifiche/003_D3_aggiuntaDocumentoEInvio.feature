@@ -42,5 +42,5 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     Then Si verifica che la notifica è stata creata correttamente
-    And Logout da portale mittente
+#    And Logout da portale mittente
 

@@ -15,4 +15,4 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
     And Nella section si visualizza il popup vuoi uscire
     And Nella section cliccare sul tasto esci
     Then Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Logout da portale mittente
+#    And Logout da portale mittente

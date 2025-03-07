@@ -32,5 +32,5 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati si carica un atto non pdf e visualizza messaggio di errore
-    And Logout da portale mittente
+#    And Logout da portale mittente
 
