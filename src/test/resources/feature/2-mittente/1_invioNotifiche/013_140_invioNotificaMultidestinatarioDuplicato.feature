@@ -2,7 +2,7 @@ Feature: Mittente invia una notifica digitale a multidestinatario duplicato, vie
 
   @TestSuite
   @TA_invioNotificaMultidestinatarioDuplicato
-  @invioNotifiche
+  @invioNotifiche_07
 
   @loginFE
   Scenario: PN-9254 - Mittente invia una notifica digitale a multidestinatario duplicato, viene visualizzato messaggio di errore

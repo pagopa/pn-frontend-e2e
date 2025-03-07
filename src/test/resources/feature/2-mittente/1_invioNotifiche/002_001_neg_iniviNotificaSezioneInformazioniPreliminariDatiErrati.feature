@@ -2,7 +2,7 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
 
   @TA_inserimentoDatiErratiInfoPreliminari
   @TestSuite
-  @invioNotifiche
+  @invioNotifiche_07
   @loginFE_8
   Scenario:Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

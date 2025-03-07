@@ -3,7 +3,7 @@ Feature: il mittente inserisce i dati  sbagliati fino alla sezione Destinatario
   @TA_inserimentoDatiErratiDestinatario
   @TestSuite
   @mittente
-  @invioNotifiche
+  @invioNotifiche_07
 
   @loginFE
   Scenario: PN-9314 - il mittente inserisce i dati sbagliati fino alla sezione Destinatario

@@ -120,7 +120,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                     :
                     webDriverConfig.getTokentestPFDelegato();
             default -> {
-                logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
         }

@@ -2,6 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @InvioNotificaACaricaDocumentoNonPdf
+  @invioNotifiche_07
   @loginFE
   Scenario: PN-9317-Check upload documento non pdf
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

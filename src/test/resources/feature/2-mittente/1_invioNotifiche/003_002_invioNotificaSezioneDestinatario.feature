@@ -3,7 +3,7 @@ Feature: il mittente inserisce i dati fino alla sezione Destinatario
     @TA_inserimentoDatiFinoDestinatario
     @TestSuite
     @mittente
-    @invioNotifiche
+      @invioNotifiche_07
       @loginFE
   Scenario Outline: PN-9136 - il mittente inserisce i dati fino alla sezione Destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

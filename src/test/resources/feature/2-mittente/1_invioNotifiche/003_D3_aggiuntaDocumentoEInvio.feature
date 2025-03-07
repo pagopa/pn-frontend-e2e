@@ -2,6 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @InvioNotificaCaricaDocumenti
+  @invioNotifiche_07
   @loginFE_8
   Scenario: PN-9320-Aggiunta documento e invio
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

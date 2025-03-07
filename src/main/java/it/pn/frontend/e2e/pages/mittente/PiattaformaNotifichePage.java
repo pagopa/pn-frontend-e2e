@@ -1328,10 +1328,23 @@ public class PiattaformaNotifichePage extends BasePage {
 
         String iun = getNotificationSingletonParam().getIun(hooksNew.scenario);
         logger.info("iun notifica {}", iun);
-        //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
-        getWebDriverWait(35).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"))));
-        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
-        notification.click();
+        WebElement notification =getWebDriverWait(35)
+                .withMessage("notifica non esistente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
+//        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
+        clickRowNotificationIndex(notification);
+//        notification.click();
+    }
+
+    public void clickSuNotifica(String iun) {
+
+        logger.info("iun notifica {}", iun);
+        WebElement notification = getWebDriverWait(35)
+                .withMessage("notifica non esistente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
+//        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"));
+        clickRowNotificationIndex(notification);
+//        notification.click();
     }
 
     public void checkStatoNotifica(String stato) {

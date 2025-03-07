@@ -1,6 +1,6 @@
 Feature: Invio notifica con codice tassonomico non censito
 
-#  @TestSuite
+  @TestSuite
   @TA_codiceTassonomicoNonCensito
   @bilinguismo
 

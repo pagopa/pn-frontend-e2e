@@ -3,7 +3,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
   @TestSuite
   @TA_invioNotificaConPec
   @mittente
-  @invioNotifiche
+  @invioNotifiche_07
 
   @loginFE_8
   Scenario: PN-9644 - Mittente genera una notifica tramite destinatario con pec

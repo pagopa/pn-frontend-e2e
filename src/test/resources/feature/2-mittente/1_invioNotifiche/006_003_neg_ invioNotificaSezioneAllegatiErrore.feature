@@ -3,7 +3,7 @@ Feature: il mittente inserisce tutti i dati di una notifica senza allegati
   @TA_invioNotificaSenzaAllegati
   @TestSuite
   @mittente
-  @invioNotifiche
+  @invioNotifiche_07
 
   @loginFE
   Scenario: PN-9642 - il mittente inserisce tutti i dati di una notifica senza allegati

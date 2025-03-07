@@ -2,7 +2,7 @@ Feature: invio notifica con lo stesso codice fiscale
 
   @TestSuite
   @TA_invioNotificaCapInesistente
-  @invioNotifiche
+  @invioNotifiche_07
 
   @loginFE_8
   Scenario: PN-9646 - il mittente invia la notifica con CAP inesistente

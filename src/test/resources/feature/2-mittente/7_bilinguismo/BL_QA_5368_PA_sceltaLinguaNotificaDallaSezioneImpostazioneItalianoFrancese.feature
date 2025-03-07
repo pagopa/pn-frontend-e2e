@@ -4,7 +4,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
   @TA_bilinguismoItalianoFrancese_QA5368
   @bilinguismo
 
-  Scenario: PN-QA5367 - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Francese
+  Scenario: PN-QA5368 - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Francese
 #    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di "Viggiu"
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |

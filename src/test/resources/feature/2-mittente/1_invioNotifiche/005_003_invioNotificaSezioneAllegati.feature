@@ -2,7 +2,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
 
   @TA_invioNotificaConAllegati
     @TestSuite
-    @invioNotifiche
+    @invioNotifiche_07
 
     @loginFE_8
   Scenario Outline: PN-9215 - il mittente inserisce tutti i dati di una notifica

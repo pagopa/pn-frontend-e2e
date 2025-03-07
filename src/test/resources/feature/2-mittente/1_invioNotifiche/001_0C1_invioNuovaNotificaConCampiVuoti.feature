@@ -2,7 +2,7 @@ Feature: Il mittente inserisce i dati di una nuova notifica, dopo l'inserzione d
 
   @TA_inviaNuovaNotificaConCampiVuoti
   @TestSuite
-  @invioNotifiche
+  @invioNotifiche_07
   @loginFE_8
   Scenario: PN-8895 - Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

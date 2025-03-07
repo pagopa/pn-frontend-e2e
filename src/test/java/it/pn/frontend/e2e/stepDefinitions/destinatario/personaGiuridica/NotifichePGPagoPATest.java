@@ -317,7 +317,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (piattaformaNotifichePGPAPage.modelloF24Displayed()) {
             logger.info("Il modello F24 è trovato");
         } else {
-            logger.error("Il modello F24 non è trovato");
             Assertions.fail("Il modello F24 non è trovato");
         }
     }

@@ -2,7 +2,7 @@ Feature: il mittente invia una notifica con 6 destinatario
 
   @TestSuite
     @TA_invioNotifica6DestinatariSenzaPagamento
-    @invioNotifiche
+    @invioNotifiche_07
 
     @loginFE
   Scenario Outline: PN-9227 - il mittente invia una notifica con 6 destinatario

@@ -2,6 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @InvioNotificaControllaDatiMancanti
+  @invioNotifiche_07
   @loginFE_8
   Scenario: PN-9316-Check dati mancanti
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

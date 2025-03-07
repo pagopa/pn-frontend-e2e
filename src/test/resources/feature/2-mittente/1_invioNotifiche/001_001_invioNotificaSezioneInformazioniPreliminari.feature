@@ -2,7 +2,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
   @TA_inserimentoDatiInfoPreliminari
   @TestSuite
-  @invioNotifiche
+  @invioNotifiche_07
   @loginFE
   Scenario: PN-9127 - Il mittente inserisce i dati nella sezione informazioni preliminari
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

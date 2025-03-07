@@ -177,7 +177,6 @@ public class DestinatarioPage extends BasePage {
                 attempt++;
             }
         }
-        log.error("Errore nella creazione della notifica per PF dopo {} tentativi", maxAttempts);
         Assertions.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
 
