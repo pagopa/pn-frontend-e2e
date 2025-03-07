@@ -16,3 +16,4 @@ Feature: Il mittente inserisce i dati di una nuova notifica, dopo l'inserzione d
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section si visualizza correttamente i campi vuoti
+#    And Logout da portale mittente

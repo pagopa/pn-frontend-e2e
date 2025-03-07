@@ -35,4 +35,4 @@ Feature: Mittente invia una notifica digitale a multidestinatario duplicato, vie
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
     Then Si visualizza correttamente l errore di stesso codice fiscale
-    And Logout da portale mittente
+#    And Logout da portale mittente

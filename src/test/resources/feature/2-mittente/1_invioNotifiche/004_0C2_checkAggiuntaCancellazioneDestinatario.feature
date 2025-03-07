@@ -17,4 +17,4 @@ Feature: Il mittente inserisce 2 destinatari e viene eliminato il primo
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario cliccare su Rimuovi destinatario
     Then Nella section Destinatario viene visualizzato un solo destinatario
-    And Logout da portale mittente
+#    And Logout da portale mittente

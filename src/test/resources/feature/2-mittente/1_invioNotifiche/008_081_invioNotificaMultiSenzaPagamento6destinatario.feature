@@ -17,7 +17,7 @@ Feature: il mittente invia una notifica con 6 destinatario
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
     And Nella section Destinatario si cerca di aggiungere il sesto destinatario
-    And Logout da portale mittente
+#    And Logout da portale mittente
     Examples:
       | numero destinatari |
       | 5                  |

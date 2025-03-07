@@ -1188,7 +1188,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaCampiPreliminariNotificaVuoti() {
         webTool.waitTime(10);
-        preliminaryInformationsForm = driver.findElement(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]"));
+//        preliminaryInformationsForm = driver.findElement(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]"));
+        preliminaryInformationsForm = getWebDriverWait(60)
+                .withMessage("Il form preliminaryInformationsForm non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]")));
         List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
         for (WebElement inputElement : inputElements) {
             if (inputElement.getAttribute("type").equals("text") && !inputElement.getAttribute("value").isEmpty()) {

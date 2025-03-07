@@ -23,4 +23,4 @@ Feature: invio notifica con lo stesso codice fiscale
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica e' stata rifiutata "datiNotifica"
-    And Logout da portale mittente
+#    And Logout da portale mittente

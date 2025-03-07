@@ -18,4 +18,4 @@ Feature: il mittente inserisce i dati  sbagliati fino alla sezione Destinatario
     And Nella section Destinatario inserire i dati errati dalla persona giuridica
     And Nella section cliccare sul tasto torna a informazioni preliminari
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Logout da portale mittente
+#    And Logout da portale mittente
