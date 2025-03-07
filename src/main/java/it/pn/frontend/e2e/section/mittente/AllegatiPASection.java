@@ -46,8 +46,11 @@ public class AllegatiPASection extends BasePage {
 
     public void waitLoadAllegatiPASection() {
         try{
-            WebElement allegatiTitleField = driver.findElement(By.xpath("//h3[contains(text(),'Documenti allegati') or contains(text(),'Attachments') or contains(text(),'Annexes') or contains(text(),'Anhänge') or contains(text(),'Priloge')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(allegatiTitleField));
+//            WebElement allegatiTitleField = driver.findElement(By.xpath("//h3[contains(text(),'Documenti allegati') or contains(text(),'Attachments') or contains(text(),'Annexes') or contains(text(),'Anhänge') or contains(text(),'Priloge')]"));
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(allegatiTitleField));
+            getWebDriverWait(30)
+                    .withMessage("Il titolo 'Documenti allegati' non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[contains(text(),'Documenti allegati') or contains(text(),'Attachments') or contains(text(),'Annexes') or contains(text(),'Anhänge') or contains(text(),'Priloge')]")));
             logger.info("Allegati PA Section caricata");
         }catch (TimeoutException e){
             logger.error("Allegati PA Section non caricata con errore: "+e.getMessage());
