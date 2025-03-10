@@ -105,7 +105,6 @@ public class DestinatarioPage extends BasePage {
                 Assertions.fail("Nessuno dei campi data è passato allo stato invalido");
             }
         } catch (TimeoutException e) {
-            log.error("Campi data non visualizzati correttamente con errore: " + e.getMessage());
             Assertions.fail("Campi data non visualizzati correttamente con errore: " + e.getMessage());
         }
         return invalidBoxDate;
@@ -242,5 +241,32 @@ public class DestinatarioPage extends BasePage {
         getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"))));
         getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
+    }
+
+    public void selezionaAvvisoPagoPA() {
+        List<WebElement> pagoPARadioButtons = getWebDriverWait(10)
+                .withMessage("radio Button  Avviso PagoPA non visibile")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Avviso pagoPA']")));
+        for (WebElement radioButton : pagoPARadioButtons) {
+            radioButton.click();
+        }
+    }
+
+    public void cliccareSuSincrona() {
+        WebElement radioButtonSincrona = getWebDriverWait(10)
+                .withMessage("radio Button  Sincrona non visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Sincrona']")));
+        radioButtonSincrona.click();
+    }
+
+    public void inseriscoCodiceAvviso() {
+        List<WebElement> inputFields = getWebDriverWait(10)
+                .withMessage("Lista inseriscoCodiceAvviso non visibile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("noticeCode")));
+        long numero = 302010124463612500L;
+        for (WebElement inputField : inputFields) {
+            inputField.sendKeys(String.valueOf(numero));
+            numero++;
+        }
     }
 }

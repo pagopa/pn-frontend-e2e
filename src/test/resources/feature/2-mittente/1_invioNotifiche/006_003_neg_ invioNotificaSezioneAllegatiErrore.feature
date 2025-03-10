@@ -18,6 +18,13 @@ Feature: il mittente inserisce tutti i dati di una notifica senza allegati
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 0
     And Cliccare su continua
+    #      Aggiungere alle notifiche
+    And Seleziona Avviso PagoPA
+    And Cliccare su continua
+    And Cliccare su Sincrona
+    And Inserisco Codice Avviso
+    And Cliccare su continua
+#      Aggiungere alle notifiche
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto con estenzione non valida
     Then Si visualizza correttamente il messaggio di errore estensione file non supportata. Riprovare con un altro file.

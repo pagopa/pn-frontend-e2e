@@ -30,6 +30,13 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | cap       | 20147                 |
       | stato     | Italia                |
     And Cliccare su continua
+    #      Aggiungere alle notifiche
+    And Seleziona Avviso PagoPA
+    And Cliccare su continua
+    And Cliccare su Sincrona
+    And Inserisco Codice Avviso
+    And Cliccare su continua
+#      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati si carica un atto
     And Si clicca sul bottone aggiungi nuovo documento

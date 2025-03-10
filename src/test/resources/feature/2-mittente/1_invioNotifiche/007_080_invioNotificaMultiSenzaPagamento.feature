@@ -18,6 +18,13 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
   #  And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 1
     And Cliccare su continua
+    #      Aggiungere alle notifiche
+    And Seleziona Avviso PagoPA
+    And Cliccare su continua
+    And Cliccare su Sincrona
+    And Inserisco Codice Avviso
+    And Cliccare su continua
+#      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
