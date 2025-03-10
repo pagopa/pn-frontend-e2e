@@ -174,10 +174,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
-            logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
         } else if (codiceRispostaChiamataApi == 0) {
-            logger.error("TA_QA: La chiamata, " + urlChiamata + " non trovata");
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
         }
     }
@@ -791,11 +789,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
         if (isNumeric(npersoneFisiche)) {
             nPersoneFisicheInt = Integer.parseInt(npersoneFisiche) - 1;
             if (nPersoneFisicheInt > 5 || nPersoneFisicheInt == 0) {
-                logger.error("Devi inserire un nummero da 1 a 6");
                 Assertions.fail("Devi inserire un nummero da 1 a 6");
             }
         } else {
-            logger.error("Formato non accettato. Devi inserire un numero da 1 a 6");
             Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 6");
         }
 
@@ -1038,11 +1034,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
         if (isNumeric(nDestinatari)) {
             nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
             if (nDestinatariInt > 5 || nDestinatariInt == 0) {
-                logger.error("Devi inserire un nummero da 1 a 6");
                 Assertions.fail("Devi inserire un nummero da 1 a 6");
             }
         } else {
-            logger.error("Formato non accettato. Devi inserire un numero da 1 a 6");
             Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 6");
         }
 
@@ -1631,7 +1625,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
         webTool.waitTime(10);
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if (notificationRequestId == null) {
-            logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
             Assertions.fail("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
         }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
@@ -1648,7 +1641,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 logger.info("lo stato della notifica è :" + statusNotifica);
             } else {
                 if (accettazioneRichiestaNotifica.getResponseCode() != 200) {
-                    logger.error("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
                     Assertions.fail("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
                 }
             }
@@ -1670,7 +1662,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 logger.info("La notifica è stata creata correttamente");
             }
         } else {
-            logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
             Assertions.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
         }
     }

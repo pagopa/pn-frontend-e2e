@@ -5,6 +5,7 @@ Feature: il mittente inserisce i dati fino alla sezione Destinatario
     @mittente
       @invioNotifiche_07
       @loginFE
+      @NRT_10022025
     Scenario Outline: PN-9136 - il mittente inserisce i dati fino alla sezione Destinatario
       Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
       When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
