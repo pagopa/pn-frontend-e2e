@@ -5,7 +5,7 @@ Feature: Mittente verifica il campo stato notifica del filtro di ricerca
   @mittente
   @ricercaNotificheMittente
   @loginFE_8
-  @NRT_1
+  @NRT
   Scenario: PN-9221 - Mittente logato verifica il menu a tendina del campo stato notifica del filtro di ricerca
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si visualizza correttamente la pagina Piattaforma Notifiche

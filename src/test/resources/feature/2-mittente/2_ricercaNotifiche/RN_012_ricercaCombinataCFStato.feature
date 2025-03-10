@@ -1,17 +1,17 @@
-Feature: il mittente fa una ricerca combinata tra stato e arco temporale
+Feature: il mittente fa una ricerca combinata tra cf e stato
 
   @TestSuite
     @mittente
     @ricercaNotificheMittente
-    @TA_MittenteRicercaPerStatoPeriodo
+    @TA_MittenteRicercaPerCFeStato
     @loginFE
-    @NRT_1
-  Scenario Outline: PN-9222 - il mittente fa una ricerca sia per arco temporale che per stato
+    @NRT
+  Scenario Outline: PN-9222 - il mittente fa una ricera sia per cf che per stato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    When Nella pagina Piattaforma Notifiche inserire un arco temporale
+    When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica
     And Nella pagina piattaforma Notifiche selezionare uno stato notifica <stato>
     And Cliccare sul bottone Filtra
-    And Il sistema restituisce notifiche con arco temporale e stato uguale a quelli inserito <stato>
+    And Il sistema restituisce notifiche con codice fiscale e stato uguale a quelli inserito <stato>
 #    And Logout da portale mittente
     Examples:
       | stato                               |
