@@ -111,4 +111,24 @@ public class NewNotifichePagoPATest extends BasePage {
     public void inseriscoCodiceAvviso() {
         destinatarioPage.inseriscoCodiceAvviso();
     }
+
+    @And("Cliccare su A carico del destinatario")
+    public void cliccareSuACaricoDelDestinatario() {
+        destinatarioPage.cliccareSuACaricoDelDestinatario();
+    }
+
+    @And("Inserire Costo notifica {string}")
+    public void inserireCostoNotifica(String costo) {
+        destinatarioPage.inserireCostoNotifica(costo);
+    }
+
+    @And("Selezionare la percentuale {string}")
+    public void selezionareLaPercentuale(String percentuale) {
+        destinatarioPage.selezionareLaPercentuale(percentuale);
+    }
+
+    @And("Seleziona Nessun Pagamento")
+    public void selezionaNessunPagamento() {
+        destinatarioPage.selezionaNessunPagamento();
+    }
 }

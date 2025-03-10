@@ -132,12 +132,15 @@ public class AllegatiPASection extends BasePage {
     public void selectInviaButton() {
 
         try {
-            inviaButton = driver.findElement(By.id("step-submit"));
-            getWebDriverWait(10).until(ExpectedConditions.and(ExpectedConditions.elementToBeClickable(inviaButton),ExpectedConditions.visibilityOf(inviaButton)));
+             inviaButton = getWebDriverWait(10)
+                     .withMessage("Il bottone Invia Non presente nel DOM")
+                    .until(ExpectedConditions.presenceOfElementLocated(By.id("step-submit")));
+            getWebDriverWait(10)
+                    .withMessage("Il bottone Invia Non è  visibile e cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(inviaButton));
             inviaButton.click();
             logger.info("click avvenuto con successo su invio allegati");
         }catch (TimeoutException e) {
-            logger.error("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());
             Assertions.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
     }
 

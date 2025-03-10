@@ -27,11 +27,8 @@ Feature: Invio notifica con codice tassonomico non censito
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
     And Cliccare su continua
 #    #      Aggiungere alle notifiche
-#    And Seleziona Avviso PagoPA
-#    And Cliccare su continua
-#    And Cliccare su Sincrona
-#    And Inserisco Codice Avviso
-#    And Cliccare su continua
+    And Seleziona Nessun Pagamento
+    And Cliccare su continua
 ##      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
