@@ -3,7 +3,7 @@ Feature: il mittente invia una notifica con 6 destinatario
   @TestSuite
     @TA_invioNotifica6DestinatariSenzaPagamento
     @invioNotifiche_07
-    @NRT_10022025
+    @NRT
     @loginFE
   Scenario Outline: PN-9227 - il mittente invia una notifica con 6 destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

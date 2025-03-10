@@ -4,7 +4,7 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     @TA_invioNotificaMultiSenzaPagamento
     @invioNotifiche_07
     @loginFE_8
-    @NRT_10022025
+    @NRT
   Scenario Outline: PN-9226 - Mittente genera una notifica con più destinatari che non prevede pagamento
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
