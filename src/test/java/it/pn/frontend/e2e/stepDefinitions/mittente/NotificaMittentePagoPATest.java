@@ -1943,14 +1943,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     }
 
-    private void selezioneLingua(String lingua) {
-        piattaformaNotifichePage.selezioneLingua(lingua);
-    }
-
-    private void selezioneItalianoAltralingua() {
-        piattaformaNotifichePage.selezioneItalianoAltralingua();
-    }
-
     @And("verifica lingua selezionata {string}")
     public void verificaLinguaSelezionata(String lingua) {
         piattaformaNotifichePage.verificaLinguaSelezionata(lingua);
@@ -2090,6 +2082,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @When("Click torna alle deleghe")
     public void clickTornaAlleDeleghe() {
         destinatarioPASection.clickTornaAlleDeleghe();
+    }
+
+    @And("Selezionare da impostazione lingua la lingua {string}")
+    public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
+        piattaformaNotifichePage.selezionareDaImpostazioneLinguaLaLingua(lingua);
     }
 
     /**

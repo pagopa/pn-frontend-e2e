@@ -1867,4 +1867,31 @@ public class PiattaformaNotifichePage extends BasePage {
         webTool.waitTime(3);
     }
 
+    public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
+        selezioneImpostazioneLingua();
+        if(lingua.equalsIgnoreCase("Italiano")) {
+            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
+            radioIt.click();
+        }else {
+            selezioneItalianoAltralingua();
+            if (lingua.equalsIgnoreCase("Francese")) {
+                WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
+                selezionaLingua.click();
+
+
+                WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
+                getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
+                logger.info(MessageFormat.format("gruppo {0} trovato con successo", gruppoLingua));
+                gruppoLingua.click();
+
+            }
+        }
+
+        webTool.waitTime(3);
+        //chiusura della schermata tramite la X
+        WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
+        closeIcon.click();
+        webTool.waitTime(3);
+    }
+
 }
