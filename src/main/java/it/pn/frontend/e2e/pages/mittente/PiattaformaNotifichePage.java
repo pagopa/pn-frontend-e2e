@@ -407,6 +407,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
         String[] arraySplitDateDa = da.split("/");
 
+        logger.info("-*-*-*-*-*--*- INIZIO *-*-**--**--*-*-*");
+        logger.info(driver.getPageSource());
+        logger.info("-*-*-*-*-*--*- FINE *-*-**--**--*-*-*");
+
         List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
         //List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
 
