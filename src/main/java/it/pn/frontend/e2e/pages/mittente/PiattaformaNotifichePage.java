@@ -411,7 +411,7 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info(driver.getPageSource());
         logger.info("-*-*-*-*-*--*- FINE *-*-**--**--*-*-*");
 
-        List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
+        List<WebElement> dataFieldList = getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button[@aria-label='Scegli data']"))));
         //List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
 
         // Step 2: Click on the input field to open the calendar pop-up
