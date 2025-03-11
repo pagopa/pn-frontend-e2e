@@ -3,7 +3,7 @@ Feature: Mittente invia una notifica digitale a multidestinatario duplicato, vie
   @TestSuite
   @TA_invioNotificaMultidestinatarioDuplicato
   @invioNotifiche_07
-  @NRT_10022025
+  @NRT
   @loginFE
   Scenario: PN-9254 - Mittente invia una notifica digitale a multidestinatario duplicato, viene visualizzato messaggio di errore
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

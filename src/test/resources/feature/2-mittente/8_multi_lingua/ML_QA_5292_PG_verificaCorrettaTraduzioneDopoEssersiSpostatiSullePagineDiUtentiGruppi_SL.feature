@@ -3,7 +3,7 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
   @TestSuite
   @TA_multiLinguaSloveno_QA5292
   @multiLingua
-
+  @NRT
   Scenario: PN-QA5292 - PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine di Utenti e Gruppi - SL
 
     Given Login Page persona giuridica viene visualizzata
