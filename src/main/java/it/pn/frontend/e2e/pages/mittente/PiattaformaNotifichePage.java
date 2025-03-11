@@ -1920,4 +1920,9 @@ public class PiattaformaNotifichePage extends BasePage {
         webTool.waitTime(3);
     }
 
+    public void riduciZoomPaginaAl(String size) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.body.style.zoom='"+size+"%'");
+
+    }
 }

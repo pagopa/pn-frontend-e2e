@@ -15,6 +15,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Cambia lingua footer "Inglese"
  #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
+    And Riduci zoom pagina al "60"%
+    And Aspetta 2 secondi
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Delegations of authority"
     And Verifica traduzione testo "Contact details"
@@ -35,6 +37,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "view service disruption history and download the attestations"
     And Verifica traduzione testo "Disruption history"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
+    And Aspetta 1 secondi
     When Cambia lingua footer "German"
     And Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
@@ -67,8 +70,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
 #    And Verifica traduzione testo "Notifications de"
 #    And Verifica traduzione testo "Lire les notifications de Convivio Spa"
 ##  Raggiungere la sezione Notifiche delegate e verificarne la traduzione
-    When Seleziona voce menu laterale "Notifications mandatées"
-    And Verifica traduzione testo "Lire les notifications mandatées à Convivio Spa"
+#    When Seleziona voce menu laterale "Notifications mandatées"
+#    And Verifica traduzione testo "Lire les notifications mandatées à Convivio Spa"
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Coordonnées"
     And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"

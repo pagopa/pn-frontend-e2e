@@ -15,6 +15,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
     And Cambia lingua footer "Sloveno"
 #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
+    And Riduci zoom pagina al "60"%
+    And Aspetta 2 secondi
     And Seleziona voce menu laterale "Obvestila"
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"
@@ -34,8 +36,11 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
     And Verifica traduzione testo "Preverite delovanje SEND, oglejte si zgodovino motenj in prenesite povezana potrdila"
     And Verifica traduzione testo "Zgodovina motenj"
 #   Cambio lingua
+    And Aspetta 1 secondi
     When Cambia lingua footer "Nemško"
+    And Aspetta 1 secondi
     And Seleziona voce menu laterale "Bescheide"
+    And Aspetta 1 secondi
     And Verifica traduzione testo "Vollmachten"
     And Verifica traduzione testo "Anschriften"
     And Verifica traduzione testo "Benutzer"
