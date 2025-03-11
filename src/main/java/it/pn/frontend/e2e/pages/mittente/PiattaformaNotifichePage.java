@@ -411,6 +411,7 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info(driver.getPageSource());
         logger.info("-*-*-*-*-*--*- FINE *-*-**--**--*-*-*");
 
+        getWebDriverWait(60).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button[@aria-label='Scegli data']"))));
         List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
         //List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
 
