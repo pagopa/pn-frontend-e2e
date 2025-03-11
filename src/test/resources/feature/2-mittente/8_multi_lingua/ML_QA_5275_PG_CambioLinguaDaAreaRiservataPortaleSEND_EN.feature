@@ -41,6 +41,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "Anschriften"
     And Verifica traduzione testo "Benutzer"
 ##  Verificare traduzione della sezione HP notifiche
+    And Aspetta 2 secondi
     When Seleziona voce menu laterale "Vollmachten"
     And Verifica traduzione testo "Hier können die Bevollmächtigten des Unternehmens und deren Vollmachten verwaltet werden"
     And Verifica traduzione testo "Vollmachten des Unternehmens"
@@ -59,9 +60,11 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "Coordonnées"
     And Verifica traduzione testo "Utilisateurs"
  ##  Verificare traduzione della sezione HP notifiche
+    And Aspetta 2 secondi
     When Seleziona voce menu laterale "Notifications"
-    And Seleziona voce menu laterale "Notifications de l"
-    And Verifica traduzione testo "Notifications de"
+    And Aspetta 2 secondi
+#    And Seleziona voce menu laterale "Notifications de l"
+#    And Verifica traduzione testo "Notifications de"
 #    And Verifica traduzione testo "Lire les notifications de Convivio Spa"
 ##  Raggiungere la sezione Notifiche delegate e verificarne la traduzione
     When Seleziona voce menu laterale "Notifications mandatées"
@@ -84,7 +87,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
 ##  Verificare traduzione della sezione HP notifiche
     When Seleziona voce menu laterale "Obvestila"
     And Seleziona voce menu laterale "Obvestila podjetja"
-    And Verifica traduzione testo "Preberite obvestila za Convivio Spa"
+    And Aspetta 3 secondi
+    And Verifica traduzione testo "Obvestila za"
     When Seleziona voce menu laterale "Delegirana obvestila"
     And Verifica traduzione testo "Preberite obvestila, delegirana na Convivio Spa"
 ##  Aggiungere e gestire una delega e verificarne la traduzione

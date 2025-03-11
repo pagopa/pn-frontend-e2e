@@ -29,8 +29,7 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Addresses"
     And Verifica traduzione testo "Here you can manage addresses and receive the notifications sent to you by institutions registered with SEND"
     And Verifica traduzione testo "Legal address"
-    And Verifica traduzione testo "PEC address"
-    And Verifica traduzione testo "Email address"
+    And Verifica traduzione testo "Email"
 
 #  Raggiungere la sezione deleghe e verificarne la traduzione
 

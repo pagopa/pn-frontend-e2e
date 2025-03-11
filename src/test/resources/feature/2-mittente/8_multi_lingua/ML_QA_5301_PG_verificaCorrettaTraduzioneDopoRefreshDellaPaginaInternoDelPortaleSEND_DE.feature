@@ -15,7 +15,9 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
     And Cambia lingua footer "Tedesco"
 #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
+    And Aspetta 3 secondi
     And Refresh pagina
+    And Aspetta 2 secondi
     When Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
     And Verifica traduzione testo "Anschriften"

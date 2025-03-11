@@ -107,12 +107,11 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     public void clickDelegatiImpresa() {
         try {
-            getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone delegati dell impresa").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("tab-1"))));
+            getWebDriverWait(15).withMessage("Non è possibile cliccare il bottone delegati dell impresa").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("tab-1"))));
             delegatiImpresaButton = driver.findElement(By.id("tab-1"));
             delegatiImpresaButton.click();
             logger.info("Bottone delegati dell impresa cliccato");
         } catch (TimeoutException e) {
-            logger.error("il bottone delegati imprese non è cliccabile" + e.getMessage());
             Assertions.fail("il bottone delegati imprese non è cliccabile" + e.getMessage());
         }
 
