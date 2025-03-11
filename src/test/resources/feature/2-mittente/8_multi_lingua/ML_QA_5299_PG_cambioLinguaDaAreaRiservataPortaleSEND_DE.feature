@@ -73,13 +73,16 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "Ici, vous pouvez gérer les mandataires de l"
     And Verifica traduzione testo "Procurations à la charge de l"
 #    Selezionare Stato della Piattaforma
+    And Aspetta 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"
 #    ------------------------------------------------
     And Cambia lingua footer "Allemand"
     And Cambia lingua footer "Slowenisch"
+    And Aspetta 1 secondi
     And Seleziona voce menu laterale "Obvestila"
+    And Aspetta 1 secondi
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"
     And Verifica traduzione testo "Stanje platforme"
