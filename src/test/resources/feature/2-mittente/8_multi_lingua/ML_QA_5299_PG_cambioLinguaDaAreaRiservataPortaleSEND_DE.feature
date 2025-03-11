@@ -34,6 +34,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
     And Cambia lingua footer "Englisch"
     When Seleziona voce menu laterale "Notifications"
+    And Aspetta 1 secondi
     And Verifica traduzione testo "Delegations of authority"
     And Verifica traduzione testo "Contact details"
 ##  Verificare traduzione della sezione HP notifiche
