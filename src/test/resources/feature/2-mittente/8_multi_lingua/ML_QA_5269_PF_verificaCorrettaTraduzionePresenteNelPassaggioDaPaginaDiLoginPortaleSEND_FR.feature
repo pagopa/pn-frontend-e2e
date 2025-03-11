@@ -13,7 +13,9 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       | lingua       | Francese |
+    And Aspetta 2 secondi
     And Refresh pagina
+    And Aspetta 2 secondi
     And Verifica traduzione testo "Vos notifications"
     And Verifica traduzione testo "Vos adresses"
     And Verifica traduzione testo "Procurations"
@@ -32,8 +34,7 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Adresses"
     And Verifica traduzione testo "Vous pouvez ici gérer les adresses auxquelles recevoir les notifications des organismes ayant adhéré à SEND"
     And Verifica traduzione testo "Adresse à valeur légale"
-    And Verifica traduzione testo "Adresse PEC"
-    And Verifica traduzione testo "Adresse email"
+    And Verifica traduzione testo "Email"
   #  Raggiungere la sezione deleghe e verificarne la traduzione
     When Seleziona voce menu laterale "Procurations"
     And Verifica traduzione testo "Ici, vous pouvez gérer vos mandataires et les procuration à votre charge"

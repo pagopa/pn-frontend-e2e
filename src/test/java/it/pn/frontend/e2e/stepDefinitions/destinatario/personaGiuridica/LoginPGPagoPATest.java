@@ -396,20 +396,6 @@ public class LoginPGPagoPATest extends BasePage {
                     webDriverConfig.getTokentestPGDelegante():
                     webDriverConfig.getTokendevPGDelegante();
         }
-
-
-
-
-//        String user = webDriverConfig.getUserDante();
-//        if (user.equalsIgnoreCase("DanteAlighieri")) {
-//            token = variabileAmbiente.equalsIgnoreCase("test") ?
-//                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegante").toString() :
-//                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegante").toString();
-//        } else {
-////            token = variabileAmbiente.equalsIgnoreCase("test") ?
-////                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokentestPGDelegato").toString() :
-////                    this.dataPopulation.readDataPopulation("tokenLogin.yaml").get("tokendevPGDelegato").toString();
-//        }
         String url = urlIniziale + token;
         driver.get(url);
     }
@@ -443,7 +429,15 @@ public class LoginPGPagoPATest extends BasePage {
     @And("Si clicca su prodotto")
     public void siCliccaSuProdotto() {
 //        destinatarioPage.clickProdotto(xpath);
+        logger.info("Dobbiamo Clicccare l'ambiente");
         clickEntraSuSendPersonaGiuridica();
+        logger.info("verifico esistenza cookie");
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+        }
+        logger.info("Terminata procedura scelta ambiente");
     }
 
     @And("Click entra su Send Persona Giuridica")

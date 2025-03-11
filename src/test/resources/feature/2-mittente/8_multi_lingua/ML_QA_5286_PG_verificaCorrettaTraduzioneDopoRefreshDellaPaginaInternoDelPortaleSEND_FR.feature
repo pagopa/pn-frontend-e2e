@@ -13,13 +13,7 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Francese"
-#    And Refresh pagina
-#    And Attendi secondi "10"
-#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
-#    And Refresh pagina
-#    And Attendi secondi "3"
-#    When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Procurations"
     And Verifica traduzione testo "Coordonnées"
     And Verifica traduzione testo "Utilisateurs"

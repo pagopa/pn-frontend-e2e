@@ -13,7 +13,9 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       | lingua       | Tedesco |
+    And Aspetta 2 secondi
     Then Refresh pagina
+    And Aspetta 2 secondi
     And Verifica traduzione testo "Zustellungen"
     And Verifica traduzione testo "Deine Adressen"
     And Verifica traduzione testo "Plattformstatus"

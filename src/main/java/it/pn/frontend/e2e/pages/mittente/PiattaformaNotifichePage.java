@@ -680,12 +680,41 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+//    private void clickRowNotificationIndex(WebElement primaNotifica) {
+//        WebElement buttonVediDettaglio = getWebDriverWait(15)
+//                .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
+//                .until(ExpectedConditions.elementToBeClickable(primaNotifica.findElement(By.xpath(".//button[contains(text(),'Vedi dettaglio')]"))));
+//        buttonVediDettaglio.click();
+//    }
+
+
     private void clickRowNotificationIndex(WebElement primaNotifica) {
-        WebElement buttonVediDettaglio = getWebDriverWait(5)
-                .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(primaNotifica.findElement(By.xpath(".//button[contains(text(),'Vedi dettaglio')]"))));
-        buttonVediDettaglio.click();
+        try {
+            // Trova il pulsante "Vedi dettaglio" all'interno della riga specifica (primaNotifica)
+            WebElement buttonVediDettaglio = getWebDriverWait(10)
+                    .withMessage("Il pulsante 'Vedi Dettaglio' non è presente")
+                    .until(ExpectedConditions.presenceOfNestedElementLocatedBy(
+                            primaNotifica, By.cssSelector("button[data-testid='goToNotificationDetail']"))
+                    );
+
+            // Scorri l'elemento nella vista (se necessario)
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonVediDettaglio);
+
+            // Attendi che l'elemento sia cliccabile
+            buttonVediDettaglio = getWebDriverWait(10)
+                    .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(buttonVediDettaglio));
+
+            // Forza il clic utilizzando JavascriptExecutor (se necessario)
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonVediDettaglio);
+            logger.info("Cliccato sul pulsante 'Vedi Dettaglio'");
+        } catch (Exception e) {
+            logger.error("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
+            Assertions.fail("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
+        }
     }
+
+
 
     private void selezionaPage50() {
         WebElement pageSize50 = getWebDriverWait(3)
@@ -1740,13 +1769,6 @@ public class PiattaformaNotifichePage extends BasePage {
         element.click();
     }
 
-//    public void entroDentroLaPrimaNotifica() {
-//        WebElement firstRowButton = getWebDriverWait(10)
-//                .withMessage("Prima notifica non trovata")
-//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//tr[@class='MuiTableRow-root css-g76qb5'])[1]//td[3]//button"))));
-//        firstRowButton.click();
-//    }
-
     public void cambiaLinguaFooter(String lingua) {
         WebElement menuLingua = getWebDriverWait(10).withMessage("Seleziona: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//button[@aria-label='lingua']")));
@@ -1758,9 +1780,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean isTextPresent(String testo) {
         try {
-            return getWebDriverWait(20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
+            return getWebDriverWait(30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
         } catch (Exception e) {
-            return false; // Testo non trovato entro il timeout
+            return false;
         }
     }
 

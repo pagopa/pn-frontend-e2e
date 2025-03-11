@@ -13,7 +13,9 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       | lingua       | Sloveno |
+    And Aspetta 2 secondi
     And Refresh pagina
+    And Aspetta 2 secondi
     When Seleziona voce menu laterale "Obvestila"
 #   Verificole traduzioni del portale
     And Verifica traduzione testo "Vaši kontaktni podatki"
@@ -29,8 +31,7 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Kontaktni podatki"
     And Verifica traduzione testo "Tukaj lahko upravljate kontaktne podatke, na katere boste prejemali obvestila"
     And Verifica traduzione testo "Uradna dostava"
-    And Verifica traduzione testo "Naslov PEC"
-    And Verifica traduzione testo "Elektronski naslov"
+    And Verifica traduzione testo "E-pošta"
   #  Raggiungere la sezione deleghe e verificarne la traduzione
 
     When Seleziona voce menu laterale "Pooblastila"

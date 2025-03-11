@@ -15,8 +15,9 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     And Cambia lingua footer "Sloveno"
 #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
+    And Aspetta 2 secondi
     And Refresh pagina
-    And Attendi secondi "3"
+    And Aspetta 3 secondi
     And Seleziona voce menu laterale "Obvestila"
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"
