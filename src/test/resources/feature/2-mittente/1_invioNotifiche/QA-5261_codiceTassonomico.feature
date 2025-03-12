@@ -3,7 +3,7 @@ Feature: Invio notifica con codice tassonomico non censito
   @TestSuite
   @TA_codiceTassonomicoCensito
   @bilinguismo
-  @NRT_1
+  @NRT
 
   Scenario: PN-5260-Codice Tassonomico Censito
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

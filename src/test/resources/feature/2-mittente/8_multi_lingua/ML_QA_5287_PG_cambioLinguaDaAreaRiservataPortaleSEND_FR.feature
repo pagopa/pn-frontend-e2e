@@ -3,7 +3,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
   @TestSuite
   @TA_multiLinguaFrancese_QA5287
   @multiLingua
-  @NRT
+  @NRT_1
   Scenario: PN-QA5287 - PG - Cambio Lingua da Area Riservata a portale SEND - FR
 
     Given Login Page persona giuridica viene visualizzata
@@ -16,7 +16,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
 #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
 #    And Riduci zoom pagina al "60"%
-    And Aspetta 1 secondi
+    And Aspetta 3 secondi
     When Seleziona voce menu laterale "Notifications"
     And Aspetta 1 secondi
     And Seleziona voce menu laterale "Notifications de l"
@@ -48,7 +48,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
     When Seleziona voce menu laterale "Vollmachten"
     And Verifica traduzione testo "Hier können die Bevollmächtigten des Unternehmens und deren Vollmachten verwaltet werden"
     And Verifica traduzione testo "Vollmachten des Unternehmens"
-    And Aspetta 1 secondi
+    And Aspetta 2 secondi
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Anschriften"
     And Verifica traduzione testo "Hier können digitale Anschriften angeben und geändert werden, an die Bescheide für Convivio Spa gesendet werden sollen"
