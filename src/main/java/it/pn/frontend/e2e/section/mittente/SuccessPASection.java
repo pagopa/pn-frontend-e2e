@@ -35,7 +35,7 @@ public class SuccessPASection extends BasePage {
     public void waitLoadSuccessPASection() {
         try {
             getWebDriverWait(60)
-                    .withMessage("Non è presente La notifica è stata creata con successo")
+                    .withMessage("Non è presente il testo 'La notifica è stata creata con successo'")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("title-sync-feedback")));
 
             logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
