@@ -85,7 +85,7 @@ public class WebDriverManager {
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
 
         var chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation", "user-agent=Chrome/126.0.6478.182");
+        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
         var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
