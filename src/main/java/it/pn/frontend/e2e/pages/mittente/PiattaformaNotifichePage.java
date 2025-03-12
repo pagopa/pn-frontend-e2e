@@ -506,6 +506,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='endDate']")));
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='startDate']")));
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='endDate']")));
+        logger.info("Input fields found {}", driver.findElements(By.xpath("//input[@id='startDate']")).size());
         dataInizioField = driver.findElement(By.xpath("//input[@id='startDate']"));
         dataFineField = driver.findElement(By.xpath("//input[@id='endDate']"));
 
@@ -518,7 +519,6 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(3).withMessage("value mostrato" + a).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
         dataInizioField = driver.findElements(By.xpath("//input[@id='startDate']/ancestor::div[contains(@class, 'MuiFormControl-root')]//*[contains(@class, 'Mui-error')]")).get(0);
         dataFineField = driver.findElements(By.xpath("//input[@id='endDate']/ancestor::div[contains(@class, 'MuiFormControl-root')]//*[contains(@class, 'Mui-error')]")).get(0);
-        logger.info("Input fields found {}", driver.findElements(By.xpath("//input[@id='startDate']")).size());
         if (dataInizioField.isDisplayed() && dataFineField.isDisplayed()) {
             logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: {}", da);
             result = false;
