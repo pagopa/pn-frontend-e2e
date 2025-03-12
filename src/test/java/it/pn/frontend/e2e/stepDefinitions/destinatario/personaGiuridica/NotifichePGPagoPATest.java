@@ -486,4 +486,9 @@ public class NotifichePGPagoPATest extends BasePage {
     public void clickLaTuaImpresa(String testo) {
         dettaglioNotificaMittenteSection.clickLaTuaImpresa(testo);
     }
+
+    @And("Riduci zoom pagina al {string}%")
+    public void riduciZoomPaginaAl(String size) {
+        piattaformaNotifichePage.riduciZoomPaginaAl( size);
+    }
 }

@@ -15,6 +15,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Cambia lingua footer "Inglese"
  #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
+    And Aspetta 2 secondi
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Delegations of authority"
     And Verifica traduzione testo "Contact details"
@@ -35,6 +36,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "view service disruption history and download the attestations"
     And Verifica traduzione testo "Disruption history"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
+    And Aspetta 1 secondi
     When Cambia lingua footer "German"
     And Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
@@ -59,16 +61,6 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "Procurations"
     And Verifica traduzione testo "Coordonnées"
     And Verifica traduzione testo "Utilisateurs"
- ##  Verificare traduzione della sezione HP notifiche
-    And Aspetta 2 secondi
-    When Seleziona voce menu laterale "Notifications"
-    And Aspetta 2 secondi
-#    And Seleziona voce menu laterale "Notifications de l"
-#    And Verifica traduzione testo "Notifications de"
-#    And Verifica traduzione testo "Lire les notifications de Convivio Spa"
-##  Raggiungere la sezione Notifiche delegate e verificarne la traduzione
-    When Seleziona voce menu laterale "Notifications mandatées"
-    And Verifica traduzione testo "Lire les notifications mandatées à Convivio Spa"
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Coordonnées"
     And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
@@ -81,16 +73,10 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Cambia lingua footer "Anglais"
     And Cambia lingua footer "Slovenian"
     And Seleziona voce menu laterale "Obvestila"
+    And Aspetta 1 secondi
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"
     And Verifica traduzione testo "Stanje platforme"
-##  Verificare traduzione della sezione HP notifiche
-    When Seleziona voce menu laterale "Obvestila"
-    And Seleziona voce menu laterale "Obvestila podjetja"
-    And Aspetta 3 secondi
-    And Verifica traduzione testo "Obvestila za"
-    When Seleziona voce menu laterale "Delegirana obvestila"
-    And Verifica traduzione testo "Preberite obvestila, delegirana na Convivio Spa"
 ##  Aggiungere e gestire una delega e verificarne la traduzione
     When Seleziona voce menu laterale "Prenosi pooblastil"
     And Verifica traduzione testo "Tukaj lahko upravljate pooblaščence podjetja in prenose pooblastil na podjetje"

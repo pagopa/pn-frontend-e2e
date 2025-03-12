@@ -15,6 +15,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
     And Cambia lingua footer "Sloveno"
 #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
+#    And Riduci zoom pagina al "60"%
+    And Aspetta 2 secondi
     And Seleziona voce menu laterale "Obvestila"
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"
@@ -34,8 +36,11 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
     And Verifica traduzione testo "Preverite delovanje SEND, oglejte si zgodovino motenj in prenesite povezana potrdila"
     And Verifica traduzione testo "Zgodovina motenj"
 #   Cambio lingua
+    And Aspetta 1 secondi
     When Cambia lingua footer "Nemško"
+    And Aspetta 1 secondi
     And Seleziona voce menu laterale "Bescheide"
+    And Aspetta 1 secondi
     And Verifica traduzione testo "Vollmachten"
     And Verifica traduzione testo "Anschriften"
     And Verifica traduzione testo "Benutzer"
@@ -70,6 +75,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
     And Verifica traduzione testo "Here you can manage the company"
     And Verifica traduzione testo "Authorities held by the company"
 ##    Selezionare Stato della Piattaforma
+    And Attendi secondi "1"
     When Seleziona voce menu laterale "Platform status"
     And Verifica traduzione testo "view service disruption history and download the attestations"
     And Verifica traduzione testo "Disruption history"
@@ -78,21 +84,26 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
     And Cambia lingua footer "Francosko"
  ##  Verificare traduzione della sezione HP notifiche
     When Seleziona voce menu laterale "Notifications"
+    And Attendi secondi "1"
     And Seleziona voce menu laterale "Notifications de l"
+    And Attendi secondi "1"
     And Verifica traduzione testo "Notifications de"
     And Verifica traduzione testo "Lire les notifications de Convivio Spa"
     And Entro dentro la prima notifica
     And Verifica traduzione testo "Expéditeur"
     And Verifica traduzione testo "Destinataire"
     And Verifica traduzione testo "Pièces jointes"
+    And Attendi secondi "1"
 ##  Raggiungere la sezione Notifiche delegate e verificarne la traduzione
     When Seleziona voce menu laterale "Notifications mandatées"
     And Verifica traduzione testo "Lire les notifications mandatées à Convivio Spa"
 ##  Aggiungere e gestire una delega e verificarne la traduzione
+    And Attendi secondi "1"
     When Seleziona voce menu laterale "Procurations"
     And Verifica traduzione testo "Ici, vous pouvez gérer les mandataires de l"
     And Verifica traduzione testo "Procurations à la charge de l"
 #    Selezionare Stato della Piattaforma
+    And Attendi secondi "1"
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"

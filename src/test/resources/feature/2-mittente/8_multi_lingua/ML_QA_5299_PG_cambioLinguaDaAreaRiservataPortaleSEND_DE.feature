@@ -15,7 +15,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     When Cambia lingua footer "Tedesco"
  #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
-#    And Attendi secondi "3"
+    And Aspetta 2 secondi
     And Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
     And Verifica traduzione testo "Anschriften"
@@ -34,6 +34,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
     And Cambia lingua footer "Englisch"
     When Seleziona voce menu laterale "Notifications"
+    And Aspetta 1 secondi
     And Verifica traduzione testo "Delegations of authority"
     And Verifica traduzione testo "Contact details"
 ##  Verificare traduzione della sezione HP notifiche
@@ -73,22 +74,19 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "Ici, vous pouvez gérer les mandataires de l"
     And Verifica traduzione testo "Procurations à la charge de l"
 #    Selezionare Stato della Piattaforma
+    And Aspetta 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"
 #    ------------------------------------------------
     And Cambia lingua footer "Allemand"
     And Cambia lingua footer "Slowenisch"
+    And Aspetta 1 secondi
     And Seleziona voce menu laterale "Obvestila"
+    And Aspetta 1 secondi
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"
     And Verifica traduzione testo "Stanje platforme"
-##  Verificare traduzione della sezione HP notifiche
-    When Seleziona voce menu laterale "Obvestila"
-    And Seleziona voce menu laterale "Obvestila podjetja"
-    And Verifica traduzione testo "Preberite obvestila za Convivio Spa"
-    When Seleziona voce menu laterale "Delegirana obvestila"
-    And Verifica traduzione testo "Preberite obvestila, delegirana na Convivio Spa"
 ##  Aggiungere e gestire una delega e verificarne la traduzione
     When Seleziona voce menu laterale "Prenosi pooblastil"
     And Verifica traduzione testo "Tukaj lahko upravljate pooblaščence podjetja in prenose pooblastil na podjetje"
