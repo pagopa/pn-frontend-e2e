@@ -506,7 +506,9 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='endDate']")));
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='startDate']")));
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='endDate']")));
-        logger.info("Input fields found {}", driver.findElements(By.xpath("//input[@id='startDate']")).size());
+        logger.info("-*-*-*-*-*--*- INIZIO *-*-**--**--*-*-*");
+        logger.info(driver.getPageSource());
+        logger.info("-*-*-*-*-*--*- FINE *-*-**--**--*-*-*");
         dataInizioField = driver.findElement(By.xpath("//input[@id='startDate']"));
         dataFineField = driver.findElement(By.xpath("//input[@id='endDate']"));
 
