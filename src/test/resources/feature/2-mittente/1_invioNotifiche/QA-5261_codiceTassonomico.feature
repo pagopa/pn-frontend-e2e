@@ -3,7 +3,7 @@ Feature: Invio notifica con codice tassonomico non censito
   @TestSuite
   @TA_codiceTassonomicoCensito
   @bilinguismo
-  @NRT
+  @NRT_1
 
   Scenario: PN-5260-Codice Tassonomico Censito
 
