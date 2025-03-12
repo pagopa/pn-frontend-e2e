@@ -3,7 +3,7 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
   @TestSuite
   @TA_multiLinguaFrancese_QA5268
   @multiLingua
-  @NRT_1
+  @NRT
   Scenario: PN-QA5268 - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - FR
 
     Given Login Page persona fisica test viene visualizzata

@@ -3,7 +3,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
   @TestSuite
   @TA_multiLinguaTedesco_QA5272
   @multiLingua
-  @NRT_1
+  @NRT
   Scenario: PN-QA5272 - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - DE
 
     Given Login Page persona giuridica viene visualizzata

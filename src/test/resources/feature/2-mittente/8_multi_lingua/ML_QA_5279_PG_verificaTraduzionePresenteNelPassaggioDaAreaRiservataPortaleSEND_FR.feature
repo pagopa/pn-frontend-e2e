@@ -3,7 +3,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
   @TestSuite
   @TA_multiLinguaFrancese_QA5279
   @multiLingua
-  @NRT_1
+  @NRT
   Scenario: PN-QA5279 - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - FR
 
     Given Login Page persona giuridica viene visualizzata

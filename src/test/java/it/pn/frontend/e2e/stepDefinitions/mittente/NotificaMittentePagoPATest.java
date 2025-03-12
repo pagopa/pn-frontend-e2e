@@ -437,9 +437,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     private void aggiornamentoNumeroProtocolloAllegati() {
         logger.info("Aggiornamento del numero protocollo");
 
-//        String nomeFile = "datiNotifica.yaml";
         String numeroPotocolloKey = "numeroProtocollo";
-//        String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolloKey).toString();
         String numeroProtocolOld = dataPopulationConfig.getDatiNotifica().getNumeroProtocollo();
         String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
         String counter = substring(numeroProtocolOld, 19);
@@ -460,7 +458,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
             if (counter.equals("9")) {
                 temp = String.valueOf((char) (counter.charAt(0) + 8));
             } else if (counter.equals("Z")) {
-                logger.error(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
                 Assertions.fail(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
             } else {
                 temp = String.valueOf((char) (counter.charAt(0) + 1));
@@ -475,9 +472,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
         logger.info("numero Protocollo generato : " + numeroProtocol);
 
-//        Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
-//        allDatataPopulation.put("numeroProtocollo", numeroProtocol);
-//        dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
         dataPopulationConfig.getDatiNotifica().setNumeroProtocollo(numeroProtocol);
 
     }
@@ -502,9 +496,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Verifica dello stato della notifica come depositata {string}")
     public void verificaDelloStatoDellaNotificaComeDepositata(String statoNotifica) {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
-
-//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-       // this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");

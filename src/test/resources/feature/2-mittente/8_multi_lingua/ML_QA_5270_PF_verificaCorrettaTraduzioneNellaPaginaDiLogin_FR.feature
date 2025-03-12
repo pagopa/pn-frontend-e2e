@@ -3,7 +3,7 @@ Feature: PF - Verifica corretta traduzione nella pagina di Login - FR
   @TestSuite
   @TA_multiLinguaFrancese_QA5270
   @multiLingua
-  @NRT_1
+  @NRT
   Scenario: PN-QA5270 - PF - Verifica corretta traduzione nella pagina di Login - FR
 
     Given Login Page persona fisica test viene visualizzata
