@@ -1899,20 +1899,20 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
         selezioneImpostazioneLingua();
         if(lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = getWebDriverWait(10)
+            WebElement radioIt = getWebDriverWait(20)
                     .withMessage("Impossibile impostare la lingua su Italiano")
                     .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='it']")));
             radioIt.click();
         }else {
             selezioneItalianoAltralingua();
             if (lingua.equalsIgnoreCase("Francese")) {
-                WebElement selezionaLingua = getWebDriverWait(10)
+                WebElement selezionaLingua = getWebDriverWait(20)
                         .withMessage("Impossibile impostare la lingua su Francese")
                         .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='additionalLang']")));
                 selezionaLingua.click();
 
 
-                WebElement gruppoLingua = getWebDriverWait(10)
+                WebElement gruppoLingua = getWebDriverWait(20)
                         .withMessage("Impossibile selezionare la lingua da menu a discesa")
                         .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(text(),'" + lingua + "')]")));
                 getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));

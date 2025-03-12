@@ -67,7 +67,6 @@ public class SelezionaEntePAPage extends BasePage {
                     .until(ExpectedConditions.elementToBeClickable(By.id("search")));
             logger.info("Seleziona Utente PA Page caricata");
         } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e) {
-            logger.error("Seleziona Utente PA Page non caricata con errore: {}", e.getMessage());
             Assertions.fail("Seleziona Utente PA Page non caricata con errore: " + e.getMessage());
         }
     }
