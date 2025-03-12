@@ -1843,7 +1843,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezioneImpostazioneLingua() {
-        WebElement impostazioneLingua = driver.findElement(By.xpath("//button[@data-testid='settingsLangBtn']"));
+        WebElement impostazioneLingua = getWebDriverWait(10)
+                .withMessage("Impossibile selezioneImpostazioneLingua")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='settingsLangBtn']")));
         impostazioneLingua.click();
     }
 
@@ -1897,16 +1899,22 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
         selezioneImpostazioneLingua();
         if(lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
+            WebElement radioIt = getWebDriverWait(10)
+                    .withMessage("Impossibile impostare la lingua su Italiano")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='it']")));
             radioIt.click();
         }else {
             selezioneItalianoAltralingua();
             if (lingua.equalsIgnoreCase("Francese")) {
-                WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
+                WebElement selezionaLingua = getWebDriverWait(10)
+                        .withMessage("Impossibile impostare la lingua su Francese")
+                        .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='additionalLang']")));
                 selezionaLingua.click();
 
 
-                WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
+                WebElement gruppoLingua = getWebDriverWait(10)
+                        .withMessage("Impossibile selezionare la lingua da menu a discesa")
+                        .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(text(),'" + lingua + "')]")));
                 getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
                 logger.info(MessageFormat.format("gruppo {0} trovato con successo", gruppoLingua));
                 gruppoLingua.click();
@@ -1916,7 +1924,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
         webTool.waitTime(3);
         //chiusura della schermata tramite la X
-        WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
+        WebElement closeIcon = getWebDriverWait(10)
+                .withMessage("Impossibile Chiudere la finestra laterale")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='close']")));
         closeIcon.click();
         webTool.waitTime(3);
     }
