@@ -1926,7 +1926,8 @@ public class PiattaformaNotifichePage extends BasePage {
         if(lingua.equalsIgnoreCase("Italiano")) {
             WebElement radioIt = getWebDriverWait(20)
                     .withMessage("Impossibile impostare la lingua su Italiano")
-                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='it']")));
+//                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='it']")));
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='lang' and @value='it']/ancestor::label")));
             radioIt.click();
         }else {
             selezioneItalianoAltralingua();
@@ -1941,7 +1942,6 @@ public class PiattaformaNotifichePage extends BasePage {
                         .withMessage("Impossibile selezionare la lingua da menu a discesa")
                         .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(text(),'" + lingua + "')]")));
                 getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
-                logger.info(MessageFormat.format("gruppo {0} trovato con successo", gruppoLingua));
                 gruppoLingua.click();
 
             }
