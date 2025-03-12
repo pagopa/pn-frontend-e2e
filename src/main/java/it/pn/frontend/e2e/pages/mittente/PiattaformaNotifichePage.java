@@ -296,6 +296,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Step 2: Click on the input field to open the calendar pop-up
         dataFieldList.get(0).click();
+
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
 
@@ -391,7 +392,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
     }
 
-    public boolean inserimentoArcoTemporaleErrato(String da, String a) {
+    /*public boolean inserimentoArcoTemporaleErrato(String da, String a) {
 
         boolean result = true;
 
@@ -407,19 +408,17 @@ public class PiattaformaNotifichePage extends BasePage {
 
         String[] arraySplitDateDa = da.split("/");
 
-        logger.info("-*-*-*-*-*--*- INIZIO *-*-**--**--*-*-*");
-        logger.info(driver.getPageSource());
-        logger.info("-*-*-*-*-*--*- FINE *-*-**--**--*-*-*");
-
-        getWebDriverWait(60).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button[@aria-label='Scegli data']"))));
-        List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
+        //getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button[@aria-label='Scegli data']"))));
+        //List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
         //List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+        driver.findElement(By.id("startDate")).click();
+        driver.findElement(By.id("startDate")).sendKeys(da);
 
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList.get(0).click();
+        //dataFieldList.get(0).click();
 
         // Step 3: Wait for the calendar pop-up to appear
-        WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
+        /*WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
 
         int dayDa = Integer.parseInt(arraySplitDateDa[0]);
         int monthDa = Integer.parseInt(arraySplitDateDa[1]);
@@ -446,6 +445,8 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
         dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
         dateToSelect.click();
+        driver.findElement(By.id("endDate")).click();
+        driver.findElement(By.id("endDate")).sendKeys(a);
 
         logger.info("DATA INIZIO FIELD: " + dataInizioField.getAttribute("value"));
 
@@ -461,7 +462,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         webTool.waitTime(3);
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList.get(1).click();
+        //dataFieldList.get(1).click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
@@ -497,8 +498,32 @@ public class PiattaformaNotifichePage extends BasePage {
             result = false;
         }
         return result;
-    }
+    }*/
 
+    public boolean inserimentoArcoTemporaleErrato(String da, String a) {
+        boolean result = true;
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("endDate")));
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+        dataInizioField = driver.findElement(By.id("startDate"));
+        dataFineField = driver.findElement(By.id("endDate"));
+
+        webTool.waitTime(5);
+        dataInizioField.click();
+        dataInizioField.sendKeys(da);
+        dataFineField.click();
+        dataFineField.sendKeys(a);
+        getWebDriverWait(3).withMessage("value mostrato" + da).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
+        getWebDriverWait(3).withMessage("value mostrato" + a).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
+        dataInizioField = driver.findElements(By.xpath("//input[@id='startDate']/ancestor::div[contains(@class, 'MuiFormControl-root')]//*[contains(@class, 'Mui-error')]")).get(0);
+        dataFineField = driver.findElements(By.xpath("//input[@id='endDate']/ancestor::div[contains(@class, 'MuiFormControl-root')]//*[contains(@class, 'Mui-error')]")).get(0);
+        if (dataInizioField.isDisplayed() && dataFineField.isDisplayed()) {
+            logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: {}", da);
+            result = false;
+        }
+        return result;
+    }
 
     public int getListDate() {
         attesaCaricamentoPagina();
