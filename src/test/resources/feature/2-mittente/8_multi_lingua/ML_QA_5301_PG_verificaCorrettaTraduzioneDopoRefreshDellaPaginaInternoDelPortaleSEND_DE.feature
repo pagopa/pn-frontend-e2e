@@ -3,7 +3,7 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
   @TestSuite
   @TA_multiLinguaTedesco_QA5301
   @multiLingua
-  @NRT_1
+  @NRT
   Scenario: PN-QA5301- PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- DE
 
     Given Login Page persona giuridica viene visualizzata

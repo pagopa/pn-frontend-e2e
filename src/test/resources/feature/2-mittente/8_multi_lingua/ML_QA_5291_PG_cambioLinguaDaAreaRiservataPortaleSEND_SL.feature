@@ -3,7 +3,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
   @TestSuite
   @TA_multiLinguaSloveno_QA5291
   @multiLingua
-  @NRT_1
+  @NRT
   Scenario: PN-QA5291 - PG - Cambio Lingua da Area Riservata a portale SEND - SL
 
     Given Login Page persona giuridica viene visualizzata

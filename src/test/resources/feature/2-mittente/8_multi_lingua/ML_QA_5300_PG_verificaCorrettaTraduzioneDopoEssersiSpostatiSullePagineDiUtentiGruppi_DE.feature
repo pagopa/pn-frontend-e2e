@@ -3,7 +3,7 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
   @TestSuite
   @TA_multiLinguaTedesco_QA5300
   @multiLingua
-  @NRT_1
+  @NRT
   Scenario: PN-QA5300 - PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine di Utenti e Gruppi - DE
 
     Given Login Page persona giuridica viene visualizzata
