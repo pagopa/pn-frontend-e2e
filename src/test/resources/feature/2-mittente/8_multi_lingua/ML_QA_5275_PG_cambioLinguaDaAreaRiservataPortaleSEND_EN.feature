@@ -65,13 +65,16 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     When Seleziona voce menu laterale "Coordonnées"
     And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
 #    Selezionare Stato della Piattaforma
+    And Aspetta 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"
+    And Aspetta 1 secondi
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"
 
     #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
     And Cambia lingua footer "Anglais"
     And Cambia lingua footer "Slovenian"
+    And Aspetta 1 secondi
     And Seleziona voce menu laterale "Obvestila"
     And Aspetta 1 secondi
     And Verifica traduzione testo "Prenosi pooblastil"
