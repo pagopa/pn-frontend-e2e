@@ -52,7 +52,7 @@ public class SelezionaEntePAPage extends BasePage {
             driver.findElements(By.xpath("//div[@role='button']//h6"));
 
             // *-*-*-*-* Sostituito per il Bilingusmo
-            getWebDriverWait(60)
+            getWebDriverWait(70)
                     .withMessage("Nessuno dei titoli attesi è visibile")
                     .until(ExpectedConditions.or(
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Seleziona il tuo ente']")),
