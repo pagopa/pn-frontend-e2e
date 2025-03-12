@@ -502,12 +502,12 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean inserimentoArcoTemporaleErrato(String da, String a) {
         boolean result = true;
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("endDate")));
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
-        dataInizioField = driver.findElement(By.id("startDate"));
-        dataFineField = driver.findElement(By.id("endDate"));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='startDate']")));
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='endDate']")));
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='startDate']")));
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='endDate']")));
+        dataInizioField = driver.findElement(By.xpath("//input[@id='startDate']"));
+        dataFineField = driver.findElement(By.xpath("//input[@id='endDate']"));
 
         webTool.waitTime(5);
         dataInizioField.click();
