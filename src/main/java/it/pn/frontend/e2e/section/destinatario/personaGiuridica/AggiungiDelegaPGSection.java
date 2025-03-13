@@ -237,6 +237,8 @@ public class AggiungiDelegaPGSection extends BasePage {
             calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
             // Step 4: Select a date (e.g., the 15th day of the current month)
+            logger.info("day selected {}", dayDa);
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']")));
             WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
             dateToSelect.click();
 
