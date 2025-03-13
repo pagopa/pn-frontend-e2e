@@ -527,7 +527,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public boolean inserimentoArcoTemporaleErrato(String da, String a) {
 
         boolean result = true;
-        List<WebElement> dataFieldList = getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button[@aria-label='Scegli data']"))));
+        List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
 
         if (dataFieldList.isEmpty()) {
             dataInizioField = driver.findElement(By.xpath("//input[@id='startDate']"));
