@@ -397,6 +397,9 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean result = true;
         List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
 
+        /*CodeBuild carica il calendario sul campo di input invece del bottone con l'icona.
+        Si cambia il selettore in base alla presenza del bottone di calendario.
+         */
         if (dataFieldList.isEmpty()) {
             dataInizioField = driver.findElement(By.xpath("//input[@id='startDate']"));
             dataFineField = driver.findElement(By.xpath("//input[@id='endDate']"));
