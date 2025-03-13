@@ -215,11 +215,13 @@ public class AggiungiDelegaPGSection extends BasePage {
             webTool.waitTime(10);
             String[] arraySplitDateDa = dataInserita.split("/");
 
-            List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+            //List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+            List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[contains(@aria-label, 'Scegli data')]"));
             dayDa = Integer.parseInt(arraySplitDateDa[0]);
 
             // Step 2: Click on the input field to open the calendar pop-up
-            dataFieldList.get(3).click();
+            //dataFieldList.get(3).click();
+            dataFieldList.get(0).click();
 
             // Step 3: Wait for the calendar pop-up to appear
             calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app

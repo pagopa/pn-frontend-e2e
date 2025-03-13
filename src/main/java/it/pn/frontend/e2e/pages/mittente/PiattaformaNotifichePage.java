@@ -495,8 +495,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public int getListDate() {
         attesaCaricamentoPagina();
-        getWebDriverWait(30).withMessage("Nessuna data trovata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
-        List<WebElement> dataListBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
+        getWebDriverWait(30).withMessage("Nessuna data trovata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"))));
+        List<WebElement> dataListBy = driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"));
         logger.info("Date trovate correttamente");
 
         return dataListBy.size();
