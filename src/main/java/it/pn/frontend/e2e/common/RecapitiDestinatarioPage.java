@@ -1080,9 +1080,23 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickInserisciEmailPopUp() {
-        WebElement bottoneInserisciEmail = getWebDriverWait(5).withMessage("Bottone Inserisci email non trovato")
+        WebElement bottoneInserisciEmail = getWebDriverWait(10)
+                .withMessage("Bottone Inserisci email non trovato")
                 .until(ExpectedConditions.elementToBeClickable(By.id("dialog-close-button")));
         bottoneInserisciEmail.click();
     }
 
+    public void insertPEC(String emailPec) {
+        WebElement pecInput = getWebDriverWait(10)
+                .withMessage("Impossibile Inserisci PEC")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-testid='pec-wizard-input']//input")));
+        pecInput.sendKeys(emailPec);
+    }
+
+    public void clickConferma() {
+        WebElement confermaButton = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il tasto Conferma")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='next-button']")));
+        confermaButton.click();
+    }
 }

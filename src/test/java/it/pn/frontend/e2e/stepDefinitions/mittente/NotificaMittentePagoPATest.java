@@ -304,6 +304,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
     }
 
+    @And("Attesa {int} secondi")
+    public void attesaSecondi(int quantiSecondi) {
+        logger.info("Attesa " + quantiSecondi + " secondi");
+        webTool.waitTime(quantiSecondi);
+    }
+
 
     @And("Si visualizza correttamente la timeline relativi a tutti i destinatari")
     public void siVisualizzaCorrettamenteLaTimelineRelativiATuttiIDestinatari(Map<String, String> destinatari) {

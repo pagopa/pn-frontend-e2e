@@ -197,7 +197,6 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Codici fiscali trovati correttamente");
             return cfListBy.size();
         } catch (TimeoutException | NoSuchElementException e) {
-            logger.error("Codici fiscali non trovati " + e.getMessage());
             Assertions.fail("Codici fiscali non trovati " + e.getMessage());
             return 0;
         }

@@ -60,7 +60,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella pagina Recapiti si inserisce la PEC del persona giuridica")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica() {
         logger.info("Si cerca di inserire la email pec");
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         recapitiDestinatarioPage.insertEmailPEC(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
     }
 
@@ -291,5 +290,10 @@ public class RecapitiPGPagoPaTest extends BasePage {
         iTuoiRecapitiPage.cancellaTesto();
         iTuoiRecapitiPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getEmail());
         iTuoiRecapitiPage.clickConfermaEmail();
+    }
+
+    @And("Click Insirisci Pec")
+    public void clickInsirisciPec() {
+        iTuoiRecapitiPage.clickInsirisciPec();
     }
 }

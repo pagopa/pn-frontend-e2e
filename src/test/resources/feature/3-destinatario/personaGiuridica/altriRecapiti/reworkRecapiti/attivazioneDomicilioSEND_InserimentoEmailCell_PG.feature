@@ -9,28 +9,28 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica e Disattiva "domicilio digitale"
-    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Verifica e Disattiva "email"
-    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Verifica e Disattiva "cellulare"
 
     When Click Inizia
     And Click Attiva
-#    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
-#    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-#
-#    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
-#    And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
-#
-#    And Verifica Pagina "La tua mail per ricevere aggiornamenti"
-#    And Verifica Pagina "email dove possiamo informarti quando"
+    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
+
+    And Verifica Pagina "La tua mail per ricevere aggiornamenti"
+    And Verifica Pagina "email dove possiamo informarti quando"
 #  ----------------------------------------------------------------------
-    When Click Bottone "Aggiungi un numero di cellulare"
-#
-    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "+393409876543" e si clicca sul bottone avvisami via SMS
-    And Aspetta 5 secondi
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "cellulare"
-    And Aspetta 10 secondi
+#    When Click Bottone "Aggiungi un numero di cellulare"
+##
+#    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "+393409876543" e si clicca sul bottone avvisami via SMS
+#    And Aspetta 5 secondi
+#    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "cellulare"
+#    And Aspetta 10 secondi
 #  And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Cellulare "personaGiuridica"
 
 

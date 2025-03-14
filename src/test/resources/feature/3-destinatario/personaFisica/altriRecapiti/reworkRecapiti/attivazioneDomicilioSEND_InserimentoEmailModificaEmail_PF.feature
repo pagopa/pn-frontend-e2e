@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciEmailModificaEmail_PF
   @addressBook1
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_10_11] Attivazione Domicilio Digitale SEND - Inserimento mail e cellulare PF
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_10_11] Attivazione Domicilio Digitale SEND - Inserimento mail e cellulare PF
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
@@ -12,13 +12,13 @@ Feature: Rework della pagina dei contatti
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-    And Aspetta 1 secondi
+    And Attesa 1 secondi
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica e Disattiva "domicilio digitale"
-    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Verifica e Disattiva "email"
-    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Verifica e Disattiva "cellulare"
 
     When Click Inizia

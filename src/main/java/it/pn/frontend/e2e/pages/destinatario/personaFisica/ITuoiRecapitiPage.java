@@ -297,4 +297,12 @@ public void iTuoiRecapitiButtonClick() {
         }
 
     }
+
+    public void clickInsirisciPec() {
+        WebElement inserisciPecButton =
+                getWebDriverWait(30)
+                        .withMessage("Impossibile trovare il tasto Inserisci PEC")
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-testid='pec-section']//button")));
+        inserisciPecButton.click();
+    }
 }

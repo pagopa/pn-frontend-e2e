@@ -218,6 +218,23 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         recapitiDestinatarioPage.clickAvvisamiViaEmail();
     }
 
+
+    @And("Si inserisce la Pec della {string} e si clicca sul bottone Conferma")
+    public void inserisceLaPecDellaPersonaCliccaSulBottoneConferma(String persona) {
+
+        logger.info("Si inserisce la Pec");
+        if(persona.equalsIgnoreCase("personaGiuridica")){
+            recapitiDestinatarioPage.insertPEC(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
+        }
+        else {
+            recapitiDestinatarioPage.insertPEC(dataPopulationConfig.getPersonaFisica().getEmailPec());
+        }
+        recapitiDestinatarioPage.clickConferma();
+    }
+
+
+
+
     @And("Si inserisce l'email {string} e si clicca sul bottone avvisami via email")
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisami(String email) {
         logger.info("Si inserisce la email");
@@ -275,13 +292,16 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         boolean results = changeStartUrlPec(startUrl, false, persona);
         //TODO OGGETTO DI PARAMETRIZZAZIONE
         if (results) {
+
             String OTP = recuperoOTPRecapiti.getResponseBody();
+            logger.info("OTTTPPP_1: " + OTP);
             if(persona.equalsIgnoreCase("personaGiuridica")) {
                 dataPopulationConfig.getPersonaGiuridica().setOTPPec(OTP);
             }else {
                 dataPopulationConfig.getPersonaFisica().setOTPPec(OTP);
             }
         } else {
+            logger.info("OTTTPPP_2: " + OTP);
             String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
@@ -291,14 +311,13 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             results = changeStartUrlPec(startUrl, results, persona);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
-                logger.info("OTTTPPP" + OTP);
+                logger.info("OTTTPPP_2" + OTP);
                 if(persona.equalsIgnoreCase("personaGiuridica")) {
                     dataPopulationConfig.getPersonaGiuridica().setOTPPec(OTP);
                 }else {
                     dataPopulationConfig.getPersonaFisica().setOTPPec(OTP);
                 }
             } else {
-                logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }
@@ -358,7 +377,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
-            logger.error("Il codice OTP inserito è sbagliato");
             Assertions.fail("Il codice OTP inserito è sbagliato");
         }
 
