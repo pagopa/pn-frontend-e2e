@@ -274,28 +274,24 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoArcoTemporale(String da, String a, boolean previousMonthAButtonEndDateClick) {
 
-        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("startDate"))));
-        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id='startDate']"))));
+        List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
 
-        dataInizioField = driver.findElement(By.id("startDate"));
-        dataFineField = driver.findElement(By.id("endDate"));
+        /*CodeBuild carica il calendario sul campo di input invece del bottone con l'icona.
+        Si cambia il selettore in base alla presenza del bottone di calendario.
+         */
+        if (dataFieldList.isEmpty()) {
+            dataInizioField = driver.findElement(By.xpath("//input[@id='startDate']"));
+            dataFineField = driver.findElement(By.xpath("//input[@id='endDate']"));
+        }
+        else {
+            dataInizioField = dataFieldList.get(0);
+            dataFineField = dataFieldList.get(1);
+        }
 
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
-
-        webTool.waitTime(2);
         String[] arraySplitDateDa = da.split("/");
 
-        List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
-        logger.info("datafield list size {}", dataFieldList.size());
-        //old calendar format
-        /*if (dataFieldList != null && dataFieldList.size() == 5) {
-            dataFieldList.get(2).click();
-        } else if (dataFieldList != null && dataFieldList.size() == 3) {
-            dataFieldList.get(1).click();
-        }*/
-
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList.get(0).click();
+        dataInizioField.click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
@@ -322,14 +318,8 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         // Step 4: Select a date (e.g., the 15th day of the current month)
         webTool.waitTime(2);
-        //  WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
         WebElement dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"))));
         dateToSelect.click();
-        logger.info("DATA INIZIO FIELD: " + dataInizioField.getAttribute("value"));
-
-        getWebDriverWait(3).withMessage("value mostrato").until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
-
-        dataFineField = getWebDriverWait(10).withMessage("endDate visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id='endDate']"))));
 
         String[] arraySplitDateA = a.split("/");
 
@@ -339,15 +329,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         webTool.waitTime(2);
         // Step 2: Click on the input field to open the calendar pop-up
-
-        //old calendar format
-        /*if (dataFieldList != null && dataFieldList.size() == 5) {
-            dataFieldList.get(3).click();
-        } else if (dataFieldList != null && dataFieldList.size() == 3) {
-            dataFieldList.get(2).click();
-        }*/
-
-        dataFieldList.get(1).click();
+        dataFineField.click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
@@ -371,7 +353,6 @@ public class PiattaformaNotifichePage extends BasePage {
                     }
                 }
 
-
                 getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"))));
             } catch (ElementClickInterceptedException e) {
                 logger.info("Previous month non cliccabile");
@@ -387,9 +368,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
         dateToSelect1.click();
-        logger.info("DATA FINE FIELD: " + dataFineField.getAttribute("value"));
 
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//*[@id='endDate']")), "value", a));
     }
 
     public boolean inserimentoArcoTemporaleErrato(String da, String a) {
