@@ -32,13 +32,19 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "email dove possiamo informarti quando"
 #  ----------------------------------------------------------------------
 #    When Click Bottone "Aggiungi un numero di cellulare"
+#    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3409876543" e si clicca sul bottone avvisami via SMS
+#    And Aspetta 5 secondi
+##    And Click Bottone "ho capito"
 #
-#    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3334545899" e si clicca sul bottone avvisami via SMS
-#    And Si visualizza correttamente il pop-up e si clicca su conferma
-#
-#    #In questo step viene fatta una chiamata per OTP delle mail, da cambiare quando avremo la chiamata per il cellulare
-#    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+#    And Si clicca sul bottone del pop-up ok o capito
+##
 #    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "cellulare"
+#    And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Cellulare "personaFisica"
+
+
+
+
+
 #    And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Cellulare
 
 

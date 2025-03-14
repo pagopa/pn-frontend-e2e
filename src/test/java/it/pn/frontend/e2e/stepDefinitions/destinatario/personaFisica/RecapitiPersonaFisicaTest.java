@@ -209,7 +209,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         //personaGiuridica
 //        String email = personaFisica.get("mail").toString();
         if(persona.equalsIgnoreCase("personaGiuridica")){
-            logger.info("MAIL.................."+dataPopulationConfig.getPersonaGiuridica().getMail());
             recapitiDestinatarioPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getMail());
         }
         else {
@@ -1092,15 +1091,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         recapitiDestinatarioPage.visualizzaListaEnti(enti);
     }
 
-    private boolean changeStartUrl(String startUrl, boolean results, String persona){
-        if(persona.equalsIgnoreCase("cellulare")){
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getCellulare());
-
-        }
-       else if(persona.equalsIgnoreCase("personaGiuridica")) {
-            logger.info("MAIL111.................."+dataPopulationConfig.getPersonaGiuridica().getMail());
+    private boolean changeStartUrl(String startUrl, boolean results, String persona) {
+        if (persona.equalsIgnoreCase("personaGiuridica")) {
+            logger.info("MAIL111.................." + dataPopulationConfig.getPersonaGiuridica().getMail());
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
-        }else {
+        } else {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
         }
         return results;
@@ -1128,6 +1123,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.cancellaTesto();
         iTuoiRecapitiPage.insertEmail(dataPopulationConfig.getPersonaFisica().getEmail());
         iTuoiRecapitiPage.clickConfermaEmail();
+    }
+
+    @And("Si clicca sul bottone del pop-up ok o capito")
+    public void siCliccaSulBottoneDelPopUpOkOCapito() {
+        iTuoiRecapitiPage.siCliccaSulBottoneDelPopUpOkOCapito();
     }
 }
 

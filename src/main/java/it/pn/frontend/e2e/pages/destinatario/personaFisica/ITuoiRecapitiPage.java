@@ -39,17 +39,37 @@ public class ITuoiRecapitiPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    public void iTuoiRecapitiButtonClick() {
-        try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("side-item-I tuoi recapiti"))));
-            iTuoiRecapitiButton = driver.findElement(By.id("side-item-I tuoi recapiti"));
-            js().executeScript("arguments[0].click()", iTuoiRecapitiButton);
-        } catch (TimeoutException e) {
-            logger.error("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
-            Assertions.fail("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
-        }
-    }
+//    public void iTuoiRecapitiButtonClick() {
+//        try {
+//            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("side-item-I tuoi recapiti"))));
+//            iTuoiRecapitiButton = driver.findElement(By.id("side-item-I tuoi recapiti"));
+//            js().executeScript("arguments[0].click()", iTuoiRecapitiButton);
+//        } catch (TimeoutException e) {
+//            logger.error("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
+//            Assertions.fail("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
+//        }
+//    }
+public void iTuoiRecapitiButtonClick() {
+    try {
 
+        // Aspetto che l'elemento sia presente e visibile
+        WebElement iTuoiRecapitiButton = getWebDriverWait(20)
+                .withMessage("Impossibile cliccare su menu laterale 'I tuoi recapiti'")
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("side-item-I tuoi recapiti")));
+        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(iTuoiRecapitiButton));
+        getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(iTuoiRecapitiButton));
+
+        // Scrollo fino all'elemento
+        js().executeScript("arguments[0].scrollIntoView(true);", iTuoiRecapitiButton);
+
+        // Clicco con JavaScript per forzarlo
+        js().executeScript("arguments[0].click();", iTuoiRecapitiButton);
+
+        logger.info("Cliccato su 'I tuoi recapiti' con successo.");
+    } catch (TimeoutException e) {
+        Assertions.fail("Il bottone 'I tuoi recapiti' non trovato o non è cliccabile: " + e.getMessage());
+    }
+}
     public void waitLoadITuoiRecapitiPage() {
         try {
            // WebElement titlePageByOne = driver.findElement(By.xpath("//h4[contains(@id,'Recapiti-page')]"));
@@ -108,7 +128,6 @@ public class ITuoiRecapitiPage extends BasePage {
             }
             logger.info("Il codice otp viene inserito correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
             Assertions.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
@@ -251,9 +270,31 @@ public class ITuoiRecapitiPage extends BasePage {
     }
     public void clickConfermaEmail() {
         webTool.waitTime(2);
-        WebElement confermaEmail = getWebDriverWait(10).withMessage("Non si visualizza il bottone salva e non è cliccabile").until(
-                ExpectedConditions.elementToBeClickable(driver.findElement(By.id("saveContact-default_email"))));
+        WebElement confermaEmail = getWebDriverWait(10)
+                .withMessage("Non si visualizza il bottone salva e non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("saveContact-default_email"))));
         confermaEmail.click();
     }
 
+    public void siCliccaSulBottoneDelPopUpOkOCapito() {
+//        WebElement okButton = getWebDriverWait(10)
+//                .withMessage("Non si visualizza il bottone 'ok ho capito' non si visualizza il bottone pop -up")
+//                .until(ExpectedConditions.elementToBeClickable(
+//                By.xpath("//button[@data-testid='understandButton']")
+//        ));
+//        okButton.click();
+
+        webTool.waitTime(5);
+        WebElement okHoCapitoButton = getWebDriverWait(30)
+                .withMessage("Non si visualizza il bottone 'ok ho capito' non si visualizza il bottone pop -up")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));
+
+//        WebElement okHoCapitoButton = driver.findElement(By.xpath("//button[@data-testid='understandButton']"));
+        if (okHoCapitoButton.isDisplayed()) {
+            okHoCapitoButton.click();
+        } else {
+            js().executeScript("arguments[0].click()", okHoCapitoButton);
+        }
+
+    }
 }

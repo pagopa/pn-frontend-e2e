@@ -285,4 +285,11 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void clickModificaEmail() {
         recapitiDestinatarioPage.clickSuModifica();
     }
+
+    @And("Si inserisce la nuova Email del PG e clicca su Conferma")
+    public void siInserisceLaNuovaEmailDelPGECliccaSuConferma() {
+        iTuoiRecapitiPage.cancellaTesto();
+        iTuoiRecapitiPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getEmail());
+        iTuoiRecapitiPage.clickConfermaEmail();
+    }
 }

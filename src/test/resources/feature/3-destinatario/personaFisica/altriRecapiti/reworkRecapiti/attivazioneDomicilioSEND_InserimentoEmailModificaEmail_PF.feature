@@ -12,6 +12,7 @@ Feature: Rework della pagina dei contatti
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Aspetta 1 secondi
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica e Disattiva "domicilio digitale"
