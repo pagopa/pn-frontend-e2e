@@ -251,9 +251,9 @@ public class AggiungiDelegaPGSection extends BasePage {
             }
             result = false;
         } finally {
-            getWebDriverWait(10).withMessage("il Bottone chiudi del calendario non è cliccabile")
+            WebElement bottoneChiudi = getWebDriverWait(10).withMessage("il Bottone chiudi del calendario non è cliccabile")
                     .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[text()='Chiudi']"))));
-            driver.findElement(By.xpath("//button[text()='Chiudi']")).click();
+            bottoneChiudi.click();
         }
         return result;
     }
