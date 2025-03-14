@@ -238,7 +238,6 @@ public class AggiungiDelegaPGSection extends BasePage {
 
             // Step 4: Select a date (e.g., the 15th day of the current month)
             logger.info("day selected {}", dayDa);
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']")));
             WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
             dateToSelect.click();
 
@@ -251,6 +250,10 @@ public class AggiungiDelegaPGSection extends BasePage {
                 dateToSelect.click();
             }
             result = false;
+        } finally {
+            getWebDriverWait(10).withMessage("il Bottone chiudi del calendario non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[text()='Chiudi']"))));
+            driver.findElement(By.xpath("//button[text()='Chiudi']")).click();
         }
         return result;
     }
