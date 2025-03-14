@@ -44,7 +44,6 @@ public class RicercaNotifichePGPage extends BasePage {
             logger.info("Si clicca sulla voce notifiche dell'impresa");
             notificheImpresaButton.click();
         } catch (Exception e) {
-            logger.error("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
             Assertions.fail("Non si clicca sulla voce notifiche dell'impresa con errore:" + e.getMessage());
         }
     }
@@ -55,7 +54,6 @@ public class RicercaNotifichePGPage extends BasePage {
             getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(notificaBy));
             js().executeScript("arguments[0].click()", notificaBy);
         } catch (TimeoutException e) {
-            logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         } catch (StaleElementReferenceException e) {
             this.getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(notificaBy));
@@ -81,7 +79,6 @@ public class RicercaNotifichePGPage extends BasePage {
             getWebDriverWait(10).withMessage("La sezione attestazione opponibili non è visibile").until(ExpectedConditions.visibilityOf(attestazioneOpponibile));
             logger.info("La pagina dettaglio notifica si è caricata correttamente");
         } catch (TimeoutException e) {
-            logger.error("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
             Assertions.fail("La pagina dettaglio notifica NON si è caricata correttamente con errore:" + e.getMessage());
         }
     }
@@ -105,12 +102,10 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void waitLoadNotifichePGPage() {
         try {
-           // WebElement tableNotifiche = driver.findElement(By.id("notifications-table"));
             webTool.waitTime(10);
             getWebDriverWait(40).withMessage("La tabella delle Notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
             logger.info("Notifiche PG Page caricata");
         } catch (TimeoutException e) {
-            logger.error("Notifiche PG Page non caricata con errore : " + e.getMessage());
             Assertions.fail("Notifiche PG Page non caricata con errore : " + e.getMessage());
         }
     }
@@ -128,5 +123,19 @@ public class RicercaNotifichePGPage extends BasePage {
             Assertions.fail("Non si clicca sulla prima notifica con errore:" + e.getMessage());
         }
 
+    }
+
+    public void clickAnnullaValutazione() {
+        WebElement annullaValidazioneButton = getWebDriverWait(20)
+                .withMessage("Impossibile cliccare su annulla validazione")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='cancelValidation']")));
+        annullaValidazioneButton.click();
+    }
+
+    public void clickBottoneConfermaPopUp() {
+        WebElement confermaButton = getWebDriverWait(20)
+                .withMessage("Impossibile cliccare su annulla validazione")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Conferma')]")));
+        confermaButton.click();
     }
 }

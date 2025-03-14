@@ -5,20 +5,12 @@ Feature: Rework della pagina dei contatti
   @addressBook2
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_10_11] Attivazione Domicilio Digitale SEND - Inserimento mail e cellulare PF
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-
-
-
-
-
-
-
-
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica e Disattiva "domicilio digitale"
-    And Attesa 2 secondi
+    And Attesa 1 secondi
     And Verifica e Disattiva "email"
-    And Attesa 2 secondi
+    And Attesa 1 secondi
     And Verifica e Disattiva "cellulare"
 
     When Click Inizia

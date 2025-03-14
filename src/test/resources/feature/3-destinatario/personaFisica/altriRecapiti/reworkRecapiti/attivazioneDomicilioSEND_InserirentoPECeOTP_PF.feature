@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciPEC_OTP_PF
   @addressBook1
 
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_14] Attivazione Domicilio Digitale SEND - Inserimento PEC e OTP PF
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_14_18] Attivazione Domicilio Digitale SEND - Inserimento PEC e OTP annulla Valutazione PF
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
@@ -26,4 +26,9 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
 
-    Then Verifica Pagina "Validazione PEC in corso"
+    And Verifica Pagina "Validazione PEC in corso"
+
+    When Click annulla valutazione
+    And Click Bottone conferma Pop-up
+    Then Verifica Pagina "Il tuo domicilio digitale"
+    And Verifica Pagina "Inizia"

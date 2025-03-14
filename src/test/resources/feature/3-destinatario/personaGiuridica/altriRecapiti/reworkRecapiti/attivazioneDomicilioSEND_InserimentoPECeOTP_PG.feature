@@ -3,15 +3,9 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciPEC_OTP_PG
   @addressBook2
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_14] Attivazione Domicilio Digitale SEND - Inserimento PEC e OTP PG
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_14_18] Attivazione Domicilio Digitale SEND - Inserimento PEC e OTP annulla Valutazione PG
 
-   Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-
-
-
-
-
-
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
@@ -28,5 +22,9 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
 
-    Then Verifica Pagina "Validazione PEC in corso"
+    And Verifica Pagina "Validazione PEC in corso"
 
+    When Click annulla valutazione
+    And Click Bottone conferma Pop-up
+    Then Verifica Pagina "Il domicilio digitale della tua impresa"
+    And Verifica Pagina "Inizia"

@@ -5,25 +5,18 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
-import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
-import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RicercaNotifichePGPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 
-import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -242,5 +235,15 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
             logger.error("Il bottone Filtra é attivo");
             Assertions.fail("Il bottone Filtra é attivo");
         }
+    }
+
+    @When("Click annulla valutazione")
+    public void clickAnnullaValutazione() {
+        ricercaNotifichePGPage.clickAnnullaValutazione();
+    }
+
+    @And("Click Bottone conferma Pop-up")
+    public void clickBottoneConfermaPopUp() {
+        ricercaNotifichePGPage.clickBottoneConfermaPopUp();
     }
 }

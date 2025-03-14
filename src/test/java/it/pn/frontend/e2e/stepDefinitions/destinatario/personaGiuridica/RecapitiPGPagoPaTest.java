@@ -81,7 +81,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG e clicca sul bottone avvisami via email")
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPGECliccaSulBottoneAvvisamiViaEmail() {
         logger.info("Si inserisce l'email del PG e si clicca sul bottone avvisami via email");
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         recapitiDestinatarioPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
         recapitiDestinatarioPage.clickAvvisami();
     }
@@ -295,5 +294,10 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Click Insirisci Pec")
     public void clickInsirisciPec() {
         iTuoiRecapitiPage.clickInsirisciPec();
+    }
+
+    @And("Click Bottone Notifiche dell Impresa")
+    public void clickBottoneNotificheDellImpresa() {
+        iTuoiRecapitiPage.clickBottoneNotificheDellImpresa();
     }
 }

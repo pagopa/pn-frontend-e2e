@@ -8,8 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -39,30 +37,14 @@ public class ITuoiRecapitiPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-//    public void iTuoiRecapitiButtonClick() {
-//        try {
-//            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("side-item-I tuoi recapiti"))));
-//            iTuoiRecapitiButton = driver.findElement(By.id("side-item-I tuoi recapiti"));
-//            js().executeScript("arguments[0].click()", iTuoiRecapitiButton);
-//        } catch (TimeoutException e) {
-//            logger.error("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
-//            Assertions.fail("il bottone i tuoi Recapiti non trovato o non è cliccabile: " + e.getMessage());
-//        }
-//    }
 public void iTuoiRecapitiButtonClick() {
     try {
-
-        // Aspetto che l'elemento sia presente e visibile
         WebElement iTuoiRecapitiButton = getWebDriverWait(20)
                 .withMessage("Impossibile cliccare su menu laterale 'I tuoi recapiti'")
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("side-item-I tuoi recapiti")));
         getWebDriverWait(20).until(ExpectedConditions.visibilityOf(iTuoiRecapitiButton));
         getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(iTuoiRecapitiButton));
-
-        // Scrollo fino all'elemento
         js().executeScript("arguments[0].scrollIntoView(true);", iTuoiRecapitiButton);
-
-        // Clicco con JavaScript per forzarlo
         js().executeScript("arguments[0].click();", iTuoiRecapitiButton);
 
         logger.info("Cliccato su 'I tuoi recapiti' con successo.");
@@ -72,39 +54,30 @@ public void iTuoiRecapitiButtonClick() {
 }
     public void waitLoadITuoiRecapitiPage() {
         try {
-           // WebElement titlePageByOne = driver.findElement(By.xpath("//h4[contains(@id,'Recapiti-page')]"));
-           // WebElement titlePageByTwo = driver.findElement(By.xpath("//h4[contains(@id,'I tuoi recapiti-page')]"));
-           // WebElement subTitlePageBy = driver.findElement(By.id("subtitle-page"));
             getWebDriverWait(10).until(ExpectedConditions.or(
                     ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h4[contains(@id,'Recapiti-page')]")))
             ));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("subtitle-page"))));
             logger.info("La pagina I Tuoi Recapiti si vede correttamente");
         } catch (TimeoutException e) {
-            logger.error("La pagina I Tuoi Recapiti NON si vede correttamente con errori:" + e.getMessage());
             Assertions.fail("La pagina I Tuoi Recapiti NON si vede correttamente con errori:" + e.getMessage());
         }
     }
 
     public void waitLoadCourtesyContacts() {
         try {
-           // WebElement courtesyContactTitle = driver.findElement(By.id("E-mail o numero di cellulare-page"));
             getWebDriverWait(10).withMessage("il titolo del contatto di cortesia non è presente o non ha il testo corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(driver.findElement(By.id("E-mail o numero di cellulare-page"))),
                     ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("E-mail o numero di cellulare-page")), "E-mail o numero di cellulare")));
-            //WebElement courtesyContactSubtitle = driver.findElement(By.xpath("//p[contains(@id,'subtitle-page') and contains(text(),'e-mail o un SMS')]"));
             final String subtitleText = "Quando c’è una notifica per te, ti inviamo un’e-mail o un SMS. Accedi a SEND per leggerla e pagare eventuali spese. Qui ricevi anche eventuali comunicazioni importanti.";
             getWebDriverWait(10).withMessage("il sottotitolo del contatto di cortesia non è presente o non ha il testo corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(@id,'subtitle-page') and contains(text(),'e-mail o un SMS')]"))),
                     ExpectedConditions.textToBePresentInElement(driver.findElement(By.xpath("//p[contains(@id,'subtitle-page') and contains(text(),'e-mail o un SMS')]")), subtitleText)));
-            //WebElement emailTextBox = driver.findElement(By.id("default_email"));
             getWebDriverWait(10).withMessage("il campo email non è presente o non ha il placeholder corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))),
                     ExpectedConditions.attributeToBe(driver.findElement(By.id("default_email")), "placeholder", "Il tuo indirizzo e-mail")
             ));
-           // WebElement ctaAvvisamiViaEmail = driver.findElement(By.id("courtesy-email-button"));
             getWebDriverWait(10).withMessage("il bottone avvisami via email non è presente").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("courtesy-email-button"))));
-            //WebElement contactDisclaimer = driver.findElement(By.xpath("//div[@data-testid='contacts disclaimer']"));
             final String disclaimerText = "Se non hai la PEC, leggi subito la notifica: non riceverai la raccomandata cartacea e risparmierai tempo e denaro.";
             getWebDriverWait(10).withMessage("il disclaimer del contatto di cortesia non è presente o non ha il testo corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='contacts disclaimer']"))),
@@ -112,7 +85,6 @@ public void iTuoiRecapitiButtonClick() {
             ));
             logger.info("Il contatto di cortesia si visualizza correttamente");
         } catch (TimeoutException e) {
-            logger.error("il contatto di cortesia non si visualizza correttamente con errori:" + e.getMessage());
             Assertions.fail("il contatto di cortesia non si visualizza correttamente con errori:" + e.getMessage());
         }
     }
@@ -196,8 +168,9 @@ public void iTuoiRecapitiButtonClick() {
     }
 
     public void verificaEmailModificata() {
-        //WebElement newEmailBy = driver.findElement(By.xpath("//p[contains(text(),'provaemail@test.it')]"));
-        getWebDriverWait(30).withMessage("La nuova mail non si visualizza correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(),'provaemail@test.it')]"))));
+        getWebDriverWait(30)
+                .withMessage("La nuova mail non si visualizza correttamente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(),'provaemail@test.it')]"))));
     }
 
 
@@ -242,10 +215,6 @@ public void iTuoiRecapitiButtonClick() {
 
     public void checkRiquadroPEC() {
         try {
-           // WebElement titleSection = driver.findElement(By.id("legalContactsTitle"));
-           // WebElement pecField = driver.findElement(By.id("default_pec"));
-            //WebElement confirmButton = driver.findElement(By.id("default_pec-button"));
-           // subTitlesSection = driver.findElement(By.xpath("//*[@id='legalContactsSection']/p"));
             List<WebElement> infoBanner = driver.findElements(By.xpath("//p[@data-testid='DigitalContactsCardDescription']"));
             getWebDriverWait(10).withMessage("Non si visualizza il titolo della sezione recapito legale o il contenuto è errato").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(driver.findElement(By.id("legalContactsTitle"))),
@@ -264,7 +233,6 @@ public void iTuoiRecapitiButtonClick() {
                     ExpectedConditions.attributeToBe(infoBanner.get(1), "innerText", "Quando un ente invia una comunicazione per te su SEND, ricevi l’avviso ufficiale sulla PEC che hai scelto.")));
             logger.info("Il riquadro PEC si visualizza correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
             Assertions.fail("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
         }
     }
@@ -277,19 +245,10 @@ public void iTuoiRecapitiButtonClick() {
     }
 
     public void siCliccaSulBottoneDelPopUpOkOCapito() {
-//        WebElement okButton = getWebDriverWait(10)
-//                .withMessage("Non si visualizza il bottone 'ok ho capito' non si visualizza il bottone pop -up")
-//                .until(ExpectedConditions.elementToBeClickable(
-//                By.xpath("//button[@data-testid='understandButton']")
-//        ));
-//        okButton.click();
-
         webTool.waitTime(5);
         WebElement okHoCapitoButton = getWebDriverWait(30)
                 .withMessage("Non si visualizza il bottone 'ok ho capito' non si visualizza il bottone pop -up")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));
-
-//        WebElement okHoCapitoButton = driver.findElement(By.xpath("//button[@data-testid='understandButton']"));
         if (okHoCapitoButton.isDisplayed()) {
             okHoCapitoButton.click();
         } else {
@@ -304,5 +263,26 @@ public void iTuoiRecapitiButtonClick() {
                         .withMessage("Impossibile trovare il tasto Inserisci PEC")
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-testid='pec-section']//button")));
         inserisciPecButton.click();
+    }
+
+    public void clickBottoneNotifica() {
+        WebElement notificheButton = getWebDriverWait(30)
+                .withMessage("Impossibile cliccare sul tasto notifica")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-testid='sideMenuItem-Notifiche']")));
+        notificheButton.click();
+    }
+
+    public void clickLinkConsegnata() {
+        WebElement consegnataLink = getWebDriverWait(30)
+                .withMessage("Impossibile cliccare sul tasto notifica")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(), 'consegnata')]")));
+        consegnataLink.click();
+    }
+
+    public void clickBottoneNotificheDellImpresa() {
+        WebElement notificheImpresaButton = getWebDriverWait(30)
+                .withMessage("Impossibile cliccare NotificheDellImpresa")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Notifiche dell')]")));
+        notificheImpresaButton.click();
     }
 }
