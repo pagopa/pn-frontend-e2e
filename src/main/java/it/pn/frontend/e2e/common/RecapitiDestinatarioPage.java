@@ -260,9 +260,11 @@ public class RecapitiDestinatarioPage extends BasePage {
         getWebDriverWait(30).withMessage("l'input numero telefono non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_sms"))));
         inserimentoPhoneField = driver.findElement(By.id("default_sms"));
         if (inserimentoPhoneField.isDisplayed()) {
+            inserimentoPhoneField.clear();
             inserimentoPhoneField.sendKeys(cellulare);
         } else {
             js().executeScript("arguments[0].scrollIntoView(true);", inserimentoPhoneField);
+            inserimentoPhoneField.clear();
             inserimentoPhoneField.sendKeys(cellulare);
         }
     }
