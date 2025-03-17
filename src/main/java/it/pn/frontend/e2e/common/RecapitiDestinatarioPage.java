@@ -214,11 +214,15 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void annullaButtonClick() {
         try {
-            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-cancel-button"))));
-            annullaButton = driver.findElement(By.id("code-cancel-button"));
-            annullaButton.click();
+            WebElement annulla = getWebDriverWait(20)
+                    .withMessage("Il bottone annulla non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("code-cancel-button")));
+            annulla.click();
+            logger.info("Il bottone 'Annulla' è stato cliccato.");
         } catch (TimeoutException e) {
             Assertions.fail("Il bottone annulla non è cliccabile con errore: " + e.getMessage());
+        } catch (Exception e) {
+            Assertions.fail("Si è verificato un errore imprevisto durante il click del bottone annulla: " + e.getMessage());
         }
     }
 
@@ -242,9 +246,11 @@ public class RecapitiDestinatarioPage extends BasePage {
             inserimentoMailField.clear();
         }
         if (inserimentoMailField.isDisplayed()) {
+            inserimentoMailField.clear();
             inserimentoMailField.sendKeys(email);
         } else {
             this.js().executeScript("arguments[0].scrollIntoView(true);", inserimentoMailField);
+            inserimentoMailField.clear();
             inserimentoMailField.sendKeys(email);
         }
     }
@@ -297,7 +303,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaMailAssociata() {
         try {
-            getWebDriverWait(30).withMessage("L'email di cortesia non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email-typography"))));
+            getWebDriverWait(30).withMessage("L'email di cortesia non è presente")
+                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email-typography"))));
             return true;
         } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Nessuna email di cortesia impostata");

@@ -1117,9 +1117,14 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.clickConfermaEmail();
     }
 
-    @And("Si clicca sul bottone del pop-up ok o capito")
-    public void siCliccaSulBottoneDelPopUpOkOCapito() {
-        iTuoiRecapitiPage.siCliccaSulBottoneDelPopUpOkOCapito();
+    @And("Si clicca sul bottone del pop-up ok ho capito")
+    public void siCliccaSulBottoneDelPopUpOkHoCapito() {
+        iTuoiRecapitiPage.siCliccaSulBottoneDelPopUpOkHoCapito();
+    }
+
+    @And("Si clicca sul bottone del pop-up Annulla")
+    public void siCliccaSulBottoneDelPopUpAnnulla() {
+        iTuoiRecapitiPage.siCliccaSulBottoneDelPopUpAnnulla();
     }
 
     @And("Click Bottone Notifica")

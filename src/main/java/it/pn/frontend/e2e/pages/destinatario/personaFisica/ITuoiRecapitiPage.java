@@ -244,15 +244,60 @@ public void iTuoiRecapitiButtonClick() {
         confermaEmail.click();
     }
 
-    public void siCliccaSulBottoneDelPopUpOkOCapito() {
-        webTool.waitTime(5);
-        WebElement okHoCapitoButton = getWebDriverWait(30)
-                .withMessage("Non si visualizza il bottone 'ok ho capito' non si visualizza il bottone pop -up")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));
-        if (okHoCapitoButton.isDisplayed()) {
-            okHoCapitoButton.click();
+//    public void siCliccaSulBottoneDelPopUpOkHoCapito() {
+//            webTool.waitTime(5);
+//            logger.info("metodo Ok Ho Capito");
+//            WebElement tastoOkHoCapitoPopUp = getWebDriverWait(40)
+//                    .withMessage("Non si visualizza il bottone 'ok ho capito' nel pop -up")
+//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));
+//            if (tastoOkHoCapitoPopUp.isDisplayed()) {
+//                tastoOkHoCapitoPopUp.click();
+//            } else {
+//                js().executeScript("arguments[0].click()", tastoOkHoCapitoPopUp);
+//            }
+//        webTool.waitTime(2);
+//    }
+
+    public void siCliccaSulBottoneDelPopUpOkHoCapito() {
+        try {
+            // Attendere 5 secondi prima di proseguire
+            webTool.waitTime(5);
+            logger.info("metodo Ok Ho Capito");
+            // Attendere che il bottone "Ok ho capito" sia visibile
+            WebElement okHoCapitoButton = getWebDriverWait(30)
+                    .withMessage("Non si visualizza il bottone 'Ok ho capito' nel pop-up")
+                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));
+
+            // Verifica se il bottone è visibile e cliccabile
+            if (okHoCapitoButton.isDisplayed()) {
+                okHoCapitoButton.click();
+                logger.info("Bottone 'Ok ho capito' cliccato nel pop-up.");
+            } else {
+                // Se non è visibile, utilizza JavaScript per cliccarlo
+                js().executeScript("arguments[0].click()", okHoCapitoButton);
+                logger.info("Bottone 'Ok ho capito' cliccato tramite JavaScript.");
+            }
+
+        } catch (TimeoutException e) {
+            // Gestione del caso in cui il bottone non sia visibile entro il tempo limite
+            Assertions.fail("Errore: Il bottone 'Ok ho capito' nel pop-up non è visibile entro il tempo limite. Dettagli: " + e.getMessage());
+        } catch (Exception e) {
+            // Gestione di eventuali altre eccezioni
+            Assertions.fail("Si è verificato un errore imprevisto durante il clic sul bottone 'Ok ho capito'. Dettagli: " + e.getMessage());
+        }
+        webTool.waitTime(1);
+    }
+
+    public void siCliccaSulBottoneDelPopUpAnnulla() {
+        webTool.waitTime(3);
+        logger.info("metodo annulla Annulla");
+        WebElement annullaPopUp = getWebDriverWait(30)
+                .withMessage("Non si visualizza il bottone Annulla nel pop -up")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='discardButton']"))));
+        if (annullaPopUp.isDisplayed()) {
+            annullaPopUp.click();
         } else {
-            js().executeScript("arguments[0].click()", okHoCapitoButton);
+            js().executeScript("arguments[0].click()", annullaPopUp);
         }
 
     }
