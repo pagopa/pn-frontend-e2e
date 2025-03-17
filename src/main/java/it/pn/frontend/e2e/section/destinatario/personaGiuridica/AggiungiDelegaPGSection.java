@@ -283,6 +283,8 @@ public class AggiungiDelegaPGSection extends BasePage {
         dataTermineDelegaInput.click();
         Actions action = new Actions(driver);
         action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        getWebDriverWait(10).withMessage("Il messaggio di errore su data termine delega obbligatoria non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("expirationDate-helper-text"))));
+
     }
 
     public void selectPersonaGiuridicaRadioButton() {

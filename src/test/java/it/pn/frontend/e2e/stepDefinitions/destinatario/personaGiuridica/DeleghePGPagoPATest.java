@@ -228,7 +228,6 @@ public class DeleghePGPagoPATest extends BasePage {
         aggiungiDelegaPGSection.insertDataCorretta();
     }
 
-    //Metodo non funzionante (non fa vedere messaggio di errore)
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata")
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDataErrata() {
         logger.info("Si controlla che si veda il messaggio di errore data errata");
