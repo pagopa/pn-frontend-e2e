@@ -715,6 +715,13 @@ public class RecapitiPersonaFisicaTest extends BasePage {
 
     }
 
+    @And("Nella pagina I Tuoi Recapiti verifica assenza bottone Modifica PEC")
+    public void nellaPaginaITuoiRecapitiverificaAssenzaBottoneModificaPEC() {
+        logger.info("Si verifica assenza bottone Modifica PEC");
+        recapitiDestinatarioPage.verificaAssenzaModificaPEC();
+
+    }
+
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC tramite chiamata request")
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPDellaNuovaPECTramiteChiamataRequest() {
         logger.info("Si recupera il codice OTP della nuova pec");
@@ -1123,6 +1130,11 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     @Then("Click link consegnata")
     public void clickLinkConsegnata() {
         iTuoiRecapitiPage.clickLinkConsegnata();
+    }
+
+    @When("Click Bottone Gestisci")
+    public void clickBottoneGestisci() {
+        iTuoiRecapitiPage.clickBottoneGestisci();
     }
 }
 

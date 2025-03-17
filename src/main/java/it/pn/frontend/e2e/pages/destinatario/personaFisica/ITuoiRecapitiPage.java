@@ -294,4 +294,11 @@ public void iTuoiRecapitiButtonClick() {
 
         button.click();
     }
+
+    public void clickBottoneGestisci() {
+        WebElement gestisciButton = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare sul bottone Gestisci ")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Gestisci')]")));
+        gestisciButton.click();
+    }
 }

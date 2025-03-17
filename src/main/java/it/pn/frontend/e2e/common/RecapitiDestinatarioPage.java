@@ -356,6 +356,17 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     }
 
+    public void verificaAssenzaModificaPEC() {
+        try {
+            boolean assente = getWebDriverWait(10)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(By.id("modifyContact-default_pec")));
+
+            Assertions.assertTrue(assente, "Il bottone 'Modifica PEC' è presente, ma non dovrebbe esserlo.");
+        } catch (TimeoutException e) {
+            Assertions.fail("Il bottone 'Modifica PEC' è visibile e il test deve fallire.");
+        }
+    }
+
     public void cancellaTesto() {
         try {
             webTool.waitTime(5);
@@ -1035,7 +1046,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPagina(String testo) {
         getWebDriverWait(5)
-                .withMessage("Il testo '" + testo + "'")
+                .withMessage("Non è presente Il testo '" + testo + "'")
                 .until(ExpectedConditions.presenceOfElementLocated(
                         By.xpath("//*[contains(text(), '" + testo + "')]")));
     }
