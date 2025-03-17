@@ -104,7 +104,8 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
     public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
         logger.info("Si controlla la presenza di una pec");
-        String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
+//        String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
+        String pec = dataPopulationConfig.getPersonaGiuridica().getEmailPec();
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPG();
         } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
@@ -299,5 +300,10 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Click Bottone Notifiche dell Impresa")
     public void clickBottoneNotificheDellImpresa() {
         iTuoiRecapitiPage.clickBottoneNotificheDellImpresa();
+    }
+
+    @And("Click Bottone Conferma per modifica PEC")
+    public void clickBottoneConfermaPerModificaPEC() {
+        iTuoiRecapitiPage.clickBottoneConfermaPerModificaPEC();
     }
 }

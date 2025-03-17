@@ -237,9 +237,9 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         }
     }
 
-    @When("Click annulla valutazione")
-    public void clickAnnullaValutazione() {
-        ricercaNotifichePGPage.clickAnnullaValutazione();
+    @When("Click annulla Validazione")
+    public void clickAnnullaValidazione() {
+        ricercaNotifichePGPage.clickAnnullaValidazione();
     }
 
     @And("Click Bottone conferma Pop-up")

@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciPEC_OTP_PG
   @addressBook2
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_14_18] Attivazione Domicilio Digitale SEND - Inserimento PEC e OTP annulla Valutazione PG
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_14_18] Attivazione Domicilio Digitale SEND - Inserimento PEC e OTP annulla Validazione PG
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 
@@ -24,7 +24,7 @@ Feature: Rework della pagina dei contatti
 
     And Verifica Pagina "Validazione PEC in corso"
 
-    When Click annulla valutazione
+    When Click annulla Validazione
     And Click Bottone conferma Pop-up
     Then Verifica Pagina "Il domicilio digitale della tua impresa"
     And Verifica Pagina "Inizia"

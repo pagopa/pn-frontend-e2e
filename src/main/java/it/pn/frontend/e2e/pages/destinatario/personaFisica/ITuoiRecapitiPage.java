@@ -118,7 +118,7 @@ public void iTuoiRecapitiButtonClick() {
     }
 
     public void insertEmail(String emailPEC) {
-        getWebDriverWait(20).withMessage("input pec field non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))));
+        getWebDriverWait(20).withMessage("input email field non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))));
         WebElement inserimentoEmailFieldBy = driver.findElement(By.id("default_email"));
         inserimentoEmailFieldBy.sendKeys(emailPEC);
     }
@@ -284,5 +284,14 @@ public void iTuoiRecapitiButtonClick() {
                 .withMessage("Impossibile cliccare NotificheDellImpresa")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(), 'Notifiche dell')]")));
         notificheImpresaButton.click();
+    }
+
+    public void clickBottoneConfermaPerModificaPEC() {
+
+        WebElement button = getWebDriverWait(30)
+                .withMessage("Pulsante 'Conferma' per la modifica  non trovato o non cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("saveContact-default_pec")));
+
+        button.click();
     }
 }

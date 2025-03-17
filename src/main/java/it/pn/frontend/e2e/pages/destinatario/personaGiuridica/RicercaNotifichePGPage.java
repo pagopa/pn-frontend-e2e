@@ -125,7 +125,7 @@ public class RicercaNotifichePGPage extends BasePage {
 
     }
 
-    public void clickAnnullaValutazione() {
+    public void clickAnnullaValidazione() {
         WebElement annullaValidazioneButton = getWebDriverWait(20)
                 .withMessage("Impossibile cliccare su annulla validazione")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='cancelValidation']")));
