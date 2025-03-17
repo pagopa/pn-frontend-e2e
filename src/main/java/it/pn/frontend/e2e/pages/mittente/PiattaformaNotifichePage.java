@@ -1100,6 +1100,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean errorMessage() {
+        webTool.waitTime(10);
         errorMessage = driver.findElement(By.id("subject-helper-text"));
         return errorMessage.isDisplayed();
     }
