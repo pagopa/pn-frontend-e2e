@@ -297,9 +297,16 @@ public class LoginPGPagoPATest extends BasePage {
         scegliSpidPGPage.clickTestButton();
 
         loginPGPagoPAPage.waitLoadLoginPGPage();
-        loginPGPagoPAPage.insertUsername(webDriverConfig.getUserDante());
-        loginPGPagoPAPage.insertPassword(webDriverConfig.getPwdDante());
 
+        if(datiPG.get("user").equalsIgnoreCase("GabrieleDAnnunzio")){
+            loginPGPagoPAPage.insertUsername(datiPG.get("user"));
+            loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
+        }
+
+        else {
+            loginPGPagoPAPage.insertUsername(webDriverConfig.getUserDante());
+            loginPGPagoPAPage.insertPassword(webDriverConfig.getPwdDante());
+        }
         loginPGPagoPAPage.clickInviaButton();
 
         webTool.waitTime(5);
