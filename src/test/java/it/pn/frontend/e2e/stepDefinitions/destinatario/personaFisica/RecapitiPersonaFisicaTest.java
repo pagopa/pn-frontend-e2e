@@ -779,7 +779,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
                 String  OTP = recuperoOTPRecapiti.getResponseBody();
                 setOTP(OTP);
             } else {
-                logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }

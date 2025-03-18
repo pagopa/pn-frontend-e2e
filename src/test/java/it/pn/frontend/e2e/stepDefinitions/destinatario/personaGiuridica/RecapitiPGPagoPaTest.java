@@ -319,6 +319,22 @@ public class RecapitiPGPagoPaTest extends BasePage {
 
     @And("Click Bottone Conferma email")
     public void clickBottoneConfermaEmail() {
-        recapitiDestinatarioPage.clickBottoneConfermaEmail();
+        recapitiDestinatarioPage.clickSuConfermaElimina();
     }
+
+    @And("Click Menu Ente Mittente Inserimento ente {string}")
+    public void clickMenuEnteMittenteInseriemntoEnte(String ente) {
+        recapitiDestinatarioPage.clickMenuEnteMittenteInseriemntoEnte(ente);
+    }
+
+    @And("Inserisci Pec in Personalizza il tuo domicilio digitale per ente {string}")
+    public void inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnte(String pecOrEmail) {
+        recapitiDestinatarioPage.inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnte(pecOrEmail);
+    }
+
+    @And("Verifica ed Elimina personalizzati per ente")
+    public void verificaEdEliminaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.verificaEdEliminaPersonalizzatiPerEnte();
+    }
+
 }
