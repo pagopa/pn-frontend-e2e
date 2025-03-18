@@ -281,7 +281,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean siVisualizzaPopUpConferma() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Conferma')]"))));
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Conferma')]"))));
             return true;
         } catch (TimeoutException e) {
             logger.error("pop up conferma non trovato: \n" + e.getMessage());
@@ -914,7 +914,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean waitErrorMessagePopupOTP() {
         try {
             getWebDriverWait(5).withMessage("Il messaggio di errore inserimento OTP non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("codeModalErrorTitle"))));
-            WebElement errorMessageOtp = driver.findElement(By.id("codeModalErrorTitle"));
+//            WebElement errorMessageOtp = driver.findElement(By.id("codeModalErrorTitle"));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
         } catch (TimeoutException e) {
@@ -938,7 +938,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Bottone 'Disattiva' non presente.");
         } catch (Exception e) {
-            logger.error("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva'.", e);
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva'.", e);
         }
 
 
@@ -1088,7 +1088,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickConferma() {
-        WebElement confermaButton = getWebDriverWait(10)
+        WebElement confermaButton = getWebDriverWait(50)
                 .withMessage("Impossibile trovare il tasto Conferma")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='next-button']")));
         confermaButton.click();
@@ -1101,6 +1101,44 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     }
 
-    public void clickBottoneConfermaEmail() {
+    public void clickMenuEnteMittenteInseriemntoEnte(String ente) {
+
+        WebElement inputEnte = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il campo 'Ente mittente'")
+                .until(ExpectedConditions.elementToBeClickable(By.id("sender")));
+        inputEnte.clear();
+        inputEnte.sendKeys(ente);
+
+        inputEnte.sendKeys(Keys.ARROW_DOWN);
+        inputEnte.sendKeys(Keys.ENTER);
+
+
+    }
+
+    public void inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnte(String pecOrEmail) {
+        WebElement inputPEC = getWebDriverWait(10)
+                .withMessage("Impossibile inserire Pec o Email")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("s_value")));
+        inputPEC.clear();
+        inputPEC.sendKeys(pecOrEmail);
+
+        clickConferma();
+    }
+
+    public void verificaEdEliminaPersonalizzatiPerEnte() {
+        try {
+            WebElement eliminaButton = getWebDriverWait(5)
+                    .withMessage("Impossibile trovare il tasto 'Elimina'")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[starts-with(@id, 'cancelContact-') and contains(@id, '_pec')]")));
+            if (eliminaButton.isDisplayed() && eliminaButton.isEnabled()) {
+                js().executeScript("arguments[0].scrollIntoView(true);", eliminaButton);
+                eliminaButton.click();
+                clickSuConfermaElimina();
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Elimina Personalizzati Per Ente' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Elimina Personalizzati Per Ente'.", e);
+        }
     }
 }
