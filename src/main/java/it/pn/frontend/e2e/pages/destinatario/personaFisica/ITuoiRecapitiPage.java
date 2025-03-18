@@ -244,26 +244,10 @@ public void iTuoiRecapitiButtonClick() {
         confermaEmail.click();
     }
 
-//    public void siCliccaSulBottoneDelPopUpOkHoCapito() {
-//            webTool.waitTime(5);
-//            logger.info("metodo Ok Ho Capito");
-//            WebElement tastoOkHoCapitoPopUp = getWebDriverWait(40)
-//                    .withMessage("Non si visualizza il bottone 'ok ho capito' nel pop -up")
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));
-//            if (tastoOkHoCapitoPopUp.isDisplayed()) {
-//                tastoOkHoCapitoPopUp.click();
-//            } else {
-//                js().executeScript("arguments[0].click()", tastoOkHoCapitoPopUp);
-//            }
-//        webTool.waitTime(2);
-//    }
-
     public void siCliccaSulBottoneDelPopUpOkHoCapito() {
         try {
-            // Attendere 5 secondi prima di proseguire
-            webTool.waitTime(5);
+            webTool.waitTime(6);
             logger.info("metodo Ok Ho Capito");
-            // Attendere che il bottone "Ok ho capito" sia visibile
             WebElement okHoCapitoButton = getWebDriverWait(30)
                     .withMessage("Non si visualizza il bottone 'Ok ho capito' nel pop-up")
                     .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));

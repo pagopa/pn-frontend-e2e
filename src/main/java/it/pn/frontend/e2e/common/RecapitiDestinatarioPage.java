@@ -552,9 +552,6 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void confermaButtonEliminaClick() {
 
-        getWebDriverWait(10).withMessage("Il bottone conferma del pop-up elimina non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("buttonConferma"))));
-        WebElement confermaEliminaButtonBy = driver.findElement(By.id("buttonConferma"));
-        confermaEliminaButtonBy.click();
     }
 
     public String getEmailErrorMessage() {
@@ -1079,5 +1076,15 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .withMessage("Impossibile trovare il tasto Conferma")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='next-button']")));
         confermaButton.click();
+    }
+
+    public void verificaDaAttivareEmail() {
+         getWebDriverWait(20)
+                .withMessage("Impossibile trovare lo stato Da attivare in Email")
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'MuiChip-root')]/span[normalize-space(text())='Da attivare']")));
+
+    }
+
+    public void clickBottoneConfermaEmail() {
     }
 }

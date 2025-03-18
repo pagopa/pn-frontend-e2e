@@ -104,7 +104,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
     public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
         logger.info("Si controlla la presenza di una pec");
-//        String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
         String pec = dataPopulationConfig.getPersonaGiuridica().getEmailPec();
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPG();
@@ -145,7 +144,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti si visualizza il pop up di disclaimer")
     public void nellaPaginaITuoiRecapitiSiVisualizzaIlPopUpDiDisclaimer() {
         logger.info("Si controlla il disclaimer per il cambio dell'email di cortesia");
-        recapitiDestinatarioPage.checkDisclaimer();
+        recapitiDestinatarioPage.confermaButtonEliminaClick();
     }
 
       @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti persona giuridica {string}")
@@ -313,4 +312,13 @@ public class RecapitiPGPagoPaTest extends BasePage {
     }
 
 
+    @Then("Verifica Da Attivare Email")
+    public void verificaDaAttivareEmail() {
+        recapitiDestinatarioPage.verificaDaAttivareEmail();
+    }
+
+    @And("Click Bottone Conferma email")
+    public void clickBottoneConfermaEmail() {
+        recapitiDestinatarioPage.clickBottoneConfermaEmail();
+    }
 }
