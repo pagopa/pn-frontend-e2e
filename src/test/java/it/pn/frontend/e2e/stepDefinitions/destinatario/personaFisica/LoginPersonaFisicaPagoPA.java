@@ -728,4 +728,11 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
         return token;
     }
+
+    @When("La persona fisica seleziona la voce I tuoi dati")
+    public void iTuoiDatiPersonaFisica() {
+        headerPFSection.waitLoadHeaderDESection();
+        headerPFSection.selezionaProfiloUtenteMenu();
+        headerPFSection.selezionaVoceITuoiDati();
+    }
 }

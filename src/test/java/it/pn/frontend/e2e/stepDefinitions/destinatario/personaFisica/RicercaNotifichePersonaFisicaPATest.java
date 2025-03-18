@@ -280,4 +280,9 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         backgroundTest.setHooksNew(hooksNew);
         backgroundTest.siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(iun);
     }
+
+    @And("La persona fisica clicca sulla prima notifica restituita")
+    public void laPersonaFisicaCliccaSullaPrimaNotificaRestituita() {
+        piattaformaNotifichePage.selezionaPrimaNotifica();
+    }
 }

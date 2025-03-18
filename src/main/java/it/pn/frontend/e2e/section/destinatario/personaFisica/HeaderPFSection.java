@@ -55,6 +55,15 @@ public class HeaderPFSection extends BasePage {
         buttonProfile.click();
     }
 
+    public void selezionaVoceITuoiDati() {
+        getWebDriverWait(35).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//ul[@role='menu']//li"))));
+        menuProfileItems = driver.findElements(By.xpath("//ul[@role='menu']//li"));
+        WebElement iTuoiDatiVoce = menuProfileItems.get(0);
+        getWebDriverWait(30).withMessage("la voce I tuoi Dati non è visibile").until(ExpectedConditions.visibilityOf(iTuoiDatiVoce));
+        logger.info("click su voce I tuoi Dati");
+        iTuoiDatiVoce.click();
+    }
+
     public void selezionaVoceEsci() {
         getWebDriverWait(35).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//ul[@role='menu']//li"))));
         menuProfileItems = driver.findElements(By.xpath("//ul[@role='menu']//li"));

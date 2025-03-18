@@ -324,6 +324,16 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public boolean verificaDomicilioDigitaleAssociato() {
+        try {
+            getWebDriverWait(30).withMessage("Il domicilio digitale non è attivo").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='legalContacts']"))));
+            return true;
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Domicilio digitale non attivo");
+            return false;
+        }
+    }
+
     public boolean verificaMailField() {
         webTool.waitTime(20);
         inserimentoMailField = driver.findElement(By.id("default_email"));
@@ -726,6 +736,12 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void clickSuBottoneEmailDiCortesia(String actionButton) {
         WebElement bottoneActionBy = driver.findElement(By.xpath("//button[contains(text(), '" + actionButton + "')]"));
         getWebDriverWait(10).withMessage("Il bottone non è cliccabile Su Bottone Email Di Cortesia").until(ExpectedConditions.visibilityOf(bottoneActionBy));
+        bottoneActionBy.click();
+    }
+
+    public void clickSuBottoneDisattivaDomicilioDigitale() {
+        WebElement bottoneActionBy = driver.findElement(By.xpath("//button[contains(text(), 'Disattiva')]"));
+        getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOf(bottoneActionBy));
         bottoneActionBy.click();
     }
 

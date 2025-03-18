@@ -660,9 +660,10 @@ public class PiattaformaNotifichePage extends BasePage {
             pageSize50.click();
 
             webTool.waitTime(10);
-            List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
-
-            notifiche.get(0).click();
+            WebElement primaNotifica = driver.findElement(By.id("notificationsTable.body.row"));
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(primaNotifica.findElement(By.xpath("//button[@data-testid='goToNotificationDetail']"))));
+            WebElement vediDettaglio = primaNotifica.findElement(By.xpath("//button[@data-testid='goToNotificationDetail']"));
+            vediDettaglio.click();
         } catch (TimeoutException e) {
             logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
