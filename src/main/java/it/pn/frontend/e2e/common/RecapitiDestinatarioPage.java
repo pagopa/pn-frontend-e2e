@@ -1142,4 +1142,34 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Elimina Personalizzati Per Ente'.", e);
         }
     }
+
+    public void clickModificaPersonalizzatiPerEnte() {
+        WebElement modificaPersonalizzatiPerEnte = getWebDriverWait(5)
+                .withMessage("Impossibile trovare il tasto 'Elimina'")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@id, 'modifyContact-')])[1]")));
+        modificaPersonalizzatiPerEnte.click();
+    }
+
+    public void modificaPecPersonalizzatiPerEnteEConferma(String pec) {
+
+        WebElement pecInput =  getWebDriverWait(5)
+                .withMessage("Impossibile modificare il testo per la Pec ")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[contains(@class, 'MuiInputBase-input')]")));
+
+        pecInput.sendKeys(Keys.CONTROL + "a");
+        pecInput.sendKeys(Keys.DELETE);
+
+        pecInput.sendKeys(pec);
+
+        confermaPecPersonalizzatiPerEnte();
+
+    }
+
+    private void confermaPecPersonalizzatiPerEnte() {
+        // Aspetta che il pulsante Conferma sia cliccabile
+        WebElement confermaButton = getWebDriverWait(5)
+                .withMessage("Impossibile cliccare conferma modifica Pec Personalizzati Per Ente E Conferma ")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@id, 'saveContact')]")));
+        confermaButton.click();
+    }
 }

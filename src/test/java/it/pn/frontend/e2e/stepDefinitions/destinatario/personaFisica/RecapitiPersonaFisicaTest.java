@@ -383,7 +383,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.sendOTP(getOTP());
         recapitiDestinatarioPage.confermaButtonClickPopUp();
         if (recapitiDestinatarioPage.waitMessaggioErrore()) {
-            logger.error("Il codice OTP inserito è sbagliato");
             Assertions.fail("Il codice OTP inserito è sbagliato");
         }
     }

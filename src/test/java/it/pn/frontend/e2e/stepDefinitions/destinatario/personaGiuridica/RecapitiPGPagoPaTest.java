@@ -337,4 +337,13 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.verificaEdEliminaPersonalizzatiPerEnte();
     }
 
+    @And("Click Modifica personalizzati per ente")
+    public void clickModificaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.clickModificaPersonalizzatiPerEnte();
+    }
+
+    @And("Modifica Pec personalizzati per Ente e conferma {string}")
+    public void modificaPecPersonalizzatiPerEnteEConferma(String pec) {
+        recapitiDestinatarioPage.modificaPecPersonalizzatiPerEnteEConferma(pec);
+    }
 }

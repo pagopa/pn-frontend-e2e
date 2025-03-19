@@ -1,9 +1,9 @@
 Feature: Rework della pagina dei contatti
 
   @TestSuite
-  @TA_REWORK_DOMICILIO_DIGITALE_49_50_53_54_51_52_PG
+  @TA_REWORK_DOMICILIO_DIGITALE_49_50_53_54_51_52_56_55_PG
   @addressBook2
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_49_50_53_54_51_52] Cambio Domicilio Digitale PEC Per Ente Personalizzato PG
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_49_50_53_54_51_52_56_55] Cambio Domicilio Digitale PEC Per Ente Personalizzato PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 ##    verificare mancano pezzi inerente a SEND sull'appIO e indirizzo email
@@ -62,6 +62,15 @@ Feature: Rework della pagina dei contatti
     When Verifica Pagina "Hai aggiornato il domicilio digitale della tua impresa"
     And Click Torna ai tuoi recapiti
     And Verifica Pagina "Validazione PEC in corso"
-
-
-
+###  REWORK_DOMICILIO_DIGITALE_PG_56
+    And Aspetta 1 secondi
+    And Click Modifica personalizzati per ente
+    And Click Bottone "Annulla"
+    And Verifica Pagina "prova@pec.it"
+    And Click Modifica personalizzati per ente
+    And Modifica Pec personalizzati per Ente e conferma "pec@pec.pagopa.it"
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "pec@pec.pagopa.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
+    And Si verifica se popup conferma presente
+    And Verifica Pagina "pec@pec.pagopa.it"

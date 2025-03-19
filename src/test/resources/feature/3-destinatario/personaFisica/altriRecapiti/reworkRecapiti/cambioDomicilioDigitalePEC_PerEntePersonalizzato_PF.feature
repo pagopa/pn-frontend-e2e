@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
   @TestSuite
-  @TA_REWORK_DOMICILIO_DIGITALE_PF_49_50_53_54_51_52_PF
+  @TA_REWORK_DOMICILIO_DIGITALE_PF_49_50_53_54_51_52_56_55_PF
   @addressBook1
 
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_49_50_53_54_51_52] Cambio Domicilio Digitale PEC Per Ente Personalizzato PF
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_49_50_53_54_51_52_56_55] Cambio Domicilio Digitale PEC Per Ente Personalizzato PF
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
@@ -70,3 +70,15 @@ Feature: Rework della pagina dei contatti
     When Verifica Pagina "Hai aggiornato il tuo domicilio digitale"
     And Click Torna ai tuoi recapiti
     And Verifica Pagina "Validazione PEC in corso"
+##  REWORK_DOMICILIO_DIGITALE_PG_56
+    And Aspetta 1 secondi
+    And Click Modifica personalizzati per ente
+    And Click Bottone "Annulla"
+    And Verifica Pagina "prova@pec.it"
+    And Click Modifica personalizzati per ente
+    And Modifica Pec personalizzati per Ente e conferma "pectest@pec.it"
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "pectest@pec.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
+    And Si verifica se popup conferma presente
+    And Verifica Pagina "pectest@pec.it"
