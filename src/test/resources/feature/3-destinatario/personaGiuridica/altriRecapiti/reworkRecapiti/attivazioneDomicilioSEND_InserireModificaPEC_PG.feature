@@ -27,14 +27,14 @@ Feature: Rework della pagina dei contatti
     And Aspetta 2 secondi
 ## Modifica
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC
-    And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "provaAndrea@pec.it"
+    And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "provaa@pec.it"
     And Click Bottone Conferma per modifica PEC
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
 
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "provaAndrea@pec.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "provaa@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
 
-    Then Verifica Pagina "provaAndrea@pec.it"
+    Then Verifica Pagina "provaa@pec.it"
 
 

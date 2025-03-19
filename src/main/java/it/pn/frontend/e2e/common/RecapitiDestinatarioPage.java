@@ -927,11 +927,12 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void verificaAndOrDisattiva(String testo) {
         try {
             WebElement disattivaButton = getWebDriverWait(5).withMessage("Non è presente dentro '" + testo + "' il testo 'Disattiva'")
-                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
+                    .until(ExpectedConditions.elementToBeClickable
+                            (By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 logger.info("Bottone 'Disattiva' trovato, lo clicco!");
                 disattivaButton.click();
-                clickSuConfermaElimina(); // Funzione che esegue un altro click o conferma
+                clickSuConfermaElimina();
             } else {
                 logger.warn("Bottone 'Disattiva' trovato ma non è visibile o abilitato.");
             }
