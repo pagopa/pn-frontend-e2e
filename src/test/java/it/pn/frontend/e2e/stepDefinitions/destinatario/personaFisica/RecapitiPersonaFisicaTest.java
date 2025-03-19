@@ -289,6 +289,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         boolean results = changeStartUrlPec(startUrl, false, persona);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
+            logger.info("OTP1 response body {}", OTP);
             if(persona.equalsIgnoreCase("personaGiuridica")) {
                 dataPopulationConfig.getPersonaGiuridica().setOTPPec(OTP);
             }else {
@@ -304,6 +305,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             results = changeStartUrlPec(startUrl, results, persona);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
+                logger.info("OTP2 response body {}", OTP);
                 if(persona.equalsIgnoreCase("personaGiuridica")) {
                     dataPopulationConfig.getPersonaGiuridica().setOTPPec(OTP);
                 }else {
