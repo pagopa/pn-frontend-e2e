@@ -914,7 +914,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     public boolean waitErrorMessagePopupOTP() {
         try {
             getWebDriverWait(5).withMessage("Il messaggio di errore inserimento OTP non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("codeModalErrorTitle"))));
-//            WebElement errorMessageOtp = driver.findElement(By.id("codeModalErrorTitle"));
             logger.info("Il messaggio di errore viene visualizzato correttamente");
             return true;
         } catch (TimeoutException e) {
@@ -926,7 +925,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaAndOrDisattiva(String testo) {
         try {
-            WebElement disattivaButton = getWebDriverWait(5).withMessage("Non è presente dentro '" + testo + "' il testo 'Disattiva'")
+            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro '" + testo + "' il testo 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
                             (By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
@@ -1150,6 +1149,17 @@ public class RecapitiDestinatarioPage extends BasePage {
         modificaPersonalizzatiPerEnte.click();
     }
 
+    public void clickEliminaPersonalizzatiPerEnte() {
+        WebElement eliminaPersonalizzatiPerEnte = getWebDriverWait(5)
+                .withMessage("Impossibile trovare il tasto 'Elimina'")
+                .until(ExpectedConditions.elementToBeClickable
+                        (By.xpath("(//button[contains(@class, 'MuiButton-nakedError')])[2]")));
+        eliminaPersonalizzatiPerEnte.click();
+
+        clickSuConfermaElimina();
+    }
+
+
     public void modificaPecPersonalizzatiPerEnteEConferma(String pec) {
 
         WebElement pecInput =  getWebDriverWait(5)
@@ -1166,10 +1176,44 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     private void confermaPecPersonalizzatiPerEnte() {
-        // Aspetta che il pulsante Conferma sia cliccabile
         WebElement confermaButton = getWebDriverWait(5)
                 .withMessage("Impossibile cliccare conferma modifica Pec Personalizzati Per Ente E Conferma ")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@id, 'saveContact')]")));
         confermaButton.click();
     }
+
+    public void selezionaTipologia(String tipologia) {
+        WebElement tipoField = getWebDriverWait(10)
+                .withMessage("Impossibile selezione Tipologia ")
+                .until(ExpectedConditions.elementToBeClickable(By.id("channelType")));
+        tipoField.click();
+
+        WebElement pecOption = getWebDriverWait(10)
+                .withMessage("Impossibile visualizzare mene a discesa di tipologia ")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[.='"+tipologia+"']"))
+        );
+        pecOption.click();
+    }
+
+    public void verificaPresenzaMessaggio() {
+        getWebDriverWait(10)
+                .withMessage("Impossibile trovare messaggio associato ")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='alreadyExistsAlert']")));
+    }
+
+    public void verificaAssenzaSezionePersonalizzatiPerEnte() {
+
+        try {
+            getWebDriverWait(10)
+                    .withMessage("Impossibile trovare messaggio associato ")
+                    .until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//div[@data-testid='specialContacts']")
+            ));
+            Assertions.fail("La sezione 'PERSONALIZZATI PER ENTE' è presente.");
+
+        } catch (TimeoutException  e) {
+            Assertions.assertTrue(true, "La sezione 'PERSONALIZZATI PER ENTE' non è presente, come previsto.");
+        }
+    }
+
 }

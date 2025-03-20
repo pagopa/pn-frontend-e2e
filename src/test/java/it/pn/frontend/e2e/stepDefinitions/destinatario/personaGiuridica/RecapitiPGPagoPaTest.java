@@ -209,7 +209,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella sezione altri recapiti si visualizza correttamente il messaggio di errore di popup")
     public void nellaSezioneAltriRecapitiSiVisualizzaMessagioDiErrorePopup(){
        if (!recapitiDestinatarioPage.waitErrorMessagePopupOTP()){
-           logger.error("Il messaggio di errore OTP popup non è visibile");
            Assertions.fail("Il messaggio di errore OTP popup non è visibile");
        }
     }
@@ -342,8 +341,29 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.clickModificaPersonalizzatiPerEnte();
     }
 
+    @And("Click Elimina personalizzati per ente")
+    public void clickEliminaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.clickEliminaPersonalizzatiPerEnte();
+    }
+
+
     @And("Modifica Pec personalizzati per Ente e conferma {string}")
     public void modificaPecPersonalizzatiPerEnteEConferma(String pec) {
         recapitiDestinatarioPage.modificaPecPersonalizzatiPerEnteEConferma(pec);
+    }
+
+    @And("Seleziona Tipologia {string}")
+    public void selezionaTipologia(String tipologia) {
+        recapitiDestinatarioPage.selezionaTipologia(tipologia);
+    }
+
+    @And("Verifica presenza messaggio")
+    public void verificaPresenzaMessaggio() {
+        recapitiDestinatarioPage.verificaPresenzaMessaggio();
+    }
+
+    @And("Verifica Assenza Sezione Personalizzati Per Ente")
+    public void verificaAssenzaSezionePersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.verificaAssenzaSezionePersonalizzatiPerEnte();
     }
 }
