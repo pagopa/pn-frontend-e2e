@@ -438,9 +438,11 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuConfermaElimina() {
-        getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("buttonConferma"))));
+        logger.info("PRIMA DI clickSuConfermaElimina");
+        getWebDriverWait(20).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("buttonConferma"))));
         WebElement confermaRimuoviPECBy = driver.findElement(By.id("buttonConferma"));
         confermaRimuoviPECBy.click();
+        logger.info("DOPO DI clickSuConfermaElimina");
     }
 
     public boolean siControllaEliminazionePEC() {
@@ -1216,4 +1218,31 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public void clickBottoneDisattivaInDomicilioDigitale(String testo) {
+        WebElement disattivaButton = getWebDriverWait(10).withMessage("Disattiva Non è presente dentro '" + testo + "'")
+                .until(ExpectedConditions.elementToBeClickable
+                        (By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
+            disattivaButton.click();
+    }
+
+    public void verificaEDisattivaPersonalizzatiPerEnte() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(5)
+                    .withMessage("Impossibile trovare il tasto 'Disattiva ' PERSONALIZZATI PER ENTE").until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//button[@data-testid='cancelContact-special_SERCQ_SEND']")
+            ));
+
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+//                js().executeScript("arguments[0].scrollIntoView(true);", disattivaButton);
+                disattivaButton.click();
+                clickSuConfermaElimina();
+
+
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva Personalizzati Per Ente' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Personalizzati Per Ente'.", e);
+        }
+    }
 }

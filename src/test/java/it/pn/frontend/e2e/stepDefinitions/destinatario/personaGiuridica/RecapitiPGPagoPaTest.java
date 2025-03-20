@@ -366,4 +366,19 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void verificaAssenzaSezionePersonalizzatiPerEnte() {
         recapitiDestinatarioPage.verificaAssenzaSezionePersonalizzatiPerEnte();
     }
+
+    @And("Click Bottone Conferma Personalizza il tuo domicilio digitale per ente")
+    public void clickBottoneConfermaPersonalizzaIlTuoDomicilioDigitalePerEnte() {
+        recapitiDestinatarioPage.clickConferma();
+    }
+
+    @When("Click Bottone Disattiva In domicilio digitale {string}")
+    public void clickBottoneDisattivaInDomicilioDigitale(String testo) {
+        recapitiDestinatarioPage.clickBottoneDisattivaInDomicilioDigitale(testo);
+    }
+
+    @And("Verifica e Disattiva Personalizzati per Ente")
+    public void verificaEDisattivaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.verificaEDisattivaPersonalizzatiPerEnte();
+    }
 }

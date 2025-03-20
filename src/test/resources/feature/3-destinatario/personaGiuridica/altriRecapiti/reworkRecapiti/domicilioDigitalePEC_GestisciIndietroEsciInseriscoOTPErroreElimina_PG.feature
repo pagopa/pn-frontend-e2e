@@ -1,9 +1,9 @@
 Feature: Rework della pagina dei contatti
 
   @TestSuite
-  @TA_REWORK_DOMICILIO_DIGITALE_59_60_57_58_62_62_PG
+  @TA_REWORK_DOMICILIO_DIGITALE_59_60_57_58_62_61_PG
   @addressBook2
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_59_60_57_58_62_62] Cambio Domicilio Digitale PEC Per Ente Personalizzato PG
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_59_60_57_58_62_61] domicilioDigitalePEC_GestisciIndietroEsciInseriscoOTPErroreElimina PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 ##    verificare mancano pezzi inerente a SEND sull'appIO e indirizzo email
