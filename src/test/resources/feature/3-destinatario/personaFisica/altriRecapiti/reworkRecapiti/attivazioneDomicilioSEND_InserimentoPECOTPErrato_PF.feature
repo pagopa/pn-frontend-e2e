@@ -17,7 +17,7 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
     And Attesa 1 secondi
     And Verifica e Disattiva "email"
     # Attivazione PEC
-    When Click Inizia
+    And Click Inizia
     And Click Bottone "Inserisci PEC"
     Then Verifica Pagina "Usa una PEC come domicilio digitale"
     And Verifica Pagina "Inserisci la tua PEC"
@@ -28,5 +28,5 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore
-    Then Cliccare sul bottone Annulla
+    And Cliccare sul bottone Annulla
 

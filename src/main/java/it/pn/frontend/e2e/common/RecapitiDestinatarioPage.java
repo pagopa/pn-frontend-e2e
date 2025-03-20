@@ -1144,7 +1144,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             WebElement eliminaButton = getWebDriverWait(5)
                     .withMessage("Impossibile trovare il tasto 'Elimina'")
-                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[starts-with(@id, 'cancelContact-') and contains(@id, '_pec')]")));
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[starts-with(@data-testid, 'cancelContact-')]")));
             if (eliminaButton.isDisplayed() && eliminaButton.isEnabled()) {
                 js().executeScript("arguments[0].scrollIntoView(true);", eliminaButton);
                 eliminaButton.click();
