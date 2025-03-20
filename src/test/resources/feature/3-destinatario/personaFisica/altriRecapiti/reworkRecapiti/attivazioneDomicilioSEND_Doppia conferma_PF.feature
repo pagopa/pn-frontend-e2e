@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_attivazioneDomicilioSEND_DoppiaConferma_PF
   @addressBook1
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_7_9] Attivazione Domicilio Digitale SEND PF - Doppia conferma
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_7_9] Attivazione Domicilio Digitale SEND PF - Doppia conferma
 
    #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
