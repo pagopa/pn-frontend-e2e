@@ -215,4 +215,10 @@ public class RecapitiTest extends BasePage {
         logger.info("Si visualizza correttamente il banner di recapito di cortesia mancante");
         recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancante();
     }
+
+    @And("Si visualizza correttamente il banner di PEC in validazione {string}")
+    public void siVisualizzaCorrettamenteIlBannerDiPECInValidazione(String ente) {
+        logger.info("Si visualizza correttamente il banner di PEC in validazione");
+        recapitiDestinatarioPage.checkBannerPECInValidazione(ente);
+    }
 }

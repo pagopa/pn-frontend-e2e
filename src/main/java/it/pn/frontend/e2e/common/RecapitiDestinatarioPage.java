@@ -1049,6 +1049,19 @@ public class RecapitiDestinatarioPage extends BasePage {
                 By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND.')]")));
     }
 
+    public void checkBannerPECInValidazione(String ente) {
+        verificaPresenza("Il banner di PEC in validazione non è presente", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@data-testid='PecVerificationAlert']")));
+        if (ente.isEmpty()) {
+            verificaPresenza("Il banner di PEC in validazione non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='PecVerificationAlert']//..//p[contains(text(),'Fino al termine del processo non sarà possibile modificare i recapiti a valore legale.')]")));
+        }
+        else {
+            verificaPresenza("Il banner di PEC in validazione non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='PecVerificationAlert']//..//p[contains(text(),'La piattaforma SEND resterà il tuo domicilio digitale per " + ente + " fino al completamento della validazione.')]")));
+        }
+    }
+
     public void cliccaBottone(String testo) {
         WebElement button = getWebDriverWait(15)
                 .withMessage("Non è presente il bottone '" + testo + "'")
