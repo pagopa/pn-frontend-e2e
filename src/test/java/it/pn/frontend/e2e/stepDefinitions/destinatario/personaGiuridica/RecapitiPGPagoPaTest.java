@@ -235,7 +235,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
 
     @And("Click Lo Faro piu tardi")
     public void clickLoFaroPiuTardi() {
-        recapitiDestinatarioPage.clickLoFaroPiuTardi();
+        recapitiDestinatarioPage.clickLoFaroPiuTardiOrConfermaModificaRecapito();
     }
 
     @And("Click Torna ai tuoi recapiti")
@@ -340,6 +340,10 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void clickModificaPersonalizzatiPerEnte() {
         recapitiDestinatarioPage.clickModificaPersonalizzatiPerEnte();
     }
+    @And("Click Modifica personalizzati per ente OFF")
+    public void clickModificaPersonalizzatiPerEnteOff() {
+        recapitiDestinatarioPage.clickModificaPersonalizzatiPerEnteOFF();
+    }
 
     @And("Click Elimina personalizzati per ente")
     public void clickEliminaPersonalizzatiPerEnte() {
@@ -380,5 +384,10 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Verifica e Disattiva Personalizzati per Ente")
     public void verificaEDisattivaPersonalizzatiPerEnte() {
         recapitiDestinatarioPage.verificaEDisattivaPersonalizzatiPerEnte();
+    }
+
+    @And("Click Bottone Conferma Modifica Recapito")
+    public void clickBottoneConfermaModificaRecapito() {
+        recapitiDestinatarioPage.clickLoFaroPiuTardiOrConfermaModificaRecapito();
     }
 }

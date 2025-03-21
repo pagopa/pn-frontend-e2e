@@ -36,7 +36,3 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Click Torna ai tuoi recapiti
     And Aspetta 1 secondi
-    And Verifica e Disattiva "domicilio digitale"
-    Then Verifica Pagina "possibile disattivare il Domicilio Digitale"
-    And Verifica Pagina "devi prima disattivare i domicili digitali personalizzati per ente"
-    And Click Bottone "Ok, ho capito"

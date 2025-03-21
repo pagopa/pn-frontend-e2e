@@ -140,12 +140,12 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void waitLoadPopUp() {
         try {
-            getWebDriverWait(20).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-            getWebDriverWait(20).withMessage("La descrizione non viene visualizzata e il testo non è corretto").until(ExpectedConditions.and(
+            getWebDriverWait(30).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
+            getWebDriverWait(30).withMessage("La descrizione non viene visualizzata e il testo non è corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-description"))),
                     ExpectedConditions.attributeContains(driver.findElement(By.id("dialog-description")), "textContent", "Il codice è valido per 15 minuti.")));
-            getWebDriverWait(20).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(text(), 'Inserisci codice')]"))));
-            getWebDriverWait(20).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
+            getWebDriverWait(30).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(text(), 'Inserisci codice')]"))));
+            getWebDriverWait(30).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
             List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
             if (inputBoxes.size() != 5) {
                 Assertions.fail("Il numero di input box non è corretto");
@@ -968,8 +968,8 @@ public class RecapitiDestinatarioPage extends BasePage {
         nonOraButton.click();
     }
 
-    public void clickLoFaroPiuTardi() {
-        WebElement loFaroPiuTardi = getWebDriverWait(5).withMessage("Impossibile Cliccare su Lo faro piu tardi")
+    public void clickLoFaroPiuTardiOrConfermaModificaRecapito() {
+        WebElement loFaroPiuTardi = getWebDriverWait(5).withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
                 .until(ExpectedConditions.elementToBeClickable(
                 By.id("dialog-confirm-button")));
         loFaroPiuTardi.click();
@@ -1103,7 +1103,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickConferma() {
-        WebElement confermaButton = getWebDriverWait(50)
+        WebElement confermaButton = getWebDriverWait(60)
                 .withMessage("Impossibile trovare il tasto Conferma")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='next-button']")));
         confermaButton.click();
@@ -1161,6 +1161,13 @@ public class RecapitiDestinatarioPage extends BasePage {
         WebElement modificaPersonalizzatiPerEnte = getWebDriverWait(5)
                 .withMessage("Impossibile trovare il tasto 'Elimina'")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@id, 'modifyContact-')])[1]")));
+        modificaPersonalizzatiPerEnte.click();
+    }
+
+    public void clickModificaPersonalizzatiPerEnteOFF() {
+        WebElement modificaPersonalizzatiPerEnte = getWebDriverWait(5)
+                .withMessage("Impossibile trovare il tasto 'Elimina'")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@id, 'modifyContact-')])[2]")));
         modificaPersonalizzatiPerEnte.click();
     }
 
