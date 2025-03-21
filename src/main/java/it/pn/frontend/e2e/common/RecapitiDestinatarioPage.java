@@ -1050,6 +1050,19 @@ public class RecapitiDestinatarioPage extends BasePage {
                 By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND.')]")));
     }
 
+    public void checkAssenzaBannerEmailMancante() {
+        try {
+            verificaPresenza("Il banner di email mancante non è presente", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner']")));
+            verificaPresenza("Il banner di email mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Aggiungi un indirizzo email per ricevere un avviso quando hai una nuova notifica su SEND.')]")));
+            Assertions.fail("Il banner di email mancante è presente.");
+        }
+        catch (TimeoutException e) {
+            Assertions.assertTrue(true, "Il banner di email mancante non è presente");
+        }
+    }
+
     public void checkBannerPECInValidazione(String ente) {
         verificaPresenza("Il banner di PEC in validazione non è presente", ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@data-testid='PecVerificationAlert']")));
