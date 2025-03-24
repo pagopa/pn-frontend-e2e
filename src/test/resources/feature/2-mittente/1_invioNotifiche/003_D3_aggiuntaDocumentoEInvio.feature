@@ -2,7 +2,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @InvioNotificaCaricaDocumenti
+  @invioNotifiche_07
   @loginFE_8
+  @NRT
   Scenario: PN-9320-Aggiunta documento e invio
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -29,6 +31,10 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | cap       | 20147                 |
       | stato     | Italia                |
     And Cliccare su continua
+    #      Aggiungere alle notifiche
+    And Seleziona Nessun Pagamento
+    And Cliccare su continua
+#      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati si carica un atto
     And Si clicca sul bottone aggiungi nuovo documento
@@ -41,5 +47,5 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     Then Si verifica che la notifica è stata creata correttamente
-    And Logout da portale mittente
+#    And Logout da portale mittente
 

@@ -3,8 +3,9 @@ Feature: Mittente genera una notifica che non prevede pagamento
   @TestSuite
   @TA_InvioNotificaMonoSenzaPagamento
   @mittente
-  @invioNotifiche
+  @invioNotifiche_07
   @loginFE_8
+  @NRT
   Scenario: PN-9645 - Mittente genera una notifica senza pagamento
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
@@ -17,6 +18,10 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
     And Cliccare su continua
+    #      Aggiungere alle notifiche
+    And Seleziona Nessun Pagamento
+    And Cliccare su continua
+#      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
@@ -24,4 +29,4 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
-    And Logout da portale mittente
+#    And Logout da portale mittente

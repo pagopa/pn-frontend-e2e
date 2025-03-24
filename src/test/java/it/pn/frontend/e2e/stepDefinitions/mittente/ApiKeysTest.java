@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ApiKeysTest  extends BasePage {
@@ -384,6 +383,79 @@ public class ApiKeysTest  extends BasePage {
     @And("Verifica testo nel pop-up {string}")
     public void verificaTestoNelPopUp(String testo) {
         apiKeyPAPage.verificaTestoNelPopUp(testo);
+    }
+
+    @And("Pulisci ambiente virtual keys")
+    public void pulisciAmbienteVirtualKeys() {
+        apiKeyPAPage.pulisciAmbienteVirtualKeys();
+    }
+
+    @And("Click registra chiave pubblica")
+    public void clickRegistraChiavePubblica() {
+        apiKeyPAPage.clickRegistraChiavePubblica();
+    }
+
+    @And("Inserisci valore della chiave {string}")
+    public void inserisciValoreDellaChiave( String stato) {
+        apiKeyPAPage.inserisciValoreDellaChiave(stato);
+    }
+
+    @And("Click registra o Fine")
+    public void clickRegistraOrFine () {
+        logger.info("Click registra o Fine");
+        apiKeyPAPage.clickRegistraOrFine();
+    }
+
+    @And("Verifica Pop-up Integrazione Api {string}")
+    public void verificaPopUpIntegrazioneApi(String test) {
+        apiKeyPAPage.verificaPopUpIntegrazioneApi(test);
+    }
+
+    @And("Click genera chiave personale")
+    public void clickGeneraChiavePersonale() {
+        logger.info("Click genera chiave personale");
+        apiKeyPAPage.clickGeneraChiavePersonale();
+    }
+
+    @And("Click ok ho capito")
+    public void clickOkHoCapito() {
+        apiKeyPAPage.clickOkHoCapito();
+    }
+
+    @And("Click tre puntini public keys {string}")
+    public void clickTrePuntiniPublicKeys(String stato) {
+        logger.info("Click tre puntini public keys");
+        apiKeyPAPage.clickTrePuntiniPublicKeys(stato);
+    }
+
+    @And("Click Ruota Integrazione Api")
+    public void clickRuotaIntegrazioneApi() {
+        apiKeyPAPage.clickRuotaIntegrazioneApi();
+    }
+
+    @And("Click ruota e registra nuova chiave")
+    public void clickRuotaERegistraNuovaChiave() {
+        piattaformaNotifichePage.clickRuota();
+    }
+
+    @And("Click Blocca Integrazione Api")
+    public void clickBloccaIntegrazioneApi() {
+        apiKeyPAPage.clickBloccaIntegrazioneApi();
+    }
+
+    @And("Click Elimina Integrazione Api")
+    public void clickEliminaIntegrazioneApi() {
+        apiKeyPAPage.clickEliminaIntegrazioneApi();
+    }
+
+    @And("Click tre puntini virtual keys {string}")
+    public void clickTrePuntiniVirtualKeys(String stato) {
+        apiKeyPAPage.clickTrePuntiniVirtualKeys(stato);
+    }
+
+    @And("Pulisci ambiente public keys")
+    public void pulisciAmbientePublickeys() {
+        apiKeyPAPage.pulisciAmbientePublickeys();
     }
 
     @And("Pulisci ambiente virtual keys")

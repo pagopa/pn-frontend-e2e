@@ -61,7 +61,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         WebTool.class,
         WebdriverScopeConfig.class,
         WebDriverManager.class,
-        DataPopulationConfig.class
+        DataPopulationConfig.class,
+        WebViewMultiLanguageConfig.class
 
 })
 @EnableScheduling

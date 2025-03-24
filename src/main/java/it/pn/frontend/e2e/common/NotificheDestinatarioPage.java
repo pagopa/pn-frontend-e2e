@@ -37,7 +37,7 @@ public class NotificheDestinatarioPage extends BasePage{
     }
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
         try {
-            By codiceIUNBy = By.xpath("//button[contains(text(),'"+codiceIUNInserito+"')]");
+            By codiceIUNBy = By.xpath("//td[contains(text(),'"+codiceIUNInserito+"')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
             logger.info("il codice IUN "+codiceIUNInserito+" è stato trovato");
             return true;

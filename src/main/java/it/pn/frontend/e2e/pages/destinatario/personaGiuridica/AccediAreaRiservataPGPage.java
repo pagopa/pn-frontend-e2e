@@ -1,6 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.model.webViewMultiLanguage.WaitLoadAccediAreaRiservataPgLanguage;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -11,9 +12,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 
 public class AccediAreaRiservataPGPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("AccediAreaRiservataPGPage");
@@ -32,7 +30,6 @@ public class AccediAreaRiservataPGPage extends BasePage {
     public void waitLoadAccediAreaRiservataPGPage() {
         try {
             webTool.waitTime(30);
-//            spidButton = driver.findElement(By.id("spidButton"));
             By titleBy = By.xpath("//h3[contains(text(),'Come vuoi accedere?')]");
             getWebDriverWait(30).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
@@ -47,5 +44,34 @@ public class AccediAreaRiservataPGPage extends BasePage {
         spidButton = getWebDriverWait(30).withMessage("Impossibile premere il tasto spid Button della pagina Accedi Area Riservata non è visibile")
                 .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
         spidButton.click();
+    }
+
+    public void waitLoadAccediAreaRiservataPGPage(String lingua, WaitLoadAccediAreaRiservataPgLanguage waitLoadAccediAreaRiservataPgLanguage) {
+        String xpath = getwaitLoadAccediAreaRiservataPGPage(lingua, waitLoadAccediAreaRiservataPgLanguage);
+        getWebDriverWait(30).
+                until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xpath)))).
+                click();
+    }
+
+    private String getwaitLoadAccediAreaRiservataPGPage(String lingua, WaitLoadAccediAreaRiservataPgLanguage waitLoadAccediAreaRiservataPgLanguage) {
+        switch (lingua.toUpperCase()) { // Converte tutto in maiuscolo
+            case "EN":
+                return "//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageEn() + "')]";
+            case "FR":
+                return "//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageFr() + "')]";
+            case "DE":
+                return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageDe() + "')]";
+            case "SL":
+                return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageSl() + "')]";
+            default:
+                return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageIt() + "')]";
+        }
+    }
+
+    public void clickScegliAmbienteSendBottonePersonaGiuridica(String ambiente) {
+        WebElement forwardButton = getWebDriverWait(20)
+                .withMessage("Il bottone per l Ambiente  '"+ambiente+"' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[contains(@aria-label, '"+ambiente+"')]/ancestor::div[contains(@class, 'MuiCard-root')]//button")));
+        forwardButton.click();
     }
 }

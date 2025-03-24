@@ -96,4 +96,39 @@ public class NewNotifichePagoPATest extends BasePage {
         String operationId = UUID.randomUUID().toString();
         destinatarioPage.raddFlow(token,datiDestinatario.get("tipoDestinatario"), datiDestinatario.get("codiceFiscale"),operationId);
     }
+
+    @And("Seleziona Avviso PagoPA")
+    public void selezionaAvvisoPagoPA() {
+        destinatarioPage.selezionaAvvisoPagoPA();
+    }
+
+    @And("Cliccare su Sincrona")
+    public void cliccareSuSincrona() {
+        destinatarioPage.cliccareSuSincrona();
+    }
+
+    @And("Inserisco Codice Avviso")
+    public void inseriscoCodiceAvviso() {
+        destinatarioPage.inseriscoCodiceAvviso();
+    }
+
+    @And("Cliccare su A carico del destinatario")
+    public void cliccareSuACaricoDelDestinatario() {
+        destinatarioPage.cliccareSuACaricoDelDestinatario();
+    }
+
+    @And("Inserire Costo notifica {string}")
+    public void inserireCostoNotifica(String costo) {
+        destinatarioPage.inserireCostoNotifica(costo);
+    }
+
+    @And("Selezionare la percentuale {string}")
+    public void selezionareLaPercentuale(String percentuale) {
+        destinatarioPage.selezionareLaPercentuale(percentuale);
+    }
+
+    @And("Seleziona Nessun Pagamento")
+    public void selezionaNessunPagamento() {
+        destinatarioPage.selezionaNessunPagamento();
+    }
 }

@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 
 public class HeaderPASection extends BasePage {
 
@@ -29,22 +31,42 @@ public class HeaderPASection extends BasePage {
 
     public void waitLoadHeaderSection() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title='Sito di PagoPA S.p.A.']")));
+
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@title='Sito di PagoPA S.p.A.']")));
+//            per generalizzare attualmente la lingua è per It ed EN
+            getWebDriverWait(30).withMessage("Non trovato title 'PagoPA S.p.A.' ").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]")));
             logger.info("Header PA Section caricata");
         } catch (TimeoutException e) {
-            logger.error("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : " + e.getMessage());
             Assertions.fail("Il titolo nel Header: 'Sito di PagoPA S.p.A.' non è caricato con errore : " + e.getMessage());
         }
     }
 
     public void selezionaEsciButton() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Esci')]"))));
+            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Esci')]"))));
             esciButton = driver.findElement(By.xpath("//button[contains(text(),'Esci')]"));
             esciButton.click();
         } catch (TimeoutException e) {
-            logger.error("Il bottone esci non cliccabile con errore: " + e.getMessage());
             Assertions.fail("Il bottone esci non cliccabile con errore: " + e.getMessage());
+        }
+    }
+    public void selezionaSecondoEsciButtonPA() {
+        try {
+            List<WebElement> esciButtons = getWebDriverWait(5)
+                    .withMessage("Il bottone Esci PA non è presente")
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("(//button[contains(text(),'Esci')])[2]")));
+
+            if (!esciButtons.isEmpty()) {
+                esciButton = getWebDriverWait(10)
+                        .withMessage("Impossibile cliccare sul secondo bottone Esci del Pop-up PA")
+                        .until(ExpectedConditions.elementToBeClickable(esciButtons.get(0)));
+                esciButton.click();
+                logger.info("Cliccato sul secondo bottone Esci del Pop-up PG");
+            } else {
+                logger.warn("Il secondo bottone Esci non è presente, nessuna azione eseguita PA");
+            }
+        } catch (TimeoutException e) {
+            Assertions.fail("Il secondo bottone Esci non cliccabile PA con errore: " + e.getMessage());
         }
     }
 }

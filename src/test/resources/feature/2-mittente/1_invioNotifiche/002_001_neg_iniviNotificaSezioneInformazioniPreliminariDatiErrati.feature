@@ -2,8 +2,9 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
 
   @TA_inserimentoDatiErratiInfoPreliminari
   @TestSuite
-  @invioNotifiche
+  @invioNotifiche_07
   @loginFE_8
+  @NRT
   Scenario:Il mittente inserisce i dati non corretti nella sezione informazioni preliminari
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -15,4 +16,4 @@ Feature: Il mittente inserisce i dati non coretti nella sezione informazioni pre
     And Nella section si visualizza il popup vuoi uscire
     And Nella section cliccare sul tasto esci
     Then Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Logout da portale mittente
+#    And Logout da portale mittente

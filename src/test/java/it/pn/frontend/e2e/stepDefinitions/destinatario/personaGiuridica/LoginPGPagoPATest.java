@@ -12,6 +12,7 @@ import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
+import it.pn.frontend.e2e.config.WebViewMultiLanguageConfig;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -19,6 +20,7 @@ import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
 import org.junit.jupiter.api.Assertions;
@@ -69,6 +71,10 @@ public class LoginPGPagoPATest extends BasePage {
 
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
+
+    @Autowired
+    private WebViewMultiLanguageConfig webViewMultiLanguageConfig;
+
     @Autowired
     @Lazy
     private WebDriverManager webDriverManager;
@@ -140,7 +146,6 @@ public class LoginPGPagoPATest extends BasePage {
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
         } else {
             logger.info("DELEGATO: {}", dataPopulationConfig.getDelegatePG().getCompanyName());
-            //Map<String, Object> personaGiuridicaFile = dataPopulation.readDataPopulation("delegatoPG.yaml")
             piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getDelegatePG().getCompanyName());
         }
@@ -150,7 +155,6 @@ public class LoginPGPagoPATest extends BasePage {
     public void loginPortalePersonaGiuridicaTramiteRequestMethod() {
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
         //personaGiuridica
-       // this.datiPersonaGiuridica = dataPopulation.readDataPopulation("personaGiuridica.yaml");
         String userMittente = webDriverConfig.getUserDante();
         String pwdMittente = webDriverConfig.getPwdDante();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
@@ -278,7 +282,11 @@ public class LoginPGPagoPATest extends BasePage {
             }
         }
 
-        accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+        if (StringUtils.isEmpty(datiPG.get("lingua")) || datiPG.get("lingua").equalsIgnoreCase("IT")) {
+            accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
+        }
+        else accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage(datiPG.get("lingua"),webViewMultiLanguageConfig.getWaitLoadAccediAreaRiservataPgLanguage());
+
         accediAreaRiservataPGPage.clickSpidButton();
 
         scegliSpidPGPage.clickTestButton();
@@ -302,11 +310,19 @@ public class LoginPGPagoPATest extends BasePage {
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
         autorizzaInvioDatiPGPage.clickInviaButton();
 
-        selezionaImpresaPage.waitLoadSelezionaImpresaPage();
-        if(selezionaImpresaPage.clickSuImpresa(datiPG.get("ragioneSociale"))){
+        if (StringUtils.isEmpty(datiPG.get("lingua")) || datiPG.get("lingua").equalsIgnoreCase("IT")) {
+            selezionaImpresaPage.waitLoadSelezionaImpresaPage();
+        } else
+            selezionaImpresaPage.waitLoadSelezionaImpresaPage(datiPG.get("lingua"), webViewMultiLanguageConfig.getWaitLoadSelezionaImpresaLanguage());
+
+        if (selezionaImpresaPage.clickSuImpresa(datiPG.get("ragioneSociale"))) {
             logger.info("click su impresa");
         }
-        selezionaImpresaPage.clickAccediButton();
+
+        if (StringUtils.isEmpty(datiPG.get("lingua")) || datiPG.get("lingua").equalsIgnoreCase("IT")) {
+            selezionaImpresaPage.clickAccediButton();
+        } else
+            selezionaImpresaPage.clickAccediButton(datiPG.get("lingua"), webViewMultiLanguageConfig.getButtonLanguage());
     }
 
     @And("Logout da portale persona giuridica")
@@ -407,14 +423,38 @@ public class LoginPGPagoPATest extends BasePage {
         return token;
     }
 
-    @And("Si clicca su prodotto {string}")
-    public void siCliccaSuProdotto(String xpath) {
-        destinatarioPage.clickProdotto(xpath);
+    @And("Si clicca su prodotto")
+    public void siCliccaSuProdotto() {
+//        destinatarioPage.clickProdotto(xpath);
+        logger.info("Dobbiamo Clicccare l'ambiente");
+        clickEntraSuSendPersonaGiuridica();
+        logger.info("verifico esistenza cookie");
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+        }
+        logger.info("Terminata procedura scelta ambiente");
     }
 
     @And("Logout da portale persona giuridica delegante")
     public void logoutDaPortalePersonaGiuridicaDelegante() {
         headerPGSection.clickEsciButton();
         headerPGSection.clickEsciButtonPopUp();
+    }
+    @And("Click entra su Send Persona Giuridica")
+    public void clickEntraSuSendPersonaGiuridica() {
+        String environment = webDriverConfig.getEnvironment();
+        switch (environment) {
+            case "dev" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("DEV");
+            case "test" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("TEST");
+            case "uat" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("UAT");
+            case "hotfix" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("HOTFIX");
+            case "collaudo" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("COLL");
+
+            default -> {
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
     }
 }

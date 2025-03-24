@@ -2,8 +2,8 @@ Feature: Mittente invia una notifica digitale a multidestinatario duplicato, vie
 
   @TestSuite
   @TA_invioNotificaMultidestinatarioDuplicato
-  @invioNotifiche
-
+  @invioNotifiche_07
+  @NRT
   @loginFE
   Scenario: PN-9254 - Mittente invia una notifica digitale a multidestinatario duplicato, viene visualizzato messaggio di errore
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -35,4 +35,4 @@ Feature: Mittente invia una notifica digitale a multidestinatario duplicato, vie
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
     Then Si visualizza correttamente l errore di stesso codice fiscale
-    And Logout da portale mittente
+#    And Logout da portale mittente
