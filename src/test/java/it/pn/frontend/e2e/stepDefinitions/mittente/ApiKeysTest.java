@@ -449,9 +449,4 @@ public class ApiKeysTest  extends BasePage {
         apiKeyPAPage.clickTrePuntiniVirtualKeys(stato);
     }
 
-    @And("Pulisci ambiente public keys")
-    public void pulisciAmbientePublickeys() {
-        apiKeyPAPage.pulisciAmbientePublickeys();
-    }
-
 }
