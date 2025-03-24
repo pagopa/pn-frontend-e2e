@@ -234,8 +234,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public boolean modelloF24Displayed() {
         try {
-            //modelloF24 = driver.findElement(By.cssSelector("[data-testid='download-f24-button']"));
-            getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='download-f24-button']")))).isDisplayed();
+            getWebDriverWait(30)
+                    .withMessage("Il sezione scarica modello F24 non è visibile")
+                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='download-f24-button']")))).isDisplayed();
             return true;
         } catch (RuntimeException e) {
             return false;

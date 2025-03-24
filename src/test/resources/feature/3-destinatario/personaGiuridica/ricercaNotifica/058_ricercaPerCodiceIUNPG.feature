@@ -17,5 +17,5 @@ Feature: La persona giuridica ricerca per codice IUN
     And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN non valido da dati notifica "5252-5252-5252"
     And Cliccare sul bottone Filtra persona giuridica
     Then Viene visualizzato un messaggio in rosso di errore sotto il campo errato e il rettangolo diventa rosso e il tasto Filtra è disattivo
-    And  Logout da portale persona giuridica
+    # And  Logout da portale persona giuridica
 

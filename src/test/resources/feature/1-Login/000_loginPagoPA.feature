@@ -3,7 +3,8 @@ Feature: Login pagoPA
   @TA_loginMittente
   @TestSuite
   @loginFE_8
-  @loginFE
+  @loginFE_P
+    @NRT
   Scenario: Login pagoPA mittente
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -12,12 +13,14 @@ Feature: Login pagoPA
       | pwd    | test     |
       | comune | Verona   |
     Then Home page mittente viene visualizzata correttamente
+    And Click entra su Send Mittente
     And Logout da portale mittente
 
   @TA_loginpersonaFisica_x
   @TestSuite
   @loginFE_8
-  @loginFE
+  @loginFE_P
+  @NRT
   Scenario: Login pagoPA persona fisica
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica
@@ -33,7 +36,8 @@ Feature: Login pagoPA
   @TA_loginpersonaGiuridica
   @TestSuite
   @loginFE_8
-  @loginFE
+  @loginFE_P
+  @NRT
   Scenario: PN-9146 - Login pagoPA persona giuridica
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -41,5 +45,6 @@ Feature: Login pagoPA
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
+    And Click entra su Send Persona Giuridica
     And Logout da portale persona giuridica
 

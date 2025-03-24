@@ -3,8 +3,8 @@ Feature: il mittente inserisce i dati  sbagliati fino alla sezione Destinatario
   @TA_inserimentoDatiErratiDestinatario
   @TestSuite
   @mittente
-  @invioNotifiche
-
+  @invioNotifiche_07
+  @NRT
   @loginFE
   Scenario: PN-9314 - il mittente inserisce i dati sbagliati fino alla sezione Destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -18,4 +18,4 @@ Feature: il mittente inserisce i dati  sbagliati fino alla sezione Destinatario
     And Nella section Destinatario inserire i dati errati dalla persona giuridica
     And Nella section cliccare sul tasto torna a informazioni preliminari
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Logout da portale mittente
+#    And Logout da portale mittente

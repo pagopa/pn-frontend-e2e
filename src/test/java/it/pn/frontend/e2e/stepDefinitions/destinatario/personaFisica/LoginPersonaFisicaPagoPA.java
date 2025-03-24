@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -119,7 +120,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                     :
                     webDriverConfig.getTokentestPFDelegato();
             default -> {
-                logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
         }
@@ -139,7 +139,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     @When("Login con persona fisica {string}")
     public void loginConDestinatario(String datipersonaFisica) {
         //TODO ATTUALMENTE NON UTILIZZATO
-        logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
+        logger.info("user persona fisica : {}", webDriverConfig.getUserCesare());
 
         logger.info("cookies start");
 
@@ -164,25 +164,22 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(dataPopulationConfig.getPersonaFisica().getName())) {
-            logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + dataPopulationConfig.getPersonaFisica().getName());
+            logger.info(MessageFormat.format("nome utente letto : {0} uguale a : {1}", nomeUtenteLetto, dataPopulationConfig.getPersonaFisica().getName()));
         } else {
-            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + dataPopulationConfig.getPersonaFisica().getName());
             Assertions.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + dataPopulationConfig.getPersonaFisica().getName());
         }
 
         String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
         if (cognomeUtenteLetto.equals(dataPopulationConfig.getPersonaFisica().getFamilyName())) {
-            logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + dataPopulationConfig.getPersonaFisica().getFamilyName());
+            logger.info(MessageFormat.format("cognome utente letto : {0} uguale a : {1}", cognomeUtenteLetto, dataPopulationConfig.getPersonaFisica().getFamilyName()));
         } else {
-            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + dataPopulationConfig.getPersonaFisica().getFamilyName());
             Assertions.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + dataPopulationConfig.getPersonaFisica().getFamilyName());
         }
 
         String numeroFiscaleLetto = confermaDatiSpidPFPage.leggiNumeroFiscale();
         if (numeroFiscaleLetto.equals(dataPopulationConfig.getPersonaFisica().getFiscalNumber())) {
-            logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + dataPopulationConfig.getPersonaFisica().getFiscalNumber());
+            logger.info(MessageFormat.format("numero fiscale letto : {0} uguale a : {1}", numeroFiscaleLetto, dataPopulationConfig.getPersonaFisica().getFiscalNumber()));
         } else {
-            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + dataPopulationConfig.getPersonaFisica().getFiscalNumber());
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + dataPopulationConfig.getPersonaFisica().getFiscalNumber());
         }
         confermaDatiSpidPFPage.selezionaConfermaButton();
@@ -191,7 +188,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
     @When("Login con persona fisica")
     public void loginConDestinatario(Map<String, String> datiPF) {
-        logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
+        logger.info("user persona fisica : {}", webDriverConfig.getUserCesare());
         logger.info("cookies start");
 
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -222,25 +219,22 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(datiPF.get("name"))) {
-            logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + datiPF.get("name"));
+            logger.info(MessageFormat.format("nome utente letto : {0} uguale a : {1}", nomeUtenteLetto, datiPF.get("name")));
         } else {
-            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
             Assertions.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
         }
 
         String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
         if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
-            logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + datiPF.get("familyName"));
+            logger.info(MessageFormat.format("cognome utente letto : {0} uguale a : {1}", cognomeUtenteLetto, datiPF.get("familyName")));
         } else {
-            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
             Assertions.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
         }
 
         String numeroFiscaleLetto = confermaDatiSpidPFPage.leggiNumeroFiscale();
         if (numeroFiscaleLetto.equals(datiPF.get("fiscalNumber"))) {
-            logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + datiPF.get("fiscalNumber"));
+            logger.info(MessageFormat.format("numero fiscale letto : {0} uguale a : {1}", numeroFiscaleLetto, datiPF.get("fiscalNumber")));
         } else {
-            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
@@ -252,7 +246,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
     @When("Login con persona fisica input")
     public void loginConDestinatarioInput(Map<String, String> datiPF) {
-        logger.info("user persona fisica : " + datiPF.get("user"));
+        logger.info("user persona fisica : {}", datiPF.get("user"));
         logger.info("cookies start");
 
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -283,25 +277,22 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(datiPF.get("name"))) {
-            logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + datiPF.get("name"));
+            logger.info(MessageFormat.format("nome utente letto : {0} uguale a : {1}", nomeUtenteLetto, datiPF.get("name")));
         } else {
-            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
             Assertions.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
         }
 
         String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
         if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
-            logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + datiPF.get("familyName"));
+            logger.info(MessageFormat.format("cognome utente letto : {0} uguale a : {1}", cognomeUtenteLetto, datiPF.get("familyName")));
         } else {
-            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
             Assertions.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
         }
 
         String numeroFiscaleLetto = confermaDatiSpidPFPage.leggiNumeroFiscale();
         if (numeroFiscaleLetto.equals(datiPF.get("fiscalNumber"))) {
-            logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + datiPF.get("fiscalNumber"));
+            logger.info(MessageFormat.format("numero fiscale letto : {0} uguale a : {1}", numeroFiscaleLetto, datiPF.get("fiscalNumber")));
         } else {
-            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
@@ -365,19 +356,18 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
-            logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
+            logger.error(MessageFormat.format("TA_QA: La chiamata, {0} è andata in errore", urlChiamata));
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
         } else if (codiceRispostaChiamataApi == 0) {
-            logger.error("TA_QA: La chiamata, " + urlChiamata + " non trovata");
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
         }
     }
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
-        logger.info("Recupero codice risposta della chiamata " + urlChiamata);
+        logger.info("Recupero codice risposta della chiamata {}", urlChiamata);
         int codiceRispostaChiamataApi = 0;
-        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " + webDriverManager.getNetworkInfosThread().get());
-        logger.info("Recupero codice risposta della chiamata NetworkInfoManager " + webDriverManager.getNetworkInfosThread().get().size());
+        logger.info("Recupero codice risposta della chiamata NetworkInfoManager {}", webDriverManager.getNetworkInfosThread().get());
+        logger.info("Recupero codice risposta della chiamata NetworkInfoManager {}", webDriverManager.getNetworkInfosThread().get().size());
 
         for (NetWorkInfo chiamate :  webDriverManager.getNetworkInfosThread().get()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
@@ -393,6 +383,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         headerPFSection.waitLoadHeaderDESection();
         headerPFSection.selezionaProfiloUtenteMenu();
         headerPFSection.selezionaVoceEsci();
+        //        Nuove specifiche UI
+        headerPFSection.selezionaSecondoEsciButtonPF();
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -460,9 +452,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         if (urlWithTokenFound) {
-            logger.info("procedura di login from spid provata : " + numProvaLogin);
+            logger.info("procedura di login from spid provata : {}", numProvaLogin);
         } else {
-            logger.error("procedura di login from spid provata : " + numProvaLogin);
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaFisica.get("urlPortale") + "' è : " + this.urlPersonaFisica.get("responseCode"));
 
         }
@@ -484,35 +475,35 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         String samlRequestFromSpidLogin = spidLogin.getSamlRequest();
         if (samlRequestFromSpidLogin != null) {
-            logger.info("samlRequestFromSpidLogin = " + samlRequestFromSpidLogin);
+            logger.info("samlRequestFromSpidLogin = {}", samlRequestFromSpidLogin);
         } else {
             Assertions.fail("samlRequestFromSpidLogin is null");
         }
 
         String relayStateFromSpidLogin = spidLogin.getRelayState();
         if (relayStateFromSpidLogin != null) {
-            logger.info("relayStateFromSpidLogin = " + relayStateFromSpidLogin);
+            logger.info("relayStateFromSpidLogin = {}", relayStateFromSpidLogin);
         } else {
             Assertions.fail("relayStateFromSpidLogin is null");
         }
 
         String sigAlgFromSpidLogin = spidLogin.getSigAlg();
         if (sigAlgFromSpidLogin != null) {
-            logger.info("sigAlgFromSpidLogin = " + sigAlgFromSpidLogin);
+            logger.info("sigAlgFromSpidLogin = {}", sigAlgFromSpidLogin);
         } else {
             Assertions.fail("sigAlgFromSpidLogin is null");
         }
 
         String signatureFromSpidLogin = spidLogin.getSignature();
         if (signatureFromSpidLogin != null) {
-            logger.info("signatureFromSpidLogin = " + signatureFromSpidLogin);
+            logger.info("signatureFromSpidLogin = {}", signatureFromSpidLogin);
         } else {
             Assertions.fail("signatureFromSpidLogin is null");
         }
 
         String bindingFromSpidLogin = spidLogin.getBinding();
         if (bindingFromSpidLogin != null) {
-            logger.info("bindingFromSpidLogin = " + bindingFromSpidLogin);
+            logger.info("bindingFromSpidLogin = {}", bindingFromSpidLogin);
         } else {
             Assertions.fail("bindingFromSpidLogin is null");
         }
@@ -534,70 +525,70 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         String spidLevelFromSpidDemoStart = spidDemoStart.getSpidLevelOutput();
         if (spidLevelFromSpidDemoStart != null) {
-            logger.info("spidLevelFromSpidDemoStart = " + spidLevelFromSpidDemoStart);
+            logger.info("spidLevelFromSpidDemoStart = {}", spidLevelFromSpidDemoStart);
         } else {
             Assertions.fail("spidLevelFromSpidDemoStart is null");
         }
 
         String organizationDisplayNameFromSpidDemoStart = spidDemoStart.getOrganizationDisplayNameOutput();
         if (organizationDisplayNameFromSpidDemoStart != null) {
-            logger.info("organizationDisplayNameFromSpidDemoStart = " + organizationDisplayNameFromSpidDemoStart);
+            logger.info("organizationDisplayNameFromSpidDemoStart = {}", organizationDisplayNameFromSpidDemoStart);
         } else {
             Assertions.fail("organizationDisplayNameFromSpidDemoStart is null");
         }
 
         String samlRequestFromSpidDemoStart = spidDemoStart.getSamlRequestOutput();
         if (samlRequestFromSpidDemoStart != null) {
-            logger.info("samlRequestFromSpidDemoStart = " + samlRequestFromSpidDemoStart);
+            logger.info("samlRequestFromSpidDemoStart = {}", samlRequestFromSpidDemoStart);
         } else {
             Assertions.fail("samlRequestFromSpidDemoStart is null");
         }
 
         String relayStateFromSpidDemoStart = spidDemoStart.getRelayStateOutput();
         if (relayStateFromSpidDemoStart != null) {
-            logger.info("relayStateFromSpidDemoStart = " + relayStateFromSpidDemoStart);
+            logger.info("relayStateFromSpidDemoStart = {}", relayStateFromSpidDemoStart);
         } else {
             Assertions.fail("relayStateFromSpidDemoStart is null");
         }
 
         String sigAlgFromSpidDemoStart = spidDemoStart.getSigAlgOutput();
         if (sigAlgFromSpidDemoStart != null) {
-            logger.info("sigAlgFromSpidDemoStart = " + sigAlgFromSpidDemoStart);
+            logger.info("sigAlgFromSpidDemoStart = {}", sigAlgFromSpidDemoStart);
         } else {
             Assertions.fail("sigAlgFromSpidDemoStart is null");
         }
 
         String signatureFromSpidDemoStart = spidDemoStart.getSignatureOutput();
         if (signatureFromSpidDemoStart != null) {
-            logger.info("signatureFromSpidDemoStart = " + signatureFromSpidDemoStart);
+            logger.info("signatureFromSpidDemoStart = {}", signatureFromSpidDemoStart);
         } else {
             Assertions.fail("signatureFromSpidDemoStart is null");
         }
 
         String purposeFromSpidDemoStart = spidDemoStart.getPurposeOutput();
         if (purposeFromSpidDemoStart != null) {
-            logger.info("purposeFromSpidDemoStart = " + purposeFromSpidDemoStart);
+            logger.info("purposeFromSpidDemoStart = {}", purposeFromSpidDemoStart);
         } else {
             Assertions.fail("purposeFromSpidDemoStart is null");
         }
 
         String minAgeFromSpidDemoStart = spidDemoStart.getMinAgeOutput();
         if (minAgeFromSpidDemoStart != null) {
-            logger.info("minAgeFromSpidDemoStart = " + minAgeFromSpidDemoStart);
+            logger.info("minAgeFromSpidDemoStart = {}", minAgeFromSpidDemoStart);
         } else {
             Assertions.fail("minAgeFromSpidDemoStart is null");
         }
 
         String maxAgeFromSpidDemoStart = spidDemoStart.getMaxAgeOutput();
         if (maxAgeFromSpidDemoStart != null) {
-            logger.info("maxAgeFromSpidDemoStart = " + maxAgeFromSpidDemoStart);
+            logger.info("maxAgeFromSpidDemoStart = {}", maxAgeFromSpidDemoStart);
         } else {
             Assertions.fail("maxAgeFromSpidDemoStart is null");
         }
 
         String retryFromSpidDemoStart = spidDemoStart.getRetryOutput();
         if (retryFromSpidDemoStart != null) {
-            logger.info("retryFromSpidDemoStart = " + retryFromSpidDemoStart);
+            logger.info("retryFromSpidDemoStart = {}", retryFromSpidDemoStart);
         } else {
             Assertions.fail("retryFromSpidDemoStart is null");
         }
@@ -623,14 +614,14 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         String relayStateFromSpidDemoLogin = spidDemoLogin.getRelayStateOutput();
         if (relayStateFromSpidDemoLogin != null) {
-            logger.info("relayStateFromSpidDemoLogin = " + relayStateFromSpidDemoLogin);
+            logger.info("relayStateFromSpidDemoLogin = {}", relayStateFromSpidDemoLogin);
         } else {
             Assertions.fail("relayStateFromSpidDemoLogin is null");
         }
 
         String samlResponseFromSpidDemoLogin = spidDemoLogin.getSAMLResponseOutput();
         if (samlResponseFromSpidDemoLogin != null) {
-            logger.info("samlResponseFromSpidDemoLogin = " + samlResponseFromSpidDemoLogin);
+            logger.info("samlResponseFromSpidDemoLogin = {}", samlResponseFromSpidDemoLogin);
         } else {
             Assertions.fail("samlResponseFromSpidDemoLogin is null");
         }
@@ -655,7 +646,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         int numProvaLogin = 0;
 
         String userDelegato = "";
-        String passwordDelegato= "";;
+        String passwordDelegato= "";
          if (nomeFileLogin .equalsIgnoreCase("delegatoPF")) {
              userDelegato = webDriverConfig.getUserLucrezia();
              passwordDelegato = webDriverConfig.getPwdLucrezia();
@@ -680,9 +671,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         if (urlWithTokenFound) {
-            logger.info("procedura di login from spid provata : " + numProvaLogin);
+            logger.info("procedura di login from spid provata : {}", numProvaLogin);
         } else {
-            logger.error("procedura di login from spid provata : " + numProvaLogin);
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaFisica.get("urlPortale") + "' è : " + this.urlPersonaFisica.get("responseCode"));
         }
 
@@ -700,7 +690,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 token = webDriverConfig.getTokentestPFDelegante();
             } else {
-                token = token = webDriverConfig.getTokendevPFDelegante();
+                token = webDriverConfig.getTokendevPFDelegante();
             }
         } else {
             if (variabileAmbiente.equalsIgnoreCase("test")) {
@@ -736,7 +726,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     @When("Login con persona fisica scelta lingua")
     public void loginConPersonaFisicaSceltaLingua(Map<String, String> datiPF) {
 
-        logger.info("user persona fisica : " + webDriverConfig.getUserCesare());
+        logger.info("user persona fisica {}",  webDriverConfig.getUserCesare());
         logger.info("cookies start");
 
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -768,25 +758,22 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         confermaDatiSpidPFPage.waitLoadConfermaDatiSpidDEPage();
         String nomeUtenteLetto = confermaDatiSpidPFPage.leggiNomeUtente();
         if (nomeUtenteLetto.equals(datiPF.get("name"))) {
-            logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + datiPF.get("name"));
+            logger.info(MessageFormat.format("nome utente letto : {0} uguale a : {1}", nomeUtenteLetto, datiPF.get("name")));
         } else {
-            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
             Assertions.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
         }
 
         String cognomeUtenteLetto = confermaDatiSpidPFPage.leggiCognomeUtente();
         if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
-            logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + datiPF.get("familyName"));
+            logger.info(MessageFormat.format("cognome utente letto : {0} uguale a : {1}", cognomeUtenteLetto, datiPF.get("familyName")));
         } else {
-            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
             Assertions.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
         }
 
         String numeroFiscaleLetto = confermaDatiSpidPFPage.leggiNumeroFiscale();
         if (numeroFiscaleLetto.equals(datiPF.get("fiscalNumber"))) {
-            logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + datiPF.get("fiscalNumber"));
+            logger.info(MessageFormat.format("numero fiscale letto : {0} uguale a : {1}", numeroFiscaleLetto, datiPF.get("fiscalNumber")));
         } else {
-            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 

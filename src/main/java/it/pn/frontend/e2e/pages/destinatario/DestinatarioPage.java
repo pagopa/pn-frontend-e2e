@@ -102,11 +102,9 @@ public class DestinatarioPage extends BasePage {
             if (isTextboxInvalid.equals(ariaInvalidInizio) || isTextboxInvalid.equals(ariaInvalidFine)) {
                 log.info("Almeno un campo data è in stato invalido");
             } else {
-                log.error("Nessuno dei campi data è passato allo stato invalido");
                 Assertions.fail("Nessuno dei campi data è passato allo stato invalido");
             }
         } catch (TimeoutException e) {
-            log.error("Campi data non visualizzati correttamente con errore: " + e.getMessage());
             Assertions.fail("Campi data non visualizzati correttamente con errore: " + e.getMessage());
         }
         return invalidBoxDate;
@@ -127,6 +125,7 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void clickSulDettaglioNotificaDelegante() {
+        //NON Utilizzata
         getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElements(By.id("notificationsTable.body.row")).get(0)));
         WebElement singolaNotificaDelegante = driver.findElements(By.id("notificationsTable.body.row")).get(0);
         log.info("Si clicca sulla prima notifica del delegante");
@@ -177,7 +176,6 @@ public class DestinatarioPage extends BasePage {
                 attempt++;
             }
         }
-        log.error("Errore nella creazione della notifica per PF dopo {} tentativi", maxAttempts);
         Assertions.fail("Errore nella creazione della notifica dopo " + maxAttempts + " tentativi");
     }
 
@@ -235,15 +233,81 @@ public class DestinatarioPage extends BasePage {
 
     public void controlloEntiRadice(List<String> enti) {
         for (String ente : enti) {
-            // WebElement enteRadice = driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"));
             getWebDriverWait(15).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"))));
         }
     }
 
     public void checkBannerAnnullamentoNotifica() {
-       // WebElement bannerAnnullamentoNotificaBy = driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"));
         getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"))));
         getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
+    }
+
+    public void selezionaAvvisoPagoPA() {
+        List<WebElement> pagoPARadioButtons = getWebDriverWait(10)
+                .withMessage("radio Button  Avviso PagoPA non visibile")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Avviso pagoPA']")));
+        for (WebElement radioButton : pagoPARadioButtons) {
+            radioButton.click();
+        }
+    }
+
+    public void cliccareSuSincrona() {
+        WebElement radioButtonSincrona = getWebDriverWait(10)
+                .withMessage("radio Button  Sincrona non visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Sincrona']")));
+        radioButtonSincrona.click();
+    }
+
+    public void inseriscoCodiceAvviso() {
+        List<WebElement> inputFields = getWebDriverWait(10)
+                .withMessage("Lista inseriscoCodiceAvviso non visibile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("noticeCode")));
+        //TODO bisogna cambiare in modo random le ultime 5 cifre
+        long numero = 302010124463612500L;
+        for (WebElement inputField : inputFields) {
+            inputField.sendKeys(String.valueOf(numero));
+            numero++;
+        }
+    }
+
+    public void cliccareSuACaricoDelDestinatario() {
+        WebElement caricoDestinatarioRadioButton = getWebDriverWait(10)
+                .withMessage("radio Button  A carico del destinatario (puntuale) non visibile")
+                .until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='A carico del destinatario (puntuale)']")
+        ));
+        caricoDestinatarioRadioButton.click();
+    }
+
+    public void inserireCostoNotifica(String costo) {
+        WebElement costoNotificaInput = getWebDriverWait(10)
+                .withMessage("Campo inserireCostoNotifica non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("paFee")));
+        costoNotificaInput.clear(); // Pulisci il campo se necessario
+        costoNotificaInput.sendKeys(costo);
+    }
+
+    public void selezionaNessunPagamento() {
+        List<WebElement> pagoPARadioButtons = getWebDriverWait(10)
+                .withMessage("radio Button  Nessun Pagamento non visibile")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Nessun pagamento']")));
+        for (WebElement radioButton : pagoPARadioButtons) {
+            radioButton.click();
+        }
+    }
+
+    public void selezionareLaPercentuale(String percentuale) {
+//        WebElement ivaDropdown = getWebDriverWait(10)
+//                .withMessage("Non Visibile  ")
+//                .until(ExpectedConditions.elementToBeClickable(By.id("vat")));
+//        ivaDropdown.click();
+//
+//        WebElement ivaOption = getWebDriverWait(10)
+//                .withMessage("radio Button  Nessun Pagamento non visibile")
+//                .until(ExpectedConditions.elementToBeClickable(
+//                By.xpath("//li[@role='option' and @data-value='4']")
+//        ));
+//        ivaOption.click();
     }
 }

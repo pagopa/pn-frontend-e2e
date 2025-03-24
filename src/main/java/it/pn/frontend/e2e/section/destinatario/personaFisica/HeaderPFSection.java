@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 
@@ -43,7 +44,6 @@ public class HeaderPFSection extends BasePage {
             getWebDriverWait(60).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//button[@aria-label='party-menu-button']"))));
             logger.info("Header DE Section caricata");
         } catch (TimeoutException e) {
-            logger.error("Header DE Section non caricata con errore : " + e.getMessage());
             Assertions.fail("Header DE Section non caricata con errore : " + e.getMessage());
         }
     }
@@ -67,9 +67,29 @@ public class HeaderPFSection extends BasePage {
     public void waitUrlToken() {
         try {
             getWebDriverWait(10).until(ExpectedConditions.urlContains("token"));
-            logger.info("Url token ------------------------>" + driver.getCurrentUrl());
+            logger.info(MessageFormat.format("Url token ------>{0}", driver.getCurrentUrl()));
         } catch (TimeoutException e) {
-            logger.error("Url token non trovato con errore:" + e.getMessage());
+            logger.error(MessageFormat.format("Url token non trovato con errore:{0}", e.getMessage()));
+        }
+    }
+
+    public void selezionaSecondoEsciButtonPF() {
+        try {
+            List<WebElement> esciButtons = getWebDriverWait(5)
+                    .withMessage("Il bottone Esci PF non è presente")
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[contains(text(),'Esci')]")));
+
+            if (!esciButtons.isEmpty()) {
+                WebElement esciButton = getWebDriverWait(10)
+                        .withMessage("Impossibile cliccare sul secondo bottone Esci del Pop-up PF")
+                        .until(ExpectedConditions.elementToBeClickable(esciButtons.get(0)));
+                esciButton.click();
+                logger.info("Cliccato sul secondo bottone Esci del Pop-up PF");
+            } else {
+                logger.warn("Il secondo bottone Esci non è presente PF, nessuna azione eseguita");
+            }
+        } catch (TimeoutException e) {
+            Assertions.fail("Il secondo bottone Esci non cliccabile PF con errore: " + e.getMessage());
         }
     }
 }

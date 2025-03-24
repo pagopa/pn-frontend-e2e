@@ -27,7 +27,7 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void waitLoadSelezionaImpresaPage() {
-       // webTool.waitTime(30);
+        webTool.waitTime(1);
         //accediButton = driver.findElement(By.xpath("//button[contains(text(),'Accedi')]"));
         //WebElement titlePageBy = driver.findElement(By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]"));
         getWebDriverWait(60).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//h3[contains(text(),'Le tue imprese su SEND')]")));

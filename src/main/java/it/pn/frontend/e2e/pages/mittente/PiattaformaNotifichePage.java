@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DateFormatSymbols;
+import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -190,7 +191,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButtonMittente() {
-        getWebDriverWait(20).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable( driver.findElement(By.id("filter-button"))));
+        getWebDriverWait(30).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable( driver.findElement(By.id("filter-button"))));
         filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
         filtraNotificaButtonMittente.click();
         logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
@@ -273,26 +274,25 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void inserimentoArcoTemporale(String da, String a, boolean previousMonthAButtonEndDateClick) {
 
-        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("startDate"))));
-        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id='startDate']"))));
+        List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
 
-        dataInizioField = driver.findElement(By.id("startDate"));
-        dataFineField = driver.findElement(By.id("endDate"));
-
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
-
-        webTool.waitTime(2);
-        String[] arraySplitDateDa = da.split("/");
-
-        List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
-        if (dataFieldList != null && dataFieldList.size() == 5) {
-            dataFieldList.get(2).click();
-        } else if (dataFieldList != null && dataFieldList.size() == 3) {
-            dataFieldList.get(1).click();
+        /*CodeBuild carica il calendario sul campo di input invece del bottone con l'icona.
+        Si cambia il selettore in base alla presenza del bottone di calendario.
+         */
+        if (dataFieldList.isEmpty()) {
+            dataInizioField = driver.findElement(By.xpath("//input[@id='startDate']"));
+            dataFineField = driver.findElement(By.xpath("//input[@id='endDate']"));
+        }
+        else {
+            dataInizioField = dataFieldList.get(0);
+            dataFineField = dataFieldList.get(1);
         }
 
+        String[] arraySplitDateDa = da.split("/");
+
         // Step 2: Click on the input field to open the calendar pop-up
-        //dataFieldList.get(0).click();
+        dataInizioField.click();
+
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
 
@@ -318,14 +318,8 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         // Step 4: Select a date (e.g., the 15th day of the current month)
         webTool.waitTime(2);
-        //  WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
         WebElement dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"))));
         dateToSelect.click();
-        logger.info("DATA INIZIO FIELD: " + dataInizioField.getAttribute("value"));
-
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
-
-        dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id='endDate']"))));
 
         String[] arraySplitDateA = a.split("/");
 
@@ -335,14 +329,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         webTool.waitTime(2);
         // Step 2: Click on the input field to open the calendar pop-up
-
-        if (dataFieldList != null && dataFieldList.size() == 5) {
-            dataFieldList.get(3).click();
-        } else if (dataFieldList != null && dataFieldList.size() == 3) {
-            dataFieldList.get(2).click();
-        }
-
-        //dataFieldList.get(1).click();
+        dataFineField.click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
@@ -366,7 +353,6 @@ public class PiattaformaNotifichePage extends BasePage {
                     }
                 }
 
-
                 getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"))));
             } catch (ElementClickInterceptedException e) {
                 logger.info("Previous month non cliccabile");
@@ -382,32 +368,33 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement dateToSelect1 = calendar1.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayA + "']"));
         dateToSelect1.click();
-        logger.info("DATA FINE FIELD: " + dataFineField.getAttribute("value"));
 
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
+        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//*[@id='endDate']")), "value", a));
     }
 
     public boolean inserimentoArcoTemporaleErrato(String da, String a) {
 
         boolean result = true;
+        List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
 
-        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("startDate"))));
-        dataInizioField = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id='startDate']"))));
-
-        dataInizioField = driver.findElement(By.id("startDate"));
-        dataFineField = driver.findElement(By.id("endDate"));
-
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
+        /*CodeBuild carica il calendario sul campo di input invece del bottone con l'icona.
+        Si cambia il selettore in base alla presenza del bottone di calendario.
+         */
+        if (dataFieldList.isEmpty()) {
+            dataInizioField = driver.findElement(By.xpath("//input[@id='startDate']"));
+            dataFineField = driver.findElement(By.xpath("//input[@id='endDate']"));
+        }
+        else {
+            dataInizioField = dataFieldList.get(0);
+            dataFineField = dataFieldList.get(1);
+        }
 
         webTool.waitTime(5);
 
         String[] arraySplitDateDa = da.split("/");
 
-        // List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[@aria-label='Scegli data']"));
-        List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
-
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList.get(2).click();
+        dataInizioField.click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
@@ -440,10 +427,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
         logger.info("DATA INIZIO FIELD: " + dataInizioField.getAttribute("value"));
 
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", da));
-
-        dataFineField = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='endDate']")));
-
         String[] arraySplitDateA = a.split("/");
 
         int dayA = Integer.parseInt(arraySplitDateA[0]);
@@ -452,7 +435,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         webTool.waitTime(3);
         // Step 2: Click on the input field to open the calendar pop-up
-        dataFieldList.get(3).click();
+        dataFineField.click();
 
         // Step 3: Wait for the calendar pop-up to appear
         WebElement calendar1 = getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".MuiDateCalendar-root"))));  // Adjust based on your app
@@ -484,17 +467,16 @@ public class PiattaformaNotifichePage extends BasePage {
 
             getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
         } catch (ElementClickInterceptedException e) {
-            logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: " + e.getMessage());
+            logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: {}", e.getMessage());
             result = false;
         }
         return result;
     }
 
-
     public int getListDate() {
         attesaCaricamentoPagina();
-        getWebDriverWait(30).withMessage("Nessuna data trovata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
-        List<WebElement> dataListBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
+        getWebDriverWait(30).withMessage("Nessuna data trovata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"))));
+        List<WebElement> dataListBy = driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"));
         logger.info("Date trovate correttamente");
 
         return dataListBy.size();
@@ -541,20 +523,15 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
 
             attesaCaricamentoPagina();
-            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
-
-
-            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
-            WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
-            buttonRighePagine.click();
-
-            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
-            WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
-            pageSize50.click();
+            verificaEsistenzaTabellaNotifiche();
+            buttonRighePagine();
+            selezionaPage50();
 
             webTool.waitTime(10);
            // notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
-            List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
+            List<WebElement> notifiche = getWebDriverWait(10)
+                    .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
+
 
             Calendar calendar = GregorianCalendar.getInstance();
             logger.info("CALENDAR: " + calendar);
@@ -569,12 +546,13 @@ public class PiattaformaNotifichePage extends BasePage {
                 // int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
                 int randomNumber = 0;
                 if (notifiche.size()>1){
-                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);;
+                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
                 }
 
                 logger.info("ELENCO NOTIFICHE : " + notifiche.size());
                 logger.info("NOTIFICA SELEZIONATA: " + randomNumber);
-                notifiche.get(randomNumber).click();
+//                notifiche.get(randomNumber).click();
+                clickRowNotificationIndex(notifiche.get(randomNumber));
                 /**
                  if (notifiche.size() >= index) {
                  logger.info("NOTIFICA SELEZIONATA: " + index);
@@ -601,18 +579,14 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
 
             attesaCaricamentoPagina();
-            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
-
-            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
-            WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
-            buttonRighePagine.click();
-
-            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
-            WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
-            pageSize50.click();
+            verificaEsistenzaTabellaNotifiche();
+            buttonRighePagine();
+            selezionaPage50();
 
             webTool.waitTime(10);
-            List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
+            List<WebElement> notifiche = getWebDriverWait(10)
+                    .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
+
 
             logger.info("Scenario " + hooksNew.getScenario());
 
@@ -632,7 +606,8 @@ public class PiattaformaNotifichePage extends BasePage {
                 logger.info("ROWS TABLE..." + randomNumber);
                 logger.info("ROWS SELEZIONATA: " + randomNumber);
 
-                notifiche.get(randomNumber).click();
+//                notifiche.get(randomNumber).click();
+                clickRowNotificationIndex(notifiche.get(randomNumber));
                 /**
                  if (notifiche.size() > index) {
                  logger.info("ROWS SELEZIONATA1: " + index);
@@ -662,26 +637,81 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaPrimaNotifica() {
         waitLoadPage();
         try {
-            //List<WebElement> notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
             attesaCaricamentoPagina();
-            getWebDriverWait(30).withMessage("La tabella delle notifiche non è caricata correttamente").until(visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
+            verificaEsistenzaTabellaNotifiche();
+            buttonRighePagine();
+            selezionaPage50();
 
-            getWebDriverWait(10).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("rows-per-page"))));
-            WebElement buttonRighePagine = driver.findElement(By.id("rows-per-page"));
-            buttonRighePagine.click();
+            List<WebElement> notifiche = getWebDriverWait(10)
+                    .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
 
-            getWebDriverWait(3).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("pageSize-50"))));
-            WebElement pageSize50 = driver.findElement(By.id("pageSize-50"));
-            pageSize50.click();
+            if (!notifiche.isEmpty()) {
+                WebElement primaNotifica = notifiche.get(0);
 
-            webTool.waitTime(10);
-            List<WebElement> notifiche = driver.findElements(By.id("notificationsTable.body.row"));
-
-            notifiche.get(0).click();
+                clickRowNotificationIndex(primaNotifica);
+                logger.info("Cliccato sul primo pulsante 'Vedi Dettaglio'");
+            } else {
+                Assertions.fail("Nessuna notifica trovata");
+            }
         } catch (TimeoutException e) {
-            logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         }
+    }
+
+//    private void clickRowNotificationIndex(WebElement primaNotifica) {
+//        WebElement buttonVediDettaglio = getWebDriverWait(15)
+//                .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
+//                .until(ExpectedConditions.elementToBeClickable(primaNotifica.findElement(By.xpath(".//button[contains(text(),'Vedi dettaglio')]"))));
+//        buttonVediDettaglio.click();
+//    }
+
+
+    private void clickRowNotificationIndex(WebElement primaNotifica) {
+        try {
+            // Trova il pulsante "Vedi dettaglio" all'interno della riga specifica (primaNotifica)
+            WebElement buttonVediDettaglio = getWebDriverWait(10)
+                    .withMessage("Il pulsante 'Vedi Dettaglio' non è presente")
+                    .until(ExpectedConditions.presenceOfNestedElementLocatedBy(
+                            primaNotifica, By.cssSelector("button[data-testid='goToNotificationDetail']"))
+                    );
+
+            // Scorri l'elemento nella vista (se necessario)
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonVediDettaglio);
+
+            // Attendi che l'elemento sia cliccabile
+            buttonVediDettaglio = getWebDriverWait(10)
+                    .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(buttonVediDettaglio));
+
+            // Forza il clic utilizzando JavascriptExecutor (se necessario)
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonVediDettaglio);
+            logger.info("Cliccato sul pulsante 'Vedi Dettaglio'");
+        } catch (Exception e) {
+            logger.error("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
+            Assertions.fail("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
+        }
+    }
+
+
+
+    private void selezionaPage50() {
+        WebElement pageSize50 = getWebDriverWait(3)
+                .withMessage("Impossibile trovare pageSize-50")
+                .until(ExpectedConditions.elementToBeClickable(By.id("pageSize-50")));
+        pageSize50.click();
+    }
+
+    private void buttonRighePagine() {
+        WebElement buttonRighePagine = getWebDriverWait(10)
+                .withMessage("Impossibile trovare Botton Righe per pagina ")
+                .until(ExpectedConditions.elementToBeClickable(By.id("rows-per-page")));
+        buttonRighePagine.click();
+    }
+
+    private void verificaEsistenzaTabellaNotifiche() {
+        getWebDriverWait(30)
+                .withMessage("La tabella delle notifiche non è caricata correttamente")
+                .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
     }
 
     public void selezionaNotificaIUN(String IUN) {
@@ -1070,6 +1100,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean errorMessage() {
+        webTool.waitTime(10);
         errorMessage = driver.findElement(By.id("subject-helper-text"));
         return errorMessage.isDisplayed();
     }
@@ -1165,7 +1196,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaCampiPreliminariNotificaVuoti() {
         webTool.waitTime(10);
-        preliminaryInformationsForm = driver.findElement(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]"));
+//        preliminaryInformationsForm = driver.findElement(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]"));
+        preliminaryInformationsForm = getWebDriverWait(60)
+                .withMessage("Il form preliminaryInformationsForm non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]")));
         List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
         for (WebElement inputElement : inputElements) {
             if (inputElement.getAttribute("type").equals("text") && !inputElement.getAttribute("value").isEmpty()) {
@@ -1173,7 +1207,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     return false;
                 }
             }
-            if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected() && !inputElement.getAttribute("value").equalsIgnoreCase("it")) {
+            if (inputElement.getAttribute("type").equals("radio") && inputElement.isSelected() && !inputElement.getAttribute("value").equalsIgnoreCase("it") && !inputElement.getAttribute("value").equalsIgnoreCase("REGISTERED_LETTER_890")) {
                 return false;
             }
         }
@@ -1308,10 +1342,23 @@ public class PiattaformaNotifichePage extends BasePage {
 
         String iun = getNotificationSingletonParam().getIun(hooksNew.scenario);
         logger.info("iun notifica {}", iun);
-        //By notification = By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]");
-        getWebDriverWait(35).withMessage("notifica non esistente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"))));
-        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
-        notification.click();
+        WebElement notification =getWebDriverWait(35)
+                .withMessage("notifica non esistente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
+//        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
+        clickRowNotificationIndex(notification);
+//        notification.click();
+    }
+
+    public void clickSuNotifica(String iun) {
+
+        logger.info("iun notifica {}", iun);
+        WebElement notification = getWebDriverWait(35)
+                .withMessage("notifica non esistente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
+//        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"));
+        clickRowNotificationIndex(notification);
+//        notification.click();
     }
 
     public void checkStatoNotifica(String stato) {
@@ -1701,11 +1748,6 @@ public class PiattaformaNotifichePage extends BasePage {
         element.click();
     }
 
-    public void entroDentroLaPrimaNotifica() {
-        WebElement firstRowButton = getWebDriverWait(10).withMessage("Prima notifica non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//tr[@class='MuiTableRow-root css-g76qb5'])[1]//td[3]//button"))));
-        firstRowButton.click();
-    }
-
     public void cambiaLinguaFooter(String lingua) {
         WebElement menuLingua = getWebDriverWait(10).withMessage("Seleziona: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//button[@aria-label='lingua']")));
@@ -1717,9 +1759,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean isTextPresent(String testo) {
         try {
-            return getWebDriverWait(20).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
+            return getWebDriverWait(30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
         } catch (Exception e) {
-            return false; // Testo non trovato entro il timeout
+            return false;
         }
     }
 
@@ -1775,7 +1817,9 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezioneImpostazioneLingua() {
-        WebElement impostazioneLingua = driver.findElement(By.xpath("//button[@data-testid='settingsLangBtn']"));
+        WebElement impostazioneLingua = getWebDriverWait(10)
+                .withMessage("Impossibile selezioneImpostazioneLingua")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='settingsLangBtn']")));
         impostazioneLingua.click();
     }
 
@@ -1826,4 +1870,44 @@ public class PiattaformaNotifichePage extends BasePage {
         webTool.waitTime(3);
     }
 
+    public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
+        selezioneImpostazioneLingua();
+        if(lingua.equalsIgnoreCase("Italiano")) {
+            WebElement radioIt = getWebDriverWait(20)
+                    .withMessage("Impossibile impostare la lingua su Italiano")
+//                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='it']")));
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='lang' and @value='it']/ancestor::label")));
+            radioIt.click();
+        }else {
+            selezioneItalianoAltralingua();
+            if (lingua.equalsIgnoreCase("Francese")) {
+                WebElement selezionaLingua = getWebDriverWait(20)
+                        .withMessage("Impossibile impostare la lingua su Francese")
+                        .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='additionalLang']")));
+                selezionaLingua.click();
+
+
+                WebElement gruppoLingua = getWebDriverWait(20)
+                        .withMessage("Impossibile selezionare la lingua da menu a discesa")
+                        .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(text(),'" + lingua + "')]")));
+                getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
+                gruppoLingua.click();
+
+            }
+        }
+
+        webTool.waitTime(3);
+        //chiusura della schermata tramite la X
+        WebElement closeIcon = getWebDriverWait(10)
+                .withMessage("Impossibile Chiudere la finestra laterale")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='close']")));
+        closeIcon.click();
+        webTool.waitTime(3);
+    }
+
+    public void riduciZoomPaginaAl(String size) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("document.body.style.zoom='"+size+"%'");
+
+    }
 }

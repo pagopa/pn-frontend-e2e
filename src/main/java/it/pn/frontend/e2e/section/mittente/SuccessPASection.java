@@ -34,12 +34,14 @@ public class SuccessPASection extends BasePage {
 
     public void waitLoadSuccessPASection() {
         try {
-//          successCheckBy = driver.findElement(By.id("title-sync-feedback"));
-            getWebDriverWait(60).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("title-sync-feedback"))));
+            getWebDriverWait(60)
+                    .withMessage("Non è presente il testo 'La notifica è stata creata con successo'")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("title-sync-feedback")));
+
             logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
+
         } catch (TimeoutException e) {
-            logger.error("TA_QA: Il titolo della Success PA section non caricata con errore: " + e.getMessage());
-            Assertions.fail("TA_QA: Il titolo della Success PA section non caricata con errore: " + e.getMessage());
+            Assertions.fail("TA_QA: Il titolo della Success PA section non è stato caricato. Errore: " + e.getMessage());
         }
     }
 

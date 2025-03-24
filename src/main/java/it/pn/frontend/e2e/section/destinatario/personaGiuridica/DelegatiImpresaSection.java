@@ -177,31 +177,51 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
-
     public void verificaRemoveMenuDelega() {
         try {
-            if (driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
-                logger.info("Esiste il duplicato");
-                WebElement menuIcon = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
-                js().executeScript("arguments[0].click();", menuIcon);
-                WebElement revokeButton = getWebDriverWait(40).withMessage("Bottone revoca delega non cliccabile")
-                        .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
-                revokeButton.click();
-                WebElement dialogButton = getWebDriverWait(40).withMessage("Bottone dialog-action-button non cliccabile")
-                        .until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
-                dialogButton.click();
-                driver.navigate().refresh();
-                logger.info("Rimosso il duplicato");
-            }
-        } catch (NoSuchElementException e) {
-            logger.info("L'elemento non esiste. Continuo l'esecuzione.");
-        } catch (TimeoutException e) {
-            logger.warn("Timeout raggiunto durante l'attesa di un elemento: " + e.getMessage());
-        } catch (StaleElementReferenceException e) {
-            logger.error("Elemento non valido o DOM modificato: " + e.getMessage());
-        }
+            List<WebElement> menuIcons = getWebDriverWait(10)
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='delegationMenuIcon']")));
 
+            if (menuIcons.isEmpty()) {
+                logger.info("Nessuna delega duplicata trovata, nessuna azione necessaria.");
+                return;
+            }
+
+            logger.info("Esistono {} duplicati da rimuovere", menuIcons.size());
+
+            for (WebElement menuIcon : menuIcons) {
+                try {
+                    js().executeScript("arguments[0].click();", menuIcon);
+
+                    // Attesa e click su "Revoca delega"
+                    WebElement revokeButton = getWebDriverWait(40)
+                            .withMessage("Bottone Revoca Delega non cliccabile")
+                            .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                    revokeButton.click();
+
+                    // Attesa e click sul pulsante di conferma nel pop-up
+                    WebElement dialogButton = getWebDriverWait(40)
+                            .withMessage("Bottone Revoca la Delega non cliccabile nel Pop-UP")
+                            .until(ExpectedConditions.elementToBeClickable(By.id("dialog-confirm-button")));
+                    dialogButton.click();
+
+                    // Attendere la scomparsa della delega eliminata
+                    getWebDriverWait(40).until(ExpectedConditions.invisibilityOf(revokeButton));
+
+                    logger.info("Duplicato rimosso con successo");
+                } catch (TimeoutException e) {
+                    Assertions.fail("Timeout durante la rimozione di una delega: " + e.getMessage());
+                } catch (StaleElementReferenceException e) {
+                    Assertions.fail("Elemento non più valido nel DOM, probabilmente già rimosso: " + e.getMessage());
+                }
+            }
+        } catch (TimeoutException e) {
+            logger.info("Non sono presenti i tre puntini per eliminare la delega. Continuo l'esecuzione.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la gestione delle deleghe: " + e.getMessage());
+        }
     }
+
 
     public void clickMostraCodice() {
         menuDelegaButton = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
@@ -222,7 +242,6 @@ public class DelegatiImpresaSection extends BasePage {
             logger.info("click sul bottone revoca");
             revocaMenuButton.click();
         } catch (TimeoutException e) {
-            logger.error("click sul bottone revoca non riuscito");
             Assertions.fail("click sul bottone revoca non riuscito");
         }
 

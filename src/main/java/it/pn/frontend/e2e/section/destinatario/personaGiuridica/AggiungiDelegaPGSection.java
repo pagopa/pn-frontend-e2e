@@ -202,6 +202,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     public boolean insertData(String dataInserita) {
         boolean result = true;
         WebElement calendar = null;
+        WebElement dataField = null;
         int dayDa = 0;
         try {
             dataTermineDelegaInput = driver.findElement(By.id("expirationDate"));
@@ -215,30 +216,46 @@ public class AggiungiDelegaPGSection extends BasePage {
             webTool.waitTime(10);
             String[] arraySplitDateDa = dataInserita.split("/");
 
-            List<WebElement> dataFieldList = driver.findElements(By.cssSelector(".MuiInputBase-input"));
+            List<WebElement> dataFieldList = driver.findElements(By.xpath("//button[contains(@aria-label, 'Scegli data')]"));
+
+            /*CodeBuild carica il calendario sul campo di input invece del bottone con l'icona.
+            Si cambia il selettore in base alla presenza del bottone di calendario.
+             */
+            if (dataFieldList.isEmpty()) {
+                dataField = driver.findElement(By.id("expirationDate"));
+            }
+            else {
+                dataField = dataFieldList.get(0);
+            }
+
             dayDa = Integer.parseInt(arraySplitDateDa[0]);
 
             // Step 2: Click on the input field to open the calendar pop-up
-            dataFieldList.get(3).click();
+            dataField.click();
 
             // Step 3: Wait for the calendar pop-up to appear
             calendar = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".MuiDateCalendar-root")));  // Adjust based on your app
 
             // Step 4: Select a date (e.g., the 15th day of the current month)
+            logger.info("day selected {}", dayDa);
             WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
             dateToSelect.click();
 
             getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataTermineDelegaInput, "value", dataInserita));
         } catch (ElementClickInterceptedException e) {
-            logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: " + e.getMessage());
-            if(calendar!= null) {
+            logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: {}", e.getMessage());
+            if (calendar!= null) {
                 dayDa = dayDa+2;
                 WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
                 dateToSelect.click();
             }
             result = false;
+        } finally {
+            WebElement bottoneChiudi = getWebDriverWait(10).withMessage("il Bottone chiudi del calendario non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[text()='Chiudi']"))));
+            bottoneChiudi.click();
         }
-        return  result;
+        return result;
     }
 
 
@@ -266,6 +283,8 @@ public class AggiungiDelegaPGSection extends BasePage {
         dataTermineDelegaInput.click();
         Actions action = new Actions(driver);
         action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
+        getWebDriverWait(10).withMessage("Il messaggio di errore su data termine delega obbligatoria non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("expirationDate-helper-text"))));
+
     }
 
     public void selectPersonaGiuridicaRadioButton() {

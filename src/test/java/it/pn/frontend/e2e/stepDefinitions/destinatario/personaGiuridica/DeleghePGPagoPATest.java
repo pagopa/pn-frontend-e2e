@@ -230,7 +230,7 @@ public class DeleghePGPagoPATest extends BasePage {
 
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata")
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDataErrata() {
-        logger.info("Si controlla che si veda il messaggio di errore");
+        logger.info("Si controlla che si veda il messaggio di errore data errata");
 
         Assertions.assertEquals( "Data errata", aggiungiDelegaPGSection.waitMessaggioErroreData(), "il messaggio di errore previsto: Data errata è diverso dell'attuale " + aggiungiDelegaPGSection.waitMessaggioErroreData());
         logger.info("il messaggio di errore 'Data errata' è presente");

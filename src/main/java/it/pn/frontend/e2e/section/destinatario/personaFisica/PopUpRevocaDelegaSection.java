@@ -35,11 +35,11 @@ public class PopUpRevocaDelegaSection extends BasePage {
     }
 
     public void clickRevocaLaDelega() {
-        webTool.waitTime(20);
-        revocaDialogAction = driver.findElement(By.id("dialog-action-button"));
+        revocaDialogAction = driver.findElement(By.id("dialog-confirm-button"));
         getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone").until(ExpectedConditions.elementToBeClickable(revocaDialogAction));
         logger.info("click revoca delega");
         this.revocaDialogAction.click();
+        getWebDriverWait(10).withMessage("Il toast di conferma rimozione delega non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='snackBarContainer']"))));
     }
 
 }

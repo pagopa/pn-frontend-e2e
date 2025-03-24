@@ -156,11 +156,6 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void siVisualizzaPaginaNotifichePersonaFisica() {
-        //webTool.waitTime(30);
-        //titleLabel =  driver.findElement(By.id("Le tue notifiche-page"));
-       // WebElement bannerRecapiti = driver.findElement(By.cssSelector("[data-testid='menu-item(i tuoi recapiti)']"));
-        //WebElement filtriDiRicerca = driver.findElement(By.cssSelector("[data-testid='filter-form']"));
-        //WebElement elencoNotifiche = driver.findElement(By.id("notificationsTable.body.row"));
         getWebDriverWait(30).withMessage("Il titolo della pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOfElementLocated(By.id("Le tue notifiche-page")));
         getWebDriverWait(30).withMessage("Il bottone 'i tuoi recapiti' della sidebar non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='menu-item(i tuoi recapiti)']"))));
         getWebDriverWait(30).withMessage("La sezione filtri per le notifiche non è visualizzabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='filter-form']"))));
