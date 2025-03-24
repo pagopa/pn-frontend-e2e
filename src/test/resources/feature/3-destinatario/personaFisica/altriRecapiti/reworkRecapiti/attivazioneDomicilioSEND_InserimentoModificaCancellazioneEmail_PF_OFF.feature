@@ -5,7 +5,7 @@ Feature: Rework della pagina dei contatti
   @addressBook1
   @TA_NRT_OFF
 
-  Scenario:[OFF_REWORK_DOMICILIO_DIGITALE_PF_85_86_87] Attivazione Domicilio Digitale SEND - Inserimento, modifica, cancellazione mail PF - Feature flag spento
+  Scenario:[OFF_REWORK_DOMICILIO_DIGITALE_PF_85_86_87_93] Attivazione Domicilio Digitale SEND - Inserimento, modifica, cancellazione mail PF - Feature flag spento
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
@@ -17,6 +17,9 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
+    And Verifica ed Elimina personalizzati per ente
+    And Verifica e Disattiva "domicilio digitale"
+    And Attesa 1 secondi
     And Verifica e Disattiva "email"
     And Attesa 2 secondi
 #  Creazione Email
@@ -37,6 +40,14 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Verifica Pagina "provaemail@test.it"
     And Verifica Pagina "ti avvisiamo con una email all"
+# Verifica assenza banner email mancante
+    Then Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
+    And Aspetta 5 secondi
+    And Non si visualizza correttamente il banner di email mancante
+    And La persona fisica clicca sulla prima notifica restituita
+    And Non si visualizza correttamente il banner di email mancante
 #  Elimina Email
-    #And Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up
-    #And Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente
+    And Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    And Verifica e Disattiva "email"
+    And Aspetta 5 secondi
+    And Verifica Da Attivare Email

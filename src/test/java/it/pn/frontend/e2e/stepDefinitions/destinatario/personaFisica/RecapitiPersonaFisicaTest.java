@@ -419,6 +419,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(String persona) {
         //personaFisica
         //personaGiuridica
+        logger.info("Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method");
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {

@@ -141,9 +141,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void waitLoadPopUp() {
         try {
             getWebDriverWait(30).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-            getWebDriverWait(30).withMessage("La descrizione non viene visualizzata e il testo non è corretto").until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-description"))),
-                    ExpectedConditions.attributeContains(driver.findElement(By.id("dialog-description")), "textContent", "Il codice è valido per 15 minuti.")));
+            //check del testo comprende i casi per cittadini e imprese (format del testo è diverso tra i portali)
+            getWebDriverWait(30).withMessage("La descrizione non viene visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[@id='dialog-description' and contains(text(), 'Il codice è')]"))));
+            getWebDriverWait(30).withMessage("Il testo non è corretto").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//strong[contains(text(), '15 minuti')]"))));
             getWebDriverWait(30).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(text(), 'Inserisci codice')]"))));
             getWebDriverWait(30).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
             List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
@@ -159,7 +159,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                 Assertions.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
             }
             logger.info("Il pop-up di conferma viene visualizzato correttamente");
-        } catch (TimeoutException e) {
+        } catch (TimeoutException | StaleElementReferenceException e) {
             Assertions.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
         }
     }
