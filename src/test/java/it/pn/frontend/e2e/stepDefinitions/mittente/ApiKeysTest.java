@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.TimeUnit;
+import java.util.Map;
 
 public class ApiKeysTest  extends BasePage {
 
@@ -406,11 +407,6 @@ public class ApiKeysTest  extends BasePage {
         apiKeyPAPage.clickRegistraOrFine();
     }
 
-    @And("Verifica Pop-up Integrazione Api {string}")
-    public void verificaPopUpIntegrazioneApi(String test) {
-        apiKeyPAPage.verificaPopUpIntegrazioneApi(test);
-    }
-
     @And("Click genera chiave personale")
     public void clickGeneraChiavePersonale() {
         logger.info("Click genera chiave personale");
@@ -458,8 +454,4 @@ public class ApiKeysTest  extends BasePage {
         apiKeyPAPage.pulisciAmbientePublickeys();
     }
 
-    @And("Pulisci ambiente virtual keys")
-    public void pulisciAmbienteVirtualKeys() {
-        apiKeyPAPage.pulisciAmbienteVirtualKeys();
-    }
 }
