@@ -216,6 +216,12 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancante();
     }
 
+    @And("Si visualizza correttamente il banner di email mancante")
+    public void siVisualizzaIlBannerDiEmailMancante() {
+        logger.info("Si visualizza correttamente il banner di email mancante");
+        recapitiDestinatarioPage.checkPresenzaBannerEmailMancante();
+    }
+
     @And("Non si visualizza correttamente il banner di email mancante")
     public void nonSiVisualizzaIlBannerDiEmailMancante() {
         logger.info("Non si visualizza correttamente il banner di email mancante");

@@ -138,10 +138,10 @@ public class RecapitiDestinatarioPage extends BasePage {
         logger.info("clickConfermaButtonEliminaPopUp");
     }
 
+    //cambiati check del testo per evitare casi di element stale exception e per differenziare tra i casi per cittadini e imprese (format del testo è diverso tra i portali)
     public void waitLoadPopUp() {
         try {
             getWebDriverWait(30).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-            //check del testo comprende i casi per cittadini e imprese (format del testo è diverso tra i portali)
             getWebDriverWait(30).withMessage("La descrizione non viene visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[@id='dialog-description' and contains(text(), 'Il codice è')]"))));
             getWebDriverWait(30).withMessage("Il testo non è corretto").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//strong[contains(text(), '15 minuti')]"))));
             getWebDriverWait(30).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(text(), 'Inserisci codice')]"))));
@@ -1048,6 +1048,18 @@ public class RecapitiDestinatarioPage extends BasePage {
                 By.xpath("//div[@data-testid='addDomicileBanner']")));
         verificaPresenza("Il banner di recapito di cortesia mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND.')]")));
+    }
+
+    public void checkPresenzaBannerEmailMancante() {
+        try {
+            verificaPresenza("Il banner di email mancante non è presente", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner']")));
+            verificaPresenza("Il banner di email mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Aggiungi un indirizzo email per ricevere un avviso quando hai una nuova notifica su SEND.')]")));
+        }
+        catch (TimeoutException e) {
+            Assertions.fail("Il banner di email mancante non è presente");
+        }
     }
 
     public void checkAssenzaBannerEmailMancante() {
