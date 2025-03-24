@@ -43,7 +43,6 @@ public class LoginSpidPFPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(spidLogo));
             logger.info("Login Spid DE Page caricata");
         }catch (TimeoutException e){
-            logger.error("Login Spid DE Page non caricata con errore : "+e.getMessage());
             Assertions.fail("Login Spid DE Page non caricata con errore : "+e.getMessage());
         }
     }
