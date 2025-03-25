@@ -47,9 +47,12 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
     And Verifica Pagina "pec@pec.pagopa.it"
-
 ##  REWORK_DOMICILIO_DIGITALE_PG_84
     When Click Elimina personalizzati per ente
     And Aspetta 1 secondi
     And Verifica Assenza Sezione Personalizzati Per Ente
+##  REWORK_DOMICILIO_DIGITALE_PG_81
+    And Verifica e Disattiva "domicilio digitale"
+    And Aspetta 1 secondi
+    Then Verifica Da Attivare Domicilio digitale
 
