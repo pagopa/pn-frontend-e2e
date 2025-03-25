@@ -17,16 +17,13 @@ Feature: Rework della pagina dei contatti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica e Disattiva "domicilio digitale"
     And Attesa 2 secondi
-    And Verifica e Disattiva "email"
-    And Attesa 2 secondi
     And Verifica e Disattiva "cellulare"
     # Creazione Numero cellulare
     When Click Inizia
     And Click Attiva
+    When Click Bottone "Aggiungi un numero di cellulare"
     And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PF e clicca sul bottone avvisami via SMS
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore
     Then Cliccare sul bottone Annulla
