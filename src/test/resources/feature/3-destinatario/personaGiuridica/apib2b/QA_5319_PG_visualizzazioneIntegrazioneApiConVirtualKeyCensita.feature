@@ -6,7 +6,7 @@ Feature: Visualizzazione sezione Integrazione API
   @PG
   @TestSuite
 
-  Scenario: QA-5319 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG visualizza sezione Integrazione API con Virtual Key censita
+  Scenario: PN-QA-5319 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG visualizza sezione Integrazione API con Virtual Key censita
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata
     And Login con persona giuridica

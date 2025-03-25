@@ -707,10 +707,10 @@ public class ApiKeyPAPage extends BasePage {
 
     public void verificaPopUpIntegrazioneApi(String test) {
         logger.info("POP up Verifico");
-
+        webTool.waitTime(5);
         Assertions.assertTrue(
                 driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText().toLowerCase().contains(test.toLowerCase()),
-                "Il testo dell'alert non contiene la stringa attesa , ma visualizza:"+driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText()
+                "Il testo dell'alert non contiene la stringa attesa: " + test.toLowerCase() + ", ma visualizza: "+driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText().toLowerCase()
         );
 
         webTool.waitTime(5);

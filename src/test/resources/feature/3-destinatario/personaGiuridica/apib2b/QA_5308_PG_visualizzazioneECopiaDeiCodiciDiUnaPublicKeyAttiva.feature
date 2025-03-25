@@ -6,7 +6,7 @@ Feature: Visualizzazione sezione Integrazione API
   @PG
   @TestSuite
 
-  Scenario: QA-5308 [DELEGANTE PG AMMINISTRATORE] - Visualizzazione e copia dei codici per un utente Amministratore PG con Public Key attiva
+  Scenario: PN-QA-5308 [DELEGANTE PG AMMINISTRATORE] - Visualizzazione e copia dei codici per un utente Amministratore PG con Public Key attiva
     # Reset ambiente di test
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

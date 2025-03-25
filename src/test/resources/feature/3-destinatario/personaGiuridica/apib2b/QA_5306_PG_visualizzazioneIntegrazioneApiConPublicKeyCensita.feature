@@ -6,7 +6,7 @@ Feature: Visualizzazione sezione Integrazione API
   @PG
   @TestSuite
 
-  Scenario: QA-5306 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG visualizza sezione Integrazione con Public Key censita
+  Scenario: PN-QA-5306 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG visualizza sezione Integrazione con Public Key censita
     # Reset ambiente di test
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

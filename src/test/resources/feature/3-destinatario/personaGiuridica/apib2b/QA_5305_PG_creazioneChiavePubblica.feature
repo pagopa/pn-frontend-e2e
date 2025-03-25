@@ -6,7 +6,7 @@ Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica pe
   @PG
   @TestSuite
 
-  Scenario: QA-5305 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG censisce una chiave pubblica per la Persona Giuridica
+  Scenario: PN-QA-5305 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG censisce una chiave pubblica per la Persona Giuridica
     # Reset ambiente di test
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

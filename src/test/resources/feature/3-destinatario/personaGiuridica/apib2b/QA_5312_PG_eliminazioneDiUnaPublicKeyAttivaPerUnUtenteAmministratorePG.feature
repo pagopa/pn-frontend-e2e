@@ -22,6 +22,7 @@ Feature: PG - Eliminazione di una public key ruotata per un utente Amministrator
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
       | nome | Chiave- |
     And Cliccare su registra
+    And Si visualizza correttamente la sezione Ottieni Parametri
     And Cliccare su registra
     Then Cliccare sui tre puntini con stato "Ruotata"
     And  Nella pagina Api Key si clicca sulla voce Elimina del menu Api Key
