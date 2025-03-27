@@ -20,18 +20,17 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva "cellulare"
 
     When Click Inizia
-    And Aspetta 2 secondi
     And Click Bottone "Esci"
     Then Verifica Pagina "Il tuo domicilio digitale"
     And Verifica Pagina "app IO"
     And Verifica Pagina "Il tuo indirizzo email"
 #REWORK_DOMICILIO_DIGITALE_PF_77-78
+    And Verifica e Disattiva "domicilio digitale"
     When Click Inizia
-    And Aspetta 2 secondi
+    And Verifica Pagina "Come funziona"
     And Click Attiva
+    And Verifica Pagina "La tua mail per ricevere aggiornamenti"
     And Click Bottone "Esci"
+    And Verifica Pagina "Non rischiare di leggere in ritardo le tue notifiche"
     And Click Lo Faro piu tardi
     And Click Torna ai tuoi recapiti
-    Then Verifica Pagina "Il tuo domicilio digitale"
-    And Verifica Pagina "app IO"
-    And Verifica Pagina "Il tuo indirizzo email"
