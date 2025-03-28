@@ -16,5 +16,5 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva "domicilio digitale"
     # And Nella pagina I Tuoi Recapiti si controlla che non ci sia una email di cortesia impostata
     # And Nella pagina I Tuoi Recapiti si controlla che IO non sia integrato
-    And Si clicca su 'Collega SEND a IO'
+    And Si clicca su 'Collega SEND su IO'
     # Then Nella pagina I Tuoi Recapiti si controlla che non ci sia una email di cortesia impostata

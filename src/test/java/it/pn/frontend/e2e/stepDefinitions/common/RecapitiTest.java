@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
@@ -26,6 +27,9 @@ public class RecapitiTest extends BasePage {
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
     private ITuoiRecapitiPage iTuoiRecapitiPage;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @Autowired
     @Lazy
@@ -204,10 +208,15 @@ public class RecapitiTest extends BasePage {
         }
     }
 
-    @And("Si clicca su 'Collega SEND a IO'")
-    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneCollegaSENDaIO() {
-        logger.info("Si clicca su 'Collega SEND a IO'");
-        recapitiDestinatarioPage.clickSuBottoneCollegaSENDaIO();
+    @And("Si clicca su 'Collega SEND su IO'")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneCollegaSENDSuIO() {
+        String variabileAmbiente = webDriverConfig.getEnvironment();
+        if (variabileAmbiente.equalsIgnoreCase("uat")) {
+            logger.info("Si clicca su 'Collega SEND su IO'");
+            recapitiDestinatarioPage.verificaPagina("Collega SEND su IO");
+            recapitiDestinatarioPage.clickSuBottoneCollegaSENDSuIO();
+        }
+        logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);
     }
 
     @And("Si visualizza correttamente il banner di recapito di cortesia mancante")
