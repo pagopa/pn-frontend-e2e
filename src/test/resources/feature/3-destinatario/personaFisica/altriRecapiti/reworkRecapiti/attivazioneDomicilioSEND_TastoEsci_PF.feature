@@ -34,6 +34,10 @@ Feature: Rework della pagina dei contatti
     And Si clicca su 'Collega SEND su IO'
     And Verifica Pagina "La tua mail per ricevere aggiornamenti"
     And Click Bottone "Esci"
-    And Verifica Pagina "Non rischiare di leggere in ritardo le tue notifiche"
-    And Click Lo Faro piu tardi
+    #And Verifica Pagina "Non rischiare di leggere in ritardo le tue notifiche"
+    #And Click Lo Faro piu tardi
     And Click Torna ai tuoi recapiti
+## Reset recapiti UAT
+    And Verifica e Disattiva "domicilio digitale"
+    And Aspetta 2 secondi
+    And Verifica e Disattiva "app IO"

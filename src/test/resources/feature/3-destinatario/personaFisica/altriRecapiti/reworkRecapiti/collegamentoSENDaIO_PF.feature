@@ -3,18 +3,46 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_CollegamentoSENDaIO_PF
   @addressBook1
-
-  Scenario: [REWORK_DOMICILIO_DIGITALE_PF_2] - Attivazione Domicilio Digitale SERCQ SEND - Collegamento SEND ad IO
+  @TA_NRT_UAT
+  Scenario: [REWORK_DOMICILIO_DIGITALE_PF_2_33_34_35_36] - Attivazione Domicilio Digitale SERCQ SEND - Collegamento SEND ad IO
     Given Login Page persona fisica test viene visualizzata
-    Given Login con persona fisica
-      | user         | cesare                 |
+    And Login con persona fisica input
+      | user         | pluto-ta               |
       | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+      | name         | Rossi                  |
+      | familyName   | Pluto                  |
+      | fiscalNumber | TINIT-AAAAAA00A00A000B |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica e Disattiva "domicilio digitale"
-    # And Nella pagina I Tuoi Recapiti si controlla che non ci sia una email di cortesia impostata
-    # And Nella pagina I Tuoi Recapiti si controlla che IO non sia integrato
-    And Si clicca su 'Collega SEND su IO'
-    # Then Nella pagina I Tuoi Recapiti si controlla che non ci sia una email di cortesia impostata
+    And Aspetta 2 secondi
+    And Verifica e Disattiva "app IO"
+    And Verifica e Disattiva "email"
+    And Verifica e Disattiva "cellulare"
+##  REWORK_DOMICILIO_DIGITALE_PG_2_36
+    And Si clicca su 'Attiva SEND su IO'
+    And Click Annulla
+##  REWORK_DOMICILIO_DIGITALE_PG_35
+    And Si clicca su 'Attiva SEND su IO'
+    And Si clicca sul bottone del pop-up ok ho capito
+    And Verifica Pagina "la ricevi direttamente in app e puoi pagare eventuali spese."
+##  REWORK_DOMICILIO_DIGITALE_PG_34
+    And Aspetta 2 secondi
+    And Verifica e Disattiva "app IO"
+    And Click Inizia
+    And Click Attiva
+    And Click Non ora
+    And Click Lo Faro piu tardi
+    And Click Non ora
+    And Click Lo Faro piu tardi
+    And Click Torna ai tuoi recapiti
+    And Verifica Attivazione Domicilio digitale
+    And Si clicca su 'Attiva SEND su IO'
+    And Click Annulla
+##  REWORK_DOMICILIO_DIGITALE_PG_33
+    And Si clicca su 'Attiva SEND su IO'
+    And Si clicca sul bottone del pop-up ok ho capito
+    And Verifica Pagina "la ricevi direttamente in app e puoi pagare eventuali spese."
+## Reset recapiti UAT
+    And Verifica e Disattiva "domicilio digitale"
+    And Aspetta 2 secondi
+    And Verifica e Disattiva "app IO"
