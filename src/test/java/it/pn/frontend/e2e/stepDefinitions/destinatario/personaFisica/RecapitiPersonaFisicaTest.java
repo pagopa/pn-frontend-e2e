@@ -18,6 +18,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -1141,6 +1143,12 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     @When("Click Bottone Gestisci")
     public void clickBottoneGestisci() {
         iTuoiRecapitiPage.clickBottoneGestisci();
+    }
+
+    @When("Click Scarica app IO")
+    public void clickScaricaIO() {
+        logger.info("Si clicca su 'Scarica app IO'");
+        iTuoiRecapitiPage.clickScaricaIO();
     }
 }
 

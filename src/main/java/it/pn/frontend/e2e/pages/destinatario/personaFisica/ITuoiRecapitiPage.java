@@ -330,4 +330,16 @@ public void iTuoiRecapitiButtonClick() {
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Gestisci')]")));
         gestisciButton.click();
     }
+
+    public void clickScaricaIO() {
+        try {
+            WebElement scaricaButton = getWebDriverWait(10)
+                    .withMessage("Impossibile cliccare sul bottone Scarica l'app IO ")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Scarica')]")));
+            scaricaButton.click();
+        }
+        catch (TimeoutException e) {
+            Assertions.fail("Utente ha già un profilo IO");
+        }
+    }
 }

@@ -1,0 +1,20 @@
+Feature: Rework della pagina dei contatti
+
+  @TestSuite
+  @TA_DownloadIO_PF
+  @addressBook1
+  Scenario: [REWORK_DOMICILIO_DIGITALE_PF_37] - Attivazione Domicilio Digitale SERCQ SEND - Scaricamento app IO
+    Given Login Page persona fisica test viene visualizzata
+    Given Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    And Verifica e Disattiva "domicilio digitale"
+    And Aspetta 2 secondi
+    And Verifica e Disattiva "app IO"
+    And Verifica e Disattiva "email"
+    And Verifica e Disattiva "cellulare"
+    And Click Scarica app IO
