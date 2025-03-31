@@ -1154,6 +1154,18 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("sender")));
         inputEnte.clear();
         inputEnte.sendKeys(ente);
+        webTool.waitTime(1);
+        inputEnte.sendKeys(Keys.ARROW_DOWN);
+        inputEnte.sendKeys(Keys.ENTER);
+    }
+
+    public void clickMenuEnteMittenteInseriemntoEnte() {
+
+        WebElement inputEnte = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il campo 'Ente mittente'")
+                .until(ExpectedConditions.elementToBeClickable(By.id("sender")));
+        inputEnte.clear();
+        inputEnte.sendKeys(" ");
 
         inputEnte.sendKeys(Keys.ARROW_DOWN);
         inputEnte.sendKeys(Keys.ENTER);

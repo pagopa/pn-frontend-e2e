@@ -230,6 +230,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         else {
             recapitiDestinatarioPage.insertPEC(dataPopulationConfig.getPersonaFisica().getEmailPec());
         }
+        webTool.waitTime(1);
         recapitiDestinatarioPage.clickConferma();
     }
 
@@ -331,7 +332,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             webTool.waitTime(10);
             recapitiDestinatarioPage.confermaButtonClickPopUp();
             if (recapitiDestinatarioPage.waitMessaggioErrore()) {
-                logger.error("Il codice OTP inserito è sbagliato");
                 Assertions.fail("Il codice OTP inserito è sbagliato");
             }
         } else {
@@ -349,11 +349,9 @@ public class RecapitiPersonaFisicaTest extends BasePage {
                 webTool.waitTime(10);
                 recapitiDestinatarioPage.confermaButtonClickPopUp();
                 if (recapitiDestinatarioPage.waitMessaggioErrore()) {
-                    logger.error("Il codice OTP inserito è sbagliato");
                     Assertions.fail("Il codice OTP inserito è sbagliato");
                 }
             } else {
-                logger.error("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
                 Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
             }
         }

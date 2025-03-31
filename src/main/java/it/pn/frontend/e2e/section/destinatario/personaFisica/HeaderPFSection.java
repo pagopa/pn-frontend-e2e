@@ -43,7 +43,6 @@ public class HeaderPFSection extends BasePage {
             getWebDriverWait(60).withMessage("menu dell'utente non è visibile").until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//button[@aria-label='party-menu-button']"))));
             logger.info("Header DE Section caricata");
         } catch (TimeoutException e) {
-            logger.error("Header DE Section non caricata con errore : " + e.getMessage());
             Assertions.fail("Header DE Section non caricata con errore : " + e.getMessage());
         }
     }
@@ -71,6 +70,12 @@ public class HeaderPFSection extends BasePage {
         getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));
         logger.info("click su voce esci");
         esciVoce.click();
+    }
+
+    public void confermaDiVolerUscire(){
+        WebElement exitButton = getWebDriverWait(35).withMessage("il titolo del header non è visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='confirm-button']")));
+        exitButton.click();
     }
 
     public void waitUrlToken() {

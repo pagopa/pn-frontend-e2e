@@ -31,7 +31,6 @@ import java.util.concurrent.TimeUnit;
 public class LoginPersonaFisicaPagoPA extends BasePage{
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
-//    private Map<String, Object> datiPersonaFisica;
     private Map<String, String> urlPersonaFisica;
 
 
@@ -162,7 +161,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         if (nomeUtenteLetto.equals(dataPopulationConfig.getPersonaFisica().getName())) {
             logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + dataPopulationConfig.getPersonaFisica().getName());
         } else {
-            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + dataPopulationConfig.getPersonaFisica().getName());
             Assertions.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + dataPopulationConfig.getPersonaFisica().getName());
         }
 
@@ -170,7 +168,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         if (cognomeUtenteLetto.equals(dataPopulationConfig.getPersonaFisica().getFamilyName())) {
             logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + dataPopulationConfig.getPersonaFisica().getFamilyName());
         } else {
-            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + dataPopulationConfig.getPersonaFisica().getFamilyName());
             Assertions.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + dataPopulationConfig.getPersonaFisica().getFamilyName());
         }
 
@@ -178,7 +175,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         if (numeroFiscaleLetto.equals(dataPopulationConfig.getPersonaFisica().getFiscalNumber())) {
             logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + dataPopulationConfig.getPersonaFisica().getFiscalNumber());
         } else {
-            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + dataPopulationConfig.getPersonaFisica().getFiscalNumber());
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + dataPopulationConfig.getPersonaFisica().getFiscalNumber());
         }
         confermaDatiSpidPFPage.selezionaConfermaButton();
@@ -281,7 +277,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         if (nomeUtenteLetto.equals(datiPF.get("name"))) {
             logger.info("nome utente letto : " + nomeUtenteLetto + " uguale a : " + datiPF.get("name"));
         } else {
-            logger.error("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
             Assertions.fail("nome utente letto : " + nomeUtenteLetto + " non è uguale a : " + datiPF.get("name"));
         }
 
@@ -289,7 +284,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         if (cognomeUtenteLetto.equals(datiPF.get("familyName"))) {
             logger.info("cognome utente letto : " + cognomeUtenteLetto + " uguale a : " + datiPF.get("familyName"));
         } else {
-            logger.error("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
             Assertions.fail("cognome utente letto : " + cognomeUtenteLetto + " non uguale a : " + datiPF.get("familyName"));
         }
 
@@ -297,7 +291,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         if (numeroFiscaleLetto.equals(datiPF.get("fiscalNumber"))) {
             logger.info("numero fiscale letto : " + numeroFiscaleLetto + " uguale a : " + datiPF.get("fiscalNumber"));
         } else {
-            logger.error("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
             Assertions.fail("numero fiscale letto : " + numeroFiscaleLetto + " non uguale a : " + datiPF.get("fiscalNumber"));
         }
 
@@ -389,6 +382,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         headerPFSection.waitLoadHeaderDESection();
         headerPFSection.selezionaProfiloUtenteMenu();
         headerPFSection.selezionaVoceEsci();
+        headerPFSection.confermaDiVolerUscire();
+
         comeVuoiAccederePage.waitLoadComeVuoiAccederePage();
 
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -651,7 +646,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         int numProvaLogin = 0;
 
         String userDelegato = "";
-        String passwordDelegato= "";;
+        String passwordDelegato= "";
          if (nomeFileLogin .equalsIgnoreCase("delegatoPF")) {
              userDelegato = webDriverConfig.getUserLucrezia();
              passwordDelegato = webDriverConfig.getPwdLucrezia();

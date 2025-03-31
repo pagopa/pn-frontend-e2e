@@ -34,7 +34,7 @@ Feature: Rework della pagina dei contatti
 ##  REWORK_DOMICILIO_DIGITALE_PG_63
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
-    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate - Riscossione"
+    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Domicilio Digitale SEND"
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Click Torna ai tuoi recapiti

@@ -325,6 +325,10 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void clickMenuEnteMittenteInseriemntoEnte(String ente) {
         recapitiDestinatarioPage.clickMenuEnteMittenteInseriemntoEnte(ente);
     }
+    @And("Click Menu Ente Mittente Inserimento ente")
+    public void clickMenuEnteMittenteInseriemntoEnte() {
+        recapitiDestinatarioPage.clickMenuEnteMittenteInseriemntoEnte();
+    }
 
     @And("Inserisci Pec in Personalizza il tuo domicilio digitale per ente {string}")
     public void inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnte(String pecOrEmail) {

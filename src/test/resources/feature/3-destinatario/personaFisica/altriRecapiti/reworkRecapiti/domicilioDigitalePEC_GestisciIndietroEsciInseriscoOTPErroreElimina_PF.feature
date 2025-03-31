@@ -45,7 +45,7 @@ Feature: Rework della pagina dei contatti
 #  REWORK_DOMICILIO_DIGITALE_PG_57
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
-    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate - Riscossione"
+    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Indirizzo PEC"
     And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova@pec.it"
     And Attesa 1 secondi
@@ -59,7 +59,7 @@ Feature: Rework della pagina dei contatti
 ##  REWORK_DOMICILIO_DIGITALE_PG_62
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
-    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate - Riscossione"
+    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Indirizzo PEC"
     And Verifica presenza messaggio
     And Click Bottone "Esci"

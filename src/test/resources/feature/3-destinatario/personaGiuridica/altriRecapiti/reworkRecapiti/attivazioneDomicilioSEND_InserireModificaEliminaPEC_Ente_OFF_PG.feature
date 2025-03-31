@@ -32,7 +32,7 @@ Feature: Rework della pagina dei contatti
 ##  REWORK_DOMICILIO_DIGITALE_PG_82
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
-    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate - Riscossione"
+    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "provae@pec.it"
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "provae@pec.it" tramite chiamata request
