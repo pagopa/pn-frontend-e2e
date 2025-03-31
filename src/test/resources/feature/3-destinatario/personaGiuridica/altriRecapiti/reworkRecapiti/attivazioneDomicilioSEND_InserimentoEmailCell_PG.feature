@@ -3,11 +3,14 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciEmailCell_PG
   @addressBook2
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_6] Attivazione Domicilio Digitale SEND - Inserimento mail e cellulare PG
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_6_75] Attivazione Domicilio Digitale SEND - Inserimento mail e cellulare PG
 
    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
+    And Verifica e Disattiva Personalizzati per Ente
+    And Aspetta 1 secondi
+    And Verifica ed Elimina personalizzati per ente
     And Verifica e Disattiva "domicilio digitale"
     And Attesa 2 secondi
     And Verifica e Disattiva "email"
@@ -18,6 +21,10 @@ Feature: Rework della pagina dei contatti
     And Click Attiva
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+     #  INIZIO REWORK_DOMICILIO_DIGITALE_PG_75
+    And Nella sezione altri recapiti si clicca sul bottone conferma di popup
+    And Verifica Pagina "Codice assente o incompleto"
+    #  FINE REWORK_DOMICILIO_DIGITALE_PG_75
 
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
@@ -25,25 +32,4 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "La tua mail per ricevere aggiornamenti"
     And Verifica Pagina "email dove possiamo informarti quando"
 #  ----------------------------------------------------------------------
-#    When Click Bottone "Aggiungi un numero di cellulare"
-##
-#    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "+393409876543" e si clicca sul bottone avvisami via SMS
-#    And Aspetta 5 secondi
-#    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "cellulare"
-#    And Aspetta 10 secondi
-#  And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Cellulare "personaGiuridica"
 
-
-
-
-#    And Si visualizza correttamente il pop-up e si clicca su conferma
-#
-#    #In questo step viene fatta una chiamata per OTP delle mail, da cambiare quando avremo la chiamata per il cellulare
-#    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-#    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "cellulare"
-#    And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Cellulare
-
-
-
-#    And Click Annulla
-#    Then Verifica Da Attivare Domicilio digitale
