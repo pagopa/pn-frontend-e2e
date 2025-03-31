@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
   @TestSuite
-  @TA_attivazioneDomicilioSEND_TastoEsci_PF
+  @TA_attivazioneDomicilioSEND_CollegamentoSENDaIOTastoEsci_PF
   @addressBook1
   @TA_NRT_UAT
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_8_77_78] Attivazione Domicilio Digitale SEND - ESCI  PF
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_77] Attivazione Domicilio Digitale SEND - Collegamento SEND a IO ESCI PF
 
    #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
@@ -26,7 +26,7 @@ Feature: Rework della pagina dei contatti
     Then Verifica Pagina "Il tuo domicilio digitale"
     And Verifica Pagina "app IO"
     And Verifica Pagina "Il tuo indirizzo email"
-# REWORK_DOMICILIO_DIGITALE_PF_77-78
+# REWORK_DOMICILIO_DIGITALE_PF_77
     And Verifica e Disattiva "domicilio digitale"
     And Click Inizia
     And Verifica Pagina "Come funziona"
