@@ -118,7 +118,7 @@ public class GruppiPGPagoPATest extends BasePage {
 
     @And("Si modifica il campo {string} inserendo {string}")
     public void siModificaIlCampoInserendo(String campo, String modifica) {
-        log.info("Si modifica il campo {} inserendo {}", campo, modifica);
+        logger.info("Si modifica il campo {} inserendo {}", campo, modifica);
         gruppiPGPage.siModificaUnCampoDelGruppo(campo, modifica);
     }
 

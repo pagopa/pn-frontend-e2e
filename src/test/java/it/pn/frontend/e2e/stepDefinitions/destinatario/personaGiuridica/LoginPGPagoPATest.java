@@ -46,6 +46,8 @@ public class LoginPGPagoPATest extends BasePage {
     @Autowired
     private  DataPopulation dataPopulation;
 
+    @Autowired
+    private WebViewMultiLanguageConfig webViewMultiLanguageConfig;
 
     private  HeaderPGSection headerPGSection;
 
@@ -71,9 +73,6 @@ public class LoginPGPagoPATest extends BasePage {
 
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
-
-    @Autowired
-    private WebViewMultiLanguageConfig webViewMultiLanguageConfig;
 
     @Autowired
     @Lazy
@@ -335,6 +334,12 @@ public class LoginPGPagoPATest extends BasePage {
         webTool.waitTime(5);
     }
 
+    @And("Logout da portale persona giuridica delegante")
+    public void logoutDaPortalePersonaGiuridicaDelegante() {
+        headerPGSection.clickEsciButton();
+        headerPGSection.clickEsciButtonPopUp();
+    }
+
     @When("Login {string} portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod(String dpFile) {
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
@@ -437,10 +442,9 @@ public class LoginPGPagoPATest extends BasePage {
         logger.info("Terminata procedura scelta ambiente");
     }
 
-    @And("Logout da portale persona giuridica delegante")
-    public void logoutDaPortalePersonaGiuridicaDelegante() {
-        headerPGSection.clickEsciButton();
-        headerPGSection.clickEsciButtonPopUp();
+    @And("Si clicca su prodotto {string}")
+    public void siCliccaSuProdotto(String xpath) {
+        destinatarioPage.clickProdotto(xpath);
     }
     @And("Click entra su Send Persona Giuridica")
     public void clickEntraSuSendPersonaGiuridica() {
