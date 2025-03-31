@@ -57,6 +57,12 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
     }
 
+    @And("Nella pagina I Tuoi Recapiti si preme sul bottone Disattiva dell'app IO")
+    public void nellaPaginaITuoiRecapitiSiPremeSulBottoneDisattivaDiIO() {
+        logger.info("si preme sul bottone Disattiva dell'app IO");
+        recapitiDestinatarioPage.clickSuBottoneDisattivaIO();
+    }
+
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il numero di cellulare {string}")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlNumeroDiCellulare(String cellulare) {
         logger.info("Si controlla la presenza e correttezza del numero di cellulare inserito");
