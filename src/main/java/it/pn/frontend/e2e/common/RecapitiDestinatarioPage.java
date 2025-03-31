@@ -741,8 +741,8 @@ public class RecapitiDestinatarioPage extends BasePage {
         bottoneActionBy.click();
     }
 
-    public void clickSuBottoneDisattivaDomicilioDigitale() {
-        WebElement bottoneActionBy = driver.findElement(By.xpath("//button[contains(text(), 'Disattiva')]"));
+    public void clickSuBottoneDisattivaIO() {
+        WebElement bottoneActionBy = driver.findElement(By.xpath("//div[@id='ioContactSection']//button[contains(text(), 'Disattiva')]"));
         getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOf(bottoneActionBy));
         bottoneActionBy.click();
     }
