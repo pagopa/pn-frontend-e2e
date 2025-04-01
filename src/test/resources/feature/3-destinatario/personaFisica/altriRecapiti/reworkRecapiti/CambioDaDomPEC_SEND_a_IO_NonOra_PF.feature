@@ -4,21 +4,21 @@ Feature: Rework della pagina dei contatti
   @TA_REWORK_DOMICILIO_DIGITALE_PF_46
   @addressBook1
   @TA_NRT_UAT
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_46] Attivazione Domicilio Digitale SEND - Collegamento SEND a IO ESCI PF
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_46] CambioDaDomPEC_SEND_a_IO_NonOra_PF PF
 
    #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica input
-#      | user         | pluto-ta               |
-#      | pwd          | password123            |
-#      | name         | Rossi                  |
-#      | familyName   | Pluto                  |
-#      | fiscalNumber | TINIT-AAAAAA00A00A000B |
-      | user         | pippo-ta               |
+      | user         | pluto-ta               |
       | pwd          | password123            |
       | name         | Rossi                  |
-      | familyName   | Pippo                  |
-      | fiscalNumber | TINIT-AAAAAA00A00A000A |
+      | familyName   | Pluto                  |
+      | fiscalNumber | TINIT-AAAAAA00A00A000B |
+#      | user         | pippo-ta               |
+#      | pwd          | password123            |
+#      | name         | Rossi                  |
+#      | familyName   | Pippo                  |
+#      | fiscalNumber | TINIT-AAAAAA00A00A000A |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale
