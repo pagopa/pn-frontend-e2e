@@ -170,7 +170,7 @@ public void iTuoiRecapitiButtonClick() {
     public void verificaEmailModificata() {
         getWebDriverWait(30)
                 .withMessage("La nuova mail non si visualizza correttamente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(),'provaemail@test.it')]"))));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'provaemail@test.it')]")));
     }
 
 
@@ -341,5 +341,20 @@ public void iTuoiRecapitiButtonClick() {
         catch (TimeoutException e) {
             Assertions.fail("Utente ha già un profilo IO");
         }
+    }
+
+    public void clickCollegaSENDSuIO() {
+        WebElement buttonCollegaSENDSuIO = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare sul bottone Collega SEND Su IO ")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='confirmButton']")));
+        buttonCollegaSENDSuIO.click();
+    }
+
+    public void clickBottoneConfermaAttivaDomicilioDigitale() {
+        WebElement buttonConferma = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare sul bottone Conferma Attiva Domicilio Digitale")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Conferma']")));
+        buttonConferma.click();
+
     }
 }

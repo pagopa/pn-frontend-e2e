@@ -963,8 +963,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickNonOra() {
         WebElement nonOraButton = getWebDriverWait(5).withMessage("Impossibile Cliccare su Non Ora")
-                .until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(text(),'Non ora')]")));
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.css-1q3qf13")));
         nonOraButton.click();
     }
 
@@ -1006,15 +1005,11 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuBottoneAttivaSENDSuIO() {
-        getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div//..//button[contains(text(), 'Attiva SEND su IO')]"))));
-        WebElement bottoneActionBy = driver.findElement(By.xpath("//div//..//button[contains(text(), 'Attiva SEND su IO')]"));
+        WebElement bottoneActionBy = getWebDriverWait(10)
+                .withMessage("Il bottone Attiva SEND Su IO non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("ioContactButton")));
         bottoneActionBy.click();
-    }
 
-    public void clickSuBottoneCollegaSENDSuIO() {
-        getWebDriverWait(10).withMessage("Il bottone non è cliccabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div//..//button[contains(text(), 'Collega SEND su IO')]"))));
-        WebElement bottoneActionBy = driver.findElement(By.xpath("//div//..//button[contains(text(), 'Collega SEND su IO')]"));
-        bottoneActionBy.click();
     }
 
     public void clickAnnulla() {

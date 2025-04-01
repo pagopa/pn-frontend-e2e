@@ -1148,5 +1148,15 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         logger.info("Si clicca su 'Scarica app IO'");
         iTuoiRecapitiPage.clickScaricaIO();
     }
+
+    @And("Click Collega SEND su IO")
+    public void clickCollegaSENDSuIO() {
+        iTuoiRecapitiPage.clickCollegaSENDSuIO();
+    }
+
+    @And("Click Bottone Conferma Attiva domicilio digitale")
+    public void clickBottoneConfermaAttivaDomicilioDigitale() {
+        iTuoiRecapitiPage.clickBottoneConfermaAttivaDomicilioDigitale();
+    }
 }
 
