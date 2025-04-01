@@ -382,6 +382,7 @@ public class DataPopulationConfig {
         mittente.setPwd(DataPopulationValue.getDefaultValue(DataPopulationValue.PWD_MITTENTE.key));
         mittente.setProvider(DataPopulationValue.getDefaultValue(DataPopulationValue.PROVIDER_MITTENTE.key));
         mittente.setComune(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE.key));
+        mittente.setComuneViggiu(DataPopulationValue.getDefaultValue(DataPopulationValue.COMUNE_VIGGIU.key));
         mittente.setAmbiente(DataPopulationValue.getDefaultValue(DataPopulationValue.ENV.key));
         mittente.setCodiceFiscale(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_CODE_MITTENTE.key));
         mittente.setCodiceAvviso(DataPopulationValue.getDefaultValue(DataPopulationValue.COD_AVVISO.key));
@@ -500,6 +501,14 @@ public class DataPopulationConfig {
         datiNotifica.setCodiceTassonometrico(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_TASSONOMETRICO_DN.key));
         datiNotifica.setNomeDocumentoNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.NOME_DOCUMENTO_NOTIFICA_DN.key));
         datiNotifica.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN_DN.key));
+
+        datiNotifica.setOggettoDellaNotificaFr(DataPopulationValue.getDefaultValue(DataPopulationValue.OGGETTO_DELLA_NOTIFICA_FR_DN.key));
+        datiNotifica.setDescrizioneFr(DataPopulationValue.getDefaultValue(DataPopulationValue.DESCRIZIONE_FR_DN.key));
+        datiNotifica.setOggettoDellaNotificaDe(DataPopulationValue.getDefaultValue(DataPopulationValue.OGGETTO_DELLA_NOTIFICA_DE_DN.key));
+        datiNotifica.setDescrizioneDe(DataPopulationValue.getDefaultValue(DataPopulationValue.DESCRIZIONE_DE_DN.key));
+        datiNotifica.setOggettoDellaNotificaSl(DataPopulationValue.getDefaultValue(DataPopulationValue.OGGETTO_DELLA_NOTIFICA_SL_DN.key));
+        datiNotifica.setDescrizioneSl(DataPopulationValue.getDefaultValue(DataPopulationValue.DESCRIZIONE_SL_DN.key));
+
         return datiNotifica;
 
     }

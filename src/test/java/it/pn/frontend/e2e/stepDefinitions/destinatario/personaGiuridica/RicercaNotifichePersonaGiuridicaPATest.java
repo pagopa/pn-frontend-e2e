@@ -76,7 +76,8 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
 
     @And("La persona giuridica clicca sulla prima notifica restituita")
     public void laPersonaGiuridicaCliccaSullaPrimaNotificaRestituita() {
-        ricercaNotifichePGPage.cliccaSuPrimaNotifica();
+//        ricercaNotifichePGPage.cliccaSuPrimaNotifica();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica persona giuridica delegato")

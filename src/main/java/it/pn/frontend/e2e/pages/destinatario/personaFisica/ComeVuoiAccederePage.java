@@ -10,8 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 public class ComeVuoiAccederePage extends BasePage {
@@ -31,7 +29,6 @@ public class ComeVuoiAccederePage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(titoloLabel));
             logger.info("Come Vuoi Accedere Page caricata");
         }catch (TimeoutException e){
-            logger.error("Come Vuoi Accedere Page non caricata con errore : "+e.getMessage());
             Assertions.fail("Come Vuoi Accedere Page non caricata con errore : "+e.getMessage());
         }
     }

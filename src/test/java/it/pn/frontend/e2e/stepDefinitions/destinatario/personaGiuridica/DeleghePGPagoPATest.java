@@ -230,7 +230,7 @@ public class DeleghePGPagoPATest extends BasePage {
 
     @And("Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata")
     public void nellaSezioneLeTueDelegheSiVisualizzaIlMessaggioDiErroreDataErrata() {
-        logger.info("Si controlla che si veda il messaggio di errore");
+        logger.info("Si controlla che si veda il messaggio di errore data errata");
 
         Assertions.assertEquals( "Data errata", aggiungiDelegaPGSection.waitMessaggioErroreData(), "il messaggio di errore previsto: Data errata è diverso dell'attuale " + aggiungiDelegaPGSection.waitMessaggioErroreData());
         logger.info("il messaggio di errore 'Data errata' è presente");
@@ -560,7 +560,7 @@ public class DeleghePGPagoPATest extends BasePage {
     @And("Si inserisce il codice della delega a carico dell impresa nella modale")
     public void siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale() {
         String verificationCode = mandateSingleton.getVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()));
-        logger.info(verificationCode);
+        logger.info("Verification_Code_Modale: "+verificationCode);
         deleghePGPagoPAPage.inserimentoCodiceDelegaACaricoDellImpresaAPI(verificationCode);
     }
 
@@ -674,6 +674,15 @@ public class DeleghePGPagoPATest extends BasePage {
             delegatiImpresaSection.clickRevocaButton();
         }
     }
+
+    @And("Nella sezione Deleghe dell impresa Aggiungi Persona Giuridica")
+    public void nellaSezioneDelegheDellImpresaAggiungiPersonaGiuridica() {
+        logger.info("Si aggiungono dati del delegato");
+        aggiungiDelegaPGSection.selectPersonaGiuridicaRadioButton();
+        aggiungiDelegaPGSection.insertRagioneSociale(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        aggiungiDelegaPGSection.inserireCF(dataPopulationConfig.getNuovaDelegaPg().getCodiceFiscale());
+    }
+
 
 
 

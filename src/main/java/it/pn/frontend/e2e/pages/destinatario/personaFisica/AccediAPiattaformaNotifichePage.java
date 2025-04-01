@@ -99,6 +99,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
 
     public void clickRecapitiButton() {
+        recapitiButton = driver.findElement(By.id("side-item-Recapiti"));
         getWebDriverWait(30).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
         js().executeScript("arguments[0].click()", recapitiButton);
     }
@@ -332,7 +333,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(20).withMessage("Il textbox codice di sicurezza non è visibile").until(ExpectedConditions.visibilityOf(codice));
         codice.click();
         codice.clear();
-        codice.sendKeys("015");
+        codice.sendKeys("123");
         driver.switchTo().defaultContent();
 
         //frame of the cardholder name
@@ -345,29 +346,35 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         titolare.clear();
         titolare.sendKeys("Titolare");
         driver.switchTo().defaultContent();
-        getWebDriverWait(15).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("mui-4")));
-        WebElement continuaBottone = driver.findElement(By.id("mui-4")); //for local test use //button[@aria-label='Continua']
+        WebElement continuaBottone = getWebDriverWait(55)
+                .withMessage("Il bottone Continua non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("mui-5")));
         continuaBottone.click();
+        logger.info("Il bottone Continua cliccato");
         //Select Nexi
-//        pspEdit
-        getWebDriverWait(40).withMessage("Il bottone modifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("pspEdit"))));////for local test use //button[@aria-label='Modifica PSP']
-        WebElement modificaButton = driver.findElement(By.id("pspEdit")); //for local test use //button[@aria-label='Modifica PSP']
+        webTool.waitTime(10);
+        WebElement modificaButton = getWebDriverWait(120)
+                .withMessage("Il bottone modifica non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));////for local test use //button[@aria-label='Modifica PSP']
         modificaButton.click();
         webTool.waitTime(10);
-        getWebDriverWait(80).withMessage("Intesa Sanpaolo S.p.A non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"))));
+        getWebDriverWait(80)
+                .withMessage("Intesa Sanpaolo S.p.A non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"))));
         driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]")).click();
 
         WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
         getWebDriverWait(15).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
-//        List<WebElement> chiudi = driver.findElements(By.xpath("//button[contains(text(),'Continue')]")); //for local test use //button[@aria-label='Continua'];
         webTool.waitTime(120);//necessaria
         getWebDriverWait(50).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continu')]"))));
         driver.findElement(By.xpath("//button[contains(text(),'Continu')]")).click();//for local test use //button[@aria-label='Continua']
     }
 
     public void siVisualizzaStatoPagato() {
-        getWebDriverWait(120).withMessage("Lo stato di pagamento non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"))));
+        getWebDriverWait(120)
+                .withMessage("Lo stato di pagamento non è visibile")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"))));
         logger.info("Lo stato di pagamento è Pagato");
     }
 }

@@ -30,8 +30,11 @@ import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.TimeoutException;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
@@ -170,10 +174,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
-            logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
         } else if (codiceRispostaChiamataApi == 0) {
-            logger.error("TA_QA: La chiamata, " + urlChiamata + " non trovata");
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
         }
     }
@@ -266,6 +268,47 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
         informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
+        informazioniPreliminariPASection.selectRaccomandataAR();
+    }
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua {string}")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoSenzaGruppoConLingua(String lingua) {
+        logger.info("Inserimento dei dati della notifica senza pagamento" );
+        //datiNotifica
+        aggiornamentoNumeroProtocollo();
+
+        // Compilo i campi se ho scelto una lingua diverso dall'Italiano
+        switch (lingua.toLowerCase()) {
+            case "francese" -> {
+                informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaFr());
+                informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneFr());
+            }
+            case "tedesca" -> {
+                informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaDe());
+                informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneDe());
+            }
+            case "slovena" -> {
+                informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaSl());
+                informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneSl());
+            }
+            default -> logger.warn("Lingua non riconosciuta: {}", lingua);
+        }
+
+        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
+        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+        informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
+        informazioniPreliminariPASection.selectRaccomandataAR();
+    }
+
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento con nuovi codiceTassonomici {string}")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoConNuoviCodiceTassonomici(String codiceTassonomico) {
+        logger.info("Inserimento dei dati della notifica senza pagamento" );
+        //datiNotifica
+        aggiornamentoNumeroProtocollo();
+        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
+        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+        informazioniPreliminariPASection.insertCodiceTassonometrico(codiceTassonomico);
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
 
@@ -400,9 +443,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     private void aggiornamentoNumeroProtocolloAllegati() {
         logger.info("Aggiornamento del numero protocollo");
 
-//        String nomeFile = "datiNotifica.yaml";
-        String numeroProtocolloKey = "numeroProtocollo";
-//        String numeroProtocolOld = dataPopulation.readDataPopulation(nomeFile).get(numeroProtocolloKey).toString();
+        String numeroPotocolloKey = "numeroProtocollo";
         String numeroProtocolOld = dataPopulationConfig.getDatiNotifica().getNumeroProtocollo();
         String dataProtocolOld = substring(numeroProtocolOld, 10, 18);
         String counter = substring(numeroProtocolOld, 19);
@@ -423,7 +464,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
             if (counter.equals("9")) {
                 temp = String.valueOf((char) (counter.charAt(0) + 8));
             } else if (counter.equals("Z")) {
-                logger.error(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
                 Assertions.fail(numeroProtocolOld + " oltre questo numero protocollo per la giornata di : " + dataProtocolOld + " non si può andare");
             } else {
                 temp = String.valueOf((char) (counter.charAt(0) + 1));
@@ -438,9 +478,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
         logger.info("numero Protocollo generato : " + numeroProtocol);
 
-//        Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
-//        allDatataPopulation.put("numeroProtocollo", numeroProtocol);
-//        dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
         dataPopulationConfig.getDatiNotifica().setNumeroProtocollo(numeroProtocol);
 
     }
@@ -465,9 +502,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Verifica dello stato della notifica come depositata {string}")
     public void verificaDelloStatoDellaNotificaComeDepositata(String statoNotifica) {
         logger.info("Verifica dello stato della notifica come 'Depositata'");
-
-//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-       // this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
@@ -752,11 +786,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
         if (isNumeric(npersoneFisiche)) {
             nPersoneFisicheInt = Integer.parseInt(npersoneFisiche) - 1;
             if (nPersoneFisicheInt > 5 || nPersoneFisicheInt == 0) {
-                logger.error("Devi inserire un nummero da 1 a 6");
                 Assertions.fail("Devi inserire un nummero da 1 a 6");
             }
         } else {
-            logger.error("Formato non accettato. Devi inserire un numero da 1 a 6");
             Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 6");
         }
 
@@ -999,11 +1031,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
         if (isNumeric(nDestinatari)) {
             nDestinatariInt = Integer.parseInt(nDestinatari) - 1;
             if (nDestinatariInt > 5 || nDestinatariInt == 0) {
-                logger.error("Devi inserire un nummero da 1 a 6");
                 Assertions.fail("Devi inserire un nummero da 1 a 6");
             }
         } else {
-            logger.error("Formato non accettato. Devi inserire un numero da 1 a 6");
             Assertions.fail("Formato non accettato. Devi inserire un numero da 1 a 6");
         }
 
@@ -1592,7 +1622,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
         webTool.waitTime(10);
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
         if (notificationRequestId == null) {
-            logger.error("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
             Assertions.fail("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso di 202 ");
         }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
@@ -1609,7 +1638,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 logger.info("lo stato della notifica è :" + statusNotifica);
             } else {
                 if (accettazioneRichiestaNotifica.getResponseCode() != 200) {
-                    logger.error("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
                     Assertions.fail("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
                 }
             }
@@ -1631,7 +1659,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 logger.info("La notifica è stata creata correttamente");
             }
         } else {
-            logger.error("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
             Assertions.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata rifiuta: " + esitoNotifica.accettazioneRichiestaNotifica.getResponseReasonPhrase());
         }
     }
@@ -1897,6 +1924,159 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection.sceglieEnte(nomeEnte);
     }
 
+
+    @And("Selezionare da impostazione lingua {string}")
+    public void selezionareDaImpostazioneLingua(String lingua) {
+        piattaformaNotifichePage.selezionareDaImpostazioneLingua(lingua);
+
+    }
+
+    @And("verifica lingua selezionata {string}")
+    public void verificaLinguaSelezionata(String lingua) {
+        piattaformaNotifichePage.verificaLinguaSelezionata(lingua);
+    }
+
+    @And("selezione impostazione lingua")
+    public void selezioneImpostazioneLingua() {
+        piattaformaNotifichePage.selezioneImpostazioneLingua();
+    }
+
+    @And("Verifica Pop-up {string}")
+    public void verificaPopUp(String verifica) {
+        piattaformaNotifichePage.verificaPopUp(verifica);
+    }
+
+    @And("Verifica Banner {string}")
+    public void verificaBanner(String banner) {
+        piattaformaNotifichePage.verificaBanner(banner);
+    }
+
+    @And("Refresh pagina")
+    public void refreshPagina() {
+        driver.navigate().refresh();
+    }
+
+    @And("verifica campi vuoti")
+    public void verificaCampiVuoti() {
+        piattaformaNotifichePage.verificaCampiVuoti();
+    }
+
+    @And("Verifica footer lingua {string}")
+    public void verificaFooterLingua(String lingua) {
+        piattaformaNotifichePage.verificaFooterLingua(lingua);
+    }
+
+    @And("Verifica click footer privacy o Termini Condizione {string}")
+    public void verificaClickFooterPrivacyOrTerminiCondizione(String privacy) {
+        piattaformaNotifichePage.verificaClickFooterPrivacyOrTerminiCondizione(privacy);
+    }
+
+    @And("Verifica traduzione testo {string}")
+    public void verificaTraduzioneTesto(String testo) {
+        Assertions.assertTrue(isTextPresent(testo), "Il testo '"+testo+"' non è presente!");
+        logger.info("Verifica traduzione testo: {}",testo);
+    }
+
+    private boolean isTextPresent(String testo) {
+       return piattaformaNotifichePage.isTextPresent(testo);
+    }
+
+    @And("Torna indietro")
+    public void tornaIndietro() {
+        super.goBack();
+    }
+
+    @And("Cambia lingua footer {string}")
+    public void cambiaLinguaFooter(String lingua) {
+        piattaformaNotifichePage.cambiaLinguaFooter(lingua);
+    }
+
+    @And("Entro dentro la prima notifica")
+    public void entroDentroLaPrimaNotifica() {
+        piattaformaNotifichePage.selezionaPrimaNotifica();
+    }
+
+    @When("Seleziona voce menu laterale {string}")
+    public void selezionaVoceMenuLaterale(String testo) {
+        piattaformaNotifichePage.selezionaVoceMenuLaterale(testo);
+    }
+
+    @When("Click Genera Api Key")
+    public void clickGeneraApiKey() {
+        piattaformaNotifichePage.clickGeneraApiKey();
+    }
+
+    @And("Inserisci nome Api Key")
+    public void inserisciNomeApiKey() {
+        logger.info("Inserisco elemento");
+        webTool.waitTime(2);
+        piattaformaNotifichePage.inserisciNomeApiKey();
+    }
+
+    @And("Torna a Api Key")
+    public void tornaApiKey() {
+        logger.info("Premere il pulsante tornaApiKey");
+        piattaformaNotifichePage.tornaApiKey();
+    }
+
+    @And("Premere tre puntini")
+    public void premereTrePuntini() {
+        logger.info("premereTrePuntini");
+        piattaformaNotifichePage.premereTrePuntini();
+    }
+
+    @And("Seleziona Ruota")
+    public void selezionaRuota() {
+        logger.info("selezionaRuota");
+        piattaformaNotifichePage.selezionaRuota();
+    }
+
+    @And("Click Ruota")
+    public void clickRuota() {
+        logger.info("clickRuota");
+        piattaformaNotifichePage.clickRuota();
+    }
+
+    @And("Seleziona Blocca")
+    public void selezionaBlocca() {
+        logger.info("selezionaBlocca");
+        piattaformaNotifichePage.selezionaBlocca();
+    }
+
+    @And("Click Blocca")
+    public void clickBlocca() {
+        logger.info("clickBlocca");
+        piattaformaNotifichePage.clickBlocca();
+    }
+
+    @And("Seleziona Elimina")
+    public void selezionaElimina() {
+        logger.info("selezionaElimina");
+        piattaformaNotifichePage.selezionaElimina();
+    }
+
+    @And("Click Delete")
+    public void clickDelete() {
+        logger.info("clickDelete");
+        piattaformaNotifichePage.clickDelete();
+    }
+
+    @And("Attendi secondi {string}")
+    public void attendiSecondi(String secondi) {
+        webTool.waitTime(Integer.parseInt(secondi));
+        logger.info("Attesa secondi: {}",secondi);
+    }
+
+    @When("Click torna alle deleghe")
+    public void clickTornaAlleDeleghe() {
+        destinatarioPASection.clickTornaAlleDeleghe();
+    }
+
+    @And("Selezionare da impostazione lingua la lingua {string}")
+    public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
+        piattaformaNotifichePage.selezionareDaImpostazioneLinguaLaLingua(lingua);
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
@@ -1958,6 +2138,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
            // destinatarioPASection.inserireStato(dataPopulationConfig.getPersonaFisica().getStato(),recIndex);
         }
     }
+
 
 
 }

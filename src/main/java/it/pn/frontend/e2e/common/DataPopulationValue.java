@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.security.SecureRandom;
+import java.util.Random;
 
 public enum DataPopulationValue {
 
@@ -162,6 +162,7 @@ public enum DataPopulationValue {
     PWD_MITTENTE("pwd_mittente","test",false),
     PROVIDER_MITTENTE("provider_mittente","spid:test",false),
     COMUNE("comune_mittente","Verona",false),
+    COMUNE_VIGGIU("comune_mittente_viggiu","Viggiu",false),
     ENV("ambiente_mittente","dev",false),
     FISCAL_CODE_MITTENTE("codiceFiscale_mittente","00189800204",false),
     COD_AVVISO("codiceAvviso","302047770009990299",false),
@@ -294,6 +295,13 @@ public enum DataPopulationValue {
     NOME_DOCUMENTO_NOTIFICA_DN("nome_documento_notifica_dn","RATA SCADUTA IMU",false),
     CODICE_IUN_DN("codice_iun_dn","notifica multi destinatario con020",false),
 
+    OGGETTO_DELLA_NOTIFICA_FR_DN("oggetto_della_notifica_dn","FR Pagamento rata IMU",false),
+    DESCRIZIONE_FR_DN("descrizione_dn","FR PAGAMENTO RATA IMU",false),
+    OGGETTO_DELLA_NOTIFICA_DE_DN("oggetto_della_notifica_dn","DE Pagamento rata IMU",false),
+    DESCRIZIONE_DE_DN("descrizione_dn","DE PAGAMENTO RATA IMU",false),
+    OGGETTO_DELLA_NOTIFICA_SL_DN("oggetto_della_notifica_dn","SL Pagamento rata IMU",false),
+    DESCRIZIONE_SL_DN("descrizione_dn","SL PAGAMENTO RATA IMU",false),
+
     //DATI NOTIFICA ERRORE
     OGGETTO_DELLA_NOTIFICA_ERRORE("oggetto_della_notifica_err","IMU",false),
     CODICE_TASSONOMETRICO_ERRORE("codiceTassonometrico_err","123456",false),
@@ -336,7 +344,7 @@ public enum DataPopulationValue {
         String threadNumber = (Thread.currentThread().getId()+"");
         String numberOfThread = threadNumber.length() < 2 ? "0"+threadNumber: threadNumber.substring(0, 2);
         String timeNano = System.nanoTime()+"";
-        String randomClassePagamento = new SecureRandom().nextInt(14)+"";
+        String randomClassePagamento = new Random().nextInt(14)+"";
         randomClassePagamento = randomClassePagamento.length() < 2 ? "0"+randomClassePagamento : randomClassePagamento;
         String finalNumber = "" + String.format("302" +randomClassePagamento + numberOfThread + timeNano.substring(0, timeNano.length()-4));
         // String finalNumber = "" + String.format("30210" +randomClassePagamento + numberOfThread + timeNano.substring(0, timeNano.length()-6));
@@ -344,7 +352,7 @@ public enum DataPopulationValue {
             finalNumber = finalNumber.substring(0,NOTICE_CODE_LENGTH);
         }else{
             int remainingLength = NOTICE_CODE_LENGTH - finalNumber.length();
-            String paddingString = String.valueOf(new SecureRandom().nextInt(9)).repeat(remainingLength);
+            String paddingString = String.valueOf(new Random().nextInt(9)).repeat(remainingLength);
             finalNumber = finalNumber + paddingString;
         }
         return finalNumber;

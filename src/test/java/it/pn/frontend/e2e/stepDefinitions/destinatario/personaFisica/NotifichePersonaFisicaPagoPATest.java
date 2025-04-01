@@ -13,6 +13,8 @@ import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
+import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
+import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.DownloadFile;
@@ -21,6 +23,7 @@ import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +67,8 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     private DettaglioNotificaSection dettaglioNotifica;
 
     private DestinatarioPage destinatarioPage;
+
+    private LeTueDelegheSection leTueDelegheSection;
 
     private  WebTool webTool;
 
@@ -154,7 +159,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
         if (numeroRigheNotifiche != 0) {
             logger.info("Si visualizza correttamente l'elenco notifiche");
         } else {
-            logger.error("NON visualizza correttamente l'elenco notifiche");
             Assertions.fail("NON visualizza correttamente l'elenco notifiche");
         }
     }
@@ -375,7 +379,9 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
 
     @And("Si clicca sulla notifica del delegante")
     public void siCliccaSullaNotificaDelDelegante() {
-        destinatarioPage.clickSulDettaglioNotificaDelegante();
+        //NON Utilizzata
+//        destinatarioPage.clickSulDettaglioNotificaDelegante();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
     @And("Si controlla il dettaglio della notifica")
@@ -528,6 +534,7 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
             Map<String, String> infoNotifiche = dettaglioNotificaSection.recuperoInfoNotificheDestinatario();
             Assertions.assertTrue(infoNotifiche.get("mittente").equalsIgnoreCase(nomeEnte));
         }
+
 }
 
 

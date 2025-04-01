@@ -483,4 +483,19 @@ public class NotifichePGPagoPATest extends BasePage {
         }
     }
 
+    @When("Seleziona servizio Notifiche Digitale")
+    public void selezionaServizioNotificheDigitale() {
+        dettaglioNotificaMittenteSection.selezionaServizioNotificheDigitale();
+
+    }
+
+    @And("Click La tua Impresa {string}")
+    public void clickLaTuaImpresa(String testo) {
+        dettaglioNotificaMittenteSection.clickLaTuaImpresa(testo);
+    }
+
+    @And("Riduci zoom pagina al {string}%")
+    public void riduciZoomPaginaAl(String size) {
+        piattaformaNotifichePage.riduciZoomPaginaAl( size);
+    }
 }

@@ -55,7 +55,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | cognome | Borgia   |
     And Nella sezione Deleghe si sceglie l'opzione revoca
     Then Si conferma l'azione scegliendo revoca la delega
-    And Logout da portale persona giuridica
+    # And Logout da portale persona giuridica
 
 
   @TA_PGdeleganteAggiuntaDelegaAseStessi

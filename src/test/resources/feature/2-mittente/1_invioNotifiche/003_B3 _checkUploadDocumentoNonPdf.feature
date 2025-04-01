@@ -2,7 +2,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @InvioNotificaACaricaDocumentoNonPdf
+  @invioNotifiche_07
   @loginFE
+  @NRT
   Scenario: PN-9317-Check upload documento non pdf
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -29,7 +31,11 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | cap       | 20147                 |
       | stato     | Italia                |
     And Cliccare su continua
+    #      Aggiungere alle notifiche
+    And Seleziona Nessun Pagamento
+    And Cliccare su continua
+#      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati si carica un atto non pdf e visualizza messaggio di errore
-    And Logout da portale mittente
+#    And Logout da portale mittente
 

@@ -2,8 +2,8 @@ Feature: il mittente invia una notifica con 6 destinatario
 
   @TestSuite
     @TA_invioNotifica6DestinatariSenzaPagamento
-    @invioNotifiche
-
+    @invioNotifiche_07
+    @NRT
     @loginFE
   Scenario Outline: PN-9227 - il mittente invia una notifica con 6 destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -17,7 +17,7 @@ Feature: il mittente invia una notifica con 6 destinatario
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
     And Nella section Destinatario si cerca di aggiungere il sesto destinatario
-    And Logout da portale mittente
+#    And Logout da portale mittente
     Examples:
       | numero destinatari |
       | 5                  |

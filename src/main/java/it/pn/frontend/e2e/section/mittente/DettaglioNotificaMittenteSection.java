@@ -313,10 +313,11 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void verificaInvioPECInCorso() {
         try {
-            getWebDriverWait(50).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div/span[contains(text(),'Invio via PEC')]/following-sibling::div//p[contains(text(),'È in corso l')]"))));
+            getWebDriverWait(50)
+                    .withMessage("Impossibile trovare Invio via PEC ")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div/span[contains(text(),'Invio via PEC')]/following-sibling::div//p[contains(text(),'È in corso l')]")));
             logger.info("La pec è in stato invio in corso");
         } catch (TimeoutException e) {
-            logger.error("La pec NON è in stato invio in corso con errore: " + e.getMessage());
             Assertions.fail("La pec NON è in stato invio in corso con errore: " + e.getMessage());
         }
     }
@@ -615,5 +616,20 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public void ricercaNotificaConIunSalvato(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
+    }
+
+    public void selezionaServizioNotificheDigitale() {
+        WebElement button = getWebDriverWait(30).withMessage("Servizio Notifiche Digitali non trovato").until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//p[contains(text(),'Servizio Notifiche Digitali')]")
+        ));
+        button.click();
+    }
+
+    public void clickLaTuaImpresa(String testo) {
+
+        WebElement button = getWebDriverWait(30).withMessage("click La Tua Impresa non trovato").until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//li[contains(text(),'"+testo+"')]")
+        ));
+        button.click();
     }
 }

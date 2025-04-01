@@ -3,7 +3,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @Parallel
   @TA_invioNotificaConIndirizzoFornitoDallaPA
   @mittente
-  @invioNotifiche
 
   Scenario: PN-9242 - Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
