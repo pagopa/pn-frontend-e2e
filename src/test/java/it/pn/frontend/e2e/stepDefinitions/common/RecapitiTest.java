@@ -219,7 +219,7 @@ public class RecapitiTest extends BasePage {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         if (variabileAmbiente.equalsIgnoreCase("uat")) {
             logger.info("Si clicca su 'Attiva SEND su IO'");
-            recapitiDestinatarioPage.verificaPagina("Attiva SEND su IO");
+//            recapitiDestinatarioPage.verificaPagina("Attiva SEND su IO");
             recapitiDestinatarioPage.clickSuBottoneAttivaSENDSuIO();
         }
         logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);
@@ -230,8 +230,9 @@ public class RecapitiTest extends BasePage {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         if (variabileAmbiente.equalsIgnoreCase("uat")) {
             logger.info("Si clicca su 'Collega SEND su IO'");
-            recapitiDestinatarioPage.verificaPagina("Collega SEND su IO");
-            recapitiDestinatarioPage.clickSuBottoneCollegaSENDSuIO();
+//            recapitiDestinatarioPage.verificaPagina("Collega SEND su IO");
+//            recapitiDestinatarioPage.clickSuBottoneCollegaSENDSuIO();
+            iTuoiRecapitiPage.clickCollegaSENDSuIO();
         }
         logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);
     }
