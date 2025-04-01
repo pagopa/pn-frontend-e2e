@@ -550,7 +550,6 @@ public class ApiKeyPAPage extends BasePage {
     }
 
 public void pulisciAmbientePublickeys() {
-    logger.info("Prima della tabella");
     try {
         WebElement table = getWebDriverWait(20).withMessage("Prima Accesso alla Tabella Integrazione Api Publickeys  NON VISIBILE")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop)));
@@ -772,8 +771,36 @@ public void pulisciAmbientePublickeys() {
         try {
             WebElement table = getWebDriverWait(20).withMessage("Prima Accesso alla Tabella Integrazione Api VirtualKeys  NON VISIBILE")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathVirtualKeysTableDesktop)));
+            int b = 0;
+            List<WebElement> righeBloccate = table.findElements(By.xpath(".//tr//td//div[@id='status-chip-Bloccata']"));
+            //Si cancellano prima le righe bloccate per far proseguire i test automatici
+            logger.info("Si cancellano prima le {} righe bloccate", righeBloccate.size());
+            while (b < righeBloccate.size()) {
+
+                WebElement row = righeBloccate.get(b);
+                //si cliccano i tre puntini sulla riga con stato Bloccata
+                row.findElement(By.xpath("./parent::td//..//button[@data-testid='contextMenuButton']")).click();
+                clickEliminaIntegrazioneApi();
+                clickSuConfermaNelPopUp();
+                logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                aggiornaPaginaWaitTime(3);
+
+                //Si aggiorna il conto delle righe dopo la cancellazione della riga
+                if (getWebDriverWait(10).withMessage("Accessi succesivi alla Tabella Integrazione Api VirtualKeys  NON VISIBILE")
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathVirtualKeysTableDesktop))).isDisplayed()) {
+                    table = getWebDriverWait(10).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE")
+                            .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathVirtualKeysTableDesktop)));
+                    righeBloccate = table.findElements(By.xpath(".//tr//td//div[@id='status-chip-Bloccata']"));
+                    b = 0;
+                }
+                b++;
+            }
+            //Si refresha l'element table e si cancellano ora le righe attive e ruotate.
+            table = getWebDriverWait(20).withMessage("Prima Accesso alla Tabella Integrazione Api VirtualKeys  NON VISIBILE")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathVirtualKeysTableDesktop)));
             List<WebElement> rows = table.findElements(By.xpath(".//tr"));
             int i = 0;
+            logger.info("si cancellano chiavi attive e ruotate");
             while (i < rows.size()) {
                 WebElement row = rows.get(i);
                 List<WebElement> cells = row.findElements(By.xpath(".//td"));
