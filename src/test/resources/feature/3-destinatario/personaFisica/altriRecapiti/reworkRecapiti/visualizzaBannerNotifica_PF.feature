@@ -14,8 +14,8 @@ Feature: Rework della pagina dei contatti
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica Attivazione Domicilio digitale
-    And Verifica e Disattiva "email"
-    And Verifica e Disattiva "cellulare"
+    And Verifica e Disattiva email
+    And Verifica e Disattiva cellulare
     And Nella pagina I Tuoi Recapiti si controlla che IO non sia attivato
     Then Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
     And Aspetta 5 secondi

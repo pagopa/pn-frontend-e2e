@@ -925,27 +925,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void verificaAndOrDisattiva(String testo) {
-        try {
-            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro '" + testo + "' il testo 'Disattiva'")
-                    .until(ExpectedConditions.elementToBeClickable
-                            (By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
-            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
-                logger.info("Bottone 'Disattiva' trovato, lo clicco!");
-                disattivaButton.click();
-                clickSuConfermaElimina();
-            } else {
-                logger.warn("Bottone 'Disattiva' trovato ma non è visibile o abilitato.");
-            }
-        } catch (NoSuchElementException | TimeoutException e) {
-            logger.info("Bottone 'Disattiva' non presente.");
-        } catch (Exception e) {
-            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva'.", e);
-        }
-
-
-    }
-
     public void clickInizia() {
         WebElement button = getWebDriverWait(5).withMessage("Impossibile Cliccare su Inizia").
                 until(ExpectedConditions.elementToBeClickable(
@@ -1302,5 +1281,86 @@ public class RecapitiDestinatarioPage extends BasePage {
         } catch (Exception e) {
             Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Personalizzati Per Ente'.", e);
         }
+    }
+
+
+    public void verificaAndOrDisattiva(String testo) {
+        try {
+            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro '" + testo + "' il testo 'Disattiva'")
+                    .until(ExpectedConditions.elementToBeClickable
+                            (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                logger.info("Bottone 'Disattiva' trovato, lo clicco!");
+                disattivaButton.click();
+                clickSuConfermaElimina();
+            } else {
+                logger.warn("Bottone 'Disattiva' trovato ma non è visibile o abilitato.");
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva'.", e);
+        }
+
+
+    }
+
+
+    public void verificaEDisattivaDomicilioDigitale() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro Domicilio Digitale il testo 'Disattiva'")
+                    .until(ExpectedConditions.elementToBeClickable
+                            (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                disattivaButton.click();
+                clickSuConfermaElimina();
+            } else {
+                logger.warn("Bottone 'Disattiva Domicilio Digitale' trovato ma non è visibile o abilitato.");
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva Domicilio Digitale' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Domicilio Digitale'.", e);
+        }
+    }
+
+    public void verificaEDisattivaAppIO() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")
+                    .until(ExpectedConditions.elementToBeClickable
+                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                disattivaButton.click();
+                clickSuConfermaElimina();
+            } else {
+                logger.warn("Bottone 'Disattiva AppIO' trovato ma non è visibile o abilitato.");
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva AppIO' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva AppIO'.", e);
+        }
+    }
+
+    public void verificaEDisattivaEmail() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro Email 'Disattiva'")
+                    .until(ExpectedConditions.elementToBeClickable
+                            (By.cssSelector("button[data-testid='disable-email']")));
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                disattivaButton.click();
+                clickSuConfermaElimina();
+            } else {
+                logger.warn("Bottone 'Disattiva Email' trovato ma non è visibile o abilitato.");
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva Email' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Email'.", e);
+        }
+    }
+
+    public void verificaEDisattivaCellulare() {
+        // TODO DA VERICARE
     }
 }

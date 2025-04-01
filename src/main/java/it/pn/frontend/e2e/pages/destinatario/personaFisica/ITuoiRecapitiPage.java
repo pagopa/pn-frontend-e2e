@@ -357,4 +357,10 @@ public void iTuoiRecapitiButtonClick() {
         buttonConferma.click();
 
     }
+
+    public void verificaPresenzaBottoneAttivaSENDSuIO() {
+        getWebDriverWait(10)
+                .withMessage("Inpossibile verificare il bottone Attiva SEND Su IO ")
+                .until(ExpectedConditions.elementToBeClickable(By.id("ioContactButton")));
+    }
 }

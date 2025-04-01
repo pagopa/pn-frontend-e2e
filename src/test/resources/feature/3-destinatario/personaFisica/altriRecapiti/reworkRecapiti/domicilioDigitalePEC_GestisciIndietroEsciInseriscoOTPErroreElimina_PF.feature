@@ -17,11 +17,11 @@ Feature: Rework della pagina dei contatti
     #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Attesa 1 secondi
-    And Verifica e Disattiva "email"
+    And Verifica e Disattiva email
     And Attesa 1 secondi
-    And Verifica e Disattiva "cellulare"
+    And Verifica e Disattiva cellulare
 
     When Click Inizia
     And Click Insirisci Pec

@@ -11,11 +11,11 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva Personalizzati per Ente
     And Aspetta 1 secondi
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Attesa 2 secondi
-    And Verifica e Disattiva "email"
+    And Verifica e Disattiva email
     And Attesa 2 secondi
-    And Verifica e Disattiva "cellulare"
+    And Verifica e Disattiva cellulare
 
     When Click Inizia
     And Click Attiva

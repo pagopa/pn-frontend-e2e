@@ -213,11 +213,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
        }
     }
 
-    @And("Verifica e Disattiva {string}")
-    public void verificaAndOrDisattiva(String testo) {
-        recapitiDestinatarioPage.verificaAndOrDisattiva(testo);
-    }
-
     @When("Click Inizia")
     public void clickInizia() {
         recapitiDestinatarioPage.clickInizia();
@@ -394,4 +389,34 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void clickBottoneConfermaModificaRecapito() {
         recapitiDestinatarioPage.clickLoFaroPiuTardiOrConfermaModificaRecapito();
     }
+
+
+
+    @And("Verifica e Disattiva domicilio digitale")
+    public void verificaEDisattivaDomicilioDigitale() {
+        recapitiDestinatarioPage.verificaEDisattivaDomicilioDigitale();
+    }
+
+    @And("Verifica e Disattiva app IO")
+    public void verificaEDisattivaAppIO() {
+        recapitiDestinatarioPage.verificaEDisattivaAppIO();
+
+    }
+
+    @And("Verifica e Disattiva email")
+    public void verificaEDisattivaEmail() {
+        recapitiDestinatarioPage.verificaEDisattivaEmail();
+    }
+
+
+    @And("Verifica e Disattiva cellulare")
+    public void verificaEDisattivaCellulare() {
+        recapitiDestinatarioPage.verificaEDisattivaCellulare();
+    }
+
+//    @And("Verifica e Disattiva {string}")
+//    public void verificaAndOrDisattiva(String testo) {
+//        recapitiDestinatarioPage.verificaAndOrDisattiva(testo);
+//    }
+
 }

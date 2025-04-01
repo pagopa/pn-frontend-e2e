@@ -8,8 +8,8 @@ Feature: Rework della pagina dei contatti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica Attivazione Domicilio digitale
-    And Verifica e Disattiva "email"
-    And Verifica e Disattiva "cellulare"
+    And Verifica e Disattiva email
+    And Verifica e Disattiva cellulare
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
     And Aspetta 5 secondi
     And Si visualizza correttamente il banner di recapito di cortesia mancante

@@ -15,11 +15,11 @@ Feature: Rework della pagina dei contatti
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Aspetta 2 secondi
-    And Verifica e Disattiva "app IO"
-    And Verifica e Disattiva "email"
-    And Verifica e Disattiva "cellulare"
+    And Verifica e Disattiva app IO
+    And Verifica e Disattiva email
+    And Verifica e Disattiva cellulare
 
     When Click Inizia
     And Click Bottone "Esci"

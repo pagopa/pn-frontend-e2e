@@ -1158,5 +1158,10 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void clickBottoneConfermaAttivaDomicilioDigitale() {
         iTuoiRecapitiPage.clickBottoneConfermaAttivaDomicilioDigitale();
     }
+
+    @And("Verifica presenza bottone Attiva SEND su IO")
+    public void verificaPresenzaBottoneAttivaSENDSuIO() {
+        iTuoiRecapitiPage.verificaPresenzaBottoneAttivaSENDSuIO();
+    }
 }
 

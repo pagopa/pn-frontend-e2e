@@ -13,11 +13,11 @@ Feature: Rework della pagina dei contatti
       | familyName   | Pluto                  |
       | fiscalNumber | TINIT-AAAAAA00A00A000B |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Aspetta 1 secondi
-    And Verifica e Disattiva "app IO"
-    And Verifica e Disattiva "email"
-    And Verifica e Disattiva "cellulare"
+    And Verifica e Disattiva app IO
+    And Verifica e Disattiva email
+    And Verifica e Disattiva cellulare
 ##  Inserimento recapito solo email (cellulare non ancora possibile)
     And Click Inizia
     And Click Attiva

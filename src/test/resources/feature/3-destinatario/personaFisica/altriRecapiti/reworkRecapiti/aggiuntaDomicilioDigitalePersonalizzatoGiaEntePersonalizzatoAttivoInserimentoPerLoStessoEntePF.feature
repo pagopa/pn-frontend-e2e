@@ -19,9 +19,9 @@ Feature: Rework della pagina dei contatti
     And Aspetta 1 secondi
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Attesa 1 secondi
-    And Verifica e Disattiva "email"
+    And Verifica e Disattiva email
 
     When Click Inizia
     And Click Bottone "Inserisci PEC"

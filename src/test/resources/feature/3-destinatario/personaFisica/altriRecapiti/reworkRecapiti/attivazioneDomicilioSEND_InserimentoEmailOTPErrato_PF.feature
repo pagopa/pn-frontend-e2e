@@ -15,11 +15,11 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Attesa 2 secondi
-    And Verifica e Disattiva "email"
+    And Verifica e Disattiva email
     And Attesa 2 secondi
-    And Verifica e Disattiva "cellulare"
+    And Verifica e Disattiva cellulare
     # Creazione Email
     When Click Inizia
     And Click Attiva
