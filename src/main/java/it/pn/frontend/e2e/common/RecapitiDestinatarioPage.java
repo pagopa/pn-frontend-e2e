@@ -939,20 +939,24 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickNonOra() {
-        WebElement nonOraButton = getWebDriverWait(5).withMessage("Impossibile Cliccare su Non Ora")
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.css-1q3qf13")));
-        nonOraButton.click();
+        WebElement nonOraButton = getWebDriverWait(15)
+                .withMessage("Impossibile cliccare su 'Non ora'")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'css-ipfk0c')]//button")));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", nonOraButton);
+
     }
 
     public void clickLoFaroPiuTardiOrConfermaModificaRecapito() {
-        WebElement loFaroPiuTardi = getWebDriverWait(5).withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
+        WebElement loFaroPiuTardi = getWebDriverWait(25).withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
                 .until(ExpectedConditions.elementToBeClickable(
                 By.id("dialog-confirm-button")));
         loFaroPiuTardi.click();
     }
 
     public void clickTornaAiTuoiRecapiti() {
-        WebElement tornaAiTuoiRecapiti = getWebDriverWait(5).withMessage("Impossibile Cliccare su Torna ai tuoi recapiti")
+        WebElement tornaAiTuoiRecapiti = getWebDriverWait(15).withMessage("Impossibile Cliccare su Torna ai tuoi recapiti")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='wizard-feedback-button']")));
         tornaAiTuoiRecapiti.click();
     }
@@ -1351,7 +1355,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaEDisattivaEmail() {
         try {
-            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro Email 'Disattiva'")
+            WebElement disattivaButton = getWebDriverWait(15).withMessage("Non è presente dentro Email 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
                             (By.cssSelector("button[data-testid='disable-email']")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {

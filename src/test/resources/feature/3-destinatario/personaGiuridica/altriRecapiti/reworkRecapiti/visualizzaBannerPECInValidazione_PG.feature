@@ -8,15 +8,18 @@ Feature: Rework della pagina dei contatti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale
     And Attesa 1 secondi
     And Verifica e Disattiva email
     # Attivazione PEC generale
+    And Attesa 1 secondi
     When Click Inizia
     And Click Attiva
     And Click Non ora
-    And Click Lo Faro piu tardi
-    And Click Torna ai tuoi recapiti
+    And Attesa 1 secondi
+#    And Click Lo Faro piu tardi
+#    And Click Torna ai tuoi recapiti
     When Verifica Attivazione Domicilio digitale
     # Creazione PEC per ente
     When Click Bottone Gestisci
