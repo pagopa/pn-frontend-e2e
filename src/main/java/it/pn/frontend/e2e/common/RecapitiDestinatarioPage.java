@@ -1013,13 +1013,25 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaDaAttivareIO () {
         verificaPresenza("Impossibile trovare sezione integrazione IO ", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h6[contains(text(), 'app IO')]")
+                By.xpath("//div[@id='ioContactSection']//h6[@data-testid='ioContactTitle']")
         ));
-        verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h6[contains(text(), 'app IO')]//following::span[contains(text(), 'Da attivare')]")
+        verificaPresenza("Impossibile trovare Da attivare ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@id='ioContactSection']//div[contains(@class,'MuiChip-colorDefault')]")
         ));
         verificaPresenza("Impossibile Cliccare su Scarica app IO ", ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(text(),'Scarica')]")
+                By.xpath("//div[@id='ioContactSection']//button[@id='ioContactButton']")
+        ));
+    }
+
+    public void verificaAttivoIO() {
+        verificaPresenza("Impossibile trovare sezione integrazione IO ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@id='ioContactSection']//h6[@data-testid='ioContactTitle']")
+        ));
+        verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//div[@id='ioContactSection']//div[contains(@class,'MuiChip-colorSuccess')]")
+        ));
+        verificaPresenza("Impossibile Cliccare su Scarica app IO ", ExpectedConditions.elementToBeClickable(
+                By.xpath("//div[@id='ioContactSection']//button[@id='ioContactButton']")
         ));
     }
 

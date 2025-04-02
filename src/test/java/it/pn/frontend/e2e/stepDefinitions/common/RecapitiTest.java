@@ -198,6 +198,12 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.verificaDaAttivareIO();
     }
 
+    @And("Nella pagina I Tuoi Recapiti si controlla che IO sia attivo")
+    public void nellaPaginaITuoiRecapitiSiControllaCheNonIOSiaAttivato() {
+        logger.info("Si controlla che app IO non sia attivo");
+        recapitiDestinatarioPage.verificaAttivoIO();
+    }
+
     @And("Si inserisce il codice OTP errato {string} per tre volte e si controlla il messaggio di errore")
     public void siInserisceIlCodiceOTPErratoPerTreVolteESiControllaIlMessaggioDiErrore(String OTP) {
         logger.info("Si inserisce un codice OTP errato per 3 volte e si controlla il messaggio di errore");
