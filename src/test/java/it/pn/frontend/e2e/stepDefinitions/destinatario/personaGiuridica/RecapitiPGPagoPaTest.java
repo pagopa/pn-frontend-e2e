@@ -390,8 +390,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.clickLoFaroPiuTardiOrConfermaModificaRecapito();
     }
 
-
-
     @And("Verifica e Disattiva domicilio digitale")
     public void verificaEDisattivaDomicilioDigitale() {
         recapitiDestinatarioPage.verificaEDisattivaDomicilioDigitale();
