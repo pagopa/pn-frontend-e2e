@@ -14,10 +14,10 @@ Feature: Rework della pagina dei contatti
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Aspetta 2 secondi
-    And Verifica e Disattiva "email"
-    And Verifica e Disattiva "cellulare"
+    And Verifica e Disattiva email
+    And Verifica e Disattiva cellulare
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
@@ -26,5 +26,4 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "prova@test.it"
     When Click Inizia
     And Click Attiva
-    Then Verifica Pagina "Hai attivato il tuo domicilio digitale"
-    And Verifica Pagina "Torna ai tuoi recapiti"
+    Then Si visualizza correttamente la pagina di avvenuta attivazione del Domicilio Digitale

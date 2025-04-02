@@ -192,12 +192,6 @@ public class RecapitiTest extends BasePage {
         }
     }
 
-    @And("Nella pagina I Tuoi Recapiti si controlla che IO non sia attivato")
-    public void nellaPaginaITuoiRecapitiSiControllaCheNonIONonSiaAttivato() {
-        logger.info("Si controlla che app IO non sia attivata");
-        recapitiDestinatarioPage.verificaDaAttivareIO();
-    }
-
     @And("Si inserisce il codice OTP errato {string} per tre volte e si controlla il messaggio di errore")
     public void siInserisceIlCodiceOTPErratoPerTreVolteESiControllaIlMessaggioDiErrore(String OTP) {
         logger.info("Si inserisce un codice OTP errato per 3 volte e si controlla il messaggio di errore");
@@ -259,5 +253,10 @@ public class RecapitiTest extends BasePage {
     public void siVisualizzaCorrettamenteIlBannerDiPECInValidazione(String ente) {
         logger.info("Si visualizza correttamente il banner di PEC in validazione");
         recapitiDestinatarioPage.checkBannerPECInValidazione(ente);
+    }
+
+    @Then("Si visualizza correttamente la pagina di avvenuta attivazione del Domicilio Digitale")
+    public void siVisualizzaCorrettamentePaginaAttivazioneDomicilioDigitale() {
+        iTuoiRecapitiPage.waitLoadAttivazioneDomicilioDigitalePage();
     }
 }

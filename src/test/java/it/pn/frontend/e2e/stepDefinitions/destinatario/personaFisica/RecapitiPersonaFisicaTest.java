@@ -1163,5 +1163,17 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void verificaPresenzaBottoneAttivaSENDSuIO() {
         iTuoiRecapitiPage.verificaPresenzaBottoneAttivaSENDSuIO();
     }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che IO non sia attivato")
+    public void nellaPaginaITuoiRecapitiSiControllaCheNonIONonSiaAttivato() {
+        logger.info("Si controlla che app IO non sia attivata");
+        recapitiDestinatarioPage.verificaDaAttivareIO();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si controlla che IO sia attivo")
+    public void nellaPaginaITuoiRecapitiSiControllaCheNonIOSiaAttivato() {
+        logger.info("Si controlla che app IO non sia attivo");
+        recapitiDestinatarioPage.verificaAttivoIO();
+    }
 }
 

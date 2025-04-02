@@ -89,6 +89,16 @@ public void iTuoiRecapitiButtonClick() {
         }
     }
 
+    public void waitLoadAttivazioneDomicilioDigitalePage() {
+        try {
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h4[@data-testid='wizard-feedback-title']")))
+            );
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button']"))));
+            logger.info("La pagina Attivazione Domicilio Digitale si vede correttamente");
+        } catch (TimeoutException e) {
+            Assertions.fail("La pagina Attivazione Domicilio Digitale NON si vede correttamente con errori:" + e.getMessage());
+        }
+    }
 
     public void sendOTP(String otp) {
         String[] otps = otp.split("");
