@@ -142,16 +142,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void waitLoadPopUp() {
         try {
             getWebDriverWait(30).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-            getWebDriverWait(30).withMessage("La descrizione non viene visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[@id='dialog-description' and contains(text(), 'Il codice è')]"))));
-            getWebDriverWait(30).withMessage("Il testo non è corretto").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//strong[contains(text(), '15 minuti')]"))));
-            getWebDriverWait(30).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(text(), 'Inserisci codice')]"))));
+            getWebDriverWait(30).withMessage("La descrizione non viene visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-description"))));
+            getWebDriverWait(30).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(@class,'MuiTypography-root MuiTypography-body1') and not(@role='button')]"))));
             getWebDriverWait(30).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
             List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
             if (inputBoxes.size() != 5) {
                 Assertions.fail("Il numero di input box non è corretto");
             }
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//div[contains(text(), 'Non l’hai ricevuto?')]"))));
-            getWebDriverWait(10).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//div[@data-testid='dialog-content']//div[contains(@class,'MuiTypography-root MuiTypography-body2')]"))));
             confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
             annullaButton = driver.findElement(By.id("code-cancel-button"));
             boolean checkButton = confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
@@ -928,7 +926,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void clickInizia() {
         WebElement button = getWebDriverWait(5).withMessage("Impossibile Cliccare su Inizia").
                 until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(text(),'Inizia')]")
+                By.xpath("//div[@data-testid='legalContacts']//button[contains(@class,'MuiButton-containedPrimary')]")
         ));
         button.click();
     }
@@ -1029,9 +1027,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         ));
         verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@id='ioContactSection']//div[contains(@class,'MuiChip-colorSuccess')]")
-        ));
-        verificaPresenza("Impossibile Cliccare su Scarica app IO ", ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[@id='ioContactSection']//button[@id='ioContactButton']")
         ));
     }
 

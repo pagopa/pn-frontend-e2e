@@ -26,5 +26,4 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "prova@test.it"
     When Click Inizia
     And Click Attiva
-    Then Verifica Pagina "Hai attivato il tuo domicilio digitale"
-    And Verifica Pagina "Torna ai tuoi recapiti"
+    Then Si visualizza correttamente la pagina di avvenuta attivazione del Domicilio Digitale
