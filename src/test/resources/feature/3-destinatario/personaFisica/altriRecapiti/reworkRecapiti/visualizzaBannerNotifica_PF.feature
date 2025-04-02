@@ -13,12 +13,20 @@ Feature: Rework della pagina dei contatti
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Verifica Attivazione Domicilio digitale
+    And Verifica e Disattiva domicilio digitale
+    And Attesa 1 secondi
     And Verifica e Disattiva email
+    And Attesa 1 secondi
     And Verifica e Disattiva cellulare
+    And Attesa 1 secondi
     And Nella pagina I Tuoi Recapiti si controlla che IO non sia attivato
+
+    And Click Inizia
+    And Click Attiva
+    And Click Non ora
+
     Then Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
-    And Aspetta 5 secondi
+    And Attesa 1 secondi
     And Si visualizza correttamente la Pagina Notifiche persona fisica
     And Si visualizza correttamente il banner di recapito di cortesia mancante
     And La persona fisica clicca sulla prima notifica restituita

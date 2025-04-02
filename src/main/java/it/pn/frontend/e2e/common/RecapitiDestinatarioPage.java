@@ -1021,7 +1021,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                 By.xpath("//div[@id='ioContactSection']//div[contains(@class,'MuiChip-colorDefault')]")
         ));
         verificaPresenza("Impossibile Cliccare su Scarica app IO ", ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[@id='ioContactSection']//button[@id='ioContactButton']")
+                By.xpath("//div[@id='ioContactSection']//button[contains(@class,'MuiButton-contained')]")
         ));
     }
 
