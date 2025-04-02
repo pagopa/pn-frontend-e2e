@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_ValidazionePEC_PG
   @addressBook2
-
+  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_68] Visualizza banner - PEC personalizzati per ente
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
@@ -27,4 +27,4 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Click Torna ai tuoi recapiti
-    And Si visualizza correttamente il banner di PEC in validazione "Agenzia delle Entrate - Riscossione"
+    And Si visualizza correttamente il banner di PEC in validazione "Agenzia delle Entrate"

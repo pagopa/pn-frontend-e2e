@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_ValidazionePEC_PF
   @addressBook1
-
+  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_68] Visualizza banner - PEC personalizzati per ente
     Given Login Page persona fisica test viene visualizzata
     And Login con persona fisica
@@ -33,4 +33,4 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Click Torna ai tuoi recapiti
-    And Si visualizza correttamente il banner di PEC in validazione "Agenzia delle Entrate - Riscossione"
+    And Si visualizza correttamente il banner di PEC in validazione "Agenzia delle Entrate"

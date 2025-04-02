@@ -3,6 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_REWORK_DOMICILIO_DIGITALE_49_50_53_54_51_52_56_55_PG
   @addressBook2
+  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_49_50_53_54_51_52_56_55] Cambio Domicilio Digitale PEC Per Ente Personalizzato PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
