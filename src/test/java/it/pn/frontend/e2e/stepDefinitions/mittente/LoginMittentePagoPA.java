@@ -569,7 +569,7 @@ public class LoginMittentePagoPA extends BasePage {
         switch (environment) {
             case "dev" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-dev");
             case "test" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-test");
-//            case "uat" -> acccediAreaRiservataPAPage.clickUatBottone();
+            case "uat" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn");
             case "hotfix" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-hotfix");
             case "collaudo" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-coll");
 
