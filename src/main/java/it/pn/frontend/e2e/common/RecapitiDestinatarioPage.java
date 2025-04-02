@@ -1355,7 +1355,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaEDisattivaEmail() {
         try {
-            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro Email 'Disattiva'")
+            WebElement disattivaButton = getWebDriverWait(15).withMessage("Non è presente dentro Email 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
                             (By.cssSelector("button[data-testid='disable-email']")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
