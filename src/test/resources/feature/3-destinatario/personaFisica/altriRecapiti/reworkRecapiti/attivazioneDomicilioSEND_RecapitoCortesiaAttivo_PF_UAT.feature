@@ -25,6 +25,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si controlla che IO sia attivo
 #   Inserimento Email
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
+    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
