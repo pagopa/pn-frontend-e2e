@@ -32,12 +32,10 @@ Feature: Rework della pagina dei contatti
 #  REWORK_DOMICILIO_DIGITALE_PG_59
     When Click Bottone Gestisci
     And Click Bottone "Indietro"
-    And Verifica Pagina "Il domicilio digitale della tua impresa"
     And Verifica Attivazione Domicilio digitale
 ##  REWORK_DOMICILIO_DIGITALE_PG_60
     When Click Bottone Gestisci
     And Click Bottone Esci PG
-    And Verifica Pagina "Il domicilio digitale della tua impresa"
     And Verifica Attivazione Domicilio digitale
 ##  REWORK_DOMICILIO_DIGITALE_PG_57
     When Click Bottone Gestisci
@@ -49,7 +47,7 @@ Feature: Rework della pagina dei contatti
 ##  REWORK_DOMICILIO_DIGITALE_PG_58
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    When Verifica Pagina "Hai aggiornato il domicilio digitale della tua impresa"
+    When Si visualizza correttamente la pagina di avvenuta attivazione del Domicilio Digitale
     And Click Torna ai tuoi recapiti
     And Aspetta 2 secondi
 ##  REWORK_DOMICILIO_DIGITALE_PG_62

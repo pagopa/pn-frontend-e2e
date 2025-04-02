@@ -959,15 +959,15 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaAttivazioneDomicilioDigitaleDellaTuaImpresa() {
         verificaPresenza("Impossibile trovare Il domicilio digitale della tua impresa ", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h6[contains(text(), 'domicilio digitale')]")
+                By.xpath("//h6[@data-testid='legalContactsTitle']")
         ));
 
         verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Attivo')]")
+                By.xpath("//div[@data-testid='legalContacts']//div[contains(@class, 'MuiChip-colorSuccess')]")
         ));
 
         verificaPresenza("Impossibile trovare Gestisci ", ExpectedConditions.elementToBeClickable(
-                By.xpath("//h6[contains(text(), 'domicilio digitale')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Gestisci')]")
+                By.xpath("//div[@data-testid='legalContacts']//div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Gestisci')]")
         ));
 
         verificaPresenza("Impossibile trovare Disattiva ", ExpectedConditions.elementToBeClickable(
@@ -1087,7 +1087,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         WebElement button = getWebDriverWait(15)
                 .withMessage("Non è presente il bottone Esci")
                 .until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("(//button[contains(text(), 'Esci')])[2]")));
+                        By.xpath("(//div[contains(@class, 'MuiBox-root')]//button[contains(@class, 'MuiButton-sizeMedium')])[1]")));
         button.click();
     }
 
