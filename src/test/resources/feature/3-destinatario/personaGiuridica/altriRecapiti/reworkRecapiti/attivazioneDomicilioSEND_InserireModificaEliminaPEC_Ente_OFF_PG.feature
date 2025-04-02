@@ -3,15 +3,19 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_OFF_REWORK_DOMICILIO_DIGITALE_79_80_82_83_84_81_PG
   @addressBook2
-  @NRT
+  @TA_NRT_OFF
   Scenario:[OFF_REWORK_DOMICILIO_DIGITALE_PG_79_80_82_83_84_81] Attivazione Domicilio Digitale SEND - Inserisci - Modifica - Elimina PEC  PG
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale
+    And Attesa 1 secondi
     And Verifica e Disattiva email
+    And Attesa 1 secondi
     And Verifica e Disattiva cellulare
+    And Attesa 1 secondi
 
     When Click Inizia
 

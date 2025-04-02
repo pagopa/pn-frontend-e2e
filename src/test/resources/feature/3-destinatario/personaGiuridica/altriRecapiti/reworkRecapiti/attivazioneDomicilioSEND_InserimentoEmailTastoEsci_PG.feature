@@ -4,22 +4,25 @@ Feature: Rework della pagina dei contatti
   @TA_attivazioneDomicilioSEND_TastoEsci_PG
   @addressBook2
   @NRT
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_8_78] Attivazione Domicilio Digitale SEND - ESCI  PF
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PG_8_78] Attivazione Domicilio Digitale SEND - ESCI  PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale
+    And Attesa 1 secondi
     And Verifica e Disattiva email
+    And Attesa 1 secondi
     And Verifica e Disattiva cellulare
 
     When Click Inizia
     And Click Bottone Esci PG
-    Then Verifica Pagina "Il domicilio digitale della tua impresa"
+    Then Verifica Pagina "Da attivare"
     And Verifica Pagina "Indirizzo email aziendale"
 
 #REWORK_DOMICILIO_DIGITALE_PG_78
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     When Click Inizia
     And Verifica Pagina "Come funziona"
     And Click Attiva
