@@ -31,8 +31,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
 
-    And Verifica Pagina "La tua mail per ricevere aggiornamenti"
-    And Verifica Pagina "email dove possiamo informarti quando"
+    And Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
 #  Modifica Email
     When Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
