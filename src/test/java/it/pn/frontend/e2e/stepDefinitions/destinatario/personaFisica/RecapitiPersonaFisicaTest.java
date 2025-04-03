@@ -81,6 +81,12 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.waitLoadITuoiRecapitiPage();
     }
 
+    @And("Si visualizza correttamente la pagina Gestisci Il Tuo Dominio Digitale")
+    public void siVisualizzaCorrettamenteLaPaginaGestisciIlTuoDominioDigitale() {
+        logger.info("Si controlla che si visualizza correttamente la pagina Gestisci Il Tuo Dominio Digitale");
+        iTuoiRecapitiPage.waitLoadGestisciIlTuoDominioDigitalePage();
+    }
+
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione 'E-mail o numero di cellulare'")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteLaSezioneEmailONumeroDiCellulare() {
         logger.info("Si controlla che si visualizza correttamente la sezione 'E-mail o numero di cellulare'");
@@ -192,6 +198,12 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         webTool.waitTime(3);
         String errorMessageRead = recapitiDestinatarioPage.getPecErrorMessage();
         Assertions.assertEquals("Indirizzo PEC non valido", errorMessageRead, "messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido");
+    }
+
+    @Then("Si visualizza correttamente il messaggio di pec non valida")
+    public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiPecNonValida() {
+        String errorMessageRead = recapitiDestinatarioPage.getPecInvalidMessage();
+        Assertions.assertNotNull(errorMessageRead, "Messaggio di errore letto : '" + errorMessageRead + "' ");
     }
 
     @And("Si controlla che il tasto conferma sia bloccato")

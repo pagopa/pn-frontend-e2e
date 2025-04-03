@@ -100,6 +100,17 @@ public void iTuoiRecapitiButtonClick() {
         }
     }
 
+    public void waitLoadGestisciIlTuoDominioDigitalePage() {
+        try {
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='wizard-title']")))
+            );
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='legalContactManager']"))));
+            logger.info("La pagina Gestisci Il Tuo Domicilio Digitale si vede correttamente");
+        } catch (TimeoutException e) {
+            Assertions.fail("La pagina Gestisci Il Tuo Domicilio Digitale NON si vede correttamente con errori:" + e.getMessage());
+        }
+    }
+
     public void sendOTP(String otp) {
         String[] otps = otp.split("");
         try {
@@ -339,6 +350,13 @@ public void iTuoiRecapitiButtonClick() {
                 .withMessage("Impossibile cliccare sul bottone Gestisci ")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Gestisci')]")));
         gestisciButton.click();
+    }
+
+    public void clickBottoneIndietro() {
+        WebElement indietroButton = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare sul bottone Indietro ")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='prev-button']")));
+        indietroButton.click();
     }
 
     public void clickScaricaIO() {

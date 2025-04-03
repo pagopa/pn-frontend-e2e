@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_DisattivaRecapitiDiCortesia_PF
   @addressBook1
   @NRT
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_1_20_21_22_23_26_24_25] Attivazione Gestisci Domicilio Digitale SEND PF -I tuoi Recapiti
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_41] Attivazione Gestisci Domicilio Digitale SEND PF -I tuoi Recapiti
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
@@ -23,8 +23,8 @@ Feature: Rework della pagina dei contatti
     When Click Inizia
     And Click Attiva
     And Click Non ora
-#    And Click Lo Faro piu tardi
-#    And Click Torna ai tuoi recapiti
+    And Click Lo Faro piu tardi
+    And Click Torna ai tuoi recapiti
     When Verifica Attivazione Domicilio digitale
 ##  REWORK_DOMICILIO_DIGITALE_PF_41
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email

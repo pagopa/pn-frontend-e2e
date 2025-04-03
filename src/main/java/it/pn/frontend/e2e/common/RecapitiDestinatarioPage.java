@@ -577,6 +577,12 @@ public class RecapitiDestinatarioPage extends BasePage {
         return errorMessage.getText();
     }
 
+    public String getPecInvalidMessage() {
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("pec-helper-text"))));
+        WebElement errorMessage = driver.findElement(By.id("pec-helper-text"));
+        return errorMessage.getText();
+    }
+
     public boolean verificaBottoneConfermaDisabilitato() {
         try {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_pec-button"))));
@@ -941,7 +947,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void clickNonOra() {
         WebElement nonOraButton = getWebDriverWait(15)
                 .withMessage("Impossibile cliccare su 'Non ora'")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'css-ipfk0c')]//button")));
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(@class, 'MuiBox-root')]//button[contains(@class, 'MuiButton-sizeMedium')])[2]")));
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", nonOraButton);

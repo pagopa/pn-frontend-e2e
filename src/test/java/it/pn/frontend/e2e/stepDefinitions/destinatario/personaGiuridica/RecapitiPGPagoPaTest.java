@@ -300,6 +300,11 @@ public class RecapitiPGPagoPaTest extends BasePage {
         iTuoiRecapitiPage.clickBottoneConfermaPerModificaPEC();
     }
 
+    @And("Click Bottone Trasferisci su una PEC")
+    public void clickBottoneConfermaInTrasferisciSuUnaPEC() {
+        recapitiDestinatarioPage.clickConferma();
+    }
+
     @And("Click Bottone Conferma in Trasferisci il domicilio digitale su una PEC")
     public void clickBottoneConfermaInTrasferisciIlDomicilioDigitaleSuUnaPEC() {
         recapitiDestinatarioPage.clickConferma();
