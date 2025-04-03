@@ -31,11 +31,9 @@ public class LoginPAPage extends BasePage {
 
     public void waitLoadLoginPAPage(){
         try{
-            //WebElement titlePage = driver.findElement(By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l"))));
             logger.info("Login PA Page caricata");
         }catch (TimeoutException e){
-            logger.error("Il titolo della pagina Login PA non caricato con errore : "+e.getMessage());
             Assertions.fail("Il titolo della pagina Login PA non caricato con errore  : "+e.getMessage());
         }
     }
