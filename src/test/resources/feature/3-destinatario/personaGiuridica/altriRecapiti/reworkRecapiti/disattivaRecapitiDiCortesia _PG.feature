@@ -26,6 +26,6 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "prova@test.it"
     And Verifica Pagina "ti informiamo con una email"
 #
-    And Verifica e Disattiva "email"
+    And Verifica e Disattiva email
     And Click Bottone Conferma email
     Then Verifica Da Attivare Email
