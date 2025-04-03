@@ -22,7 +22,9 @@ Feature: Rework della pagina dei contatti
 
     When Click Inizia
     And Click Attiva
+    And Attesa 1 secondi
     And Click Non ora
+    And Attesa 1 secondi
     And Verifica Pagina "Non rischiare di leggere in ritardo le tue notifiche"
     And Verifica Pagina "Senza un indirizzo email o un altro recapito non possiamo informarti quando ricevi una comunicazione"
     And Click Inserisci Email Pop-Up
