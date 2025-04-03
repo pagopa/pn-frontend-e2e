@@ -133,7 +133,6 @@ public class LoginMittentePagoPA extends BasePage {
             case "test" ->
                     token = webDriverConfig.getTokentestMittente();
             default -> {
-                logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
         }

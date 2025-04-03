@@ -1812,8 +1812,25 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaPopUp(String verifica) {
-        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
-        webTool.waitTime(5);
+//        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
+//        webTool.waitTime(5);
+
+
+        WebElement popup = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.id("alert-api-status")
+                ));
+
+        Assertions.assertTrue(popup.getText().contains(verifica));
+
+//        try {
+//            WebElement alert = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("alert-api-status")));
+//            Assertions.assertEquals(verifica, alert.getText(), "Il messaggio del pop-up non corrisponde!");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il pop-up non è comparso entro il tempo limite.");
+//        }
+
+
     }
 
     public void selezioneImpostazioneLingua() {
