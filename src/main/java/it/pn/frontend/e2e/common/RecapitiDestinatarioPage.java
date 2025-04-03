@@ -1359,23 +1359,48 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void verificaEDisattivaEmail() {
-        try {
-            WebElement disattivaButton = getWebDriverWait(15).withMessage("Non è presente dentro Email 'Disattiva'")
-                    .until(ExpectedConditions.elementToBeClickable
-                            (By.cssSelector("button[data-testid='disable-email']")));
-            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
-                disattivaButton.click();
-                clickSuConfermaElimina();
-            } else {
-                logger.warn("Bottone 'Disattiva Email' trovato ma non è visibile o abilitato.");
-            }
-        } catch (NoSuchElementException | TimeoutException e) {
-            logger.info("Bottone 'Disattiva Email' non presente.");
-        } catch (Exception e) {
-            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Email'.", e);
+//    public void verificaEDisattivaEmail1() {
+//        try {
+//            WebElement disattivaButton = getWebDriverWait(15).withMessage("Non è presente dentro Email 'Disattiva'")
+//                    .until(ExpectedConditions.elementToBeClickable
+//                            (By.cssSelector("button[data-testid='disable-email']")));
+//            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+//                disattivaButton.click();
+//                clickSuConfermaElimina();
+//            } else {
+//                logger.warn("Bottone 'Disattiva Email' trovato ma non è visibile o abilitato.");
+//            }
+//        } catch (NoSuchElementException | TimeoutException e) {
+//            logger.info("Bottone 'Disattiva Email' non presente.");
+//        } catch (Exception e) {
+//            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Email'.", e);
+//        }
+//    }
+public void verificaEDisattivaEmail() {
+    try {
+        WebElement disattivaButton = getWebDriverWait(15)
+                .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-testid='disable-email']")));
+
+        getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".MuiAlert-root")));
+
+        if (!disattivaButton.isDisplayed()) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", disattivaButton);
+            webTool.waitTime(1);
         }
+
+        try {
+            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(disattivaButton)).click();
+        } catch (ElementClickInterceptedException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", disattivaButton);
+        }
+        clickSuConfermaElimina();
+    } catch (TimeoutException e) {
+        logger.warn("Bottone 'Disattiva Email' non trovato entro il tempo limite.");
+    } catch (Exception e) {
+        Assertions.fail("Errore inaspettato durante la disattivazione dell'email: " + e.getMessage());
     }
+}
 
     public void verificaEDisattivaCellulare() {
         // TODO DA VERICARE
