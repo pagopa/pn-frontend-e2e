@@ -1171,7 +1171,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void verificaEdEliminaPersonalizzatiPerEnte() {
         try {
             WebElement eliminaButton = getWebDriverWait(5)
-                    .withMessage("Impossibile trovare il tasto 'Elimina'")
+                    .withMessage("Impossibile trovare il tasto 'Elimina verificaEdEliminaPersonalizzatiPerEnte'")
                     .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[starts-with(@data-testid, 'cancelContact-') or starts-with(@id, 'cancelContact-')]")));
             if (eliminaButton.isDisplayed() && eliminaButton.isEnabled()) {
                 js().executeScript("arguments[0].scrollIntoView(true);", eliminaButton);

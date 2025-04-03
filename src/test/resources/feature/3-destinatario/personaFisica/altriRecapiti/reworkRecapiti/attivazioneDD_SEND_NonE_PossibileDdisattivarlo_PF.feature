@@ -23,8 +23,8 @@ Feature: Rework della pagina dei contatti
     When Click Inizia
     And Click Attiva
     And Click Non ora
-    And Click Lo Faro piu tardi
-    And Click Torna ai tuoi recapiti
+#    And Click Lo Faro piu tardi
+#    And Click Torna ai tuoi recapiti
     When Verifica Attivazione Domicilio digitale
 ##  REWORK_DOMICILIO_DIGITALE_PF_42
     When Click Bottone Gestisci
