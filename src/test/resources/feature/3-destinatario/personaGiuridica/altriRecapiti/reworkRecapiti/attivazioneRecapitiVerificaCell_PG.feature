@@ -14,6 +14,7 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
 #    And Attesa 2 secondi
     And Verifica e Disattiva cellulare
+    And Attesa 1 secondi
 ###  REWORK_DOMICILIO_DIGITALE_PF_31
     When Click Bottone "Aggiungi un numero di cellulare"
     And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3409876543" e si clicca sul bottone avvisami via SMS
