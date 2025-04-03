@@ -1175,5 +1175,10 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         logger.info("Si controlla che app IO non sia attivo");
         recapitiDestinatarioPage.verificaAttivoIO();
     }
+
+    @And("Click Bottone Esci PF")
+    public void clickBottoneEsciPF() {
+        recapitiDestinatarioPage.clickBottoneEsciPF();
+    }
 }
 

@@ -22,18 +22,18 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva cellulare
 
     When Click Inizia
-    And Click Bottone "Esci"
+    And Click Bottone Esci PF
     Then Verifica Pagina "Il tuo domicilio digitale"
     And Verifica Pagina "app IO"
     And Verifica Pagina "Il tuo indirizzo email"
 # REWORK_DOMICILIO_DIGITALE_PF_77
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Click Inizia
     And Verifica Pagina "Come funziona"
     And Click Attiva
     And Si clicca su 'Collega SEND su IO'
     And Verifica Pagina "La tua mail per ricevere aggiornamenti"
-    And Click Bottone "Esci"
+    And Click Bottone Esci PF
     #And Verifica Pagina "Non rischiare di leggere in ritardo le tue notifiche"
     #And Click Lo Faro piu tardi
     And Click Torna ai tuoi recapiti

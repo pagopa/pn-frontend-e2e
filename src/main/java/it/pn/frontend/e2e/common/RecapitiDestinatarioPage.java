@@ -1089,7 +1089,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cliccaBottoneEsciPG() {
         WebElement button = getWebDriverWait(15)
-                .withMessage("Non è presente il bottone Esci")
+                .withMessage("Non è presente il bottone Esci PG")
                 .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("(//div[contains(@class, 'MuiBox-root')]//button[contains(@class, 'MuiButton-sizeMedium')])[1]")));
         button.click();
@@ -1373,5 +1373,23 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaEDisattivaCellulare() {
         // TODO DA VERICARE
+    }
+
+    public void clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale() {
+
+        WebElement indietroButton = getWebDriverWait(10)
+                .withMessage("Impossibile Trovare il tasto Inditro del metodo clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='prev-button']")));
+        indietroButton.click();
+
+
+    }
+
+    public void clickBottoneEsciPF() {
+        WebElement esciButton = getWebDriverWait(10)
+                .withMessage("Impossibile Trovare il tasto Esci del metodo clickBottoneEsciPF")
+                .until(ExpectedConditions.elementToBeClickable(
+                By.cssSelector("button.css-y0rh4q")));
+        esciButton.click();
     }
 }

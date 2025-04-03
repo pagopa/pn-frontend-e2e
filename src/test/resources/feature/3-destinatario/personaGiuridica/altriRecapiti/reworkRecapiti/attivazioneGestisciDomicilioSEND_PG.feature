@@ -29,7 +29,7 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "Trasferisci il domicilio digitale su una PEC"
     And Verifica Pagina "Inserisci la tua PEC"
 ##  REWORK_DOMICILIO_DIGITALE_PF_23
-    When Click Bottone "Indietro"
+    When Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Verifica Pagina "Gestisci domicilio digitale"
     And Verifica Pagina "La piattaforma SEND"
     ##  REWORK_DOMICILIO_DIGITALE_PF_26

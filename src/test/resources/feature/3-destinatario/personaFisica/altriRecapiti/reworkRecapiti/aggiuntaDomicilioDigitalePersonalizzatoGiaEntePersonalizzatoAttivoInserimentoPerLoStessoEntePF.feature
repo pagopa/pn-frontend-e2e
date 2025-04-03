@@ -60,7 +60,7 @@ Feature: Rework della pagina dei contatti
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Domicilio Digitale SEND"
     And Verifica Pagina "possibile associare il domicilio digitale SEND"
-    And Click Bottone "Esci"
+    And Click Bottone Esci PF
     And Aspetta 2 secondi
 
 ##  REWORK_DOMICILIO_DIGITALE_PG_74

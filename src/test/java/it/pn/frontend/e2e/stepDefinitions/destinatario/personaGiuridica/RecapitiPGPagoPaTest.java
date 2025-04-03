@@ -412,6 +412,11 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.verificaEDisattivaCellulare();
     }
 
+    @When("Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale")
+    public void clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale() {
+        recapitiDestinatarioPage.clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale();
+    }
+
 //    @And("Verifica e Disattiva {string}")
 //    public void verificaAndOrDisattiva(String testo) {
 //        recapitiDestinatarioPage.verificaAndOrDisattiva(testo);

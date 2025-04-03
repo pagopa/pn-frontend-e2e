@@ -43,7 +43,7 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "Personalizza il tuo domicilio digitale per ente mittente"
     And Verifica Pagina "ente e il recapito da associare"
 ##  REWORK_DOMICILIO_DIGITALE_PG_53
-    When Click Bottone "Indietro"
+    When Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Verifica Pagina "domicilio digitale"
     And Verifica Pagina "La piattaforma SEND"
 ##  REWORK_DOMICILIO_DIGITALE_PG_54
