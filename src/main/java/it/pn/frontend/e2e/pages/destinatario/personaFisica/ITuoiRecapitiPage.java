@@ -391,4 +391,17 @@ public void iTuoiRecapitiButtonClick() {
                 .withMessage("Inpossibile verificare il bottone Attiva SEND Su IO ")
                 .until(ExpectedConditions.elementToBeClickable(By.id("ioContactButton")));
     }
+
+    public void checkImpossibileDisattivareDomicilioDigitale() {
+        getWebDriverWait(10)
+                .withMessage("Pop-up 'Impossibile disattivare il Domicilio Digitale' non è visibile")
+                .until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))), ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//div[@data-testid='dialog-content']"))))));
+    }
+
+    public void siChiudeImpossibileDisattivareDomicilioDigitale() {
+        WebElement buttonChiudi = getWebDriverWait(10)
+                .withMessage("Bottone 'Ok, ho capito' per pop-up 'Impossibile disattivare il Domicilio Digitale' non è visibile")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("buttonClose"))));
+        buttonChiudi.click();
+    }
 }

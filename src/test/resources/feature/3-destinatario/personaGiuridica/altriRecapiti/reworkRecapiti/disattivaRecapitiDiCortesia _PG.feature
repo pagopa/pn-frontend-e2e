@@ -14,9 +14,12 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva cellulare
     When Click Inizia
     And Click Attiva
+    And Attesa 1 secondi
     And Click Non ora
-#    And Click Lo Faro piu tardi
-#    And Click Torna ai tuoi recapiti
+    And Attesa 1 secondi
+    And Click Lo Faro piu tardi
+    And Attesa 1 secondi
+    And Click Torna ai tuoi recapiti
     Then Verifica Attivazione Domicilio digitale
 ##  REWORK_DOMICILIO_DIGITALE_PG_41
     When Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
@@ -24,9 +27,9 @@ Feature: Rework della pagina dei contatti
 
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
-    And Verifica Pagina "prova@test.it"
-    And Verifica Pagina "ti informiamo con una email"
+    And Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
 #
     And Verifica e Disattiva email
+    And Attesa 1 secondi
     And Click Bottone Conferma email
     Then Verifica Da Attivare Email

@@ -259,4 +259,14 @@ public class RecapitiTest extends BasePage {
     public void siVisualizzaCorrettamentePaginaAttivazioneDomicilioDigitale() {
         iTuoiRecapitiPage.waitLoadAttivazioneDomicilioDigitalePage();
     }
+
+    @Then("Verifica pop-up Impossibile disattivare il Domicilio Digitale")
+    public void verificaImpossibileDisattivareIlDomicilioDigitale() {
+        iTuoiRecapitiPage.checkImpossibileDisattivareDomicilioDigitale();
+    }
+
+    @And("Si chiude pop-up Impossibile disattivare il Domicilio Digitale")
+    public void siChiudeImpossibileDisattivareIlDomicilioDigitale() {
+        iTuoiRecapitiPage.siChiudeImpossibileDisattivareDomicilioDigitale();
+    }
 }
