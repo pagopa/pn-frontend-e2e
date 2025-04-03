@@ -22,8 +22,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridiche"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
 
-    And Verifica Pagina "La tua mail per ricevere aggiornamenti"
-    And Verifica Pagina "email dove possiamo informarti quando"
+    And Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
 ##  Modifica Email
     When Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
@@ -31,6 +30,6 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "provaemail@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    Then  Verifica Pagina "provaemail@test.it"
+    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
 #  ----------------------------------------------------------------------
 
