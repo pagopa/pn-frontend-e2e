@@ -1104,7 +1104,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
 
     public void verificaPagina(String testo) {
-        getWebDriverWait(5)
+        getWebDriverWait(25)
                 .withMessage("Non è presente Il testo '" + testo + "'")
                 .until(ExpectedConditions.presenceOfElementLocated(
                         By.xpath("//*[contains(text(), '" + testo + "')]")));

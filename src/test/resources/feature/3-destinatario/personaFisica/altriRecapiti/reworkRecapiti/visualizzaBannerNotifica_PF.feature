@@ -20,7 +20,7 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva cellulare
     And Attesa 1 secondi
     And Nella pagina I Tuoi Recapiti si controlla che IO non sia attivato
-
+    And Attesa 1 secondi
     And Click Inizia
     And Click Attiva
     And Click Non ora
