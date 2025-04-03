@@ -1283,12 +1283,15 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             WebElement disattivaButton = getWebDriverWait(5)
                     .withMessage("Impossibile trovare il tasto 'Disattiva ' PERSONALIZZATI PER ENTE").until(ExpectedConditions.elementToBeClickable(
-                    By.xpath(".//button[contains(@id, 'cancelContact')]")
+                    By.xpath("//button[@data-testid='cancelContact-special_SERCQ_SEND']")
             ));
 
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+//                js().executeScript("arguments[0].scrollIntoView(true);", disattivaButton);
                 disattivaButton.click();
                 clickSuConfermaElimina();
+
+
             }
         } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Bottone 'Disattiva Personalizzati Per Ente' non presente.");

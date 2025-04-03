@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_REWORK_DOMICILIO_DIGITALE_75_72_73_76_74_PF
   @addressBook1
   @NRT
-  @TA_email
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_75_72_73_76_74] Aggiunta domicilio digitale personalizzato (principale PEC) - Già ente personalizzato attivo - Inserimento per lo stesso ente PG
 
     Given Login Page persona fisica test viene visualizzata
@@ -16,7 +16,7 @@ Feature: Rework della pagina dei contatti
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     ##     verificare mancano pezzi inerente a SEND sull'appIO
-    And Verifica e Disattiva Personalizzati per Ente
+    And Verifica ed Elimina personalizzati per ente
     And Aspetta 1 secondi
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi

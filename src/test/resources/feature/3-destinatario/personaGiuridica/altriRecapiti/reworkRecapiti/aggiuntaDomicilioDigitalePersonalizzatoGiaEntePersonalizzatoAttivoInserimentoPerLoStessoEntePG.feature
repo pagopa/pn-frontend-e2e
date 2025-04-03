@@ -8,7 +8,7 @@ Feature: Rework della pagina dei contatti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 ##    verificare mancano pezzi inerente a SEND sull'appIO e indirizzo email
-    And Verifica e Disattiva Personalizzati per Ente
+    And Verifica ed Elimina personalizzati per ente
     And Aspetta 1 secondi
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
