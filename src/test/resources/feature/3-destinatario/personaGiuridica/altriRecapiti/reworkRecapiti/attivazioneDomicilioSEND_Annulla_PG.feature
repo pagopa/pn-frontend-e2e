@@ -10,8 +10,11 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale
+    And Attesa 1 secondi
     And Verifica e Disattiva email
     When Click Inizia
     And Click Annulla
+    And Attesa 1 secondi
     Then Verifica Da Attivare Domicilio digitale
