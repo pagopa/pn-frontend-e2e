@@ -14,6 +14,7 @@ Feature: Rework della pagina dei contatti
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale
     And Attesa 1 secondi
     And Verifica e Disattiva email
@@ -23,6 +24,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si controlla che IO non sia attivato
     And Attesa 1 secondi
     And Click Inizia
+    And Attesa 1 secondi
     And Click Attiva
     And Click Non ora
 

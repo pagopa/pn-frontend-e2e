@@ -19,4 +19,5 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva app IO
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
+    And Aspetta 1 secondi
     And Click Scarica app IO

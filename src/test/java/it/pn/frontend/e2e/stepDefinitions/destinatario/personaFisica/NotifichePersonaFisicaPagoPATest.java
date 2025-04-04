@@ -91,8 +91,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
 
     }
 
-
-
     @When("Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche")
     public void nellaPiattaformaDestinatarioCliccareSulBottoneNotifiche() {
         notifichePFPage.clickNotificheButton();
