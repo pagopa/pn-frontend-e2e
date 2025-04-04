@@ -22,9 +22,18 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva cellulare
     And Attesa 1 secondi
     And Nella pagina I Tuoi Recapiti si controlla che IO non sia attivato
-
-    Then Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
+#   Attivazione Domicilio Digitale
+    When Click Inizia
+    And Click Attiva
     And Attesa 1 secondi
+    And Click Non ora
+    And Click Lo Faro piu tardi
+    And Click Torna ai tuoi recapiti
+    And Attesa 1 secondi
+    When Verifica Attivazione Domicilio digitale
+#   Check banner notifiche
+    Then Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
+    And Aspetta 5 secondi
     And Si visualizza correttamente la Pagina Notifiche persona fisica
     And Si visualizza correttamente il banner di recapito di cortesia mancante
     And La persona fisica clicca sulla prima notifica restituita

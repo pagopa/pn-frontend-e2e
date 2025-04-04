@@ -1050,9 +1050,11 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void checkBannerRecapitoCortesiaMancante() {
         verificaPresenza("Il banner di recapito di cortesia mancante non è presente", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//div[@data-testid='addDomicileBanner']")));
+                By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]")));
         verificaPresenza("Il banner di recapito di cortesia mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND.')]")));
+                By.xpath("(//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p)[1]")));
+        verificaPresenza("Il banner di recapito di cortesia mancante non ha il sottotesto corretto", ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("(//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p)[2]")));
     }
 
     public void checkPresenzaBannerEmailMancante() {
