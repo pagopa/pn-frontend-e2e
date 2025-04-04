@@ -24,7 +24,7 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     And Click Attiva
     And Attesa 1 secondi
-    And Click Non ora
+    And Click Non ora Uat
     And Attesa 1 secondi
     And Click Lo Faro piu tardi
     And Attesa 1 secondi
@@ -48,6 +48,6 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva app IO
 ## Reset recapiti UAT
     And Verifica e Disattiva domicilio digitale
-    And Attesa 1 secondi
+    And Aspetta 1 secondi
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare

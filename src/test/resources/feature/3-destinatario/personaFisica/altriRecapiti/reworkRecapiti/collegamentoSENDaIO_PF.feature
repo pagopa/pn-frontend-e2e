@@ -25,17 +25,17 @@ Feature: Rework della pagina dei contatti
 ##  REWORK_DOMICILIO_DIGITALE_PG_35
     And Si clicca su 'Attiva SEND su IO'
     And Si clicca sul bottone del pop-up ok ho capito
-    And Verifica Pagina "la ricevi direttamente in app e puoi pagare eventuali spese."
+    And Verifica Pagina "la ricevi direttamente in app e puoi pagare eventuali spese"
 ##  REWORK_DOMICILIO_DIGITALE_PG_34
     And Aspetta 2 secondi
     And Verifica e Disattiva app IO
     And Click Inizia
     And Click Attiva
-    And Attesa 1 secondi
-    And Click Non ora
+    And Attesa 2 secondi
+    And Click Non ora Uat
     And Attesa 1 secondi
     And Click Lo Faro piu tardi
-    And Attesa 1 secondi
+    And Attesa 2 secondi
     And Click Non ora
     And Attesa 1 secondi
     And Click Lo Faro piu tardi

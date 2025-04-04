@@ -34,11 +34,15 @@ public class RecuperoOTPRecapiti {
 
     public boolean runRecuperoOTPRecapiti(String url) {
         try {
+            logger.info("Run Recupero OTP Recapiti URL: "+url);
+
             CloseableHttpClient httpClient = HttpClients.createDefault();
             ClassicHttpRequest httpGet = ClassicRequestBuilder
                     .get(url)
                     .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                     .build();
+            logger.info("Run Recupero OTP Recapiti httpGet: "+httpGet);
+
             httpClient.execute(httpGet, response -> {
                 logger.info("La request get verso " + url + " ha risposto con codice : " + response.getCode() + "e la reason Phrase è " + response.getReasonPhrase());
                 if (response.getCode() == 200) {
@@ -46,6 +50,7 @@ public class RecuperoOTPRecapiti {
                     setResponseBody(EntityUtils.toString(entity));
                     return true;
                 } else {
+                    logger.info("Run Recupero OTP Recapiti response.getCode(): " +response.getCode());
                     this.responseCode = response.getCode();
                     return false;
                 }
