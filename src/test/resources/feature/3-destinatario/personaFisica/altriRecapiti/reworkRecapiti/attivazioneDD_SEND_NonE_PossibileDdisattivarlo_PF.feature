@@ -36,6 +36,6 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Click Torna ai tuoi recapiti
-    And Aspetta 1 secondi
+    And Aspetta 2 secondi
     Then Verifica pop-up Impossibile disattivare il Domicilio Digitale
     And Si chiude pop-up Impossibile disattivare il Domicilio Digitale

@@ -317,6 +317,9 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
+            else if (variabileAmbiente.equalsIgnoreCase("uat")) {
+                startUrl = "http://localhost:8887/";
+            }
             results = changeStartUrlPec(startUrl, results, persona);
             if (results) {
                 String OTP = recuperoOTPRecapiti.getResponseBody();
