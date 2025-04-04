@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_VisualizzaBannerNotifica_PF
   @addressBook1
-  @NRT
+  @NRT_ON
   Scenario: [REWORK_DOMICILIO_DIGITALE_PF_65_66_67] - Visualizza banner - Notifica/I tuoi dati
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
@@ -25,7 +25,7 @@ Feature: Rework della pagina dei contatti
     And Click Inizia
     And Click Attiva
     And Click Non ora
-
+    And Attesa 1 secondi
     Then Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
     And Attesa 1 secondi
     And Si visualizza correttamente la Pagina Notifiche persona fisica

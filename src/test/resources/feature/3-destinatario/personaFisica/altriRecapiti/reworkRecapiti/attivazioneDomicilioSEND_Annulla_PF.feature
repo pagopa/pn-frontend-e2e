@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_Annulla_PF
   @addressBook1
-  @NRT
+  @NRT_ON
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_3] Attivazione Domicilio Digitale SEND - Annulla PF
 
 #   Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

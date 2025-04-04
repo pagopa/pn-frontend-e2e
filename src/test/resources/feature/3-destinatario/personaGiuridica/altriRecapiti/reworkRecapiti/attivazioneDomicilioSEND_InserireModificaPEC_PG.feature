@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciModificaPEC_PG
   @addressBook2
-  @NRT
+  @NRT_ON
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_4_19] Attivazione Domicilio Digitale SEND - Inserisci PEC e Modifica PEC  PG
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

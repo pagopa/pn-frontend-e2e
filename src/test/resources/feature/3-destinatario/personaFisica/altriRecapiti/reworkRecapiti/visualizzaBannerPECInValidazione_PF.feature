@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_ValidazionePEC_PF
   @addressBook1
-  @NRT
+  @NRT_ON
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_68] Visualizza banner - PEC personalizzati per ente
     Given Login Page persona fisica test viene visualizzata
     And Login con persona fisica

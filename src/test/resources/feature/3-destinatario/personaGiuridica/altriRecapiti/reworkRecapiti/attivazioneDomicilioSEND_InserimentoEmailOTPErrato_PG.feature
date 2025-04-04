@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_inserimentoMailOTPErrato_PG
   @addressBook2
-  @NRT
+  @NRT_ON
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_70] La persona giuridica loggata inserisce un OTP sbagliato email
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

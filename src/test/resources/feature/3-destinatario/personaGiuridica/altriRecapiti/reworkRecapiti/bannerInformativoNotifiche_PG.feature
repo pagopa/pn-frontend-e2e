@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_BanneInformativoNotifiche_PG
   @addressBook2
-  @NRT
+  @NRT_ON
   Scenario: [REWORK_DOMICILIO_DIGITALE_PG_15_16] - Attivazione Domicilio Digitale SEND - Banner informativo link consegnata PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 
