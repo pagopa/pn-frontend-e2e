@@ -27,6 +27,7 @@ Feature: Rework della pagina dei contatti
     And Click Lo Faro piu tardi
     And Attesa 1 secondi
     And Click Torna ai tuoi recapiti
+    And Attesa 1 secondi
     When Verifica Attivazione Domicilio digitale
     # Creazione PEC per ente
     When Click Bottone Gestisci

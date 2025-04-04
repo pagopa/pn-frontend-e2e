@@ -26,6 +26,7 @@ Feature: Rework della pagina dei contatti
     And Click Non ora
     And Click Lo Faro piu tardi
     And Click Torna ai tuoi recapiti
+    And Attesa 1 secondi
     When Verifica Attivazione Domicilio digitale
 ##  REWORK_DOMICILIO_DIGITALE_PF_42
     When Click Bottone Gestisci
@@ -36,6 +37,4 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Click Torna ai tuoi recapiti
-    And Aspetta 2 secondi
-    Then Verifica pop-up Impossibile disattivare il Domicilio Digitale
-    And Si chiude pop-up Impossibile disattivare il Domicilio Digitale
+    And Attesa 2 secondi

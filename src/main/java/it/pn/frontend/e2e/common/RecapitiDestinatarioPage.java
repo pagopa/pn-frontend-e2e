@@ -953,6 +953,14 @@ public class RecapitiDestinatarioPage extends BasePage {
         js.executeScript("arguments[0].click();", nonOraButton);
 
     }
+    public void clickNonOraUat() {
+        WebElement nonOraButton = getWebDriverWait(15)
+                .withMessage("Impossibile cliccare su 'Non ora Uat'")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(@class, 'MuiBox-root')]//button[contains(@class, 'MuiButton-sizeMedium')])[3]")));
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();", nonOraButton);
+    }
 
     public void clickLoFaroPiuTardiOrConfermaModificaRecapito() {
         WebElement loFaroPiuTardi = getWebDriverWait(25).withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
@@ -1423,4 +1431,6 @@ public void verificaEDisattivaEmail() {
                 By.cssSelector("button.css-y0rh4q")));
         esciButton.click();
     }
+
+
 }

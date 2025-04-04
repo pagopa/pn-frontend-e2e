@@ -227,6 +227,10 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void clickNonOra() {
         recapitiDestinatarioPage.clickNonOra();
     }
+    @And("Click Non ora Uat")
+    public void clickNonOraUat() {
+        recapitiDestinatarioPage.clickNonOraUat();
+    }
 
     @And("Click Lo Faro piu tardi")
     public void clickLoFaroPiuTardi() {
