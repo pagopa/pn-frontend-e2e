@@ -19,9 +19,13 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
     # Attivazione PEC generale
     When Click Inizia
+    And Attesa 1 secondi
     And Click Attiva
+    And Attesa 1 secondi
     And Click Non ora
+    And Attesa 1 secondi
     And Click Lo Faro piu tardi
+    And Attesa 1 secondi
     And Click Torna ai tuoi recapiti
     When Verifica Attivazione Domicilio digitale
     # Creazione PEC per ente
