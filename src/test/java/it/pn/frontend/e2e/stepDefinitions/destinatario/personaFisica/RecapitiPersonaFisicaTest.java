@@ -300,6 +300,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequest(String persona) {
         //personaFisica
         //personaGiuridica
+//        String startUrl =  webDriverConfig.getExternalChannels(); //"http://localhost:8887/";
         String startUrl = "http://localhost:8887/";
         boolean results = changeStartUrlPec(startUrl, false, persona);
         if (results) {
@@ -310,7 +311,8 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             }else {
                 dataPopulationConfig.getPersonaFisica().setOTPPec(OTP);
             }
-        } else {
+        }
+        else {
             String variabileAmbiente = webDriverConfig.getEnvironment();
             if (variabileAmbiente.equalsIgnoreCase("test")) {
                 startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
@@ -318,7 +320,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
                 startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
             }
             else if (variabileAmbiente.equalsIgnoreCase("uat")) {
-                startUrl = "http://localhost:8887/";
+                startUrl = "http://internal-EcsA-20230508132226979200000016-2130814132.eu-south-1.elb.amazonaws.com:8080";
             }
             results = changeStartUrlPec(startUrl, results, persona);
             if (results) {

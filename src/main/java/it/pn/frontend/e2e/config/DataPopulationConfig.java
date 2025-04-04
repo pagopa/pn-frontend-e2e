@@ -351,8 +351,7 @@ public class DataPopulationConfig {
 
         personaFisica.setEmail(email);
         personaFisica.setAdditionalEmail(additionalEmail);
-//        personaFisica.setEmailPec(emailPec);
-        personaFisica.setEmailPec("AndreaLuigi@pec.it");
+        personaFisica.setEmailPec(emailPec);
         personaFisica.setMail(mail);
         personaFisica.setPec(pec);
         personaFisica.setFiscalNumber(DataPopulationValue.getDefaultValue(DataPopulationValue.FISCAL_NUMBER_PF.key));

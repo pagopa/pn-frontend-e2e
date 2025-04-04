@@ -175,6 +175,8 @@ public class WebDriverConfig {
     @Value("${codice.iun.n3}")
     private String codiceIunN3;
 
+    @Value("${pn.externalChannels.base-url}")
+    private String externalChannels;
 
   
 

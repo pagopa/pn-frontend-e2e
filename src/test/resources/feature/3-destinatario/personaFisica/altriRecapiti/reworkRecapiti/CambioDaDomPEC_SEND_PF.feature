@@ -38,27 +38,27 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
     And Aspetta 1 secondi
-###  REWORK_DOMICILIO_DIGITALE_PF_44
-#    When Click Bottone Gestisci
-#    And Click Bottone "Trasferisci su SEND"
-#    And Click Attiva
-#    And Click Collega SEND su IO
-#
-###  REWORK_DOMICILIO_DIGITALE_PF_45
-#    And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-#    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-#
-#    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-#    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-#  And Click Bottone Conferma Attiva domicilio digitale
-#    And Click Torna ai tuoi recapiti
-#
-###  REWORK_DOMICILIO_DIGITALE_PF_48
-#    When Click Modifica Email
-#    And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
-#    And Si inserisce la nuova Email del PF e clicca su Conferma
-#    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-#    And Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method
-#    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-#    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
+##  REWORK_DOMICILIO_DIGITALE_PF_44
+    When Click Bottone Gestisci
+    And Click Bottone "Trasferisci su SEND"
+    And Click Attiva
+    And Click Collega SEND su IO
+
+##  REWORK_DOMICILIO_DIGITALE_PF_45
+    And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+  And Click Bottone Conferma Attiva domicilio digitale
+    And Click Torna ai tuoi recapiti
+
+##  REWORK_DOMICILIO_DIGITALE_PF_48
+    When Click Modifica Email
+    And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
+    And Si inserisce la nuova Email del PF e clicca su Conferma
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method
+    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
 
