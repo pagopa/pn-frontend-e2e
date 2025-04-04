@@ -18,16 +18,14 @@ Feature: Rework della pagina dei contatti
     ##  REWORK_DOMICILIO_DIGITALE_PF_28
     When Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Si clicca sul bottone del pop-up Annulla
-    And Verifica Pagina "Recapiti"
-    And Verifica Pagina "Indirizzo email aziendale"
+    And Verifica Da Attivare Email
 ###  REWORK_DOMICILIO_DIGITALE_PF_29
    And Aspetta 1 secondi
     When Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Si clicca sul bottone del pop-up ok ho capito
 #    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Cliccare sul bottone Annulla
-    And Verifica Pagina "Recapiti"
-    And Verifica Pagina "Indirizzo email aziendale"
+    And Verifica Da Attivare Email
 #    ##  REWORK_DOMICILIO_DIGITALE_PF_27
    And Aspetta 1 secondi
     When Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
@@ -36,5 +34,5 @@ Feature: Rework della pagina dei contatti
 
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
-    And Verifica Pagina "prova@test.it"
-    And Verifica Pagina "ti informiamo con una email"
+    And Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
+

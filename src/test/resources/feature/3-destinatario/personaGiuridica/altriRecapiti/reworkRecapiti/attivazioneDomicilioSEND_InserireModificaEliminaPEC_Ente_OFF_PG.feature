@@ -57,7 +57,7 @@ Feature: Rework della pagina dei contatti
     And Aspetta 1 secondi
     And Verifica Assenza Sezione Personalizzati Per Ente
 ##  REWORK_DOMICILIO_DIGITALE_PG_81
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Aspetta 1 secondi
     Then Verifica Da Attivare Domicilio digitale
 

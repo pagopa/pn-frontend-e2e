@@ -40,9 +40,9 @@ Feature: Rework della pagina dei contatti
     And Click Annulla
     And Aspetta 1 secondi
 ##  REWORK_DOMICILIO_DIGITALE_PG_39
-    And Verifica e Disattiva "app IO"
+    And Verifica e Disattiva app IO
 ## Reset recapiti UAT
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Attesa 1 secondi
-    And Verifica e Disattiva "email"
-    And Verifica e Disattiva "cellulare"
+    And Verifica e Disattiva email
+    And Verifica e Disattiva cellulare

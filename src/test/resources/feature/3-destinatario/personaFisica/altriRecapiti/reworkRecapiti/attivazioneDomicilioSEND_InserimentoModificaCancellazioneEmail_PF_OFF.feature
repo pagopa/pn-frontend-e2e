@@ -60,6 +60,6 @@ Feature: Rework della pagina dei contatti
     And Non si visualizza correttamente il banner di email mancante
 #  Elimina Email
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Verifica e Disattiva "email"
+    And Verifica e Disattiva email
     And Aspetta 5 secondi
     And Verifica Da Attivare Email

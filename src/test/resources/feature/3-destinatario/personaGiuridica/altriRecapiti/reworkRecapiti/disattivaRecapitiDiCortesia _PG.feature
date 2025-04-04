@@ -9,7 +9,9 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 ##    verificare mancano pezzi inerente a SEND sull'appIO e indirizzo email
     And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale
+    And Attesa 1 secondi
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
     When Click Inizia
@@ -28,8 +30,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
     And Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
-#
+#   Disattivazione email
+    And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 1 secondi
-    And Click Bottone Conferma email
     Then Verifica Da Attivare Email

@@ -28,7 +28,7 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "la ricevi direttamente in app e puoi pagare eventuali spese."
 ##  REWORK_DOMICILIO_DIGITALE_PG_34
     And Aspetta 2 secondi
-    And Verifica e Disattiva "app IO"
+    And Verifica e Disattiva app IO
     And Click Inizia
     And Click Attiva
     And Click Non ora
@@ -44,6 +44,6 @@ Feature: Rework della pagina dei contatti
     And Si clicca sul bottone del pop-up ok ho capito
     And Verifica Pagina "la ricevi direttamente in app e puoi pagare eventuali spese."
 ## Reset recapiti UAT
-    And Verifica e Disattiva "domicilio digitale"
+    And Verifica e Disattiva domicilio digitale
     And Aspetta 2 secondi
-    And Verifica e Disattiva "app IO"
+    And Verifica e Disattiva app IO

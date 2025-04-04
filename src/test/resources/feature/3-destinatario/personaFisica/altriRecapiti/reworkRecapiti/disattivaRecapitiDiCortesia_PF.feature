@@ -36,10 +36,10 @@ Feature: Rework della pagina dei contatti
 
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-    And Verifica Pagina "prova@test.it"
-    And Verifica Pagina "ti avvisiamo con una email"
-#
+    And Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
+
+#   Disattivazione email
     And Verifica e Disattiva email
-    And Click Bottone Conferma email
+    And Attesa 1 secondi
     Then Verifica Da Attivare Email
 

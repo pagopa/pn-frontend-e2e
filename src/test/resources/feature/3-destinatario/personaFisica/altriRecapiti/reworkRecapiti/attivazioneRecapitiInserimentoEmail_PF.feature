@@ -26,16 +26,14 @@ Feature: Rework della pagina dei contatti
 #inserisce email e click su Avvisami via email
     When Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Si clicca sul bottone del pop-up Annulla
-    And Verifica Pagina "I tuoi recapiti"
-    And Verifica Pagina "Il tuo indirizzo email"
+    And Verifica Da Attivare Email
 ##  REWORK_DOMICILIO_DIGITALE_PF_29
     And Aspetta 1 secondi
     When Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Si clicca sul bottone del pop-up ok ho capito
 #    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Cliccare sul bottone Annulla
-    And Verifica Pagina "I tuoi recapiti"
-    And Verifica Pagina "Il tuo indirizzo email"
+    And Verifica Da Attivare Email
     ##  REWORK_DOMICILIO_DIGITALE_PF_27
     And Aspetta 1 secondi
     When Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
@@ -43,5 +41,4 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-    And Verifica Pagina "prova@test.it"
-    And Verifica Pagina "ti avvisiamo con una email all"
+    And Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
