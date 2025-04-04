@@ -22,9 +22,13 @@ Feature: Rework della pagina dei contatti
 ##  Inserimento recapito solo email (cellulare non ancora possibile)
     And Click Inizia
     And Click Attiva
+    And Attesa 1 secondi
     And Click Non ora
+    And Attesa 1 secondi
     And Click Lo Faro piu tardi
+    And Attesa 1 secondi
     And Click Non ora
+    And Attesa 1 secondi
     And Click Lo Faro piu tardi
     And Click Torna ai tuoi recapiti
     And Verifica Attivazione Domicilio digitale
