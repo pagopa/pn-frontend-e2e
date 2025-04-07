@@ -317,7 +317,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (piattaformaNotifichePGPAPage.modelloF24Displayed()) {
             logger.info("Il modello F24 è trovato");
         } else {
-            logger.error("Il modello F24 non è trovato");
             Assertions.fail("Il modello F24 non è trovato");
         }
     }
@@ -475,5 +474,21 @@ public class NotifichePGPagoPATest extends BasePage {
             logger.error("Il codice SHA  all'interno del file  NON è corretto");
             Assertions.fail("Il codice SHA  all'interno del file  NON è corretto");
         }
+    }
+
+    @When("Seleziona servizio Notifiche Digitale")
+    public void selezionaServizioNotificheDigitale() {
+        dettaglioNotificaMittenteSection.selezionaServizioNotificheDigitale();
+
+    }
+
+    @And("Click La tua Impresa {string}")
+    public void clickLaTuaImpresa(String testo) {
+        dettaglioNotificaMittenteSection.clickLaTuaImpresa(testo);
+    }
+
+    @And("Riduci zoom pagina al {string}%")
+    public void riduciZoomPaginaAl(String size) {
+        piattaformaNotifichePage.riduciZoomPaginaAl( size);
     }
 }

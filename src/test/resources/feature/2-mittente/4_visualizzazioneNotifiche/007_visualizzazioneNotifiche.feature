@@ -42,7 +42,8 @@ Feature: Mittente visualizza correttamente la pagina notifiche
       | pwd            | test             |
       | ragioneSociale | Comune di Milano |
     Then Home page persona giuridica viene visualizzata correttamente
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
     And Si seleziona la notifica
     And Logout da portale persona giuridica
 

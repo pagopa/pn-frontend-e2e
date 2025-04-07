@@ -2,8 +2,8 @@ Feature: il mittente inserisce tutti i dati di una notifica
 
   @TA_invioNotificaConAllegati
     @TestSuite
-    @invioNotifiche
-
+    @invioNotifiche_07
+    @NRT
     @loginFE_8
   Scenario Outline: PN-9215 - il mittente inserisce tutti i dati di una notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -21,6 +21,10 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per <numero destinatari>
     #And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 1
     And Cliccare su continua
+    #      Aggiungere alle notifiche
+    And Seleziona Nessun Pagamento
+    And Cliccare su continua
+#      Aggiungere alle notifiche
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
@@ -28,7 +32,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotificaPG"
-    And Logout da portale mittente
+#    And Logout da portale mittente
     Examples:
       | numero destinatari |
       | 2                  |

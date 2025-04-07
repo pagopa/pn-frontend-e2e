@@ -59,6 +59,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         WebdriverScopeConfig.class,
         WebDriverManager.class,
         DataPopulationConfig.class,
+        WebViewMultiLanguageConfig.class,
+        DataPopulationConfig.class,
         AppPortalUrlFactory.class,
         TokenServiceProvider.class,
         TokenService.class

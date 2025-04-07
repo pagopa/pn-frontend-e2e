@@ -121,7 +121,8 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
            // WebElement codiceIunTextFieldBy = driver.findElement(By.id("iunMatch"));
            // WebElement dataInizioFieldBy = driver.findElement(By.id("startDate"));
            // WebElement dataFineFieldBy = driver.findElement(By.id("endDate"));
-            getWebDriverWait(50).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche di " + ragioneSociale + "-page"))));
+//            getWebDriverWait(50).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche di " + ragioneSociale + "-page"))));
+            getWebDriverWait(50).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath( "//h4[@role='heading' and contains(text(), '" + ragioneSociale + "')]" ))));
             getWebDriverWait(40).withMessage("Il campo codice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("iunMatch"))));
             getWebDriverWait(40).withMessage("Il campo data inizio della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("startDate"))));
             getWebDriverWait(40).withMessage("Il campo data fine della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("endDate"))));
@@ -233,8 +234,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public boolean modelloF24Displayed() {
         try {
-            //modelloF24 = driver.findElement(By.cssSelector("[data-testid='download-f24-button']"));
-            getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='download-f24-button']")))).isDisplayed();
+            getWebDriverWait(30)
+                    .withMessage("Il sezione scarica modello F24 non è visibile")
+                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='download-f24-button']")))).isDisplayed();
             return true;
         } catch (RuntimeException e) {
             return false;
@@ -419,4 +421,5 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             }
         }
     }
+
 }

@@ -2,7 +2,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @InvioNotificaControllaDatiMancanti
+  @invioNotifiche_07
   @loginFE_8
+  @NRT
   Scenario: PN-9316-Check dati mancanti
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -37,5 +39,5 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | modalitaInvio     | A/R                |
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Logout da portale mittente
+#    And Logout da portale mittente
 

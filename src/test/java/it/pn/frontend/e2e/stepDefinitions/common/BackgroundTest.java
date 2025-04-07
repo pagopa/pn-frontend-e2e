@@ -18,6 +18,8 @@ import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Lazy;
@@ -36,6 +38,7 @@ public class BackgroundTest  extends BasePage {
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
     private final String mittente = "mittente";
     private final Map<String, String> datiPersonaFisica;
+    private static final Logger logger = LoggerFactory.getLogger("BackgroundTest");
 
     @Autowired
     @Lazy
@@ -399,21 +402,30 @@ public class BackgroundTest  extends BasePage {
     public void siFiltraLaTabellaDelleNotifichePerIUNDestinatario(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
+        logger.info("SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNDestinatario");
         piattaformaNotifichePage.setHooksNew(hooksNew);
+        logger.info("DOPO SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNDestinatario");
         piattaformaNotifichePage.clickSuNotifica();
     }
 
     public void siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
-        piattaformaNotifichePage.setHooksNew(hooksNew);
-        piattaformaNotifichePage.clickSuNotifica();
+//        logger.info("SETTAGIO hooksNew");
+//        webTool.waitTime(2);
+//        piattaformaNotifichePage.setHooksNew(hooksNew);
+//        logger.info("DOPO SETTAGIO hooksNew");
+        piattaformaNotifichePage.clickSuNotifica(iun);
     }
+
 
     public void siFiltraLaTabellaDelleNotifichePerIUNMittente(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
+        logger.info("SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");
+        webTool.waitTime(1);
         piattaformaNotifichePage.setHooksNew(hooksNew);
+        logger.info("DOPO SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");
         piattaformaNotifichePage.clickSuNotifica();
     }
 }

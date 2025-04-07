@@ -13,4 +13,12 @@ public class DatiNotifica {
     private String nomeDocumentoNotifica;
     private String codiceIUN;
 
+    private String oggettoDellaNotificaFr;
+    private String descrizioneFr;
+    private String oggettoDellaNotificaDe;
+    private String descrizioneDe;
+    private String oggettoDellaNotificaSl;
+    private String descrizioneSl;
+
+
 }

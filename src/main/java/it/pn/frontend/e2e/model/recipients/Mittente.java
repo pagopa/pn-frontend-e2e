@@ -9,6 +9,7 @@ public class Mittente {
     private String pwd;
     private String provider;
     private String comune;
+    private String comuneViggiu;
     private String ambiente; // ???
     private String codiceFiscale;
     private String codiceAvviso;

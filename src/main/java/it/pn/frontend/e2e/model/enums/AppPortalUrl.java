@@ -31,7 +31,7 @@ public enum AppPortalUrl {
 
     public String getUrl(String env, String token) {
         logger.info("sono dentro il metodo getUrl");
-        logger.info("Url base: {}",baseUrl + env + ".notifichedigitali.it/" + paramToken + token);
+        logger.info("Generating URL for environment: {}", env);
         return baseUrl + env + ".notifichedigitali.it/" + paramToken + token;
     }
 

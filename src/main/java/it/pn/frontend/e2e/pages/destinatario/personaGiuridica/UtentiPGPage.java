@@ -105,9 +105,9 @@ public class UtentiPGPage extends BasePage {
     }
 
 
-    public void clickSezioneUtenti() {
+    public void clickSezioneUtenti(String testo) {
         webTool.waitTime(10);
-        sezioneUtenti = driver.findElement(By.xpath("//span[contains(text(),'Utenti')]"));
+        sezioneUtenti = driver.findElement(By.xpath("//span[contains(text(),'"+testo+"')]"));
         getWebDriverWait(10).withMessage("La sezione Utenti non è cliccabile").until(ExpectedConditions.elementToBeClickable(sezioneUtenti));
         sezioneUtenti.click();
         //build url

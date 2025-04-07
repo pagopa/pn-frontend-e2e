@@ -3,8 +3,8 @@ Feature: Mittente genera una notifica tramite destinatario con pec
   @TestSuite
   @TA_invioNotificaConPec
   @mittente
-  @invioNotifiche
-
+  @invioNotifiche_07
+  @NRT
   @loginFE_8
   Scenario: PN-9644 - Mittente genera una notifica tramite destinatario con pec
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -17,6 +17,10 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisicaPec"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisicaPec" destinatario 0
     And Cliccare su continua
+    #      Aggiungere alle notifiche
+    And Seleziona Nessun Pagamento
+    And Cliccare su continua
+#      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
@@ -29,4 +33,4 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Si verifica che la notifica sia nello stato avanzato
     And Cliccare sulla notifica restituita
     And Si verifica che l'invio della pec sia in corso
-    And Logout da portale mittente
+#    And Logout da portale mittente

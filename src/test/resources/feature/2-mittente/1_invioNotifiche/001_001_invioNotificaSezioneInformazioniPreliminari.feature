@@ -2,8 +2,9 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
   @TA_inserimentoDatiInfoPreliminari
   @TestSuite
-  @invioNotifiche
+  @invioNotifiche_07
   @loginFE
+  @NRT
   Scenario: PN-9127 - Il mittente inserisce i dati nella sezione informazioni preliminari
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -11,4 +12,4 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Logout da portale mittente
+#    And Logout da portale mittente
