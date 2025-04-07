@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
   @TestSuite
-  @TA_CollegamentoSENDaIO_PF
+  @TA_CollegamentoSENDaIO_PF_OFF
   @addressBook1
-  @TA_NRT_UAT
-  Scenario: [REWORK_DOMICILIO_DIGITALE_PF_2_33_34_35_36] - Attivazione Domicilio Digitale SERCQ SEND - Collegamento SEND ad IO
+  @TA_NRT_UAT_OFF
+  Scenario: [OFF_REWORK_DOMICILIO_DIGITALE_PF_91] - Attivazione Domicilio Digitale SERCQ SEND - Collegamento SEND ad IO - Feature Flag spento
     Given Login Page persona fisica test viene visualizzata
     And Login con persona fisica input
       | user         | pluto-ta               |
@@ -19,31 +19,7 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva app IO
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
-##  REWORK_DOMICILIO_DIGITALE_PG_2_36
-    And Si clicca su 'Attiva SEND su IO'
-    And Click Annulla
-##  REWORK_DOMICILIO_DIGITALE_PG_35
-    And Si clicca su 'Attiva SEND su IO'
-    And Si clicca sul bottone del pop-up ok ho capito
-    And Nella pagina I Tuoi Recapiti si controlla che IO sia attivo
-##  REWORK_DOMICILIO_DIGITALE_PG_34
-    And Aspetta 2 secondi
-    And Verifica e Disattiva app IO
-    And Click Inizia
-    And Click Attiva
-    And Attesa 2 secondi
-    And Click Non ora Uat
-    And Attesa 1 secondi
-    And Click Lo Faro piu tardi
-    And Attesa 2 secondi
-    And Click Non ora
-    And Attesa 1 secondi
-    And Click Lo Faro piu tardi
-    And Click Torna ai tuoi recapiti
-    And Verifica Attivazione Domicilio digitale
-    And Si clicca su 'Attiva SEND su IO'
-    And Click Annulla
-##  REWORK_DOMICILIO_DIGITALE_PG_33
+##  REWORK_DOMICILIO_DIGITALE_PF_91
     And Si clicca su 'Attiva SEND su IO'
     And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si controlla che IO sia attivo
