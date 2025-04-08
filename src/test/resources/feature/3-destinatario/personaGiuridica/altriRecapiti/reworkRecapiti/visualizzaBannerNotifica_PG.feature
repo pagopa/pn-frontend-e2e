@@ -15,8 +15,18 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     And Verifica e Disattiva cellulare
     And Attesa 1 secondi
-    And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
+#   Attivazione Domicilio Digitale
+    When Click Inizia
+    And Click Attiva
     And Attesa 1 secondi
+    And Click Non ora
+    And Click Lo Faro piu tardi
+    And Click Torna ai tuoi recapiti
+    And Attesa 1 secondi
+    When Verifica Attivazione Domicilio digitale
+#   Check banner notifiche
+    And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
+    And Aspetta 5 secondi
     And Si visualizza correttamente il banner di recapito di cortesia mancante
     And La persona giuridica clicca sulla prima notifica restituita
     And Si visualizza correttamente il banner di recapito di cortesia mancante
