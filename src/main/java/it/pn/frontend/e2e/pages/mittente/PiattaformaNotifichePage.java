@@ -1910,4 +1910,39 @@ public class PiattaformaNotifichePage extends BasePage {
         js.executeScript("document.body.style.zoom='"+size+"%'");
 
     }
+
+    public void verificaAbilitazioneTastoContinua() {
+        try {
+             getWebDriverWait(10)
+                    .withMessage("Il bottone 'Continua' non è cliccabile entro il timeout")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
+
+            logger.info("Il bottone 'Continua' è  cliccabile.");
+        } catch (TimeoutException e) {
+            Assertions.fail("Timeout: il bottone 'Continua' non è diventato cliccabile.");
+        }
+
+    }
+
+    public void verificaPaginaInviaUnaNuovaNotificaLaSezionePosizioneDebitoria() {
+        // verifica lo step 3
+        getWebDriverWait(15)
+                .withMessage("Lo step 'Posizione debitoria' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector(".MuiStepLabel-label.Mui-active")
+                ));
+        // Verifica il form dove poter selezione il tipo di pagamento
+        getWebDriverWait(15)
+                .withMessage("Header della sezione 'Posizione debitoria' non trovato")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector("form[data-testid='debtPositionForm'] h6")
+                ));
+
+
+    }
+
+    public void verificaDisibilitatoTastoContinua() {
+        WebElement continuaButton = getWebDriverWait(10).until(ExpectedConditions.presenceOfElementLocated(By.id("step-submit")));
+        Assertions.assertFalse(continuaButton.isEnabled(), "Il pulsante 'Continua' NON è disabilitato come previsto");
+    }
 }

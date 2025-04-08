@@ -116,7 +116,6 @@ public class DestinatarioPASection extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titleDestinatarioFieald));
             logger.info("Destinatario PA Section caricata ");
         } catch (TimeoutException e) {
-            logger.error("Destinatario PA Section non caricata con errore : " + e.getMessage());
             Assertions.fail("Destinatario PA Section non caricata con errore : " + e.getMessage());
         }
 
@@ -134,16 +133,31 @@ public class DestinatarioPASection extends BasePage {
         nomeDestinatarioTextField = driver.findElement(By.id("recipients[0].firstName"));
         scrollToElementClickAndInsertText(nomeDestinatarioTextField, nomeDestinatario);
     }
+    public void inserireAggiungiNomeDestinatario(String nomeDestinatario) {
+        logger.info("inserimento nome destinatario");
+        nomeDestinatarioTextField = driver.findElement(By.id("recipients[1].firstName"));
+        scrollToElementClickAndInsertText(nomeDestinatarioTextField, nomeDestinatario);
+    }
 
     public void inserireCognomeDestinatario(String cognomeDestinatario) {
         logger.info("inserimento cognome destinatario");
         cognomeDestinatarioTextField = driver.findElement(By.id("recipients[0].lastName"));
         scrollToElementClickAndInsertText(cognomeDestinatarioTextField, cognomeDestinatario);
     }
+    public void inserireAggiungiCognomeDestinatario(String cognomeDestinatario) {
+        logger.info("inserimento cognome destinatario");
+        cognomeDestinatarioTextField = driver.findElement(By.id("recipients[1].lastName"));
+        scrollToElementClickAndInsertText(cognomeDestinatarioTextField, cognomeDestinatario);
+    }
 
     public void inserireCodiceFiscaleDestinatario(String codiceFiscale) {
         logger.info("inserimento codice fiscale destinatario");
         codiceFiscaleDestinatarioTextField = driver.findElement(By.id("recipients[0].taxId"));
+        scrollToElementClickAndInsertText(codiceFiscaleDestinatarioTextField, codiceFiscale);
+    }
+    public void inserireAggiungiCodiceFiscaleDestinatario(String codiceFiscale) {
+        logger.info("inserimento codice fiscale destinatario");
+        codiceFiscaleDestinatarioTextField = driver.findElement(By.id("recipients[1].taxId"));
         scrollToElementClickAndInsertText(codiceFiscaleDestinatarioTextField, codiceFiscale);
     }
 
