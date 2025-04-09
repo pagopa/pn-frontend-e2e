@@ -16,22 +16,22 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
 
 # VAS_29_32_33
-#   TODO And Verifica presenza radion Button Iserimento automatico e manuale
+ And Verifica presenza radion Button Iserimento automatico abilitato di default e manuale disabilitato
 
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
 #-------------------------------------------------------
-  # TODO DA eliminare appena sale la feature
-    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | Via Roma              |
-      | civico    | 20                    |
-      | localita  | Milano                |
-      | comune    | Milano                |
-      | provincia | MI                    |
-      | cap       | 20147                 |
-      | stato     | Italia                |
+#  # TODO DA eliminare appena sale la feature
+#    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
+#      | indirizzo | Via Roma              |
+#      | civico    | 20                    |
+#      | localita  | Milano                |
+#      | comune    | Milano                |
+#      | provincia | MI                    |
+#      | cap       | 20147                 |
+#      | stato     | Italia                |
 #-------------------------------------------------------
     # VAS_34
     And Verifica abilitazione Tasto Continua

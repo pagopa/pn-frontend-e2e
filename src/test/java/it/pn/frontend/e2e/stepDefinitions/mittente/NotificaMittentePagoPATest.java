@@ -2119,6 +2119,28 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.verificaDisibilitatoTastoContinua();
     }
 
+    @And("Verifica presenza radion Button Iserimento automatico abilitato di default e manuale disabilitato")
+    public void verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefaultEManualeDisabilitato() {
+        piattaformaNotifichePage.verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefault();
+        piattaformaNotifichePage.verificaPresenzaRadionButtonIserimentoManualeDisabilitato();
+    }
+
+    @And("Verifica assenza radion Button Iserimento automatico e manuale")
+    public void verificaAssenzaRadionButtonIserimentoAutomaticoEManuale() {
+        piattaformaNotifichePage.verificaAssenzaRadionButtonIserimentoAutomatico();
+        piattaformaNotifichePage.verificaAssenzaRadionButtonIserimentoManuale();
+    }
+
+    @And("Verifica radion button Inserimento Automatico abilitato di default")
+    public void verificaRadionButtonInserimentoAutomaticoAbilitatoDiDefault() {
+        piattaformaNotifichePage.verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefault();
+    }
+
+    @And("Seleziona radion button Inserimento Manuale se esiste")
+    public void selezionaRadionButtonInserimentoManualeSeEsiste() {
+        piattaformaNotifichePage.selezionaRadionButtonInserimentoManualeSeEsiste();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

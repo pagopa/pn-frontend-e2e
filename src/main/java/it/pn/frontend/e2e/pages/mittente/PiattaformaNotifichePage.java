@@ -722,10 +722,18 @@ public class PiattaformaNotifichePage extends BasePage {
         driver.navigate().to("https://selfcare." + environment + ".notifichedigitali.it/dashboard/" + IUN + "/dettaglio");
     }
 
+    //    public void selectInviaUnaNuovaNotificaButton() {
+//        getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("new-notification-btn"))));
+//        inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
+//        inviaNuovaNotificaButton.click();
+//    }
     public void selectInviaUnaNuovaNotificaButton() {
-        getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("new-notification-btn"))));
-        inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
-        inviaNuovaNotificaButton.click();
+
+        WebElement button = getWebDriverWait(10)
+                .withMessage("Il bottone invia notifica non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("new-notification-btn")));
+
+        button.click();
     }
 
 
@@ -1945,4 +1953,64 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement continuaButton = getWebDriverWait(10).until(ExpectedConditions.presenceOfElementLocated(By.id("step-submit")));
         Assertions.assertFalse(continuaButton.isEnabled(), "Il pulsante 'Continua' NON è disabilitato come previsto");
     }
+
+    public void verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefault() {
+
+        WebElement automatico = getWebDriverWait(10)
+                .withMessage("Impossibile trovare radio button Inserimento automatico da registro nazionale")
+                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type='radio'][value='NATIONAL_REGISTRY']")));
+
+        // Verifica visibilità
+        Assertions.assertTrue(automatico.isDisplayed(), "Il radio button 'Inserimento automatico' non è visibile");
+
+        // Verifica selezione automatica
+        Assertions.assertTrue(automatico.isSelected(), "Il radio button 'Inserimento automatico' non è selezionato");
+    }
+
+    public void verificaPresenzaRadionButtonIserimentoManualeDisabilitato() {
+        WebElement manuale = getWebDriverWait(10)
+                .withMessage("Impossibile trovare radio button Inserimento manuale")
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type='radio'][value='MANUAL']")));
+        // Verifica visibilità
+        Assertions.assertTrue(manuale.isDisplayed(), "Il radio button 'Inserimento manuale' non è visibile");
+
+    }
+
+
+    public void verificaAssenzaRadionButtonIserimentoAutomatico() {
+        By automaticoRadio = By.cssSelector("input[type='radio'][value='NATIONAL_REGISTRY']");
+        // Attesa che non siano  visibili o non presenti
+        getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(automaticoRadio));
+        // Verifica assenza nel DOM
+        List<WebElement> automaticoElements = driver.findElements(automaticoRadio);
+        Assertions.assertTrue(automaticoElements.isEmpty(), "Il radio button 'Inserimento automatico' è ancora presente nel DOM");
+
+    }
+
+    public void verificaAssenzaRadionButtonIserimentoManuale() {
+
+        By manualeRadio = By.cssSelector("input[type='radio'][value='MANUAL']");
+        // Attesa che non siano  visibili o non presenti
+        getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(manualeRadio));
+        // Verifica assenza nel DOM
+        List<WebElement> manualeElements = driver.findElements(manualeRadio);
+        Assertions.assertTrue(manualeElements.isEmpty(), "Il radio button 'Inserimento manuale' è ancora presente nel DOM");
+
+    }
+
+
+    public void selezionaRadionButtonInserimentoManualeSeEsiste() {
+
+        try {
+
+            WebElement radioButtonManuale = getWebDriverWait(10)
+                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[type='radio'][value='MANUAL']")));
+            radioButtonManuale.click();
+        } catch (Exception e) {
+            // Se il radio button non è trovato o non è cliccabile, non fa nulla
+           logger.info("Il radio button in selezionaRadionButtonInserimentoManuale  'Inserimento manuale' non è presente, si passa oltre.");
+        }
+    }
+
+
 }

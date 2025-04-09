@@ -23,23 +23,27 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
     # VAS_37
     #-------------------------------------------------------
-#   TODO And Seleziona radion button Inserimento Automatico ma non dovrei fare nulla
-# da eliminare
-    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | Via Roma              |
-      | localita  | Milano                |
-      | comune    | Milano                |
-      | provincia | MI                    |
-      | cap       | 20147                 |
-      | stato     | Italia                |
-      | civico    | 20                    |
+ And Verifica radion button Inserimento Automatico abilitato di default
+
+## da eliminare
+#    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
+#      | indirizzo | Via Roma              |
+#      | localita  | Milano                |
+#      | comune    | Milano                |
+#      | provincia | MI                    |
+#      | cap       | 20147                 |
+#      | stato     | Italia                |
+#      | civico    | 20                    |
     And Nella section Destinatario cliccare su Aggiungi destinatario
-#  TODO And Seleziona radion button Inserimento Manuale
+
+
     
     Then Nella section Aggiungi Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Lovelace Ada      |
       | codiceFiscale           | LVLDAA85T50G702B |
+
+    And Seleziona radion button Inserimento Manuale se esiste
 
     And Nella section Aggiungi Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma              |

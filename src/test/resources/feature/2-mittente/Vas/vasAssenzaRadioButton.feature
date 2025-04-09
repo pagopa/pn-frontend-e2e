@@ -14,8 +14,8 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-# VAS_33
-#   TODO And Verifica ASSENZA radion Button Iserimento automatico e manuale
+# VAS_30
+    And Verifica assenza radion Button Iserimento automatico e manuale
 
 #    Then Nella section Destinatario si inseriscono i dati del destinatario
 #      | soggettoGiuridico       | PF               |
