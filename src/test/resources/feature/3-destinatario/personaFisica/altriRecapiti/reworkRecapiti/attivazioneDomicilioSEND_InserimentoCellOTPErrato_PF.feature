@@ -7,12 +7,22 @@ Feature: Rework della pagina dei contatti
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_71] La persona giuridica loggata inserisce un OTP sbagliato cellulare
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
-    Given Login con persona fisica
-      | user         | cesare                 |
+#    Given Login con persona fisica
+#      | user         | cesare                 |
+#      | pwd          | password123            |
+#      | name         | Gaio Giulio            |
+#      | familyName   | Cesare                 |
+#      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+
+#    *--*-**-*-TODO DA ELIMINARE
+    And Login con persona fisica input
+      | user         | pluto-ta               |
       | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+      | name         | Rossi                  |
+      | familyName   | Pluto                  |
+      | fiscalNumber | TINIT-AAAAAA00A00A000B |
+    #    *--*-**-*-TODO DA ELIMINARE
+
     And Attesa 1 secondi
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
