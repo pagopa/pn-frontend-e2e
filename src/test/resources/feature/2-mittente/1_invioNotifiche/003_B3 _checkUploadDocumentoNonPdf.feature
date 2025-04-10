@@ -23,7 +23,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | codiceFiscale           | CSRGGL44L13H501E |
     And Si aggiungi un domicilio digitale "test@fail.it"
 
-
     #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
 
