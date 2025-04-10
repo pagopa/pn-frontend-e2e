@@ -56,6 +56,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "Fehlerhistorie"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
     And Cambia lingua footer "Englisch"
+    And Attendi secondi "1"
     And Cambia lingua footer "French"
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Procurations"
