@@ -23,7 +23,8 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
     # VAS_36
     #-------------------------------------------------------
-    And Seleziona radion button Inserimento Manuale se esiste
+    And Seleziona radion button Inserimento Manuale se esiste "0"
+     #      TODO verificare VAS
 
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma              |
@@ -36,7 +37,6 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     And Verifica Disibilitato Tasto Continua
 #-------------------------------------------------------
    # VAS_35
-
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | civico    | 20                    |
     And Cliccare su continua

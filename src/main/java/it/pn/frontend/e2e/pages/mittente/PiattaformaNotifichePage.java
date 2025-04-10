@@ -1954,25 +1954,52 @@ public class PiattaformaNotifichePage extends BasePage {
         Assertions.assertFalse(continuaButton.isEnabled(), "Il pulsante 'Continua' NON è disabilitato come previsto");
     }
 
-    public void verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefault() {
+    public void verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault() {
 
-        WebElement automatico = getWebDriverWait(10)
-                .withMessage("Impossibile trovare radio button Inserimento automatico da registro nazionale")
-                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type='radio'][value='NATIONAL_REGISTRY']")));
+        List<WebElement> radioLabels = getWebDriverWait(15)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("label[data-testid='physicalAddressLookupRadio.0']")
+                ));
 
-        // Verifica visibilità
-        Assertions.assertTrue(automatico.isDisplayed(), "Il radio button 'Inserimento automatico' non è visibile");
+        WebElement automaticoInput = null;
+        WebElement automaticoLabel = null;
 
-        // Verifica selezione automatica
-        Assertions.assertTrue(automatico.isSelected(), "Il radio button 'Inserimento automatico' non è selezionato");
+        for (WebElement label : radioLabels) {
+            WebElement input = label.findElement(By.cssSelector("input[type='radio']"));
+            if ("NATIONAL_REGISTRY".equals(input.getAttribute("value"))) {
+                automaticoInput = input;
+                automaticoLabel = label;
+                break;
+            }
+        }
+
+        Assertions.assertNotNull(automaticoInput, "Radio button 'Inserimento automatico' non trovato");
+        Assertions.assertTrue(automaticoLabel.isDisplayed(), "Il radio button 'Inserimento automatico' non è visibile");
+        Assertions.assertTrue(automaticoInput.isSelected(), "Il radio button 'Inserimento automatico' non è selezionato");
+
     }
 
     public void verificaPresenzaRadionButtonIserimentoManualeDisabilitato() {
-        WebElement manuale = getWebDriverWait(10)
-                .withMessage("Impossibile trovare radio button Inserimento manuale")
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type='radio'][value='MANUAL']")));
-        // Verifica visibilità
-        Assertions.assertTrue(manuale.isDisplayed(), "Il radio button 'Inserimento manuale' non è visibile");
+        List<WebElement> radioLabels = getWebDriverWait(15)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("label[data-testid='physicalAddressLookupRadio.0']")
+                ));
+
+        WebElement manualeInput = null;
+        WebElement manualeLabel = null;
+
+        for (WebElement label : radioLabels) {
+            WebElement input = label.findElement(By.cssSelector("input[type='radio']"));
+            if ("MANUAL".equals(input.getAttribute("value"))) {
+                manualeInput = input;
+                manualeLabel = label;
+                break;
+            }
+        }
+
+        Assertions.assertNotNull(manualeInput, "Radio button 'Inserimento manuale' non trovato");
+        Assertions.assertTrue(manualeLabel.isDisplayed(), "Il radio button 'Inserimento manuale' non è visibile");
+
 
     }
 
@@ -1999,13 +2026,29 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-    public void selezionaRadionButtonInserimentoManualeSeEsiste() {
+    public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
 
+        //posizione 1 si vuole aggiungere un destinatario
         try {
 
-            WebElement radioButtonManuale = getWebDriverWait(10)
-                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[type='radio'][value='MANUAL']")));
-            radioButtonManuale.click();
+            List<WebElement> radioLabels = getWebDriverWait(15)
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                            By.cssSelector("label[data-testid='physicalAddressLookupRadio."+posizione+"']")
+                    ));
+
+            WebElement manualeInput = null;
+//            WebElement manualeLabel = null;
+
+            for (WebElement label : radioLabels) {
+                WebElement input = label.findElement(By.cssSelector("input[type='radio']"));
+                if ("MANUAL".equals(input.getAttribute("value"))) {
+                    manualeInput = input;
+//                    manualeLabel = label;
+                    break;
+                }
+            }
+
+            manualeInput.click();
         } catch (Exception e) {
             // Se il radio button non è trovato o non è cliccabile, non fa nulla
            logger.info("Il radio button in selezionaRadionButtonInserimentoManuale  'Inserimento manuale' non è presente, si passa oltre.");

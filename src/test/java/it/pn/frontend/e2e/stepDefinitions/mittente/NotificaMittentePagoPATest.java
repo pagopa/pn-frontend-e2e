@@ -1019,7 +1019,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariPersoneGiuridicheAggiuntiviPerNumeroDestinatari(String nDestinatari) {
         logger.info("Si cerca di aggiungere " + nDestinatari + " personeGiuridiche");
 
-        //Map<String, Object> personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
         PersoneGiuridiche personeGiuridiche= dataPopulationConfig.personeGiuridiche();
         int nDestinatariInt = 1;
         if (isNumeric(nDestinatari)) {
@@ -1237,7 +1236,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     }
     @And("Nella section Aggiungi Destinitario si clicca su {string} e si inseriscono i dati")
     public void nellaSectionAggiungiDestinitarioSiCliccaSuESiInserisconoIDati(String tipoIndirizzo, Map<String, String> indirizzo) {
-        logger.info("Si clicca su " + tipoIndirizzo + " e si inseriscono i dati");
+        logger.info("Aggiungi Si clicca su " + tipoIndirizzo + " e si inseriscono i dati");
         if (tipoIndirizzo.contains("Aggiungi un indirizzo fisico")) {
             //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         } else {
@@ -2119,13 +2118,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.verificaDisibilitatoTastoContinua();
     }
 
-    @And("Verifica presenza radion Button Iserimento automatico abilitato di default e manuale disabilitato")
+    @And("Verifica presenza radion Button Inserimento automatico abilitato di default e manuale disabilitato")
     public void verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefaultEManualeDisabilitato() {
-        piattaformaNotifichePage.verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefault();
+        piattaformaNotifichePage.verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault();
         piattaformaNotifichePage.verificaPresenzaRadionButtonIserimentoManualeDisabilitato();
     }
 
-    @And("Verifica assenza radion Button Iserimento automatico e manuale")
+    @And("Verifica assenza radion Button Inserimento automatico e manuale")
     public void verificaAssenzaRadionButtonIserimentoAutomaticoEManuale() {
         piattaformaNotifichePage.verificaAssenzaRadionButtonIserimentoAutomatico();
         piattaformaNotifichePage.verificaAssenzaRadionButtonIserimentoManuale();
@@ -2133,12 +2132,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Verifica radion button Inserimento Automatico abilitato di default")
     public void verificaRadionButtonInserimentoAutomaticoAbilitatoDiDefault() {
-        piattaformaNotifichePage.verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefault();
+        piattaformaNotifichePage.verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault();
     }
 
-    @And("Seleziona radion button Inserimento Manuale se esiste")
-    public void selezionaRadionButtonInserimentoManualeSeEsiste() {
-        piattaformaNotifichePage.selezionaRadionButtonInserimentoManualeSeEsiste();
+    @And("Seleziona radion button Inserimento Manuale se esiste {string}")
+    public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
+
+        piattaformaNotifichePage.selezionaRadionButtonInserimentoManualeSeEsiste(posizione);
     }
 
     /**

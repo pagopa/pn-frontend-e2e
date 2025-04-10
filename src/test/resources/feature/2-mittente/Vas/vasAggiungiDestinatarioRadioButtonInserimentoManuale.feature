@@ -8,11 +8,11 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 #    //TODO Verificare con quale accedere alla piattaforma
 
 
-
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
+
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
 
 
@@ -23,6 +23,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
     # VAS_37
     #-------------------------------------------------------
+    #    TODO OK
  And Verifica radion button Inserimento Automatico abilitato di default
 
 ## da eliminare
@@ -43,7 +44,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
       | nomeCognomeDestinatario | Lovelace Ada      |
       | codiceFiscale           | LVLDAA85T50G702B |
 
-    And Seleziona radion button Inserimento Manuale se esiste
+    And Seleziona radion button Inserimento Manuale se esiste "1"
 
     And Nella section Aggiungi Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma              |

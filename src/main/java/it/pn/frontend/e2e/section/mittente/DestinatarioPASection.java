@@ -252,12 +252,15 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void inserimentoMultiDestinatario(PersoneFisiche destinatari, int nDestinatari) {
+        int j = 1;
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminari(destinatari, i);
+            selezionaRadionButtonInserimentoManualeSeEsiste(Integer.toString(j));
             inserimentoInformazioniAggiuntive(destinatari, i+1);
            if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
             }
+           j++;
         }
     }
 
@@ -368,12 +371,17 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void inserimentoMultiDestinatarioPG(PersoneGiuridiche personeGiuridiche, int nDestinatari) {
+        int j = 1;
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminariPG(personeGiuridiche, i);
+//            TODO verificare VAS
+            selezionaRadionButtonInserimentoManualeSeEsiste(Integer.toString(j));
+
             inserimentoInformazioniAggiuntive(personeGiuridiche, i+1);
             if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
            }
+            j++;
         }
     }
 
@@ -416,12 +424,8 @@ public class DestinatarioPASection extends BasePage {
 
     private void inserimentoInformazioniPreliminariPG(PersoneGiuridiche personeGiuridiche, int i) {
         clickRadioButtonPersonaGiuridica(i + 1);
-        //String nomeDestinatario = personeGiuridiche.getPersone().get(i).getName();
         inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]", personeGiuridiche.getPersone().get(i).getName());
-       // String cfDestinatario = personeGiuridiche.getPersone().get(i).getCodiceFiscale();
-      //  cfDestinatario = cfDestinatario.replace(" ", "");
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", personeGiuridiche.getPersone().get(i).getCodiceFiscale());
-       // selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     private void clickRadioButtonPersonaGiuridica(int posizione) {
@@ -551,5 +555,33 @@ public class DestinatarioPASection extends BasePage {
     public void clickTornaAlleDeleghe() {
         WebElement generateApiKeyButton = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("courtesy-page-button")));
         generateApiKeyButton.click();
+    }
+    public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
+
+        //posizione 1 si vuole aggiungere un destinatario
+        try {
+
+            List<WebElement> radioLabels = getWebDriverWait(15)
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                            By.cssSelector("label[data-testid='physicalAddressLookupRadio."+posizione+"']")
+                    ));
+
+            WebElement manualeInput = null;
+//            WebElement manualeLabel = null;
+
+            for (WebElement label : radioLabels) {
+                WebElement input = label.findElement(By.cssSelector("input[type='radio']"));
+                if ("MANUAL".equals(input.getAttribute("value"))) {
+                    manualeInput = input;
+//                    manualeLabel = label;
+                    break;
+                }
+            }
+
+            manualeInput.click();
+        } catch (Exception e) {
+            // Se il radio button non è trovato o non è cliccabile, non fa nulla
+            logger.info("Il radio button in selezionaRadionButtonInserimentoManuale  'Inserimento manuale' non è presente, si passa oltre.");
+        }
     }
 }

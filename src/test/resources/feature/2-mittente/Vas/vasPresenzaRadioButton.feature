@@ -15,13 +15,16 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
 
-# VAS_29_32_33
- And Verifica presenza radion Button Iserimento automatico abilitato di default e manuale disabilitato
+
 
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
+
+    # VAS_29_32_33
+#    TODO OK
+    And Verifica presenza radion Button Inserimento automatico abilitato di default e manuale disabilitato
 #-------------------------------------------------------
 #  # TODO DA eliminare appena sale la feature
 #    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati

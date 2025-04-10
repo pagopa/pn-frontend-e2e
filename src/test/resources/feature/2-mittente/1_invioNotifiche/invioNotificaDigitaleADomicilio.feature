@@ -24,6 +24,8 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -65,6 +67,8 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -107,6 +111,8 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -144,6 +150,8 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | codiceFiscale           | CSRGGL44L13H501E |
     And Nella section Destinitario si clicca su "Aggiungi un domicilio digitale" e si inseriscono i dati
       | digitalAddress | prova@test.it |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -180,6 +188,8 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | codiceFiscale           | CSRGGL44L13H501E |
     And Nella section Destinitario si clicca su "Aggiungi un domicilio digitale" e si inseriscono i dati
       | digitalAddress | prova@fail.it |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -224,6 +234,8 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | codiceFiscale           | CSRGGL44L13H501E |
     And Nella section Destinitario si clicca su "Aggiungi un domicilio digitale" e si inseriscono i dati
       | digitalAddress | prova@test.it |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -269,6 +281,8 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | codiceFiscale           | CSRGGL44L13H501E |
     And Nella section Destinitario si clicca su "Aggiungi un domicilio digitale" e si inseriscono i dati
       | digitalAddress | prova2@fail.it |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -305,6 +319,8 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Lucrezia Borgia  |
       | codiceFiscale           | BRGLRZ80D58H501Q |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -339,6 +355,8 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
       | soggettoGiuridico       | PG           |
       | nomeCognomeDestinatario | Convivio Spa |
       | codiceFiscale           | 27957814470  |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
