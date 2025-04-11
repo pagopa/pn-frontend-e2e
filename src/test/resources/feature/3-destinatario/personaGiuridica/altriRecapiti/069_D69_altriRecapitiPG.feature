@@ -2,7 +2,7 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
 
 
   @TA_altriRecapitiPGInserisceEmail
-
+#  NON  replicabile  perche per  ente è possibile inserire solo la pec e non piu l'email
   Scenario: PN-9161 -D1 La persona giuridica inserisce email sbagliato e corretto
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
@@ -13,6 +13,7 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "provaemail@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
+
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
     And Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti persona giuridica "email"
     And Nella sezione altri recapiti PG si seleziona l'ente "Agenzia delle Entrate"

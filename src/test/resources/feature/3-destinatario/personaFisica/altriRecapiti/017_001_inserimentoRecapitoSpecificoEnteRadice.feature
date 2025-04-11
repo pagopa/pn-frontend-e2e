@@ -1,7 +1,7 @@
 Feature: la persona fisica inserisce un recapito aggiuntivo da un ente radice
 
   #@TestSuite
-  @TA_inserimentoRecapitoAggiuntivoDaEnteRadicePF
+#  @TA_inserimentoRecapitoAggiuntivoDaEnteRadicePF
   @PF
   @recapitiPF
 

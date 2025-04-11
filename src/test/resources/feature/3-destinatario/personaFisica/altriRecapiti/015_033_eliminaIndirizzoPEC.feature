@@ -1,6 +1,6 @@
 Feature: la persona fisica elimina l'indirizzo pec
 
-  @TestSuite
+#  @TestSuite
   @PF
   @TA_eliminaPECPF
   @recapitiPF
@@ -8,6 +8,9 @@ Feature: la persona fisica elimina l'indirizzo pec
   @addressBook1
 
   @recapitiPFPG
+
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PF_4_19]
+
   Scenario: PN-9307-A33 - La persona fisica elimina l'indirizzo pec
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

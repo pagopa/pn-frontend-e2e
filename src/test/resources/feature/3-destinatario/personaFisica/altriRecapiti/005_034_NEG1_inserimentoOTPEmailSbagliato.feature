@@ -1,12 +1,13 @@
 Feature: la persona fisica inserisce un OTP email sbagliato
 
-  @TestSuite
+#  @TestSuite
   @TA_inserimentoOTPMailErratoPF
   @PF
   @recapitiPF
   @mittente_x1
   @addressBook1
   @recapitiPFPG
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2 -> [REWORK_DOMICILIO_DIGITALE_PF_70]
   Scenario: PN-9308-E34 - la persona fisica inserisce un OTP email sbagliato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

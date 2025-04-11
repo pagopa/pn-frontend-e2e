@@ -1,11 +1,12 @@
 Feature: la persona fisica inserisce l'OTP numero di telefono  errato
 
-  @TestSuite
+#  @TestSuite
   @TA_inserimentoOTPTelefonoErrato
   @PF
   @recapitiPF
   @addressBook1
   @recapitiPFPG
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PF_71]
   Scenario: PN-9311-C37 - la persona fisica inserisce l'OTP numero di telefono errato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

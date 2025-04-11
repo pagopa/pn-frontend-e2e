@@ -2,9 +2,9 @@ Feature: la persona fisica inserisce un indirizzo Email aggiuntivo
 
   #@TestSuite
   @PF
-  @TA_emailAggiuntivaPF
+#  @TA_emailAggiuntivaPF
   @recapitiPF
-
+#  La nuova UI non prevede aggiuta di email se esiste gia
   Scenario: PN-9318-I40 - la persona fisica inserisce un indirizzo Email aggiuntivo
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

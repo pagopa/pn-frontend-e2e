@@ -2,8 +2,11 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
 
 
   @TA_visualizzazioneSezioneAltriRecapitiPG
-  @PG
+#  @PG
   @recapitiPG
+
+
+#  La nuova UI è completamente diversa inoltre il caso di test e gia PREVISTI nel nuovo sviluppo di rework-sezione-recapiti-fase-2 REWORK_DOMICILIO_DIGITALE_PG_79_80_82_83_84_81
   Scenario: PN-9162 - La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

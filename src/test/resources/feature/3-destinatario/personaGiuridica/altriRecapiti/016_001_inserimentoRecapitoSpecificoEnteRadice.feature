@@ -4,6 +4,8 @@ Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
   @PG
   @recapitiPG
   @addressBook2
+
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2 -> REWORK_DOMICILIO_DIGITALE_PG_75_72_73_76_74
   Scenario: PN-10430 - La persona giuridica inserisce un recapito aggiuntivo da un ente radice
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
@@ -16,6 +18,7 @@ Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
     Then Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente
+
     Then Si clicca sul dropdown "ente" di altri recapiti
     And Si visualizza correttamente la lista degli enti
       | Agenzia delle Entrate        |

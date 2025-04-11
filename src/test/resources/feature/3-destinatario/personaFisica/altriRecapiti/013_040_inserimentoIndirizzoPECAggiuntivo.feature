@@ -1,10 +1,10 @@
 Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
 
   #@TestSuite
-  @TA_PECAggiuntivaPF
+#  @TA_PECAggiuntivaPF
   @recapitiPF
   @PF
-
+#  La nuova UI non prevede aggiuta di pec
   Scenario: PN-9318-D40 - la persona fisica inserisce un indirizzo pec aggiuntivo
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

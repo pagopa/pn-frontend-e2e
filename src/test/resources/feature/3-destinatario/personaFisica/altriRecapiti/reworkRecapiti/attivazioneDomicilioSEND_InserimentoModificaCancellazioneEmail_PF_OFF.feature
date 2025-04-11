@@ -40,6 +40,13 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     And Verifica Pagina "prova@test.it"
     And Verifica Pagina "ti avvisiamo con una email all"
+
+    #Disattiva email e annullo
+    And Attesa 1 secondi
+    And Verifica e Disattiva email
+    And Attesa 2 secondi
+    And Si annulla eliminazione email
+
 #  Modifica Email
     Then Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email

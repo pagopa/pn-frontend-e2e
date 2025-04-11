@@ -1,19 +1,23 @@
 Feature: la persona giuridica inserisce una email errata
 
   @TestSuite
-  @PG
   @TA_inserimentoEmailErrataPG
-  @recapitiPG
-  @mittente_x1
   @addressBook2
-  @recapitiPFPG
+  @TA_NRT_OFF
+
   Scenario: PN-9155-B63 - La persona giuridica inserisce una email errata
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Rimuovi tutti i recapiti se esistono
-    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
-    And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email
-    And Nella pagina I Tuoi Recapiti si inserisce l'email errata "prova..@gmail.com"
-    Then Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata
-    And Si controlla che il tasto avvisami via email sia bloccato
-    And Logout da portale persona giuridica
+    And Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
+#    verificare mancano pezzi inerente a SEND sull'appIO
+    And Verifica ed Elimina personalizzati per ente
+    And Verifica e Disattiva domicilio digitale
+    And Attesa 1 secondi
+    And Verifica e Disattiva email
+    And Attesa 2 secondi
+
+    When Inserisci Email errata "prova..@gmail.com"
+    And Si visualizza correttamente il messaggio di email non valida
+    And Nella pagina I Tuoi Recapiti si inserisce un email maggiore di 255 caratteri
+    And Si visualizza correttamente il messaggio di email non valida
+
+
