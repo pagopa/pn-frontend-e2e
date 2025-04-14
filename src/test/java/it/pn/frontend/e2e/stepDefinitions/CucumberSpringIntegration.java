@@ -28,10 +28,7 @@ import it.pn.frontend.e2e.section.destinatario.personaGiuridica.DelegatiImpresaS
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
-import it.pn.frontend.e2e.utility.CookieConfig;
-import it.pn.frontend.e2e.utility.DataPopulation;
-import it.pn.frontend.e2e.utility.NotificationBuilder;
-import it.pn.frontend.e2e.utility.WebTool;
+import it.pn.frontend.e2e.utility.*;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -62,7 +59,11 @@ import org.springframework.scheduling.annotation.EnableScheduling;
         WebdriverScopeConfig.class,
         WebDriverManager.class,
         DataPopulationConfig.class,
-        WebViewMultiLanguageConfig.class
+        WebViewMultiLanguageConfig.class,
+        DataPopulationConfig.class,
+        AppPortalUrlFactory.class,
+        TokenServiceProvider.class,
+        TokenService.class
 
 })
 @EnableScheduling
