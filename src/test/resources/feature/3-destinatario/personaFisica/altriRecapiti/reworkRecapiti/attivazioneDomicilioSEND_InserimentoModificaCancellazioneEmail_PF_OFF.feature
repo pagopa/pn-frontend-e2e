@@ -59,7 +59,7 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "ti avvisiamo con una email all"
 # Verifica assenza banner email mancante
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
-    And Aspetta 5 secondi
+    And Aspetta 10 secondi
     And Non si visualizza correttamente il banner di email mancante
     And La persona fisica clicca sulla prima notifica restituita
     And Non si visualizza correttamente il banner di email mancante
