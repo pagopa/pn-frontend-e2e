@@ -161,7 +161,7 @@ public class DettaglioNotificaSection extends BasePage {
         By copyNotificaAnnullataDestinatario = By.xpath("//div[@data-testid='cancelledAlertText']");
         By copyNotificaAnnullataMittente = By.xpath("//div[@data-testid='alert']");
         WebElement chipAnnullataInTimeline = driver.findElement(By.id("Annullata-status"));
-        WebElement linkAnnullamentoNotifica = driver.findElement(By.xpath("//button[@data-testid='download-legalfact' and not(@disabled)]"));
+        WebElement linkAnnullamentoNotifica = driver.findElement(By.xpath("//button[@data-testid='download-legalfact' and contains(., 'Dichiarazione annullamento notifica')]"));
 
         getWebDriverWait(10).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOf(titleDettaglioNotificaField));
         getWebDriverWait(10).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButtonBy));
