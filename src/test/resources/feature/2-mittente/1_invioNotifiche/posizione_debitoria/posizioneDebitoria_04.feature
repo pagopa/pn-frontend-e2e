@@ -12,11 +12,11 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisicaPec"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisicaPec" destinatario 0
+    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Cliccare su continua
     #      Aggiungere alle notifiche
-    And Seleziona Nessun Pagamento
+    And Seleziona Avviso PagoPA
     And Cliccare su continua
 #      Aggiungere alle notifiche
 #    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati

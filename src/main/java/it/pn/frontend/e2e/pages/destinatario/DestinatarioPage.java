@@ -243,15 +243,6 @@ public class DestinatarioPage extends BasePage {
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
     }
 
-    public void selezionaAvvisoPagoPA() {
-        List<WebElement> pagoPARadioButtons = getWebDriverWait(10)
-                .withMessage("radio Button  Avviso PagoPA non visibile")
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Avviso pagoPA']")));
-        for (WebElement radioButton : pagoPARadioButtons) {
-            radioButton.click();
-        }
-    }
-
     public void cliccareSuSincrona() {
         WebElement radioButtonSincrona = getWebDriverWait(10)
                 .withMessage("radio Button  Sincrona non visibile")
@@ -288,15 +279,6 @@ public class DestinatarioPage extends BasePage {
         costoNotificaInput.sendKeys(costo);
     }
 
-    public void selezionaNessunPagamento() {
-        List<WebElement> pagoPARadioButtons = getWebDriverWait(10)
-                .withMessage("radio Button  Nessun Pagamento non visibile")
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Nessun pagamento']")));
-        for (WebElement radioButton : pagoPARadioButtons) {
-            radioButton.click();
-        }
-    }
-
     public void selezionareLaPercentuale(String percentuale) {
 //        WebElement ivaDropdown = getWebDriverWait(10)
 //                .withMessage("Non Visibile  ")
@@ -310,4 +292,29 @@ public class DestinatarioPage extends BasePage {
 //        ));
 //        ivaOption.click();
     }
+    public void selezionaAvvisoPagoPA() {
+        selezionaRadioButtonPerPosizioneDebbitoria("PAGO_PA");
+    }
+
+    public void selezionaModelloF24() {
+        selezionaRadioButtonPerPosizioneDebbitoria("F24");
+    }
+
+    public void selezionaAvvisoPagoPAaddModelloF24() {
+        selezionaRadioButtonPerPosizioneDebbitoria("PAGO_PA_F24");
+    }
+
+    public void selezionaNessunPagamento() {
+        selezionaRadioButtonPerPosizioneDebbitoria("NOTHING");
+    }
+
+
+    public void selezionaRadioButtonPerPosizioneDebbitoria(String value) {
+        WebElement label = getWebDriverWait(10)
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//input[@type='radio' and @value='" + value + "']/ancestor::label")));
+        label.click();
+    }
+
+
 }

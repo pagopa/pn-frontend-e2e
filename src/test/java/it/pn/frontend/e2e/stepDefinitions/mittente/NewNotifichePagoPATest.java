@@ -102,6 +102,16 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.selezionaAvvisoPagoPA();
     }
 
+    @And("Seleziona Avviso PagoPA add Modello F24")
+    public void selezionaAvvisoPagoPAaddModelloF24() {
+        destinatarioPage.selezionaAvvisoPagoPAaddModelloF24();
+    }
+
+    @And("Seleziona Modello F24")
+    public void selezionaModelloF24() {
+        destinatarioPage.selezionaModelloF24();
+    }
+
     @And("Cliccare su Sincrona")
     public void cliccareSuSincrona() {
         destinatarioPage.cliccareSuSincrona();
