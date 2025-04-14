@@ -3,7 +3,7 @@ Feature: la persona giuridica inserisce una email errata
   @TestSuite
   @TA_inserimentoEmailErrataPG_ON
   @addressBook2
-  @RW_NRT_ON
+  @NRT_ON
 
   Scenario: ON_REWORK_DOMICILIO_DIGITALE_PG_PN-9155-B63 - La persona giuridica inserisce una email errata
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
