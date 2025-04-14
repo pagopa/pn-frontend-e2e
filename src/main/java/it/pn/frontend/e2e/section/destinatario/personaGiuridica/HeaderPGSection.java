@@ -41,8 +41,17 @@ public class HeaderPGSection extends BasePage {
     }
 
     public void clickEsciButton() {
-        esciButton = driver.findElement(By.xpath("//button[@title = 'Esci']"));
+        esciButton = getWebDriverWait(60)
+                .withMessage("Non Si Visualizza il tasto Esci sul Pop-Up")
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@title = 'Esci']"))));
         esciButton.click();
+    }
+
+    public void clickEsciButtonPopUp() {
+        WebElement esciButtonPopUp = getWebDriverWait(60)
+                .withMessage("Non Si Visualizza il tasto Esci sul Pop-Up")
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(),'Esci')]"))));
+        esciButtonPopUp.click();
     }
 
     public void selezionaSecondoEsciButtonPG() {

@@ -14,6 +14,7 @@ import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.IntegrazioneAPIPGPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -60,6 +61,8 @@ public class NotifichePGPagoPATest extends BasePage {
 
     private DeleghePGPagoPAPage deleghePage;
 
+    private IntegrazioneAPIPGPage integrazioneAPIPGPage;
+
 //    Map<String, Object> personaGiuridica = new HashMap<>();
 
     private  HomePagePG homePagePG;
@@ -95,6 +98,7 @@ public class NotifichePGPagoPATest extends BasePage {
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         destinatarioPage = new DestinatarioPage(driver);
         deleghePage = new DeleghePGPagoPAPage(driver);
+        integrazioneAPIPGPage = new IntegrazioneAPIPGPage(driver);
         homePagePG = new HomePagePG(driver);
         dettaglioNotificaSection = new DettaglioNotificaSection(driver);
         cookiesSection = new CookiesSection(driver);
@@ -251,6 +255,18 @@ public class NotifichePGPagoPATest extends BasePage {
         downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", numeroLinkAttestazioniOpponibile);
     }
 
+    @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API")
+    public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneIntegrazioneAPI() {
+        logger.info("Si clicca sul bottone Integrazione API");
+
+        piattaformaNotifichePGPAPage.clickSuIntegrazioneAPIButton();
+    }
+
+    @And("Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Integrazione API")
+    public void visualizzaIntegrazioneAPISection() {
+        logger.info("Si visualizza la sezione Integrazione API");
+        integrazioneAPIPGPage.waitLoadIntegrazioneAPIPage();
+    }
 
     private String getBearerToken() {
         List<NetWorkInfo> netWorkInfos = webDriverManager.getNetworkInfo();
@@ -474,6 +490,13 @@ public class NotifichePGPagoPATest extends BasePage {
             logger.error("Il codice SHA  all'interno del file  NON è corretto");
             Assertions.fail("Il codice SHA  all'interno del file  NON è corretto");
         }
+    }
+
+    @And("Nella pagina Integrazione API si controlla che NON sia presente il bottone Genera chiave personale")
+    public void nellaPaginaIntegrazioneAPISiControllaCheNONSiaPresenteIlBottoneGeneraChiavePersonale() {
+        Assertions.assertFalse(
+                integrazioneAPIPGPage.nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale(),
+                "Il bottone Genera chiave personale è Presente");
     }
 
     @When("Seleziona servizio Notifiche Digitale")

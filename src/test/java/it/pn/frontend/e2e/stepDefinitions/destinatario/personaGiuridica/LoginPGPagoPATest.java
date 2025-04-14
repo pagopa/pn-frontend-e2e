@@ -46,6 +46,8 @@ public class LoginPGPagoPATest extends BasePage {
     @Autowired
     private  DataPopulation dataPopulation;
 
+    @Autowired
+    private WebViewMultiLanguageConfig webViewMultiLanguageConfig;
 
     private  HeaderPGSection headerPGSection;
 
@@ -71,9 +73,6 @@ public class LoginPGPagoPATest extends BasePage {
 
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
-
-    @Autowired
-    private WebViewMultiLanguageConfig webViewMultiLanguageConfig;
 
     @Autowired
     @Lazy
@@ -137,15 +136,15 @@ public class LoginPGPagoPATest extends BasePage {
         headerPGSection.waitLoadHeaderPGPage();
 
         if (personaGiuridica.equalsIgnoreCase("delegante")) {
-            logger.info("DELEGANTE: {}",dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
+            logger.info("DELEGANTE: {}", dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
             piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
-            logger.info("BALDASSARRE: {}",webDriverConfig.getRagioneSocialeBaldassarre());
+            logger.info("BALDASSARRE: {} ", webDriverConfig.getRagioneSocialeBaldassarre());
             piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
         } else {
-            logger.info("DELEGATO: {}",dataPopulationConfig.getDelegatePG().getCompanyName());
+            logger.info("DELEGATO: {}", dataPopulationConfig.getDelegatePG().getCompanyName());
             piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
             piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getDelegatePG().getCompanyName());
         }
@@ -293,7 +292,9 @@ public class LoginPGPagoPATest extends BasePage {
 
         loginPGPagoPAPage.waitLoadLoginPGPage();
 
-        if(datiPG.get("user").equalsIgnoreCase("GabrieleDAnnunzio")){
+        if(datiPG.get("user").equalsIgnoreCase("GabrieleDAnnunzio") || datiPG.get("user").equalsIgnoreCase("GiuseppeUngaretti")
+                || datiPG.get("user").equalsIgnoreCase("n.lotti") || datiPG.get("user").equalsIgnoreCase("m.montessori")
+        ){
             loginPGPagoPAPage.insertUsername(datiPG.get("user"));
             loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
         }
@@ -333,6 +334,12 @@ public class LoginPGPagoPATest extends BasePage {
         webTool.waitTime(5);
     }
 
+    @And("Logout da portale persona giuridica delegante")
+    public void logoutDaPortalePersonaGiuridicaDelegante() {
+        headerPGSection.clickEsciButton();
+        headerPGSection.clickEsciButtonPopUp();
+    }
+
     @When("Login {string} portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod(String dpFile) {
         //TODO ATTUALMENTE NON VIENE UTILIZZATA
@@ -359,7 +366,7 @@ public class LoginPGPagoPATest extends BasePage {
         }
 
         if (urlWithTokenFound) {
-            logger.info("procedura di login from spid provata :{}", numProvaLogin);
+            logger.info("procedura di login from spid provata : {}", numProvaLogin);
         } else {
             logger.error("procedura di login from spid provata : {}", numProvaLogin);
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaGiuridica.get("urlPortale") + "' è : " + this.urlPersonaGiuridica.get("responseCode"));
@@ -396,6 +403,7 @@ public class LoginPGPagoPATest extends BasePage {
                     webDriverConfig.getTokentestPGDelegante():
                     webDriverConfig.getTokendevPGDelegante();
         }
+
         String url = urlIniziale + token;
         driver.get(url);
     }
@@ -420,12 +428,6 @@ public class LoginPGPagoPATest extends BasePage {
         return token;
     }
 
-//    @And("Si clicca su prodotto {string}")
-//    public void siCliccaSuProdotto(String xpath) {
-////        destinatarioPage.clickProdotto(xpath);
-//        clickEntraSuSendPersonaGiuridica();
-//    }
-
     @And("Si clicca su prodotto")
     public void siCliccaSuProdotto() {
 //        destinatarioPage.clickProdotto(xpath);
@@ -440,6 +442,10 @@ public class LoginPGPagoPATest extends BasePage {
         logger.info("Terminata procedura scelta ambiente");
     }
 
+    @And("Si clicca su prodotto {string}")
+    public void siCliccaSuProdotto(String xpath) {
+        destinatarioPage.clickProdotto(xpath);
+    }
     @And("Click entra su Send Persona Giuridica")
     public void clickEntraSuSendPersonaGiuridica() {
         String environment = webDriverConfig.getEnvironment();
