@@ -153,4 +153,16 @@ public class NewNotifichePagoPATest extends BasePage {
     public void selezionaNessunPagamento() {
         destinatarioPage.selezionaNessunPagamento();
     }
+    @And("Seleziona Incluso Nell Atto")
+    public void selezionaInclusoNellAtto() {
+        destinatarioPage.selezionaInclusoNellAtto();
+    }
+    @And("Seleziona Modo Sincrono")
+    public void selezionaModoSincrono() {
+        destinatarioPage.selezionaModoSincrono();
+    }
+    @And("Seleziona Modo Asincrono")
+    public void selezionaModoAsincrono() {
+        destinatarioPage.selezionaModoAsincrono();
+    }
 }

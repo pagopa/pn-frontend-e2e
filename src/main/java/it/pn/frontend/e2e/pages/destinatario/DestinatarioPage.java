@@ -3,7 +3,6 @@ package it.pn.frontend.e2e.pages.destinatario;
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.documents.Document;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
@@ -13,7 +12,6 @@ import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.rest.RestRaddAlternative;
-import it.pn.frontend.e2e.utility.BeanProvider;
 import it.pn.frontend.e2e.utility.NotificationBuilder;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
@@ -23,9 +21,6 @@ import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -293,24 +288,40 @@ public class DestinatarioPage extends BasePage {
 //        ivaOption.click();
     }
     public void selezionaAvvisoPagoPA() {
-        selezionaRadioButtonPerPosizioneDebbitoria("PAGO_PA");
+        selezionaRadioButtonPerValore("PAGO_PA");
     }
 
     public void selezionaModelloF24() {
-        selezionaRadioButtonPerPosizioneDebbitoria("F24");
+        selezionaRadioButtonPerValore("F24");
     }
 
     public void selezionaAvvisoPagoPAaddModelloF24() {
-        selezionaRadioButtonPerPosizioneDebbitoria("PAGO_PA_F24");
+        selezionaRadioButtonPerValore("PAGO_PA_F24");
     }
 
     public void selezionaNessunPagamento() {
-        selezionaRadioButtonPerPosizioneDebbitoria("NOTHING");
+        selezionaRadioButtonPerValore("NOTHING");
+    }
+
+    public void selezionaInclusoNellAtto() {
+        selezionaRadioButtonPerValore("FLAT_RATE");
+    }
+    public void selezionaACaricoDelDestinatario() {
+        selezionaRadioButtonPerValore("DELIVERY_MODE");
+    }
+
+    public void selezionaModoAsincrono() {
+        selezionaRadioButtonPerValore("ASYNC");
+    }
+
+    public void selezionaModoSincrono() {
+        selezionaRadioButtonPerValore("SYNC");
     }
 
 
-    public void selezionaRadioButtonPerPosizioneDebbitoria(String value) {
+    public void selezionaRadioButtonPerValore(String value) {
         WebElement label = getWebDriverWait(10)
+                .withMessage("Impossibile selezionare radion button: "+value)
                 .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("//input[@type='radio' and @value='" + value + "']/ancestor::label")));
         label.click();
