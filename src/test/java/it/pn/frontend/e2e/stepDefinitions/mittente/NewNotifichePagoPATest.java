@@ -137,6 +137,18 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.selezionareLaPercentuale(percentuale);
     }
 
+    @And("Si verifica la presenza della sezione Posizione Debitoria")
+    public void siVerificaPresenzaSezionePosizioneDebitoria() {
+        logger.info("Si verifica la presenza della sezione Posizione Debitoria");
+        destinatarioPage.verificaPresenzaSezionePosizioneDebitoria();
+    }
+
+    @And("Si verifica la presenza della sezione Dettaglio Posizione Debitoria")
+    public void siVerificaPresenzaSezioneDettaglioPosizioneDebitoria() {
+        logger.info("Si verifica la presenza della sezione DettaglioPosizione Debitoria");
+        destinatarioPage.verificaPresenzaSezioneDettaglioPosizioneDebitoria();
+    }
+
     @And("Seleziona Nessun Pagamento")
     public void selezionaNessunPagamento() {
         destinatarioPage.selezionaNessunPagamento();
