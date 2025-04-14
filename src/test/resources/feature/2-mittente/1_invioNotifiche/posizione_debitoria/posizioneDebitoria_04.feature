@@ -18,6 +18,11 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     #      Aggiungere alle notifiche
     And Seleziona Avviso PagoPA
     And Cliccare su continua
+    And Seleziona Incluso Nell Atto
+    And Seleziona Modo Sincrono
+
+
+
 #      Aggiungere alle notifiche
 #    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
 #    And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
