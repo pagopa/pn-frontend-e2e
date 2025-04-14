@@ -191,7 +191,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return false;
     }
 
-    public void clickVediPiuDettaglio() {
+    public void clickVediPiuDettagli() {
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(0)));
         logger.info("click su vedi dettagli");
         vediDettagliButton = driver.findElements(By.id("more-less-timeline-step"));

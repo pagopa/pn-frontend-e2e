@@ -329,7 +329,7 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
         downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloads", numeroLinkAttestazioniOpponibile);
     }
 
-    @And("Si clicca sul opzione Vedi Dettaglio")
+    @And("Nella sezione Dettaglio Notifiche si clicca sulla opzione Vedi Più Dettagli")
     public void siCliccaSulOpzioneVediDettaglio() {
         dettaglioNotificaSection.selezioneVediDettaglioButton();
     }

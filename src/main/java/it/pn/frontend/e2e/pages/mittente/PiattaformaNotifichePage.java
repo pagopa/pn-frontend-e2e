@@ -1573,22 +1573,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     }
 
-    public void clickNotificaRicercata() {
-        logger.info("Si clicca la notifica ricercata");
-        try {
-            TimeUnit.SECONDS.sleep(2);
-            getWebDriverWait(10).withMessage("La notifica ricercata non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notificationsTable.body.row"))));
-            WebElement notitifcaRicercata = driver.findElement(By.id("notificationsTable.body.row"));
-            notitifcaRicercata.click();
-        } catch (TimeoutException e) {
-            logger.error("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
-            Assertions.fail("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
-        } catch (InterruptedException e) {
-            logger.error("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
-            Assertions.fail("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
-        }
-    }
-
     public void checkMessaggioErroreConCodice(int code) {
         webTool.waitTime(3);
         erroreMessaggio = driver.findElement(By.id("message"));

@@ -521,7 +521,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Si clicca la notifica ricercata")
     public void siCliccaLaNotificaRicercata() {
         logger.info("Se presente si clicca la notifica ricercata");
-//        piattaformaNotifichePage.clickNotificaRicercata();
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
