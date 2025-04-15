@@ -2087,6 +2087,16 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.selezionareDaImpostazioneLinguaLaLingua(lingua);
     }
 
+    @And("Carica File Posizione Debitoria")
+    public void caricaFilePosizioneDebitoria() {
+        logger.info("Caricamento File notifica.pdf");
+
+        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
