@@ -236,55 +236,6 @@ public class DestinatarioPage extends BasePage {
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
     }
 
-    public void cliccareSuSincrona() {
-        WebElement radioButtonSincrona = getWebDriverWait(10)
-                .withMessage("radio Button  Sincrona non visibile")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Sincrona']")));
-        radioButtonSincrona.click();
-    }
-
-    public void inseriscoCodiceAvviso() {
-        List<WebElement> inputFields = getWebDriverWait(10)
-                .withMessage("Lista inseriscoCodiceAvviso non visibile")
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("noticeCode")));
-        //TODO bisogna cambiare in modo random le ultime 5 cifre
-        long numero = 302010124463612500L;
-        for (WebElement inputField : inputFields) {
-            inputField.sendKeys(String.valueOf(numero));
-            numero++;
-        }
-    }
-
-    public void cliccareSuACaricoDelDestinatario() {
-        WebElement caricoDestinatarioRadioButton = getWebDriverWait(10)
-                .withMessage("radio Button  A carico del destinatario (puntuale) non visibile")
-                .until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='A carico del destinatario (puntuale)']")
-        ));
-        caricoDestinatarioRadioButton.click();
-    }
-
-    public void inserireCostoNotifica(String costo) {
-        WebElement costoNotificaInput = getWebDriverWait(10)
-                .withMessage("Campo inserireCostoNotifica non visibile")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.id("paFee")));
-        costoNotificaInput.clear(); // Pulisci il campo se necessario
-        costoNotificaInput.sendKeys(costo);
-    }
-
-    public void selezionareLaPercentuale(String percentuale) {
-//        WebElement ivaDropdown = getWebDriverWait(10)
-//                .withMessage("Non Visibile  ")
-//                .until(ExpectedConditions.elementToBeClickable(By.id("vat")));
-//        ivaDropdown.click();
-//
-//        WebElement ivaOption = getWebDriverWait(10)
-//                .withMessage("radio Button  Nessun Pagamento non visibile")
-//                .until(ExpectedConditions.elementToBeClickable(
-//                By.xpath("//li[@role='option' and @data-value='4']")
-//        ));
-//        ivaOption.click();
-    }
     public void selezionaAvvisoPagoPA() {
         selezionaRadioButtonPerValore("PAGO_PA");
     }
@@ -350,22 +301,47 @@ public class DestinatarioPage extends BasePage {
         campoCosto.sendKeys(valoreFormato);
     }
 
-    public void inserireIVA() {
+    public void inserireCodiceAvviso() {
+        String[] prefissi = {"3020101244636", "3020401244637"};
 
-        // Apri il menu
+        Random random = new Random();
+        String prefisso = prefissi[random.nextInt(prefissi.length)];
+
+        int parteRandom = random.nextInt(100000);
+        String parteRandomStr = String.format("%05d", parteRandom);
+
+        String codiceAvviso = prefisso + parteRandomStr;
+
+        WebElement inputCodiceAvviso = getWebDriverWait(10)
+                .withMessage("Inpossibile trovare Codice Avviso ")
+                .until(ExpectedConditions.elementToBeClickable(By.id("noticeCode")));
+        inputCodiceAvviso.clear();
+        inputCodiceAvviso.sendKeys(codiceAvviso);
+    }
+
+    public void inserireCodiceFiscaleEnte() {
+        WebElement inputCodiceFiscale = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il campo 'Codice fiscale ente creditore'")
+                .until(ExpectedConditions.elementToBeClickable(By.id("creditorTaxId")));
+        inputCodiceFiscale.click();
+        inputCodiceFiscale.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        inputCodiceFiscale.sendKeys(Keys.DELETE);
+        inputCodiceFiscale.sendKeys("77777777777");
+
+    }
+
+
+    public void inserireIVA() {
         WebElement campoIva  = getWebDriverWait(10)
                 .withMessage("Inpossibile selezionare Iva")
                 .until(ExpectedConditions.elementToBeClickable(By.id("vat")));
         campoIva .click();
-
-        // Recupera tutte le opzioni visibili
         List<WebElement> opzioni = getWebDriverWait(10)
                 .withMessage("Inpossibile selezionare il menu dell Iva")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                 By.xpath("//ul[@role='listbox']//li[@role='option']")
         ));
 
-        // Sceglie un'opzione random e clicca
         WebElement sceltaRandom = opzioni.get(new Random().nextInt(opzioni.size()));
         sceltaRandom.click();
     }

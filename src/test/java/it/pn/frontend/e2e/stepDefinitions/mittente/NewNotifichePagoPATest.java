@@ -112,29 +112,13 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.selezionaModelloF24();
     }
 
-    @And("Cliccare su Sincrona")
-    public void cliccareSuSincrona() {
-        destinatarioPage.cliccareSuSincrona();
+    @And("Inserire Codice Avviso")
+    public void inserireCodiceAvviso() {
+        destinatarioPage.inserireCodiceAvviso();
     }
-
-    @And("Inserisco Codice Avviso")
-    public void inseriscoCodiceAvviso() {
-        destinatarioPage.inseriscoCodiceAvviso();
-    }
-
-    @And("Cliccare su A carico del destinatario")
-    public void cliccareSuACaricoDelDestinatario() {
-        destinatarioPage.cliccareSuACaricoDelDestinatario();
-    }
-
-    @And("Inserire Costo notifica {string}")
-    public void inserireCostoNotifica(String costo) {
-        destinatarioPage.inserireCostoNotifica(costo);
-    }
-
-    @And("Selezionare la percentuale {string}")
-    public void selezionareLaPercentuale(String percentuale) {
-        destinatarioPage.selezionareLaPercentuale(percentuale);
+    @And("Inserire Codice Fiscale Ente")
+    public void inserireCodiceFiscaleEnte() {
+        destinatarioPage.inserireCodiceFiscaleEnte();
     }
 
     @And("Si verifica la presenza della sezione Posizione Debitoria")
