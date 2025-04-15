@@ -345,4 +345,15 @@ public class DestinatarioPage extends BasePage {
         WebElement sceltaRandom = opzioni.get(new Random().nextInt(opzioni.size()));
         sceltaRandom.click();
     }
+
+    public void selezionaApplicaCostoNotifica() {
+        WebElement switchCostoNotifica = getWebDriverWait(10)
+                .withMessage("Impossibile trovare lo switch 'Applica costo di notifica'")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//input[@id='applyCost']/parent::span")));
+
+        switchCostoNotifica.click();
+    }
+
+
 }

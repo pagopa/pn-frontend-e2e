@@ -164,4 +164,11 @@ public class NewNotifichePagoPATest extends BasePage {
     public void inserireIVA() {
         destinatarioPage.inserireIVA();
     }
+
+    @And("Seleziona Applica Costo Notifica")
+    public void selezionaApplicaCostoNotifica() {
+        destinatarioPage.selezionaApplicaCostoNotifica();
+    }
+
+
 }
