@@ -171,4 +171,19 @@ public class NewNotifichePagoPATest extends BasePage {
     }
 
 
+    @And("Click Su Aggiungi Altro Modello F24")
+    public void clickSuAggiungiAltroModelloF24() {
+        destinatarioPage.clickSuAggiungiAltroModelloF24();
+    }
+
+    @And("Inserisci Titolo Documento Posizione Debitoria {int}")
+    public void inserisciTitoloDocumentoPosizioneDebitoria(int numNotifiche) {
+        destinatarioPage.inserisciTitoloDocumentoPosizioneDebitoria(numNotifiche);
+    }
+
+
+    @And("Click Su Aggiungi un altro documento")
+    public void clickSuAggiungiUnAltroDocumento() {
+        destinatarioPage.clickSuAggiungiUnAltroDocumento();
+    }
 }

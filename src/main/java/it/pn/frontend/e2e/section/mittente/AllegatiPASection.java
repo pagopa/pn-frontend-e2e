@@ -155,5 +155,38 @@ public class AllegatiPASection extends BasePage {
             return  false;
         }
     }
+
+    public void caricareJsonDalComputer(String pathNotificaFile) {
+        webTool.waitTime(20);
+
+        selezionaloDalTuoComputerInput = driver.findElement(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/json']"));
+        if(!selezionaloDalTuoComputerInput.isDisplayed()){
+            js().executeScript("arguments[0].scrollIntoView(true)", selezionaloDalTuoComputerInput);
+            selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
+        }else{
+            selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
+        }
+    }
+
+    public void inserisciTitoloDocumentoDocumentiAllegati(int numeroTitoloDoc) {
+
+        String idCampo = String.format("documents.%d.name", numeroTitoloDoc -1);
+        WebElement campoNome =  getWebDriverWait(10)
+                .withMessage("Impossibile inserire il Titolo Documento Posizione Debitoria num: "+(numeroTitoloDoc -1))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id(idCampo)));
+
+
+        if (!campoNome.isDisplayed()) {
+            js().executeScript("arguments[0].scrollIntoView(true)", campoNome);
+        }
+
+        campoNome.click();
+        campoNome.clear(); // facoltativo, ma spesso utile
+        campoNome.sendKeys( new StringBuilder("Docuemnto_Doc_All_AvvisopagoPA_").append(numeroTitoloDoc));
+
+
+    }
+
+
 }
 
