@@ -326,6 +326,18 @@ public class DestinatarioPage extends BasePage {
     }
 
 
+
+    public void verificaPresenzaSezionePosizioneDebitoria() {
+        getWebDriverWait(10).withMessage("Sezione Posizione Debitoria non è visibile").until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='payments-type-choice']")));
+        log.info("Sezione Posizione Debitoria presente");
+    }
+
+    public void verificaPresenzaSezioneDettaglioPosizioneDebitoria() {
+        getWebDriverWait(10).withMessage("Sezione Dettaglio Posizione Debitoria non è visibile").until(
+                ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@data-testid='debtPositionDetailForm']")));
+        log.info("Sezione Dettaglio Posizione Debitoria presente");
+    }
     public void inserireCostoDiNotifica() {
         int centesimi = 10 + new Random().nextInt(91); // (100 - 10 + 1) = 91
         String valoreFormato = String.format(Locale.US, "%.2f", centesimi / 100.0);
