@@ -141,10 +141,16 @@ public class NewNotifichePagoPATest extends BasePage {
     public void selezionaNessunPagamento() {
         destinatarioPage.selezionaNessunPagamento();
     }
+
     @And("Seleziona Incluso Nell Atto")
     public void selezionaInclusoNellAtto() {
         destinatarioPage.selezionaInclusoNellAtto();
     }
+    @And("Seleziona A Carico del Destinataio")
+    public void selezionaACaricoDelDestinatario() {
+        destinatarioPage.selezionaACaricoDelDestinatario();
+    }
+
     @And("Seleziona Modo Sincrono")
     public void selezionaModoSincrono() {
         destinatarioPage.selezionaModoSincrono();
@@ -152,5 +158,14 @@ public class NewNotifichePagoPATest extends BasePage {
     @And("Seleziona Modo Asincrono")
     public void selezionaModoAsincrono() {
         destinatarioPage.selezionaModoAsincrono();
+    }
+
+    @And("Inserire Costo di notifica")
+    public void inserireCostoDiNotifica() {
+        destinatarioPage.inserireCostoDiNotifica();
+    }
+    @And("Inserire IVA")
+    public void inserireIVA() {
+        destinatarioPage.inserireIVA();
     }
 }

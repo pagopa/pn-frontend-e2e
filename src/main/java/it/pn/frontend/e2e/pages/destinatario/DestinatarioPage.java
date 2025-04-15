@@ -22,9 +22,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class DestinatarioPage extends BasePage {
@@ -328,4 +326,35 @@ public class DestinatarioPage extends BasePage {
     }
 
 
+    public void inserireCostoDiNotifica() {
+        int centesimi = 10 + new Random().nextInt(91); // (100 - 10 + 1) = 91
+        String valoreFormato = String.format(Locale.US, "%.2f", centesimi / 100.0);
+
+        WebElement campoCosto = getWebDriverWait(10)
+                .withMessage("Impossibile trovare Input Costo di notifica")
+                .until(ExpectedConditions.elementToBeClickable(By.id("paFee")));
+
+        campoCosto.clear();
+        campoCosto.sendKeys(valoreFormato);
+    }
+
+    public void inserireIVA() {
+
+        // Apri il menu
+        WebElement campoIva  = getWebDriverWait(10)
+                .withMessage("Inpossibile selezionare Iva")
+                .until(ExpectedConditions.elementToBeClickable(By.id("vat")));
+        campoIva .click();
+
+        // Recupera tutte le opzioni visibili
+        List<WebElement> opzioni = getWebDriverWait(10)
+                .withMessage("Inpossibile selezionare il menu dell Iva")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                By.xpath("//ul[@role='listbox']//li[@role='option']")
+        ));
+
+        // Sceglie un'opzione random e clicca
+        WebElement sceltaRandom = opzioni.get(new Random().nextInt(opzioni.size()));
+        sceltaRandom.click();
+    }
 }
