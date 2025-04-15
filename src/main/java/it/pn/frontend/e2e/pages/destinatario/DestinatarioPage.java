@@ -19,13 +19,17 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 @Slf4j
 public class DestinatarioPage extends BasePage {
+    private final Logger logger = LoggerFactory.getLogger("DestinatarioPage");
 
 
     @Getter
@@ -356,4 +360,37 @@ public class DestinatarioPage extends BasePage {
     }
 
 
+    public void clickSuAggiungiAltroModelloF24() {
+        WebElement pulsanteAggiungiF24 = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il tasto Aggiungi Altro ModelloF24")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='add-new-f24']")));
+
+        js().executeScript("arguments[0].scrollIntoView(true);", pulsanteAggiungiF24);
+        pulsanteAggiungiF24.click();
+    }
+
+    public void inserisciTitoloDocumentoPosizioneDebitoria(int numNotifiche) {
+
+        StringBuilder fileName = new StringBuilder("Documento_Pos_Deb_AvvisopagoPA_");
+
+        List<WebElement> campiTitolo = getWebDriverWait(10)
+                .withMessage("Impossibile inserire il Titolo Documento Posizione Debitoria num: "+ (numNotifiche -1))
+                .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("input[name='name']"), numNotifiche -1));
+
+        WebElement campo = campiTitolo.get(numNotifiche -1);
+        campo.clear();
+        campo.sendKeys(fileName.append(numNotifiche));
+
+    }
+
+
+    public void clickSuAggiungiUnAltroDocumento() {
+
+        WebElement bottoneAggiungi = getWebDriverWait(10)
+                .withMessage("Impossibile Cliccare su Aggiungi un altro documento")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[data-testid='add-another-doc']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", bottoneAggiungi);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(bottoneAggiungi).click().perform();
+    }
 }

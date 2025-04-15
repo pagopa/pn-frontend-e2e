@@ -2086,15 +2086,94 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
         piattaformaNotifichePage.selezionareDaImpostazioneLinguaLaLingua(lingua);
     }
+    @And("Carica File Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaFilePosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+        logger.info("Carica File Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
+        String basePath = "src/test/resources/notifichePdf/";
+        String fileName;
 
-    @And("Carica File Posizione Debitoria")
-    public void caricaFilePosizioneDebitoria() {
-        logger.info("Caricamento File notifica.pdf");
+        switch (numNotifiche) {
+            case 1:
+                fileName = "AvvisopagoPA_1.pdf";
+                break;
+            case 2:
+                fileName = "AvvisopagoPA_2.pdf";
+                break;
+            default:
+                throw new IllegalArgumentException("Numero di notifiche non supportato: " + numNotifiche);
+        }
 
-        File notificaFile = new File("src/test/resources/notifichePdf/notifica.pdf");
+        File notificaFile = new File(basePath + fileName);
         String pathNotificaFile = notificaFile.getAbsolutePath();
         allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
 
+    }
+
+    @And("Carica Json con Costi Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaJsonConCostiPosizioneDebitoriaNumeroNotifichePariA(int numNotifiche) {
+        logger.info("Carica Json con Costi Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
+        String basePath = "src/test/resources/notifichePdf/conCosti/";
+        String fileName;
+
+        // Massimo 4 notifiche, minimo 1
+        switch (numNotifiche) {
+            case 1:
+                fileName = "PN_F24_META-1_notifica_con_costi.json";
+                break;
+            case 2:
+                fileName = "PN_F24_META-2_notifica_con_costi.json";
+                break;
+            case 3:
+                fileName = "PN_F24_META-3_notifica_con_costi.json";
+                break;
+            case 4:
+                fileName = "PN_F24_META-4_notifica_con_costi.json";
+                break;
+            default:
+                throw new IllegalArgumentException("Numero di notifiche non supportato: " + numNotifiche);
+        }
+
+        File notificaFile = new File(basePath + fileName);
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+
+        allegatiPASection.caricareJsonDalComputer(pathNotificaFile);
+    }
+
+    @And("Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaJsonSenzaCostiPosizioneDebitoriaNumeroNotifichePariA(int numNotifiche) {
+        logger.info("Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
+        String basePath = "src/test/resources/notifichePdf/conCosti/";
+        String fileName;
+
+        // Massimo 4 notifiche, minimo 1
+        switch (numNotifiche) {
+            case 1:
+                fileName = "PN_F24_META-1_notifica_senza_costi.json";
+                break;
+            case 2:
+                fileName = "PN_F24_META-2_notifica_senza_costi.json";
+                break;
+            case 3:
+                fileName = "PN_F24_META-3_notifica_senza_costi.json";
+                break;
+            case 4:
+                fileName = "PN_F24_META-4_notifica_senza_costi.json";
+                break;
+            default:
+                throw new IllegalArgumentException("Numero di notifiche non supportato: " + numNotifiche);
+        }
+
+        File notificaFile = new File(basePath + fileName);
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+
+        allegatiPASection.caricareJsonDalComputer(pathNotificaFile);
+    }
+
+
+
+    @And("Inserisci Titolo Documento Documenti Allegati {int}")
+    public void inserisciTitoloDocumentoDocumentiAllegati(int numeroTitoloDoc) {
+        allegatiPASection.inserisciTitoloDocumentoDocumentiAllegati(numeroTitoloDoc);
     }
 
     /**
