@@ -542,12 +542,27 @@ public class DestinatarioPASection extends BasePage {
         generateApiKeyButton.click();
     }
 
-    public void verificaPresenzaSezionePagamenti() {
-        WebElement paymentBox = getWebDriverWait(10)
-                .withMessage("La sezione 'Pagamenti' non è presente nella pagina")
-                .until(ExpectedConditions.presenceOfElementLocated(
-                        By.cssSelector("div[data-testid='paymentInfoBox']")));
+    public void verificaPresenzaSezionePagamenti(int numeroAvvisi) {
 
-        Assertions.assertTrue(paymentBox.isDisplayed(), "La sezione 'Pagamenti' non è visibile");
+
+            getWebDriverWait(10)
+                    .until(ExpectedConditions.numberOfElementsToBe(By.xpath("//span[contains(@class, 'css-kwxqgy')]"),numeroAvvisi )
+            );
+
+
+
+
+
+
+    }
+
+    public void clickSuElimina() {
+        WebElement eliminaButton = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il bottone 'Elimina'")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='pagopa-delete-button']")
+                ));
+
+        eliminaButton.click();
     }
 }

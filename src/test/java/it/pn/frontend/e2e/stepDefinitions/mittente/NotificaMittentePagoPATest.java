@@ -2176,9 +2176,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
         allegatiPASection.inserisciTitoloDocumentoDocumentiAllegati(numeroTitoloDoc);
     }
 
-    @And("Verifica Presenza Sezione Pagamenti")
-    public void verificaPresenzaSezionePagamenti() {
-        destinatarioPASection.verificaPresenzaSezionePagamenti();
+    @And("Verifica Presenza Sezione Pagamenti {int}")
+    public void verificaPresenzaSezionePagamenti(int numeroAvvisi) {
+        destinatarioPASection.verificaPresenzaSezionePagamenti( numeroAvvisi);
+    }
+
+    @And("Click Su Elimina")
+    public void clickSuElimina() { destinatarioPASection.clickSuElimina();
     }
 
     /**

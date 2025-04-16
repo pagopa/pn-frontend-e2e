@@ -327,7 +327,9 @@ public class DestinatarioPage extends BasePage {
 
             try {
                 getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
-                input.clear();
+                input.click();
+                input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                input.sendKeys(Keys.DELETE);
                 input.sendKeys(codiceAvviso);
             } catch (Exception e) {
                 logger.warn("Impossibile inserire codice in un input 'noticeCode': " + e.getMessage());
