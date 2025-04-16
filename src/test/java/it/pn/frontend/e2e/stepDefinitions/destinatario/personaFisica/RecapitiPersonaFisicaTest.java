@@ -1150,7 +1150,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     }
 
     private boolean changeStartUrlPec(String startUrl, boolean results, String persona){
-
+        logger.info("url external channels chiamato: {}", startUrl + recuperoOTPRecapiti.getUrlEndPoint());
         if(persona.equalsIgnoreCase("personaGiuridica")) {
             results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getEmailPec());
         }else {
