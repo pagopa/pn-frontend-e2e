@@ -112,13 +112,13 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.selezionaModelloF24();
     }
 
-    @And("Inserire Codice Avviso")
-    public void inserireCodiceAvviso() {
-        destinatarioPage.inserireCodiceAvviso();
+    @And("Inserire Tutti Codice Avviso")
+    public void inserireTuttiCodiceAvviso() {
+        destinatarioPage.inserireTuttiCodiceAvviso();
     }
-    @And("Inserire Codice Fiscale Ente")
-    public void inserireCodiceFiscaleEnte() {
-        destinatarioPage.inserireCodiceFiscaleEnte();
+    @And("Inserire Tutti Codice Fiscale Ente")
+    public void inserireTuttiCodiceFiscaleEnte() {
+        destinatarioPage.inserireTuttiCodiceFiscaleEnte();
     }
 
     @And("Si verifica la presenza della sezione Posizione Debitoria")
@@ -175,6 +175,12 @@ public class NewNotifichePagoPATest extends BasePage {
     public void clickSuAggiungiAltroModelloF24() {
         destinatarioPage.clickSuAggiungiAltroModelloF24();
     }
+
+    @And("Click Su Aggiungi Codice Di Avviso PagoPa")
+    public void clickSuAggiungiCodiceDiAvvisoPagoPa() {
+        destinatarioPage.clickSuAggiungiCodiceDiAvvisoPagoPa();
+    }
+
 
     @And("Inserisci Titolo Documento Posizione Debitoria {int}")
     public void inserisciTitoloDocumentoPosizioneDebitoria(int numNotifiche) {

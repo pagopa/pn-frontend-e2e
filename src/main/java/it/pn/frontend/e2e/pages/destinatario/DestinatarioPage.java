@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario;
 
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.documents.Document;
@@ -24,6 +25,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
@@ -305,32 +307,77 @@ public class DestinatarioPage extends BasePage {
         campoCosto.sendKeys(valoreFormato);
     }
 
-    public void inserireCodiceAvviso() {
+    public void inserireTuttiCodiceAvviso() {
         String[] prefissi = {"3020101244636", "3020401244637"};
-
         Random random = new Random();
-        String prefisso = prefissi[random.nextInt(prefissi.length)];
 
-        int parteRandom = random.nextInt(100000);
-        String parteRandomStr = String.format("%05d", parteRandom);
+        List<WebElement> inputCodiciAvviso = getWebDriverWait(10)
+                .withMessage("Impossibile trovare input con id='noticeCode'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#noticeCode")));
 
-        String codiceAvviso = prefisso + parteRandomStr;
+        if (inputCodiciAvviso.isEmpty()) {
+            logger.warn("Nessun campo 'noticeCode' trovato.");
+            return;
+        }
 
-        WebElement inputCodiceAvviso = getWebDriverWait(10)
-                .withMessage("Inpossibile trovare Codice Avviso ")
-                .until(ExpectedConditions.elementToBeClickable(By.id("noticeCode")));
-        inputCodiceAvviso.clear();
-        inputCodiceAvviso.sendKeys(codiceAvviso);
+        for (WebElement input : inputCodiciAvviso) {
+            String prefisso = prefissi[random.nextInt(prefissi.length)];
+            String parteRandomStr = String.format("%05d", random.nextInt(100000));
+            String codiceAvviso = prefisso + parteRandomStr;
+
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
+                input.clear();
+                input.sendKeys(codiceAvviso);
+            } catch (Exception e) {
+                logger.warn("Impossibile inserire codice in un input 'noticeCode': " + e.getMessage());
+            }
+        }
+//        String[] prefissi = {"3020101244636", "3020401244637"};
+//
+//        Random random = new Random();
+//        String prefisso = prefissi[random.nextInt(prefissi.length)];
+//
+//        int parteRandom = random.nextInt(100000);
+//        String parteRandomStr = String.format("%05d", parteRandom);
+//
+//        String codiceAvviso = prefisso + parteRandomStr;
+//
+//        WebElement inputCodiceAvviso = getWebDriverWait(10)
+//                .withMessage("Inpossibile trovare Codice Avviso ")
+//                .until(ExpectedConditions.elementToBeClickable(By.id("noticeCode")));
+//        inputCodiceAvviso.clear();
+//        inputCodiceAvviso.sendKeys(codiceAvviso);
     }
 
-    public void inserireCodiceFiscaleEnte() {
-        WebElement inputCodiceFiscale = getWebDriverWait(10)
-                .withMessage("Impossibile trovare il campo 'Codice fiscale ente creditore'")
-                .until(ExpectedConditions.elementToBeClickable(By.id("creditorTaxId")));
-        inputCodiceFiscale.click();
-        inputCodiceFiscale.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        inputCodiceFiscale.sendKeys(Keys.DELETE);
-        inputCodiceFiscale.sendKeys("77777777777");
+    public void inserireTuttiCodiceFiscaleEnte() {
+        List<WebElement> inputCodiciFiscali = getWebDriverWait(10)
+                .withMessage("Impossibile trovare i campi 'Codice fiscale ente creditore'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#creditorTaxId")));
+
+        if (inputCodiciFiscali.isEmpty()) {
+            logger.warn("Nessun campo 'creditorTaxId' trovato.");
+            return;
+        }
+
+        for (WebElement input : inputCodiciFiscali) {
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
+                input.click();
+                input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                input.sendKeys(Keys.DELETE);
+                input.sendKeys("77777777777");
+            } catch (Exception e) {
+                logger.warn("Errore durante l'inserimento del Codice fiscale ente creditore: " + e.getMessage());
+            }
+        }
+//        WebElement inputCodiceFiscale = getWebDriverWait(10)
+//                .withMessage("Impossibile trovare il campo 'Codice fiscale ente creditore'")
+//                .until(ExpectedConditions.elementToBeClickable(By.id("creditorTaxId")));
+//        inputCodiceFiscale.click();
+//        inputCodiceFiscale.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+//        inputCodiceFiscale.sendKeys(Keys.DELETE);
+//        inputCodiceFiscale.sendKeys("77777777777");
 
     }
 
@@ -351,12 +398,32 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void selezionaApplicaCostoNotifica() {
-        WebElement switchCostoNotifica = getWebDriverWait(10)
-                .withMessage("Impossibile trovare lo switch 'Applica costo di notifica'")
-                .until(ExpectedConditions.elementToBeClickable(
+        List<WebElement> switchContainers = getWebDriverWait(10)
+                .withMessage("Impossibile trovare uno o più switch 'Applica costo di notifica'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
                         By.xpath("//input[@id='applyCost']/parent::span")));
 
-        switchCostoNotifica.click();
+        if (switchContainers.isEmpty()) {
+            logger.warn("Nessuno switch 'Applica costo di notifica' trovato.");
+            return;
+        }
+
+        for (WebElement switchContainer : switchContainers) {
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(switchContainer));
+                switchContainer.click();
+            } catch (Exception e) {
+                logger.warn("Errore cliccando sullo switch: " + e.getMessage());
+            }
+        }
+
+
+//        WebElement switchCostoNotifica = getWebDriverWait(10)
+//                .withMessage("Impossibile trovare lo switch 'Applica costo di notifica'")
+//                .until(ExpectedConditions.elementToBeClickable(
+//                        By.xpath("//input[@id='applyCost']/parent::span")));
+//
+//        switchCostoNotifica.click();
     }
 
 
@@ -368,6 +435,17 @@ public class DestinatarioPage extends BasePage {
         js().executeScript("arguments[0].scrollIntoView(true);", pulsanteAggiungiF24);
         pulsanteAggiungiF24.click();
     }
+
+    public void clickSuAggiungiCodiceDiAvvisoPagoPa() {
+        WebElement pulsanteAggiungiCodiceDiAvvisoPagoPa = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il tasto Aggiungi Codice Di Avviso PagoPa")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='add-new-pagopa']")));
+
+        js().executeScript("arguments[0].scrollIntoView(true);", pulsanteAggiungiCodiceDiAvvisoPagoPa);
+        pulsanteAggiungiCodiceDiAvvisoPagoPa.click();
+    }
+
+
 
     public void inserisciTitoloDocumentoPosizioneDebitoria(int numNotifiche) {
 

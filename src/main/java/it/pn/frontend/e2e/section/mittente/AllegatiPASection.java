@@ -182,7 +182,7 @@ public class AllegatiPASection extends BasePage {
 
         campoNome.click();
         campoNome.clear(); // facoltativo, ma spesso utile
-        campoNome.sendKeys( new StringBuilder("Docuemnto_Doc_All_AvvisopagoPA_").append(numeroTitoloDoc));
+        campoNome.sendKeys( new StringBuilder("Docuemnto_Doc_All_").append(numeroTitoloDoc));
 
 
     }

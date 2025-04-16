@@ -541,4 +541,13 @@ public class DestinatarioPASection extends BasePage {
         WebElement generateApiKeyButton = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("courtesy-page-button")));
         generateApiKeyButton.click();
     }
+
+    public void verificaPresenzaSezionePagamenti() {
+        WebElement paymentBox = getWebDriverWait(10)
+                .withMessage("La sezione 'Pagamenti' non è presente nella pagina")
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.cssSelector("div[data-testid='paymentInfoBox']")));
+
+        Assertions.assertTrue(paymentBox.isDisplayed(), "La sezione 'Pagamenti' non è visibile");
+    }
 }
