@@ -3,7 +3,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
   @TestSuite
   @TA_VAS_37_38
   @NRT_PHYSICAL_ADDRESS_LOOKUP_ON
-  Scenario: [VAS_37_38] - Selezionando la modalità di inserimento manuale dell'indirizzo tramite il radio button <Inserimento manuale> In Aggiungi un destinatario
+  Scenario: [VAS_37_38_ON] - Selezionando la modalità di inserimento manuale dell'indirizzo tramite il radio button <Inserimento manuale> In Aggiungi un destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
 #    //TODO Verificare con quale accedere alla piattaforma
 

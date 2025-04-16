@@ -3,7 +3,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
   @TestSuite
   @TA_VAS_30
   @NRT_PHYSICAL_ADDRESS_LOOKUP_OFF
-  Scenario: [VAS_30] - La sezione "destinatari" relativa alla creazione della notifica, assenza radion Button Inserimento automatico e manuale
+  Scenario: [VAS_30_OFF] - La sezione "destinatari" relativa alla creazione della notifica, assenza radion Button Inserimento automatico e manuale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
 #    //TODO Verificare con quale accedere alla piattaforma
 
@@ -15,13 +15,13 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
 # VAS_30
-#    TODO da verificare
+#    TODO ok
     And Verifica assenza radion Button Inserimento automatico e manuale
 
-#    Then Nella section Destinatario si inseriscono i dati del destinatario
-#      | soggettoGiuridico       | PF               |
-#      | nomeCognomeDestinatario | Gaio Giulio      |
-#      | codiceFiscale           | CSRGGL44L13H501E |
+    Then Nella section Destinatario si inseriscono i dati del destinatario
+      | soggettoGiuridico       | PF               |
+      | nomeCognomeDestinatario | Gaio Giulio      |
+      | codiceFiscale           | CSRGGL44L13H501E |
 ##-------------------------------------------------------
 #  # TODO DA eliminare appena sale la feature
 #    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati

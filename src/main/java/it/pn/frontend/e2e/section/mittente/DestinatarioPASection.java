@@ -558,7 +558,7 @@ public class DestinatarioPASection extends BasePage {
     }
     public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
 
-        //posizione 1 si vuole aggiungere un destinatario
+        //posizione 1 ...n  si vuole aggiungere un destinatario
         try {
 
             List<WebElement> radioLabels = getWebDriverWait(15)
@@ -581,7 +581,7 @@ public class DestinatarioPASection extends BasePage {
             manualeInput.click();
         } catch (Exception e) {
             // Se il radio button non è trovato o non è cliccabile, non fa nulla
-            logger.info("Il radio button in selezionaRadionButtonInserimentoManuale  'Inserimento manuale' non è presente, si passa oltre.");
+            logger.info("Il radio button in selezionaRadionButtonInserimentoManuale DestinatarioPASection  'Inserimento manuale' non è presente, si passa oltre.");
         }
     }
 }

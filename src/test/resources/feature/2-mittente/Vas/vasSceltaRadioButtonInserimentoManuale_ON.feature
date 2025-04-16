@@ -3,7 +3,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
   @TestSuite
   @TA_VAS_36_35
   @NRT_PHYSICAL_ADDRESS_LOOKUP_ON
-  Scenario: [VAS_36_35] - Selezionando la modalità di inserimento manuale dell'indirizzo tramite il radio button <Inserimento manuale>
+  Scenario: [VAS_36_35_ON] - Selezionando la modalità di inserimento manuale dell'indirizzo tramite il radio button <Inserimento manuale>
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
 #    //TODO Verificare con quale accedere alla piattaforma
 
@@ -24,7 +24,6 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     # VAS_36
     #-------------------------------------------------------
     And Seleziona radion button Inserimento Manuale se esiste "0"
-     #      TODO verificare VAS
 
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma              |
