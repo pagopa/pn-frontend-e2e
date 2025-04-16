@@ -344,8 +344,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiRecuperaIlCodiceOTPTramiteChiamataRequestDellEmailEVieneInserito(String email) {
 
         String startUrl = webDriverConfig.getExternalChannels();
-        //String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + email;
+        String url = startUrl + "/" + recuperoOTPRecapiti.getUrlEndPoint() + email;
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -359,27 +358,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         else {
             Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
         }
-        /*else {
-            String variabileAmbiente = webDriverConfig.getEnvironment();
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
-            }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + email;
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-            if (results) {
-                String OTP = recuperoOTPRecapiti.getResponseBody();
-                iTuoiRecapitiPage.sendOTP(OTP);
-                webTool.waitTime(10);
-                recapitiDestinatarioPage.confermaButtonClickPopUp();
-                if (recapitiDestinatarioPage.waitMessaggioErrore()) {
-                    Assertions.fail("Il codice OTP inserito è sbagliato");
-                }
-            } else {
-                Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            }
-        }*/
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il codice OTP {string}")
@@ -499,8 +477,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
 
         String startUrl = webDriverConfig.getExternalChannels();
-        //String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getAdditionalEmail();
+        String url = startUrl + "/" + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getAdditionalEmail();
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -510,24 +487,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         else {
             Assertions.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
         }
-        /*else {
-            String variabileAmbiente = webDriverConfig.getEnvironment();
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
-            }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getAdditionalEmail();
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-            if (results) {
-                String OTP = recuperoOTPRecapiti.getResponseBody();
-                setOTP(OTP);
-                dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
-            } else {
-                logger.error("La chiamata non ha risposto correttamente con codice:" + recuperoOTPRecapiti.getResponseCode());
-                Assertions.fail("La chiamata non ha risposto correttamentecon codice:" + recuperoOTPRecapiti.getResponseCode());
-            }
-        }*/
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email")
@@ -620,8 +579,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
 
         String startUrl = webDriverConfig.getExternalChannels();
-        //String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmail();
+        String url = startUrl + "/" + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmail();
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -630,22 +588,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         else {
             Assertions.fail("La chiamata  con url: " + url + " ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
         }
-        /*else {
-            String variabileAmbiente = webDriverConfig.getEnvironment();
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
-            }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmail();
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-            if (results) {
-                String OTP = recuperoOTPRecapiti.getResponseBody();
-                dataPopulationConfig.getPersonaFisica().setOTPMail(OTP);
-            } else {
-                Assertions.fail("La chiamata  con url: " + url + " ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            }
-        }*/
     }
 
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up")
@@ -771,8 +713,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         String pec = dataPopulationConfig.getPersonaFisica().getPec();
 
         String startUrl = webDriverConfig.getExternalChannels();
-        //String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + pec;
+        String url = startUrl + "/" + recuperoOTPRecapiti.getUrlEndPoint() + pec;
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -781,24 +722,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         else {
             Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
         }
-        /*else {
-            String variabileAmbiente = webDriverConfig.getEnvironment();
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
-            }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getPec();
-            logger.info("Chiamata verifica PEC :" + url);
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-            if (results) {
-                String OTP = recuperoOTPRecapiti.getResponseBody();
-                dataPopulationConfig.getPersonaFisica().setOTPPec(OTP);
-            } else {
-                Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            }
-        }*/
-
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC {string} tramite chiamata request")
@@ -808,8 +731,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         String pec = emailPec;
 
         String startUrl = webDriverConfig.getExternalChannels();
-        //String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + pec;
+        String url = startUrl + "/" + recuperoOTPRecapiti.getUrlEndPoint() + pec;
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
            String  OTP = recuperoOTPRecapiti.getResponseBody();
@@ -818,23 +740,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         else {
             Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
         }
-        /*else {
-            String variabileAmbiente =webDriverConfig.getEnvironment();
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
-            }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + emailPec;
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-            if (results) {
-                String  OTP = recuperoOTPRecapiti.getResponseBody();
-                setOTP(OTP);
-            } else {
-                Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            }
-        }*/
-
     }
 
     @And("Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email {string} tramite chiamata request")
@@ -842,8 +747,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         logger.info("Si recupera il codice OTP della nuova email");
 
         String startUrl = webDriverConfig.getExternalChannels();
-        //String startUrl = "http://localhost:8887/";
-        String url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + mail;
+        String url = startUrl + "/" + recuperoOTPRecapiti.getUrlEndPoint() + mail;
         boolean results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
@@ -852,22 +756,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         else {
             Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
         }
-        /*else {
-            String variabileAmbiente = webDriverConfig.getEnvironment();
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                startUrl = "http://internal-pn-ec-Appli-L4ZIDSL1OIWQ-1000421895.eu-south-1.elb.amazonaws.com:8080/";
-            } else if (variabileAmbiente.equalsIgnoreCase("dev")) {
-                startUrl = "http://internal-ecsa-20230409091221502000000003-2047636771.eu-south-1.elb.amazonaws.com:8080/";
-            }
-            url = startUrl + recuperoOTPRecapiti.getUrlEndPoint() + mail;
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(url);
-            if (results) {
-                String OTP = recuperoOTPRecapiti.getResponseBody();
-                setOTP(OTP);
-            } else {
-                Assertions.fail("La chiamata ha risposto con questo codice: " + recuperoOTPRecapiti.getResponseCode());
-            }
-        }*/
         logger.info("OTP Ricuperato:" + getOTP());
 
     }
@@ -1142,19 +1030,18 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     private boolean changeStartUrl(String startUrl, boolean results, String persona) {
         if (persona.equalsIgnoreCase("personaGiuridica")) {
             logger.info("MAIL111..................{}", dataPopulationConfig.getPersonaGiuridica().getMail());
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + "/" + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getMail());
         } else {
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + "/" + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getMail());
         }
         return results;
     }
 
     private boolean changeStartUrlPec(String startUrl, boolean results, String persona){
-        logger.info("url external channels chiamato: {}", startUrl + recuperoOTPRecapiti.getUrlEndPoint());
         if(persona.equalsIgnoreCase("personaGiuridica")) {
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getEmailPec());
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + "/" + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaGiuridica().getEmailPec());
         }else {
-            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmailPec());
+            results = recuperoOTPRecapiti.runRecuperoOTPRecapiti(startUrl +  "/" + recuperoOTPRecapiti.getUrlEndPoint() + dataPopulationConfig.getPersonaFisica().getEmailPec());
         }
         return results;
     }
