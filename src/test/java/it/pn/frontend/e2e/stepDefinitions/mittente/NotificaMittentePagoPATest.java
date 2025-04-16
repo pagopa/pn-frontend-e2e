@@ -2176,6 +2176,15 @@ public class NotificaMittentePagoPATest  extends BasePage {
         allegatiPASection.inserisciTitoloDocumentoDocumentiAllegati(numeroTitoloDoc);
     }
 
+    @And("Verifica Presenza Sezione Pagamenti {int}")
+    public void verificaPresenzaSezionePagamenti(int numeroAvvisi) {
+        destinatarioPASection.verificaPresenzaSezionePagamenti( numeroAvvisi);
+    }
+
+    @And("Click Su Elimina")
+    public void clickSuElimina() { destinatarioPASection.clickSuElimina();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

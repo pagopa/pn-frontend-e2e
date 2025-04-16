@@ -541,4 +541,28 @@ public class DestinatarioPASection extends BasePage {
         WebElement generateApiKeyButton = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("courtesy-page-button")));
         generateApiKeyButton.click();
     }
+
+    public void verificaPresenzaSezionePagamenti(int numeroAvvisi) {
+
+
+            getWebDriverWait(10)
+                    .until(ExpectedConditions.numberOfElementsToBe(By.xpath("//span[contains(@class, 'css-kwxqgy')]"),numeroAvvisi )
+            );
+
+
+
+
+
+
+    }
+
+    public void clickSuElimina() {
+        WebElement eliminaButton = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il bottone 'Elimina'")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='pagopa-delete-button']")
+                ));
+
+        eliminaButton.click();
+    }
 }

@@ -1,10 +1,10 @@
 Feature: Mittente genera una notifica tramite destinatario con pec
 
   @TestSuite
-  @TA_PosizioneDebitoria_04
+  @TA_PosizioneDebitoria_06_07_08_09_10
   @NRT
 
-  Scenario: [Posizione_Debitoria_04] - Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione relativa all’inserimento delle informazioni dell’avviso di pagamento - solo un avviso PagoPa - forfettario e sincrona
+  Scenario: [Posizione_Debitoria_06_07_08_09_10] - Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per uno stesso destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
@@ -18,9 +18,22 @@ Feature: Mittente genera una notifica tramite destinatario con pec
 ## Step Dettaglio posizione debitoria
     And Seleziona Incluso Nell Atto
     And Seleziona Modo Sincrono
-##  Posizione debitoria di xxxxx
+##  Posizione debitoria di xxxx
     And Inserire Tutti Codice Avviso
     And Inserire Tutti Codice Fiscale Ente
+    And Carica File Posizione Debitoria Numero Notifiche Pari a 1
+
+    And Click Su Aggiungi Codice Di Avviso PagoPa
+    And Inserire Tutti Codice Avviso
+    And Inserire Tutti Codice Fiscale Ente
+    And Carica File Posizione Debitoria Numero Notifiche Pari a 2
+
+    And Click Su Elimina
+
+    And Click Su Aggiungi Codice Di Avviso PagoPa
+    And Inserire Tutti Codice Avviso
+    And Inserire Tutti Codice Fiscale Ente
+    And Carica File Posizione Debitoria Numero Notifiche Pari a 2
     And Cliccare su continua
  ## Documenti allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
@@ -32,5 +45,5 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Cliccare sul bottone Filtra
 #    And Si verifica che la notifica sia nello stato avanzato
     And Cliccare sulla notifica restituita
-    And Verifica Presenza Sezione Pagamenti 1
+    And Verifica Presenza Sezione Pagamenti 2
     
