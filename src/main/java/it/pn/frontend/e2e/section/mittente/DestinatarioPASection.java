@@ -566,7 +566,14 @@ public class DestinatarioPASection extends BasePage {
         comboBox.click();
         getWebDriverWait(10)
                 .until(ExpectedConditions.numberOfElementsToBe(
-                        By.cssSelector("ul[role='listbox'] > li[role='option']") , numeroDiPagamenti
+                        By.cssSelector("ul[role='listbox'] > li[role='option']"), numeroDiPagamenti
                 ));
+    }
+
+    public void verificaPresenzaSezionePagamentiNumeroModuliF(int numeroModuli) {
+
+        getWebDriverWait(10)
+                .until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("span[data-testid='f24']"), numeroModuli)
+                );
     }
 }

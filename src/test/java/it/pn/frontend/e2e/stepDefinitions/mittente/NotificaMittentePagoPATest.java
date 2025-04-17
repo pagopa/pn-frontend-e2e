@@ -543,7 +543,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @When("Cliccare sulla notifica restituita")
     public void cliccareSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
-        piattaformaNotifichePage.setHooksNew(hooksNew);
+//        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
@@ -2250,6 +2250,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Verifica Presenza Sezione Pagamenti nel menu a cascata {int}")
     public void verificaPresenzaSezionePagamentiNelMenuACascata(int numeroDiPagamenti) {
         destinatarioPASection.verificaPresenzaSezionePagamentiNelMenuACascata(numeroDiPagamenti);
+    }
+
+    @And("Verifica Presenza Sezione Pagamenti numero moduli F24 {int}")
+    public void verificaPresenzaSezionePagamentiNumeroModuliF( int numeroModuli) {
+        destinatarioPASection.verificaPresenzaSezionePagamentiNumeroModuliF(numeroModuli);
     }
 
 
