@@ -43,7 +43,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone "Trasferisci su SEND"
     And Click Attiva
     And Attesa 1 secondi
-    And Click Non ora
+    And Click Non ora Uat
     And Attesa 1 secondi
     And Click Lo Faro piu tardi
     And Attesa 1 secondi
