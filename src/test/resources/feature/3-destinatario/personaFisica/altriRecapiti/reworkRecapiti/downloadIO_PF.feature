@@ -6,12 +6,13 @@ Feature: Rework della pagina dei contatti
   @TA_NRT_UAT
   Scenario: [REWORK_DOMICILIO_DIGITALE_PF_37] - Attivazione Domicilio Digitale SERCQ SEND - Scaricamento app IO
     Given Login Page persona fisica test viene visualizzata
+    #Questo test in UAT richiede un account non abilitato a IO
     Given Login con persona fisica input
-      | user         | pluto-ta               |
+      | user         | cesare                 |
       | pwd          | password123            |
-      | name         | Rossi                  |
-      | familyName   | Pluto                  |
-      | fiscalNumber | TINIT-AAAAAA00A00A000B |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Verifica e Disattiva domicilio digitale
