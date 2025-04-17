@@ -69,6 +69,19 @@ public class AllegatiPASection extends BasePage {
             selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
         }
     }
+
+    public void caricareMultiplaNotificaPdfDalComputerNumeroNotifica(String pathNotificaFile) {
+        webTool.waitTime(20);
+        List<WebElement> fileInputs = driver.findElements(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/pdf']"));
+        if(!fileInputs.get(0).isDisplayed()){
+            js().executeScript("arguments[0].scrollIntoView(true)", fileInputs.get(0));
+            fileInputs.get(0).sendKeys(pathNotificaFile);
+        }else{
+            fileInputs.get(0).sendKeys(pathNotificaFile);
+        }
+    }
+
+
     public void messagioDiErroreDoc(){
         WebElement errorMessageDoc = driver.findElement(By.id("file-upload-error"));
         getWebDriverWait(5).withMessage("Il messagio di formato errato non è visibile").until(ExpectedConditions.visibilityOf(errorMessageDoc));

@@ -2086,8 +2086,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void selezionareDaImpostazioneLinguaLaLingua(String lingua) {
         piattaformaNotifichePage.selezionareDaImpostazioneLinguaLaLingua(lingua);
     }
-    @And("Carica File Posizione Debitoria Numero Notifiche Pari a {int}")
-    public void caricaFilePosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+
+    @And("Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaSingoloFilePdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
         logger.info("Carica File Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
         String basePath = "src/test/resources/notifichePdf/";
         String fileName;
@@ -2109,6 +2110,33 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     }
 
+    @And("Carica Multiplo File PDF Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaMultiploloFilePdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+        logger.info("Carica multiplo File Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
+        String basePath = "src/test/resources/notifichePdf/";
+        String fileName;
+
+        for (int i = 0; i < numNotifiche; i++) {
+
+             switch (i) {
+                 case 0 :
+                    fileName = "AvvisopagoPA_1.pdf";
+                    break;
+
+                 case 1 :
+                    fileName = "AvvisopagoPA_2.pdf";
+                    break;
+
+                 default :
+                        throw new IllegalArgumentException("Numero Multiplo di notifiche non supportato: " + numNotifiche);
+            }
+
+            File notificaFile = new File(basePath + fileName);
+            String pathNotificaFile = notificaFile.getAbsolutePath();
+            allegatiPASection.caricareMultiplaNotificaPdfDalComputerNumeroNotifica(pathNotificaFile);
+        }
+    }
+
     @And("Carica Json con Costi Posizione Debitoria Numero Notifiche Pari a {int}")
     public void caricaJsonConCostiPosizioneDebitoriaNumeroNotifichePariA(int numNotifiche) {
         logger.info("Carica Json con Costi Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
@@ -2121,7 +2149,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 fileName = "PN_F24_META-1_notifica_con_costi.json";
                 break;
             case 2:
-                fileName = "PN_F24_META-2_notifica_con_costi.json";
+                fileName = "PN_F24_META-1_notifica_con_costi.json";
                 break;
             case 3:
                 fileName = "PN_F24_META-3_notifica_con_costi.json";
@@ -2137,6 +2165,28 @@ public class NotificaMittentePagoPATest  extends BasePage {
         String pathNotificaFile = notificaFile.getAbsolutePath();
 
         allegatiPASection.caricareJsonDalComputer(pathNotificaFile);
+    }
+    @And("Carica File Formato errato Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaFilePdfFormatoErratoPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+        logger.info("Carica File Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
+        String basePath = "src/test/resources/notifichePdf/";
+        String fileName;
+
+        switch (numNotifiche) {
+            case 1:
+                fileName = "PN_F24_META-1_notifica_con_costi.json";
+                break;
+            case 2:
+                fileName = "PN_F24_META-1_notifica_con_costi.json";
+                break;
+            default:
+                throw new IllegalArgumentException("Numero di notifiche non supportato: " + numNotifiche);
+        }
+
+        File notificaFile = new File(basePath + fileName);
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
     }
 
     @And("Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a {int}")
@@ -2183,6 +2233,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Click Su Elimina")
     public void clickSuElimina() { destinatarioPASection.clickSuElimina();
+    }
+
+    @And("Verifica Presenza Sezione Pagamenti nel menu a cascata {int}")
+    public void verificaPresenzaSezionePagamentiNelMenuACascata(int numeroDiPagamenti) {
+        destinatarioPASection.verificaPresenzaSezionePagamentiNelMenuACascata(numeroDiPagamenti);
     }
 
     /**

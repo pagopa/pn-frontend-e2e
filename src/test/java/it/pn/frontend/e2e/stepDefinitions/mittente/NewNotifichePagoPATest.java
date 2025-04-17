@@ -97,19 +97,19 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.raddFlow(token,datiDestinatario.get("tipoDestinatario"), datiDestinatario.get("codiceFiscale"),operationId);
     }
 
-    @And("Seleziona Avviso PagoPA")
-    public void selezionaAvvisoPagoPA() {
-        destinatarioPage.selezionaAvvisoPagoPA();
+    @And("Seleziona Avviso PagoPA {int}")
+    public void selezionaAvvisoPagoPA(int numeroPosizioneDebitoria) {
+        destinatarioPage.selezionaAvvisoPagoPA( numeroPosizioneDebitoria);
     }
 
-    @And("Seleziona Avviso PagoPA add Modello F24")
-    public void selezionaAvvisoPagoPAaddModelloF24() {
-        destinatarioPage.selezionaAvvisoPagoPAaddModelloF24();
+    @And("Seleziona Avviso PagoPA add Modello F24 {int}")
+    public void selezionaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
+        destinatarioPage.selezionaAvvisoPagoPAaddModelloF24( numeroPosizioneDebitoria);
     }
 
-    @And("Seleziona Modello F24")
-    public void selezionaModelloF24() {
-        destinatarioPage.selezionaModelloF24();
+    @And("Seleziona Modello F24 {int}")
+    public void selezionaModelloF24(int numeroPosizioneDebitoria) {
+        destinatarioPage.selezionaModelloF24( numeroPosizioneDebitoria);
     }
 
     @And("Inserire Tutti Codice Avviso")
@@ -133,33 +133,35 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.verificaPresenzaSezioneDettaglioPosizioneDebitoria();
     }
 
-    @And("Seleziona Nessun Pagamento")
-    public void selezionaNessunPagamento() {
-        destinatarioPage.selezionaNessunPagamento();
+    @And("Seleziona Nessun Pagamento {int}")
+    public void selezionaNessunPagamento(int numeroPosizioneDebitoria) {
+        destinatarioPage.selezionaNessunPagamento(numeroPosizioneDebitoria);
     }
 
-    @And("Seleziona Incluso Nell Atto")
-    public void selezionaInclusoNellAtto() {
-        destinatarioPage.selezionaInclusoNellAtto();
+    @And("Seleziona Incluso Nell Atto {int}")
+    public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
+        destinatarioPage.selezionaInclusoNellAtto(numeroPosizioneDebitoria);
     }
-    @And("Seleziona A Carico del Destinataio")
-    public void selezionaACaricoDelDestinatario() {
-        destinatarioPage.selezionaACaricoDelDestinatario();
+    @And("Seleziona A Carico del Destinataio {int}")
+    public void selezionaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
+        destinatarioPage.selezionaACaricoDelDestinatario(numeroPosizioneDebitoria);
     }
 
-    @And("Seleziona Modo Sincrono")
-    public void selezionaModoSincrono() {
-        destinatarioPage.selezionaModoSincrono();
+    @And("Seleziona Modo Sincrono {int}")
+    public void selezionaModoSincrono(int numeroPosizioneDebitoria) {
+        destinatarioPage.selezionaModoSincrono(numeroPosizioneDebitoria);
     }
-    @And("Seleziona Modo Asincrono")
-    public void selezionaModoAsincrono() {
-        destinatarioPage.selezionaModoAsincrono();
+
+    @And("Seleziona Modo Asincrono {int}")
+    public void selezionaModoAsincrono(int numeroPosizioneDebitoria) {
+        destinatarioPage.selezionaModoAsincrono( numeroPosizioneDebitoria);
     }
 
     @And("Inserire Costo di notifica")
     public void inserireCostoDiNotifica() {
         destinatarioPage.inserireCostoDiNotifica();
     }
+
     @And("Inserire IVA")
     public void inserireIVA() {
         destinatarioPage.inserireIVA();
