@@ -2117,24 +2117,36 @@ public class NotificaMittentePagoPATest  extends BasePage {
         String fileName;
 
         for (int i = 0; i < numNotifiche; i++) {
-
              switch (i) {
                  case 0 :
                     fileName = "AvvisopagoPA_1.pdf";
                     break;
-
                  case 1 :
                     fileName = "AvvisopagoPA_2.pdf";
                     break;
-
                  default :
                         throw new IllegalArgumentException("Numero Multiplo di notifiche non supportato: " + numNotifiche);
             }
-
             File notificaFile = new File(basePath + fileName);
             String pathNotificaFile = notificaFile.getAbsolutePath();
             allegatiPASection.caricareMultiplaNotificaPdfDalComputerNumeroNotifica(pathNotificaFile);
         }
+    }
+
+    @And("Carica Multiplo File {int} non pdf o json e visualizza messaggio di errore {string}")
+    public void caricaMultiploFileNonPdfOJsonEVisualizzaMessaggioDiErrore(int numeroFile, String formatoFile) {
+        String basePath = "src/test/resources/notifichePdf/notifica.doc";
+        File notificaFile = new File(basePath);
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        for (int i = 0; i < numeroFile; i++) {
+            logger.info("caricaMultiploFileNonPdfOJsonEVisualizzaMessaggioDiErrore: " + i);
+            if (formatoFile.equalsIgnoreCase("json")) {
+                allegatiPASection.caricareMultiplaNotificaJsonDalComputerNumeroNotifica(pathNotificaFile, i);
+            } else {
+                allegatiPASection.caricareMultiplaNotificaPdfDalComputerNumeroNotifica(pathNotificaFile);
+            }
+        }
+        aspettaMessaggiErroreCaricamentoFile(numeroFile);
     }
 
     @And("Carica Json con Costi Posizione Debitoria Numero Notifiche Pari a {int}")
@@ -2192,7 +2204,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a {int}")
     public void caricaJsonSenzaCostiPosizioneDebitoriaNumeroNotifichePariA(int numNotifiche) {
         logger.info("Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
-        String basePath = "src/test/resources/notifichePdf/conCosti/";
+        String basePath = "src/test/resources/notifichePdf/senzaCosti/";
         String fileName;
 
         // Massimo 4 notifiche, minimo 1
@@ -2240,6 +2252,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.verificaPresenzaSezionePagamentiNelMenuACascata(numeroDiPagamenti);
     }
 
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
@@ -2278,6 +2291,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
 
 
+    }
+    public void aspettaMessaggiErroreCaricamentoFile(int numeroAtteso) {
+        getWebDriverWait(10).until(ExpectedConditions.numberOfElementsToBe(
+                By.cssSelector("#file-upload-error"),
+                numeroAtteso
+        ));
     }
 
     private void populateDestinatarioPASection(String persona, int recIndex) {

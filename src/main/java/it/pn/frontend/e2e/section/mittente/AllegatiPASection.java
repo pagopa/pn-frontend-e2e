@@ -81,6 +81,17 @@ public class AllegatiPASection extends BasePage {
         }
     }
 
+    public void caricareMultiplaNotificaJsonDalComputerNumeroNotifica(String pathNotificaFile,int posizione) {
+        webTool.waitTime(20);
+        List<WebElement> fileInputs = driver.findElements(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/json']"));
+        if(!fileInputs.get(posizione).isDisplayed()){
+            js().executeScript("arguments[0].scrollIntoView(true)", fileInputs.get(0));
+            fileInputs.get(posizione).sendKeys(pathNotificaFile);
+        }else{
+            fileInputs.get(posizione).sendKeys(pathNotificaFile);
+        }
+    }
+
 
     public void messagioDiErroreDoc(){
         WebElement errorMessageDoc = driver.findElement(By.id("file-upload-error"));
