@@ -544,16 +544,9 @@ public class DestinatarioPASection extends BasePage {
 
     public void verificaPresenzaSezionePagamenti(int numeroAvvisi) {
 
-
             getWebDriverWait(10)
                     .until(ExpectedConditions.numberOfElementsToBe(By.xpath("//span[contains(@class, 'css-kwxqgy')]"),numeroAvvisi )
             );
-
-
-
-
-
-
     }
 
     public void clickSuElimina() {
@@ -564,5 +557,16 @@ public class DestinatarioPASection extends BasePage {
                 ));
 
         eliminaButton.click();
+    }
+
+    public void verificaPresenzaSezionePagamentiNelMenuACascata(int numeroDiPagamenti) {
+        // Apri il dropdown
+        WebElement comboBox = driver.findElement(By.cssSelector("div[role='combobox']"));
+        comboBox.click();
+
+        getWebDriverWait(10)
+                .until(ExpectedConditions.numberOfElementsToBe(
+                        By.cssSelector("ul[role='listbox'] > li[role='option']") , numeroDiPagamenti
+                ));
     }
 }

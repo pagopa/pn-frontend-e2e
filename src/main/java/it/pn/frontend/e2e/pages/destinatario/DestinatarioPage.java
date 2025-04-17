@@ -242,43 +242,43 @@ public class DestinatarioPage extends BasePage {
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
     }
 
-    public void selezionaAvvisoPagoPA() {
-        selezionaRadioButtonPerValore("PAGO_PA");
+    public void selezionaAvvisoPagoPA(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("PAGO_PA", numeroPosizioneDebitoria);
     }
 
-    public void selezionaModelloF24() {
-        selezionaRadioButtonPerValore("F24");
+    public void selezionaModelloF24(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("F24",numeroPosizioneDebitoria);
     }
 
-    public void selezionaAvvisoPagoPAaddModelloF24() {
-        selezionaRadioButtonPerValore("PAGO_PA_F24");
+    public void selezionaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("PAGO_PA_F24",numeroPosizioneDebitoria);
     }
 
-    public void selezionaNessunPagamento() {
-        selezionaRadioButtonPerValore("NOTHING");
+    public void selezionaNessunPagamento(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("NOTHING",numeroPosizioneDebitoria);
     }
 
-    public void selezionaInclusoNellAtto() {
-        selezionaRadioButtonPerValore("FLAT_RATE");
+    public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("FLAT_RATE",numeroPosizioneDebitoria);
     }
-    public void selezionaACaricoDelDestinatario() {
-        selezionaRadioButtonPerValore("DELIVERY_MODE");
-    }
-
-    public void selezionaModoAsincrono() {
-        selezionaRadioButtonPerValore("ASYNC");
+    public void selezionaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("DELIVERY_MODE",numeroPosizioneDebitoria);
     }
 
-    public void selezionaModoSincrono() {
-        selezionaRadioButtonPerValore("SYNC");
+    public void selezionaModoAsincrono(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("ASYNC",numeroPosizioneDebitoria);
+    }
+
+    public void selezionaModoSincrono(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("SYNC",numeroPosizioneDebitoria);
     }
 
 
-    public void selezionaRadioButtonPerValore(String value) {
+    public void selezionaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
         WebElement label = getWebDriverWait(10)
                 .withMessage("Impossibile selezionare radion button: "+value)
                 .until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//input[@type='radio' and @value='" + value + "']/ancestor::label")));
+                        By.xpath("(//input[@type='radio' and @value='" + value + "']/ancestor::label)[" + numeroPosizioneDebitoria + "]")));
         label.click();
     }
 

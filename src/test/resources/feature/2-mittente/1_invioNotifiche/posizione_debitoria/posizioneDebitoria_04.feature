@@ -1,4 +1,4 @@
-Feature: Mittente genera una notifica tramite destinatario con pec
+Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione relativa all’inserimento delle informazioni dell’avviso di pagamento - solo un avviso PagoPa - forfettario e sincrona
 
   @TestSuite
   @TA_PosizioneDebitoria_04
@@ -13,17 +13,17 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Cliccare su continua
 #    Posizione Devitoria 04
-    And Seleziona Avviso PagoPA
+    When Seleziona Avviso PagoPA 1
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria
-    And Seleziona Incluso Nell Atto
-    And Seleziona Modo Sincrono
+    When Seleziona Incluso Nell Atto 1
+    And Seleziona Modo Sincrono 1
 ##  Posizione debitoria di xxxxx
     And Inserire Tutti Codice Avviso
     And Inserire Tutti Codice Fiscale Ente
     And Cliccare su continua
  ## Documenti allegati
-    And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
+    Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche

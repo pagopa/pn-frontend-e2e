@@ -1,10 +1,10 @@
-Feature: Mittente genera una notifica tramite destinatario con pec
+Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per uno stesso destinatario
 
   @TestSuite
-  @TA_PosizioneDebitoria_06_07_08_09_10
+  @TA_PosizioneDebitoria_06_07_09_10
   @NRT
 
-  Scenario: [Posizione_Debitoria_06_07_08_09_10] - Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per uno stesso destinatario
+  Scenario: [Posizione_Debitoria_06_07_09_10] - Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per uno stesso destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
@@ -12,28 +12,37 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Cliccare su continua
-#    Posizione Devitoria 04
-    And Seleziona Avviso PagoPA
+#    Posizione Devitoria
+    And Seleziona Avviso PagoPA 1
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria
-    And Seleziona Incluso Nell Atto
-    And Seleziona Modo Sincrono
+    And Seleziona A Carico del Destinataio 1
+    And Inserire IVA
+    And Inserire Costo di notifica
+    And Seleziona Incluso Nell Atto 1
+    And Seleziona A Carico del Destinataio 1
+    And Inserire IVA
+    And Inserire Costo di notifica
+    And Seleziona Modo Sincrono 1
 ##  Posizione debitoria di xxxx
     And Inserire Tutti Codice Avviso
     And Inserire Tutti Codice Fiscale Ente
-    And Carica File Posizione Debitoria Numero Notifiche Pari a 1
-
+#  PosizioneDebitoria_09
+    And Nella section Allegati si carica un atto non pdf e visualizza messaggio di errore
+    #  PosizioneDebitoria_10
+    And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 1
     And Click Su Aggiungi Codice Di Avviso PagoPa
     And Inserire Tutti Codice Avviso
     And Inserire Tutti Codice Fiscale Ente
-    And Carica File Posizione Debitoria Numero Notifiche Pari a 2
+    And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
 
     And Click Su Elimina
 
     And Click Su Aggiungi Codice Di Avviso PagoPa
     And Inserire Tutti Codice Avviso
     And Inserire Tutti Codice Fiscale Ente
-    And Carica File Posizione Debitoria Numero Notifiche Pari a 2
+    And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
+    And Seleziona Applica Costo Notifica
     And Cliccare su continua
  ## Documenti allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
