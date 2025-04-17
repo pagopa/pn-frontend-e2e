@@ -16,6 +16,6 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisicaPec" destinatario 0
     And Cliccare su continua
     And Si verifica la presenza della sezione Posizione Debitoria
-    And Seleziona Avviso PagoPA
+    And Seleziona Avviso PagoPA 1
     And Cliccare su continua
     And Si verifica la presenza della sezione Dettaglio Posizione Debitoria
