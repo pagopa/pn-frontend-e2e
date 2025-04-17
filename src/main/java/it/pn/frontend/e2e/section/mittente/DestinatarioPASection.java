@@ -560,10 +560,10 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void verificaPresenzaSezionePagamentiNelMenuACascata(int numeroDiPagamenti) {
-        // Apri il dropdown
-        WebElement comboBox = driver.findElement(By.cssSelector("div[role='combobox']"));
+        WebElement comboBox = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare sul menu a discesa")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[role='combobox']")));
         comboBox.click();
-
         getWebDriverWait(10)
                 .until(ExpectedConditions.numberOfElementsToBe(
                         By.cssSelector("ul[role='listbox'] > li[role='option']") , numeroDiPagamenti
