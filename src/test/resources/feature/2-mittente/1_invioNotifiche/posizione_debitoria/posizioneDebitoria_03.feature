@@ -4,7 +4,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
   @TA_PosizioneDebitoria_03
   @NRT
 
-  Scenario: Posizione_Debitoria_03 - verificare che l’opzione scelta nello step Posizione debitoria resti selezionata nonostante si vada allo step precedente o successivo del form
+  Scenario: [Posizione_Debitoria_03] - verificare che l’opzione scelta nello step Posizione debitoria resti selezionata nonostante si vada allo step precedente o successivo del form
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
