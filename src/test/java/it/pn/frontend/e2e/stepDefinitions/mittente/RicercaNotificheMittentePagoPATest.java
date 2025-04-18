@@ -151,8 +151,8 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica")
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
-//        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
-        piattaformaNotifichePage.inserimentoCodiceIUN("ZLWP-NRHQ-HVXR-202504-D-1");
+        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
+//        piattaformaNotifichePage.inserimentoCodiceIUN("ZLWP-NRHQ-HVXR-202504-D-1");
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")

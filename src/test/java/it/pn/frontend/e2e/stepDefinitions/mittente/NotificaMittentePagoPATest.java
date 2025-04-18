@@ -543,7 +543,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @When("Cliccare sulla notifica restituita")
     public void cliccareSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
-//        piattaformaNotifichePage.setHooksNew(hooksNew);
+        piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
