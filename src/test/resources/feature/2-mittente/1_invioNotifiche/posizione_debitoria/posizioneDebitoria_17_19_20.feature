@@ -1,8 +1,8 @@
-Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui è indirizzata la notifica
+Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario - con n diverso da m
 
   @TestSuite
-    @TA_PosizioneDebitoria_17_19_20
-    @NRT
+  @TA_PosizioneDebitoria_17_19_20
+  @NRT
 
   Scenario: [Posizione_Debitoria_17_19_20] - Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario - con n diverso da m
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

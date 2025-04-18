@@ -361,6 +361,55 @@ public class DestinatarioPage extends BasePage {
 
     }
 
+    public void inserireTuttiCodiceAvvisoErrati() {
+
+        List<WebElement> inputCodiciAvviso = getWebDriverWait(10)
+                .withMessage("Impossibile trovare input con id='noticeCode'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#noticeCode")));
+
+        if (inputCodiciAvviso.isEmpty()) {
+            logger.warn("Nessun campo 'noticeCode' trovato.");
+            return;
+        }
+
+        for (WebElement input : inputCodiciAvviso) {
+
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
+                input.click();
+                input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                input.sendKeys(Keys.DELETE);
+                input.sendKeys("Error");
+            } catch (Exception e) {
+                Assertions.fail("Errore durante l'inserimento del codice nel campo noticeCode", e);
+            }
+        }
+    }
+
+    public void inserireTuttiCodiceFiscaleEnteErrati() {
+        List<WebElement> inputCodiciFiscali = getWebDriverWait(10)
+                .withMessage("Impossibile trovare i campi 'Codice fiscale ente creditore'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#creditorTaxId")));
+
+        if (inputCodiciFiscali.isEmpty()) {
+            logger.warn("Nessun campo 'creditorTaxId' trovato.");
+            return;
+        }
+
+        for (WebElement input : inputCodiciFiscali) {
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
+                input.click();
+                input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                input.sendKeys(Keys.DELETE);
+                input.sendKeys("Error");
+            } catch (Exception e) {
+                Assertions.fail("Errore durante l'inserimento del Codice fiscale ente creditore", e);
+            }
+        }
+
+    }
+
 
     public void inserireIVA() {
         WebElement campoIva  = getWebDriverWait(10)

@@ -121,6 +121,15 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.inserireTuttiCodiceFiscaleEnte();
     }
 
+    @And("Inserire Tutti Codice Avviso Errati")
+    public void inserireTuttiCodiceAvvisoErrati() {
+        destinatarioPage.inserireTuttiCodiceAvvisoErrati();
+    }
+    @And("Inserire Tutti Codice Fiscale Ente Errati")
+    public void inserireTuttiCodiceFiscaleEnteErrati() {
+        destinatarioPage.inserireTuttiCodiceFiscaleEnteErrati();
+    }
+
     @And("Si verifica la presenza della sezione Posizione Debitoria")
     public void siVerificaPresenzaSezionePosizioneDebitoria() {
         logger.info("Si verifica la presenza della sezione Posizione Debitoria");
