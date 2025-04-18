@@ -299,10 +299,11 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void verificaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
-        getWebDriverWait(10)
-                .withMessage("Valore radio button non previsto: "+value)
-                .until(ExpectedConditions.elementToBeSelected(
+        WebElement label = getWebDriverWait(10)
+                .withMessage("Valore radio button non cliccabile: "+value)
+                .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("(//input[@type='radio' and @value='" + value + "']/ancestor::label)[" + numeroPosizioneDebitoria + "]")));
+        Assertions.assertTrue(label.findElement(By.tagName("input")).isSelected(), "Valore radio button non previsto: " + value);
     }
 
     public void verificaPresenzaSezionePosizioneDebitoria() {
