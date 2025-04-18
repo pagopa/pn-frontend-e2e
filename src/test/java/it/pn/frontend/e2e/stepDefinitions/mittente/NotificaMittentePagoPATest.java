@@ -2095,7 +2095,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a {int}")
     public void caricaSingoloFilePdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
-        logger.info("Carica File Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
         String basePath = "src/test/resources/notifichePdf/";
         String fileName;
 
@@ -2115,13 +2114,14 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
         File notificaFile = new File(basePath + fileName);
         String pathNotificaFile = notificaFile.getAbsolutePath();
-        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+        allegatiPASection.caricareSingolaNotificaPdfDalComputer(pathNotificaFile,0);
 
     }
 
     @And("Carica Multiplo File PDF Posizione Debitoria Numero Notifiche Pari a {int}")
     public void caricaMultiploloFilePdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
-        logger.info("Carica multiplo File Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
+
+        //Inserire nello stesso step i file
         String basePath = "src/test/resources/notifichePdf/";
         String fileName;
 
@@ -2141,7 +2141,70 @@ public class NotificaMittentePagoPATest  extends BasePage {
             }
             File notificaFile = new File(basePath + fileName);
             String pathNotificaFile = notificaFile.getAbsolutePath();
-            allegatiPASection.caricareMultiplaNotificaPdfDalComputerNumeroNotifica(pathNotificaFile);
+            allegatiPASection.caricareSingolaNotificaPdfDalComputer(pathNotificaFile,0);
+        }
+    }
+
+
+    @And("Carica Multiplo File JSON senza costi Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaMultiploloFileJsonSenzacostiPdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+        //Inserire nello stesso step i file
+        String basePath = "src/test/resources/notifichePdf/senzaCosti/";
+        String fileName;
+
+        for (int i = 0; i < numNotifiche; i++) {
+            switch (numNotifiche) {
+                case 0:
+                    fileName = "PN_F24_META-1_notifica_senza_costi.json";
+                    break;
+                case 1:
+                    fileName = "PN_F24_META-1_notifica_senza_costi.json";
+                    break;
+                case 2:
+                    fileName = "PN_F24_META-3_notifica_senza_costi.json";
+                    break;
+                case 3:
+                    fileName = "PN_F24_META-4_notifica_senza_costi.json";
+                    break;
+                default:
+                    throw new IllegalArgumentException("Senza Costi Numero di notifiche non supportato: " + numNotifiche);
+            }
+
+            File notificaFile = new File(basePath + fileName);
+            String pathNotificaFile = notificaFile.getAbsolutePath();
+
+            allegatiPASection.caricareSingolaNotificaJsonDalComputer(pathNotificaFile,0);
+        }
+    }
+
+    @And("Carica Multiplo File JSON con costi Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaMultiploloFileJsonConcostiPdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+        //Inserire nello stesso step i file
+        String basePath = "src/test/resources/notifichePdf/conCosti/";
+        String fileName;
+
+        for (int i = 0; i < numNotifiche; i++) {
+            switch (numNotifiche) {
+                case 0:
+                    fileName = "PN_F24_META-1_notifica_con_costi.json";
+                    break;
+                case 1:
+                    fileName = "PN_F24_META-1_notifica_con_costi.json";
+                    break;
+                case 2:
+                    fileName = "PN_F24_META-3_notifica_con_costi.json";
+                    break;
+                case 3:
+                    fileName = "PN_F24_META-4_notifica_con_costi.json";
+                    break;
+                default:
+                    throw new IllegalArgumentException("Con Costo Numero di notifiche non supportato: " + numNotifiche);
+            }
+
+            File notificaFile = new File(basePath + fileName);
+            String pathNotificaFile = notificaFile.getAbsolutePath();
+
+            allegatiPASection.caricareSingolaNotificaJsonDalComputer(pathNotificaFile,0);
         }
     }
 
@@ -2153,9 +2216,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
         for (int i = 0; i < numeroFile; i++) {
             logger.info("caricaMultiploFileNonPdfOJsonEVisualizzaMessaggioDiErrore: " + i);
             if (formatoFile.equalsIgnoreCase("json")) {
-                allegatiPASection.caricareMultiplaNotificaJsonDalComputerNumeroNotifica(pathNotificaFile, i);
+                allegatiPASection.caricareSingolaNotificaJsonDalComputer(pathNotificaFile, i);
             } else {
-                allegatiPASection.caricareMultiplaNotificaPdfDalComputerNumeroNotifica(pathNotificaFile);
+                allegatiPASection.caricareSingolaNotificaPdfDalComputer(pathNotificaFile,i);
             }
         }
         aspettaMessaggiErroreCaricamentoFile(numeroFile);
@@ -2240,7 +2303,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         File notificaFile = new File(basePath + fileName);
         String pathNotificaFile = notificaFile.getAbsolutePath();
 
-        allegatiPASection.caricareJsonDalComputer(pathNotificaFile);
+        allegatiPASection.caricareSingolaNotificaJsonDalComputer(pathNotificaFile,0);
     }
 
 
@@ -2270,6 +2333,22 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Verifica Presenza Sezione Pagamenti numero moduli F24 {int}")
     public void verificaPresenzaSezionePagamentiNumeroModuliF( int numeroModuli) {
         destinatarioPASection.verificaPresenzaSezionePagamentiNumeroModuliF(numeroModuli);
+    }
+
+    @And("Verifica Disabilitato Tasto Continua")
+    public void verificaDisabilitatoTastoContinua() {
+        destinatarioPASection.verificaDisabilitatoTastoContinua();
+    }
+
+    @And("Verifica Errori Codici Avviso NonValidi {int}")
+    public void verificaErroriCodiciAvvisoNonValidi(int numeroAttesi) {
+        destinatarioPASection.verificaErroriCodiciAvvisoNonValidi(numeroAttesi);
+    }
+
+    @And("Verifica Errori Codice Fiscale Ente NonValidi {int}")
+    public void verificaErroriCodiceFiscaleEnteNonValidi(int numeroAttesi) {
+        destinatarioPASection.verificaErroriCodiceFiscaleEnteNonValidi( numeroAttesi);
+
     }
 
 

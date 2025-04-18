@@ -70,22 +70,22 @@ public class AllegatiPASection extends BasePage {
         }
     }
 
-    public void caricareMultiplaNotificaPdfDalComputerNumeroNotifica(String pathNotificaFile) {
+    public void caricareSingolaNotificaPdfDalComputer(String pathNotificaFile, int posizione) {
         webTool.waitTime(20);
         List<WebElement> fileInputs = driver.findElements(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/pdf']"));
-        if(!fileInputs.get(0).isDisplayed()){
-            js().executeScript("arguments[0].scrollIntoView(true)", fileInputs.get(0));
-            fileInputs.get(0).sendKeys(pathNotificaFile);
+        if(!fileInputs.get(posizione).isDisplayed()){
+            js().executeScript("arguments[0].scrollIntoView(true)", fileInputs.get(posizione));
+            fileInputs.get(posizione).sendKeys(pathNotificaFile);
         }else{
-            fileInputs.get(0).sendKeys(pathNotificaFile);
+            fileInputs.get(posizione).sendKeys(pathNotificaFile);
         }
     }
 
-    public void caricareMultiplaNotificaJsonDalComputerNumeroNotifica(String pathNotificaFile,int posizione) {
+    public void caricareSingolaNotificaJsonDalComputer(String pathNotificaFile,int posizione) {
         webTool.waitTime(20);
         List<WebElement> fileInputs = driver.findElements(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/json']"));
         if(!fileInputs.get(posizione).isDisplayed()){
-            js().executeScript("arguments[0].scrollIntoView(true)", fileInputs.get(0));
+            js().executeScript("arguments[0].scrollIntoView(true)", fileInputs.get(posizione));
             fileInputs.get(posizione).sendKeys(pathNotificaFile);
         }else{
             fileInputs.get(posizione).sendKeys(pathNotificaFile);

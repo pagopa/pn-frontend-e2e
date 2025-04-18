@@ -1,4 +1,4 @@
-Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui è indirizzata la notifica
+Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
 
   @TestSuite
     @TA_PosizioneDebitoria_13_15
@@ -19,9 +19,6 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui �
 ## Step Dettaglio posizione debitoria
     When Seleziona Incluso Nell Atto 1
     And Seleziona Modo Sincrono 1
-
-
-
 
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 1
     And Inserisci Titolo Documento Posizione Debitoria 1

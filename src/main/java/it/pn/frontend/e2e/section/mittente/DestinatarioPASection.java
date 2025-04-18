@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class DestinatarioPASection extends BasePage {
@@ -581,5 +582,51 @@ public class DestinatarioPASection extends BasePage {
         getWebDriverWait(10)
                 .until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("span[data-testid='f24']"), numeroModuli)
                 );
+    }
+
+    public void verificaDisabilitatoTastoContinua() {
+        By bottoneContinua = By.id("step-submit");
+        WebElement continuaBtn = getWebDriverWait(10)
+                .withMessage("Il bottone 'Continua' non è presente")
+                .until(ExpectedConditions.presenceOfElementLocated(bottoneContinua));
+
+        // Verifica che sia disabilitato (non cliccabile)
+        Assertions.assertFalse(
+                continuaBtn.isEnabled(),
+                "Il bottone 'Continua' dovrebbe essere disabilitato, ma risulta cliccabile."
+        );
+    }
+
+    public void verificaErroriCodiciAvvisoNonValidi(int numeroAttesi) {
+        List<WebElement> errori = getWebDriverWait(10)
+                .withMessage("Messaggi di errore per i codici avviso non trovati.")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("noticeCode-helper-text")));
+
+        List<WebElement> erroriVisibili = errori.stream()
+                .filter(WebElement::isDisplayed)
+                .toList();
+
+        Assertions.assertEquals(
+                numeroAttesi,
+                erroriVisibili.size(),
+                "Il numero di messaggi di errore visibili non corrisponde a quello atteso."
+        );
+    }
+
+    public void verificaErroriCodiceFiscaleEnteNonValidi(int numeroAttesi) {
+        List<WebElement> errori = getWebDriverWait(10)
+                .withMessage("Messaggi di errore per i codici fiscali ente creditore non trovati.")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("creditorTaxId-helper-text")));
+
+        // Filtra solo quelli visibili
+        List<WebElement> erroriVisibili = errori.stream()
+                .filter(WebElement::isDisplayed)
+                .toList();
+
+        Assertions.assertEquals(
+                numeroAttesi,
+                erroriVisibili.size(),
+                "Il numero di messaggi di errore visibili per i codici fiscali ente creditore non corrisponde a quello atteso."
+        );
     }
 }
