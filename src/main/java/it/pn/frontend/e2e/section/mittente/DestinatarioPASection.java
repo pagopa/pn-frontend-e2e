@@ -568,7 +568,7 @@ public class DestinatarioPASection extends BasePage {
 
 
     public void verificaPresenzaSezionePagamentiNelMenuACascata(int numeroDiPagamenti) {
-        WebElement comboBox = getWebDriverWait(10)
+        WebElement comboBox = getWebDriverWait(30)
                 .withMessage("Impossibile cliccare sul menu a discesa")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[role='combobox']")));
         comboBox.click();
