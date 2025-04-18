@@ -115,17 +115,4 @@ public class RicercaNotifichePGPage extends BasePage {
         }
     }
 
-//    public void cliccaSuPrimaNotifica(){
-//        try {
-//            webTool.waitTime(10);
-//            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable((By.id("notificationsTable.body.row"))));
-//            logger.info("Si clicca sulla prima notifica");
-//            primaNotifica = driver.findElement(By.id("notificationsTable.body.row"));
-//            primaNotifica.click();
-//        } catch (Exception e) {
-//            logger.error("Non si clicca sulla prima notifica con errore:" + e.getMessage());
-//            Assertions.fail("Non si clicca sulla prima notifica con errore:" + e.getMessage());
-//        }
-//
-//    }
 }

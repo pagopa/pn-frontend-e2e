@@ -353,24 +353,9 @@ public class DestinatarioPage extends BasePage {
                 input.sendKeys(Keys.DELETE);
                 input.sendKeys(codiceAvviso);
             } catch (Exception e) {
-                logger.warn("Impossibile inserire codice in un input 'noticeCode': " + e.getMessage());
+                Assertions.fail("Errore durante l'inserimento del codice nel campo noticeCode", e);
             }
         }
-//        String[] prefissi = {"3020101244636", "3020401244637"};
-//
-//        Random random = new Random();
-//        String prefisso = prefissi[random.nextInt(prefissi.length)];
-//
-//        int parteRandom = random.nextInt(100000);
-//        String parteRandomStr = String.format("%05d", parteRandom);
-//
-//        String codiceAvviso = prefisso + parteRandomStr;
-//
-//        WebElement inputCodiceAvviso = getWebDriverWait(10)
-//                .withMessage("Inpossibile trovare Codice Avviso ")
-//                .until(ExpectedConditions.elementToBeClickable(By.id("noticeCode")));
-//        inputCodiceAvviso.clear();
-//        inputCodiceAvviso.sendKeys(codiceAvviso);
     }
 
     public void inserireTuttiCodiceFiscaleEnte() {
@@ -391,16 +376,9 @@ public class DestinatarioPage extends BasePage {
                 input.sendKeys(Keys.DELETE);
                 input.sendKeys("77777777777");
             } catch (Exception e) {
-                logger.warn("Errore durante l'inserimento del Codice fiscale ente creditore: " + e.getMessage());
+                Assertions.fail("Errore durante l'inserimento del Codice fiscale ente creditore", e);
             }
         }
-//        WebElement inputCodiceFiscale = getWebDriverWait(10)
-//                .withMessage("Impossibile trovare il campo 'Codice fiscale ente creditore'")
-//                .until(ExpectedConditions.elementToBeClickable(By.id("creditorTaxId")));
-//        inputCodiceFiscale.click();
-//        inputCodiceFiscale.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-//        inputCodiceFiscale.sendKeys(Keys.DELETE);
-//        inputCodiceFiscale.sendKeys("77777777777");
 
     }
 
@@ -436,17 +414,9 @@ public class DestinatarioPage extends BasePage {
                 getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(switchContainer));
                 switchContainer.click();
             } catch (Exception e) {
-                logger.warn("Errore cliccando sullo switch: " + e.getMessage());
+                Assertions.fail("Errore cliccando su Applica costo di notifica: "+ e.getMessage());
             }
         }
-
-
-//        WebElement switchCostoNotifica = getWebDriverWait(10)
-//                .withMessage("Impossibile trovare lo switch 'Applica costo di notifica'")
-//                .until(ExpectedConditions.elementToBeClickable(
-//                        By.xpath("//input[@id='applyCost']/parent::span")));
-//
-//        switchCostoNotifica.click();
     }
 
 
@@ -472,10 +442,10 @@ public class DestinatarioPage extends BasePage {
 
     public void inserisciTitoloDocumentoPosizioneDebitoria(int numNotifiche) {
 
-        StringBuilder fileName = new StringBuilder("Documento_Pos_Deb_AvvisopagoPA_");
+        StringBuilder fileName = new StringBuilder("Documento_");
 
         List<WebElement> campiTitolo = getWebDriverWait(10)
-                .withMessage("Impossibile inserire il Titolo Documento Posizione Debitoria num: "+ (numNotifiche -1))
+                .withMessage("Impossibile inserire il Titolo Documento num: "+ (numNotifiche -1))
                 .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("input[name='name']"), numNotifiche -1));
 
         WebElement campo = campiTitolo.get(numNotifiche -1);

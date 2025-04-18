@@ -252,7 +252,6 @@ public class DestinatarioPASection extends BasePage {
         inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]", destinatari.getPersone().get(i).getName());
         inserireInfoMultiDestinatario("//input[contains(@id,'lastName')]", destinatari.getPersone().get(i).getFamilyName());
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", destinatari.getPersone().get(i).getCodiceFiscale());
-       // selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     public void inserimentoInformazioniAggiuntive(PersoneFisiche destinatari, int i) {
@@ -378,15 +377,11 @@ public class DestinatarioPASection extends BasePage {
         ragioneSociale.sendKeys(destinatario.get("ragioneSociale"));
         WebElement secondCodiceFiscale = driver.findElement(By.id("recipients[1].taxId"));
         secondCodiceFiscale.sendKeys(destinatario.get("codiceFiscale"));
-//        WebElement addSecondPec = driver.findElement(By.xpath("//*[@data-testid='recipients[1].digitalDomicileCheckbox']"));
-//        addSecondPec.click();
         //Check per casi di test con pec di piattaforma mancante (irreperibile o deceduto)
         if (destinatario.get("pec") != null) {
             WebElement secondPecField = driver.findElement(By.id("recipients[1].digitalDomicile"));
             secondPecField.sendKeys(destinatario.get("pec"));
         }
-//        WebElement addSecondAddress = driver.findElement(By.xpath("//label[@data-testid='showPhysicalAddress1']"));
-//        addSecondAddress.click();
         WebElement secondAddress = driver.findElement(By.id("recipients[1].address"));
         secondAddress.sendKeys(destinatario.get("indirizzo"));
         WebElement secondNumber = driver.findElement(By.id("recipients[1].houseNumber"));
@@ -549,15 +544,26 @@ public class DestinatarioPASection extends BasePage {
             );
     }
 
-    public void clickSuElimina() {
+    public void clickSuEliminaAvvisoPagoPa() {
         WebElement eliminaButton = getWebDriverWait(10)
-                .withMessage("Impossibile trovare il bottone 'Elimina'")
+                .withMessage("Impossibile trovare il bottone Elimina AvvisoPagoPa")
                 .until(ExpectedConditions.elementToBeClickable(
                         By.cssSelector("button[data-testid='pagopa-delete-button']")
                 ));
 
         eliminaButton.click();
     }
+
+    public void clickSuEliminaModelloF24() {
+        WebElement eliminaButton = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il bottone Elimina ModelloF24")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='f24-delete-button']")
+                ));
+
+        eliminaButton.click();
+    }
+
 
     public void verificaPresenzaSezionePagamentiNelMenuACascata(int numeroDiPagamenti) {
         WebElement comboBox = getWebDriverWait(10)

@@ -1,10 +1,10 @@
 Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui √® indirizzata la notifica
 
   @TestSuite
-    @TA_PosizioneDebitoria_13_15
+    @TA_PosizioneDebitoria_17_19_20
     @NRT
 
-  Scenario: [Posizione_Debitoria_13_15] - Avviso PagoPa - inserire pi√π modelli F24 per uno stesso destinatario
+  Scenario: [Posizione_Debitoria_17_19_20] - Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario - con n diverso da m
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
@@ -14,13 +14,32 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui √
 
     And Cliccare su continua
 #    Posizione Devitoria
-    When Seleziona Modello F24 1
+    When Seleziona Avviso PagoPA add Modello F24 1
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria
     When Seleziona Incluso Nell Atto 1
     And Seleziona Modo Sincrono 1
 
+    And Inserire Tutti Codice Avviso
+    And Inserire Tutti Codice Fiscale Ente
+    And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 1
+    And Click Su Aggiungi Codice Di Avviso PagoPa
+    And Inserire Tutti Codice Avviso
+    And Inserire Tutti Codice Fiscale Ente
+    And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
 
+    And Click Su Elimina Avviso pagoPA
+    And Click Su Aggiungi Codice Di Avviso PagoPa
+    And Inserire Tutti Codice Avviso
+    And Inserire Tutti Codice Fiscale Ente
+    And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
+
+
+    And Click Su Aggiungi Codice Di Avviso PagoPa
+
+    And Inserire Tutti Codice Avviso
+    And Inserire Tutti Codice Fiscale Ente
+    And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 3
 
 
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 1
@@ -29,6 +48,11 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui √
     And Click Su Aggiungi Altro Modello F24
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 2
     And Inserisci Titolo Documento Posizione Debitoria 2
+    And Click Su Elimina Modello F24
+    And Click Su Aggiungi Altro Modello F24
+    And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 2
+    And Inserisci Titolo Documento Posizione Debitoria 2
+
 
     And Cliccare su continua
  ## Documenti allegati
@@ -42,5 +66,7 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui √
     And Cliccare sul bottone Filtra
 ##    And Si verifica che la notifica sia nello stato avanzato
     And Cliccare sulla notifica restituita
-
+#    Numero Avviso PagoPa n + 1 perche viene incluso anche la dicitura Modelli F24 allegati se si scelie l'opzione Avviso PagoPA + Modello F24
+    And Verifica Presenza Sezione Pagamenti 4
+#    Numero moduli  Moduli F24
     And Verifica Presenza Sezione Pagamenti numero moduli F24 2

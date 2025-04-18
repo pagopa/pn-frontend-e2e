@@ -2106,6 +2106,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
             case 2:
                 fileName = "AvvisopagoPA_2.pdf";
                 break;
+            case 3:
+                fileName = "AvvisopagoPA_3.pdf";
+                break;
             default:
                 throw new IllegalArgumentException("Numero di notifiche non supportato: " + numNotifiche);
         }
@@ -2130,6 +2133,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
                  case 1 :
                     fileName = "AvvisopagoPA_2.pdf";
                     break;
+                 case 2:
+                     fileName = "AvvisopagoPA_3.pdf";
+                     break;
                  default :
                         throw new IllegalArgumentException("Numero Multiplo di notifiche non supportato: " + numNotifiche);
             }
@@ -2228,7 +2234,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 fileName = "PN_F24_META-4_notifica_senza_costi.json";
                 break;
             default:
-                throw new IllegalArgumentException("Numero di notifiche non supportato: " + numNotifiche);
+                throw new IllegalArgumentException("Metodo caricaJsonSenzaCostiPosizioneDebitoriaNumeroNotifichePariA Numero di notifiche non supportato: " + numNotifiche);
         }
 
         File notificaFile = new File(basePath + fileName);
@@ -2249,8 +2255,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.verificaPresenzaSezionePagamenti( numeroAvvisi);
     }
 
-    @And("Click Su Elimina")
-    public void clickSuElimina() { destinatarioPASection.clickSuElimina();
+    @And("Click Su Elimina Avviso pagoPA")
+    public void clickSuEliminaAvvisoPagoPa() { destinatarioPASection.clickSuEliminaAvvisoPagoPa();
+    }
+    @And("Click Su Elimina Modello F24")
+    public void clickSuEliminaModelloF24() { destinatarioPASection.clickSuEliminaModelloF24();
     }
 
     @And("Verifica Presenza Sezione Pagamenti nel menu a cascata {int}")
