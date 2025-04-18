@@ -36,7 +36,7 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Inserire Tutti Codice Fiscale Ente
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
 
-    And Click Su Elimina
+    And Click Su Elimina Avviso pagoPA
 
     And Click Su Aggiungi Codice Di Avviso PagoPa
     And Inserire Tutti Codice Avviso
