@@ -658,13 +658,6 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-//    private void clickRowNotificationIndex(WebElement primaNotifica) {
-//        WebElement buttonVediDettaglio = getWebDriverWait(15)
-//                .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
-//                .until(ExpectedConditions.elementToBeClickable(primaNotifica.findElement(By.xpath(".//button[contains(text(),'Vedi dettaglio')]"))));
-//        buttonVediDettaglio.click();
-//    }
-
 
     private void clickRowNotificationIndex(WebElement primaNotifica) {
         try {

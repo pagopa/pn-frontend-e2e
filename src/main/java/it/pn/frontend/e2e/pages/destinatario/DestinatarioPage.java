@@ -332,7 +332,7 @@ public class DestinatarioPage extends BasePage {
                 input.sendKeys(Keys.DELETE);
                 input.sendKeys(codiceAvviso);
             } catch (Exception e) {
-                logger.warn("Impossibile inserire codice in un input 'noticeCode': " + e.getMessage());
+                Assertions.fail("Errore durante l'inserimento del codice nel campo noticeCode", e);
             }
         }
     }
@@ -355,7 +355,7 @@ public class DestinatarioPage extends BasePage {
                 input.sendKeys(Keys.DELETE);
                 input.sendKeys("77777777777");
             } catch (Exception e) {
-                logger.warn("Errore durante l'inserimento del Codice fiscale ente creditore: " + e.getMessage());
+                Assertions.fail("Errore durante l'inserimento del Codice fiscale ente creditore", e);
             }
         }
 
@@ -393,7 +393,7 @@ public class DestinatarioPage extends BasePage {
                 getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(switchContainer));
                 switchContainer.click();
             } catch (Exception e) {
-                logger.warn("Errore cliccando sullo switch: " + e.getMessage());
+                Assertions.fail("Errore cliccando su Applica costo di notifica: "+ e.getMessage());
             }
         }
     }
