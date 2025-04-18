@@ -258,6 +258,22 @@ public class DestinatarioPage extends BasePage {
         selezionaRadioButtonPerValore("NOTHING",numeroPosizioneDebitoria);
     }
 
+    public void verificaAvvisoPagoPA(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("PAGO_PA", numeroPosizioneDebitoria);
+    }
+
+    public void verificaModelloF24(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("F24",numeroPosizioneDebitoria);
+    }
+
+    public void verificaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("PAGO_PA_F24",numeroPosizioneDebitoria);
+    }
+
+    public void verificaNessunPagamento(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("NOTHING",numeroPosizioneDebitoria);
+    }
+
     public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
         selezionaRadioButtonPerValore("FLAT_RATE",numeroPosizioneDebitoria);
     }
@@ -276,13 +292,18 @@ public class DestinatarioPage extends BasePage {
 
     public void selezionaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
         WebElement label = getWebDriverWait(10)
-                .withMessage("Impossibile selezionare radion button: "+value)
+                .withMessage("Impossibile selezionare radio button: "+value)
                 .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("(//input[@type='radio' and @value='" + value + "']/ancestor::label)[" + numeroPosizioneDebitoria + "]")));
         label.click();
     }
 
-
+    public void verificaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
+        getWebDriverWait(10)
+                .withMessage("Valore radio button non previsto: "+value)
+                .until(ExpectedConditions.elementToBeSelected(
+                        By.xpath("(//input[@type='radio' and @value='" + value + "']/ancestor::label)[" + numeroPosizioneDebitoria + "]")));
+    }
 
     public void verificaPresenzaSezionePosizioneDebitoria() {
         getWebDriverWait(10).withMessage("Sezione Posizione Debitoria non è visibile").until(

@@ -337,6 +337,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
         invioNotifichePAPage.selezionareContinuaButton();
     }
 
+    @And("Cliccare su Torna a")
+    public void cliccareSuTornaA() {
+        logger.info("Cliccare sul bottone Torna a");
+        invioNotifichePAPage.selezionareTornaAButton();
+    }
+
     @And("Aspetta {int} secondi")
     public void aspettaSecondi(int quantiSecondi) {
         logger.info("Aspetta " + quantiSecondi + " secondi");

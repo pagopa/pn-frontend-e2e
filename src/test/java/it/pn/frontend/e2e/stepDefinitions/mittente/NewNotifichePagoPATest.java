@@ -112,6 +112,21 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.selezionaModelloF24( numeroPosizioneDebitoria);
     }
 
+    @And("Verifica Avviso PagoPA {int}")
+    public void verificaAvvisoPagoPA(int numeroPosizioneDebitoria) {
+        destinatarioPage.verificaAvvisoPagoPA(numeroPosizioneDebitoria);
+    }
+
+    @And("Verifica Avviso PagoPA add Modello F24 {int}")
+    public void verificaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
+        destinatarioPage.verificaAvvisoPagoPAaddModelloF24( numeroPosizioneDebitoria);
+    }
+
+    @And("Verifica Modello F24 {int}")
+    public void verificaModelloF24(int numeroPosizioneDebitoria) {
+        destinatarioPage.verificaModelloF24( numeroPosizioneDebitoria);
+    }
+
     @And("Inserire Tutti Codice Avviso")
     public void inserireTuttiCodiceAvviso() {
         destinatarioPage.inserireTuttiCodiceAvviso();
@@ -136,6 +151,11 @@ public class NewNotifichePagoPATest extends BasePage {
     @And("Seleziona Nessun Pagamento {int}")
     public void selezionaNessunPagamento(int numeroPosizioneDebitoria) {
         destinatarioPage.selezionaNessunPagamento(numeroPosizioneDebitoria);
+    }
+
+    @And("Verifica Nessun Pagamento {int}")
+    public void verificaNessunPagamento(int numeroPosizioneDebitoria) {
+        destinatarioPage.verificaNessunPagamento(numeroPosizioneDebitoria);
     }
 
     @And("Seleziona Incluso Nell Atto {int}")
