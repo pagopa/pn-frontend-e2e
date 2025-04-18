@@ -572,7 +572,8 @@ public class DestinatarioPASection extends BasePage {
                 .withMessage("Impossibile cliccare sul menu a discesa")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[role='combobox']")));
         comboBox.click();
-        getWebDriverWait(10)
+        webTool.waitTime(1);
+        getWebDriverWait(30)
                 .until(ExpectedConditions.numberOfElementsToBe(
                         By.cssSelector("ul[role='listbox'] > li[role='option']"), numeroDiPagamenti
                 ));
