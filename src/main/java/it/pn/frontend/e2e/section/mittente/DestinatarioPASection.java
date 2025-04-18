@@ -241,7 +241,8 @@ public class DestinatarioPASection extends BasePage {
     public void inserimentoMultiDestinatario(PersoneFisiche destinatari, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminari(destinatari, i);
-            inserimentoInformazioniAggiuntive(destinatari, i+1);
+//            inserimentoInformazioniAggiuntive(destinatari, i+1);
+            inserimentoInformazioniAggiuntive(destinatari, i);
            if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
             }

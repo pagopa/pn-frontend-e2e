@@ -1,10 +1,10 @@
 Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni destinatario a cui è indirizzata la notifica
 
   @TestSuite
-    @TA_PosizioneDebitoria_18_21
+    @TA_PosizioneDebitoria_22
     @NRT_TA_PosizioneDebitoria
 
-  Scenario Outline: [Posizione_Debitoria_18_21] - Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni destinatario a cui è indirizzata la notifica
+  Scenario Outline: [Posizione_Debitoria_22] - Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni destinatario a cui è indirizzata la notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
@@ -16,29 +16,16 @@ Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni des
     And Cliccare su continua
 
 #    Posizione Devitoria
-    When Seleziona Avviso PagoPA add Modello F24 1
-    And Seleziona Avviso PagoPA add Modello F24 2
+    When Seleziona Avviso PagoPA 1
+    And Seleziona Modello F24 2
+  And Seleziona Avviso PagoPA add Modello F24 3
+    And Seleziona Nessun Pagamento 4
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria
     When Seleziona Incluso Nell Atto 1
     And Seleziona Modo Sincrono 1
 
-#    And Carica Multiplo File 2 non pdf o json e visualizza messaggio di errore "json"
 # Posizione Debitoria
-
-    And Carica Multiplo File 2 non pdf o json e visualizza messaggio di errore "json"
-    And Si clicca sul bottone torna a informazioni preliminari
-    And Cliccare su continua
-
-    And Carica Multiplo File 2 non pdf o json e visualizza messaggio di errore "pdf"
-
-    And Inserire Tutti Codice Avviso Errati
-    And Inserire Tutti Codice Fiscale Ente Errati
-
-    And Verifica Errori Codici Avviso NonValidi 2
-    And Verifica Errori Codice Fiscale Ente NonValidi 2
-
-    And Verifica Disabilitato Tasto Continua
 
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 1
     And Inserisci Titolo Documento Posizione Debitoria 1
@@ -63,8 +50,8 @@ Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni des
 ##    And Si verifica che la notifica sia nello stato avanzato
     And Cliccare sulla notifica restituita
 
-    And Verifica Presenza Sezione Pagamenti nel menu a cascata 2
+    And Verifica Presenza Sezione Pagamenti nel menu a cascata 4
 
     Examples:
       | numero destinatari |
-      | 2                  |
+      | 4                 |
