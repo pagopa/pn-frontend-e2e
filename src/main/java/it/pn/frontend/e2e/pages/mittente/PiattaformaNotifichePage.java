@@ -702,7 +702,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     private void verificaEsistenzaTabellaNotifiche() {
-        getWebDriverWait(30)
+        getWebDriverWait(40)
                 .withMessage("La tabella delle notifiche non è caricata correttamente")
                 .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
     }

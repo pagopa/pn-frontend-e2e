@@ -18,7 +18,6 @@ Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria
     When Seleziona Incluso Nell Atto 1
-    And Seleziona Modo Sincrono 1
 
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 1
     And Inserisci Titolo Documento Posizione Debitoria 1
