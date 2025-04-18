@@ -135,6 +135,10 @@ public class NewNotifichePagoPATest extends BasePage {
     public void inserireTuttiCodiceFiscaleEnte() {
         destinatarioPage.inserireTuttiCodiceFiscaleEnte();
     }
+    @And("Verifica Tutti Codice Fiscale Ente")
+    public void verificaTuttiCodiceFiscaleEnte() {
+        destinatarioPage.verificaTuttiCodiceFiscaleEnte();
+    }
 
     @And("Inserire Tutti Codice Avviso Errati")
     public void inserireTuttiCodiceAvvisoErrati() {
@@ -171,6 +175,10 @@ public class NewNotifichePagoPATest extends BasePage {
     public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
         destinatarioPage.selezionaInclusoNellAtto(numeroPosizioneDebitoria);
     }
+    @And("Verifica Incluso Nell Atto {int}")
+    public void verificaInclusoNellAtto(int numeroPosizioneDebitoria) {
+        destinatarioPage.verificaInclusoNellAtto(numeroPosizioneDebitoria);
+    }
     @And("Seleziona A Carico del Destinataio {int}")
     public void selezionaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
         destinatarioPage.selezionaACaricoDelDestinatario(numeroPosizioneDebitoria);
@@ -180,10 +188,18 @@ public class NewNotifichePagoPATest extends BasePage {
     public void selezionaModoSincrono(int numeroPosizioneDebitoria) {
         destinatarioPage.selezionaModoSincrono(numeroPosizioneDebitoria);
     }
+    @And("Verifica Modo Sincrono {int}")
+    public void verificaModoSincrono(int numeroPosizioneDebitoria) {
+        destinatarioPage.verificaModoSincrono(numeroPosizioneDebitoria);
+    }
 
     @And("Seleziona Modo Asincrono {int}")
     public void selezionaModoAsincrono(int numeroPosizioneDebitoria) {
         destinatarioPage.selezionaModoAsincrono( numeroPosizioneDebitoria);
+    }
+    @And("Verifica Modo Asincrono {int}")
+    public void verificaModoAsincrono(int numeroPosizioneDebitoria) {
+        destinatarioPage.verificaModoAsincrono( numeroPosizioneDebitoria);
     }
 
     @And("Inserire Costo di notifica")

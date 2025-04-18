@@ -277,7 +277,13 @@ public class DestinatarioPage extends BasePage {
     public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
         selezionaRadioButtonPerValore("FLAT_RATE",numeroPosizioneDebitoria);
     }
+    public void verificaInclusoNellAtto(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("FLAT_RATE",numeroPosizioneDebitoria);
+    }
     public void selezionaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("DELIVERY_MODE",numeroPosizioneDebitoria);
+    }
+    public void verificaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
         selezionaRadioButtonPerValore("DELIVERY_MODE",numeroPosizioneDebitoria);
     }
 
@@ -289,6 +295,13 @@ public class DestinatarioPage extends BasePage {
         selezionaRadioButtonPerValore("SYNC",numeroPosizioneDebitoria);
     }
 
+    public void verificaModoAsincrono(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("ASYNC",numeroPosizioneDebitoria);
+    }
+
+    public void verificaModoSincrono(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("SYNC",numeroPosizioneDebitoria);
+    }
 
     public void selezionaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
         WebElement label = getWebDriverWait(10)
@@ -378,6 +391,26 @@ public class DestinatarioPage extends BasePage {
                 input.sendKeys("77777777777");
             } catch (Exception e) {
                 Assertions.fail("Errore durante l'inserimento del Codice fiscale ente creditore", e);
+            }
+        }
+
+    }
+
+    public void verificaTuttiCodiceFiscaleEnte() {
+        List<WebElement> inputCodiciFiscali = getWebDriverWait(10)
+                .withMessage("Impossibile trovare i campi 'Codice fiscale ente creditore'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#creditorTaxId")));
+
+        if (inputCodiciFiscali.isEmpty()) {
+            logger.warn("Nessun campo 'creditorTaxId' trovato.");
+            return;
+        }
+
+        for (WebElement input : inputCodiciFiscali) {
+            try {
+                Assertions.assertTrue(input.getText().equalsIgnoreCase("77777777777"),"Codice fiscale ente creditore presente");
+            } catch (Exception e) {
+                Assertions.fail("Codice fiscale ente creditore non previsto", e);
             }
         }
 
