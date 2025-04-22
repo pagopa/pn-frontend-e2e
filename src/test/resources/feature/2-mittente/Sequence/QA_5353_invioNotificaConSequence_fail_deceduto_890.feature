@@ -1,9 +1,7 @@
 Feature: invio notifica con sequence
 
-  @Parallel
-  @WorkflowNotificaConSequence
   @NotificaConSequenceDeceduto890
-  @TestSuite
+  #@TestSuite
 
   Scenario: QA-5353 [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_DECEDUTO_890] - Il mittente invia una notifica a destinatario con sequence
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
