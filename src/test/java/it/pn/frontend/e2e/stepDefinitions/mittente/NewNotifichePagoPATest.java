@@ -231,13 +231,7 @@ public class NewNotifichePagoPATest extends BasePage {
 
     @And("Verifica Codici Avvisi")
     public void verificaCodiciAvvisi() {
-        List<String> codiciAvvisi = List.of(
-                "302040124463779396",
-                "302040124463774929",
-                "302040124463740495"
-        );
-        destinatarioPage.verificaCodiciAvvisi(codiciAvvisi);
-//        destinatarioPage.verificaCodiciAvvisi(dataPopulationConfig.getDatiNotifica().getCodiciAvvisi());
+        destinatarioPage.verificaCodiciAvvisi(dataPopulationConfig.getDatiNotifica().getCodiciAvvisi());
 
     }
 }
