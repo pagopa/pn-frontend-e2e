@@ -1,16 +1,22 @@
 Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario - con n diverso da m
 
   @TestSuite
-  @TA_PosizioneDebitoria_17_19_20_37
+  @TA_PosizioneDebitoria_38
   @NRT_TA_PosizioneDebitoria
 
-  Scenario: [Posizione_Debitoria_17_19_20_37] - Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario - con n diverso da m
+  Scenario: [Posizione_Debitoria_38] - Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario PG - con n diverso da m
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
-    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
+## Persona Giuridica
+    And Nella section Destinatario selezionare il radio button persona giuridica
+    And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica
+#    And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica
+    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 0
+
+#    And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
+#    And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
 
     And Cliccare su continua
 ##    Posizione Debitoria
@@ -28,13 +34,6 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Inserire Tutti Codice Fiscale Ente
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
 
-    And Click Su Elimina Avviso pagoPA
-    And Click Su Aggiungi Codice Di Avviso PagoPa
-    And Inserire Tutti Codice Avviso
-    And Inserire Tutti Codice Fiscale Ente
-    And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
-
-
     And Click Su Aggiungi Codice Di Avviso PagoPa
 
     And Inserire Tutti Codice Avviso
@@ -48,10 +47,6 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Click Su Aggiungi Altro Modello F24
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 2
     And Inserisci Titolo Documento Posizione Debitoria 2
-    And Click Su Elimina Modello F24
-    And Click Su Aggiungi Altro Modello F24
-    And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 2
-    And Inserisci Titolo Documento Posizione Debitoria 2
 
 
     And Cliccare su continua
@@ -62,6 +57,8 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
 
+    And Aspetta 5 secondi
+    
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
 ##    And Si verifica che la notifica sia nello stato avanzato
@@ -71,7 +68,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
 ##    Numero moduli  Moduli F24
     And Verifica Presenza Sezione Pagamenti numero moduli F24 2
 
-    Then PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    Then PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare la notifica destinatario
