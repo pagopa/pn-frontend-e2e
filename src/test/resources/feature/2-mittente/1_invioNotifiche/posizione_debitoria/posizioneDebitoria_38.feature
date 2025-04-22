@@ -1,4 +1,4 @@
-Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario - con n diverso da m
+Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario PG - con n diverso da m
 
   @TestSuite
   @TA_PosizioneDebitoria_38
@@ -53,6 +53,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
+    And Attendi secondi "2"
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"

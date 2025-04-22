@@ -375,12 +375,14 @@ public class NotifichePFPage extends BasePage {
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
                         By.cssSelector("[data-testid='pagopa-item']")));
 
-        Assertions.assertEquals(numeroAttesoCodiciAvviso, codiciAvviso.size(),
-                "Numero errato di codici avviso PagoPA, attesi: " + numeroAttesoCodiciAvviso);
-
         for (int i = 0; i < codiciAvviso.size(); i++) {
             logger.info("codiceAvviso_{}: {}", i + 1, codiciAvviso.get(i).getText());
         }
+
+        Assertions.assertEquals(numeroAttesoCodiciAvviso, codiciAvviso.size(),
+                "Numero errato di codici avviso PagoPA, attesi: " + numeroAttesoCodiciAvviso);
+
+
 
         // Verifica modelli F24
         List<WebElement> modelliF24 = getWebDriverWait(10)
