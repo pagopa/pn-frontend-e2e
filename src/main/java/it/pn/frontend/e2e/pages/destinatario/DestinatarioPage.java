@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class DestinatarioPage extends BasePage {
@@ -329,9 +331,10 @@ public class DestinatarioPage extends BasePage {
         campoCosto.sendKeys(valoreFormato);
     }
 
-    public void inserireTuttiCodiceAvviso() {
+    public  List<String> inserireTuttiCodiceAvviso() {
         String[] prefissi = {"3020101244636", "3020401244637"};
         Random random = new Random();
+        List<String> codiciAvvisoInseriti = new ArrayList<>();
 
         List<WebElement> inputCodiciAvviso = getWebDriverWait(10)
                 .withMessage("Impossibile trovare input con id='noticeCode'")
@@ -339,7 +342,7 @@ public class DestinatarioPage extends BasePage {
 
         if (inputCodiciAvviso.isEmpty()) {
             logger.warn("Nessun campo 'noticeCode' trovato.");
-            return;
+            return codiciAvvisoInseriti;
         }
 
         for (WebElement input : inputCodiciAvviso) {
@@ -353,10 +356,12 @@ public class DestinatarioPage extends BasePage {
                 input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
                 input.sendKeys(Keys.DELETE);
                 input.sendKeys(codiceAvviso);
+                codiciAvvisoInseriti.add(codiceAvviso);
             } catch (Exception e) {
                 Assertions.fail("Errore durante l'inserimento del codice nel campo noticeCode", e);
             }
         }
+        return codiciAvvisoInseriti;
     }
 
     public void inserireTuttiCodiceFiscaleEnte() {
@@ -513,5 +518,27 @@ public class DestinatarioPage extends BasePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", bottoneAggiungi);
         Actions actions = new Actions(driver);
         actions.moveToElement(bottoneAggiungi).click().perform();
+    }
+
+    public void verificaCodiciAvvisi(List<String> codiciAvvisi) {
+        if (codiciAvvisi == null || codiciAvvisi.isEmpty()) {
+            logger.info("Nessun codice avviso da verificare.");
+            return;
+        }
+
+        List<WebElement> elementiCodiceAvviso = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("[data-testid='pagopa-item'] .MuiTypography-caption-semibold")));
+
+        List<String> codiciTrovati = elementiCodiceAvviso.stream()
+                .map(WebElement::getText)
+                .filter(text -> text.matches("\\d{18}")) // prende solo stringhe di 18 cifre (codici avviso)
+                .toList();
+
+        logger.info("Codici trovati sulla pagina: {}", codiciTrovati);
+
+        // Verifica che siano presenti tutti quelli attesi (e solo quelli)
+        Assertions.assertEquals(new HashSet<>(codiciAvvisi), new HashSet<>(codiciTrovati),
+                "I codici avviso presenti non corrispondono a quelli attesi.");
     }
 }

@@ -12,7 +12,7 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Cliccare su continua
-#    Posizione Devitoria
+#    Posizione Debitoria
     And Seleziona Avviso PagoPA 1
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria

@@ -1,10 +1,10 @@
 Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario - con n diverso da m
 
   @TestSuite
-  @TA_PosizioneDebitoria_17_19_20
+  @TA_PosizioneDebitoria_17_19_20_37
   @NRT_TA_PosizioneDebitoria
 
-  Scenario: [Posizione_Debitoria_17_19_20] - Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario - con n diverso da m
+  Scenario: [Posizione_Debitoria_17_19_20_37] - Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario - con n diverso da m
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
@@ -13,7 +13,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
 
     And Cliccare su continua
-#    Posizione Devitoria
+##    Posizione Debitoria
     When Seleziona Avviso PagoPA add Modello F24 1
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria
@@ -66,7 +66,17 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Cliccare sul bottone Filtra
 ##    And Si verifica che la notifica sia nello stato avanzato
     And Cliccare sulla notifica restituita
-#    Numero Avviso PagoPa n + 1 perche viene incluso anche la dicitura Modelli F24 allegati se si scelie l'opzione Avviso PagoPA + Modello F24
+##    Numero Avviso PagoPa n + 1 perche viene incluso anche la dicitura Modelli F24 allegati se si scelie l'opzione Avviso PagoPA + Modello F24
     And Verifica Presenza Sezione Pagamenti 4
-#    Numero moduli  Moduli F24
+##    Numero moduli  Moduli F24
     And Verifica Presenza Sezione Pagamenti numero moduli F24 2
+
+    Then PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
+    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
+    And Cliccare la notifica destinatario
+    And Verifica Presenza Codici Avviso PagoPa 3 e ModelloF24 2
+    And Verifica Codici Avvisi
+
+
+  

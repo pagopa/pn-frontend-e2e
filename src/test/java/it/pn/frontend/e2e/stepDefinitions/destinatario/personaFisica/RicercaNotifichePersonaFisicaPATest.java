@@ -280,4 +280,14 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         backgroundTest.setHooksNew(hooksNew);
         backgroundTest.siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(iun);
     }
+
+    @And("Cliccare la notifica destinatario")
+    public void cliccareSulBottoneFiltraPortaleCittadino() {
+        String codiceIUN = "XWPQ-ZKWT-QVQR-202504-E-1";//dataPopulationConfig.getDatiNotifica().getCodiceIUN();
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
+        piattaformaNotifichePage.clickSuNotifica(codiceIUN);
+    }
+
+
 }

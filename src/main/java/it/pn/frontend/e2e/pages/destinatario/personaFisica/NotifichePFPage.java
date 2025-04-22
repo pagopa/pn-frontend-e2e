@@ -368,4 +368,26 @@ public class NotifichePFPage extends BasePage {
         getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonDownloadAvvisoPagoPA));
         scrollToElementAndClick(buttonDownloadAvvisoPagoPA);
     }
+
+    public void verificaPresenzaCodiciAvvisoEF24(int numeroAttesoCodiciAvviso, int numeroAttesoF24) {
+        // Verifica codici avviso PagoPA
+        List<WebElement> codiciAvviso = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("[data-testid='pagopa-item']")));
+
+        Assertions.assertEquals(numeroAttesoCodiciAvviso, codiciAvviso.size(),
+                "Numero errato di codici avviso PagoPA, attesi: " + numeroAttesoCodiciAvviso);
+
+        for (int i = 0; i < codiciAvviso.size(); i++) {
+            logger.info("codiceAvviso_{}: {}", i + 1, codiciAvviso.get(i).getText());
+        }
+
+        // Verifica modelli F24
+        List<WebElement> modelliF24 = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("[data-testid='download-f24-button']")));
+
+        Assertions.assertEquals(numeroAttesoF24, modelliF24.size(),
+                "Numero errato di modelli F24, attesi: " + numeroAttesoF24);
+    }
 }

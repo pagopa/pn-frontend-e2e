@@ -15,7 +15,7 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
 
     And Cliccare su continua
-#    Posizione Devitoria
+#    Posizione Debitoria
     When Seleziona Avviso PagoPA 1
     When Seleziona Avviso PagoPA 2
     And Cliccare su continua
