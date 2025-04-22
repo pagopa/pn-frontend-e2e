@@ -587,10 +587,13 @@ public void pulisciAmbientePublickeys() {
         while (i < rows.size()) {
 
             WebElement row = rows.get(i);
-            List<WebElement> cells = row.findElements(By.xpath(".//td"));
+            /**si individua la colonna dove è presente lo status chip (si è usato un xpath invece del numero della colonna nella tabella,
+             * che può cambiare in base al tipo di persona che entra nella pagina
+             */
+            List<WebElement> cells = row.findElements(By.xpath(".//td//div[contains(@data-testid,'statusChip')]"));
 
             if (!cells.isEmpty()) {
-                String statoValue = cells.get(3).getText();
+                String statoValue = cells.get(0).getText();
 
                 if (statoValue.equalsIgnoreCase("Attiva")) {
 
@@ -803,10 +806,13 @@ public void pulisciAmbientePublickeys() {
             logger.info("si cancellano chiavi attive e ruotate");
             while (i < rows.size()) {
                 WebElement row = rows.get(i);
-                List<WebElement> cells = row.findElements(By.xpath(".//td"));
+                /**si individua la colonna dove è presente lo status chip (si è usato un xpath invece del numero della colonna nella tabella,
+                 * che può cambiare in base al tipo di persona che entra nella pagina
+                 */
+                List<WebElement> cells = row.findElements(By.xpath(".//td//div[contains(@data-testid,'statusChip')]"));
 
                 if (!cells.isEmpty()) {
-                    String statoValue = cells.get(3).getText();
+                    String statoValue = cells.get(0).getText();
 
                     if(!registraChiavePubblicaPGSection.verificaStatoChiavePersonale("Attiva")){
                         registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
