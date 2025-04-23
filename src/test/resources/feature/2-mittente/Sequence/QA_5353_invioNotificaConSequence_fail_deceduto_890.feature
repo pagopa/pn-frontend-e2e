@@ -1,7 +1,5 @@
 Feature: invio notifica con sequence
 
-  @Parallel
-  @WorkflowNotificaConSequence
   @NotificaConSequenceDeceduto890
   @TestSuite
 

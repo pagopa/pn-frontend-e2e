@@ -3,7 +3,7 @@ Feature: PG - Blocco di una virtual key attiva per un utente Amministratore Pers
   @TestSuite
   @TA_PG_BloccoDiUnaVirtualKeyAttiva_QA_5321
   @integrazioneApi
-  @apiB2BBilinguismo
+  #@bilinguismo
 
   Scenario:PN-QA-5321  PG - Blocco di una virtual key attiva per un utente Amministratore Persona Giuridica
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
