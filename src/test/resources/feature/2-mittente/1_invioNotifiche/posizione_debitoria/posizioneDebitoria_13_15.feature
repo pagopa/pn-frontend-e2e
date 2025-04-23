@@ -22,7 +22,7 @@ Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 1
     And Inserisci Titolo Documento Posizione Debitoria 1
 
-    And Click Su Aggiungi Altro Modello F24
+    And Click Su Aggiungi Altro Modello F24 0
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 2
     And Inserisci Titolo Documento Posizione Debitoria 2
 

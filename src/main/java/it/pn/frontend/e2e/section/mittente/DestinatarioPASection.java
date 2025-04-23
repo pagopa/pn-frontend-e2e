@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 public class DestinatarioPASection extends BasePage {
@@ -117,7 +116,6 @@ public class DestinatarioPASection extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titleDestinatarioFieald));
             logger.info("Destinatario PA Section caricata ");
         } catch (TimeoutException e) {
-            logger.error("Destinatario PA Section non caricata con errore : " + e.getMessage());
             Assertions.fail("Destinatario PA Section non caricata con errore : " + e.getMessage());
         }
 
@@ -329,7 +327,6 @@ public class DestinatarioPASection extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDestinatarioBy));
             scrollToElementClickAndInsertText(nomeDestinatarioBy.get(nomeDestinatarioBy.size() - 1), nomeDestinatario);
         } catch (TimeoutException e) {
-            logger.error("Xpath non trovato con errore: " + e.getMessage());
             Assertions.fail("Xpath non trovato con errore: " + e.getMessage());
         }
     }
@@ -348,7 +345,6 @@ public class DestinatarioPASection extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOf(errorMessageSecondoDestinatario));
             logger.info("I messaggi di errore vengono visualizzati correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
             Assertions.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
         }
 
@@ -402,12 +398,8 @@ public class DestinatarioPASection extends BasePage {
 
     private void inserimentoInformazioniPreliminariPG(PersoneGiuridiche personeGiuridiche, int i) {
         clickRadioButtonPersonaGiuridica(i + 1);
-        //String nomeDestinatario = personeGiuridiche.getPersone().get(i).getName();
         inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]", personeGiuridiche.getPersone().get(i).getName());
-       // String cfDestinatario = personeGiuridiche.getPersone().get(i).getCodiceFiscale();
-      //  cfDestinatario = cfDestinatario.replace(" ", "");
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", personeGiuridiche.getPersone().get(i).getCodiceFiscale());
-       // selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     private void clickRadioButtonPersonaGiuridica(int posizione) {
@@ -418,7 +410,6 @@ public class DestinatarioPASection extends BasePage {
     public void checkBoxAggiungiDomicilio() {
         webTool.waitTime(3);
         checkBoxAggiungiDomicilioDigitale = driver.findElement(By.xpath("//label[@id='recipients[0].digitalDomicile-label']"));
-        //checkBoxAggiungiDomicilioDigitale.click();
         getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.visibilityOf(checkBoxAggiungiDomicilioDigitale));
 
     }
@@ -446,6 +437,17 @@ public class DestinatarioPASection extends BasePage {
         partitaIvaTextField.sendKeys(codiceFiscale);
     }
 
+    public void insertRagioneSociale(String ragioneSociale, int posizione) {
+        ragioneSocialeTextField = driver.findElement(By.xpath("//input[@id='recipients["+posizione+"].firstName']"));
+        ragioneSocialeTextField.sendKeys(ragioneSociale);
+    }
+
+    public void insertPartitaIva(String codiceFiscale, int posizione) {
+        partitaIvaTextField = driver.findElement(By.id("recipients["+posizione+"].taxId"));
+        partitaIvaTextField.sendKeys(codiceFiscale);
+    }
+
+
     public void clickSuTornaInformazioniPreliminari() {
         informazioniPreliminariButton = driver.findElement(By.xpath("//button[@data-testid='previous-step']"));
         informazioniPreliminariButton.click();
@@ -455,6 +457,12 @@ public class DestinatarioPASection extends BasePage {
         personaGiuridicaRadioButton = driver.findElement(By.xpath("//input[@value='PG']"));
         personaGiuridicaRadioButton.click();
     }
+    public void clickRadioButtonPersonaGiuridicaPosizionale(int posizione) {
+        personaGiuridicaRadioButton = driver.findElement(By.xpath("//input[@name='recipients["+posizione+"].recipientType' and @value ='PG']"));
+        personaGiuridicaRadioButton.click();
+    }
+
+
 
     public void insertCodiceFiscaleErrato(String codiceFiscale) {
         logger.info("TA_QA: si inserisci codice fiscale errato");
@@ -498,7 +506,6 @@ public class DestinatarioPASection extends BasePage {
             selezionaAggiungiUnIndirizzoDigitale();
             insertDomicilioDigitale(datiNotificaMap.get("pec"));
         }
-       // selezionaAggiungiUnIndirizzoFisico();
         inserireIndirizzo(datiNotificaMap.get("indirizzo"),0);
         inserireNumeroCivico(datiNotificaMap.get("numeroCivico"),0);
         inserireComune(datiNotificaMap.get("comune"),0);

@@ -207,14 +207,19 @@ public class NewNotifichePagoPATest extends BasePage {
     }
 
 
-    @And("Click Su Aggiungi Altro Modello F24")
-    public void clickSuAggiungiAltroModelloF24() {
-        destinatarioPage.clickSuAggiungiAltroModelloF24();
+    @And("Click Su Aggiungi Altro Modello F24 {int}")
+    public void clickSuAggiungiAltroModelloF24(int posizione) {
+        destinatarioPage.clickSuAggiungiAltroModelloF24(posizione);
     }
 
-    @And("Click Su Aggiungi Codice Di Avviso PagoPa")
-    public void clickSuAggiungiCodiceDiAvvisoPagoPa() {
-        destinatarioPage.clickSuAggiungiCodiceDiAvvisoPagoPa();
+//    @And("Click Su Aggiungi Codice Di Avviso PagoPa")
+//    public void clickSuAggiungiCodiceDiAvvisoPagoPa() {
+//        destinatarioPage.clickSuAggiungiCodiceDiAvvisoPagoPa();
+//    }
+
+    @And("Click Su Aggiungi Codice Di Avviso PagoPa {int}")
+    public void clickSuAggiungiCodiceDiAvvisoPagoPa(int posizione) {
+        destinatarioPage.clickSuAggiungiCodiceDiAvvisoPagoPa(posizione);
     }
 
 

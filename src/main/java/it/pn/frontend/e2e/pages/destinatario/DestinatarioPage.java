@@ -475,22 +475,28 @@ public class DestinatarioPage extends BasePage {
     }
 
 
-    public void clickSuAggiungiAltroModelloF24() {
-        WebElement pulsanteAggiungiF24 = getWebDriverWait(10)
+    public void clickSuAggiungiAltroModelloF24(int posizione) {
+        List<WebElement> pulsanteAggiungiF24 = getWebDriverWait(10)
                 .withMessage("Impossibile trovare il tasto Aggiungi Altro ModelloF24")
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='add-new-f24']")));
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("button[data-testid='add-new-f24']")));
 
-        js().executeScript("arguments[0].scrollIntoView(true);", pulsanteAggiungiF24);
-        pulsanteAggiungiF24.click();
+        WebElement bottoneDesideratoAggiungiF24 = pulsanteAggiungiF24.get(posizione);
+
+        js().executeScript("arguments[0].scrollIntoView(true);", bottoneDesideratoAggiungiF24);
+        bottoneDesideratoAggiungiF24.click();
     }
 
-    public void clickSuAggiungiCodiceDiAvvisoPagoPa() {
-        WebElement pulsanteAggiungiCodiceDiAvvisoPagoPa = getWebDriverWait(10)
-                .withMessage("Impossibile trovare il tasto Aggiungi Codice Di Avviso PagoPa")
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='add-new-pagopa']")));
+    public void clickSuAggiungiCodiceDiAvvisoPagoPa(int posizione) {
 
-        js().executeScript("arguments[0].scrollIntoView(true);", pulsanteAggiungiCodiceDiAvvisoPagoPa);
-        pulsanteAggiungiCodiceDiAvvisoPagoPa.click();
+        List<WebElement> bottoniAvvisoPagoPa = getWebDriverWait(10)
+                .withMessage("Impossibile trovare i bottoni 'Aggiungi codice di avviso pagoPA'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("button[data-testid='add-new-pagopa']")));
+
+        WebElement bottoneDesideratoAvvisoPagoPa = bottoniAvvisoPagoPa.get(posizione);
+
+        js().executeScript("arguments[0].scrollIntoView(true);", bottoneDesideratoAvvisoPagoPa);
+        bottoneDesideratoAvvisoPagoPa.click();
     }
 
 
