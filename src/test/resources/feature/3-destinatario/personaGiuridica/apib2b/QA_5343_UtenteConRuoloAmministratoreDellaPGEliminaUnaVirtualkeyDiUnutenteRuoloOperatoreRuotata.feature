@@ -3,7 +3,7 @@ Feature: PG - Utente con ruolo Amministratore della PG elimina una virtual key r
   @TestSuite
   @TA_PG_AmministratorePG_EliminaVirtualKeyDiUnUtenteRuoloOperatoreRuotata_QA_5343
   @integrazioneApi
-  @apiB2BBilinguismo
+  @bilinguismo
 
   Scenario:PN-QA-5343  PG - Utente con ruolo Amministratore della PG elimina una virtual key ruotata di un utente con ruolo di operatore
     Given Login Page persona giuridica viene visualizzata

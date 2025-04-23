@@ -3,7 +3,7 @@ Feature: PG - Utente con ruolo amministratore della PG blocca una virtual key di
   @TestSuite
   @TA_PG_AmministratorePG_BloccaVirtualKeyDiUnUtenteRuoloOperatoreGiaBloccata_QA_5345
   @integrazioneApi
-  @apiB2BBilinguismo
+  @bilinguismo
 
   Scenario:PN-QA-5345  PG - Utente con ruolo amministratore della PG blocca una virtual key di un utente della PG con ruolo di operatore con già una virtual key bloccata
     Given Login Page persona giuridica viene visualizzata
