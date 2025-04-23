@@ -62,7 +62,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
-    And Cliccare sulla notifica restituita
+    And Cliccare sulla notifica restituita dal filtro
 ##    Numero Avviso PagoPa n + 1 perche viene incluso anche la dicitura Modelli F24 allegati se si scelie l'opzione Avviso PagoPA + Modello F24
     And Verifica Presenza Sezione Pagamenti 4
 ##    Numero moduli  Moduli F24
@@ -72,7 +72,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
-    And Cliccare sulla notifica restituita
+    And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
     And Verifica Presenza Codici Avviso PagoPa 3 e ModelloF24 2
 #    And Verifica Codici Avvisi
