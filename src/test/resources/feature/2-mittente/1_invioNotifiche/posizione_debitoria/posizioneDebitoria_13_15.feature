@@ -36,7 +36,6 @@ Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
 
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
-##    And Si verifica che la notifica sia nello stato avanzato
     And Cliccare sulla notifica restituita
 
     And Verifica Presenza Sezione Pagamenti numero moduli F24 2

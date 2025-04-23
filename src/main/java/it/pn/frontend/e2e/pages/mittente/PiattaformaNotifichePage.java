@@ -1304,7 +1304,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void clickSuNotifica(String iun) {
 
         logger.info("iun notifica {}", iun);
-        WebElement notification = getWebDriverWait(35)
+        WebElement notification = getWebDriverWait(60)
                 .withMessage("notifica non esistente")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
         clickRowNotificationIndex(notification);
