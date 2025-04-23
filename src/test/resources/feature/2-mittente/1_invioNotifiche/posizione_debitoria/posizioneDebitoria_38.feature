@@ -69,6 +69,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Verifica Presenza Sezione Pagamenti numero moduli F24 2
 
     Then PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita

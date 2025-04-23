@@ -76,6 +76,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
 
 
     When PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita
@@ -84,6 +85,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
 #    And Verifica Codici Avvisi
 
     Then PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita

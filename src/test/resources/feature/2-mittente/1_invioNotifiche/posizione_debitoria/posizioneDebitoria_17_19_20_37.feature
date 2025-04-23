@@ -66,6 +66,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita
 ##    Numero Avviso PagoPa n + 1 perche viene incluso anche la dicitura Modelli F24 allegati se si scelie l'opzione Avviso PagoPA + Modello F24
+    And Aspetta 1 secondi
     And Verifica Presenza Sezione Pagamenti 4
 ##    Numero moduli  Moduli F24
     And Verifica Presenza Sezione Pagamenti numero moduli F24 2

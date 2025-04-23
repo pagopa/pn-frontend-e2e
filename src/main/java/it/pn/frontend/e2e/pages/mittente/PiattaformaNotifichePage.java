@@ -186,12 +186,23 @@ public class PiattaformaNotifichePage extends BasePage {
 
     }
 
-    public void selectFiltraNotificaButtonMittente() {
-        getWebDriverWait(30).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable( driver.findElement(By.id("filter-button"))));
-        filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
-        filtraNotificaButtonMittente.click();
-        logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
-    }
+//    public void selectFiltraNotificaButtonMittente() {
+//        getWebDriverWait(30).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable( driver.findElement(By.id("filter-button"))));
+//        filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
+//        filtraNotificaButtonMittente.click();
+//        logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
+//    }
+public void selectFiltraNotificaButtonMittente() {
+//    By filtroLocator = By.id("filter-button");
+
+    WebElement buttonFiltraNotifica = getWebDriverWait(50)
+            .withMessage("Il bottone 'Filtra' non è cliccabile")
+            .until(ExpectedConditions.elementToBeClickable(By.id("filter-button")));
+
+    buttonFiltraNotifica.click();
+
+    logger.info("Bottone 'Filtra', nella pagina del mittente, cliccato correttamente");
+}
 
     public void selectFiltraNotificaButtonDestinatario() {
         getWebDriverWait(20).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));

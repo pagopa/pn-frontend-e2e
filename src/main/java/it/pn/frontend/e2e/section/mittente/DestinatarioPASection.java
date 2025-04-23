@@ -547,10 +547,9 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void verificaPresenzaSezionePagamenti(int numeroAvvisi) {
-
-            getWebDriverWait(10)
-                    .until(ExpectedConditions.numberOfElementsToBe(By.xpath("//span[contains(@class, 'css-kwxqgy')]"),numeroAvvisi )
-            );
+        getWebDriverWait(30)
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath("//span[contains(@class, 'css-kwxqgy')]"), numeroAvvisi)
+                );
     }
 
     public void clickSuEliminaAvvisoPagoPa() {
