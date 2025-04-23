@@ -13,17 +13,16 @@ Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
 
     And Cliccare su continua
-#    Posizione Devitoria
+#    Posizione Debitoria
     When Seleziona Modello F24 1
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria
     When Seleziona Incluso Nell Atto 1
-    And Seleziona Modo Sincrono 1
 
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 1
     And Inserisci Titolo Documento Posizione Debitoria 1
 
-    And Click Su Aggiungi Altro Modello F24
+    And Click Su Aggiungi Altro Modello F24 0
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 2
     And Inserisci Titolo Documento Posizione Debitoria 2
 

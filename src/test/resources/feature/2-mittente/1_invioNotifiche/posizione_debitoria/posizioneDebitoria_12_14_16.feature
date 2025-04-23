@@ -15,7 +15,7 @@ Feature: Avviso PagoPa - inserire un modello F24 per ogni destinatario a cui è 
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
 
     And Cliccare su continua
-#    Posizione Devitoria
+#    Posizione Debitoria
     When Seleziona Modello F24 1
     When Seleziona Modello F24 2
     And Cliccare su continua

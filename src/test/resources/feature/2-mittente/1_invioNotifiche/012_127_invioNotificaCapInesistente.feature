@@ -17,7 +17,7 @@ Feature: invio notifica con lo stesso codice fiscale
     And Nella section Destinatario settare come CAP "99444"
     And Cliccare su continua
     #      Aggiungere alle notifiche
-    And Seleziona Nessun Pagamento
+    And Seleziona Nessun Pagamento 1
     And Cliccare su continua
 #      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati

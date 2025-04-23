@@ -29,8 +29,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittenteTest");
 
-//    private Map<String, Object> personaFisica = new HashMap<>();
-//    private Map<String, Object> datiNotifica = new HashMap<>();
     private boolean dataFineErrata;
 
     private  DestinatarioPASection destinatarioPASection;
@@ -128,7 +126,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
             Assertions.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
         }
     }
@@ -152,7 +149,7 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
         piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
-//        piattaformaNotifichePage.inserimentoCodiceIUN("ZLWP-NRHQ-HVXR-202504-D-1");
+//        piattaformaNotifichePage.inserimentoCodiceIUN("JWVZ-AGET-KNJU-202504-R-1");
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
@@ -167,7 +164,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
             logger.info("Notifica con codice IUN: " + codiceIUNInserito + " trovata correttamente");
         } else {
 
-            logger.error("Notifica con codice IUN: " + codiceIUNInserito + " NON trovata");
             Assertions.fail("Notifica con codice IUN: " + codiceIUNInserito + " NON trovata");
 
         }
@@ -303,13 +299,10 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Il sistema restituisce notifiche con codice fiscale e arco temporale uguale a quelli inserito")
     public void ilSistemaRestituisceNotificheConCodiceFiscaleEArcoTemporaleUgualeAQuelliInserito() {
         logger.info("Si verifica i risultati restituiti");
-;
         headerPASection.waitLoadHeaderSection();
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-       // DataPopulation dataPopulation = new DataPopulation();
-       // this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
@@ -409,8 +402,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        //DataPopulation dataPopulation = new DataPopulation();
-        //this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
@@ -440,8 +431,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        //DataPopulation dataPopulation = new DataPopulation();
-        //this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);

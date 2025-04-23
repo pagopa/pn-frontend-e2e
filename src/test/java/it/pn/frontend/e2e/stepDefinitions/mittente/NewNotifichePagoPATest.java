@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -36,6 +38,8 @@ public class NewNotifichePagoPATest extends BasePage {
 
     @Autowired
     private DataPopulation dataPopulation;
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
     private DestinatarioPage destinatarioPage;
 
@@ -129,7 +133,8 @@ public class NewNotifichePagoPATest extends BasePage {
 
     @And("Inserire Tutti Codice Avviso")
     public void inserireTuttiCodiceAvviso() {
-        destinatarioPage.inserireTuttiCodiceAvviso();
+        List<String> codiciAvvisi = destinatarioPage.inserireTuttiCodiceAvviso();
+        dataPopulationConfig.getDatiNotifica().setCodiciAvvisi(codiciAvvisi);
     }
     @And("Inserire Tutti Codice Fiscale Ente")
     public void inserireTuttiCodiceFiscaleEnte() {
@@ -218,14 +223,19 @@ public class NewNotifichePagoPATest extends BasePage {
     }
 
 
-    @And("Click Su Aggiungi Altro Modello F24")
-    public void clickSuAggiungiAltroModelloF24() {
-        destinatarioPage.clickSuAggiungiAltroModelloF24();
+    @And("Click Su Aggiungi Altro Modello F24 {int}")
+    public void clickSuAggiungiAltroModelloF24(int posizione) {
+        destinatarioPage.clickSuAggiungiAltroModelloF24(posizione);
     }
 
-    @And("Click Su Aggiungi Codice Di Avviso PagoPa")
-    public void clickSuAggiungiCodiceDiAvvisoPagoPa() {
-        destinatarioPage.clickSuAggiungiCodiceDiAvvisoPagoPa();
+//    @And("Click Su Aggiungi Codice Di Avviso PagoPa")
+//    public void clickSuAggiungiCodiceDiAvvisoPagoPa() {
+//        destinatarioPage.clickSuAggiungiCodiceDiAvvisoPagoPa();
+//    }
+
+    @And("Click Su Aggiungi Codice Di Avviso PagoPa {int}")
+    public void clickSuAggiungiCodiceDiAvvisoPagoPa(int posizione) {
+        destinatarioPage.clickSuAggiungiCodiceDiAvvisoPagoPa(posizione);
     }
 
 
@@ -238,5 +248,11 @@ public class NewNotifichePagoPATest extends BasePage {
     @And("Click Su Aggiungi un altro documento")
     public void clickSuAggiungiUnAltroDocumento() {
         destinatarioPage.clickSuAggiungiUnAltroDocumento();
+    }
+
+    @And("Verifica Codici Avvisi")
+    public void verificaCodiciAvvisi() {
+        destinatarioPage.verificaCodiciAvvisi(dataPopulationConfig.getDatiNotifica().getCodiciAvvisi());
+
     }
 }

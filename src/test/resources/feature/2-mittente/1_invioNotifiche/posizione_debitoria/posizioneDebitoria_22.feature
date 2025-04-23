@@ -15,7 +15,7 @@ Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni des
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
     And Cliccare su continua
 
-#    Posizione Devitoria
+#    Posizione Debitoria
     When Seleziona Avviso PagoPA 1
     And Seleziona Modello F24 2
   And Seleziona Avviso PagoPA add Modello F24 3
@@ -42,6 +42,7 @@ Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni des
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
+    And Attendi secondi "2"
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"

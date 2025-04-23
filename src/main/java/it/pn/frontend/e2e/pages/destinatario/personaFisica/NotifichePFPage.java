@@ -8,9 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -137,7 +134,6 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean getListData() {
-        //By dataListBy = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]");
         getWebDriverWait(60).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")));
         return !elements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")).isEmpty();
     }
@@ -164,32 +160,23 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void siVisualizzanoFiltriRicerca() {
-       // WebElement filtroCodiceIunBy = driver.findElement(By.id("iunMatch"));
         getWebDriverWait(30).withMessage("il filtro Codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
-        //WebElement filtroDataDaBy = driver.findElement(By.id("startDate"));
         getWebDriverWait(30).withMessage("il filtro Data Da non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("startDate"))));
-       // WebElement filtroDataABy = driver.findElement(By.id("endDate"));
         getWebDriverWait(30).withMessage("il filtro Data A non è visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("endDate"))));
         logger.info("Si visualizzano correttamente i filtri ricerca");
     }
 
     public void siVisualizzaElencoNotifiche() {
-      //  WebElement elementoDellaListaBy = driver.findElement(By.xpath("//tr[contains(@id,'notificationsTable.body.row')]"));
         getWebDriverWait(30).withMessage("le righe della tabella notifiche non sono visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//tr[contains(@id,'notificationsTable.body.row')]"))));
 
-        //WebElement nomeColonnaDataBy = driver.findElement(By.xpath("//th[contains(text(),'Data')]"));
         getWebDriverWait(30).withMessage("il nome della colonna Data non è visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//th[contains(text(),'Data')]"))));
 
-        //WebElement nomeColonnaOggettoBy = driver.findElement(By.xpath("//th[contains(text(),'Oggetto')]"));
         getWebDriverWait(30).withMessage("il nome della colonna Oggetto non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//th[contains(text(),'Oggetto')]"))));
 
-        //WebElement nomeColonnaMittenteBy = driver.findElement(By.xpath("//th[contains(text(),'Mittente')]"));
         getWebDriverWait(30).withMessage("il nome della colonna Mittente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//th[contains(text(),'Mittente')]"))));
 
-        //WebElement nomeColonnaCodiceIUNBy = driver.findElement(By.xpath("//th[contains(text(),'Codice IUN')]"));
         getWebDriverWait(30).withMessage("il nome della colonna Codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//th[contains(text(),'Codice IUN')]"))));
 
-        //WebElement nomeColonnaStatoBy = driver.findElement(By.xpath("//th[contains(text(),'Stato')]"));
         getWebDriverWait(30).withMessage("il nome della colonna Stato non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//th[contains(text(),'Stato')]"))));
         logger.info("Si visualizza correttamente l'elenco delle notifiche");
     }
@@ -252,7 +239,6 @@ public class NotifichePFPage extends BasePage {
         if (isPageSelected.equalsIgnoreCase("true")) {
             logger.info("Si visualizza una pagina differente dalla precedente");
         } else {
-            logger.error("Non si visualizza una pagina differente dalla precedente");
             Assertions.fail("Non si visualizza una pagina differente dalla precedente");
         }
 
@@ -302,13 +288,11 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void waitLoadNotificheDEPageDelegante(String nome, String cognome) {
-      //  webTool.waitTime(40);
         getWebDriverWait(40).withMessage("Il titolo della pagina notifiche delegante non è visibile")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Le notifiche di " + nome + " " + cognome + "-page"))));
         titleLabel = driver.findElement(By.id("Le notifiche di " + nome + " " + cognome + "-page"));
         getWebDriverWait(40).withMessage("La tabella notifiche nella pagina notifiche delegante non è visibile")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
-        //tableNotifiche = driver.findElement(By.id("notifications-table"));
         logger.info("Notifiche DE Page caricata");
     }
 
@@ -319,7 +303,6 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean isErrorMessageDisplayed() {
-       // notValidIunMessage = driver.findElement(By.id("iunMatch-helper-text"));
         return getWebDriverWait(30).withMessage("Il messaggio di errore non e visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("iunMatch-helper-text")))).isDisplayed();
     }
 
@@ -367,5 +350,29 @@ public class NotifichePFPage extends BasePage {
         getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è visibile").until(ExpectedConditions.visibilityOf(buttonDownloadAvvisoPagoPA));
         getWebDriverWait(10).withMessage("Il bottone per scaricare l'avviso PagoPA non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonDownloadAvvisoPagoPA));
         scrollToElementAndClick(buttonDownloadAvvisoPagoPA);
+    }
+
+    public void verificaPresenzaCodiciAvvisoEF24(int numeroAttesoCodiciAvviso, int numeroAttesoF24) {
+        // Verifica codici avviso PagoPA
+        List<WebElement> codiciAvviso = getWebDriverWait(15)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("[data-testid='pagopa-item']")));
+
+        for (int i = 0; i < codiciAvviso.size(); i++) {
+            logger.info("codiceAvviso_{}: {}", i + 1, codiciAvviso.get(i).getText());
+        }
+
+        Assertions.assertEquals(numeroAttesoCodiciAvviso, codiciAvviso.size(),
+                "Numero errato di codici avviso PagoPA, attesi: " + numeroAttesoCodiciAvviso);
+
+
+
+        // Verifica modelli F24
+        List<WebElement> modelliF24 = getWebDriverWait(15)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("[data-testid='download-f24-button']")));
+
+        Assertions.assertEquals(numeroAttesoF24, modelliF24.size(),
+                "Numero errato di modelli F24, attesi: " + numeroAttesoF24);
     }
 }
