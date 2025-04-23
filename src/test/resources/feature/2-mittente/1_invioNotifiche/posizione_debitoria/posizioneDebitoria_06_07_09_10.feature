@@ -16,11 +16,11 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Seleziona Avviso PagoPA 1
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria
-    And Seleziona A Carico del Destinataio 1
+    And Seleziona A Carico del Destinatario 1
     And Inserire IVA
     And Inserire Costo di notifica
     And Seleziona Incluso Nell Atto 1
-    And Seleziona A Carico del Destinataio 1
+    And Seleziona A Carico del Destinatario 1
     And Inserire IVA
     And Inserire Costo di notifica
     And Seleziona Modo Sincrono 1

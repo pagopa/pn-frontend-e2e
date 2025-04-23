@@ -12,8 +12,6 @@ import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import jakarta.annotation.PostConstruct;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -180,11 +178,8 @@ public class NewNotifichePagoPATest extends BasePage {
     public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
         destinatarioPage.selezionaInclusoNellAtto(numeroPosizioneDebitoria);
     }
-    @And("Verifica Incluso Nell Atto {int}")
-    public void verificaInclusoNellAtto(int numeroPosizioneDebitoria) {
-        destinatarioPage.verificaInclusoNellAtto(numeroPosizioneDebitoria);
-    }
-    @And("Seleziona A Carico del Destinataio {int}")
+
+    @And("Seleziona A Carico del Destinatario {int}")
     public void selezionaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
         destinatarioPage.selezionaACaricoDelDestinatario(numeroPosizioneDebitoria);
     }
@@ -193,18 +188,20 @@ public class NewNotifichePagoPATest extends BasePage {
     public void selezionaModoSincrono(int numeroPosizioneDebitoria) {
         destinatarioPage.selezionaModoSincrono(numeroPosizioneDebitoria);
     }
-    @And("Verifica Modo Sincrono {int}")
-    public void verificaModoSincrono(int numeroPosizioneDebitoria) {
-        destinatarioPage.verificaModoSincrono(numeroPosizioneDebitoria);
-    }
 
     @And("Seleziona Modo Asincrono {int}")
     public void selezionaModoAsincrono(int numeroPosizioneDebitoria) {
         destinatarioPage.selezionaModoAsincrono( numeroPosizioneDebitoria);
     }
-    @And("Verifica Modo Asincrono {int}")
-    public void verificaModoAsincrono(int numeroPosizioneDebitoria) {
-        destinatarioPage.verificaModoAsincrono( numeroPosizioneDebitoria);
+
+    @And("Verifica Presenza Sezione Tecnologia Pagamento Avviso PagoPA")
+    public void verificaPresenzaSezioneTecnologiaPagamentoPagoPA() {
+        Assertions.assertTrue(destinatarioPage.verificaPresenzaSezioneTecnologiaPagamentoAvvisoPagoPA());
+    }
+
+    @And("Verifica Assenza Sezione Tecnologia Pagamento Avviso PagoPA")
+    public void verificaAssenzaSezioneTecnologiaPagamentoAvvisoPagoPA() {
+        Assertions.assertFalse(destinatarioPage.verificaPresenzaSezioneTecnologiaPagamentoAvvisoPagoPA());
     }
 
     @And("Inserire Costo di notifica")
@@ -215,6 +212,26 @@ public class NewNotifichePagoPATest extends BasePage {
     @And("Inserire IVA")
     public void inserireIVA() {
         destinatarioPage.inserireIVA();
+    }
+
+    @And("Verifica Presenza Sezione Specifiche Avviso PagoPA {int}")
+    public void verificaPresenzaSezioneSpecifichePagamentoPagoPA(int numeroPosizioneDebitoria) {
+        Assertions.assertTrue(destinatarioPage.verificaPresenzaSezioneSpecificheAvvisoPagoPAPerValore(numeroPosizioneDebitoria));
+    }
+
+    @And("Verifica Assenza Sezione Specifiche Avviso PagoPA {int}")
+    public void verificaAssenzaSezioneSpecifichePagamentoPagoPA(int numeroPosizioneDebitoria) {
+        Assertions.assertFalse(destinatarioPage.verificaPresenzaSezioneSpecificheAvvisoPagoPAPerValore(numeroPosizioneDebitoria));
+    }
+
+    @And("Verifica Presenza Sezione Specifiche Modello F24 {int}")
+    public void verificaPresenzaSezioneSpecificheModelloF24(int numeroPosizioneDebitoria) {
+        Assertions.assertTrue(destinatarioPage.verificaPresenzaSezioneSpecificheModelloF24PerValore(numeroPosizioneDebitoria));
+    }
+
+    @And("Verifica Assenza Sezione Specifiche Modello F24 {int}")
+    public void verificaAssenzaSezioneSpecificheModelloF24(int numeroPosizioneDebitoria) {
+        Assertions.assertFalse(destinatarioPage.verificaPresenzaSezioneSpecificheModelloF24PerValore(numeroPosizioneDebitoria));
     }
 
     @And("Seleziona Applica Costo Notifica")

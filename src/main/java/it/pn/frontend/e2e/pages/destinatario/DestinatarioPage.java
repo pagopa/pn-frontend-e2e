@@ -2,7 +2,6 @@ package it.pn.frontend.e2e.pages.destinatario;
 
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.documents.Document;
@@ -20,12 +19,12 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -276,16 +275,53 @@ public class DestinatarioPage extends BasePage {
         verificaRadioButtonPerValore("NOTHING",numeroPosizioneDebitoria);
     }
 
+    public boolean verificaPresenzaSezioneTecnologiaPagamentoAvvisoPagoPA() {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Tecnologia Pagamento Avviso PagoPA non è visibile").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span[@id='pagopaIntMode']")));
+            log.info("Sezione Tecnologia Pagamento Avviso PagoPA presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public boolean verificaPresenzaSezioneSpecificheAvvisoPagoPAPerValore(int numeroPosizioneDebitoria) {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Specifiche Avviso PagoPA non è visibile").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]")),
+                    ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']"))),
+                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//label[@id='noticeCode-label'])[" + numeroPosizioneDebitoria + "]")), "innerText"),
+                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//input[@name='creditorTaxId'])[" + numeroPosizioneDebitoria + "]")), "value")));
+            log.info("Sezione Specifiche Avviso PagoPA presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            log.info("Sezione Specifiche Avviso PagoPA non è visibile: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean verificaPresenzaSezioneSpecificheModelloF24PerValore(int numeroPosizioneDebitoria) {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Specifiche Modello F24 non è visibile").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]")),
+                    ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']"))),
+                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//input")), "value")));
+            log.info("Sezione Specifiche Modello F24 presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            log.info("Sezione Specifiche Modello F24 non è visibile: {}", e.getMessage());
+            return false;
+        }
+    }
+
     public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
         selezionaRadioButtonPerValore("FLAT_RATE",numeroPosizioneDebitoria);
     }
-    public void verificaInclusoNellAtto(int numeroPosizioneDebitoria) {
-        verificaRadioButtonPerValore("FLAT_RATE",numeroPosizioneDebitoria);
-    }
     public void selezionaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
-        selezionaRadioButtonPerValore("DELIVERY_MODE",numeroPosizioneDebitoria);
-    }
-    public void verificaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
         selezionaRadioButtonPerValore("DELIVERY_MODE",numeroPosizioneDebitoria);
     }
 
@@ -295,14 +331,6 @@ public class DestinatarioPage extends BasePage {
 
     public void selezionaModoSincrono(int numeroPosizioneDebitoria) {
         selezionaRadioButtonPerValore("SYNC",numeroPosizioneDebitoria);
-    }
-
-    public void verificaModoAsincrono(int numeroPosizioneDebitoria) {
-        verificaRadioButtonPerValore("ASYNC",numeroPosizioneDebitoria);
-    }
-
-    public void verificaModoSincrono(int numeroPosizioneDebitoria) {
-        verificaRadioButtonPerValore("SYNC",numeroPosizioneDebitoria);
     }
 
     public void selezionaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
