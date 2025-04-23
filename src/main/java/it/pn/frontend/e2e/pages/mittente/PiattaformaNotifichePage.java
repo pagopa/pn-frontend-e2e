@@ -193,19 +193,43 @@ public class PiattaformaNotifichePage extends BasePage {
 //        logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
 //    }
     public void selectFiltraNotificaButtonMittente() {
-        logger.info("Attesa che il bottone 'Filtra' diventi cliccabile...");
+//        logger.info("Attesa che il bottone 'Filtra' diventi cliccabile...");
+//
+//        WebElement buttonFiltraNotifica = getWebDriverWait(50)
+//                .withMessage("Il bottone 'Filtra' non è cliccabile")
+//                .until(ExpectedConditions.elementToBeClickable(By.id("filter-button")));
+//
+//        js().executeScript("arguments[0].scrollIntoView({block: 'center'});", buttonFiltraNotifica);
+//
+//        webTool.waitTime(1);
+//
+//        buttonFiltraNotifica.click();
+//
+//        logger.info("Bottone 'Filtra', nella pagina del mittente, cliccato correttamente");
+        logger.info("Ricerca dell'elemento con id 'filter-button'...");
 
-        WebElement buttonFiltraNotifica = getWebDriverWait(50)
-                .withMessage("Il bottone 'Filtra' non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("filter-button")));
+        List<WebElement> presenti = driver.findElements(By.id("filter-button"));
+        if (presenti.isEmpty()) {
+            throw new NoSuchElementException("Nessun elemento trovato con id 'filter-button'");
+        }
 
+        WebElement buttonFiltraNotifica = presenti.get(0);
+
+        // Scroll al centro della viewport
         js().executeScript("arguments[0].scrollIntoView({block: 'center'});", buttonFiltraNotifica);
+        webTool.waitTime(1); // eventuale animazione
 
-        webTool.waitTime(1);
-
-        buttonFiltraNotifica.click();
-
-        logger.info("Bottone 'Filtra', nella pagina del mittente, cliccato correttamente");
+        try {
+            getWebDriverWait(10)
+                    .withMessage("Il bottone 'Filtra' non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(buttonFiltraNotifica));
+            buttonFiltraNotifica.click();
+            logger.info("Click normale sul bottone 'Filtra' riuscito.");
+        } catch (Exception e) {
+            logger.warn("Click standard fallito. Provo con JavaScript.", e);
+            js().executeScript("arguments[0].click();", buttonFiltraNotifica);
+            logger.info("Click JS eseguito.");
+        }
     }
 
     public void selectFiltraNotificaButtonDestinatario() {
