@@ -215,7 +215,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement buttonFiltraNotifica = presenti.get(0);
 
-        // Scroll al centro della viewport
         js().executeScript("arguments[0].scrollIntoView({block: 'center'});", buttonFiltraNotifica);
         webTool.waitTime(1); // eventuale animazione
 
