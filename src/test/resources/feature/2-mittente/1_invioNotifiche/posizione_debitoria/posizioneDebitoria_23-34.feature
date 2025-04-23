@@ -1,10 +1,10 @@
 Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione relativa all’inserimento delle informazioni dell’avviso di pagamento - solo un avviso PagoPa - forfettario e sincrona
 
   @TestSuite
-  @TA_PosizioneDebitoria_23_27_31_32
+  @TA_PosizioneDebitoria_23_27_31_32_24_30_28_33
   @NRT
 
-  Scenario: [Posizione_Debitoria_23_27_31_32] - Verificare che, a fronte di un cambio tipologia di pagamento tra la prima e la seconda volta, i campi corrispondenti al pagamento vengano correttamente svuotati
+  Scenario: [Posizione_Debitoria_23_27_31_32_24_30_28_33] - Verificare che, a fronte di un cambio tipologia di pagamento tra la prima e la seconda volta, i campi corrispondenti al pagamento vengano correttamente svuotati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
@@ -61,3 +61,39 @@ Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione rela
     And Inserire Tutti Codice Fiscale Ente
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 1
     And Cliccare su continua
+## Posizione Debitoria 24
+    And Cliccare su Torna a
+    And Cliccare su Torna a
+    And Verifica Avviso PagoPA 1
+    And Seleziona Avviso PagoPA add Modello F24 1
+    And Cliccare su continua
+    And Verifica Presenza Sezione Tecnologia Pagamento Avviso PagoPA
+    And Verifica Presenza Sezione Specifiche Avviso PagoPA 1
+    And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 1
+    And Inserisci Titolo Documento Posizione Debitoria 1
+## Posizione Debitoria 30
+    And Cliccare su Torna a
+    And Verifica Avviso PagoPA add Modello F24 1
+    And Seleziona Modello F24 1
+    And Cliccare su continua
+    And Verifica Assenza Sezione Tecnologia Pagamento Avviso PagoPA
+    And Verifica Assenza Sezione Specifiche Avviso PagoPA 1
+    And Verifica Presenza Sezione Specifiche Modello F24 1
+    And Cliccare su continua
+## Posizione Debitoria 28
+    And Cliccare su Torna a
+    And Cliccare su Torna a
+    And Verifica Modello F24 1
+    And Seleziona Nessun Pagamento 1
+    And Cliccare su continua
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
+## Posizione Debitoria 33
+    And Cliccare su Torna a
+    And Verifica Nessun Pagamento 1
+    And Seleziona Modello F24 1
+    And Cliccare su continua
+    And Seleziona Incluso Nell Atto 1
+    And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 1
+    And Inserisci Titolo Documento Posizione Debitoria 1
+## Posizione Debitoria 26
+    And Cliccare su Torna a
