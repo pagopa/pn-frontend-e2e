@@ -2,7 +2,7 @@ Feature: Visualizzazione sezione Integrazione API
 
   @TA_PG_VisualizzazioneIntegrazioneAPIVirtualKeyCensita_QA_5319
   @integrazioneApi
-  @bilinguismo
+  #@bilinguismo
   @PG
   @TestSuite
 

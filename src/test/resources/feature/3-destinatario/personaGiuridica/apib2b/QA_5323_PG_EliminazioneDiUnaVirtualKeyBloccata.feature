@@ -2,7 +2,7 @@ Feature: PG - Eliminazione di una virtual key bloccata per un utente Amministrat
 @TestSuite
 @TA_PG_EliminazioneDiUnaVirtualKeyRuotata_QA_5323
 @integrazioneApi
-@bilinguismo
+#@bilinguismo
 
 Scenario:PN-QA-5323  PG - Eliminazione di una virtual key bloccata per un utente Amministratore Persona Giuridica
   Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard

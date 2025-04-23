@@ -2,7 +2,7 @@ Feature: Visualizzazione sezione Integrazione API
 
   @TA_PG_VisualizzazioneCopiaCodiciPublicKeyAttiva_QA_5308
   @integrazioneApi
-  @bilinguismo
+  #@bilinguismo
   @PG
   @TestSuite
 

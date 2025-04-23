@@ -3,7 +3,7 @@ Feature: PG - Rotazione di una virtual key attiva per un utente Amministratore P
   @TestSuite
   @TA_PG_RotazioneDiUnaVirtualKeyAttiva_QA_5320
   @integrazioneApi
-  @bilinguismo
+  #@bilinguismo
 
   Scenario:PN-QA-5320  PG - Rotazione di una virtual key attiva per un utente Amministratore Persona Giuridica
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
