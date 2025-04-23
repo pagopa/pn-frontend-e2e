@@ -36,7 +36,7 @@ Feature: Avviso PagoPa - inserire un modello F24 per ogni destinatario a cui è 
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
-    And Cliccare sulla notifica restituita
+    And Cliccare sulla notifica restituita dal filtro
 
     And Verifica Presenza Sezione Pagamenti nel menu a cascata 2
 

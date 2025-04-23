@@ -49,11 +49,11 @@ public class SuccessPASection extends BasePage {
         logger.info("click pulsante vai alle notifiche");
 //        successButton = driver.findElement(By.id("go-to-notifications"));
 //        successButton.click();
-        webTool.waitTime(1);
+
         WebElement vaiAlleNotifiche = getWebDriverWait(70)
                 .withMessage("Il pulsante con id 'go-to-notifications' non è visibile o cliccabile.")
                 .until(ExpectedConditions.elementToBeClickable(By.id("go-to-notifications")));
-
+        webTool.waitTime(1);
         vaiAlleNotifiche.click();
     }
 }

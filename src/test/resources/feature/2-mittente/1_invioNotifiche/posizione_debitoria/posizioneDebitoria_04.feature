@@ -30,6 +30,6 @@ Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione rela
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
-    And Cliccare sulla notifica restituita
+    And Cliccare sulla notifica restituita dal filtro
     And Verifica Presenza Sezione Pagamenti 1
     

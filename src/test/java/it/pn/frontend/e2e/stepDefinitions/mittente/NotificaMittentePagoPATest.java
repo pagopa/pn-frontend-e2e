@@ -544,6 +544,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
+    @When("Cliccare sulla notifica restituita dal filtro")
+    public void cliccareSullaNotificaRestituitaDalFiltro() {
+        logger.info("Si clicca sulla notifica dal filtro");
+        piattaformaNotifichePage.selezionaPrimaNotifica();
+    }
 
     @When("Cliccare sulla notifica  maggiore di 120 giorni")
     public void cliccareSullaNotificaRestituita120Giorni() {

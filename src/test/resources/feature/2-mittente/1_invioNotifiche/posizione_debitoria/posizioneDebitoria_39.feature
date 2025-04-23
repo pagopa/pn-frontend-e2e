@@ -71,7 +71,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Cliccare sul bottone Filtra
 ##    And Si verifica che la notifica sia nello stato avanzato
 
-    And Cliccare sulla notifica restituita
+    And Cliccare sulla notifica restituita dal filtro
     And Verifica Presenza Sezione Pagamenti nel menu a cascata 2
 
 
@@ -79,7 +79,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
-    And Cliccare sulla notifica restituita
+    And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
     And Verifica Presenza Codici Avviso PagoPa 2 e ModelloF24 2
 #    And Verifica Codici Avvisi
@@ -88,6 +88,6 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
-    And Cliccare sulla notifica restituita
+    And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
     And Verifica Presenza Codici Avviso PagoPa 2 e ModelloF24 2
