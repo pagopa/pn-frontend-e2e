@@ -199,16 +199,12 @@ public class PiattaformaNotifichePage extends BasePage {
                 .withMessage("Il bottone 'Filtra' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("filter-button")));
 
-        js().executeScript("arguments[0].scrollIntoView({block: 'center'});", buttonFiltraNotifica);
         webTool.waitTime(1); // eventuale animazione
 
         try {
             buttonFiltraNotifica.click();
-            logger.info("Click normale sul bottone 'Filtra' riuscito.");
         } catch (Exception e) {
-            logger.warn("Click standard fallito. Provo con JavaScript.", e);
             js().executeScript("arguments[0].click();", buttonFiltraNotifica);
-            logger.info("Click JS eseguito.");
         }
     }
 
