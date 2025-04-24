@@ -195,33 +195,14 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selectFiltraNotificaButtonMittente() {
 //        logger.info("Attesa che il bottone 'Filtra' diventi cliccabile...");
 //
-//        WebElement buttonFiltraNotifica = getWebDriverWait(50)
-//                .withMessage("Il bottone 'Filtra' non è cliccabile")
-//                .until(ExpectedConditions.elementToBeClickable(By.id("filter-button")));
-//
-//        js().executeScript("arguments[0].scrollIntoView({block: 'center'});", buttonFiltraNotifica);
-//
-//        webTool.waitTime(1);
-//
-//        buttonFiltraNotifica.click();
-//
-//        logger.info("Bottone 'Filtra', nella pagina del mittente, cliccato correttamente");
-        logger.info("Ricerca dell'elemento con id 'filter-button'...");
-
-        List<WebElement> presenti = driver.findElements(By.id("filter-button"));
-        if (presenti.isEmpty()) {
-            throw new NoSuchElementException("Nessun elemento trovato con id 'filter-button'");
-        }
-
-        WebElement buttonFiltraNotifica = presenti.get(0);
+        WebElement buttonFiltraNotifica = getWebDriverWait(50)
+                .withMessage("Il bottone 'Filtra' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("filter-button")));
 
         js().executeScript("arguments[0].scrollIntoView({block: 'center'});", buttonFiltraNotifica);
         webTool.waitTime(1); // eventuale animazione
 
         try {
-            getWebDriverWait(10)
-                    .withMessage("Il bottone 'Filtra' non è cliccabile")
-                    .until(ExpectedConditions.elementToBeClickable(buttonFiltraNotifica));
             buttonFiltraNotifica.click();
             logger.info("Click normale sul bottone 'Filtra' riuscito.");
         } catch (Exception e) {

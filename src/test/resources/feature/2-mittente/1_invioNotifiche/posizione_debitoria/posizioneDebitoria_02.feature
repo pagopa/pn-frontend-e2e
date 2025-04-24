@@ -25,5 +25,6 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita dal filtro
+    And Aspetta 1 secondi
     And Verifica Presenza Sezione Pagamenti 0
 
