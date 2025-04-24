@@ -18,7 +18,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Cliccare su continua
      ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
-    And Nella section Allegati cliccare sul bottone Invia
+    And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"

@@ -47,7 +47,7 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
  ## Documenti allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Attendi secondi "2"
-    And Nella section Allegati cliccare sul bottone Invia
+    And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
     And Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche

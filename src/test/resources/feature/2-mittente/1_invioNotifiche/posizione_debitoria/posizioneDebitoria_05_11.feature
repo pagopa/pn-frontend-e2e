@@ -30,7 +30,7 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Attendi secondi "1"
-    And Nella section Allegati cliccare sul bottone Invia
+    And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
     And Attendi secondi "2"
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche

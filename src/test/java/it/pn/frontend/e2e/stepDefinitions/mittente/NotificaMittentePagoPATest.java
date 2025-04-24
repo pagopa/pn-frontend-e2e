@@ -437,6 +437,21 @@ public class NotificaMittentePagoPATest  extends BasePage {
          **/
     }
 
+    @And("Nella section Allegati cliccare sul bottone Invia Posizione Debitoria")
+    public void nellaSectionAllegatiCliccareSulBottoneInviaPosizioneDebitoria() {
+        logger.info("Cliccare sul bottone Invia");
+
+        allegatiPASection.selectInviaButtonPosizioneDebitoria();
+//        webTool.waitTime(3);
+        /**
+         if (allegatiPASection.verificaMessaggioErrore()) {
+         aggiornamentoNumeroProtocolloAllegati();
+         logger.error("Si vede il messaggio di dati non corretti");
+         Assertions.fail("Si vede il messaggio di dati non corretti");
+         }
+         **/
+    }
+
     private void aggiornamentoNumeroProtocolloAllegati() {
         logger.info("Aggiornamento del numero protocollo");
 

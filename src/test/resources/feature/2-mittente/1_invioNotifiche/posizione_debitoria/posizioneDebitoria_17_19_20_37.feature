@@ -57,13 +57,14 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
-    And Nella section Allegati cliccare sul bottone Invia
+    And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
+    And Attendi secondi "2"
     And Cliccare sulla notifica restituita dal filtro
 ##    Numero Avviso PagoPa n + 1 perche viene incluso anche la dicitura Modelli F24 allegati se si scelie l'opzione Avviso PagoPA + Modello F24
     And Aspetta 1 secondi
@@ -75,6 +76,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
 #    And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
     And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
+    And Attendi secondi "2"
     And Cliccare sul bottone Filtra persona fisica
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi

@@ -57,7 +57,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Attendi secondi "2"
-    And Nella section Allegati cliccare sul bottone Invia
+    And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
     And Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -76,6 +76,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra persona fisica
+    And Attendi secondi "2"
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
     And Verifica Presenza Codici Avviso PagoPa 2 e ModelloF24 2
@@ -85,6 +86,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra persona giuridica
+    And Attendi secondi "2"
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
     And Verifica Presenza Codici Avviso PagoPa 2 e ModelloF24 2

@@ -41,7 +41,7 @@ Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni des
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
-    And Nella section Allegati cliccare sul bottone Invia
+    And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
     And Attendi secondi "2"
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
@@ -49,7 +49,7 @@ Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni des
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita dal filtro
-
+    And Aspetta 2 secondi
     And Verifica Presenza Sezione Pagamenti nel menu a cascata 4
 
     Examples:
