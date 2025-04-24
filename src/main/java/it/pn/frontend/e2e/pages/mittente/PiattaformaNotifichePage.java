@@ -193,7 +193,6 @@ public class PiattaformaNotifichePage extends BasePage {
 //        logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
 //    }
     public void selectFiltraNotificaButtonMittente() {
-//        logger.info("Attesa che il bottone 'Filtra' diventi cliccabile...");
 //
         webTool.waitTime(2);
         WebElement buttonFiltraNotifica = getWebDriverWait(50)
@@ -208,6 +207,9 @@ public class PiattaformaNotifichePage extends BasePage {
             js().executeScript("arguments[0].click();", buttonFiltraNotifica);
         }
     }
+
+
+
 
     public void selectFiltraNotificaButtonDestinatario() {
         getWebDriverWait(20).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));

@@ -282,7 +282,6 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     @And("Cliccare la notifica destinatario")
     public void cliccareSulBottoneFiltraPortaleCittadino() {
         String codiceIUN = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
-//        String codiceIUN = "JWVZ-AGET-KNJU-202504-R-1";
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
         piattaformaNotifichePage.clickSuNotifica(codiceIUN);
