@@ -153,42 +153,42 @@ public class AllegatiPASection extends BasePage {
         nomeTerzoAttoTextField.sendKeys(nomeAtto);
     }
 
-    //    public void selectInviaButton() {
-//
-//        try {
-//             inviaButton = getWebDriverWait(10)
-//                     .withMessage("Il bottone Invia Non presente nel DOM")
-//                    .until(ExpectedConditions.presenceOfElementLocated(By.id("step-submit")));
-//            getWebDriverWait(10)
-//                    .withMessage("Il bottone Invia Non è  visibile e cliccabile")
-//                    .until(ExpectedConditions.elementToBeClickable(inviaButton));
-//            inviaButton.click();
-//            logger.info("click avvenuto con successo su invio allegati");
-//        }catch (TimeoutException e) {
-//            Assertions.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
-//    }
-    public void selectInviaButton() {
-        logger.info("Attesa del bottone 'Invia'...");
-        webTool.waitTime(2);
+        public void selectInviaButton() {
+
         try {
-            WebElement selectInviaButton = getWebDriverWait(50)
-                    .withMessage("Il bottone Invia non è cliccabile o visibile")
-                    .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
-
-
-            webTool.waitTime(1); // tempo per eventuali transizioni
-
-            try {
-                selectInviaButton.click();
-            } catch (Exception clickEx) {
-                js().executeScript("arguments[0].click();", selectInviaButton);
-            }
-
-
-        } catch (TimeoutException e) {
-            Assertions.fail("Click non avvenuto con successo su 'Invia'. Errore: " + e.getMessage());
-        }
+             inviaButton = getWebDriverWait(10)
+                     .withMessage("Il bottone Invia Non presente nel DOM")
+                    .until(ExpectedConditions.presenceOfElementLocated(By.id("step-submit")));
+            getWebDriverWait(10)
+                    .withMessage("Il bottone Invia Non è  visibile e cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(inviaButton));
+            inviaButton.click();
+            logger.info("click avvenuto con successo su invio allegati");
+        }catch (TimeoutException e) {
+            Assertions.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
     }
+//    public void selectInviaButton() {
+//        logger.info("Attesa del bottone 'Invia'...");
+//        webTool.waitTime(2);
+//        try {
+//            WebElement selectInviaButton = getWebDriverWait(50)
+//                    .withMessage("Il bottone Invia non è cliccabile o visibile")
+//                    .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
+//
+//
+//            webTool.waitTime(1); // tempo per eventuali transizioni
+//
+//            try {
+//                selectInviaButton.click();
+//            } catch (Exception clickEx) {
+//                js().executeScript("arguments[0].click();", selectInviaButton);
+//            }
+//
+//
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Click non avvenuto con successo su 'Invia'. Errore: " + e.getMessage());
+//        }
+//    }
 
     public boolean verificaMessaggioErrore() {
         try {
