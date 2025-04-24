@@ -155,41 +155,17 @@ public class AllegatiPASection extends BasePage {
 
     public void selectInviaButton() {
 
-//        try {
-//            inviaButton = getWebDriverWait(10)
-//                    .withMessage("Il bottone Invia Non presente nel DOM")
-//                    .until(ExpectedConditions.presenceOfElementLocated(By.id("step-submit")));
-//            getWebDriverWait(10)
-//                    .withMessage("Il bottone Invia Non è  visibile e cliccabile")
-//                    .until(ExpectedConditions.elementToBeClickable(inviaButton));
-//            inviaButton.click();
-//            logger.info("click avvenuto con successo su invio allegati");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("click non avvenuto con successo su invio allegati con errore: " + e.getMessage());
-//        }
-        logger.info("Attesa del bottone 'Invia'...");
-
         try {
-            WebElement selectInviaButton = getWebDriverWait(10)
-                    .withMessage("Il bottone Invia non è cliccabile o visibile")
-                    .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
-
-            js().executeScript("arguments[0].scrollIntoView({block: 'center'});", selectInviaButton);
-
-            webTool.waitTime(1);
-
-            try {
-                selectInviaButton.click();
-                logger.info("Click avvenuto con successo su 'Invia'.");
-            } catch (Exception clickEx) {
-                logger.warn("Click standard fallito. Provo con JavaScript.");
-                js().executeScript("arguments[0].click();", selectInviaButton);
-                logger.info("Click JavaScript su 'Invia' eseguito.");
-            }
-
-        } catch (TimeoutException e) {
-            Assertions.fail("Click non avvenuto con successo su 'Invia'. Errore: " + e.getMessage());
-        }
+             inviaButton = getWebDriverWait(10)
+                     .withMessage("Il bottone Invia Non presente nel DOM")
+                    .until(ExpectedConditions.presenceOfElementLocated(By.id("step-submit")));
+            getWebDriverWait(10)
+                    .withMessage("Il bottone Invia Non è  visibile e cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(inviaButton));
+            inviaButton.click();
+            logger.info("click avvenuto con successo su invio allegati");
+        }catch (TimeoutException e) {
+            Assertions.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
     }
 
     public boolean verificaMessaggioErrore() {

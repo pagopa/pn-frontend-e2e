@@ -68,7 +68,6 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
 
     And Aspetta 1 secondi
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
-    And
     And Cliccare sul bottone Filtra
 ##    And Si verifica che la notifica sia nello stato avanzato
 
