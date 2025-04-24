@@ -2074,4 +2074,28 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
+    public void verificaBannerAttivoEInserimentoManualeSelezionato() {
+
+        WebElement radioManuale = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.cssSelector("input[type='radio'][value='MANUAL']")));
+
+        Assertions.assertTrue(radioManuale.isSelected(), "Il radio button 'Inserimento manuale' NON è selezionato");
+
+        WebElement radioAutomatico = driver.findElement(
+                By.cssSelector("input[type='radio'][value='NATIONAL_REGISTRY']"));
+
+        Assertions.assertFalse(radioAutomatico.isEnabled(), "Il radio 'Inserimento automatico' NON è disabilitato");
+
+
+        // 3. Verifica che il messaggio di errore sia presente
+        WebElement alertMessaggio = driver.findElement(
+                By.cssSelector("[data-testid='alert-physicalAddressLookupDown'] .MuiAlert-message"));
+
+        Assertions.assertTrue(alertMessaggio.isDisplayed(),
+                "Il messaggio di alert per l'indirizzo manuale NON è visibile");
+
+        logger.info("Messaggio di alert correttamente visualizzato e coerente con quello atteso");
+
+    }
 }

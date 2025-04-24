@@ -269,7 +269,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
         informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
         informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
-        informazioniPreliminariPASection.insertGruppo(gruppo);
+//        informazioniPreliminariPASection.insertGruppo(gruppo);
+        informazioniPreliminariPASection.insertGruppo("GruppoTest");
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
@@ -2155,6 +2156,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
 
         piattaformaNotifichePage.selezionaRadionButtonInserimentoManualeSeEsiste(posizione);
+    }
+
+    @And("Verifica Banner attivo e Inserimento manuale selezionato")
+    public void verificaBannerAttivoEInserimentoManualeSelezionato() {
+        piattaformaNotifichePage.verificaBannerAttivoEInserimentoManualeSelezionato();
     }
 
     /**
