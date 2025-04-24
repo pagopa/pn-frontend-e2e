@@ -46,7 +46,9 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Cliccare su continua
  ## Documenti allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
+    And Attendi secondi "2"
     And Nella section Allegati cliccare sul bottone Invia
+    And Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
