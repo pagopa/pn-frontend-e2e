@@ -169,24 +169,19 @@ public class AllegatiPASection extends BasePage {
 //    }
     public void selectInviaButton() {
         logger.info("Attesa del bottone 'Invia'...");
-
+        webTool.waitTime(2);
         try {
             WebElement selectInviaButton = getWebDriverWait(50)
                     .withMessage("Il bottone Invia non è cliccabile o visibile")
                     .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
 
-            // Scroll al centro della viewport
-            js().executeScript("arguments[0].scrollIntoView({block: 'center'});", selectInviaButton);
 
             webTool.waitTime(1); // tempo per eventuali transizioni
 
             try {
                 selectInviaButton.click();
-                logger.info("Click avvenuto con successo su 'Invia'.");
             } catch (Exception clickEx) {
-                logger.warn("Click standard fallito. Provo con JavaScript.");
                 js().executeScript("arguments[0].click();", selectInviaButton);
-                logger.info("Click JavaScript su 'Invia' eseguito.");
             }
 
 

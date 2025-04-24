@@ -195,6 +195,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selectFiltraNotificaButtonMittente() {
 //        logger.info("Attesa che il bottone 'Filtra' diventi cliccabile...");
 //
+        webTool.waitTime(2);
         WebElement buttonFiltraNotifica = getWebDriverWait(50)
                 .withMessage("Il bottone 'Filtra' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("filter-button")));
