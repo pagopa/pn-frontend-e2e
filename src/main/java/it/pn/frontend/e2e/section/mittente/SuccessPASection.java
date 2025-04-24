@@ -64,25 +64,15 @@ public class SuccessPASection extends BasePage {
 //        logger.info("Pulsante 'Vai alle notifiche' cliccato con successo.");
         logger.info("Tentativo di cliccare il pulsante 'Vai alle notifiche'...");
 
-        getWebDriverWait(30)
-                .withMessage("Il pulsante con id 'go-to-notifications' non è presente nel DOM.")
+        WebElement vaiAlleNotifiche = getWebDriverWait(70)
+                .withMessage("Il pulsante con id 'go-to-notifications' non è presente ")
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("go-to-notifications")));
 
-        WebElement vaiAlleNotifiche = driver.findElement(By.id("go-to-notifications"));
-
-        try {
-            getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(
-                    By.cssSelector(".MuiBackdrop-root, .spinner, .overlay-loader"))); // personalizza se usi altri overlay
-        } catch (TimeoutException ignored) {
-            logger.warn("Overlay ancora presente, si tenta comunque il click.");
-        }
+//        WebElement vaiAlleNotifiche = driver.findElement(By.id("go-to-notifications"));
 
         js().executeScript("arguments[0].scrollIntoView({block: 'center'});", vaiAlleNotifiche);
         webTool.waitTime(1); // Attesa per stabilizzare
 
-        getWebDriverWait(10)
-                .withMessage("Il pulsante 'Vai alle notifiche' non è cliccabile.")
-                .until(ExpectedConditions.elementToBeClickable(vaiAlleNotifiche));
 
         try {
             vaiAlleNotifiche.click();
