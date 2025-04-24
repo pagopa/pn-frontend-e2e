@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.TimeUnit;
+import java.util.Map;
 
 public class ApiKeysTest  extends BasePage {
 
@@ -132,6 +133,7 @@ public class ApiKeysTest  extends BasePage {
 
     @And("Nella pop up cliccare sul tasto conferma")
     public void nellaPopUpCliccareSulTastoConferma() {
+        logger.info("Nella pop up cliccare sul tasto conferma");
         apiKeyPAPage.clickSuConfermaNelPopUp();
     }
 
@@ -288,7 +290,7 @@ public class ApiKeysTest  extends BasePage {
     public void siCopiaCorrettamenteLaApiKeyCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'copy-clipboard' per copiare la Api Key");
         String apikeyCopied = apiKeyPAPage.copiaApiKey();
-        logger.info("La Api Key copiata è: " + apikeyCopied);
+        logger.info("La Api Key copiata è: {}", apikeyCopied);
     }
 
     @Then("Nella pagina Api Key posizionare il cursuore sopra il numero gruppi")
@@ -310,6 +312,85 @@ public class ApiKeysTest  extends BasePage {
        Assertions.assertTrue(getApiKey().equalsIgnoreCase(apiKeyDaElenco));
     }
 
+    @And("Pulisci ambiente public keys")
+    public void pulisciAmbientePublicKeys() {
+        apiKeyPAPage.pulisciAmbientePublickeys();
+    }
+
+    @And("Verifica Pop-up Integrazione Api {string}")
+    public void verificaPopUpIntegrazioneApi(String testo) {
+        logger.info("Verifica Pop-up Integrazione Api");
+        apiKeyPAPage.verificaPopUpIntegrazioneApi(testo);
+    }
+
+    @And("Nella pagina Api Key si clicca sulla voce Elimina del menu Api Key")
+    public void nellaPaginaApiKeySiCliccaSullaVoceEliminaDelMenuApiKey() {
+        apiKeyPAPage.clickEliminaIntegrazioneApi();
+    }
+
+    @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica")
+    public void siControllaSiaPresenteIlBottoneGeneraChiavePubblica() {
+        logger.info("Si controlla sia presente bottone Genera chiave pubblica");
+        if (apiKeyPAPage.generaChiavePubblicaDisplayed()) {
+            logger.info("Il bottone Genera chiave pubblica è trovato");
+        } else {
+            logger.error("Il bottone Genera chiave pubblica non è trovato");
+            Assertions.fail("Il bottone Genera chiave pubblica non è trovato");
+        }
+    }
+
+    @And("Nella pagina Integrazione API si controlla che non sia presente il bottone Genera chiave pubblica")
+    public void siControllaCheNonSiaPresenteIlBottoneGeneraChiavePubblica() {
+        logger.info("Si controlla che non sia presente bottone Genera chiave pubblica");
+        if (!apiKeyPAPage.generaChiavePubblicaDisplayed()) {
+            Assertions.assertFalse(apiKeyPAPage.generaChiavePubblicaDisplayed(), "Il bottone Genera chiave pubblica non è visibile");
+        } else {
+            Assertions.fail("Il bottone Genera chiave pubblica è visibile");
+        }
+    }
+
+    @And("Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica")
+    public void siCliccaIlBottoneGeneraChiavePubblica() {
+        logger.info("Si clicca sul bottone Genera chiave pubblica");
+        apiKeyPAPage.clickBottoneGeneraChiavePubblica();
+    }
+
+    @And("Nella sezione Integrazione API non si visualizza alcuna chiave {string}")
+    public void nellaSezioneIntegrazioneAPINonSiVisualizzaAlcunaChiave(String testo) {
+        apiKeyPAPage.nellaSezioneIntegrazioneAPINonSiVisualizzaAlcunaChiave(testo);
+    }
+
+    @And("Nella pagina Integrazione API si visualizza il messaggio di alert {string}")
+    public void nellaSezioneIntegrazioneAPISiVisualizzaAlert(String testo) {
+        logger.info("Nella pagina Integrazione API si verifica che sia visualizzato il messaggio di alert {}", testo);
+        apiKeyPAPage.nellaSezioneIntegrazioneAPISiVisualizzaAlert(testo);
+    }
+
+    @Then("verifica tre puntini mostra di piu")
+    public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
+        apiKeyPAPage.verificaTrePuntiniMostraDiPiu( chiave);
+    }
+
+    @And("Aggiornamento Pagina")
+    public void aggiornamentoPagina() {
+        apiKeyPAPage.aggiornamentoPagina();
+    }
+
+    @And("Click su tasto Genera Chiave Personale")
+    public void clickSuTastoGeneraChiavePersonale() {
+        apiKeyPAPage.clickSuTastoGeneraChiavePersonale();
+    }
+
+    @And("Verifica testo nel pop-up {string}")
+    public void verificaTestoNelPopUp(String testo) {
+        apiKeyPAPage.verificaTestoNelPopUp(testo);
+    }
+
+    @And("Pulisci ambiente virtual keys")
+    public void pulisciAmbienteVirtualKeys() {
+        apiKeyPAPage.pulisciAmbienteVirtualKeys();
+    }
+
     @And("Click registra chiave pubblica")
     public void clickRegistraChiavePubblica() {
         apiKeyPAPage.clickRegistraChiavePubblica();
@@ -324,11 +405,6 @@ public class ApiKeysTest  extends BasePage {
     public void clickRegistraOrFine () {
         logger.info("Click registra o Fine");
         apiKeyPAPage.clickRegistraOrFine();
-    }
-
-    @And("Verifica Pop-up Integrazione Api {string}")
-    public void verificaPopUpIntegrazioneApi(String test) {
-        apiKeyPAPage.verificaPopUpIntegrazioneApi(test);
     }
 
     @And("Click genera chiave personale")
@@ -373,13 +449,4 @@ public class ApiKeysTest  extends BasePage {
         apiKeyPAPage.clickTrePuntiniVirtualKeys(stato);
     }
 
-    @And("Pulisci ambiente public keys")
-    public void pulisciAmbientePublickeys() {
-        apiKeyPAPage.pulisciAmbientePublickeys();
-    }
-
-    @And("Pulisci ambiente virtual keys")
-    public void pulisciAmbienteVirtualKeys() {
-        apiKeyPAPage.pulisciAmbienteVirtualKeys();
-    }
 }

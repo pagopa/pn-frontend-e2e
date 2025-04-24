@@ -1108,7 +1108,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean errorMessage() {
-        webTool.waitTime(10);
         errorMessage = driver.findElement(By.id("subject-helper-text"));
         return errorMessage.isDisplayed();
     }
@@ -1479,20 +1478,24 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void visualizzaTimeline(String check) {
         webTool.waitTime(10);
-        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        viewMore.get(0).click();
-        String size = Integer.toString(viewMore.size());
-        if (size.equals("2")) {
-            viewMore.get(1).click();
-        }
+        if (StringUtils.isNotEmpty(check)) {
+            List<WebElement> viewMore = getWebDriverWait(30).withMessage("Non trovato la scritta Vedi poiu dettagli")
+                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"))));
+            viewMore.get(0).click();
+            String size = Integer.toString(viewMore.size());
+            if (size.equals("2")) {
+                viewMore.get(1).click();
+            }
 
-        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+            List<WebElement> findKeyWord = getWebDriverWait(30).withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
+                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"))));
 
-        if (findKeyWord.get(0).isDisplayed()) {
-            logger.info("Si visualizza la timeline correttamente");
-        } else {
-            logger.error("Non si visualizza  la timeline correttamente");
-            Assertions.fail("Non si visualizza  la timeline correttamente");
+            if (findKeyWord.get(0).isDisplayed()) {
+                logger.info("Si visualizza la timeline correttamente");
+            } else {
+                logger.error("Non si visualizza  la timeline correttamente");
+                Assertions.fail("Non si visualizza  la timeline correttamente");
+            }
         }
     }
 
@@ -1694,6 +1697,20 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         Assertions.assertFalse(isDisplayed, "Il bottone è visualizzabile");
     }
+    private void verificaDestinatario(String tipo, String cf, String messaggioErrore) {
+        List<WebElement> destinatario = getWebDriverWait(10)
+                .withMessage(messaggioErrore)
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//p[contains(text(),'(" + cf + ") all')]")));
+
+        if (!destinatario.isEmpty() && destinatario.get(0).isDisplayed()) {
+            logger.info("Si visualizza correttamente il destinatario {} con CF {}", tipo, cf);
+        } else {
+            logger.error("Non si visualizza il destinatario {} con CF {}", tipo, cf);
+            Assertions.fail("Non si visualizza il destinatario " + tipo + " con CF " + cf);
+        }
+    }
+
+
 
     public void clickDelete() {
         WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));
