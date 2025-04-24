@@ -442,7 +442,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Cliccare sul bottone Invia");
 
         allegatiPASection.selectInviaButtonPosizioneDebitoria();
-//        webTool.waitTime(3);
+        webTool.waitTime(4);
 
     }
 
