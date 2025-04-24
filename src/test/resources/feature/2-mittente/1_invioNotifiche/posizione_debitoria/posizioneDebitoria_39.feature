@@ -31,10 +31,6 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 1
     And Click Su Aggiungi Codice Di Avviso PagoPa 0
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
-#    And Inserire Tutti Codice Avviso
-#    And Inserire Tutti Codice Fiscale Ente
-
-
 
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 1
     And Inserisci Titolo Documento Posizione Debitoria 1
@@ -60,6 +56,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
+    And Attendi secondi "1"
     And Nella section Allegati cliccare sul bottone Invia
 
     And Cliccare sul bottone vai alle notifiche

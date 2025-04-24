@@ -167,28 +167,6 @@ public class AllegatiPASection extends BasePage {
         }catch (TimeoutException e) {
             Assertions.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
     }
-//    public void selectInviaButton() {
-//        logger.info("Attesa del bottone 'Invia'...");
-//        webTool.waitTime(2);
-//        try {
-//            WebElement selectInviaButton = getWebDriverWait(50)
-//                    .withMessage("Il bottone Invia non è cliccabile o visibile")
-//                    .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
-//
-//
-//            webTool.waitTime(1); // tempo per eventuali transizioni
-//
-//            try {
-//                selectInviaButton.click();
-//            } catch (Exception clickEx) {
-//                js().executeScript("arguments[0].click();", selectInviaButton);
-//            }
-//
-//
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Click non avvenuto con successo su 'Invia'. Errore: " + e.getMessage());
-//        }
-//    }
 
     public boolean verificaMessaggioErrore() {
         try {

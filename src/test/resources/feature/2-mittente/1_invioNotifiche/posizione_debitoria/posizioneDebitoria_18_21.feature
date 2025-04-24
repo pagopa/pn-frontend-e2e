@@ -62,7 +62,7 @@ Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni des
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
-    And Verifica Presenza Sezione Pagamenti nel menu a cascata 4
+    And Verifica Presenza Sezione Pagamenti nel menu a cascata 2
 
     Examples:
       | numero destinatari |
