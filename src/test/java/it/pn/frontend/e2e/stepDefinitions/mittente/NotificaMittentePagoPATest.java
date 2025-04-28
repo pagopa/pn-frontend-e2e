@@ -2360,9 +2360,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Verifica Assenza Pop-up Errore per Invia Posizione Debitoria")
     public void verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria() {
-        if (destinatarioPASection.verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria()) {
-            Assertions.fail(" Pop-up Errore per Invia Posizione Debitoria Apparso");
-        }
+//        if (destinatarioPASection.verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria()) {
+//            Assertions.fail(" Pop-up Errore per Invia Posizione Debitoria Apparso");
+//        }
+        Assertions.assertFalse(destinatarioPASection.verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria()," Pop-up Errore per Invia Posizione Debitoria Apparso");
     }
 
     @And("Verifica Numero Caricamento file {int}")
