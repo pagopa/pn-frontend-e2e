@@ -34,6 +34,7 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã
     And Verifica Assenza Pop-up Errore per Invia Posizione Debitoria
 
     And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
+    And Si visualizza correttamente la frase La notifica Ã¨ stata correttamente creata
 #    And Attendi secondi "2"
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
