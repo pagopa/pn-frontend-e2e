@@ -637,4 +637,16 @@ public class DestinatarioPASection extends BasePage {
                 "Il numero di messaggi di errore visibili per i codici fiscali ente creditore non corrisponde a quello atteso."
         );
     }
+
+    public boolean verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria() {
+        try {
+            getWebDriverWait(10).withMessage("Alert di posizione debitoria non visualizzato correttamente")
+//                    .until(ExpectedConditions.visibilityOfElementLocated((By.id("alert-api-status"))));
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@id, 'alert')]")));
+            logger.info("Testo Alert di posizione debitoria: {}", driver.findElement(By.xpath("//*[contains(@id, 'alert')]")).getText());
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
 }

@@ -172,7 +172,7 @@ public class AllegatiPASection extends BasePage {
 
     public void selectInviaButtonPosizioneDebitoria() {
 
-        WebElement inviaBtn = getWebDriverWait(10)
+        WebElement inviaBtn = getWebDriverWait(30)
                 .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
 
         // Scroll e click JS fallback

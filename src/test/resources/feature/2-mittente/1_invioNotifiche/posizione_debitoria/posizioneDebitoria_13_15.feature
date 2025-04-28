@@ -29,6 +29,7 @@ Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
+    And Verifica Assenza Pop-up Errore per Invia Posizione Debitoria
     And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche

@@ -2358,6 +2358,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     }
 
+    @And("Verifica Assenza Pop-up Errore per Invia Posizione Debitoria")
+    public void verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria() {
+        if (destinatarioPASection.verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria()) {
+            Assertions.fail(" Pop-up Errore per Invia Posizione Debitoria Apparso");
+        }
+    }
+
 
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.

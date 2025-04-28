@@ -390,6 +390,7 @@ public class DestinatarioPage extends BasePage {
             String prefisso = prefissi[random.nextInt(prefissi.length)];
             String parteRandomStr = String.format("%05d", random.nextInt(100000));
             String codiceAvviso = prefisso + parteRandomStr;
+            logger.info("Codice Avviso Generato dal metodo inserireTuttiCodiceAvviso: {}",codiceAvviso);
 
             try {
                 getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
