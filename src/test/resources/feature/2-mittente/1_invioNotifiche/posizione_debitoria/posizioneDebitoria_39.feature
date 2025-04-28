@@ -6,6 +6,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
 
   Scenario: [Posizione_Debitoria_39] - Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG contenente più avvisi PagoPa e più modelli F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
+
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
@@ -64,6 +65,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
 
     And Aspetta 1 secondi
+    And Verifica Esistenza Tabella Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
 ##    And Si verifica che la notifica sia nello stato avanzato
@@ -74,6 +76,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
 
     When PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Aspetta 1 secondi
+    And Verifica Esistenza Tabella Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra persona fisica
     And Attendi secondi "2"
@@ -84,6 +87,10 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
 
     Then PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Aspetta 1 secondi
+
+    And Verifica Esistenza Tabella Notifiche
+
+
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra persona giuridica
     And Attendi secondi "2"

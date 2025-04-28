@@ -266,7 +266,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
         informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
         informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
-        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+//        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(WebTool.generatePaProtocolNumber());
         informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
@@ -2369,6 +2370,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Verifica Numero Caricamento file {int}")
     public void verificaNumeroCaricamentoFile(int numeroFile) {
         destinatarioPASection.verificaNumeroCaricamentoFile(numeroFile);
+    }
+
+    @And("Verifica Esistenza Tabella Notifiche")
+    public void verificaEsistenzaTabellaNotifiche() {
+        destinatarioPASection.verificaEsistenzaTabellaNotifiche();
     }
 
 

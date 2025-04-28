@@ -687,7 +687,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     private void selezionaPage50() {
-        WebElement pageSize50 = getWebDriverWait(3)
+        WebElement pageSize50 = getWebDriverWait(30)
                 .withMessage("Impossibile trovare pageSize-50")
                 .until(ExpectedConditions.elementToBeClickable(By.id("pageSize-50")));
         pageSize50.click();

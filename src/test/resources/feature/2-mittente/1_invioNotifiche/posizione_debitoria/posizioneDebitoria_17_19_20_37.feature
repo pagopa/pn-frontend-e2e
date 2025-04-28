@@ -63,6 +63,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Aspetta 1 secondi
+    And Verifica Esistenza Tabella Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
     And Attendi secondi "2"
@@ -76,6 +77,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     Then PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 #    And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
     And Aspetta 1 secondi
+    And Verifica Esistenza Tabella Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Attendi secondi "2"
     And Cliccare sul bottone Filtra persona fisica

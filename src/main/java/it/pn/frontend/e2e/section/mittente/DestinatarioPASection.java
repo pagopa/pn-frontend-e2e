@@ -669,4 +669,10 @@ public class DestinatarioPASection extends BasePage {
 
         Assertions.fail("Numero icone allegato diverso da: " + numeroFile + " dopo " + tentativi + " tentativi.");
     }
+
+    public void verificaEsistenzaTabellaNotifiche() {
+        getWebDriverWait(60)
+                .withMessage("Tabella Notifiche Non Trovata")
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("notifications-table")));
+    }
 }
