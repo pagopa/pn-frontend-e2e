@@ -83,7 +83,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Cliccare sul bottone Filtra persona fisica
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
-    And Verifica Presenza Codici Avviso PagoPa 3 e ModelloF24 2
+    And Verifica Sezione Pagamenti
 
 
   

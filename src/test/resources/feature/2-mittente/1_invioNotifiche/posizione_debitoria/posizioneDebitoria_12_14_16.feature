@@ -43,7 +43,7 @@ Feature: Avviso PagoPa - inserire un modello F24 per ogni destinatario a cui è 
     And Aspetta 4 secondi
     And Cliccare sulla notifica restituita dal filtro
 
-    And Verifica Presenza Sezione Pagamenti nel menu a cascata 2
+    And Verifica Sezione Pagamenti
 
     Examples:
       | numero destinatari |

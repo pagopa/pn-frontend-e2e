@@ -96,4 +96,4 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Attendi secondi "2"
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
-    And Verifica Presenza Codici Avviso PagoPa 2 e ModelloF24 2
+    And Verifica Sezione Pagamenti

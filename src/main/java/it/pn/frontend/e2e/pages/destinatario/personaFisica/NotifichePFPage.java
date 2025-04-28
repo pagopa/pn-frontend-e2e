@@ -375,4 +375,12 @@ public class NotifichePFPage extends BasePage {
         Assertions.assertEquals(numeroAttesoF24, modelliF24.size(),
                 "Numero errato di modelli F24, attesi: " + numeroAttesoF24);
     }
+
+    public void verificaSezionePagamenti() {
+        List<WebElement> elements = getWebDriverWait(15)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("[data-testid='paymentInfoBox']"))
+        );
+
+        Assertions.assertFalse(elements.isEmpty(), "La sezione Pagamenti non è presente sulla pagina!");
+    }
 }

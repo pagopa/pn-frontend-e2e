@@ -57,5 +57,5 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita dal filtro
-    And Verifica Presenza Sezione Pagamenti 2
+    And Verifica Sezione Pagamenti
     

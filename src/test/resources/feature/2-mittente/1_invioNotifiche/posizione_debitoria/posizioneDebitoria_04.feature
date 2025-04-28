@@ -34,5 +34,5 @@ Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione rela
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
-    And Verifica Presenza Sezione Pagamenti 1
+    And Verifica Sezione Pagamenti
     

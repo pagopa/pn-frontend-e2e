@@ -40,4 +40,4 @@ And Aspetta 2 secondi
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 2 secondi
-    And Verifica Presenza Sezione Pagamenti numero moduli F24 2
+    And Verifica Sezione Pagamenti

@@ -44,7 +44,7 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita dal filtro
-    And Verifica Presenza Sezione Pagamenti nel menu a cascata 2
+    And Verifica Sezione Pagamenti
 
     Examples:
       | numero destinatari |

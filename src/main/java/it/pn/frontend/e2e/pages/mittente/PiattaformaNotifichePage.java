@@ -255,6 +255,8 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
+        String scenario = hooksNew.getScenario();
+        logger.info("IUN scenario: " + scenario);
         logger.info("Si inserisce il codice IUN...." + codiceIUN);
         webTool.waitTime(10);
         getWebDriverWait(100).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
