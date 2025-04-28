@@ -26,12 +26,12 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     When Seleziona Incluso Nell Atto 1
     And Seleziona Modo Sincrono 1
 
-    And Inserire Tutti Codice Avviso
-    And Inserire Tutti Codice Fiscale Ente
+#    And Inserire Tutti Codice Avviso
+#    And Inserire Tutti Codice Fiscale Ente
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 1
     And Click Su Aggiungi Codice Di Avviso PagoPa 0
-    And Inserire Tutti Codice Avviso
-    And Inserire Tutti Codice Fiscale Ente
+#    And Inserire Tutti Codice Avviso
+#    And Inserire Tutti Codice Fiscale Ente
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
 
     And Click Su Aggiungi Codice Di Avviso PagoPa 0
@@ -48,7 +48,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 2
     And Inserisci Titolo Documento Posizione Debitoria 2
 
-
+    And Verifica Numero Caricamento file 5
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"

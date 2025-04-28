@@ -649,4 +649,24 @@ public class DestinatarioPASection extends BasePage {
             return false;
         }
     }
+
+    public void verificaNumeroCaricamentoFile(int numeroFile) {
+        int tentativi = 1;
+
+        for (int i = 0; i < numeroFile; i++) {
+
+            List<WebElement> iconeAllegati = getWebDriverWait(60)
+                    .withMessage("Le icone degli allegati non sono state trovate entro il tempo previsto")
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("svg[data-testid='AttachFileIcon']")));
+
+            if (iconeAllegati != null && iconeAllegati.size() == numeroFile) {
+                return;
+            }
+            webTool.waitTime(2);
+            tentativi++;
+
+        }
+
+        Assertions.fail("Numero icone allegato diverso da: " + numeroFile + " dopo " + tentativi + " tentativi.");
+    }
 }

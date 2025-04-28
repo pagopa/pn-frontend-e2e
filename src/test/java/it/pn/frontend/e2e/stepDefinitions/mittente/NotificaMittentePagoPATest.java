@@ -2365,6 +2365,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
     }
 
+    @And("Verifica Numero Caricamento file {int}")
+    public void verificaNumeroCaricamentoFile(int numeroFile) {
+        destinatarioPASection.verificaNumeroCaricamentoFile(numeroFile);
+    }
+
 
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.

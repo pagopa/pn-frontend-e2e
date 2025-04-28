@@ -26,6 +26,7 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã
     And Inserire Tutti Codice Avviso
     And Inserire Tutti Codice Fiscale Ente
     And Carica Multiplo File PDF Posizione Debitoria Numero Notifiche Pari a 2
+    And Verifica Numero Caricamento file 2
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"

@@ -50,7 +50,7 @@ Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni des
 
     And Inserire Tutti Codice Avviso
     And Inserire Tutti Codice Fiscale Ente
-
+    And Verifica Numero Caricamento file 4
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"

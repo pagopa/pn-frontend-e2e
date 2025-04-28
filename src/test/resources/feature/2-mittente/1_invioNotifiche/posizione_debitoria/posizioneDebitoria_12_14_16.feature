@@ -27,6 +27,7 @@ Feature: Avviso PagoPa - inserire un modello F24 per ogni destinatario a cui è 
     And Inserisci Titolo Documento Posizione Debitoria 1
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 2
     And Inserisci Titolo Documento Posizione Debitoria 2
+    And Verifica Numero Caricamento file 2
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"

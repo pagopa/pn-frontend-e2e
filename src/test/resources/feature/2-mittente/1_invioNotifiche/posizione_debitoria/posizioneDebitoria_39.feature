@@ -52,7 +52,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a 4
     And Inserisci Titolo Documento Posizione Debitoria 4
 
-
+    And Verifica Numero Caricamento file 8
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"

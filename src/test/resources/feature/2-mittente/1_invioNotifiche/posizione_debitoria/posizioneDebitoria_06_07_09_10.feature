@@ -43,6 +43,7 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Inserire Tutti Codice Fiscale Ente
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 2
     And Seleziona Applica Costo Notifica
+    And Verifica Numero Caricamento file 2
     And Cliccare su continua
  ## Documenti allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
