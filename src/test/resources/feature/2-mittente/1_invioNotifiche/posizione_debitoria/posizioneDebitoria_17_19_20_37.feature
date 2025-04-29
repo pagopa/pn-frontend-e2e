@@ -49,7 +49,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Aspetta 1 secondi
     And Verifica Esistenza Tabella Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
-    And Cliccare sul bottone Filtra
+    And Cliccare sul bottone Filtra Notifica "filter-button"
     And Attendi secondi "2"
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
@@ -60,7 +60,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Verifica Esistenza Tabella Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Attendi secondi "2"
-    And Cliccare sul bottone Filtra persona fisica
+    And Cliccare sul bottone Filtra Notifica "filter-notifications-button"
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
     And Verifica Sezione Pagamenti

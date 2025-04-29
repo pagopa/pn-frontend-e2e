@@ -31,10 +31,10 @@ Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
-And Aspetta 2 secondi
+    And Aspetta 2 secondi
     And Verifica Esistenza Tabella Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
-    And Cliccare sul bottone Filtra
+    And Cliccare sul bottone Filtra Notifica "filter-button"
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 2 secondi
     And Verifica Sezione Pagamenti

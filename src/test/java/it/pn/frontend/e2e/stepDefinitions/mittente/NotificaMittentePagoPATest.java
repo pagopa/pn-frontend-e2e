@@ -258,7 +258,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento() {
         logger.info("Inserimento dei dati della notifica senza pagamento" );
         //datiNotifica
-        aggiornamentoNumeroProtocollo();
+//        aggiornamentoNumeroProtocollo();
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
@@ -2361,9 +2361,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Verifica Assenza Pop-up Errore per Invia Posizione Debitoria")
     public void verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria() {
-//        if (destinatarioPASection.verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria()) {
-//            Assertions.fail(" Pop-up Errore per Invia Posizione Debitoria Apparso");
-//        }
         Assertions.assertFalse(destinatarioPASection.verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria()," Pop-up Errore per Invia Posizione Debitoria Apparso");
     }
 

@@ -193,7 +193,6 @@ public class PiattaformaNotifichePage extends BasePage {
 //        logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
 //    }
     public void selectFiltraNotificaButtonMittente() {
-//
         webTool.waitTime(2);
         WebElement buttonFiltraNotifica = getWebDriverWait(50)
                 .withMessage("Il bottone 'Filtra' non è cliccabile")
@@ -205,6 +204,48 @@ public class PiattaformaNotifichePage extends BasePage {
             buttonFiltraNotifica.click();
         } catch (Exception e) {
             js().executeScript("arguments[0].click();", buttonFiltraNotifica);
+        }
+    }
+
+    public void clickBottoneFiltraNotifica(String xpath) {
+//        "filter-button"
+//        filter-notifications-button
+        final int maxRetries = 10;
+        final int retryDelaySeconds = 10;
+
+        boolean isClicked = false;
+
+        for (int attempt = 1; attempt <= maxRetries && !isClicked; attempt++) {
+            try {
+                // Verifica presenza tabella
+                WebElement table = getWebDriverWait(10)
+                        .until(ExpectedConditions.presenceOfElementLocated(By.id("notifications-table")));
+
+                if (table.isDisplayed()) {
+                    WebElement buttonFiltraNotifica = getWebDriverWait(10)
+                            .withMessage("Il bottone 'Filtra' non è cliccabile")
+                            .until(ExpectedConditions.elementToBeClickable(By.id(xpath)));
+
+                    webTool.waitTime(1); // eventuali animazioni
+
+                    try {
+                        buttonFiltraNotifica.click();
+                    } catch (Exception e) {
+                        js().executeScript("arguments[0].click();", buttonFiltraNotifica);
+                    }
+
+                    isClicked = true;
+                } else {
+                    webTool.waitTime(retryDelaySeconds);
+                }
+
+            } catch (Exception ex) {
+                webTool.waitTime(retryDelaySeconds);
+            }
+        }
+
+        if (!isClicked) {
+            Assertions.fail("Impossibile cliccare sul bottone 'Filtra' perché la tabella non è visibile o il bottone non è cliccabile dopo " + maxRetries + " tentativi.");
         }
     }
 

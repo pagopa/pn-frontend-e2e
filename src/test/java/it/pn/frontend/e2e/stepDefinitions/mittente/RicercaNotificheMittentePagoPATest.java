@@ -66,6 +66,12 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
     }
 
+    @And("Cliccare sul bottone Filtra Notifica {string}")
+    public void cliccareSulBottoneFiltraNotifica(String xpath) {
+        logger.info("Si clicca sul tasto filtra Notifica");
+        piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath);
+    }
+
     @And("Si verifica che non ci sono notifiche disponibili")
     public void siVerificaCheNonCiSonoNotifiche() {
         logger.info("Si verifica che non ci sono notifiche disponibili con i fitri applicati");
