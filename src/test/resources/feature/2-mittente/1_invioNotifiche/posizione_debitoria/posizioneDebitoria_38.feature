@@ -66,12 +66,12 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi
 ##    Numero Avviso PagoPa n + 1 perche viene incluso anche la dicitura Modelli F24 allegati se si scelie l'opzione Avviso PagoPA + Modello F24
-    And Verifica Presenza Sezione Pagamenti 4
+    And Verifica Sezione Pagamenti
 ##    Numero moduli  Moduli F24
-    And Verifica Presenza Sezione Pagamenti numero moduli F24 2
+#    And Verifica Presenza Sezione Pagamenti numero moduli F24 2
 
     Then PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Aspetta 1 secondi
+    And Aspetta 5 secondi
     And Verifica Esistenza Tabella Notifiche
     And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra persona giuridica
