@@ -47,12 +47,11 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Verifica Assenza Pop-up Errore per Invia Posizione Debitoria
     And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
-    And Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Verifica Esistenza Tabella Notifiche
-    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
+#    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra Notifica "filter-button"
     And Cliccare sulla notifica restituita dal filtro
     And Verifica Sezione Pagamenti

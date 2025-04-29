@@ -207,50 +207,39 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void clickBottoneFiltraNotifica(String xpath) {
+    public void clickBottoneFiltraNotifica(String xpath, String codiceIUN) {
 //        "filter-button"
 //        filter-notifications-button
-        final int maxRetries = 10;
-        final int retryDelaySeconds = 10;
+        final int maxTentativi = 10;
+        final int attesaSecondi = 10;
+        boolean trovato = false;
 
-        boolean isClicked = false;
-
-        for (int attempt = 1; attempt <= maxRetries && !isClicked; attempt++) {
+        for (int i = 0; i <= maxTentativi && !trovato; i++) {
             try {
-                // Verifica presenza tabella
-                WebElement table = getWebDriverWait(10)
-                        .until(ExpectedConditions.presenceOfElementLocated(By.id("notifications-table")));
-
-                if (table.isDisplayed()) {
-                    WebElement buttonFiltraNotifica = getWebDriverWait(10)
-                            .withMessage("Il bottone 'Filtra' non è cliccabile")
-                            .until(ExpectedConditions.elementToBeClickable(By.id(xpath)));
-
-                    webTool.waitTime(1); // eventuali animazioni
-
-                    try {
-                        buttonFiltraNotifica.click();
-                    } catch (Exception e) {
-                        js().executeScript("arguments[0].click();", buttonFiltraNotifica);
-                    }
-
-                    isClicked = true;
-                } else {
-                    webTool.waitTime(retryDelaySeconds);
+                WebElement bottoneFiltra = getWebDriverWait(10)
+                        .withMessage("Il bottone 'Filtra' non è cliccabile")
+                        .until(ExpectedConditions.elementToBeClickable(By.id(xpath)));
+                webTool.waitTime(1);
+                try {
+                    bottoneFiltra.click();
+                } catch (Exception e) {
+                    js().executeScript("arguments[0].click();", bottoneFiltra);
                 }
+                webTool.waitTime(1);
+                By selettoreIUN = By.xpath("//*[contains(@id, 'notifications-table')]//td[contains(text(), '" + codiceIUN + "')]");
+                getWebDriverWait(5)
+                        .withMessage("Codice IUN '" + codiceIUN + "' non trovato nella tabella notifiche")
+                        .until(ExpectedConditions.visibilityOfElementLocated(selettoreIUN));
 
+                trovato = true;
             } catch (Exception ex) {
-                webTool.waitTime(retryDelaySeconds);
+                webTool.waitTime(attesaSecondi);
             }
         }
-
-        if (!isClicked) {
-            Assertions.fail("Impossibile cliccare sul bottone 'Filtra' perché la tabella non è visibile o il bottone non è cliccabile dopo " + maxRetries + " tentativi.");
+        if (!trovato) {
+            Assertions.fail("Impossibile cliccare sul bottone 'Filtra': la tabella non è visibile o il bottone non è cliccabile dopo " + maxTentativi + " tentativi.");
         }
     }
-
-
-
 
     public void selectFiltraNotificaButtonDestinatario() {
         getWebDriverWait(20).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));

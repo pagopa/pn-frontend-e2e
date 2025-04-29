@@ -49,7 +49,7 @@ Feature: Avviso PagoPa - inserire un avviso PagoPA e un modello F24 per ogni des
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Verifica Esistenza Tabella Notifiche
-    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
+#    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra Notifica "filter-button"
     And Cliccare sulla notifica restituita dal filtro
     And Aspetta 1 secondi

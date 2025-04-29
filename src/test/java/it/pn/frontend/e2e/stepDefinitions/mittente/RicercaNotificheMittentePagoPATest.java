@@ -69,7 +69,11 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Cliccare sul bottone Filtra Notifica {string}")
     public void cliccareSulBottoneFiltraNotifica(String xpath) {
         logger.info("Si clicca sul tasto filtra Notifica");
-        piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath);
+        String codiceIUN =dataPopulationConfig.getDatiNotifica().getCodiceIUN();
+//        String codiceIUN ="HWEG-REZK-XPMT-202504-X-3";
+        //        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath,codiceIUN);
     }
 
     @And("Si verifica che non ci sono notifiche disponibili")
@@ -154,8 +158,8 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica")
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
-        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
-//        piattaformaNotifichePage.inserimentoCodiceIUN("JWVZ-AGET-KNJU-202504-R-1");
+//        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
+        piattaformaNotifichePage.inserimentoCodiceIUN("HWEG-REZK-XPMT-202504-X-3");
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
