@@ -13,7 +13,6 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
-
     And Cliccare su continua
 #    Posizione Debitoria
     When Seleziona Avviso PagoPA 1
@@ -30,13 +29,9 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã
     And Cliccare su continua
  ## Documenti allegati
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
-#    And Attendi secondi "1"
-
     And Verifica Assenza Pop-up Errore per Invia Posizione Debitoria
-
     And Nella section Allegati cliccare sul bottone Invia Posizione Debitoria
     And Si visualizza correttamente la frase La notifica Ã¨ stata correttamente creata
-#    And Attendi secondi "2"
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"

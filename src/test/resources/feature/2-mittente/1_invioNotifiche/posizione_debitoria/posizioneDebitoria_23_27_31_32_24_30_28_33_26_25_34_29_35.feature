@@ -1,10 +1,10 @@
 Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione relativa all’inserimento delle informazioni dell’avviso di pagamento - solo un avviso PagoPa - forfettario e sincrona
 
   @TestSuite
-  @TA_PosizioneDebitoria_23_27_31_32_24_30_28_33_26_25_34_29
-  @NRT
+  @TA_PosizioneDebitoria_23_27_31_32_24_30_28_33_26_25_34_29_35
+  @NRT_TA_PosizioneDebitoria
 
-  Scenario: [Posizione_Debitoria_23_27_31_32_24_30_28_33_26_25_34_29] - Verificare che, a fronte di un cambio tipologia di pagamento tra la prima e la seconda volta, i campi corrispondenti al pagamento vengano correttamente svuotati
+  Scenario: [Posizione_Debitoria_23_27_31_32_24_30_28_33_26_25_34_29_35] - Verificare che, a fronte di un cambio tipologia di pagamento tra la prima e la seconda volta, i campi corrispondenti al pagamento vengano correttamente svuotati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
@@ -134,7 +134,7 @@ Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione rela
     And Verifica Presenza Sezione Specifiche Avviso PagoPA 1
     And Verifica Assenza Sezione Specifiche Modello F24 1
     And Cliccare su continua
-## Documenti allegati
+## Posizione Debitoria 35
     Then Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Verifica Assenza Pop-up Errore per Invia Posizione Debitoria
     And Nella section Allegati cliccare sul bottone Invia
