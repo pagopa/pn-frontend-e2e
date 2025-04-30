@@ -1243,31 +1243,6 @@ public class PiattaformaNotifichePage extends BasePage {
         return isDateErrate;
     }
 
-//    public boolean controlloEsistenzaStato() {
-//        statoNotificaField = driver.findElement(By.id("status"));
-//        statoNotificaField.click();
-//        try {
-//
-//            getWebDriverWait(10).withMessage("Il menu a tendina dello stato notifica del filtro non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//li[@data-value]"))));
-//            List<WebElement> statiNotifica = driver.findElements(By.xpath("//li[@data-value]"));
-//            ArrayList<String> stati = new ArrayList<>(List.of("Tutti gli stati", "Depositata", "Invio in corso", "Consegnata", "Perfezionata per decorrenza termini", "Avvenuto accesso", "Annullata", "Destinatario irreperibile","Resa al mittente"));
-//            for (WebElement stato : statiNotifica) {
-//                if (!stati.contains(stato.getText())) {
-//                    logger.error("Lo stato " + stato.getText() + " non è presente nella lista");
-//                    return false;
-//                }
-//            }
-//            logger.info("Tutti gli stati sono presenti nella lista");
-//            return true;
-//        } catch (TimeoutException e) {
-//            logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
-//            Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
-//            return false;
-//        } finally {
-//            this.element(By.id("menu-status")).click();
-//        }
-//    }
-
     public boolean controlloEsistenzaStato() {
         statoNotificaField = getWebDriverWait(10)
                 .withMessage("Il campo 'Stato notifica' non è visibile")
