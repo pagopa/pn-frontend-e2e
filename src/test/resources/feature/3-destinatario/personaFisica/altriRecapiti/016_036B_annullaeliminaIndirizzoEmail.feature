@@ -1,13 +1,13 @@
 Feature: la persona fisica elimina l'indirizzo Email
 
 #  @TestSuite
-  @TA_annullaeliminaEmailPF
+#  @TA_annullaeliminaEmailPF
 #  @recapitiPF
 #  @PF
 #  @mittente_x1
-  @addressBook1
-
-  @recapitiPFPG
+#  @addressBook1
+#
+#  @recapitiPFPG
 
     #  TEST PREVISTI in rework-sezione-recapiti-fase-2 -> REWORK_DOMICILIO_DIGITALE_PF_85_86_87_92_93
   Scenario: PN-9310-B36 - la persona fisica elimina l'indirizzo Email

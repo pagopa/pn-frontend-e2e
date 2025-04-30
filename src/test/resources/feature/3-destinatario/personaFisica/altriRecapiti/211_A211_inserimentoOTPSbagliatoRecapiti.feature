@@ -1,11 +1,11 @@
 Feature:La persona fisica inserisce una OTP sbagliato PEC
 
 #  @TestSuite
-  @TA_inserimentoOTP3Volte
-  @PF
-  @recapitiPF
-  @addressBook1
-  @recapitiPFPG
+#  @TA_inserimentoOTP3Volte
+#  @PF
+#  @recapitiPF
+#  @addressBook1
+#  @recapitiPFPG
 
     #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PF_70]
   Scenario: Recapiti - Messaggio di errore dopo 3 tentativi inserimento OTP

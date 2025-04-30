@@ -1,13 +1,13 @@
 Feature: la persona fisica elimina l'indirizzo pec
 
 #  @TestSuite
-  @PF
-  @TA_eliminaPECPF
-  @recapitiPF
-  @mittente_x1
-  @addressBook1
-
-  @recapitiPFPG
+#  @PF
+#  @TA_eliminaPECPF
+#  @recapitiPF
+#  @mittente_x1
+#  @addressBook1
+#
+#  @recapitiPFPG
 
     #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PF_4_19]
 

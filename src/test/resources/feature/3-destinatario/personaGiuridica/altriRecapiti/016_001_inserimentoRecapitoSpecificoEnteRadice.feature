@@ -1,9 +1,9 @@
 Feature: la persona giuridica inserisce un recapito aggiuntivo da un ente radice
 
-  @TA_inserimentoRecapitoAggiuntivoDaEnteRadicePG
-  @PG
-  @recapitiPG
-  @addressBook2
+#  @TA_inserimentoRecapitoAggiuntivoDaEnteRadicePG
+#  @PG
+#  @recapitiPG
+#  @addressBook2
 
     #  TEST PREVISTI in rework-sezione-recapiti-fase-2 -> REWORK_DOMICILIO_DIGITALE_PG_75_72_73_76_74
   Scenario: PN-10430 - La persona giuridica inserisce un recapito aggiuntivo da un ente radice

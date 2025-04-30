@@ -1,9 +1,9 @@
 Feature: La persona giuridica elimina il numero di cellulare di cortesia
 
 #  @TA_eliminaNumeroDiTelefonoPG
-  @PG
-  @recapitiPG
-  @addressBook2
+#  @PG
+#  @recapitiPG
+#  @addressBook2
 
 
     #  NO non si puo fare perche il test prevede eliminazione del cell, per poter eliminare il cell dovremmo prima inserirlo. Ad oggi non e possibile eseguire il test

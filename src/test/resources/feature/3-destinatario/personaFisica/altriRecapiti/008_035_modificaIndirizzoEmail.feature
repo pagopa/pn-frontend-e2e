@@ -2,8 +2,8 @@ Feature: la persona fisica modifica l'indirizzo Email
 
   #@TestSuite
 #  @TA_modificaEmailPF
-  @PF
-  @recapitiPF
+#  @PF
+#  @recapitiPF
 #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PF_10_11]
   Scenario: PN-9309 - la persona fisica modifica l'indirizzo Email
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

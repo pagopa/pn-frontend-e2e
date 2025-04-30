@@ -2,8 +2,8 @@ Feature: la persona fisica inserisce un recapito aggiuntivo da un ente radice
 
   #@TestSuite
 #  @TA_inserimentoRecapitoAggiuntivoDaEnteRadicePF
-  @PF
-  @recapitiPF
+#  @PF
+#  @recapitiPF
 
   Scenario: PN-10426 - La persona fisica inserisce un recapito aggiuntivo da un ente radice
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

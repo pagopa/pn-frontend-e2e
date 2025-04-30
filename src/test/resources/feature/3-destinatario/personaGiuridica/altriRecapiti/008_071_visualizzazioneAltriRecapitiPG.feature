@@ -1,9 +1,9 @@
 Feature: La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
 
 
-  @TA_visualizzazioneSezioneAltriRecapitiPG
-#  @PG
-  @recapitiPG
+#  @TA_visualizzazioneSezioneAltriRecapitiPG
+##  @PG
+#  @recapitiPG
 
 
 #  La nuova UI è completamente diversa inoltre il caso di test e gia PREVISTI nel nuovo sviluppo di rework-sezione-recapiti-fase-2 REWORK_DOMICILIO_DIGITALE_PG_79_80_82_83_84_81

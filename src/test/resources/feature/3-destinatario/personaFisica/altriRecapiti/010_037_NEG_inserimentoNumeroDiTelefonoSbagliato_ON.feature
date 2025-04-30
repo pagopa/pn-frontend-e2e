@@ -3,7 +3,8 @@ Feature: la persona fisica inserisce un numero di telefono errato
   @TestSuite
   @TA_inserimentoTelefonoErratoPF_ON
   @addressBook1
-  @NRT_ON
+  @TA_ON
+  @NRT
   Scenario: ON_REWORK_DOMICILIO_DIGITALE_PF_PN-9311-B37 - La persona fisica inserisce un numero di telefono errato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

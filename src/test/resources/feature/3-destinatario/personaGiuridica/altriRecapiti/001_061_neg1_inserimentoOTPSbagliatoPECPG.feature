@@ -1,12 +1,12 @@
 Feature: La persona giuridica inserisce una OTP sbagliato PEC
 
 #  @TestSuite
-  @PG
-  @recapitiPG
-  @TA_inserimentoOTPErratoPG
-  @mittente_x1
-  @addressBook2
-  @recapitiPFPG
+#  @PG
+#  @recapitiPG
+#  @TA_inserimentoOTPErratoPG
+#  @mittente_x1
+#  @addressBook2
+#  @recapitiPFPG
 
 #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PG_69]
   Scenario: PN-9152-D60 - La persona giuridica loggato inserisce un OTP sbagliato PEC

@@ -1,12 +1,12 @@
 Feature: La persona giuridica inserisce l'email
 
 #  @TestSuite
-  @TA_inserimentoEmailPG
-  @PG
-  @recapitiPG
-  @mittente_x1
-  @addressBook2
-  @recapitiPFPG
+#  @TA_inserimentoEmailPG
+#  @PG
+#  @recapitiPG
+#  @mittente_x1
+#  @addressBook2
+#  @recapitiPFPG
     #  TEST PREVISTI in rework-sezione-recapiti-fase-2 -> REWORK_DOMICILIO_DIGITALE_PG_10_11
   Scenario: PN-9155 - La persona giuridica inserisce l'email
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

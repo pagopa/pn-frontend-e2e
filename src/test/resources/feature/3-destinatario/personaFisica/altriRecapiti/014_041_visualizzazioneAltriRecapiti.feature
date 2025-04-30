@@ -2,8 +2,8 @@ Feature: la persona fisica visualizza correttamente la sezione altri recapiti
 
   #@TestSuite
 #  @TA_visualizzazioneSezioneAltriRecapitiPF
-  @PF
-  @recapitiPF
+#  @PF
+#  @recapitiPF
 #  La nuova UI non prevede la sezione altri recapiti
   Scenario: PN-9318-A40 - La persona fisica visualizza correttamente la sezione altri recapiti
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

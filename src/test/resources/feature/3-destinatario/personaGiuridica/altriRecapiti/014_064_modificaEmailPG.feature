@@ -1,12 +1,12 @@
   Feature: La persona giuridica modifica l'email di cortesia
 
 #  @TestSuite
-  @TA_modificaEmailPG
-  @PG
-  @recapitiPG
-  @mittente_x1
-  @addressBook2
-  @recapitiPFPG
+#  @TA_modificaEmailPG
+#  @PG
+#  @recapitiPG
+#  @mittente_x1
+#  @addressBook2
+#  @recapitiPFPG
     #  TEST PREVISTI in rework-sezione-recapiti-fase-2 -> PN-9157 - La persona giuridica elimina l'indirizzo email
   Scenario: PN - 9156 la persona giuridica modifica l'email di cortesia
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

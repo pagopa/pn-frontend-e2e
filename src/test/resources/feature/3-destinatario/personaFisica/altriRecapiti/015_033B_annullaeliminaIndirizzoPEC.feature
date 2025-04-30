@@ -4,7 +4,7 @@ Feature: la persona fisica elimina l'indirizzo pec
   @PF
   @TA_annulaEliminaPECPF
   @addressBook1
-  @TA_NRT_OFF
+  @TA_OFF
 
   Scenario: OFF_REWORK_DOMICILIO_DIGITALE_PF_PN-9307-B33 - La persona fisica annlla eliminazione l'indirizzo pec
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

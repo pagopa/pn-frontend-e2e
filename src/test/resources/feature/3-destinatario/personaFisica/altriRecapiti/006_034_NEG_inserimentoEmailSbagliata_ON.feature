@@ -3,7 +3,8 @@ Feature: La persona fisica inserisce una email sbagliata
   @TestSuite
   @TA_inserimentoEmailErrataPF_ON
   @addressBook1
-  @NRT_ON
+  @TA_ON
+  @NRT
   Scenario: ON_REWORK_DOMICILIO_DIGITALE_PF_PN-9308-B34 - La persona fisica inserisce una email sbagliata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

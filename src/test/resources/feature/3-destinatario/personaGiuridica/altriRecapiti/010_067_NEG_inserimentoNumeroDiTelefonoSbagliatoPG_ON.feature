@@ -3,7 +3,8 @@ Feature: la persona giuridica inserisce un numero di telefono errato
   @TestSuite
   @TA_inserimentoCellulareErratoPG_ON
   @addressBook2
-  @NRT_ON
+  @TA_ON
+  @NRT
   Scenario: ON_REWORK_DOMICILIO_DIGITALE_PG_PN-9158-B66 - La persona giuridica inserisce un numero di telefono errato
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
