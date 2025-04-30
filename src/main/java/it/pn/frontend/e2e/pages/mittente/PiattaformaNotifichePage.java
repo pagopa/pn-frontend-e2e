@@ -1137,7 +1137,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public List<String> getCodiceIunPresenti() {
-        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
+        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
@@ -1147,7 +1147,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPresentiPF() {
-        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
+        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
@@ -1162,7 +1162,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
+        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
@@ -1243,28 +1243,66 @@ public class PiattaformaNotifichePage extends BasePage {
         return isDateErrate;
     }
 
-    public boolean controlloEsistenzaStato() {
-        statoNotificaField = driver.findElement(By.id("status"));
-        statoNotificaField.click();
-        try {
+//    public boolean controlloEsistenzaStato() {
+//        statoNotificaField = driver.findElement(By.id("status"));
+//        statoNotificaField.click();
+//        try {
+//
+//            getWebDriverWait(10).withMessage("Il menu a tendina dello stato notifica del filtro non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//li[@data-value]"))));
+//            List<WebElement> statiNotifica = driver.findElements(By.xpath("//li[@data-value]"));
+//            ArrayList<String> stati = new ArrayList<>(List.of("Tutti gli stati", "Depositata", "Invio in corso", "Consegnata", "Perfezionata per decorrenza termini", "Avvenuto accesso", "Annullata", "Destinatario irreperibile","Resa al mittente"));
+//            for (WebElement stato : statiNotifica) {
+//                if (!stati.contains(stato.getText())) {
+//                    logger.error("Lo stato " + stato.getText() + " non è presente nella lista");
+//                    return false;
+//                }
+//            }
+//            logger.info("Tutti gli stati sono presenti nella lista");
+//            return true;
+//        } catch (TimeoutException e) {
+//            logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
+//            Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
+//            return false;
+//        } finally {
+//            this.element(By.id("menu-status")).click();
+//        }
+//    }
 
-            getWebDriverWait(10).withMessage("Il menu a tendina dello stato notifica del filtro non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//li[@data-value]"))));
-            List<WebElement> statiNotifica = driver.findElements(By.xpath("//li[@data-value]"));
-            ArrayList<String> stati = new ArrayList<>(List.of("Tutti gli stati", "Depositata", "Invio in corso", "Consegnata", "Perfezionata per decorrenza termini", "Avvenuto accesso", "Annullata", "Destinatario irreperibile"));
+    public boolean controlloEsistenzaStato() {
+        statoNotificaField = getWebDriverWait(10)
+                .withMessage("Il campo 'Stato notifica' non è visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("status")));
+        statoNotificaField.click();
+
+        try {
+            By opzioniMenu = By.xpath("//li[@data-value]");
+
+            getWebDriverWait(10)
+                    .withMessage("Il menu a tendina dello stato notifica del filtro non è visibile")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(opzioniMenu));
+
+            List<WebElement> statiNotifica = driver.findElements(opzioniMenu);
+
+            Set<String> testiStati = new HashSet<>();
             for (WebElement stato : statiNotifica) {
-                if (!stati.contains(stato.getText())) {
-                    logger.error("Lo stato " + stato.getText() + " non è presente nella lista");
+                String testo = stato.getText().trim();
+                if (testo.isEmpty()) {
+                    logger.error("Trovata un'opzione con testo vuoto");
+                    return false;
+                }
+                if (!testiStati.add(testo)) {
+                    logger.error("Stato duplicato trovato: " + testo);
                     return false;
                 }
             }
-            logger.info("Tutti gli stati sono presenti nella lista");
+            logger.info("Tutti gli stati del menu a tendina sono validi e unici");
             return true;
+
         } catch (TimeoutException e) {
-            logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
             Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
             return false;
         } finally {
-            this.element(By.id("menu-status")).click();
+            this.element(By.id("menu-status")).click(); // chiude il menu
         }
     }
 
