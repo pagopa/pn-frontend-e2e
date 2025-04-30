@@ -2,8 +2,8 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã
 
   @TestSuite
   @TA_PosizioneDebitoria_05_11
-    @NRT_TA_PosizioneDebitoria
-
+  @NRT_TA_PosizioneDebitoria
+  @NRT
   Scenario Outline: [Posizione_Debitoria_05_11] - Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã¨ indirizzata la notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica

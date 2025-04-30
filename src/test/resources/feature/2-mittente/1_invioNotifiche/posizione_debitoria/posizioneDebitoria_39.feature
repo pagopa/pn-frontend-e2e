@@ -3,7 +3,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
   @TestSuite
   @TA_PosizioneDebitoria_39
   @NRT_TA_PosizioneDebitoria
-
+  @NRT
   Scenario: [Posizione_Debitoria_39] - Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG contenente più avvisi PagoPa e più modelli F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
 

@@ -3,6 +3,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
   @TestSuite
   @TA_PosizioneDebitoria_01_03
   @NRT_TA_PosizioneDebitoria
+  @NRT
 
   Scenario: [Posizione_Debitoria_01_03] - verifica della presenza di "Posizione debitoria" e "Dettagli posizione debitoria" nel form di creazione di una nuova notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
