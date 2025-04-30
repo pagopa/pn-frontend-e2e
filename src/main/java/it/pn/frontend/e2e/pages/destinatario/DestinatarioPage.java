@@ -349,16 +349,30 @@ public class DestinatarioPage extends BasePage {
         Assertions.assertTrue(label.findElement(By.tagName("input")).isSelected(), "Valore radio button non previsto: " + value);
     }
 
-    public void verificaPresenzaSezionePosizioneDebitoria() {
-        getWebDriverWait(10).withMessage("Sezione Posizione Debitoria non è visibile").until(
-                ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='payments-type-choice']")));
-        log.info("Sezione Posizione Debitoria presente");
+    public boolean verificaPresenzaSezionePosizioneDebitoria() {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Posizione Debitoria non è visibile").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='payments-type-choice']")));
+            log.info("Sezione Posizione Debitoria presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            log.info("Sezione Posizione Debitoria non è visibile: {}", e.getMessage());
+            return false;
+        }
     }
 
-    public void verificaPresenzaSezioneDettaglioPosizioneDebitoria() {
-        getWebDriverWait(10).withMessage("Sezione Dettaglio Posizione Debitoria non è visibile").until(
-                ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@data-testid='debtPositionDetailForm']")));
-        log.info("Sezione Dettaglio Posizione Debitoria presente");
+    public boolean verificaPresenzaSezioneDettaglioPosizioneDebitoria() {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Dettaglio Posizione Debitoria non è visibile").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@data-testid='debtPositionDetailForm']")));
+            log.info("Sezione Dettaglio Posizione Debitoria presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            log.info("Sezione Dettaglio Posizione Debitoria non è visibile: {}", e.getMessage());
+            return false;
+        }
     }
     public void inserireCostoDiNotifica() {
         int centesimi = 10 + new Random().nextInt(91); // (100 - 10 + 1) = 91

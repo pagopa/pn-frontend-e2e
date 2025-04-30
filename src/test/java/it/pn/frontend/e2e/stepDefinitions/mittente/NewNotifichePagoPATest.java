@@ -155,13 +155,25 @@ public class NewNotifichePagoPATest extends BasePage {
     @And("Si verifica la presenza della sezione Posizione Debitoria")
     public void siVerificaPresenzaSezionePosizioneDebitoria() {
         logger.info("Si verifica la presenza della sezione Posizione Debitoria");
-        destinatarioPage.verificaPresenzaSezionePosizioneDebitoria();
+        Assertions.assertTrue(destinatarioPage.verificaPresenzaSezionePosizioneDebitoria());
     }
 
     @And("Si verifica la presenza della sezione Dettaglio Posizione Debitoria")
     public void siVerificaPresenzaSezioneDettaglioPosizioneDebitoria() {
         logger.info("Si verifica la presenza della sezione DettaglioPosizione Debitoria");
-        destinatarioPage.verificaPresenzaSezioneDettaglioPosizioneDebitoria();
+        Assertions.assertTrue(destinatarioPage.verificaPresenzaSezioneDettaglioPosizioneDebitoria());
+    }
+
+    @And("Si verifica l'assenza della sezione Posizione Debitoria")
+    public void siVerificaAssenzaSezionePosizioneDebitoria() {
+        logger.info("Si verifica l'assenza della sezione Posizione Debitoria");
+        Assertions.assertFalse(destinatarioPage.verificaPresenzaSezionePosizioneDebitoria());
+    }
+
+    @And("Si verifica l'assenza della sezione Dettaglio Posizione Debitoria")
+    public void siVerificaAssenzaSezioneDettaglioPosizioneDebitoria() {
+        logger.info("Si verifica l'assenza della sezione DettaglioPosizione Debitoria");
+        Assertions.assertFalse(destinatarioPage.verificaPresenzaSezioneDettaglioPosizioneDebitoria());
     }
 
     @And("Seleziona Nessun Pagamento {int}")

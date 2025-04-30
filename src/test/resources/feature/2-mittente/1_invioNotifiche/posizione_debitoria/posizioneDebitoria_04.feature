@@ -2,7 +2,7 @@ Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione rela
 
   @TestSuite
   @TA_PosizioneDebitoria_04
-  @NRT_TA_PosizioneDebitoria
+  @TA_PosizioneDebitoria_ON
   @NRT
   Scenario: [Posizione_Debitoria_04] - Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione relativa all’inserimento delle informazioni dell’avviso di pagamento - solo un avviso PagoPa - forfettario e sincrona
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

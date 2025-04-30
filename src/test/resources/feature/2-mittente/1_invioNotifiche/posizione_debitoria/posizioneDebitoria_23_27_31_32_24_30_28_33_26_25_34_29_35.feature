@@ -2,7 +2,7 @@ Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione rela
 
   @TestSuite
   @TA_PosizioneDebitoria_23_27_31_32_24_30_28_33_26_25_34_29_35
-  @NRT_TA_PosizioneDebitoria
+  @TA_PosizioneDebitoria_ON
   @NRT
   Scenario: [Posizione_Debitoria_23_27_31_32_24_30_28_33_26_25_34_29_35] - Verificare che, a fronte di un cambio tipologia di pagamento tra la prima e la seconda volta, i campi corrispondenti al pagamento vengano correttamente svuotati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

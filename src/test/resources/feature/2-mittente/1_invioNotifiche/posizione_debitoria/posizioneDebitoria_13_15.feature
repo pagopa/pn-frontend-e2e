@@ -2,7 +2,7 @@ Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
 
   @TestSuite
   @TA_PosizioneDebitoria_13_15
-  @NRT_TA_PosizioneDebitoria
+  @TA_PosizioneDebitoria_ON
   @NRT
   Scenario: [Posizione_Debitoria_13_15] - Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

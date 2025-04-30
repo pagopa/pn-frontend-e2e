@@ -32,6 +32,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotificaPG"
+    And Verifica Esistenza Tabella Notifiche
 #    And Logout da portale mittente
     Examples:
       | numero destinatari |

@@ -2,7 +2,7 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
 
   @TestSuite
   @TA_PosizioneDebitoria_06_07_09_10
-  @NRT_TA_PosizioneDebitoria
+  @TA_PosizioneDebitoria_ON
   @NRT
   Scenario: [Posizione_Debitoria_06_07_09_10] - Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per uno stesso destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
