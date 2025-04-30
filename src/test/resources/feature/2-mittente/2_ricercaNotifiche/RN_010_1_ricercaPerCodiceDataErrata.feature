@@ -1,7 +1,7 @@
 Feature: Mittente effetua una ricerca notifiche per Data errata
 
   @TA_MittenteRicercaPerDataErrata
-    @ricercaNotificheMittente
+    @ricercaNotificheMittente_1
     @mittente
 
 
