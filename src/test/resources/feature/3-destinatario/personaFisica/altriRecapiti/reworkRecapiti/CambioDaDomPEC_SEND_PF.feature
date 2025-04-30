@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_REWORK_DOMICILIO_DIGITALE_PF_44_45_48
   @addressBook1
-  @TA_NRT_UAT
+  @TA_UAT_ON
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_44_45_48] CambioDaDomPEC_SEND_PF PF
 
    #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

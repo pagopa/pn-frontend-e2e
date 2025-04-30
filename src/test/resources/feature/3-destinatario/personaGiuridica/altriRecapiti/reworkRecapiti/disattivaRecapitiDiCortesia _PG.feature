@@ -3,7 +3,8 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_DisattivaRecapitiDiCortesia_PG
   @addressBook2
-  @NRT_ON
+  @TA_ON
+  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_41] Disattiva Recapiti di cortesia PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

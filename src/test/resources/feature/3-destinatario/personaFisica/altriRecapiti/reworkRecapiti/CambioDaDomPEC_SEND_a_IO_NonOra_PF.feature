@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_REWORK_DOMICILIO_DIGITALE_PF_46
   @addressBook1
-  @TA_NRT_UAT
+  @TA_UAT_ON
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_46] CambioDaDomPEC_SEND_a_IO_NonOra_PF PF
 
    #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -42,10 +42,15 @@ Feature: Rework della pagina dei contatti
     When Click Bottone Gestisci
     And Click Bottone "Trasferisci su SEND"
     And Click Attiva
-    And Click Non ora
+    And Attesa 1 secondi
+    And Click Non ora Uat
+    And Attesa 1 secondi
     And Click Lo Faro piu tardi
+    And Attesa 1 secondi
     And Click Non ora
+    And Attesa 1 secondi
     And Click Lo Faro piu tardi
+    And Attesa 1 secondi
     And Click Torna ai tuoi recapiti
     And Verifica presenza bottone Attiva SEND su IO
 

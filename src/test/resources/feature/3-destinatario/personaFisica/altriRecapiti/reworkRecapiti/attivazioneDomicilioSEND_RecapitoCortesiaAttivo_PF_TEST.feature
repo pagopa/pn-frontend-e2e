@@ -3,7 +3,8 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_attivazioneDomicilioSEND_RecapitoCortesiaAttivo_PF
   @addressBook1
-  @NRT_ON
+  @TA_ON
+  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_38_TEST] Attivazione Domicilio Digitale SEND PF - Recapiti di cortesia presenti - Ambiente TEST
 
     Given Login Page persona fisica test viene visualizzata

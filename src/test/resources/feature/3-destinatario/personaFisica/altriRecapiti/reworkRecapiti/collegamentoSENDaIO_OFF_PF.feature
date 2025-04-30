@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_CollegamentoSENDaIO_PF_OFF
   @addressBook1
-  @TA_NRT_UAT_OFF
+  @TA_UAT_OFF
   Scenario: [OFF_REWORK_DOMICILIO_DIGITALE_PF_91] - Attivazione Domicilio Digitale SERCQ SEND - Collegamento SEND ad IO - Feature Flag spento
     Given Login Page persona fisica test viene visualizzata
     And Login con persona fisica input
