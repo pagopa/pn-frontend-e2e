@@ -269,8 +269,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
         informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
         informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
-//        informazioniPreliminariPASection.insertGruppo(gruppo);
-        informazioniPreliminariPASection.insertGruppo("GruppoTest");
+        informazioniPreliminariPASection.insertGruppo(gruppo);
+//        informazioniPreliminariPASection.insertGruppo("GruppoTest");
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
