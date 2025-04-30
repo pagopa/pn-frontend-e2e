@@ -3,7 +3,8 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_DisattivaRecapitiDiCortesia_PF
   @addressBook1
-  @NRT_ON
+  @TA_ON
+  @NRT
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_41] Attivazione Gestisci Domicilio Digitale SEND PF -I tuoi Recapiti
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

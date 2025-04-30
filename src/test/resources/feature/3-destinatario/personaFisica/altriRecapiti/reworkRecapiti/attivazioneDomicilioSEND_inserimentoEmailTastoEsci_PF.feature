@@ -3,7 +3,8 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_attivazioneDomicilioSEND_InserisciEmailTastoEsci_PF
   @addressBook1
-  @NRT_ON
+  @TA_ON
+  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_8_78] Attivazione Domicilio Digitale SEND - Inserimento Email ESCI PF
 
    #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

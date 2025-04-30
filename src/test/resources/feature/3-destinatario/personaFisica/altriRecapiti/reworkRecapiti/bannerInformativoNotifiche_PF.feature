@@ -3,7 +3,8 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_BanneInformativoNotifiche_PF
   @addressBook1
-  @NRT_ON
+  @TA_ON
+  @NRT
   Scenario: [REWORK_DOMICILIO_DIGITALE_PF_15_16] - Attivazione Domicilio Digitale SEND - Banner informativo link consegnata PF
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica

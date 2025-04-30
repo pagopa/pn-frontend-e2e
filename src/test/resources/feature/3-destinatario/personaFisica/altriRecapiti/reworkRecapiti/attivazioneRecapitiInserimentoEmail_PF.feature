@@ -3,7 +3,8 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_AttivazioneRecapitiInserimentoEmail_PF
   @addressBook1
-  @NRT_ON
+  @TA_ON
+  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_28_29_27] Attivazione Recapiti Inserimento Email PF
 
 #   Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

@@ -3,7 +3,8 @@ Feature: Rework della pagina dei contatti
   @TestSuite
   @TA_REWORK_DOMICILIO_DIGITALE_59_60_57_58_62_61_PF
   @addressBook1
-  @NRT_ON
+  @TA_ON
+  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_59_60_57_58_62_61] Cambio Domicilio Digitale PEC Per Ente Personalizzato PF
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
