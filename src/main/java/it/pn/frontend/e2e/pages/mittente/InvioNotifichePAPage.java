@@ -19,7 +19,6 @@ public class InvioNotifichePAPage extends BasePage {
     @FindBy(id = "step-submit")
     WebElement continuaButton;
 
-
     private  WebTool webTool;
 
     public InvioNotifichePAPage(WebDriver driver) {
@@ -33,5 +32,11 @@ public class InvioNotifichePAPage extends BasePage {
         getWebDriverWait(10).withMessage("Il bottone continua nella pagina invio notifica PA non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
         continuaButton = driver.findElement(By.id("step-submit"));
         scrollToElementAndClick(continuaButton);
+    }
+
+    public void selezionareTornaAButton() {
+        getWebDriverWait(10).withMessage("Il bottone Torna a nella pagina invio notifica PA non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("previous-step")));
+        WebElement indietroButton = driver.findElement(By.id("previous-step"));
+        scrollToElementAndClick(indietroButton);
     }
 }

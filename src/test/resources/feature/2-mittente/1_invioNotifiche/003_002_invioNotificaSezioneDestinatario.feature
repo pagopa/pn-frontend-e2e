@@ -22,7 +22,7 @@ Feature: il mittente inserisce i dati fino alla sezione Destinatario
     #And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 1
       And Cliccare su continua
 #      Aggiungere alle notifiche
-      And Seleziona Nessun Pagamento
+      And Seleziona Nessun Pagamento 1
       And Cliccare su continua
 #      Aggiungere alle notifiche
 

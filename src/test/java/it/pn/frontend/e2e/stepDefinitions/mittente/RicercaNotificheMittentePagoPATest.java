@@ -29,8 +29,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("NotificaMittenteTest");
 
-//    private Map<String, Object> personaFisica = new HashMap<>();
-//    private Map<String, Object> datiNotifica = new HashMap<>();
     private boolean dataFineErrata;
 
     private  DestinatarioPASection destinatarioPASection;
@@ -66,6 +64,16 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     public void cliccareSulBottoneFiltra() {
         logger.info("Si clicca sul tasto filtra");
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
+    }
+
+    @And("Cliccare sul bottone Filtra Notifica {string}")
+    public void cliccareSulBottoneFiltraNotifica(String xpath) {
+        logger.info("Si clicca sul tasto filtra Notifica");
+        String codiceIUN =dataPopulationConfig.getDatiNotifica().getCodiceIUN();
+//        String codiceIUN ="HWEG-REZK-XPMT-202504-X-3";
+        //        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath,codiceIUN);
     }
 
     @And("Si verifica che non ci sono notifiche disponibili")
@@ -128,7 +136,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
 
         } else {
-            logger.error("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
             Assertions.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
         }
     }
@@ -151,9 +158,8 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica")
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
-        //"datiNotifica"
-//        piattaformaNotifichePage.inserimentoCodiceIUN(this.datiNotifica.get("codiceIUN").toString());
-        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
+//        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
+        piattaformaNotifichePage.inserimentoCodiceIUN("HWEG-REZK-XPMT-202504-X-3");
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
@@ -168,7 +174,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
             logger.info("Notifica con codice IUN: " + codiceIUNInserito + " trovata correttamente");
         } else {
 
-            logger.error("Notifica con codice IUN: " + codiceIUNInserito + " NON trovata");
             Assertions.fail("Notifica con codice IUN: " + codiceIUNInserito + " NON trovata");
 
         }
@@ -304,13 +309,10 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Il sistema restituisce notifiche con codice fiscale e arco temporale uguale a quelli inserito")
     public void ilSistemaRestituisceNotificheConCodiceFiscaleEArcoTemporaleUgualeAQuelliInserito() {
         logger.info("Si verifica i risultati restituiti");
-;
         headerPASection.waitLoadHeaderSection();
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-       // DataPopulation dataPopulation = new DataPopulation();
-       // this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
@@ -410,8 +412,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        //DataPopulation dataPopulation = new DataPopulation();
-        //this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
@@ -441,8 +441,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
 
-        //DataPopulation dataPopulation = new DataPopulation();
-        //this.personaFisica = dataPopulation.readDataPopulation("personaFisica.yaml");
 
         String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);

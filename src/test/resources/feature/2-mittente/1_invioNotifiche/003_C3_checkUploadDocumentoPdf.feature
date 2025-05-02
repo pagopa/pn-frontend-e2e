@@ -32,7 +32,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | stato     | Italia                |
     And Cliccare su continua
     #      Aggiungere alle notifiche
-    And Seleziona Nessun Pagamento
+    And Seleziona Nessun Pagamento 1
     And Cliccare su continua
 #      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati

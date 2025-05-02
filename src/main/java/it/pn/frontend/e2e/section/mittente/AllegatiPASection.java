@@ -69,6 +69,30 @@ public class AllegatiPASection extends BasePage {
             selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
         }
     }
+
+    public void caricareSingolaNotificaPdfDalComputer(String pathNotificaFile, int posizione) {
+        webTool.waitTime(20);
+        List<WebElement> fileInputs = driver.findElements(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/pdf']"));
+        if(!fileInputs.get(posizione).isDisplayed()){
+            js().executeScript("arguments[0].scrollIntoView(true)", fileInputs.get(posizione));
+            fileInputs.get(posizione).sendKeys(pathNotificaFile);
+        }else{
+            fileInputs.get(posizione).sendKeys(pathNotificaFile);
+        }
+    }
+
+    public void caricareSingolaNotificaJsonDalComputer(String pathNotificaFile,int posizione) {
+        webTool.waitTime(20);
+        List<WebElement> fileInputs = driver.findElements(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/json']"));
+        if(!fileInputs.get(posizione).isDisplayed()){
+            js().executeScript("arguments[0].scrollIntoView(true)", fileInputs.get(posizione));
+            fileInputs.get(posizione).sendKeys(pathNotificaFile);
+        }else{
+            fileInputs.get(posizione).sendKeys(pathNotificaFile);
+        }
+    }
+
+
     public void messagioDiErroreDoc(){
         WebElement errorMessageDoc = driver.findElement(By.id("file-upload-error"));
         getWebDriverWait(5).withMessage("Il messagio di formato errato non è visibile").until(ExpectedConditions.visibilityOf(errorMessageDoc));
@@ -132,17 +156,34 @@ public class AllegatiPASection extends BasePage {
     public void selectInviaButton() {
 
         try {
-             inviaButton = getWebDriverWait(10)
-                     .withMessage("Il bottone Invia Non presente nel DOM")
+            inviaButton = getWebDriverWait(10)
+                    .withMessage("Il bottone Invia Non presente nel DOM")
                     .until(ExpectedConditions.presenceOfElementLocated(By.id("step-submit")));
             getWebDriverWait(10)
                     .withMessage("Il bottone Invia Non è  visibile e cliccabile")
                     .until(ExpectedConditions.elementToBeClickable(inviaButton));
             inviaButton.click();
             logger.info("click avvenuto con successo su invio allegati");
-        }catch (TimeoutException e) {
-            Assertions.fail("click non avvenuto con successo su invio allegati con errore: "+e.getMessage());        }
+        } catch (TimeoutException e) {
+            Assertions.fail("click non avvenuto con successo su invio allegati con errore: " + e.getMessage());
+        }
     }
+
+
+    public void selectInviaButtonPosizioneDebitoria() {
+
+        WebElement inviaBtn = getWebDriverWait(30)
+                .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
+
+        // Scroll e click JS fallback
+        js().executeScript("arguments[0].scrollIntoView({block: 'center'});", inviaBtn);
+        try {
+            inviaBtn.click();
+        } catch (Exception e) {
+            js().executeScript("arguments[0].click();", inviaBtn);
+        }
+    }
+
 
     public boolean verificaMessaggioErrore() {
         try {
@@ -155,5 +196,38 @@ public class AllegatiPASection extends BasePage {
             return  false;
         }
     }
+
+    public void caricareJsonDalComputer(String pathNotificaFile) {
+        webTool.waitTime(20);
+
+        selezionaloDalTuoComputerInput = driver.findElement(By.cssSelector("div[data-testid='fileInput'] > input[accept='application/json']"));
+        if(!selezionaloDalTuoComputerInput.isDisplayed()){
+            js().executeScript("arguments[0].scrollIntoView(true)", selezionaloDalTuoComputerInput);
+            selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
+        }else{
+            selezionaloDalTuoComputerInput.sendKeys(pathNotificaFile);
+        }
+    }
+
+    public void inserisciTitoloDocumentoDocumentiAllegati(int numeroTitoloDoc) {
+
+        String idCampo = String.format("documents.%d.name", numeroTitoloDoc -1);
+        WebElement campoNome =  getWebDriverWait(10)
+                .withMessage("Impossibile inserire il Titolo Documento Posizione Debitoria num: "+(numeroTitoloDoc -1))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id(idCampo)));
+
+
+        if (!campoNome.isDisplayed()) {
+            js().executeScript("arguments[0].scrollIntoView(true)", campoNome);
+        }
+
+        campoNome.click();
+        campoNome.clear(); // facoltativo, ma spesso utile
+        campoNome.sendKeys( new StringBuilder("Docuemnto_Doc_All_").append(numeroTitoloDoc));
+
+
+    }
+
+
 }
 

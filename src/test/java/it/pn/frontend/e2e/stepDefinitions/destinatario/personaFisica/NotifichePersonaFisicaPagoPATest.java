@@ -535,6 +535,15 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
             Assertions.assertTrue(infoNotifiche.get("mittente").equalsIgnoreCase(nomeEnte));
         }
 
+    @And("Verifica Presenza Codici Avviso PagoPa {int} e ModelloF24 {int}")
+    public void verificaPresenzaCodiciAvvisoEF24(int numeroAttesoCodiciAvviso, int numeroAttesoF24) {
+        notifichePFPage.verificaPresenzaCodiciAvvisoEF24( numeroAttesoCodiciAvviso,  numeroAttesoF24);
+    }
+
+    @And("Verifica Sezione Pagamenti")
+    public void verificaSezionePagamenti() {
+        notifichePFPage.verificaSezionePagamenti();
+    }
 }
 
 
