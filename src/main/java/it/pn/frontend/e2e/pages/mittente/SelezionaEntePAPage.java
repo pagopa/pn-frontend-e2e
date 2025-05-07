@@ -49,10 +49,14 @@ public class SelezionaEntePAPage extends BasePage {
           //  WebElement titlePage   = driver.findElement(By.xpath("//h3[text()='Seleziona il tuo ente']"));
           //  WebElement searchField = driver.findElement(By.id("search"));
 
-            driver.findElements(By.xpath("//div[@role='button']//h6"));
+//            driver.findElements(By.xpath("//div[@role='button']//h6"));
+
+             getWebDriverWait(80)
+                    .withMessage("Elenco dei comuni Ente non sono visibili entro il tempo previsto")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@role='button']//h6")));
 
             // *-*-*-*-* Sostituito per il Bilingusmo
-            getWebDriverWait(70)
+            getWebDriverWait(80)
                     .withMessage("Nessuno dei titoli attesi è visibile")
                     .until(ExpectedConditions.or(
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Seleziona il tuo ente']")),

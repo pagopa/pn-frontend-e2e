@@ -11,8 +11,7 @@ Feature: Ente figlio e Ente radice
       | user   | albino63 |
       | pwd    | test    |
       | comune | Verona  |
-    And Si clicca sul bottone test
-    And Si clicca bottone accetta cookies
+    And Click entra su Send Mittente
     And Cliccare sulla notifica restituita
     And Salva codice IUN
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
@@ -107,8 +106,6 @@ Feature: Ente figlio e Ente radice
       | user   | albino63 |
       | pwd    | test    |
       | comune | Verona  |
-    And Si clicca sul bottone test
-    And Si clicca bottone accetta cookies
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
