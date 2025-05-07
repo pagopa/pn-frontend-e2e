@@ -3,7 +3,7 @@ Feature: invio notifica con sequence
   @NotificaConSequenceDecedutoAR
   @TestSuite
 
-  Scenario: QA-5352 [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_DECEDUTO_AR] - Il mittente invia una notifica a destinatario con sequence
+  Scenario: [DECEDUTO_AR_QA-5352] - Il mittente invia una notifica a destinatario con sequence
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | AR                 |
@@ -36,4 +36,3 @@ Feature: invio notifica con sequence
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Scansione del plico")] |
       | vediDettagli | false                                          |
-    And Logout da portale mittente

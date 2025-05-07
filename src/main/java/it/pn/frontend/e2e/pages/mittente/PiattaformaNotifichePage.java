@@ -144,7 +144,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public PiattaformaNotifichePage(WebDriver driver) {
         this.driver = driver;
-        webTool = new WebTool(driver);
+        this.webTool = new WebTool(driver);
 
     }
 
@@ -1451,7 +1451,9 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         //PF e PG vengono usati in modo da recuperare i dati test step. destinatari.get("PF") recupera CF da tabella nel FF
         List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ") all')]"));
+        logger.info("Lista PF {}", destinatarioPF.toArray());
         List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ") all')]"));
+        logger.info("Lista PG {}", destinatarioPG.toArray());
 
         if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
             logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");

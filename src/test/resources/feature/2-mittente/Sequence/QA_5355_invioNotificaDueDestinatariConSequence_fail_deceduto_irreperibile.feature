@@ -3,7 +3,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @TestSuite
   @NotificaADueDestinatariConSequenceDecedutoIrreperibileAR
 
-  Scenario: QA-5355 [TA-FE INVIO NOTIFICA A DUE DESTINATARI SOLO UNO RAGGIUNGIBILE] - Il mittente invia una notifica a due destinatari , solo uno raggiungibile al primo tentativo
+  Scenario: [DECEDUTO_AR_QA-5355] - Il mittente invia una notifica a due destinatari , solo uno raggiungibile al primo tentativo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -28,17 +28,20 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | cap       | 20147                 |
       | stato     | Italia                |
     And Nella section Destinatario cliccare su Aggiungi destinatario
-    And Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva
+    And Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica
       | soggettoGiuridico | PG           |
       | ragioneSociale    | Test Spa |
       | codiceFiscale     | 00749900049  |
-      | indirizzo         | Via Roma     |
+      | indirizzo         | @FAIL_DECEDUTO_AR     |
       | civico            | 20           |
       | localita          | Milano       |
       | comune            | Milano       |
       | provincia         | MI           |
       | cap               | 20147        |
       | stato             | Italia       |
+    And Cliccare su continua
+    And Seleziona Nessun Pagamento 1
+    And Seleziona Nessun Pagamento 2
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati si carica un atto
@@ -55,8 +58,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | PF | GRBGPP87L04L741X |
       | PG | 00749900049      |
     And Aspetta 10 secondi
-    And In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline "Invio via PEC fallito"
+    And Si visualizza testo nella timeline "irreperibile"
     And Aspetta 10 secondi
-    And In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline "Invio via PEC fallito"
-    And Logout da portale mittente
+    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
+    #And Logout da portale mittente
 

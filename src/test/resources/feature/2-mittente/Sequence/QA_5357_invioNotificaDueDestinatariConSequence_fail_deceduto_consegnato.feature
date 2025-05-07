@@ -1,25 +1,26 @@
-Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per uno di quest'ultimi è stato notificato il decesso mentre per l'altro è avvenuta la visualizzazione: VIEWED come macro stato della notifica
+Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
   @TestSuite
-  @TA_QA_5358
+  @NotificaADueDestinatariConSequenceDecedutoConsegnato890
 
-  Scenario: [DECEDUTO_AR_QA-5358] Notifica analogica multidestinatario tipo AR per PG e PF dove solo per uno di quest'ultimi è stato notificato il decesso mentre per l'altro è avvenuta la visualizzazione: VIEWED come macro stato della notifica
+  Scenario: [DECEDUTO_890_QA-5357] - Il mittente invia una notifica a due destinatari, solo uno raggiungibile al primo tentativo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
+      | oggettoNotifica   | Pagamento rata IMU |
       | descrizione       | PAGAMENTO RATA IMU |
-      | gruppo            | test-TA-FE    |
+      | gruppo            | test-TA-FE-TEST    |
       | codiceTassonomico | 100105P            |
-      | modalitaInvio     | A/R                |
+      | modalitaInvio     | 890                |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF               |
-      | nomeCognomeDestinatario | Gaio Giulio Cesare      |
-      | codiceFiscale           | CSRGGL44L13H501E |
+      | nomeCognomeDestinatario | Giuseppe Maria Garibaldi      |
+      | codiceFiscale           | GRBGPP87L04L741X |
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | Via Roma |
+      | indirizzo | Via Roma              |
       | civico    | 20                    |
       | localita  | Milano                |
       | comune    | Milano                |
@@ -31,7 +32,7 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
       | soggettoGiuridico | PG           |
       | ragioneSociale    | Test Spa |
       | codiceFiscale     | 00749900049  |
-      | indirizzo         | Via @FAIL_DECEDUTO_AR   |
+      | indirizzo         | @FAIL_DECEDUTO_890     |
       | civico            | 20           |
       | localita          | Milano       |
       | comune            | Milano       |
@@ -47,35 +48,20 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
     And Nella section Allegati cliccare sul bottone Invia
     And Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
-
-## ----------------------------------------------------------------------------
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
     And Aspetta 10 secondi
     And Cliccare sulla notifica restituita
-
-
-
     And Si attende completamento notifica "Invio in corso"
     And Aspetta 400 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
-      | PF | CSRGGL44L13H501E |
+      | PF | GRBGPP87L04L741X |
       | PG | 00749900049      |
     And Aspetta 10 secondi
-
-## ----------------------------------------------------------------------------
-
-    And In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline ""
-    And Aspetta 60 secondi
-##    parte finale
-    Then Si visualizza testo nella timeline "Almeno un destinatario ha letto la notifica"
-    #And Si controlla lo stato timeline in dettaglio notifica
-    #  | xpathStato   | //p[contains(text(),"Almeno un destinatario ha letto la notifica")] |
-    #  | vediDettagli | false                                                                                                |
+    And Si visualizza testo nella timeline "è riuscito"
     And Aspetta 10 secondi
     And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
-    #And Si controlla lo stato timeline in dettaglio notifica
-    #  | xpathStato   | //p[contains(text(),"Almeno un destinatario ha letto la notifica")] |
-    #  | vediDettagli | true                                                                                                |
     And Aspetta 10 secondi
-    And In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline "Almeno un destinatario ha letto la notifica"
+    And Si visualizza testo nella timeline "almeno un recapito digitale è valido"
+    #And Logout da portale mittente
+

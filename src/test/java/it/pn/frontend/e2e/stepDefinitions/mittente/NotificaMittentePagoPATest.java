@@ -32,7 +32,6 @@ import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -47,7 +46,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.TimeoutException;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
@@ -1063,10 +1061,22 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.clickSuTornaInformazioniPreliminari();
     }
 
-    @And("Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva")
-    public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
+    @And("Nella section Destinatario inserire i dati del secondo destinatario come persona fisica")
+    public void nellaSectionDestinatarioInserireIDatiDelSecondoDestinatarioPersonaFisica(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere la persona fisica aggiuntiva");
+        destinatarioPASection.inserimentoSecondoDestinatarioPF(destinatario);
+    }
+
+    @And("Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiDelSecondoDestinatarioPersonaGiuridica(Map<String, String> destinatario) {
         logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
+    }
+
+    @And("Nella section Destinatario inserire i dati del terzo destinatario come persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiDelTerzoDestinatarioPersonaGiuridica(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
+        destinatarioPASection.inserimentoTerzoDestinatarioPG(destinatario);
     }
 
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")

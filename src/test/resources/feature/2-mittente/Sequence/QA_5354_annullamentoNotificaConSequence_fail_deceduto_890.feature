@@ -3,7 +3,7 @@ Feature: invio notifica con sequence
   @annullamentoNotificaConSequenceDeceduto890
   @TestSuite
 
-  Scenario: QA-5354 [TA-FE WORKFLOW DELLA NOTIFICA CON SEQUENCE-@FAIL_DECEDUTO_890] - Il mittente invia una notifica a destinatario con sequence e viene annullata dopo essere passata allo stato Resa al mittente
+  Scenario: [DECEDUTO_890_QA-5354] - Il mittente invia una notifica a destinatario con sequence e viene annullata dopo essere passata allo stato Resa al mittente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | 890                |
@@ -44,4 +44,4 @@ Feature: invio notifica con sequence
       | vediDettagli | false                                          |
     And Si clicca il bottone indietro nella descrizione della notifica
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
-    And Logout da portale mittente
+    #And Logout da portale mittente

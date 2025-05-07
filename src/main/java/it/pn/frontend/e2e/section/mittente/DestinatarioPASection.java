@@ -7,10 +7,7 @@ import it.pn.frontend.e2e.model.recipients.PersoneGiuridiche;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -341,8 +338,10 @@ public class DestinatarioPASection extends BasePage {
         try {
             WebElement errorMessagePrimoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[0].taxId-helper-text']"));
             WebElement errorMessageSecondoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[1].taxId-helper-text']"));
+            WebElement errorMessageTerzoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[2].taxId-helper-text']"));
             getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del primo destinatario").until(ExpectedConditions.visibilityOf(errorMessagePrimoDestinatario));
             getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOf(errorMessageSecondoDestinatario));
+            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOf(errorMessageTerzoDestinatario));
             logger.info("I messaggi di errore vengono visualizzati correttamente");
         } catch (TimeoutException e) {
             Assertions.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
@@ -360,7 +359,43 @@ public class DestinatarioPASection extends BasePage {
         }
     }
 
+    public void inserimentoSecondoDestinatarioPF(Map<String, String> destinatario) {
 
+        String soggettoGiuridico = destinatario.get("soggettoGiuridico");
+        if (soggettoGiuridico.equals("PF")) {
+            WebElement secondPGButton = driver.findElement(By.xpath("//input[@name='recipients[1].recipientType' and @value ='PF']"));
+            secondPGButton.click();
+        } else {
+            throw new IllegalStateException("soggettoGiuridico non è PF");
+        }
+        WebElement nome = driver.findElement(By.id("recipients[1].firstName"));
+        nome.sendKeys(destinatario.get("nome"));
+        WebElement cognome = driver.findElement(By.id("recipients[1].lastName"));
+        cognome.sendKeys(destinatario.get("cognome"));
+        WebElement secondCodiceFiscale = driver.findElement(By.id("recipients[1].taxId"));
+        secondCodiceFiscale.sendKeys(destinatario.get("codiceFiscale"));
+        //Check per casi di test con pec di piattaforma mancante (irreperibile o deceduto)
+        if (destinatario.get("pec") != null) {
+            WebElement secondPecField = driver.findElement(By.id("recipients[1].digitalDomicile"));
+            secondPecField.sendKeys(destinatario.get("pec"));
+        }
+        WebElement secondAddress = driver.findElement(By.id("recipients[1].address"));
+        secondAddress.sendKeys(destinatario.get("indirizzo"));
+        WebElement secondNumber = driver.findElement(By.id("recipients[1].houseNumber"));
+        secondNumber.sendKeys(destinatario.get("civico"));
+        WebElement secondMunicipalityDetails = driver.findElement(By.id("recipients[1].municipalityDetails"));
+        secondMunicipalityDetails.sendKeys(destinatario.get("localita"));
+        WebElement secondMunicipality = driver.findElement(By.id("recipients[1].municipality"));
+        secondMunicipality.sendKeys(destinatario.get("comune"));
+        WebElement secondProvince = driver.findElement(By.id("recipients[1].province"));
+        secondProvince.sendKeys(destinatario.get("provincia"));
+        WebElement secondZip = driver.findElement(By.id("recipients[1].zip"));
+        secondZip.sendKeys(destinatario.get("cap"));
+        WebElement secondCountry = driver.findElement(By.id("recipients[1].foreignState"));
+        secondCountry.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        secondCountry.sendKeys(Keys.DELETE);
+        secondCountry.sendKeys(destinatario.get("stato"));
+    }
 
     public void inserimentoDestinatarioPGAggiuntivo(Map<String, String> destinatario) {
 
@@ -393,6 +428,82 @@ public class DestinatarioPASection extends BasePage {
         WebElement secondZip = driver.findElement(By.id("recipients[1].zip"));
         secondZip.sendKeys(destinatario.get("cap"));
         WebElement secondCountry = driver.findElement(By.id("recipients[1].foreignState"));
+        secondCountry.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        secondCountry.sendKeys(Keys.DELETE);
+        secondCountry.sendKeys(destinatario.get("stato"));
+    }
+
+    public void inserimentoTerzoDestinatarioPF(Map<String, String> destinatario) {
+
+        String soggettoGiuridico = destinatario.get("soggettoGiuridico");
+        if (soggettoGiuridico.equals("PF")) {
+            WebElement secondPGButton = driver.findElement(By.xpath("//input[@name='recipients[2].recipientType' and @value ='PF']"));
+            secondPGButton.click();
+        } else {
+            throw new IllegalStateException("soggettoGiuridico non è PF");
+        }
+        WebElement nome = driver.findElement(By.id("recipients[2].firstName"));
+        nome.sendKeys(destinatario.get("nome"));
+        WebElement cognome = driver.findElement(By.id("recipients[2].lastName"));
+        cognome.sendKeys(destinatario.get("cognome"));
+        WebElement secondCodiceFiscale = driver.findElement(By.id("recipients[2].taxId"));
+        secondCodiceFiscale.sendKeys(destinatario.get("codiceFiscale"));
+        //Check per casi di test con pec di piattaforma mancante (irreperibile o deceduto)
+        if (destinatario.get("pec") != null) {
+            WebElement secondPecField = driver.findElement(By.id("recipients[2].digitalDomicile"));
+            secondPecField.sendKeys(destinatario.get("pec"));
+        }
+        WebElement secondAddress = driver.findElement(By.id("recipients[2].address"));
+        secondAddress.sendKeys(destinatario.get("indirizzo"));
+        WebElement secondNumber = driver.findElement(By.id("recipients[2].houseNumber"));
+        secondNumber.sendKeys(destinatario.get("civico"));
+        WebElement secondMunicipalityDetails = driver.findElement(By.id("recipients[2].municipalityDetails"));
+        secondMunicipalityDetails.sendKeys(destinatario.get("localita"));
+        WebElement secondMunicipality = driver.findElement(By.id("recipients[2].municipality"));
+        secondMunicipality.sendKeys(destinatario.get("comune"));
+        WebElement secondProvince = driver.findElement(By.id("recipients[2].province"));
+        secondProvince.sendKeys(destinatario.get("provincia"));
+        WebElement secondZip = driver.findElement(By.id("recipients[2].zip"));
+        secondZip.sendKeys(destinatario.get("cap"));
+        WebElement secondCountry = driver.findElement(By.id("recipients[2].foreignState"));
+        secondCountry.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        secondCountry.sendKeys(Keys.DELETE);
+        secondCountry.sendKeys(destinatario.get("stato"));
+    }
+
+    public void inserimentoTerzoDestinatarioPG(Map<String, String> destinatario) {
+
+        String soggettoGiuridico = destinatario.get("soggettoGiuridico");
+        if (soggettoGiuridico.equals("PG")) {
+            WebElement secondPGButton = driver.findElement(By.xpath("//input[@name='recipients[2].recipientType' and @value ='PG']"));
+            secondPGButton.click();
+        } else {
+            throw new IllegalStateException("soggettoGiuridico non è PG");
+        }
+        WebElement ragioneSociale = driver.findElement(By.id("recipients[2].firstName"));
+        ragioneSociale.sendKeys(destinatario.get("ragioneSociale"));
+        WebElement secondCodiceFiscale = driver.findElement(By.id("recipients[2].taxId"));
+        secondCodiceFiscale.sendKeys(destinatario.get("codiceFiscale"));
+        //Check per casi di test con pec di piattaforma mancante (irreperibile o deceduto)
+        if (destinatario.get("pec") != null) {
+            WebElement secondPecField = driver.findElement(By.id("recipients[2].digitalDomicile"));
+            secondPecField.sendKeys(destinatario.get("pec"));
+        }
+        WebElement secondAddress = driver.findElement(By.id("recipients[2].address"));
+        secondAddress.sendKeys(destinatario.get("indirizzo"));
+        WebElement secondNumber = driver.findElement(By.id("recipients[2].houseNumber"));
+        secondNumber.sendKeys(destinatario.get("civico"));
+        WebElement secondMunicipalityDetails = driver.findElement(By.id("recipients[2].municipalityDetails"));
+        secondMunicipalityDetails.sendKeys(destinatario.get("localita"));
+        WebElement secondMunicipality = driver.findElement(By.id("recipients[2].municipality"));
+        secondMunicipality.sendKeys(destinatario.get("comune"));
+        WebElement secondProvince = driver.findElement(By.id("recipients[2].province"));
+        secondProvince.sendKeys(destinatario.get("provincia"));
+        WebElement secondZip = driver.findElement(By.id("recipients[2].zip"));
+        secondZip.sendKeys(destinatario.get("cap"));
+        WebElement secondCountry = driver.findElement(By.id("recipients[2].foreignState"));
+        secondCountry.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        secondCountry.sendKeys(Keys.DELETE);
         secondCountry.sendKeys(destinatario.get("stato"));
     }
 
