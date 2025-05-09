@@ -1,10 +1,10 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
   @TestSuite
-  @NotificaADueDestinatariConSequenceDecedutoIrreperibileAR
+  @NotificaADueDestinatariConSequenceDecedutoDopoVistoAR
   @NRT
 
-  Scenario: [DECEDUTO_AR_QA-5355] - Il mittente invia una notifica a due destinatari , solo uno raggiungibile al primo tentativo
+  Scenario: [DECEDUTO_AR_QA-5360] - Il mittente invia una notifica a due destinatari, entrambi deceduti
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -21,7 +21,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | nomeCognomeDestinatario | Giuseppe Maria Garibaldi      |
       | codiceFiscale           | GRBGPP87L04L741X |
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | @fail-irreperibile_ar |
+      | indirizzo | @FAIL_DECEDUTO_AR |
       | civico    | 20                    |
       | localita  | Milano                |
       | comune    | Milano                |
@@ -31,9 +31,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica
       | soggettoGiuridico | PG           |
-      | ragioneSociale    | Test Spa |
-      | codiceFiscale     | 00749900049  |
-      | indirizzo         | @FAIL_DECEDUTO_AR     |
+      | ragioneSociale    | Test AR Fail 2 |
+      | codiceFiscale     | 13022491008  |
+      | indirizzo         | via @FAIL_DECEDUTO_AR     |
       | civico            | 20           |
       | localita          | Milano       |
       | comune            | Milano       |
@@ -57,10 +57,10 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Aspetta 400 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | GRBGPP87L04L741X |
-      | PG | 00749900049      |
+      | PG | 13022491008      |
     And Aspetta 10 secondi
-    And Si visualizza testo nella timeline "irreperibile"
+    Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"
     And Aspetta 10 secondi
-    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
-    #And Logout da portale mittente
-
+    Then In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline ""
+    And Aspetta 60 secondi
+    Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"

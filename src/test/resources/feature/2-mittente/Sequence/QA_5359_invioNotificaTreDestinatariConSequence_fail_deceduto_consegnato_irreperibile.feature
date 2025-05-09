@@ -2,6 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @NotificaATreDestinatariConSequenceDecedutoConsegnatoIrreperibile890
+  @NRT
 
   Scenario: [DECEDUTO_890_QA-5359] - Il mittente invia una notifica a tre destinatari, solo uno raggiungibile al primo tentativo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -69,13 +70,13 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si attende completamento notifica "Invio in corso"
     And Aspetta 400 secondi
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),'(CSRGGL44L13H501E) all')] |
+      | xpathStato   | //p[contains(text(),'(CSRGGL44L13H501E)')] |
       | vediDettagli | true                                             |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),'(GRBGPP87L04L741X) all')] |
+      | xpathStato   | //p[contains(text(),'(GRBGPP87L04L741X)')] |
       | vediDettagli | false                                            |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),'(00749900049) all')] |
+      | xpathStato   | //p[contains(text(),'(00749900049)')] |
       | vediDettagli | false                                       |
     And Aspetta 10 secondi
     And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"

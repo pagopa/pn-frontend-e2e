@@ -76,6 +76,7 @@ public class WebTool {
                 notifichePFPage.waitLoadNotificheDEPage();
             }
             case PG -> {
+                log.info("Switch a portale PG");
                 driver.get(portal.url);
                 headerPGSection = new HeaderPGSection(driver);
                 headerPGSection.waitLoadHeaderPGPage();
@@ -99,13 +100,21 @@ public class WebTool {
         log.info("Si accede al portale");
         openNewTab();
 
-        log.info("Switch a portale PF");
         driver.get(urlFactory.getPortalUrl(portal));
-        headerPFSection = new HeaderPFSection(driver);
-        headerPFSection.waitLoadHeaderDESection();
-        notifichePFPage = new NotifichePFPage(driver);
-        notifichePFPage.waitLoadNotificheDEPage();
-
+        switch (portal.toString()) {
+            case "PF_URL" -> {
+                log.info("Switch a portale PF");
+                headerPFSection = new HeaderPFSection(driver);
+                headerPFSection.waitLoadHeaderDESection();
+                notifichePFPage = new NotifichePFPage(driver);
+                notifichePFPage.waitLoadNotificheDEPage();
+            }
+            case "PG_URL" -> {
+                log.info("Switch a portale PG");
+                headerPGSection = new HeaderPGSection(driver);
+                headerPGSection.waitLoadHeaderPGPage();
+            }
+        }
         cookiesSection = new CookiesSection(driver);
         if (cookiesSection.waitLoadCookiesPage()) {
             cookiesSection.selezionaAccettaTuttiButton();
@@ -113,7 +122,7 @@ public class WebTool {
         return driver.getWindowHandle();
     }
 
-    public  void openNewTab() {
+    public void openNewTab() {
         log.info("Si apre una nuova scheda");
         ((JavascriptExecutor) driver).executeScript("window.open()");
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);

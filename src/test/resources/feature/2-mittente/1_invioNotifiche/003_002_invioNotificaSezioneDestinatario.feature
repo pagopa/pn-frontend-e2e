@@ -23,6 +23,7 @@ Feature: il mittente inserisce i dati fino alla sezione Destinatario
       And Cliccare su continua
 #      Aggiungere alle notifiche
       And Seleziona Nessun Pagamento 1
+      And Seleziona Nessun Pagamento 2
       And Cliccare su continua
 #      Aggiungere alle notifiche
 
