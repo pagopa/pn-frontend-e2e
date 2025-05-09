@@ -6,11 +6,11 @@ Feature: Ente figlio e Ente radice
   @verificaAssenzaNotificheEnteRadice
   Scenario: PN-10413 - Ente Figlio - Verifica assenza notifiche ente radice
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.test.notifichedigitali.it |
+      | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | albino63 |
+      | user   | ggiorgi |
       | pwd    | test    |
-      | comune | Verona  |
+      | comune | Viggiu  |
     And Click entra su Send Mittente
     And Cliccare sulla notifica restituita
     And Salva codice IUN
@@ -23,13 +23,11 @@ Feature: Ente figlio e Ente radice
   @verificaAssenzaNotificheEnteFiglio
   Scenario: PN-10411 - Ente Radice - Verifica assenza notifiche ente figlio
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.test.notifichedigitali.it |
+      | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | albino63 |
+      | user   | ggiorgi |
       | pwd    | test    |
-      | comune | Verona  |
-    And Si clicca sul bottone test
-    And Si clicca bottone accetta cookies
+      | comune | Viggiu  |
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
     And Cliccare sulla notifica restituita
     And Salva codice IUN
@@ -47,8 +45,6 @@ Feature: Ente figlio e Ente radice
       | user   | albino63 |
       | pwd    | test    |
       | comune | Verona  |
-    And Si clicca sul bottone test
-    And Si clicca bottone accetta cookies
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
@@ -76,8 +72,6 @@ Feature: Ente figlio e Ente radice
       | user   | albino63 |
       | pwd    | test    |
       | comune | Verona  |
-    And Si clicca sul bottone test
-    And Si clicca bottone accetta cookies
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco
