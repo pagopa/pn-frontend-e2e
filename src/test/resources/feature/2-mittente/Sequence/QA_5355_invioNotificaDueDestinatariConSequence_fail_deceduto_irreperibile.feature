@@ -31,9 +31,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica
       | soggettoGiuridico | PG           |
-      | ragioneSociale    | Test Spa |
-      | codiceFiscale     | 00749900049  |
-      | indirizzo         | @FAIL_DECEDUTO_AR     |
+      | ragioneSociale    | Convivio Spa |
+      | codiceFiscale     | 27957814470  |
+      | indirizzo         | via @FAIL_DECEDUTO_AR     |
       | civico            | 20           |
       | localita          | Milano       |
       | comune            | Milano       |

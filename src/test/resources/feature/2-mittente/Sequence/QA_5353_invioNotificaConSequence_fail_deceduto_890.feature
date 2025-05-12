@@ -13,8 +13,8 @@ Feature: invio notifica con sequence
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
       | tipoDestinatario  | PG           |
-      | nomeCognome       | Test SPA |
-      | codiceFiscale     | 00749900049  |
+      | nomeCognome       | Convivio Spa |
+      | codiceFiscale     | 27957814470  |
       | at                | Presso       |
       | indirizzo         | Via @FAIL_DECEDUTO_890  |
       | dettagliIndirizzo | Scala b      |

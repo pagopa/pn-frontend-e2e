@@ -30,8 +30,8 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica
       | soggettoGiuridico | PG           |
-      | ragioneSociale    | Test Spa |
-      | codiceFiscale     | 00749900049  |
+      | ragioneSociale    | Convivio Spa |
+      | codiceFiscale     | 27957814470  |
       | indirizzo         | Via @FAIL_DECEDUTO_AR   |
       | civico            | 20           |
       | localita          | Milano       |

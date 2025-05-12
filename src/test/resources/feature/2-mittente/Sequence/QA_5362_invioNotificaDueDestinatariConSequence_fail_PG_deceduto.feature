@@ -1,10 +1,10 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
   @TestSuite
-  @NotificaADueDestinatariConSequenceVistoDeceduto890
+  @TAG_DECEDUTO_890_QA-5362
   @NRT
 
-  Scenario: [DECEDUTO_890_QA-5361] - Il mittente invia una notifica a due destinatari, entrambi deceduti
+  Scenario: [DECEDUTO_890_QA-5362] - Il mittente invia una notifica a due destinatari, PG deceduti
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -21,7 +21,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | nomeCognomeDestinatario | Giuseppe Maria Garibaldi      |
       | codiceFiscale           | GRBGPP87L04L741X |
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | @FAIL_DECEDUTO_890 |
+      | indirizzo | Via Roma |
       | civico    | 20                    |
       | localita  | Milano                |
       | comune    | Milano                |
@@ -58,6 +58,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Aspetta 400 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | GRBGPP87L04L741X |
-      | PG | 13022491008      |
+      | PG | 27957814470      |
     And Aspetta 10 secondi
-    Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"
+#    Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"
+    Then Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),'(GRBGPP87L04L741X)')] |
+      | vediDettagli | false |
