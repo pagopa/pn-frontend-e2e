@@ -17,8 +17,6 @@ Feature: Ente figlio e Ente radice
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
     And ricerca notifica con IUN salvato
     Then Si verifica che non ci sono notifiche disponibili
-    And Si clicca sul bottone esci
-    And Si clicca sul bottone esci
 
   @verificaAssenzaNotificheEnteFiglio
   Scenario: PN-10411 - Ente Radice - Verifica assenza notifiche ente figlio
