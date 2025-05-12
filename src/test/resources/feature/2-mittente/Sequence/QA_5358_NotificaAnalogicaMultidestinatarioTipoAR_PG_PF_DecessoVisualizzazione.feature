@@ -61,7 +61,7 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
     And Aspetta 400 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | CSRGGL44L13H501E |
-      | PG | 00749900049      |
+      | PG | 27957814470      |
     And Aspetta 10 secondi
 
 ## ----------------------------------------------------------------------------

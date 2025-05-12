@@ -58,6 +58,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Aspetta 400 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | GRBGPP87L04L741X |
-      | PG | 13022491008      |
+      | PG | 27957814470      |
     And Aspetta 10 secondi
     Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"
