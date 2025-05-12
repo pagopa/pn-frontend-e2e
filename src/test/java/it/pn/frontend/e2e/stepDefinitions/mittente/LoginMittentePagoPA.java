@@ -246,8 +246,8 @@ public class LoginMittentePagoPA extends BasePage {
 //        scegliSpidPAPage.selezionareTestButton();
 
 //        loginPAPage.waitLoadLoginPAPage();
-        loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
-        loginPAPage.inserisciPassword( webDriverConfig.getPwdMittente());
+        loginPAPage.inserisciUtenete(datiMittenteFile.get("user"));
+        loginPAPage.inserisciPassword(datiMittenteFile.get("pwd"));
         loginPAPage.entraConSpid();
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
@@ -271,8 +271,8 @@ public class LoginMittentePagoPA extends BasePage {
 
         webTool.waitTime(10);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
-        selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
+        selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));
+        selezionaEntePAPage.selezionareComune(datiMittenteFile.get("comune"));
         selezionaEntePAPage.selezionaAccedi();
     }
 

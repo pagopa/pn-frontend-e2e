@@ -40,11 +40,11 @@ Feature: Ente figlio e Ente radice
   @verificaAssenzaApikeyEnteFiglio
   Scenario: PN-10412 - Ente Radice - Verifica assenza apikey ente figlio
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.test.notifichedigitali.it |
+      | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | albino63 |
+      | user   | ggiorgi |
       | pwd    | test    |
-      | comune | Verona  |
+      | comune | Viggiu  |
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
@@ -67,11 +67,11 @@ Feature: Ente figlio e Ente radice
   @verificaAssenzaApikeyEnteRadice
   Scenario: PN-10414 - Ente Figlio - Verifica assenza apikey ente radice
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.test.notifichedigitali.it |
+      | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | albino63 |
+      | user   | ggiorgi |
       | pwd    | test    |
-      | comune | Verona  |
+      | comune | Viggiu  |
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
     And Si visualizza correttamente la pagina Api Key
     When Nella pagina Api Key si clicca sul bottone menu di una Api Key attiva presente in elenco
@@ -95,11 +95,11 @@ Feature: Ente figlio e Ente radice
   @test5
   Scenario: PN-10419 - Ente Figlio - Verifica presenza notifiche da parte del delegato
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.test.notifichedigitali.it |
+      | url | https://selfcare.dev.notifichedigitali.it |
     When Login con mittente
-      | user   | albino63 |
+      | user   | ggiorgi |
       | pwd    | test    |
-      | comune | Verona  |
+      | comune | Viggiu  |
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
