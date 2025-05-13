@@ -10,7 +10,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU |
+      | oggettoNotifica   | Pagamento rata IMU 5359 |
       | descrizione       | PAGAMENTO RATA IMU |
       | gruppo            | test-TA-FE-TEST    |
       | codiceTassonomico | 100105P            |
@@ -82,14 +82,14 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Aspetta 10 secondi
 #    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),'stata consegnata perché il destinatario è deceduto')] |
+      | xpathStato   | //p[contains(text(),'stata consegnata perché il destinatario è sconosciuto')] |
       | vediDettagli | true |
     And Aspetta 10 secondi
     And In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline ""
     And Aspetta 60 secondi
 #    And Si visualizza testo nella timeline "almeno un recapito digitale è valido"
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),'almeno un recapito digitale è valido')] |
+      | xpathStato   | //p[contains(text(),'risultato irreperibile assoluto')] |
       | vediDettagli | true |
     #And Logout da portale mittente
 

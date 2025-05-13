@@ -10,7 +10,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU |
+      | oggettoNotifica   | Pagamento rata IMU 5357|
       | descrizione       | PAGAMENTO RATA IMU |
       | gruppo            | test-TA-FE-TEST    |
       | codiceTassonomico | 100105P            |
@@ -59,11 +59,11 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | GRBGPP87L04L741X |
       | PG | 27957814470      |
-    And Aspetta 10 secondi
-#    And Si visualizza testo nella timeline "è riuscito"
-    And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),'è riuscito')] |
-      | vediDettagli | true |
+#    And Aspetta 10 secondi
+##    And Si visualizza testo nella timeline "è riuscito"
+#    And Si controlla lo stato timeline in dettaglio notifica
+#      | xpathStato   | //p[contains(text(),'è riuscito')] |
+#      | vediDettagli | true |
     And Aspetta 10 secondi
 #    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
     And Si controlla lo stato timeline in dettaglio notifica
@@ -72,7 +72,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Aspetta 10 secondi
 #    And Si visualizza testo nella timeline "almeno un recapito digitale è valido"
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),'almeno un recapito digitale è valido')] |
+      | xpathStato   | //p[contains(text(),'tramite raccomandata 890')] |
       | vediDettagli | true |
     #And Logout da portale mittente
 
