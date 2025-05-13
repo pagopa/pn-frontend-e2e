@@ -3,6 +3,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @TestSuite
   @NotificaADueDestinatariConSequenceDecedutoConsegnato890
   @NRT
+  @Deceduto_aws
 
   Scenario: [DECEDUTO_890_QA-5357] - Il mittente invia una notifica a due destinatari, solo uno raggiungibile al primo tentativo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -59,10 +60,19 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | PF | GRBGPP87L04L741X |
       | PG | 27957814470      |
     And Aspetta 10 secondi
-    And Si visualizza testo nella timeline "è riuscito"
+#    And Si visualizza testo nella timeline "è riuscito"
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),'è riuscito')] |
+      | vediDettagli | true |
     And Aspetta 10 secondi
-    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
+#    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),'stata consegnata perché il destinatario è deceduto')] |
+      | vediDettagli | true |
     And Aspetta 10 secondi
-    And Si visualizza testo nella timeline "almeno un recapito digitale è valido"
+#    And Si visualizza testo nella timeline "almeno un recapito digitale è valido"
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),'almeno un recapito digitale è valido')] |
+      | vediDettagli | true |
     #And Logout da portale mittente
 

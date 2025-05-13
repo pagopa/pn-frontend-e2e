@@ -3,6 +3,7 @@ Feature: invio notifica con sequence
   @annullamentoNotificaConSequenceDeceduto890
   @TestSuite
   @NRT
+  @Deceduto_aws
 
   Scenario: [DECEDUTO_890_QA-5354] - Il mittente invia una notifica a destinatario con sequence e viene annullata dopo essere passata allo stato Resa al mittente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

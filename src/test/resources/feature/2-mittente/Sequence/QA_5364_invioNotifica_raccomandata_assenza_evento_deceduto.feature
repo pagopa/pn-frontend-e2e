@@ -3,6 +3,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @TestSuite
   @NotificaConRaccomandataAssenzaEventoDeceduto890
   @NRT
+  @Deceduto_aws
 
   Scenario: [DECEDUTO_AR_QA-5364] - Il mittente invia una notifica con raccomandata semplice a un destinatario deceduto
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

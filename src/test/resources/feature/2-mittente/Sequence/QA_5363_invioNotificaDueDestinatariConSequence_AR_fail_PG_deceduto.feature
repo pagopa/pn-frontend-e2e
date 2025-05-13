@@ -3,6 +3,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @TestSuite
   @TAG_DECEDUTO_AR_QA-5363
   @NRT
+  @Deceduto_aws
 
   Scenario: [DECEDUTO_AR_QA-5363] - Il mittente invia una notifica tipo AR a due destinatari, PG deceduti
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

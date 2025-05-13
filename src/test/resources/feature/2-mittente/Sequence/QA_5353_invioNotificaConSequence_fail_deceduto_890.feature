@@ -3,6 +3,7 @@ Feature: invio notifica con sequence
   @NotificaConSequenceDeceduto890
   @TestSuite
   @NRT
+  @Deceduto_aws
 
   Scenario: [DECEDUTO_890_QA-5353] - Il mittente invia una notifica a destinatario con sequence
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

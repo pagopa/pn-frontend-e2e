@@ -1477,7 +1477,7 @@ public class PiattaformaNotifichePage extends BasePage {
             }
 
             List<WebElement> findKeyWord = getWebDriverWait(30).withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
-                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'" + check + "')]"))));
+                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"))));
 
             if (findKeyWord.get(0).isDisplayed()) {
                 logger.info("Si visualizza la timeline correttamente");

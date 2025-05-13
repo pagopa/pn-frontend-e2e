@@ -3,6 +3,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @TestSuite
   @NotificaADueDestinatariConSequenceDecedutoIrreperibileAR
   @NRT
+  @Deceduto_aws
 
   Scenario: [DECEDUTO_AR_QA-5355] - Il mittente invia una notifica a due destinatari , solo uno raggiungibile al primo tentativo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -59,8 +60,14 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | PF | GRBGPP87L04L741X |
       | PG | 27957814470      |
     And Aspetta 10 secondi
-    And Si visualizza testo nella timeline "irreperibile"
+#    And Si visualizza testo nella timeline "irreperibile"
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),'irreperibile')] |
+      | vediDettagli | true |
     And Aspetta 10 secondi
-    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
+#    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),'stata consegnata perché il destinatario è deceduto')] |
+      | vediDettagli | true |
     #And Logout da portale mittente
 
