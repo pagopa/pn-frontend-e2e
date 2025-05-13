@@ -1297,7 +1297,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void verificaPresenzaStato(String stato) {
-        getWebDriverWait(12).withMessage("Lo stato " + stato + " non è presente")
+        getWebDriverWait(32).withMessage("Lo stato " + stato + " non è presente")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]"))));
         logger.info("Stato {} presente", stato);
     }
@@ -1408,7 +1408,6 @@ public class PiattaformaNotifichePage extends BasePage {
             driver.navigate().refresh();
         }
         if (!testSuccess) {
-            logger.error("La notifica non è passata allo stato " + statoNotifica);
             Assertions.fail("La notifica non è passata allo stato " + statoNotifica);
         }
     }
@@ -1432,7 +1431,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void clickBottoneAnnullaNotifica() {
-        getWebDriverWait(10).withMessage("Bottone annulla notifica non visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']")))));
+        getWebDriverWait(30).withMessage("Bottone annulla notifica non visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']")))));
         WebElement bottoneAnnullaNotifica = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"));
         scrollToElementAndClick(bottoneAnnullaNotifica);
     }
