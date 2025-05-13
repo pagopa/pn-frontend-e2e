@@ -77,7 +77,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | xpathStato   | //p[contains(text(),'(GRBGPP87L04L741X)')] |
       | vediDettagli | false                                            |
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),'(00749900049)')] |
+      | xpathStato   | //p[contains(text(),'(27957814470)')] |
       | vediDettagli | false                                       |
     And Aspetta 10 secondi
 #    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"

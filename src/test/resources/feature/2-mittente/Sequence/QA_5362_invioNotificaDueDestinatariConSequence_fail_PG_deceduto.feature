@@ -64,4 +64,4 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 #    Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"
     Then Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'(GRBGPP87L04L741X)')] |
-      | vediDettagli | false |
+      | vediDettagli | true |
