@@ -53,7 +53,10 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
     And Aspetta 10 secondi
-    And Cliccare sulla notifica restituita
+      #    /*/*/*
+    And Si seleziona la notifica mittente
+#    /*/*/*
+#    And Cliccare sulla notifica restituita
     And Si attende completamento notifica "Invio in corso"
 #    And In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline ""
     And Aspetta 400 secondi

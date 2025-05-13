@@ -54,7 +54,10 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
     And Aspetta 10 secondi
-    And Cliccare sulla notifica restituita
+      #    /*/*/*
+    And Si seleziona la notifica mittente
+#    /*/*/*
+#    And Cliccare sulla notifica restituita
 
 
 

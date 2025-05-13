@@ -10,7 +10,7 @@ Feature: invio notifica con sequence
     When Si inizializzano i dati per la notifica
       | modello         | 890                |
       | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU per immobile in via XXXXXXXX |
+      | oggettoNotifica | Pagamento rata IMU 5354 per immobile in via XXXXXXXX |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
       | nomeCognome      | Giuseppe Maria Garibaldi        |
