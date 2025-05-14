@@ -19,8 +19,8 @@ Feature: Mittente invia una notifica a due destinatari, PG deceduti
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF                       |
-      | nomeCognomeDestinatario | Giuseppe Maria Garibaldi |
-      | codiceFiscale           | GRBGPP87L04L741X         |
+      | nomeCognomeDestinatario | Gaio Giulio Cesare |
+      | codiceFiscale           | CSRGGL44L13H501E         |
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -58,5 +58,5 @@ Feature: Mittente invia una notifica a due destinatari, PG deceduti
     And In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline ""
     And Aspetta 400 secondi
     Then Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),'(GRBGPP87L04L741X)')] |
+      | xpathStato   | //p[contains(text(),'(CSRGGL44L13H501E)')] |
       | vediDettagli | true                                       |
