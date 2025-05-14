@@ -1394,7 +1394,9 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean testSuccess = false;
         for (int i = 0; i < 15; i++) {
             try {
-                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
+//                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
+                WebElement chipStatus = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id(statoNotifica + "-status")));
                 if (chipStatus.isDisplayed()) {
                     logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
                     driver.navigate().refresh();
