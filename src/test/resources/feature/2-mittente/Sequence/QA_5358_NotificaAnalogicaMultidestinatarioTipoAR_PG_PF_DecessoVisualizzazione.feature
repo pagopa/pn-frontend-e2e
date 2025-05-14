@@ -68,12 +68,6 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
     And In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline ""
     And Aspetta 60 secondi
 ##    parte finale
-    Then Si visualizza testo nella timeline "Almeno un destinatario ha letto la notifica"
-    #And Si controlla lo stato timeline in dettaglio notifica
-    #  | xpathStato   | //p[contains(text(),"Almeno un destinatario ha letto la notifica")] |
-    #  | vediDettagli | false                                                                                                |
-    And Aspetta 10 secondi
-    And Si visualizza testo nella timeline "stata consegnata perché il destinatario è deceduto"
-    #And Si controlla lo stato timeline in dettaglio notifica
-    #  | xpathStato   | //p[contains(text(),"Almeno un destinatario ha letto la notifica")] |
-    #  | vediDettagli | true                                                                                                |
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),'stata consegnata perché il destinatario è deceduto')] |
+      | vediDettagli | true |
