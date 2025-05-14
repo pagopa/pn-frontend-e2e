@@ -19,8 +19,10 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF                       |
-      | nomeCognomeDestinatario | Giuseppe Maria Garibaldi |
-      | codiceFiscale           | GRBGPP87L04L741X         |
+#      | nomeCognomeDestinatario | Giuseppe Maria Garibaldi |
+#      | codiceFiscale           | GRBGPP87L04L741X         |
+      | nomeCognomeDestinatario | Gaio Giulio Cesare |
+      | codiceFiscale           | CSRGGL44L13H501E   |
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | @FAIL_DECEDUTO_890 |
       | civico    | 20                 |
@@ -58,7 +60,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline ""
     And Aspetta 400 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
-      | PF | GRBGPP87L04L741X |
+      | PF | CSRGGL44L13H501E |
       | PG | 27957814470      |
     And Aspetta 10 secondi
     Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"

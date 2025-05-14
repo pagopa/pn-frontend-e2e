@@ -19,8 +19,10 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF                       |
-      | nomeCognomeDestinatario | Giuseppe Maria Garibaldi |
-      | codiceFiscale           | GRBGPP87L04L741X         |
+#      | nomeCognomeDestinatario | Giuseppe Maria Garibaldi |
+#      | codiceFiscale           | GRBGPP87L04L741X         |
+      | nomeCognomeDestinatario | Gaio Giulio Cesare |
+      | codiceFiscale           | CSRGGL44L13H501E   |
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -57,7 +59,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si attende completamento notifica "Invio in corso"
     And Aspetta 400 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
-      | PF | GRBGPP87L04L741X |
+      | PF | CSRGGL44L13H501E |
       | PG | 27957814470      |
     And Aspetta 10 secondi
     And Si controlla lo stato timeline in dettaglio notifica

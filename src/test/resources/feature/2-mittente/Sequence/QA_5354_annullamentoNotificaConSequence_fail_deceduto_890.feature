@@ -13,8 +13,10 @@ Feature: invio notifica con sequence
       | oggettoNotifica | Pagamento rata IMU 5354 per immobile in via XXXXXXXX |
       | costiNotifica   | false                                                |
     And Si aggiunge un destinatario alla notifica
-      | nomeCognome      | Giuseppe Maria Garibaldi |
-      | codiceFiscale    | GRBGPP87L04L741X         |
+#      | nomeCognome      | Giuseppe Maria Garibaldi |
+      | nomeCognome      | Gaio Giulio Cesare |
+      | codiceFiscale    | CSRGGL44L13H501E         |
+#      | codiceFiscale    | GRBGPP87L04L741X         |
       | tipoDestinatario | PF                       |
       | indirizzo        | via @FAIL_DECEDUTO_890   |
       | numeroCivico     | 20                       |
