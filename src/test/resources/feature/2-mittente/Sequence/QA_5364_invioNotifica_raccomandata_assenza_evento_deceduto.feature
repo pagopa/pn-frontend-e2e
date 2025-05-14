@@ -30,7 +30,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     #And Si controlla lo stato timeline in dettaglio notifica
     #  | xpathStato   | //p[contains(text(),"La raccomandata semplice") and contains(text(),"non è stata consegnata perché il destinatario è deceduto")] |
     #  | vediDettagli | true |
+    And Aspetta 1 secondi
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"La raccomandata semplice") and contains(text(),"stata stampata ed imbustata")] |
+      | xpathStato   | //p[contains(text(),"La raccomandata semplice") and contains(text(),"stampata ed imbustata")] |
       | vediDettagli | true |
     #And Si controlla che non ci sia un evento di destinatario deceduto

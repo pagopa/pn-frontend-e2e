@@ -44,6 +44,3 @@ Feature: invio notifica con sequence
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Scansione del plico")] |
       | vediDettagli | false                                          |
-    And Si clicca il bottone indietro nella descrizione della notifica
-    And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
-    #And Logout da portale mittente

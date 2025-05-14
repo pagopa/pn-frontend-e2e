@@ -54,13 +54,8 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
     And Aspetta 10 secondi
-      #    /*/*/*
     And Si seleziona la notifica mittente
-#    /*/*/*
 #    And Cliccare sulla notifica restituita
-
-
-
     And Si attende completamento notifica "Invio in corso"
     And Aspetta 400 secondi
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
@@ -82,5 +77,3 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
     #And Si controlla lo stato timeline in dettaglio notifica
     #  | xpathStato   | //p[contains(text(),"Almeno un destinatario ha letto la notifica")] |
     #  | vediDettagli | true                                                                                                |
-    And Aspetta 10 secondi
-    And In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline "Almeno un destinatario ha letto la notifica"

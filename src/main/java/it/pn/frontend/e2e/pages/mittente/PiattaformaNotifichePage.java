@@ -1449,10 +1449,24 @@ public class PiattaformaNotifichePage extends BasePage {
             viewMore.get(0).click();
         }
         //PF e PG vengono usati in modo da recuperare i dati test step. destinatari.get("PF") recupera CF da tabella nel FF
-        List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ") all')]"));
-        logger.info("Lista PF {}", destinatarioPF.toArray());
-        List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ") all')]"));
-        logger.info("Lista PG {}", destinatarioPG.toArray());
+//        List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ")')]"));
+//        logger.info("Lista PF {}", destinatarioPF.toArray());
+//        List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ")')]"));
+//        logger.info("Lista PG {}", destinatarioPG.toArray());
+        List<WebElement> destinatarioPF = getWebDriverWait(30)
+                .withMessage("Impossibile trovare PF:  "+destinatari.get("PF"))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                By.xpath(String.format("//p[contains(text(),'(%s)')]", destinatari.get("PF")))
+        ));
+        logger.info("Lista PF: {}", destinatarioPF.toArray());
+
+        List<WebElement> destinatarioPG = getWebDriverWait(30)
+                .withMessage("Impossibile trovare PG:  "+destinatari.get("PG"))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                By.xpath(String.format("//p[contains(text(),'(%s)')]", destinatari.get("PG")))
+        ));
+        logger.info("Lista PG: {}", destinatarioPG.toArray());
+
 
         if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
             logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
