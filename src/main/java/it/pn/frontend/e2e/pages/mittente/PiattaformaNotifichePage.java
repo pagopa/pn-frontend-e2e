@@ -1403,7 +1403,8 @@ public class PiattaformaNotifichePage extends BasePage {
                     testSuccess = true;
                     break;
                 }
-            } catch (NoSuchElementException e) {
+//            } catch (NoSuchElementException e) {
+            } catch (TimeoutException | NoSuchElementException  e) {
                 logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
             }
             webTool.waitTime(15);
