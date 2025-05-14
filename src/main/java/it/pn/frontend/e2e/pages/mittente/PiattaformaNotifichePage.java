@@ -160,13 +160,8 @@ public class PiattaformaNotifichePage extends BasePage {
                             ExpectedConditions.visibilityOfElementLocated(By.id("Zustellungen-page")),
                             ExpectedConditions.visibilityOfElementLocated(By.id("Obvestila-page"))
                     ));
-
-
-
-
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
-            logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
             Assertions.fail("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
         }
     }
@@ -186,12 +181,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     }
 
-    //    public void selectFiltraNotificaButtonMittente() {
-//        getWebDriverWait(30).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable( driver.findElement(By.id("filter-button"))));
-//        filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
-//        filtraNotificaButtonMittente.click();
-//        logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
-//    }
     public void selectFiltraNotificaButtonMittente() {
         webTool.waitTime(2);
         WebElement buttonFiltraNotifica = getWebDriverWait(50)
@@ -628,7 +617,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
                 int randomNumber = 0;
                 if (notifiche.size()>1){
-                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);;
+                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
                 }
 
                 Calendar calendar = GregorianCalendar.getInstance();
@@ -709,7 +698,6 @@ public class PiattaformaNotifichePage extends BasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonVediDettaglio);
             logger.info("Cliccato sul pulsante 'Vedi Dettaglio'");
         } catch (Exception e) {
-            logger.error("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
             Assertions.fail("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
         }
     }
@@ -1451,7 +1439,6 @@ public class PiattaformaNotifichePage extends BasePage {
         } else {
             viewMore.get(0).click();
         }
-        //PF e PG vengono usati in modo da recuperare i dati test step. destinatari.get("PF") recupera CF da tabella nel FF
 //        List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ")')]"));
 //        logger.info("Lista PF {}", destinatarioPF.toArray());
 //        List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ")')]"));
@@ -1474,7 +1461,6 @@ public class PiattaformaNotifichePage extends BasePage {
         if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
             logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
         } else {
-            logger.error("Non si visualizza  gli eventi relativi a tutti i destinatari");
             Assertions.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
         }
 
@@ -1684,6 +1670,7 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         Assertions.assertFalse(isDisplayed, "Il bottone è visualizzabile");
     }
+
     private void verificaDestinatario(String tipo, String cf, String messaggioErrore) {
         List<WebElement> destinatario = getWebDriverWait(10)
                 .withMessage(messaggioErrore)
@@ -1783,7 +1770,7 @@ public class PiattaformaNotifichePage extends BasePage {
             informativaPrivacyOrTerminiCondizioneLink.click();
             webTool.waitTime(1);
         } catch (TimeoutException e) {
-            System.out.println("Link Informativa Privacy  o Termini e Condizione non trovato o non visibile.");
+            logger.info("Link Informativa Privacy  o Termini e Condizione non trovato o non visibile.");
         }
     }
 
@@ -1813,7 +1800,6 @@ public class PiattaformaNotifichePage extends BasePage {
         if (StringUtils.isEmpty(banner)){
             //assenza di banner
             boolean nonPresente = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xPathBanner)));
-            logger.info("Non Presente:" +nonPresente);
             Assertions.assertTrue(nonPresente, "Banner Bilinguismo presente");
         }
         else {
@@ -1887,7 +1873,6 @@ public class PiattaformaNotifichePage extends BasePage {
         if(lingua.equalsIgnoreCase("Italiano")) {
             WebElement radioIt = getWebDriverWait(20)
                     .withMessage("Impossibile impostare la lingua su Italiano")
-//                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='it']")));
                     .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='lang' and @value='it']/ancestor::label")));
             radioIt.click();
         }else {

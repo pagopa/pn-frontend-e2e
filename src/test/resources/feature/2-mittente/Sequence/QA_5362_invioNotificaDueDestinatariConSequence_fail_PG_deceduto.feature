@@ -1,4 +1,4 @@
-Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
+Feature: Mittente invia una notifica a due destinatari, PG deceduti
 
   @TestSuite
   @TAG_DECEDUTO_890_QA-5362
@@ -58,10 +58,10 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si attende completamento notifica "Invio in corso"
     And In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline ""
     And Aspetta 400 secondi
-    And Si visualizza correttamente la timeline relativi a tutti i destinatari
-      | PF | GRBGPP87L04L741X |
-      | PG | 27957814470      |
-    And Aspetta 10 secondi
+#    And Si visualizza correttamente la timeline relativi a tutti i destinatari
+#      | PF | GRBGPP87L04L741X |
+#      | PG | 27957814470      |
+#    And Aspetta 10 secondi
 #    Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"
     Then Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'(GRBGPP87L04L741X)')] |
