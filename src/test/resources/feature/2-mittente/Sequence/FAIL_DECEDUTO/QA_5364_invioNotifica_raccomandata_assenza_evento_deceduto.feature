@@ -1,9 +1,9 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
   @TestSuite
-  @NotificaConRaccomandataAssenzaEventoDecedutoAR
+  @TAG_DECEDUTO_890_QA-5364
   @NRT
-  @Deceduto_aws
+  @Sequence_Deceduto
 
   Scenario: [DECEDUTO_AR_QA-5364] - Il mittente invia una notifica con raccomandata semplice a un destinatario deceduto
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -27,11 +27,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
     And Aspetta 400 secondi
-    #And Si controlla lo stato timeline in dettaglio notifica
-    #  | xpathStato   | //p[contains(text(),"La raccomandata semplice") and contains(text(),"non è stata consegnata perché il destinatario è deceduto")] |
-    #  | vediDettagli | true |
-    And Aspetta 1 secondi
+    And Si visualizza testo nella timeline "invio via raccomandata semplice"
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //p[contains(text(),"La raccomandata semplice") and contains(text(),"stampata ed imbustata")] |
-      | vediDettagli | true                                                                                          |
-    #And Si controlla che non ci sia un evento di destinatario deceduto
+      | xpathStato   | //p[contains(text(),"La raccomandata") and contains(text(),"stampata ed imbustata")] |
+      | vediDettagli | false |

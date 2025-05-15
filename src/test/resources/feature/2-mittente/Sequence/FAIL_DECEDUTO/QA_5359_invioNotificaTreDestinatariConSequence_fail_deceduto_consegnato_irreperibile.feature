@@ -3,7 +3,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @TestSuite
   @NotificaATreDestinatariConSequenceDecedutoConsegnatoIrreperibile890
   @NRT
-  @Deceduto_aws
+  @Sequence_Deceduto
 
   Scenario: [DECEDUTO_890_QA-5359] - Il mittente invia una notifica a tre destinatari, solo uno raggiungibile al primo tentativo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
