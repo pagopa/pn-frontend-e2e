@@ -1136,7 +1136,18 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
-        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+        String environment = webDriverConfig.getEnvironment();
+        switch (environment) {
+            case "dev" ->
+                    informazioniPreliminariPASection.insertGruppo("GruppoTest");
+            case "test" ->
+                    informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+            default -> {
+                logger.error("Ambiente non valido");
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
+
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
         if (datiNotifica.get("modalitaInvio").equals("A/R")) {
             informazioniPreliminariPASection.selectRaccomandataAR();
