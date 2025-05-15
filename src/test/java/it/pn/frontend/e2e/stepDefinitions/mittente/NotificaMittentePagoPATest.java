@@ -32,7 +32,6 @@ import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -47,7 +46,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.TimeoutException;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
@@ -1197,14 +1195,16 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Then("Nella section Destinatario si inseriscono i dati del destinatario")
     public void nellaSectionDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
         logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
-        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
+        String nomeCognomeDestinatario = destinatario.get("nomeCognomeDestinatario");
         if (destinatario.get("soggettoGiuridico").equals("PF")) {
             destinatarioPASection.selezionarePersonaFisica();
-            destinatarioPASection.inserireNomeDestinatario(nomeDestinatario.split(" ")[0]);
-            destinatarioPASection.inserireCognomeDestinatario(nomeDestinatario.split(" ")[1]);
+//            destinatarioPASection.inserireNomeDestinatario(nomeDestinatario.split(" ")[0]);
+//            destinatarioPASection.inserireCognomeDestinatario(nomeDestinatario.split(" ")[1]);
+            destinatarioPASection.inserireNomeDestinatario(estraiNome(nomeCognomeDestinatario));
+            destinatarioPASection.inserireCognomeDestinatario(estraiCognome(nomeCognomeDestinatario));
         } else {
             destinatarioPASection.clickRadioButtonPersonaGiuridica();
-            destinatarioPASection.insertRagioneSociale(nomeDestinatario);
+            destinatarioPASection.insertRagioneSociale(nomeCognomeDestinatario);
         }
         destinatarioPASection.inserireCodiceFiscaleDestinatario(destinatario.get("codiceFiscale"));
     }
@@ -2454,6 +2454,43 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
     }
 
+    private static final Set<String> PREFISSI_COGNOME = Set.of(
+            "de", "di", "del", "della", "la", "lo", "van", "von", "san", "santa", "dos", "da", "das", "do", "dei", "degli"
+    );
 
+    public static String estraiNome(String fullName) {
+        String[] parts = normalizza(fullName);
+        if (parts.length <= 1) return ""; // Solo cognome o vuoto
+
+        int splitIndex = trovaInizioCognome(parts);
+        return String.join(" ", Arrays.copyOfRange(parts, 0, splitIndex)).trim();
+    }
+
+    public static String estraiCognome(String fullName) {
+        String[] parts = normalizza(fullName);
+        if (parts.length == 0) return "";
+
+        int splitIndex = trovaInizioCognome(parts);
+        return String.join(" ", Arrays.copyOfRange(parts, splitIndex, parts.length)).trim();
+    }
+
+    private static String[] normalizza(String fullName) {
+        if (fullName == null) return new String[0];
+        return fullName.trim().split("\\s+");
+    }
+
+    private static int trovaInizioCognome(String[] parts) {
+        int splitIndex = parts.length - 1;
+
+        // Torna indietro se ci sono prefissi del cognome
+        for (int i = parts.length - 1; i > 0; i--) {
+            if (PREFISSI_COGNOME.contains(parts[i - 1].toLowerCase())) {
+                splitIndex = i - 1;
+            } else {
+                break;
+            }
+        }
+        return splitIndex;
+    }
 
 }
