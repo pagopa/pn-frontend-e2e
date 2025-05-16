@@ -107,7 +107,6 @@ public class LeTueDelegheSection extends BasePage {
             getWebDriverWait(10).withMessage("L'input cognome non è visibile").until(ExpectedConditions.visibilityOf(inputCognome));
             logger.info("Le tue deleghe page caricata");
         } catch (TimeoutException e) {
-            logger.error("Le tue deleghe page non caricata con errore :" + e.getMessage());
             Assertions.fail("Le tue deleghe page non caricata con errore :" + e.getMessage());
         }
     }
@@ -159,8 +158,16 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void inserireCF(String cf) {
-        codiceFiscaleInput = driver.findElement(By.id("codiceFiscale"));
-        codiceFiscaleInput.sendKeys(cf);
+//        codiceFiscaleInput = driver.findElement(By.id("codiceFiscale"));
+//        codiceFiscaleInput.sendKeys(cf);
+
+        WebElement codiceFiscale = getWebDriverWait(10)
+                .withMessage("Il campo Codice Fiscale non è visibile o non è pronto per l'interazione")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("codiceFiscale")));
+
+        codiceFiscale.clear(); // opzionale, se vuoi cancellare prima
+        codiceFiscale.sendKeys(cf);
+
     }
 
     public void selectSoloEntiSelezionati() {
@@ -176,7 +183,6 @@ public class LeTueDelegheSection extends BasePage {
         enteElementInput.click();
         enteElementInput.sendKeys(ente);
 
-        // select menu;
 
         getWebDriverWait(10).withMessage("il menu della selezione ente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@role='presentation']"))));
         WebElement menuEntiOptionBy = driver.findElement(By.xpath("//div[@role='presentation']"));
@@ -190,12 +196,20 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickInviaRichiesta() {
-        inviaLaRichiestaButton = driver.findElement(By.id("create-button"));
-        getWebDriverWait(30).withMessage("il bottone invia richiesta non è cliccabile").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
-        logger.info("click pulsante invia richiesta");
+//        inviaLaRichiestaButton = driver.findElement(By.id("create-button"));
+//        getWebDriverWait(30).withMessage("il bottone invia richiesta non è cliccabile").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
+//        logger.info("click pulsante invia richiesta");
+//
+//        inviaLaRichiestaButton.click();
+//        logger.info("click pulsante dopo");
 
-        inviaLaRichiestaButton.click();
-        logger.info("click pulsante dopo");
+
+        WebElement inviaRichiestaButton = getWebDriverWait(30)
+                .withMessage("Il bottone 'Invia Richiesta' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("create-button")));
+        inviaRichiestaButton.click();
+
+
     }
 
     public String messaggioDiErrore() {
@@ -211,7 +225,6 @@ public class LeTueDelegheSection extends BasePage {
             getWebDriverWait(5).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(text(),'Delega già presente')]"))));
             logger.info("Il messaggio di errore viene visualizzato");
         } catch (TimeoutException e) {
-            logger.error("Il messaggio di errore NON viene visualizzato con errore: " + e.getMessage());
             Assertions.fail("Il messaggio di errore NON viene visualizzato con errore: " + e.getMessage());
         }
     }
@@ -224,7 +237,6 @@ public class LeTueDelegheSection extends BasePage {
         } catch (NoSuchElementException | TimeoutException e) {
             getWebDriverWait(40).withMessage("Il bottone clickOpzioneAccetta blocco catch").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
             driver.findElement(By.xpath("//*[@id='accept-button']")).click();
-            logger.error("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
             Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
         }
     }
@@ -235,7 +247,6 @@ public class LeTueDelegheSection extends BasePage {
             getWebDriverWait(15).until(ExpectedConditions.visibilityOf(titlePopUpBy));
             logger.info("Il pop-up per accettare la delega visualizzato correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il pop-up per accettare la delega NON visualizzato correttamente con errore: " + e.getMessage());
             Assertions.fail("Il pop-up per accettare la delega NON visualizzato correttamente con errore: " + e.getMessage());
         }
     }
@@ -282,11 +293,9 @@ public class LeTueDelegheSection extends BasePage {
 
     public void controlloStatoAttiva(String nome, String cognome) {
         try {
-//            WebElement statoAttivaBy = driver.findElement(By.xpath("//table[@id='notifications-table']//td[.//div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//div/div[@id='chip-status-success']"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//td[.//div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//div/div[@id='chip-status-success']")));
             logger.info("La delega ha lo stato Attiva");
         } catch (TimeoutException e) {
-            logger.error("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
             Assertions.fail("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
         }
     }
@@ -306,7 +315,6 @@ public class LeTueDelegheSection extends BasePage {
 //            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
 //            logger.info("La delega con nome " + nome + "  " + cognome + "è ancora presente");
         } catch (TimeoutException e) {
-            logger.error("La delega non è presente con errore: " + e.getMessage());
             Assertions.fail("La delega non è presente con errore: " + e.getMessage());
         }
     }
@@ -398,8 +406,6 @@ public class LeTueDelegheSection extends BasePage {
     public void inserisciCredenzialiDelegato(Map<String, String> destinatario) {
         logger.info("Inserire le credenziali");
         logger.info("selezione pf su checkbox");
-//        WebElement personaFisicaCheckBox = getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(By.id("select-pf-radio")));
-//        personaFisicaCheckBox.click();
         logger.info("Inserisco Nome Cognome CF");
 
         WebElement nomeField = getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("nome"))));
