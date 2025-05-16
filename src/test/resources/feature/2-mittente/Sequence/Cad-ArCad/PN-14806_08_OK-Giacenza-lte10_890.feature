@@ -6,66 +6,40 @@ Feature: invio notifica con sequence
 
   Scenario: [PN-14806_08] CAD/ARCAD SEQUENCE OK-Giacenza-lte10_890
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    When Si inizializzano i dati per la notifica
-      | modello         | 890                    |
-      | documenti       | 1                      |
-      | oggettoNotifica | OK-Giacenza-lte10_890 |
-      | costiNotifica   | false                  |
-    And Si aggiunge un destinatario alla notifica
-      | nomeCognome      | Lucrezia Borgia            |
-      | codiceFiscale    | BRGLRZ80D58H501Q           |
-      | tipoDestinatario | PF                         |
-      | indirizzo        | via @OK-Giacenza-lte10_890 |
-      | numeroCivico     | 20                         |
-      | comune           | MILANO                     |
-      | provincia        | MI                         |
-      | codicepostale    | 20147                      |
-      | stato            | ITALIA                     |
-    Then Creo in background una notifica per destinatario tramite API REST
+    And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
+    Then Nella section Informazioni preliminari si inseriscono i dati della notifica
+      | oggettoNotifica   | @OK-Giacenza-lte10_890 |
+      | descrizione       | @OK-Giacenza-lte10_890 |
+      | gruppo            | test-TA-FE             |
+      | codiceTassonomico | 100105P                |
+      | modalitaInvio     | 890                    |
+    And Cliccare su continua
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
+    Then Nella section Destinatario si inseriscono i dati del destinatario
+      | soggettoGiuridico       | PF               |
+      | nomeCognomeDestinatario | Amedeo Modigliani  |
+      | codiceFiscale           | MDGMDA80T25F205W |
+    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
+      | indirizzo | Via @OK-Giacenza-lte10_890 |
+      | civico    | 20                         |
+      | localita  | Milano                     |
+      | comune    | Milano                     |
+      | provincia | MI                         |
+      | cap       | 20147                      |
+      | stato     | Italia                     |
+    And Cliccare su continua
+    And Seleziona Nessun Pagamento 1
+    And Cliccare su continua
+    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
+    And Nella section Allegati si carica un atto
+    And Nella section Allegati cliccare sul bottone Invia
+    And Si visualizza correttamente la frase La notifica è stata correttamente creata
+    And Cliccare sul bottone vai alle notifiche
+    And Si visualizza correttamente la pagina Piattaforma Notifiche
+    And Si verifica che la notifica è stata creata correttamente
+#    And Aspetta 400 secondi
+    And Aspetta 10 secondi
     And Si seleziona la notifica mittente
-    ##  TODO Inerte al nuovo sviluppo da fare appena si sblocca dev
-#    And Si attende completamento notifica "Resa al mittente"
-
-
-
-
-
-
-
-
-#    And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-#    And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-#    Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-#      | oggettoNotifica   | @OK-Giacenza-lte10_890 |
-#      | descrizione       | @OK-Giacenza-lte10_890 |
-#      | gruppo            | test-TA-FE             |
-#      | codiceTassonomico | 100105P                |
-#      | modalitaInvio     | 890                    |
-#    And Cliccare su continua
-#    And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-#    Then Nella section Destinatario si inseriscono i dati del destinatario
-#      | soggettoGiuridico       | PF               |
-#      | nomeCognomeDestinatario | Lucrezia Borgia  |
-#      | codiceFiscale           | BRGLRZ80D58H501Q |
-#    And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-#      | indirizzo | Via @OK-Giacenza-lte10_890 |
-#      | civico    | 20                         |
-#      | localita  | Milano                     |
-#      | comune    | Milano                     |
-#      | provincia | MI                         |
-#      | cap       | 20147                      |
-#      | stato     | Italia                     |
-#    And Cliccare su continua
-#    And Seleziona Nessun Pagamento 1
-#    And Cliccare su continua
-#    And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
-#    And Nella section Allegati si carica un atto
-#    And Nella section Allegati cliccare sul bottone Invia
-#    And Si visualizza correttamente la frase La notifica è stata correttamente creata
-#    And Cliccare sul bottone vai alle notifiche
-#    And Si visualizza correttamente la pagina Piattaforma Notifiche
-#    And Si verifica che la notifica è stata creata correttamente
-#    And Aspetta 10 secondi
-#    And Si seleziona la notifica mittente
-##  TODO Inerte al nuovo sviluppo da fare appena si sblocca dev
-##    And Si attende completamento notifica "Invio in corso"
+#  TODO Inerte al nuovo sviluppo da fare appena si sblocca dev
+#    And Si attende completamento notifica "Invio in corso"
