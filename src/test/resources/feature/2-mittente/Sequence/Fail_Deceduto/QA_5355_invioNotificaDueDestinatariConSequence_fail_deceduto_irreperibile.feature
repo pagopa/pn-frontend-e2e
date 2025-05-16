@@ -1,16 +1,16 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
   @TestSuite
-  @NotificaADueDestinatariConSequenceDecedutoDopoVistoAR
+  @NotificaADueDestinatariConSequenceDecedutoIrreperibileAR
   @NRT
   @Sequence_Deceduto
 
-  Scenario: [DECEDUTO_AR_QA-5360] - Il mittente invia una notifica a due destinatari, entrambi deceduti
+  Scenario: [DECEDUTO_AR_QA-5355] - Il mittente invia una notifica a due destinatari , solo uno raggiungibile al primo tentativo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU 5360 |
+      | oggettoNotifica   | Pagamento rata IMU      |
       | descrizione       | PAGAMENTO RATA IMU      |
       | gruppo            | test-TA-FE-TEST         |
       | codiceTassonomico | 100105P                 |
@@ -19,18 +19,16 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF                       |
-#      | nomeCognomeDestinatario | Giuseppe Maria Garibaldi |
-#      | codiceFiscale           | GRBGPP87L04L741X         |
       | nomeCognomeDestinatario | Gaio Giulio Cesare |
-      | codiceFiscale           | CSRGGL44L13H501E   |
+      | codiceFiscale           | CSRGGL44L13H501E         |
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | @FAIL_DECEDUTO_AR |
-      | civico    | 20                |
-      | localita  | Milano            |
-      | comune    | Milano            |
-      | provincia | MI                |
-      | cap       | 20147             |
-      | stato     | Italia            |
+      | indirizzo | @fail-irreperibile_ar |
+      | civico    | 20                    |
+      | localita  | Milano                |
+      | comune    | Milano                |
+      | provincia | MI                    |
+      | cap       | 20147                 |
+      | stato     | Italia                |
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica
       | soggettoGiuridico | PG                    |
@@ -62,8 +60,11 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | PF | CSRGGL44L13H501E |
       | PG | 27957814470      |
     And Aspetta 10 secondi
-    Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),'irreperibile')] |
+      | vediDettagli | true                                 |
     And Aspetta 10 secondi
-    Then In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline ""
-    And Aspetta 60 secondi
-    Then Si visualizza testo nella timeline "Tutti i destinatari risultano deceduti"
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //p[contains(text(),'stata consegnata perché il destinatario è deceduto')] |
+      | vediDettagli | true                                                                       |
+
