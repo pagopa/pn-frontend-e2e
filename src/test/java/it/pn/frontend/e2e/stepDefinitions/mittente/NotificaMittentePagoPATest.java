@@ -32,7 +32,6 @@ import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -47,7 +46,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.TimeoutException;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
@@ -598,14 +596,19 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage(Iun);
     }
 
-    @And("ricerca notifica con IUN salvato")
-    public void ricercaNotificaConIunSalvato(){
-        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvato(Iun);
+    @And("Mittente ricerca notifica con IUN salvato")
+    public void ricercaNotificaConIunSalvatoMittente(){
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvatoMittente(Iun);
+    }
+
+    @And("Destinatario ricerca notifica con IUN salvato")
+    public void ricercaNotificaConIunSalvatoDestinatario(){
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvatoDestinatario(Iun);
     }
 
     @And("Mittente ricerca notifica con IUN salvato {string}")
     public void ricercaNotificaConIunMittente(String iun){
-        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvato(iun);
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvatoMittente(iun);
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica")

@@ -15,7 +15,7 @@ Feature: Ente figlio e Ente radice
     And Cliccare sulla notifica restituita
     And Salva codice IUN
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
-    And ricerca notifica con IUN salvato
+    And Mittente ricerca notifica con IUN salvato
     Then Si verifica che non ci sono notifiche disponibili
 
   @verificaAssenzaNotificheEnteFiglio
@@ -30,7 +30,7 @@ Feature: Ente figlio e Ente radice
     And Cliccare sulla notifica restituita
     And Salva codice IUN
     And Si sceglie ente figlio "Comune di Viggiu"
-    And ricerca notifica con IUN salvato
+    And Mittente ricerca notifica con IUN salvato
     Then Si verifica che non ci sono notifiche disponibili
     And Si clicca sul bottone esci
     And Logout da portale mittente
@@ -93,7 +93,7 @@ Feature: Ente figlio e Ente radice
   @verificaPresenzaNotificheFiglioDaDelegato
   Scenario: PN-10419 - Ente Figlio - Verifica presenza notifiche da parte del delegato
     Given Login Page mittente viene visualizzata
-      | url | https://selfcare.dev.notifichedigitali.it |
+      | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
       | user   | ggiorgi |
       | pwd    | test    |
@@ -134,11 +134,11 @@ Feature: Ente figlio e Ente radice
     And Salva codice IUN
     And Aspetta 10 secondi
     And Verifica nome ente mittente "Comune di Viggiu - EDILIZIA PRIVATA E SUAP"
-    #And Logout da portale mittente
     # Login come Lucrezia Borgia (deve avere delega di Cesare per ente radice comune di Viggiu)
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
-    And ricerca notifica con IUN salvato
-
+    And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "(gaio giulio cesare)"
+    And Destinatario ricerca notifica con IUN salvato
+    And Si clicca la notifica ricercata
 
 
 
