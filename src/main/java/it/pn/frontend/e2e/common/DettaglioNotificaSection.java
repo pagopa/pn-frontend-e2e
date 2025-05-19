@@ -148,18 +148,20 @@ public class DettaglioNotificaSection extends BasePage {
 
     public void waitLoadDettaglioNotificaAnnullataDESection() {
 
-        webTool.waitTime(15);
         WebElement titleDettaglioNotificaField = driver.findElement(By.id("title-of-page"));
         WebElement statoNotificaBy = driver.findElement(By.id("notification-state"));
         WebElement indietroButtonBy = driver.findElement(By.id("breadcrumb-indietro-button"));
         WebElement informazioniBy = driver.findElement(By.id("notification-detail-table"));
         WebElement allegatiSection = driver.findElement(By.id("notification-detail-document-attached"));
-        WebElement aarDownload = driver.findElement(By.xpath("//div[@data-testid='notificationDetailDocuments']"));
-        WebElement aarBox = driver.findElement(By.xpath("//div[@data-testid='aarBox']"));
+        //AAR ha id diversi per portale mittente/destinatario, si dichiarano solo i selettori dell' xpath per il check sulla presenza di uno o dell'altro
+        By aarDownload = By.xpath("//div[@data-testid='notificationDetailDocuments']");
+        By aarBox = By.xpath("//div[@data-testid='aarBox']");
         WebElement attestazione = driver.findElement(By.xpath("//button[@data-testid='download-legalfact']"));
-        WebElement copyNotificaAnnullataDestinatario = driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"));
-       // WebElement copyNotificaAnnullataMittente = driver.findElement(By.xpath("//div[@data-testid='alert']"));
+        //Banner notifica annullata ha id diversi per portale mittente/destinatario, si dichiarano solo i selettori dell' xpath per il check sulla presenza di uno o dell'altro
+        By copyNotificaAnnullataDestinatario = By.xpath("//div[@data-testid='cancelledAlertText']");
+        By copyNotificaAnnullataMittente = By.xpath("//div[@data-testid='alert']");
         WebElement chipAnnullataInTimeline = driver.findElement(By.id("Annullata-status"));
+        WebElement linkAnnullamentoNotifica = driver.findElement(By.xpath("//button[@data-testid='download-legalfact' and contains(., 'Dichiarazione annullamento notifica')]"));
 
         getWebDriverWait(10).withMessage("il titolo Dettaglio notifica non è visibile").until(ExpectedConditions.visibilityOf(titleDettaglioNotificaField));
         getWebDriverWait(10).withMessage("il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButtonBy));
@@ -168,14 +170,17 @@ public class DettaglioNotificaSection extends BasePage {
         getWebDriverWait(10).withMessage("Lo stato della notifica non è visibile").until(ExpectedConditions.visibilityOf(statoNotificaBy));
 
         getWebDriverWait(10).withMessage("La sezione recapiti non è visibile").until(ExpectedConditions.or(
-                ExpectedConditions.visibilityOf(aarDownload),
-                ExpectedConditions.visibilityOf(aarBox)));
+                ExpectedConditions.visibilityOfElementLocated(aarDownload),
+                ExpectedConditions.visibilityOfElementLocated(aarBox)));
         getWebDriverWait(10).withMessage("Il pulsante sezione attestazione opponibile non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
-        getWebDriverWait(10).withMessage("Il copy di notifica annullata non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOf(copyNotificaAnnullataDestinatario), ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-testid='alert']"))));
+        getWebDriverWait(10).withMessage("Il copy di notifica annullata non è visibile").until(ExpectedConditions.or(
+                ExpectedConditions.visibilityOfElementLocated(copyNotificaAnnullataDestinatario),
+                ExpectedConditions.visibilityOfElementLocated(copyNotificaAnnullataMittente)));
         getWebDriverWait(10).withMessage("La chip di notifica annullata non è visibile").until(ExpectedConditions.visibilityOf(chipAnnullataInTimeline));
+        getWebDriverWait(10).withMessage("Il link del documento di annullamento notifica non è visibile").until(ExpectedConditions.visibilityOf(linkAnnullamentoNotifica));
+        getWebDriverWait(10).withMessage("Il link del documento di annullamento notifica non è cliccabile").until(ExpectedConditions.elementToBeClickable(linkAnnullamentoNotifica));
         logger.info("Dettaglio Notifica Annullata Section caricata");
     }
-
 
     public void selezioneAvvisoPagoPa() {
         try {

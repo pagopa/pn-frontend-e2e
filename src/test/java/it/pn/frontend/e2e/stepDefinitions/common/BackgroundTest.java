@@ -423,7 +423,6 @@ public class BackgroundTest  extends BasePage {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
         logger.info("SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");
-        webTool.waitTime(1);
         piattaformaNotifichePage.setHooksNew(hooksNew);
         logger.info("DOPO SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");
         piattaformaNotifichePage.clickSuNotifica();

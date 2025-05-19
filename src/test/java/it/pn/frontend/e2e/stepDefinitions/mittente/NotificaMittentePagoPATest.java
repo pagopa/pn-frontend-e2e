@@ -622,7 +622,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Nella pagina dettaglio notifica cliccare sull'opzione vedi più dettagli")
     public void nellaPaginaDettaglioNotificaCliccareSullOpzioneVediPiuDettagli() {
         dettaglioNotificaMittenteSection.waitLoadDettaglioNotificaSection();
-        this.dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+        this.dettaglioNotificaMittenteSection.clickVediPiuDettagli();
     }
 
     @And("Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso")
@@ -866,7 +866,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Si verifica che l'invio della pec sia in corso")
     public void siVerificaCheLInvioDellaPecSiaInCorso() {
-        dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+        dettaglioNotificaMittenteSection.clickVediPiuDettagli();
         dettaglioNotificaMittenteSection.verificaInvioPECInCorso();
     }
 
@@ -1909,7 +1909,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
         webTool.waitTime(2);
         if (viewDetail.equals("true")){
-            dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+            dettaglioNotificaMittenteSection.clickVediPiuDettagli();
         }
         dettaglioNotificaMittenteSection.checkStatoTimeline(idStato);
     }
@@ -1921,7 +1921,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         siVisualizzaCorrettamenteLElencoCompletoDegliStatiCheLaNotificaHaPercorso();
         webTool.waitTime(2);
         if (viewDetail.equals("true")){
-            dettaglioNotificaMittenteSection.clickVediPiuDettaglio();
+            dettaglioNotificaMittenteSection.clickVediPiuDettagli();
         }
 
         dettaglioNotificaMittenteSection.siVerificaLaCliccabilitaSuAllegatoInTimeline(idStato);
