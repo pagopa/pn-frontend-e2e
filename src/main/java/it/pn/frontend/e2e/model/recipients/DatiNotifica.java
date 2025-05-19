@@ -2,6 +2,8 @@ package it.pn.frontend.e2e.model.recipients;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class DatiNotifica {
     private String numeroProtocollo;
@@ -19,6 +21,8 @@ public class DatiNotifica {
     private String descrizioneDe;
     private String oggettoDellaNotificaSl;
     private String descrizioneSl;
+
+    private List<String> codiciAvvisi;
 
 
 }

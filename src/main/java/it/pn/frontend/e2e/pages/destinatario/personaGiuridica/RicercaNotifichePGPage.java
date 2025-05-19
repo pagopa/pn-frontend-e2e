@@ -138,4 +138,5 @@ public class RicercaNotifichePGPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Conferma')]")));
         confermaButton.click();
     }
+
 }

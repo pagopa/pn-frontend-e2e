@@ -13,6 +13,7 @@ import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.model.enums.AppPortal;
+import it.pn.frontend.e2e.model.enums.AppPortalUrl;
 import it.pn.frontend.e2e.model.recipients.PersoneFisiche;
 import it.pn.frontend.e2e.model.recipients.PersoneGiuridiche;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
@@ -25,6 +26,7 @@ import it.pn.frontend.e2e.section.mittente.*;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaFisica.LoginPersonaFisicaPagoPA;
 import it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica.LoginPGPagoPATest;
+import it.pn.frontend.e2e.utility.AppPortalUrlFactory;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
@@ -122,7 +124,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Autowired
     private RestNotification restNotification;
-
+    @Autowired
+    private AppPortalUrlFactory urlFactory;
  
     @PostConstruct
     public void init(){
@@ -255,17 +258,16 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento() {
         logger.info("Inserimento dei dati della notifica senza pagamento" );
         //datiNotifica
-        aggiornamentoNumeroProtocollo();
+//        aggiornamentoNumeroProtocollo();
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
-            // case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
-            // case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
             case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
             case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
         }
         informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
         informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
-        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+//        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+        informazioniPreliminariPASection.insertNumeroDiProtocollo(WebTool.generatePaProtocolNumber());
         informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
@@ -315,15 +317,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     private void aggiornamentoNumeroProtocollo() {
         logger.info("Aggiornamento del numero protocollo");
-//        Map<String, Object> allDatataPopulation = dataPopulation.readDataPopulation("datiNotifica.yaml");
-//        String numeroProtocolOld = allDatataPopulation.get("numeroProtocollo").toString();
         String numeroProtocolOld = dataPopulationConfig.getDatiNotifica().getNumeroProtocollo();
         String numeroProtocolNew;
         do {
             numeroProtocolNew = WebTool.generatePaProtocolNumber();
         } while (numeroProtocolOld.equals(numeroProtocolNew));
-//        allDatataPopulation.put("numeroProtocollo", numeroProtocolNew);
-//        dataPopulation.writeDataPopulation("datiNotifica.yaml", allDatataPopulation);
         dataPopulationConfig.getDatiNotifica().setNumeroProtocollo(numeroProtocolNew);
 
     }
@@ -332,6 +330,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void cliccareSuContinua() {
         logger.info("Cliccare sul bottone continua");
         invioNotifichePAPage.selezionareContinuaButton();
+    }
+
+    @And("Cliccare su Torna a")
+    public void cliccareSuTornaA() {
+        logger.info("Cliccare sul bottone Torna a");
+        invioNotifichePAPage.selezionareTornaAButton();
     }
 
     @And("Aspetta {int} secondi")
@@ -440,6 +444,15 @@ public class NotificaMittentePagoPATest  extends BasePage {
          **/
     }
 
+    @And("Nella section Allegati cliccare sul bottone Invia Posizione Debitoria")
+    public void nellaSectionAllegatiCliccareSulBottoneInviaPosizioneDebitoria() {
+        logger.info("Cliccare sul bottone Invia");
+
+        allegatiPASection.selectInviaButtonPosizioneDebitoria();
+        webTool.waitTime(4);
+
+    }
+
     private void aggiornamentoNumeroProtocolloAllegati() {
         logger.info("Aggiornamento del numero protocollo");
 
@@ -521,8 +534,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica(), statoNotifica);
             if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(coidiceIUNOld)) {
-//                    this.datiNotifica.put("codiceIUN", codiceIUN);
-//                    dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
                     dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
                     return;
@@ -547,6 +558,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void cliccareSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
         piattaformaNotifichePage.setHooksNew(hooksNew);
+        piattaformaNotifichePage.selezionaPrimaNotifica();
+    }
+    @When("Cliccare sulla notifica restituita dal filtro")
+    public void cliccareSullaNotificaRestituitaDalFiltro() {
+        logger.info("Si clicca sulla notifica dal filtro");
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
@@ -781,7 +797,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariAggiuntiviPerNumeroDestinatari(String npersoneFisiche) {
         logger.info("Si cerca di aggiungere" + npersoneFisiche + " persone Fisiche");
         PersoneFisiche personeFisiche=dataPopulationConfig.getPersoneFisiche();
-//        this.personeFisiche = dataPopulation.readDataPopulation("personeFisiche.yaml");
         int nPersoneFisicheInt = 1;
         if (isNumeric(npersoneFisiche)) {
             nPersoneFisicheInt = Integer.parseInt(npersoneFisiche) - 1;
@@ -824,7 +839,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Si verifica che la notifica sia nello stato avanzato")
     public void siVerificaCheLaNotificaSiaNelloStato() {
 
-//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
         piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
@@ -859,8 +873,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Verifica dello stato della notifica inviata tramite pec come {string}")
     public void verificaDelloStatoDellaNotificaInviataTramitePecCome(String statoNotifica) {
 
-//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-       // this.personeFisiche = dataPopulation.readDataPopulation("personaFisicaPec.yaml");
 
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
@@ -884,8 +896,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica(), statoNotifica);
             if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(codiceIUNOld)) {
-//                    this.datiNotifica.put("codiceIUN", codiceIUN);
-//                    dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
                     dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
                     return;
@@ -958,6 +968,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.insertRagioneSociale(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         destinatarioPASection.insertPartitaIva(dataPopulationConfig.getPersonaGiuridica().getCodiceFiscale());
     }
+    @And("Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica posizionale {int}")
+    public void nellaSectionDestinatarioInserireRagioneSocialeEPartitaIVADallaPersonaGiuridicaposizionale(int posizione) {
+        logger.info("Si inserisce la ragione sociale e la partita iva della persona giuridica posizionale");
+        //personaGiuridica
+        destinatarioPASection.insertRagioneSociale(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale(),posizione);
+        destinatarioPASection.insertPartitaIva(dataPopulationConfig.getPersonaGiuridica().getCodiceFiscale(),posizione);
+    }
 
     @And("Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica")
     public void nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaGiuridica() {
@@ -1021,11 +1038,16 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.clickRadioButtonPersonaGiuridica();
     }
 
+    @And("Nella section Destinatario selezionare il radio button persona giuridica posizionale {int}")
+    public void nellaSectionDestinatarioSelezionareIlRadioButtonPersonaGiuridicaPosizionale(int posiione) {
+        logger.info("Si clicca su persona giuridica posizionale");
+        destinatarioPASection.clickRadioButtonPersonaGiuridicaPosizionale(posiione);
+    }
+
     @And("^Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per (.*)$")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariPersoneGiuridicheAggiuntiviPerNumeroDestinatari(String nDestinatari) {
         logger.info("Si cerca di aggiungere " + nDestinatari + " personeGiuridiche");
 
-        //Map<String, Object> personeGiuridiche = dataPopulation.readDataPopulation("personeGiuridiche.yaml");
         PersoneGiuridiche personeGiuridiche= dataPopulationConfig.personeGiuridiche();
         int nDestinatariInt = 1;
         if (isNumeric(nDestinatari)) {
@@ -1084,8 +1106,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
             codiceIUN = piattaformaNotifichePage.ricercaNotifica(dataPopulationConfig.getDatiNotificaPg().getOggettoDellaNotifica(), statoNotifica);
             if (!codiceIUN.equals("")) {
                 if (!codiceIUN.equals(codiceIUNOld)) {
-//                    this.datiNotifica.put("codiceIUN", codiceIUN);
-//                    dataPopulation.writeDataPopulation("datiNotificaPG.yaml", this.datiNotifica);
                     dataPopulationConfig.getDatiNotificaPg().setCodiceIUN(codiceIUN);
                     logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
                     break;
@@ -1102,9 +1122,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo() {
         String numeroProtocollo = getNumeroProtocollo();
         if (numeroProtocollo != null) {
-//            this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-//            this.datiNotifica.put("numeroProtocollo", numeroProtocollo);
-//            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.datiNotifica);
             dataPopulationConfig.getDatiNotifica().setNumeroProtocollo(numeroProtocollo);
         }
     }
@@ -1118,7 +1135,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotifica(Map<String, String> datiNotifica) {
         logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
         String numeroDiProtocollo = WebTool.generatePaProtocolNumber();
-        informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
+        if (Optional.ofNullable(datiNotifica.get("oggettoNotifica")).orElse("").isEmpty()) {
+            informazioniPreliminariPASection.insertOggettoNotifica(numeroDiProtocollo);
+        } else {
+            informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
+        }
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
         informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
@@ -1329,7 +1350,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messaggio) {
-        webTool.switchToPortal(AppPortal.PF);
+        logger.info("switchToPortal(AppPortal.PF)");
+        webTool.switchToPortalUrl(urlFactory,AppPortalUrl.PF_URL);
+        logger.info("selezionaPrimaNotifica");
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
         piattaformaNotifichePage.visualizzaTimeline(messaggio);
@@ -1462,6 +1485,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         String iun = notificationSingleton.getIun(hooksNew.getScenario());
         logger.info("SCENARIO..."+hooksNew.getScenario());
         logger.info("SCENARIO..."+iun);
+        piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         backgroundTest.setPiattaformaNotifichePage(piattaformaNotifichePage);
         backgroundTest.setHooksNew(hooksNew);
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNMittente(iun);
@@ -1731,15 +1755,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Si recupera un codice IUN valido");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
-//        this.personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-//        String codiceIun = this.personaFisica.get("codiceIUN").toString();
         String codiceIun = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-//            this.personaFisica.put("codiceIUN", codiciIun.get(0));
-//            dataPopulation.writeDataPopulation("datiNotifica.yaml", this.personaFisica);
             dataPopulationConfig.getDatiNotifica().setCodiceIUN( codiciIun.get(0));
         }
     }
@@ -1748,7 +1768,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void siVerificaCheLaNotificaSiaNelloStatoConsegnata() {
         logger.info("Si verifica che la notifica sia nello stato consegnata");
 
-//        this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         boolean notificaTrovata = false;
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         for (int i = 0; i < 10; i++) {
@@ -1924,6 +1943,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection.sceglieEnte(nomeEnte);
     }
 
+    @Then("Si visualizza testo nella timeline {string}")
+    public void siVisualizzaTestoNellaTimeline(String testo) {
+        piattaformaNotifichePage.visualizzaTimeline(testo);
+    }
+
 
     @And("Selezionare da impostazione lingua {string}")
     public void selezionareDaImpostazioneLingua(String lingua) {
@@ -2077,6 +2101,286 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.selezionareDaImpostazioneLinguaLaLingua(lingua);
     }
 
+    @And("Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaSingoloFilePdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+        String basePath = "src/test/resources/notifichePdf/";
+        String fileName;
+
+        switch (numNotifiche) {
+            case 1:
+                fileName = "AvvisopagoPA_1.pdf";
+                break;
+            case 2:
+                fileName = "AvvisopagoPA_2.pdf";
+                break;
+            case 3:
+                fileName = "AvvisopagoPA_3.pdf";
+                break;
+            case 4:
+                fileName = "AvvisopagoPA_4.pdf";
+                break;
+            default:
+                throw new IllegalArgumentException("Numero di notifiche non supportato: " + numNotifiche);
+        }
+
+        File notificaFile = new File(basePath + fileName);
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareSingolaNotificaPdfDalComputer(pathNotificaFile,0);
+
+    }
+
+    @And("Carica Multiplo File PDF Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaMultiploloFilePdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+
+        //Inserire nello stesso step i file
+        String basePath = "src/test/resources/notifichePdf/";
+        String fileName;
+
+        for (int i = 0; i < numNotifiche; i++) {
+             switch (i) {
+                 case 0 :
+                    fileName = "AvvisopagoPA_1.pdf";
+                    break;
+                 case 1 :
+                    fileName = "AvvisopagoPA_2.pdf";
+                    break;
+                 case 2:
+                     fileName = "AvvisopagoPA_3.pdf";
+                     break;
+                 case 3:
+                     fileName = "AvvisopagoPA_4.pdf";
+                     break;
+                 default :
+                        throw new IllegalArgumentException("Numero Multiplo di notifiche non supportato: " + numNotifiche);
+            }
+            File notificaFile = new File(basePath + fileName);
+            String pathNotificaFile = notificaFile.getAbsolutePath();
+            allegatiPASection.caricareSingolaNotificaPdfDalComputer(pathNotificaFile,0);
+        }
+    }
+
+
+    @And("Carica Multiplo File JSON senza costi Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaMultiploloFileJsonSenzacostiPdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+        //Inserire nello stesso step i file
+        String basePath = "src/test/resources/notifichePdf/senzaCosti/";
+        String fileName;
+
+        for (int i = 0; i < numNotifiche; i++) {
+            switch (numNotifiche) {
+                case 0:
+                    fileName = "PN_F24_META-1_notifica_senza_costi.json";
+                    break;
+                case 1:
+                    fileName = "PN_F24_META-1_notifica_senza_costi.json";
+                    break;
+                case 2:
+                    fileName = "PN_F24_META-3_notifica_senza_costi.json";
+                    break;
+                case 3:
+                    fileName = "PN_F24_META-4_notifica_senza_costi.json";
+                    break;
+                default:
+                    throw new IllegalArgumentException("Senza Costi Numero di notifiche non supportato: " + numNotifiche);
+            }
+
+            File notificaFile = new File(basePath + fileName);
+            String pathNotificaFile = notificaFile.getAbsolutePath();
+
+            allegatiPASection.caricareSingolaNotificaJsonDalComputer(pathNotificaFile,0);
+        }
+    }
+
+    @And("Carica Multiplo File JSON con costi Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaMultiploloFileJsonConcostiPdfPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+        //Inserire nello stesso step i file
+        String basePath = "src/test/resources/notifichePdf/conCosti/";
+        String fileName;
+
+        for (int i = 0; i < numNotifiche; i++) {
+            switch (numNotifiche) {
+                case 0:
+                    fileName = "PN_F24_META-1_notifica_con_costi.json";
+                    break;
+                case 1:
+                    fileName = "PN_F24_META-1_notifica_con_costi.json";
+                    break;
+                case 2:
+                    fileName = "PN_F24_META-3_notifica_con_costi.json";
+                    break;
+                case 3:
+                    fileName = "PN_F24_META-4_notifica_con_costi.json";
+                    break;
+                default:
+                    throw new IllegalArgumentException("Con Costo Numero di notifiche non supportato: " + numNotifiche);
+            }
+
+            File notificaFile = new File(basePath + fileName);
+            String pathNotificaFile = notificaFile.getAbsolutePath();
+
+            allegatiPASection.caricareSingolaNotificaJsonDalComputer(pathNotificaFile,0);
+        }
+    }
+
+    @And("Carica Multiplo File {int} non pdf o json e visualizza messaggio di errore {string}")
+    public void caricaMultiploFileNonPdfOJsonEVisualizzaMessaggioDiErrore(int numeroFile, String formatoFile) {
+        String basePath = "src/test/resources/notifichePdf/notifica.doc";
+        File notificaFile = new File(basePath);
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        for (int i = 0; i < numeroFile; i++) {
+            logger.info("caricaMultiploFileNonPdfOJsonEVisualizzaMessaggioDiErrore: " + i);
+            if (formatoFile.equalsIgnoreCase("json")) {
+                allegatiPASection.caricareSingolaNotificaJsonDalComputer(pathNotificaFile, i);
+            } else {
+                allegatiPASection.caricareSingolaNotificaPdfDalComputer(pathNotificaFile,i);
+            }
+        }
+        aspettaMessaggiErroreCaricamentoFile(numeroFile);
+    }
+
+    @And("Carica Json con Costi Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaJsonConCostiPosizioneDebitoriaNumeroNotifichePariA(int numNotifiche) {
+        logger.info("Carica Json con Costi Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
+        String basePath = "src/test/resources/notifichePdf/conCosti/";
+        String fileName;
+
+        // Massimo 4 notifiche, minimo 1
+        switch (numNotifiche) {
+            case 1:
+                fileName = "PN_F24_META-1_notifica_con_costi.json";
+                break;
+            case 2:
+                fileName = "PN_F24_META-1_notifica_con_costi.json";
+                break;
+            case 3:
+                fileName = "PN_F24_META-3_notifica_con_costi.json";
+                break;
+            case 4:
+                fileName = "PN_F24_META-4_notifica_con_costi.json";
+                break;
+            default:
+                throw new IllegalArgumentException("Numero di notifiche non supportato: " + numNotifiche);
+        }
+
+        File notificaFile = new File(basePath + fileName);
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+
+        allegatiPASection.caricareJsonDalComputer(pathNotificaFile);
+    }
+    @And("Carica File Formato errato Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaFilePdfFormatoErratoPosizioneDebitoriaNumeroNotifichePari(int numNotifiche) {
+        logger.info("Carica File Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
+        String basePath = "src/test/resources/notifichePdf/";
+        String fileName;
+
+        switch (numNotifiche) {
+            case 1:
+                fileName = "PN_F24_META-1_notifica_con_costi.json";
+                break;
+            case 2:
+                fileName = "PN_F24_META-1_notifica_con_costi.json";
+                break;
+            default:
+                throw new IllegalArgumentException("Numero di notifiche non supportato: " + numNotifiche);
+        }
+
+        File notificaFile = new File(basePath + fileName);
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+        allegatiPASection.caricareNotificaPdfDalComputer(pathNotificaFile);
+
+    }
+
+    @And("Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari a {int}")
+    public void caricaJsonSenzaCostiPosizioneDebitoriaNumeroNotifichePariA(int numNotifiche) {
+        logger.info("Carica Json senza Costi Posizione Debitoria Numero Notifiche Pari: {}", numNotifiche);
+        String basePath = "src/test/resources/notifichePdf/senzaCosti/";
+        String fileName;
+
+        // Massimo 4 notifiche, minimo 1
+        switch (numNotifiche) {
+            case 1:
+                fileName = "PN_F24_META-1_notifica_senza_costi.json";
+                break;
+            case 2:
+                fileName = "PN_F24_META-2_notifica_senza_costi.json";
+                break;
+            case 3:
+                fileName = "PN_F24_META-3_notifica_senza_costi.json";
+                break;
+            case 4:
+                fileName = "PN_F24_META-4_notifica_senza_costi.json";
+                break;
+            default:
+                throw new IllegalArgumentException("Metodo caricaJsonSenzaCostiPosizioneDebitoriaNumeroNotifichePariA Numero di notifiche non supportato: " + numNotifiche);
+        }
+
+        File notificaFile = new File(basePath + fileName);
+        String pathNotificaFile = notificaFile.getAbsolutePath();
+
+        allegatiPASection.caricareSingolaNotificaJsonDalComputer(pathNotificaFile,0);
+    }
+
+
+
+    @And("Inserisci Titolo Documento Documenti Allegati {int}")
+    public void inserisciTitoloDocumentoDocumentiAllegati(int numeroTitoloDoc) {
+        allegatiPASection.inserisciTitoloDocumentoDocumentiAllegati(numeroTitoloDoc);
+    }
+
+    @And("Verifica Presenza Sezione Pagamenti {int}")
+    public void verificaPresenzaSezionePagamenti(int numeroAvvisi) {
+        destinatarioPASection.verificaPresenzaSezionePagamenti( numeroAvvisi);
+    }
+
+    @And("Click Su Elimina Avviso pagoPA")
+    public void clickSuEliminaAvvisoPagoPa() { destinatarioPASection.clickSuEliminaAvvisoPagoPa();
+    }
+    @And("Click Su Elimina Modello F24")
+    public void clickSuEliminaModelloF24() { destinatarioPASection.clickSuEliminaModelloF24();
+    }
+
+    @And("Verifica Presenza Sezione Pagamenti nel menu a cascata {int}")
+    public void verificaPresenzaSezionePagamentiNelMenuACascata(int numeroDiPagamenti) {
+        destinatarioPASection.verificaPresenzaSezionePagamentiNelMenuACascata(numeroDiPagamenti);
+    }
+
+    @And("Verifica Presenza Sezione Pagamenti numero moduli F24 {int}")
+    public void verificaPresenzaSezionePagamentiNumeroModuliF( int numeroModuli) {
+        destinatarioPASection.verificaPresenzaSezionePagamentiNumeroModuliF(numeroModuli);
+    }
+
+    @And("Verifica Disabilitato Tasto Continua")
+    public void verificaDisabilitatoTastoContinua() {
+        destinatarioPASection.verificaDisabilitatoTastoContinua();
+    }
+
+    @And("Verifica Errori Codici Avviso NonValidi {int}")
+    public void verificaErroriCodiciAvvisoNonValidi(int numeroAttesi) {
+        destinatarioPASection.verificaErroriCodiciAvvisoNonValidi(numeroAttesi);
+    }
+
+    @And("Verifica Errori Codice Fiscale Ente NonValidi {int}")
+    public void verificaErroriCodiceFiscaleEnteNonValidi(int numeroAttesi) {
+        destinatarioPASection.verificaErroriCodiceFiscaleEnteNonValidi( numeroAttesi);
+
+    }
+
+    @And("Verifica Assenza Pop-up Errore per Invia Posizione Debitoria")
+    public void verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria() {
+        Assertions.assertFalse(destinatarioPASection.verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria()," Pop-up Errore per Invia Posizione Debitoria Apparso");
+    }
+
+    @And("Verifica Numero Caricamento file {int}")
+    public void verificaNumeroCaricamentoFile(int numeroFile) {
+        destinatarioPASection.verificaNumeroCaricamentoFile(numeroFile);
+    }
+
+    @And("Verifica Esistenza Tabella Notifiche")
+    public void verificaEsistenzaTabellaNotifiche() {
+        destinatarioPASection.verificaEsistenzaTabellaNotifiche();
+    }
+
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
@@ -2115,6 +2419,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
 
 
+    }
+    public void aspettaMessaggiErroreCaricamentoFile(int numeroAtteso) {
+        getWebDriverWait(10).until(ExpectedConditions.numberOfElementsToBe(
+                By.cssSelector("#file-upload-error"),
+                numeroAtteso
+        ));
     }
 
     private void populateDestinatarioPASection(String persona, int recIndex) {

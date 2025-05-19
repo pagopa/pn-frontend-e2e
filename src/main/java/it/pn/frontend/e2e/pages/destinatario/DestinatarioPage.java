@@ -3,7 +3,6 @@ package it.pn.frontend.e2e.pages.destinatario;
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.documents.Document;
 import it.pn.frontend.e2e.model.enums.NotificationFeePolicyEnum;
@@ -13,7 +12,6 @@ import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.rest.RestNotification;
 import it.pn.frontend.e2e.rest.RestRaddAlternative;
-import it.pn.frontend.e2e.utility.BeanProvider;
 import it.pn.frontend.e2e.utility.NotificationBuilder;
 import it.pn.frontend.e2e.utility.WebTool;
 import lombok.Getter;
@@ -21,18 +19,20 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class DestinatarioPage extends BasePage {
+    private final Logger logger = LoggerFactory.getLogger("DestinatarioPage");
 
 
     @Getter
@@ -155,7 +155,7 @@ public class DestinatarioPage extends BasePage {
                 String notificationStatus;
                 do {
                     Assertions.assertTrue(maxAttemptsPolling <= 9, "La notifica risulta ancora in stato WAITING dopo 9 tentativi");
-                    log.info(responseOfCreateNotification.getNotificationRequestId());
+                    log.info("responseOfCreateNotification.getNotificationRequestId(): {}",responseOfCreateNotification.getNotificationRequestId());
                     getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
                     notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
                     if (!notificationStatus.equals("ACCEPTED")) {
@@ -243,71 +243,384 @@ public class DestinatarioPage extends BasePage {
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
     }
 
-    public void selezionaAvvisoPagoPA() {
-        List<WebElement> pagoPARadioButtons = getWebDriverWait(10)
-                .withMessage("radio Button  Avviso PagoPA non visibile")
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Avviso pagoPA']")));
-        for (WebElement radioButton : pagoPARadioButtons) {
-            radioButton.click();
+    public void selezionaAvvisoPagoPA(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("PAGO_PA", numeroPosizioneDebitoria);
+    }
+
+    public void selezionaModelloF24(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("F24",numeroPosizioneDebitoria);
+    }
+
+    public void selezionaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("PAGO_PA_F24",numeroPosizioneDebitoria);
+    }
+
+    public void selezionaNessunPagamento(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("NOTHING",numeroPosizioneDebitoria);
+    }
+
+    public void verificaAvvisoPagoPA(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("PAGO_PA", numeroPosizioneDebitoria);
+    }
+
+    public void verificaModelloF24(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("F24",numeroPosizioneDebitoria);
+    }
+
+    public void verificaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("PAGO_PA_F24",numeroPosizioneDebitoria);
+    }
+
+    public void verificaNessunPagamento(int numeroPosizioneDebitoria) {
+        verificaRadioButtonPerValore("NOTHING",numeroPosizioneDebitoria);
+    }
+
+    public boolean verificaPresenzaSezioneTecnologiaPagamentoAvvisoPagoPA() {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Tecnologia Pagamento Avviso PagoPA non è visibile").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span[@id='pagopaIntMode']")));
+            log.info("Sezione Tecnologia Pagamento Avviso PagoPA presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            return false;
         }
     }
 
-    public void cliccareSuSincrona() {
-        WebElement radioButtonSincrona = getWebDriverWait(10)
-                .withMessage("radio Button  Sincrona non visibile")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Sincrona']")));
-        radioButtonSincrona.click();
-    }
-
-    public void inseriscoCodiceAvviso() {
-        List<WebElement> inputFields = getWebDriverWait(10)
-                .withMessage("Lista inseriscoCodiceAvviso non visibile")
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("noticeCode")));
-        //TODO bisogna cambiare in modo random le ultime 5 cifre
-        long numero = 302010124463612500L;
-        for (WebElement inputField : inputFields) {
-            inputField.sendKeys(String.valueOf(numero));
-            numero++;
+    public boolean verificaPresenzaSezioneSpecificheAvvisoPagoPAPerValore(int numeroPosizioneDebitoria) {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Specifiche Avviso PagoPA non è visibile").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]")),
+                    ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']"))),
+                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//label[@id='noticeCode-label'])[" + numeroPosizioneDebitoria + "]")), "innerText"),
+                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//input[@name='creditorTaxId'])[" + numeroPosizioneDebitoria + "]")), "value")));
+            log.info("Sezione Specifiche Avviso PagoPA presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            log.info("Sezione Specifiche Avviso PagoPA non è visibile: {}", e.getMessage());
+            return false;
         }
     }
 
-    public void cliccareSuACaricoDelDestinatario() {
-        WebElement caricoDestinatarioRadioButton = getWebDriverWait(10)
-                .withMessage("radio Button  A carico del destinatario (puntuale) non visibile")
+    public boolean verificaPresenzaSezioneSpecificheModelloF24PerValore(int numeroPosizioneDebitoria) {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Specifiche Modello F24 non è visibile").until(ExpectedConditions.and(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]")),
+                    ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']"))),
+                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//input")), "value")));
+            log.info("Sezione Specifiche Modello F24 presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            log.info("Sezione Specifiche Modello F24 non è visibile: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("FLAT_RATE",numeroPosizioneDebitoria);
+    }
+    public void selezionaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("DELIVERY_MODE",numeroPosizioneDebitoria);
+    }
+
+    public void selezionaModoAsincrono(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("ASYNC",numeroPosizioneDebitoria);
+    }
+
+    public void selezionaModoSincrono(int numeroPosizioneDebitoria) {
+        selezionaRadioButtonPerValore("SYNC",numeroPosizioneDebitoria);
+    }
+
+    public void selezionaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
+        WebElement label = getWebDriverWait(10)
+                .withMessage("Impossibile selezionare radio button: "+value)
                 .until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='A carico del destinatario (puntuale)']")
-        ));
-        caricoDestinatarioRadioButton.click();
+                        By.xpath("(//input[@type='radio' and @value='" + value + "']/ancestor::label)[" + numeroPosizioneDebitoria + "]")));
+        label.click();
     }
 
-    public void inserireCostoNotifica(String costo) {
-        WebElement costoNotificaInput = getWebDriverWait(10)
-                .withMessage("Campo inserireCostoNotifica non visibile")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.id("paFee")));
-        costoNotificaInput.clear(); // Pulisci il campo se necessario
-        costoNotificaInput.sendKeys(costo);
+    public void verificaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
+        WebElement label = getWebDriverWait(10)
+                .withMessage("Valore radio button non cliccabile: "+value)
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("(//input[@type='radio' and @value='" + value + "']/ancestor::label)[" + numeroPosizioneDebitoria + "]")));
+        Assertions.assertTrue(label.findElement(By.tagName("input")).isSelected(), "Valore radio button non previsto: " + value);
     }
 
-    public void selezionaNessunPagamento() {
-        List<WebElement> pagoPARadioButtons = getWebDriverWait(10)
-                .withMessage("radio Button  Nessun Pagamento non visibile")
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//label[contains(@class, 'MuiFormControlLabel-root')]//span[text()='Nessun pagamento']")));
-        for (WebElement radioButton : pagoPARadioButtons) {
-            radioButton.click();
+    public boolean verificaPresenzaSezionePosizioneDebitoria() {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Posizione Debitoria non è visibile").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='payments-type-choice']")));
+            log.info("Sezione Posizione Debitoria presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            log.info("Sezione Posizione Debitoria non è visibile: {}", e.getMessage());
+            return false;
         }
     }
 
-    public void selezionareLaPercentuale(String percentuale) {
-//        WebElement ivaDropdown = getWebDriverWait(10)
-//                .withMessage("Non Visibile  ")
-//                .until(ExpectedConditions.elementToBeClickable(By.id("vat")));
-//        ivaDropdown.click();
-//
-//        WebElement ivaOption = getWebDriverWait(10)
-//                .withMessage("radio Button  Nessun Pagamento non visibile")
-//                .until(ExpectedConditions.elementToBeClickable(
-//                By.xpath("//li[@role='option' and @data-value='4']")
-//        ));
-//        ivaOption.click();
+    public boolean verificaPresenzaSezioneDettaglioPosizioneDebitoria() {
+        try {
+            getWebDriverWait(10).withMessage("Sezione Dettaglio Posizione Debitoria non è visibile").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@data-testid='debtPositionDetailForm']")));
+            log.info("Sezione Dettaglio Posizione Debitoria presente");
+            return true;
+        }
+        catch (TimeoutException | NoSuchElementException e) {
+            log.info("Sezione Dettaglio Posizione Debitoria non è visibile: {}", e.getMessage());
+            return false;
+        }
+    }
+    public void inserireCostoDiNotifica() {
+        int centesimi = 10 + new Random().nextInt(91); // (100 - 10 + 1) = 91
+        String valoreFormato = String.format(Locale.US, "%.2f", centesimi / 100.0);
+
+        WebElement campoCosto = getWebDriverWait(10)
+                .withMessage("Impossibile trovare Input Costo di notifica")
+                .until(ExpectedConditions.elementToBeClickable(By.id("paFee")));
+
+        campoCosto.clear();
+        campoCosto.sendKeys(valoreFormato);
+    }
+
+    public  List<String> inserireTuttiCodiceAvviso() {
+        String[] prefissi = {"3020101244636", "3020401244637"};
+        Random random = new Random();
+        List<String> codiciAvvisoInseriti = new ArrayList<>();
+
+        List<WebElement> inputCodiciAvviso = getWebDriverWait(10)
+                .withMessage("Impossibile trovare input con id='noticeCode'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#noticeCode")));
+
+        if (inputCodiciAvviso.isEmpty()) {
+            logger.warn("Nessun campo 'noticeCode' trovato.");
+            return codiciAvvisoInseriti;
+        }
+
+        for (WebElement input : inputCodiciAvviso) {
+            String prefisso = prefissi[random.nextInt(prefissi.length)];
+            String parteRandomStr = String.format("%05d", random.nextInt(100000));
+            String codiceAvviso = prefisso + parteRandomStr;
+            logger.info("Codice Avviso Generato dal metodo inserireTuttiCodiceAvviso: {}",codiceAvviso);
+
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
+                input.click();
+                input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                input.sendKeys(Keys.DELETE);
+                input.sendKeys(codiceAvviso);
+                codiciAvvisoInseriti.add(codiceAvviso);
+            } catch (Exception e) {
+                Assertions.fail("Errore durante l'inserimento del codice nel campo noticeCode", e);
+            }
+        }
+        return codiciAvvisoInseriti;
+    }
+
+    public void inserireTuttiCodiceFiscaleEnte() {
+        List<WebElement> inputCodiciFiscali = getWebDriverWait(10)
+                .withMessage("Impossibile trovare i campi 'Codice fiscale ente creditore'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#creditorTaxId")));
+
+        if (inputCodiciFiscali.isEmpty()) {
+            logger.warn("Nessun campo 'creditorTaxId' trovato.");
+            return;
+        }
+
+        for (WebElement input : inputCodiciFiscali) {
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
+                input.click();
+                input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                input.sendKeys(Keys.DELETE);
+                input.sendKeys("77777777777");
+            } catch (Exception e) {
+                Assertions.fail("Errore durante l'inserimento del Codice fiscale ente creditore", e);
+            }
+        }
+
+    }
+
+    public void verificaTuttiCodiceFiscaleEnte() {
+        List<WebElement> inputCodiciFiscali = getWebDriverWait(10)
+                .withMessage("Impossibile trovare i campi 'Codice fiscale ente creditore'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#creditorTaxId")));
+
+        if (inputCodiciFiscali.isEmpty()) {
+            logger.warn("Nessun campo 'creditorTaxId' trovato.");
+            return;
+        }
+
+        for (WebElement input : inputCodiciFiscali) {
+            try {
+                Assertions.assertTrue(input.getText().equalsIgnoreCase("77777777777"),"Codice fiscale ente creditore presente");
+            } catch (Exception e) {
+                Assertions.fail("Codice fiscale ente creditore non previsto", e);
+            }
+        }
+
+    }
+
+    public void inserireTuttiCodiceAvvisoErrati() {
+
+        List<WebElement> inputCodiciAvviso = getWebDriverWait(10)
+                .withMessage("Impossibile trovare input con id='noticeCode'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#noticeCode")));
+
+        if (inputCodiciAvviso.isEmpty()) {
+            logger.warn("Nessun campo 'noticeCode' trovato.");
+            return;
+        }
+
+        for (WebElement input : inputCodiciAvviso) {
+
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
+                input.click();
+                input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                input.sendKeys(Keys.DELETE);
+                input.sendKeys("Error");
+            } catch (Exception e) {
+                Assertions.fail("Errore durante l'inserimento del codice nel campo noticeCode", e);
+            }
+        }
+    }
+
+    public void inserireTuttiCodiceFiscaleEnteErrati() {
+        List<WebElement> inputCodiciFiscali = getWebDriverWait(10)
+                .withMessage("Impossibile trovare i campi 'Codice fiscale ente creditore'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("input#creditorTaxId")));
+
+        if (inputCodiciFiscali.isEmpty()) {
+            logger.warn("Nessun campo 'creditorTaxId' trovato.");
+            return;
+        }
+
+        for (WebElement input : inputCodiciFiscali) {
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
+                input.click();
+                input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+                input.sendKeys(Keys.DELETE);
+                input.sendKeys("Error");
+            } catch (Exception e) {
+                Assertions.fail("Errore durante l'inserimento del Codice fiscale ente creditore", e);
+            }
+        }
+
+    }
+
+
+    public void inserireIVA() {
+        WebElement campoIva  = getWebDriverWait(10)
+                .withMessage("Inpossibile selezionare Iva")
+                .until(ExpectedConditions.elementToBeClickable(By.id("vat")));
+        campoIva .click();
+        List<WebElement> opzioni = getWebDriverWait(10)
+                .withMessage("Inpossibile selezionare il menu dell Iva")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                By.xpath("//ul[@role='listbox']//li[@role='option']")
+        ));
+
+        WebElement sceltaRandom = opzioni.get(new Random().nextInt(opzioni.size()));
+        sceltaRandom.click();
+    }
+
+    public void selezionaApplicaCostoNotifica() {
+        List<WebElement> switchContainers = getWebDriverWait(10)
+                .withMessage("Impossibile trovare uno o più switch 'Applica costo di notifica'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.xpath("//input[@id='applyCost']/parent::span")));
+
+        if (switchContainers.isEmpty()) {
+            logger.warn("Nessuno switch 'Applica costo di notifica' trovato.");
+            return;
+        }
+
+        for (WebElement switchContainer : switchContainers) {
+            try {
+                getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(switchContainer));
+                switchContainer.click();
+            } catch (Exception e) {
+                Assertions.fail("Errore cliccando su Applica costo di notifica: "+ e.getMessage());
+            }
+        }
+    }
+
+
+    public void clickSuAggiungiAltroModelloF24(int posizione) {
+        List<WebElement> pulsanteAggiungiF24 = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il tasto Aggiungi Altro ModelloF24")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("button[data-testid='add-new-f24']")));
+
+        WebElement bottoneDesideratoAggiungiF24 = pulsanteAggiungiF24.get(posizione);
+
+        js().executeScript("arguments[0].scrollIntoView(true);", bottoneDesideratoAggiungiF24);
+        bottoneDesideratoAggiungiF24.click();
+    }
+
+    public void clickSuAggiungiCodiceDiAvvisoPagoPa(int posizione) {
+
+        List<WebElement> bottoniAvvisoPagoPa = getWebDriverWait(10)
+                .withMessage("Impossibile trovare i bottoni 'Aggiungi codice di avviso pagoPA'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("button[data-testid='add-new-pagopa']")));
+
+        WebElement bottoneDesideratoAvvisoPagoPa = bottoniAvvisoPagoPa.get(posizione);
+
+        js().executeScript("arguments[0].scrollIntoView(true);", bottoneDesideratoAvvisoPagoPa);
+        bottoneDesideratoAvvisoPagoPa.click();
+    }
+
+
+
+    public void inserisciTitoloDocumentoPosizioneDebitoria(int numNotifiche) {
+
+        StringBuilder fileName = new StringBuilder("Documento_");
+
+        List<WebElement> campiTitolo = getWebDriverWait(10)
+                .withMessage("Impossibile inserire il Titolo Documento num: "+ (numNotifiche -1))
+                .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("input[name='name']"), numNotifiche -1));
+
+        WebElement campo = campiTitolo.get(numNotifiche -1);
+        campo.clear();
+        campo.sendKeys(fileName.append(numNotifiche));
+
+    }
+
+
+    public void clickSuAggiungiUnAltroDocumento() {
+
+        WebElement bottoneAggiungi = getWebDriverWait(10)
+                .withMessage("Impossibile Cliccare su Aggiungi un altro documento")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[data-testid='add-another-doc']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", bottoneAggiungi);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(bottoneAggiungi).click().perform();
+    }
+
+    public void verificaCodiciAvvisi(List<String> codiciAvvisi) {
+        if (codiciAvvisi == null || codiciAvvisi.isEmpty()) {
+            logger.info("Nessun codice avviso da verificare.");
+            return;
+        }
+
+        List<WebElement> elementiCodiceAvviso = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("[data-testid='pagopa-item'] .MuiTypography-caption-semibold")));
+
+        List<String> codiciTrovati = elementiCodiceAvviso.stream()
+                .map(WebElement::getText)
+                .filter(text -> text.matches("\\d{18}")) // prende solo stringhe di 18 cifre (codici avviso)
+                .toList();
+
+        logger.info("Codici trovati sulla pagina: {}", codiciTrovati);
+
+        // Verifica che siano presenti tutti quelli attesi (e solo quelli)
+        Assertions.assertEquals(new HashSet<>(codiciAvvisi), new HashSet<>(codiciTrovati),
+                "I codici avviso presenti non corrispondono a quelli attesi.");
     }
 }

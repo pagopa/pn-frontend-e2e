@@ -36,8 +36,6 @@ Uso di var per Tipi Locali: Refactoring con var per variabili locali ove il tipo
 
 public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
-//    private Map<String, Object> datiNotifica = new HashMap<>();
-//    private Map<String, Object> datiNotificaNonValidoPF;
 
     @Autowired
     private NotificationSingleton notificationSingleton;
@@ -285,4 +283,13 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     public void laPersonaFisicaCliccaSullaPrimaNotificaRestituita() {
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
+
+    @And("Cliccare la notifica destinatario")
+    public void cliccareSulBottoneFiltraPortaleCittadino() {
+        String codiceIUN = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
+        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
+        piattaformaNotifichePage.clickSuNotifica(codiceIUN);
+    }
+
 }

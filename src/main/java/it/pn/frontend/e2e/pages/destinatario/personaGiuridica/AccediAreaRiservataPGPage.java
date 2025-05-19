@@ -13,9 +13,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
-
-
 public class AccediAreaRiservataPGPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("AccediAreaRiservataPGPage");
 
@@ -33,19 +30,19 @@ public class AccediAreaRiservataPGPage extends BasePage {
     public void waitLoadAccediAreaRiservataPGPage() {
         try {
             webTool.waitTime(30);
-            spidButton = driver.findElement(By.id("spidButton"));
             By titleBy = By.xpath("//h3[contains(text(),'Come vuoi accedere?')]");
             getWebDriverWait(30).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-            getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(spidButton));
+            getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
             logger.info("Accedi Area Riservata Page caricata correttamente");
         } catch (TimeoutException e ){
-            Assertions.fail(MessageFormat.format("Accedi Area Riservata Page non caricata correttamente con errore: {0}", e.getMessage()));
+            Assertions.fail("Accedi Area Riservata Page non caricata correttamente con errore: "+e.getMessage());
         }
 
     }
 
     public void clickSpidButton() {
-        spidButton = driver.findElement(By.id("spidButton"));
+        spidButton = getWebDriverWait(30).withMessage("Impossibile premere il tasto spid Button della pagina Accedi Area Riservata non è visibile")
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
         spidButton.click();
     }
 

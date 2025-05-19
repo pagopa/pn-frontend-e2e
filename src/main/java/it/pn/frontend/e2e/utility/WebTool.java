@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.utility;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.AppPortal;
+import it.pn.frontend.e2e.model.enums.AppPortalUrl;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.CookiesSection;
@@ -56,6 +57,7 @@ public class WebTool {
     }
 
     public  String switchToPortal(AppPortal portal) {
+        log.info("Si accede al portale");
         openNewTab();
         switch (portal) {
             case PA -> {
@@ -66,6 +68,7 @@ public class WebTool {
                 piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
             }
             case PF -> {
+                log.info("Switch a portale PF");
                 driver.get(portal.url);
                 headerPFSection = new HeaderPFSection(driver);
                 headerPFSection.waitLoadHeaderDESection();
@@ -92,7 +95,26 @@ public class WebTool {
         return driver.getWindowHandle();
     }
 
+    public String switchToPortalUrl(AppPortalUrlFactory urlFactory,AppPortalUrl portal) {
+        log.info("Si accede al portale");
+        openNewTab();
+
+        log.info("Switch a portale PF");
+        driver.get(urlFactory.getPortalUrl(portal));
+        headerPFSection = new HeaderPFSection(driver);
+        headerPFSection.waitLoadHeaderDESection();
+        notifichePFPage = new NotifichePFPage(driver);
+        notifichePFPage.waitLoadNotificheDEPage();
+
+        cookiesSection = new CookiesSection(driver);
+        if (cookiesSection.waitLoadCookiesPage()) {
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
+        return driver.getWindowHandle();
+    }
+
     public  void openNewTab() {
+        log.info("Si apre una nuova scheda");
         ((JavascriptExecutor) driver).executeScript("window.open()");
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
         driver.switchTo().window(newTab);
@@ -128,7 +150,8 @@ public class WebTool {
 
         // Generate a random number between 0 and 100
         Random random = new Random();
-        String randomNumber = String.valueOf(random.nextInt(10000));
+//        String randomNumber = String.valueOf(random.nextInt(10000));
+        String randomNumber = generateRandomNumber();
 
         // Concatenate the current date and the random number
         String protocolNumber = "TA-FFSMRC-" + currentDate + "-" + randomNumber;
@@ -136,6 +159,28 @@ public class WebTool {
 
         return protocolNumber;
     }
+
+    public static String  generateRandomNumber(){
+        String threadNumber = (Thread.currentThread().getId()+"");
+        String numberOfThread = threadNumber.length() < 2 ? "0"+threadNumber: threadNumber.substring(0, 2);
+        String timeNano = System.nanoTime()+"";
+        String randomClassePagamento = new Random().nextInt(14)+"";
+        randomClassePagamento = randomClassePagamento.length() < 2 ? "0"+randomClassePagamento : randomClassePagamento;
+        String finalNumber = "" + String.format("302%s%s%s", randomClassePagamento, numberOfThread, timeNano.substring(0, timeNano.length() - 4));
+
+        if(finalNumber.length() > NOTICE_CODE_LENGTH){
+            finalNumber = finalNumber.substring(0,NOTICE_CODE_LENGTH);
+        }else{
+            int remainingLength = NOTICE_CODE_LENGTH - finalNumber.length();
+            String paddingString = String.valueOf(new Random().nextInt(9)).repeat(remainingLength);
+            finalNumber = finalNumber + paddingString;
+        }
+        return finalNumber;
+    }
+
+
+
+
 
     /**
      * Decode the NotificationRequestId from the response of the newNotification API

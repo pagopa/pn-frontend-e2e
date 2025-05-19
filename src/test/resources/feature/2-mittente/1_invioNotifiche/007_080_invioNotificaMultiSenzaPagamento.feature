@@ -20,7 +20,7 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
   #  And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 1
     And Cliccare su continua
     #      Aggiungere alle notifiche
-    And Seleziona Nessun Pagamento
+    And Seleziona Nessun Pagamento 1
     And Cliccare su continua
 #      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati

@@ -150,11 +150,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
-           // webTool.waitTime(20);
-           // WebElement notificheTitle = driver.findElement(By.id("Notifiche-page"));
-           // inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
             getWebDriverWait(60).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("new-notification-btn"))));
-//            getWebDriverWait(60).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche-page"))));
 
             getWebDriverWait(60)
                     .withMessage("Il titolo non è visibile")
@@ -212,7 +208,6 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Codici fiscali trovati correttamente");
             return cfListBy.size();
         } catch (TimeoutException | NoSuchElementException e) {
-            logger.error("Codici fiscali non trovati " + e.getMessage());
             Assertions.fail("Codici fiscali non trovati " + e.getMessage());
             return 0;
         }
@@ -236,7 +231,7 @@ public class PiattaformaNotifichePage extends BasePage {
             driver.findElement(By.id("page2")).click();
             return true;
         } catch (TimeoutException e) {
-            logger.error("bottone pagina 2 non trovata con errore: " + e.getMessage());
+            logger.error("bottone pagina 2 non trovata con errore: {}", e.getMessage());
             return false;
         }
     }
@@ -496,7 +491,6 @@ public class PiattaformaNotifichePage extends BasePage {
             }
             logger.info("Stato notifica selezionato correttamente");
         } catch (TimeoutException e) {
-            logger.error("Stato notifica NON trovata con errore: " + e.getMessage());
             Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
         }
     }
@@ -541,9 +535,6 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.info("Scenario " + hooksNew.getScenario());
 
             if (notifiche != null) {
-               // int randomNumber = (int) (Math.random() * (notifiche.size() - 1)) + 1;
-
-                // int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
                 int randomNumber = 0;
                 if (notifiche.size()>1){
                     randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
@@ -551,7 +542,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
                 logger.info("ELENCO NOTIFICHE : " + notifiche.size());
                 logger.info("NOTIFICA SELEZIONATA: " + randomNumber);
-//                notifiche.get(randomNumber).click();
                 clickRowNotificationIndex(notifiche.get(randomNumber));
                 /**
                  if (notifiche.size() >= index) {
@@ -562,14 +552,10 @@ public class PiattaformaNotifichePage extends BasePage {
                  }
                  **/
             } else {
-                logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
                 Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
             }
-            //  List<WebElement> notifiche = this.elements(notificaBy);
         } catch (TimeoutException e) {
-            logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
-            //  notifiche.get(0).click();
         }
     }
 
@@ -592,8 +578,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
             if (notifiche != null) {
 
-               // int randomNumber = (int) (Math.random() * (notifiche.size() - 1)) + 1;
-
                 int randomNumber = 0;
                 if (notifiche.size()>1){
                     randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);;
@@ -606,7 +590,6 @@ public class PiattaformaNotifichePage extends BasePage {
                 logger.info("ROWS TABLE..." + randomNumber);
                 logger.info("ROWS SELEZIONATA: " + randomNumber);
 
-//                notifiche.get(randomNumber).click();
                 clickRowNotificationIndex(notifiche.get(randomNumber));
                 /**
                  if (notifiche.size() > index) {
@@ -625,11 +608,9 @@ public class PiattaformaNotifichePage extends BasePage {
                  }
                  }**/
             } else {
-                logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
                 Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
             }
         } catch (TimeoutException e) {
-            logger.error("Notifica non trovata con errore: " + e.getMessage());
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         }
     }
@@ -657,13 +638,6 @@ public class PiattaformaNotifichePage extends BasePage {
             Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
         }
     }
-
-//    private void clickRowNotificationIndex(WebElement primaNotifica) {
-//        WebElement buttonVediDettaglio = getWebDriverWait(15)
-//                .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
-//                .until(ExpectedConditions.elementToBeClickable(primaNotifica.findElement(By.xpath(".//button[contains(text(),'Vedi dettaglio')]"))));
-//        buttonVediDettaglio.click();
-//    }
 
 
     private void clickRowNotificationIndex(WebElement primaNotifica) {
@@ -695,7 +669,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     private void selezionaPage50() {
-        WebElement pageSize50 = getWebDriverWait(3)
+        WebElement pageSize50 = getWebDriverWait(30)
                 .withMessage("Impossibile trovare pageSize-50")
                 .until(ExpectedConditions.elementToBeClickable(By.id("pageSize-50")));
         pageSize50.click();
@@ -709,7 +683,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     private void verificaEsistenzaTabellaNotifiche() {
-        getWebDriverWait(30)
+        getWebDriverWait(60)
                 .withMessage("La tabella delle notifiche non è caricata correttamente")
                 .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
     }
@@ -738,7 +712,7 @@ public class PiattaformaNotifichePage extends BasePage {
         String codiceIUN = "";
 
         int posizioneNotifica = verificaEsistenzaNotifica(oggettoDellaNotifica, statoNotifica);
-        logger.info("la posizione della notifica è uguale: " + posizioneNotifica);
+        logger.info("la posizione della notifica è uguale: {}", posizioneNotifica);
         if (posizioneNotifica != -1) {
 
             List<WebElement> codiciIUNList = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]"));
@@ -840,7 +814,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaEsistenzaRisultati() {
         try {
-            // WebElement messaggioNessunRisultatoby = driver.findElement(By.id("call-to-action-first"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("call-to-action-first"))));
             logger.info("Messaggio visualizzato correttamente");
             return true;
@@ -851,55 +824,45 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void siVisualizzaCorrettamenteIlCFField() {
         try {
-            // WebElement codiceFiscaleField = driver.findElement(By.id("recipientId"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipientId"))));
             logger.info("Il campo di codice fiscale si visualizza correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il campo di codice fiscale NON si visualizza correttamente con errore : " + e.getMessage());
             Assertions.fail("Il campo di codice fiscale NON si visualizza correttamente : " + e.getMessage());
         }
     }
 
     public void siVisualizzaCorrettamenteIlCodiceIUNField() {
         try {
-            // WebElement codiceIUNField = driver.findElement(By.id("iunMatch"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
             logger.info("Il campo di codice iun si visualizza correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il campo di codice iun NON si visualizza correttamente con errore : " + e.getMessage());
             Assertions.fail("Il campo di codice iun NON si visualizza correttamente : " + e.getMessage());
         }
     }
 
     public void siVisualizzaCorrettamenteLoStatoField() {
         try {
-            //WebElement statoField = driver.findElement(By.id("status"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("status"))));
             logger.info("Il campo dello stato si visualizza correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il campo dello stato NON si visualizza correttamente con errore : " + e.getMessage());
             Assertions.fail("Il campo dello stato NON si visualizza correttamente : " + e.getMessage());
         }
     }
 
     public void siVisualizzaCorrettamenteLaDataInzioField() {
         try {
-            // WebElement dataDaField = driver.findElement(By.id("startDate"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("startDate"))));
             logger.info("Il campo della data di inizio si visualizza correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il campo della data di inizio NON si visualizza correttamente con errore : " + e.getMessage());
             Assertions.fail("Il campo della data di inizio NON si visualizza correttamente : " + e.getMessage());
         }
     }
 
     public void siVisualizzaCorrettamenteLaDataFineField() {
         try {
-            // WebElement dataAField = driver.findElement(By.id("endDate"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("endDate"))));
             logger.info("Il campo della data di fine si visualizza correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il campo della data di fine NON si visualizza correttamente con errore : " + e.getMessage());
             Assertions.fail("Il campo della data di fine NON si visualizza correttamente : " + e.getMessage());
         }
     }
@@ -983,7 +946,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
             return dataListBy;
         } catch (TimeoutException e) {
-            logger.error("Date NON trovate con errore: " + e.getMessage());
             Assertions.fail("Date NON trovate con errore: " + e.getMessage());
             return null;
         }
@@ -1015,7 +977,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaUltimaPaginaUtilizzandoUnaFrecetta() {
-        getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
+        getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile ultima")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("next")));
         frecciaPaginaSuccessiva = driver.findElement(By.id("next"));
         if (!element(By.id("next")).isDisplayed()) {
@@ -1100,7 +1062,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean errorMessage() {
-        webTool.waitTime(10);
         errorMessage = driver.findElement(By.id("subject-helper-text"));
         return errorMessage.isDisplayed();
     }
@@ -1114,11 +1075,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void vuoiUscirePopUp() {
         try {
-            //WebElement vuoiUscirePUBy = driver.findElement(By.xpath("//h2[contains(text(),'Vuoi uscire?')]"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[contains(text(),'Vuoi uscire?')]"))));
             logger.info("Si visualizza il pop up vuoi uscire");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza il pop up vuoi uscire con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza il pop up vuoi uscire con errore:" + e.getMessage());
         }
     }
@@ -1196,7 +1155,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean verificaCampiPreliminariNotificaVuoti() {
         webTool.waitTime(10);
-//        preliminaryInformationsForm = driver.findElement(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]"));
         preliminaryInformationsForm = getWebDriverWait(60)
                 .withMessage("Il form preliminaryInformationsForm non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]")));
@@ -1293,22 +1251,18 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void checkPaginaNotificheDelegante(String nomeDelegante) {
         String idNotificationTitlePage = "Le notifiche di " + nomeDelegante + "-page";
-        //WebElement titlePage = driver.findElement(By.id(idNotificationTitlePage));
-//        notificationsTable = driver.findElement(By.id("notifications-table"));
         try {
             getWebDriverWait(20).withMessage("il titolo della pagina non é caricato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id(idNotificationTitlePage))));
             getWebDriverWait(25).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
 
             logger.info("Pagina notifiche delegante caricata correttamente");
         } catch (TimeoutException e) {
-            logger.error("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
             Assertions.fail("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
         }
     }
 
 
     public void verificaPresenzaStato(String stato) {
-        // WebElement statusChip = driver.findElement(By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]"));
         getWebDriverWait(12).withMessage("Lo stato " + stato + " non è presente")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]"))));
         logger.info("Stato {} presente", stato);
@@ -1358,20 +1312,16 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement notification =getWebDriverWait(35)
                 .withMessage("notifica non esistente")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
-//        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(text(),'" + iun + "')]]"));
         clickRowNotificationIndex(notification);
-//        notification.click();
     }
 
     public void clickSuNotifica(String iun) {
 
         logger.info("iun notifica {}", iun);
-        WebElement notification = getWebDriverWait(35)
+        WebElement notification = getWebDriverWait(60)
                 .withMessage("notifica non esistente")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
-//        WebElement notification = driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"));
         clickRowNotificationIndex(notification);
-//        notification.click();
     }
 
     public void checkStatoNotifica(String stato) {
@@ -1402,7 +1352,6 @@ public class PiattaformaNotifichePage extends BasePage {
             driver.navigate().refresh();
         }
         if (!testSuccess) {
-            logger.error("La notifica non è passata allo stato " + statoNotifica);
             Assertions.fail("La notifica non è passata allo stato " + statoNotifica);
         }
     }
@@ -1440,13 +1389,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void checkPopUpConfermaAnnullamentoNotifica() {
-        // WebElement popUpConfermaAnnullamento = driver.findElement(By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']"));
         getWebDriverWait(10).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']"))));
 
     }
 
     public void verificaInvioNotificaDiCortesia() {
-        //WebElement voceNotificaDiCortesia = driver.findElement(By.xpath("//span[contains(text(), 'Invio del messaggio di cortesia')]"));
         getWebDriverWait(10).withMessage("Voce nel dettaglio della notifica non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(), 'Invio del messaggio di cortesia')]"))));
     }
 
@@ -1484,20 +1431,23 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void visualizzaTimeline(String check) {
         webTool.waitTime(10);
-        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        viewMore.get(0).click();
-        String size = Integer.toString(viewMore.size());
-        if (size.equals("2")) {
-            viewMore.get(1).click();
-        }
+        if (StringUtils.isNotEmpty(check)) {
+            List<WebElement> viewMore = getWebDriverWait(30).withMessage("Non trovato la scritta Vedi poiu dettagli")
+                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"))));
+            viewMore.get(0).click();
+            String size = Integer.toString(viewMore.size());
+            if (size.equals("2")) {
+                viewMore.get(1).click();
+            }
 
-        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+            List<WebElement> findKeyWord = getWebDriverWait(30).withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
+                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"))));
 
-        if (findKeyWord.get(0).isDisplayed()) {
-            logger.info("Si visualizza la timeline correttamente");
-        } else {
-            logger.error("Non si visualizza  la timeline correttamente");
-            Assertions.fail("Non si visualizza  la timeline correttamente");
+            if (findKeyWord.get(0).isDisplayed()) {
+                logger.info("Si visualizza la timeline correttamente");
+            } else {
+                Assertions.fail("Non si visualizza  la timeline correttamente");
+            }
         }
     }
 
@@ -1508,7 +1458,6 @@ public class PiattaformaNotifichePage extends BasePage {
         if (findKeyWord.get(0).isDisplayed()) {
             logger.info("Si visualizza la timeline correttamente");
         } else {
-            logger.error("Non si visualizza  la timeline correttamente");
             Assertions.fail("Non si visualizza  la timeline correttamente");
         }
     }
@@ -1535,13 +1484,11 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaNotificheNonDisponibili() {
-        //WebElement noResultField = driver.findElement(By.xpath("//div[@data-testid='emptyState']"));
         getWebDriverWait(5).withMessage("Ci sono risultati disponibili per il filtro di ricerca").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='emptyState']"))));
     }
 
     public void checkAllegatoScaricabile(String descrizioneAllegato) {
         try {
-            // WebElement linkAllegato = driver.findElement(By.xpath("//button[contains(., '" + descrizioneAllegato + "') and @id='document-button']"));
             getWebDriverWait(10).withMessage("Non esiste il bottone per il download degli allegati, si procede con il test").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., '" + descrizioneAllegato + "') and @id='document-button']"))));
             logger.error("Non è corretto che il bottone per il download dell'allegato sia visibile");
             Assertions.fail("Non è corretto che il bottone per il download dell'allegato sia visibile");
@@ -1551,7 +1498,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void checkAARScaricabili() {
-        // WebElement linkAAR = driver.findElement(By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']"));
         getWebDriverWait(10).withMessage("Il bottone per il download degli AAR non è visibile e non è disattivato").until(ExpectedConditions.and(
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']")), "disabled", "true"),
                 ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']")))
@@ -1560,7 +1506,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void checkAttestazioniOpponibiliATerziScaricabili() {
 
-        //WebElement linkAttestazione = driver.findElement(By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']"));
         getWebDriverWait(10).withMessage("Il bottone per il download delle attestazioni opponibili a terzi non è visibile e non è disattivato").until(ExpectedConditions.and(
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']")), "disabled", "true"),
                 ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']")))
@@ -1570,8 +1515,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void checkRicevutePECScaricabili() {
 
-        //WebElement linkAccettazionePEC = driver.findElement(By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']"));
-        //WebElement linkConsegnaPEC = driver.findElement( By.xpath("//button[contains(., 'Ricevuta di consegna PEC') and @data-testid='download-legalfact']"));
         getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di accettazione PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
                 ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']")), "disabled", "true"),
                 ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']")))
@@ -1607,64 +1550,56 @@ public class PiattaformaNotifichePage extends BasePage {
                 if (erroreMessaggio.getText().contains("inserito troppe volte un nome")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assertions.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore 19");
                 }
             }
             case 20 -> {
                 if (erroreMessaggio.getText().contains("richiesto un login con un secondo fattore di autenticazione")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assertions.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore 20");
                 }
             }
             case 21 -> {
                 if (erroreMessaggio.getText().contains("passato troppo tempo da quando hai iniziato")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assertions.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore 21");
                 }
             }
             case 22 -> {
                 if (erroreMessaggio.getText().contains("devi acconsentire all’invio di alcuni dati")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assertions.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore 22");
                 }
             }
             case 23 -> {
                 if (erroreMessaggio.getText().contains("tua identità SPID risulta sospesa o revocata")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assertions.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore 23");
                 }
             }
             case 25 -> {
                 if (erroreMessaggio.getText().contains("annullato l’operazione di login")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assertions.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore 25");
                 }
             }
             case 30 -> {
                 if (erroreMessaggio.getText().contains("tipologia di identità SPID che hai usato")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assertions.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore 30");
                 }
             }
             case 1001 -> {
                 if (erroreMessaggio.getText().contains("non hai l’età minima richiesta per usare")) {
                     logger.info("Si visualizza correttamente il messaggio di errore");
                 } else {
-                    logger.error("Non si visualizza il messaggio di errore");
-                    Assertions.fail("Non si visualizza il messaggio di errore");
+                    Assertions.fail("Non si visualizza il messaggio di errore 1001");
                 }
             }
         }
@@ -1677,14 +1612,12 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void checkClickDownloadRicevutePEC() {
-        // List<WebElement> ricevutePEC = driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]"));
         getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]"))), ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")).get(0)), ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")).get(1))));
 
     }
 
     public void verificaMittente(String ente) {
         // webTool.waitTime(2);
-        //  WebElement mittente = driver.findElement(By.id("row-value-1"));
         getWebDriverWait(10).withMessage("Mittente non trovato").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOf(driver.findElement(By.id("row-value-1"))),
                 ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("row-value-1")), ente)));
@@ -1699,6 +1632,20 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         Assertions.assertFalse(isDisplayed, "Il bottone è visualizzabile");
     }
+    private void verificaDestinatario(String tipo, String cf, String messaggioErrore) {
+        List<WebElement> destinatario = getWebDriverWait(10)
+                .withMessage(messaggioErrore)
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//p[contains(text(),'(" + cf + ") all')]")));
+
+        if (!destinatario.isEmpty() && destinatario.get(0).isDisplayed()) {
+            logger.info("Si visualizza correttamente il destinatario {} con CF {}", tipo, cf);
+        } else {
+            logger.error("Non si visualizza il destinatario {} con CF {}", tipo, cf);
+            Assertions.fail("Non si visualizza il destinatario " + tipo + " con CF " + cf);
+        }
+    }
+
+
 
     public void clickDelete() {
         WebElement clickDelete = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("action-modal-button")));

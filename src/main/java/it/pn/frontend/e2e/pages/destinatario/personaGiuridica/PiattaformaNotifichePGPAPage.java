@@ -43,6 +43,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     @FindBy(id = "side-item-Recapiti")
     private WebElement recapitiButton;
 
+    @FindBy(id = "side-ite-side-item-Integrazione API")
+    private WebElement integrazioneAPIMenu;
+
     @FindBy(id = "side-item-Stato della piattaforma")
     private WebElement buttonEnterIntoDisservizi;
 
@@ -178,6 +181,18 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         getWebDriverWait(10).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Recapiti"))));
         recapitiButton = driver.findElement(By.id("side-item-Recapiti"));
         js().executeScript("arguments[0].click()", recapitiButton);
+    }
+
+    public void clickSuIntegrazioneAPIButton() {
+        try {
+            getWebDriverWait(20).withMessage("Sezione Integrazione API nel side menu non visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Integrazione API"))));
+            integrazioneAPIMenu = driver.findElement(By.id("side-item-Integrazione API"));
+            js().executeScript("arguments[0].click()", integrazioneAPIMenu);
+            logger.info("click sul bottone Integrazione API effetuato");
+        } catch (TimeoutException e) {
+            logger.error("il bottone Integrazione API non è stato trovato " + e.getMessage());
+            Assertions.fail("il bottone Integrazione API non è stato trovato" + e.getMessage());
+        }
     }
 
     public void clickIndietroButton() {

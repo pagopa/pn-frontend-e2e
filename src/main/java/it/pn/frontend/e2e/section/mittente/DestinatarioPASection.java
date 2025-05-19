@@ -116,7 +116,6 @@ public class DestinatarioPASection extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titleDestinatarioFieald));
             logger.info("Destinatario PA Section caricata ");
         } catch (TimeoutException e) {
-            logger.error("Destinatario PA Section non caricata con errore : " + e.getMessage());
             Assertions.fail("Destinatario PA Section non caricata con errore : " + e.getMessage());
         }
 
@@ -240,7 +239,8 @@ public class DestinatarioPASection extends BasePage {
     public void inserimentoMultiDestinatario(PersoneFisiche destinatari, int nDestinatari) {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminari(destinatari, i);
-            inserimentoInformazioniAggiuntive(destinatari, i+1);
+//            inserimentoInformazioniAggiuntive(destinatari, i+1);
+            inserimentoInformazioniAggiuntive(destinatari, i);
            if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
             }
@@ -252,7 +252,6 @@ public class DestinatarioPASection extends BasePage {
         inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]", destinatari.getPersone().get(i).getName());
         inserireInfoMultiDestinatario("//input[contains(@id,'lastName')]", destinatari.getPersone().get(i).getFamilyName());
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", destinatari.getPersone().get(i).getCodiceFiscale());
-       // selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     public void inserimentoInformazioniAggiuntive(PersoneFisiche destinatari, int i) {
@@ -328,7 +327,6 @@ public class DestinatarioPASection extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(nomeDestinatarioBy));
             scrollToElementClickAndInsertText(nomeDestinatarioBy.get(nomeDestinatarioBy.size() - 1), nomeDestinatario);
         } catch (TimeoutException e) {
-            logger.error("Xpath non trovato con errore: " + e.getMessage());
             Assertions.fail("Xpath non trovato con errore: " + e.getMessage());
         }
     }
@@ -347,7 +345,6 @@ public class DestinatarioPASection extends BasePage {
             getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOf(errorMessageSecondoDestinatario));
             logger.info("I messaggi di errore vengono visualizzati correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
             Assertions.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
         }
 
@@ -378,12 +375,11 @@ public class DestinatarioPASection extends BasePage {
         ragioneSociale.sendKeys(destinatario.get("ragioneSociale"));
         WebElement secondCodiceFiscale = driver.findElement(By.id("recipients[1].taxId"));
         secondCodiceFiscale.sendKeys(destinatario.get("codiceFiscale"));
-//        WebElement addSecondPec = driver.findElement(By.xpath("//*[@data-testid='recipients[1].digitalDomicileCheckbox']"));
-//        addSecondPec.click();
-        WebElement secondPecField = driver.findElement(By.id("recipients[1].digitalDomicile"));
-        secondPecField.sendKeys(destinatario.get("pec"));
-//        WebElement addSecondAddress = driver.findElement(By.xpath("//label[@data-testid='showPhysicalAddress1']"));
-//        addSecondAddress.click();
+        //Check per casi di test con pec di piattaforma mancante (irreperibile o deceduto)
+        if (destinatario.get("pec") != null) {
+            WebElement secondPecField = driver.findElement(By.id("recipients[1].digitalDomicile"));
+            secondPecField.sendKeys(destinatario.get("pec"));
+        }
         WebElement secondAddress = driver.findElement(By.id("recipients[1].address"));
         secondAddress.sendKeys(destinatario.get("indirizzo"));
         WebElement secondNumber = driver.findElement(By.id("recipients[1].houseNumber"));
@@ -402,12 +398,8 @@ public class DestinatarioPASection extends BasePage {
 
     private void inserimentoInformazioniPreliminariPG(PersoneGiuridiche personeGiuridiche, int i) {
         clickRadioButtonPersonaGiuridica(i + 1);
-        //String nomeDestinatario = personeGiuridiche.getPersone().get(i).getName();
         inserireInfoMultiDestinatario("//input[contains(@id,'firstName')]", personeGiuridiche.getPersone().get(i).getName());
-       // String cfDestinatario = personeGiuridiche.getPersone().get(i).getCodiceFiscale();
-      //  cfDestinatario = cfDestinatario.replace(" ", "");
         inserireInfoMultiDestinatario("//input[contains(@id,'taxId')]", personeGiuridiche.getPersone().get(i).getCodiceFiscale());
-       // selezionaAggiungiUnIndirizzoFisicoMulti(i + 1);
     }
 
     private void clickRadioButtonPersonaGiuridica(int posizione) {
@@ -418,7 +410,6 @@ public class DestinatarioPASection extends BasePage {
     public void checkBoxAggiungiDomicilio() {
         webTool.waitTime(3);
         checkBoxAggiungiDomicilioDigitale = driver.findElement(By.xpath("//label[@id='recipients[0].digitalDomicile-label']"));
-        //checkBoxAggiungiDomicilioDigitale.click();
         getWebDriverWait(10).withMessage("Il bottone chiudi non è cliccabile").until(ExpectedConditions.visibilityOf(checkBoxAggiungiDomicilioDigitale));
 
     }
@@ -446,6 +437,17 @@ public class DestinatarioPASection extends BasePage {
         partitaIvaTextField.sendKeys(codiceFiscale);
     }
 
+    public void insertRagioneSociale(String ragioneSociale, int posizione) {
+        ragioneSocialeTextField = driver.findElement(By.xpath("//input[@id='recipients["+posizione+"].firstName']"));
+        ragioneSocialeTextField.sendKeys(ragioneSociale);
+    }
+
+    public void insertPartitaIva(String codiceFiscale, int posizione) {
+        partitaIvaTextField = driver.findElement(By.id("recipients["+posizione+"].taxId"));
+        partitaIvaTextField.sendKeys(codiceFiscale);
+    }
+
+
     public void clickSuTornaInformazioniPreliminari() {
         informazioniPreliminariButton = driver.findElement(By.xpath("//button[@data-testid='previous-step']"));
         informazioniPreliminariButton.click();
@@ -455,6 +457,12 @@ public class DestinatarioPASection extends BasePage {
         personaGiuridicaRadioButton = driver.findElement(By.xpath("//input[@value='PG']"));
         personaGiuridicaRadioButton.click();
     }
+    public void clickRadioButtonPersonaGiuridicaPosizionale(int posizione) {
+        personaGiuridicaRadioButton = driver.findElement(By.xpath("//input[@name='recipients["+posizione+"].recipientType' and @value ='PG']"));
+        personaGiuridicaRadioButton.click();
+    }
+
+
 
     public void insertCodiceFiscaleErrato(String codiceFiscale) {
         logger.info("TA_QA: si inserisci codice fiscale errato");
@@ -498,7 +506,6 @@ public class DestinatarioPASection extends BasePage {
             selezionaAggiungiUnIndirizzoDigitale();
             insertDomicilioDigitale(datiNotificaMap.get("pec"));
         }
-       // selezionaAggiungiUnIndirizzoFisico();
         inserireIndirizzo(datiNotificaMap.get("indirizzo"),0);
         inserireNumeroCivico(datiNotificaMap.get("numeroCivico"),0);
         inserireComune(datiNotificaMap.get("comune"),0);
@@ -537,5 +544,135 @@ public class DestinatarioPASection extends BasePage {
     public void clickTornaAlleDeleghe() {
         WebElement generateApiKeyButton = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.id("courtesy-page-button")));
         generateApiKeyButton.click();
+    }
+
+    public void verificaPresenzaSezionePagamenti(int numeroAvvisi) {
+        getWebDriverWait(30)
+                .until(ExpectedConditions.numberOfElementsToBe(By.xpath("//span[contains(@class, 'css-kwxqgy')]"), numeroAvvisi)
+                );
+    }
+
+    public void clickSuEliminaAvvisoPagoPa() {
+        WebElement eliminaButton = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il bottone Elimina AvvisoPagoPa")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='pagopa-delete-button']")
+                ));
+
+        eliminaButton.click();
+    }
+
+    public void clickSuEliminaModelloF24() {
+        WebElement eliminaButton = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il bottone Elimina ModelloF24")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='f24-delete-button']")
+                ));
+
+        eliminaButton.click();
+    }
+
+
+    public void verificaPresenzaSezionePagamentiNelMenuACascata(int numeroDiPagamenti) {
+        WebElement comboBox = getWebDriverWait(30)
+                .withMessage("Impossibile cliccare sul menu a discesa")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[role='combobox']")));
+        comboBox.click();
+        webTool.waitTime(1);
+        getWebDriverWait(30)
+                .until(ExpectedConditions.numberOfElementsToBe(
+                        By.cssSelector("ul[role='listbox'] > li[role='option']"), numeroDiPagamenti
+                ));
+    }
+
+    public void verificaPresenzaSezionePagamentiNumeroModuliF(int numeroModuli) {
+
+        getWebDriverWait(10)
+                .until(ExpectedConditions.numberOfElementsToBe(By.cssSelector("span[data-testid='f24']"), numeroModuli)
+                );
+    }
+
+    public void verificaDisabilitatoTastoContinua() {
+        By bottoneContinua = By.id("step-submit");
+        WebElement continuaBtn = getWebDriverWait(10)
+                .withMessage("Il bottone 'Continua' non è presente")
+                .until(ExpectedConditions.presenceOfElementLocated(bottoneContinua));
+
+        // Verifica che sia disabilitato (non cliccabile)
+        Assertions.assertFalse(
+                continuaBtn.isEnabled(),
+                "Il bottone 'Continua' dovrebbe essere disabilitato, ma risulta cliccabile."
+        );
+    }
+
+    public void verificaErroriCodiciAvvisoNonValidi(int numeroAttesi) {
+        List<WebElement> errori = getWebDriverWait(10)
+                .withMessage("Messaggi di errore per i codici avviso non trovati.")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("noticeCode-helper-text")));
+
+        List<WebElement> erroriVisibili = errori.stream()
+                .filter(WebElement::isDisplayed)
+                .toList();
+
+        Assertions.assertEquals(
+                numeroAttesi,
+                erroriVisibili.size(),
+                "Il numero di messaggi di errore visibili non corrisponde a quello atteso."
+        );
+    }
+
+    public void verificaErroriCodiceFiscaleEnteNonValidi(int numeroAttesi) {
+        List<WebElement> errori = getWebDriverWait(10)
+                .withMessage("Messaggi di errore per i codici fiscali ente creditore non trovati.")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.id("creditorTaxId-helper-text")));
+
+        // Filtra solo quelli visibili
+        List<WebElement> erroriVisibili = errori.stream()
+                .filter(WebElement::isDisplayed)
+                .toList();
+
+        Assertions.assertEquals(
+                numeroAttesi,
+                erroriVisibili.size(),
+                "Il numero di messaggi di errore visibili per i codici fiscali ente creditore non corrisponde a quello atteso."
+        );
+    }
+
+    public boolean verificaAssenzaPopUpErrorePerInviaPosizioneDebitoria() {
+        try {
+            getWebDriverWait(10).withMessage("Alert di posizione debitoria non visualizzato correttamente")
+//                    .until(ExpectedConditions.visibilityOfElementLocated((By.id("alert-api-status"))));
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(@id, 'alert')]")));
+            logger.info("Testo Alert di posizione debitoria: {}", driver.findElement(By.xpath("//*[contains(@id, 'alert')]")).getText());
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+    public void verificaNumeroCaricamentoFile(int numeroFile) {
+        int tentativi = 1;
+
+        for (int i = 0; i < numeroFile; i++) {
+
+            List<WebElement> iconeAllegati = getWebDriverWait(60)
+                    .withMessage("Le icone degli allegati non sono state trovate entro il tempo previsto")
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("svg[data-testid='AttachFileIcon']")));
+
+            if (iconeAllegati != null && iconeAllegati.size() == numeroFile) {
+                return;
+            }
+            webTool.waitTime(2);
+            tentativi++;
+
+        }
+
+        Assertions.fail("Numero icone allegato diverso da: " + numeroFile + " dopo " + tentativi + " tentativi.");
+    }
+
+    public void verificaEsistenzaTabellaNotifiche() {
+        getWebDriverWait(60)
+                .withMessage("Tabella Notifiche Non Trovata")
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("notifications-table")));
     }
 }
