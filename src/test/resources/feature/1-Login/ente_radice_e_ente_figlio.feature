@@ -131,6 +131,7 @@ Feature: Ente figlio e Ente radice
     And Cliccare sul bottone vai alle notifiche
     And Aspetta 120 secondi
     And Cliccare sulla notifica restituita
+    And Salva codice IUN
     And Aspetta 10 secondi
     And Verifica nome ente mittente "Comune di Viggiu - EDILIZIA PRIVATA E SUAP"
     #And Logout da portale mittente
