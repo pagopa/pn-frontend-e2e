@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 public class LoginPersonaFisicaPagoPA extends BasePage{
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
-//    private Map<String, Object> datiPersonaFisica;
     private Map<String, String> urlPersonaFisica;
 
 
@@ -721,6 +720,13 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             }
         }
         return token;
+    }
+
+    @When("La persona fisica seleziona la voce I tuoi dati")
+    public void iTuoiDatiPersonaFisica() {
+        headerPFSection.waitLoadHeaderDESection();
+        headerPFSection.selezionaProfiloUtenteMenu();
+        headerPFSection.selezionaVoceITuoiDati();
     }
 
     @When("Login con persona fisica scelta lingua")

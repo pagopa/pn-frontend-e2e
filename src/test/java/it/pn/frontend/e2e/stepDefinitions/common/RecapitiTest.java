@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
@@ -26,6 +27,9 @@ public class RecapitiTest extends BasePage {
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
     private ITuoiRecapitiPage iTuoiRecapitiPage;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     @Autowired
     @Lazy
@@ -51,6 +55,12 @@ public class RecapitiTest extends BasePage {
     public void siAnnullaEliminazioneNUmeroDiCellulare() {
         recapitiDestinatarioPage.checkButtonAnnullaEliminazioneInPopUp();
         recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si preme sul bottone Disattiva dell'app IO")
+    public void nellaPaginaITuoiRecapitiSiPremeSulBottoneDisattivaDiIO() {
+        logger.info("si preme sul bottone Disattiva dell'app IO");
+        recapitiDestinatarioPage.clickSuBottoneDisattivaIO();
     }
 
     @And("Nella pagina I Tuoi Recapiti si visualizza correttamente il numero di cellulare {string}")
@@ -196,5 +206,67 @@ public class RecapitiTest extends BasePage {
             recapitiDestinatarioPage.clickSuBottoneCellulareDiCortesia(ELIMINA);
             recapitiDestinatarioPage.confermaButtonEliminaClick();
         }
+    }
+
+    @And("Si clicca su 'Attiva SEND su IO'")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneAttivaSENDSuIO() {
+        String variabileAmbiente = webDriverConfig.getEnvironment();
+        if (variabileAmbiente.equalsIgnoreCase("uat")) {
+            logger.info("Si clicca su 'Attiva SEND su IO'");
+//            recapitiDestinatarioPage.verificaPagina("Attiva SEND su IO");
+            recapitiDestinatarioPage.clickSuBottoneAttivaSENDSuIO();
+        }
+        logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);
+    }
+
+    @And("Si clicca su 'Collega SEND su IO'")
+    public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneCollegaSENDSuIO() {
+        String variabileAmbiente = webDriverConfig.getEnvironment();
+        if (variabileAmbiente.equalsIgnoreCase("uat")) {
+            logger.info("Si clicca su 'Collega SEND su IO'");
+//            recapitiDestinatarioPage.verificaPagina("Collega SEND su IO");
+//            recapitiDestinatarioPage.clickSuBottoneCollegaSENDSuIO();
+            iTuoiRecapitiPage.clickCollegaSENDSuIO();
+        }
+        logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);
+    }
+
+    @And("Si visualizza correttamente il banner di recapito di cortesia mancante")
+    public void siVisualizzaCorrettamenteIlBannerDiDomicilioMancante() {
+        logger.info("Si visualizza correttamente il banner di recapito di cortesia mancante");
+        recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancante();
+    }
+
+    @And("Si visualizza correttamente il banner di email mancante")
+    public void siVisualizzaIlBannerDiEmailMancante() {
+        logger.info("Si visualizza correttamente il banner di email mancante");
+        recapitiDestinatarioPage.checkPresenzaBannerEmailMancante();
+    }
+
+    @And("Non si visualizza correttamente il banner di email mancante")
+    public void nonSiVisualizzaIlBannerDiEmailMancante() {
+        logger.info("Non si visualizza correttamente il banner di email mancante");
+        recapitiDestinatarioPage.checkAssenzaBannerEmailMancante();
+    }
+
+    @And("Si visualizza correttamente il banner di PEC in validazione {string}")
+    public void siVisualizzaCorrettamenteIlBannerDiPECInValidazione(String ente) {
+        logger.info("Si visualizza correttamente il banner di PEC in validazione");
+        recapitiDestinatarioPage.checkBannerPECInValidazione(ente);
+    }
+
+    @Then("Si visualizza correttamente la pagina di avvenuta attivazione del Domicilio Digitale")
+    public void siVisualizzaCorrettamentePaginaAttivazioneDomicilioDigitale() {
+        iTuoiRecapitiPage.waitLoadAttivazioneDomicilioDigitalePage();
+    }
+
+    @Then("Verifica pop-up Impossibile disattivare il Domicilio Digitale")
+    public void verificaImpossibileDisattivareIlDomicilioDigitale() {
+        iTuoiRecapitiPage.checkImpossibileDisattivareDomicilioDigitale();
+    }
+
+    @And("Si chiude pop-up Impossibile disattivare il Domicilio Digitale")
+    public void siChiudeImpossibileDisattivareIlDomicilioDigitale() {
+        iTuoiRecapitiPage.siChiudeImpossibileDisattivareDomicilioDigitale();
     }
 }

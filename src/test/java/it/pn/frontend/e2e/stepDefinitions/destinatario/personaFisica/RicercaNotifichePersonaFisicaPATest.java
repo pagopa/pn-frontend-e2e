@@ -279,6 +279,11 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         backgroundTest.siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(iun);
     }
 
+    @And("La persona fisica clicca sulla prima notifica restituita")
+    public void laPersonaFisicaCliccaSullaPrimaNotificaRestituita() {
+        piattaformaNotifichePage.selezionaPrimaNotifica();
+    }
+
     @And("Cliccare la notifica destinatario")
     public void cliccareSulBottoneFiltraPortaleCittadino() {
         String codiceIUN = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
@@ -286,6 +291,5 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
         piattaformaNotifichePage.clickSuNotifica(codiceIUN);
     }
-
 
 }

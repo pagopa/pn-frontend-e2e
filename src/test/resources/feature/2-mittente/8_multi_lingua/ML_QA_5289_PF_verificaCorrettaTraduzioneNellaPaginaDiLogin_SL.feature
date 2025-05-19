@@ -4,7 +4,7 @@ Feature: PF - Verifica corretta traduzione nella pagina di Login - SL
   @TA_multiLinguaSloveno_QA5289
   @multiLingua
   @NRT
-  Scenario: PN-QA5270 - PF - Verifica corretta traduzione nella pagina di Login - SL
+  Scenario: PN-QA5289 - PF - Verifica corretta traduzione nella pagina di Login - SL
 
     Given Login Page persona fisica test viene visualizzata
     Then Cambia lingua footer "Sloveno"

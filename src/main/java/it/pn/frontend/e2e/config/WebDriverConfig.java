@@ -61,7 +61,7 @@ public class WebDriverConfig {
     @Value("${pn.bearer-token.tokentestPFDelegante}")
     private String tokentestPFDelegante;
 
-    @Value("${ pn.bearer-token.tokendevPFDelegante}")
+    @Value("${pn.bearer-token.tokendevPFDelegante}")
     private String tokendevPFDelegante;
 
     @Value("${pn.bearer-token.tokentestPFDelegato}")
@@ -175,6 +175,8 @@ public class WebDriverConfig {
     @Value("${codice.iun.n3}")
     private String codiceIunN3;
 
+    @Value("${pn.externalChannels.base-url}")
+    private String externalChannels;
 
   
 
