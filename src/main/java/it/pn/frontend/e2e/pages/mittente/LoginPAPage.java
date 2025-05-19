@@ -40,14 +40,14 @@ public class LoginPAPage extends BasePage {
 
     public void inserisciUtenete(String user){
         logger.info("Si inserisci il nome utente");
-        getWebDriverWait(30).withMessage("Il campo user non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("username"))));
+        getWebDriverWait(40).withMessage("Il campo user non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("username"))));
         userTextEdit = driver.findElement(By.id("username"));
         userTextEdit.sendKeys(user);
     }
 
     public void inserisciPassword(String pwd){
         logger.info("Si inserisce la password dell'utente");
-        getWebDriverWait(30).withMessage("Il campo password non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("password"))));
+        getWebDriverWait(40).withMessage("Il campo password non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("password"))));
         pwdTextEdit = driver.findElement(By.id("password"));
         pwdTextEdit.sendKeys(pwd);
     }
@@ -62,5 +62,14 @@ public class LoginPAPage extends BasePage {
         logger.error("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
             Assertions.fail("Il bottone invia nella pagina Login PA non è stato cliccato con errore : "+e.getMessage());
         }
+    }
+
+    public void entraConSpid() {
+        WebElement bottoneSpid = getWebDriverWait(10)
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button.italia-it-button.button-spid")
+                ));
+
+        bottoneSpid.click();
     }
 }

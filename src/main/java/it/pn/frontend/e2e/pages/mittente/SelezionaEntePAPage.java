@@ -47,7 +47,11 @@ public class SelezionaEntePAPage extends BasePage {
         try {
             webTool.waitTime(30);
 
-            driver.findElements(By.xpath("//div[@role='button']//h6"));
+//            driver.findElements(By.xpath("//div[@role='button']//h6"));
+
+             getWebDriverWait(80)
+                    .withMessage("Elenco dei comuni Ente non sono visibili entro il tempo previsto")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@role='button']//h6")));
 
             // *-*-*-*-* Sostituito per il Bilingusmo
             getWebDriverWait(80)

@@ -21,6 +21,8 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | soggettoGiuridico       | PG          |
       | nomeCognomeDestinatario | Test SPA    |
       | codiceFiscale           | 00749900049 |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | @FAIL-Irreperibile_AR |
       | civico    | 20                    |

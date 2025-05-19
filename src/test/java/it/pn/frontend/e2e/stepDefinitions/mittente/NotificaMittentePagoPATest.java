@@ -269,6 +269,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 //        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
         informazioniPreliminariPASection.insertNumeroDiProtocollo(WebTool.generatePaProtocolNumber());
         informazioniPreliminariPASection.insertGruppo(gruppo);
+//        informazioniPreliminariPASection.insertGruppo("GruppoTest");
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
@@ -1204,6 +1205,21 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.inserireCodiceFiscaleDestinatario(destinatario.get("codiceFiscale"));
     }
 
+    @Then("Nella section Aggiungi Destinatario si inseriscono i dati del destinatario")
+    public void nellaSectionAggiungiDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
+        logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
+        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
+        if (destinatario.get("soggettoGiuridico").equals("PF")) {
+//            destinatarioPASection.selezionarePersonaFisica();
+            destinatarioPASection.inserireAggiungiNomeDestinatario(nomeDestinatario.split(" ")[0]);
+            destinatarioPASection.inserireAggiungiCognomeDestinatario(nomeDestinatario.split(" ")[1]);
+        } else {
+//            destinatarioPASection.clickRadioButtonPersonaGiuridica();
+//            destinatarioPASection.insertRagioneSociale(nomeDestinatario);
+        }
+        destinatarioPASection.inserireAggiungiCodiceFiscaleDestinatario(destinatario.get("codiceFiscale"));
+    }
+
     @And("Si verifica che il form di inserimento manuale della notifica è vuoto")
     public void siVerificaCheIlFormDiInserimentoManualeDellaNotificaEVuoto() {
         if (informazioniPreliminariPASection.checkFormInfoPreliminari()) {
@@ -1245,6 +1261,24 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.inserireComune(indirizzo.get("comune"),0);
         destinatarioPASection.inserireProvincia(indirizzo.get("provincia"),0);
         destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"),0);
+        //destinatarioPASection.inserireStato(indirizzo.get("stato"),0);
+    }
+    @And("Nella section Aggiungi Destinitario si clicca su {string} e si inseriscono i dati")
+    public void nellaSectionAggiungiDestinitarioSiCliccaSuESiInserisconoIDati(String tipoIndirizzo, Map<String, String> indirizzo) {
+        logger.info("Aggiungi Si clicca su " + tipoIndirizzo + " e si inseriscono i dati");
+        if (tipoIndirizzo.contains("Aggiungi un indirizzo fisico")) {
+            //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+        } else {
+            destinatarioPASection.checkBoxAggiungiDomicilio();
+            destinatarioPASection.insertDomicilioDigitale(indirizzo.get("digitalAddress"));
+            return;
+        }
+        destinatarioPASection.inserireIndirizzo(indirizzo.get("indirizzo"),1);
+        destinatarioPASection.inserireNumeroCivico(indirizzo.get("civico"),1);
+        destinatarioPASection.inserireLocalita(indirizzo.get("localita"),1);
+        destinatarioPASection.inserireComune(indirizzo.get("comune"),1);
+        destinatarioPASection.inserireProvincia(indirizzo.get("provincia"),1);
+        destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"),1);
         //destinatarioPASection.inserireStato(indirizzo.get("stato"),0);
     }
 
@@ -2380,6 +2414,48 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.verificaEsistenzaTabellaNotifiche();
     }
 
+
+    @And("Verifica abilitazione Tasto Continua")
+    public void verificaAbilitazioneTastoContinua() {
+        piattaformaNotifichePage.verificaAbilitazioneTastoContinua();
+    }
+
+    @And("Verifica Pagina  Invia una nuova notifica la sezione Posizione Debitoria")
+    public void verificaPaginaInviaUnaNuovaNotificaLaSezionePosizioneDebitoria() {
+        piattaformaNotifichePage.verificaPaginaInviaUnaNuovaNotificaLaSezionePosizioneDebitoria();
+    }
+
+    @And("Verifica Disibilitato Tasto Continua")
+    public void verificaDisibilitatoTastoContinua() {
+        piattaformaNotifichePage.verificaDisibilitatoTastoContinua();
+    }
+
+    @And("Verifica presenza radion Button Inserimento automatico abilitato di default e manuale disabilitato")
+    public void verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefaultEManualeDisabilitato() {
+        piattaformaNotifichePage.verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault();
+        piattaformaNotifichePage.verificaPresenzaRadionButtonIserimentoManualeDisabilitato();
+    }
+
+    @And("Verifica assenza radion Button Inserimento automatico e manuale")
+    public void verificaAssenzaRadionButtonIserimentoAutomaticoEManuale() {
+        piattaformaNotifichePage.verificaAssenzaRadionButtonIserimentoAutomatico();
+        piattaformaNotifichePage.verificaAssenzaRadionButtonIserimentoManuale();
+    }
+
+    @And("Verifica radion button Inserimento Automatico abilitato di default")
+    public void verificaRadionButtonInserimentoAutomaticoAbilitatoDiDefault() {
+        piattaformaNotifichePage.verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault();
+    }
+
+    @And("Seleziona radion button Inserimento Manuale se esiste {string}")
+    public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
+        piattaformaNotifichePage.selezionaRadionButtonInserimentoManualeSeEsiste(posizione);
+    }
+
+    @And("Verifica Banner attivo e Inserimento manuale selezionato")
+    public void verificaBannerAttivoEInserimentoManualeSelezionato() {
+        piattaformaNotifichePage.verificaBannerAttivoEInserimentoManualeSelezionato();
+    }
 
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.

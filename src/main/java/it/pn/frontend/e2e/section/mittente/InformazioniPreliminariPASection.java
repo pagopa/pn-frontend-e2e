@@ -137,7 +137,6 @@ public class InformazioniPreliminariPASection extends BasePage {
             logger.info("gruppo " + gruppo + " trovato con successo");
             gruppoBy.click();
         } catch (TimeoutException e) {
-            logger.info("gruppo " + gruppo + " NON trovato con errore : " + e.getMessage());
             Assertions.fail("gruppo " + gruppo + " NON trovato con errore : " + e.getMessage());
         }
     }

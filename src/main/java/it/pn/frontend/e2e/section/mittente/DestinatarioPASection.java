@@ -133,16 +133,31 @@ public class DestinatarioPASection extends BasePage {
         nomeDestinatarioTextField = driver.findElement(By.id("recipients[0].firstName"));
         scrollToElementClickAndInsertText(nomeDestinatarioTextField, nomeDestinatario);
     }
+    public void inserireAggiungiNomeDestinatario(String nomeDestinatario) {
+        logger.info("inserimento nome destinatario");
+        nomeDestinatarioTextField = driver.findElement(By.id("recipients[1].firstName"));
+        scrollToElementClickAndInsertText(nomeDestinatarioTextField, nomeDestinatario);
+    }
 
     public void inserireCognomeDestinatario(String cognomeDestinatario) {
         logger.info("inserimento cognome destinatario");
         cognomeDestinatarioTextField = driver.findElement(By.id("recipients[0].lastName"));
         scrollToElementClickAndInsertText(cognomeDestinatarioTextField, cognomeDestinatario);
     }
+    public void inserireAggiungiCognomeDestinatario(String cognomeDestinatario) {
+        logger.info("inserimento cognome destinatario");
+        cognomeDestinatarioTextField = driver.findElement(By.id("recipients[1].lastName"));
+        scrollToElementClickAndInsertText(cognomeDestinatarioTextField, cognomeDestinatario);
+    }
 
     public void inserireCodiceFiscaleDestinatario(String codiceFiscale) {
         logger.info("inserimento codice fiscale destinatario");
         codiceFiscaleDestinatarioTextField = driver.findElement(By.id("recipients[0].taxId"));
+        scrollToElementClickAndInsertText(codiceFiscaleDestinatarioTextField, codiceFiscale);
+    }
+    public void inserireAggiungiCodiceFiscaleDestinatario(String codiceFiscale) {
+        logger.info("inserimento codice fiscale destinatario");
+        codiceFiscaleDestinatarioTextField = driver.findElement(By.id("recipients[1].taxId"));
         scrollToElementClickAndInsertText(codiceFiscaleDestinatarioTextField, codiceFiscale);
     }
 
@@ -237,13 +252,15 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void inserimentoMultiDestinatario(PersoneFisiche destinatari, int nDestinatari) {
+        int j = 1;
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminari(destinatari, i);
-//            inserimentoInformazioniAggiuntive(destinatari, i+1);
-            inserimentoInformazioniAggiuntive(destinatari, i);
+            selezionaRadionButtonInserimentoManualeSeEsiste(Integer.toString(j));
+            inserimentoInformazioniAggiuntive(destinatari, i+1);
            if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
             }
+           j++;
         }
     }
 
@@ -351,12 +368,17 @@ public class DestinatarioPASection extends BasePage {
     }
 
     public void inserimentoMultiDestinatarioPG(PersoneGiuridiche personeGiuridiche, int nDestinatari) {
+        int j = 1;
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminariPG(personeGiuridiche, i);
+//            TODO verificare VAS
+            selezionaRadionButtonInserimentoManualeSeEsiste(Integer.toString(j));
+
             inserimentoInformazioniAggiuntive(personeGiuridiche, i+1);
             if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
            }
+            j++;
         }
     }
 
@@ -674,5 +696,33 @@ public class DestinatarioPASection extends BasePage {
         getWebDriverWait(60)
                 .withMessage("Tabella Notifiche Non Trovata")
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("notifications-table")));
+    }
+    public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
+
+        //posizione 1 ...n  si vuole aggiungere un destinatario
+        try {
+
+            List<WebElement> radioLabels = getWebDriverWait(15)
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                            By.cssSelector("label[data-testid='physicalAddressLookupRadio."+posizione+"']")
+                    ));
+
+            WebElement manualeInput = null;
+//            WebElement manualeLabel = null;
+
+            for (WebElement label : radioLabels) {
+                WebElement input = label.findElement(By.cssSelector("input[type='radio']"));
+                if ("MANUAL".equals(input.getAttribute("value"))) {
+                    manualeInput = input;
+//                    manualeLabel = label;
+                    break;
+                }
+            }
+
+            manualeInput.click();
+        } catch (Exception e) {
+            // Se il radio button non è trovato o non è cliccabile, non fa nulla
+            logger.info("Il radio button in selezionaRadionButtonInserimentoManuale DestinatarioPASection  'Inserimento manuale' non è presente, si passa oltre.");
+        }
     }
 }
