@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.rest;// ... Altre importazioni ...
 
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.config.CustomHttpClient;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
 import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
@@ -25,6 +26,8 @@ import java.util.List;
 public class RestNotification {
 
 //    @Autowired
+@Autowired
+private WebDriverConfig webDriverConfig;
 
     private  CustomHttpClient customHttpClient;
 
@@ -86,8 +89,25 @@ public class RestNotification {
     }
 
     public LinkedTreeMap<String, Object> getNotificationStatus(String notificationRequestId) {
+        String env = webDriverConfig.getEnvironment();
+        log.info("getNotificationStatus_getEnvironment: "+env);
         final CustomHttpClient<Object, Object> httpClient2 = new CustomHttpClient<>();//customHttpClient;  // Modifica qui
-        httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
+        switch (env) {
+            case "dev" -> {
+                httpClient2.setBaseUrlApi("https://api.dev.notifichedigitali.it");
+//                httpClient2.setApiKey("6a735afb-5ef8-4576-b05d-5800003d53ba");
+                //TODO da provare
+                httpClient2.setApiKey("a9f0508d-c344-4347-807f-343bc8210996");
+            }
+            case "test" ->
+                    httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
+            case "uat" ->
+                    Assertions.fail("Ambiente UAT da configurare");
+            default -> {
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
+
         try {
             Object response = httpClient2.sendHttpGetRequest("/delivery/v2.3/requests?notificationRequestId=" + notificationRequestId, null, Object.class);
             if (response instanceof LinkedTreeMap) {
