@@ -2154,7 +2154,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Seleziona radion button Inserimento Manuale se esiste {string}")
     public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
-
         piattaformaNotifichePage.selezionaRadionButtonInserimentoManualeSeEsiste(posizione);
     }
 
