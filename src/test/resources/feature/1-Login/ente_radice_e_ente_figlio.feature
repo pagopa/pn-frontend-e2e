@@ -90,7 +90,7 @@ Feature: Ente figlio e Ente radice
 
 
 
-  @test5
+  @verificaPresenzaNotificheFiglioDaDelegato
   Scenario: PN-10419 - Ente Figlio - Verifica presenza notifiche da parte del delegato
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.dev.notifichedigitali.it |
@@ -99,12 +99,13 @@ Feature: Ente figlio e Ente radice
       | pwd    | test    |
       | comune | Viggiu  |
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
+    And Click entra su Send Mittente
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica senza gruppo
       | oggettoNotifica   | Pagamento RATA IMU |
       | descrizione       | PAGAMENTO RATA IMU |
-      | codiceTassonomico | 123456A            |
+      | codiceTassonomico | 100105P            |
       | modalitaInvio     | A/R                |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
@@ -121,6 +122,8 @@ Feature: Ente figlio e Ente radice
       | cap       | 20147                 |
       | stato     | Italia                |
     And Cliccare su continua
+    And Seleziona Nessun Pagamento 1
+    And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     Then Nella section Allegati si carica un atto
     And Nella section Allegati cliccare sul bottone Invia
@@ -130,8 +133,10 @@ Feature: Ente figlio e Ente radice
     And Cliccare sulla notifica restituita
     And Aspetta 10 secondi
     And Verifica nome ente mittente "Comune di Viggiu - EDILIZIA PRIVATA E SUAP"
-    And Si clicca sul bottone esci
-    And Logout da portale mittente
+    #And Logout da portale mittente
+    # Login come Lucrezia Borgia (deve avere delega di Cesare per ente radice comune di Viggiu)
+    Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
+    And ricerca notifica con IUN salvato
 
 
 
