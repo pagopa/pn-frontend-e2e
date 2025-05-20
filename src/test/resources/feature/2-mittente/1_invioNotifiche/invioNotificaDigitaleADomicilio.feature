@@ -36,7 +36,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
-    And Si clicca sul opzione Vedi Dettaglio
+    And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Nella timeline della notifica si visualizza l'invio del messaggio di cortesia
     And Logout da portale mittente
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
@@ -77,7 +77,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
-    And Si clicca sul opzione Vedi Dettaglio
+    And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica l'invio della notifica al domicilio di piattaforma inserito "prova@test.it"
     Then Si verifica che la notifica abbia lo stato "Consegnata"
     And Logout da portale mittente
@@ -119,7 +119,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 240 secondi
     And Cliccare sulla notifica restituita
-    And Si clicca sul opzione Vedi Dettaglio
+    And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica che l'invio della notifica sia fallito 2 volte
     And Si verifica l'invio della raccomandata semplice
     And Logout da portale mittente
@@ -156,7 +156,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
-    And Si clicca sul opzione Vedi Dettaglio
+    And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica l'invio della notifica al domicilio speciale inserito "prova@test.it"
     Then Si verifica che la notifica abbia lo stato "Consegnata"
     And Logout da portale mittente
@@ -192,7 +192,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 240 secondi
     And Cliccare sulla notifica restituita
-    And Si clicca sul opzione Vedi Dettaglio
+    And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica il tentato invio della notifica al domicilio speciale inserito "prova@fail.it"
     And Si verifica che l'invio della notifica sia fallito 2 volte
     And Si verifica l'invio della raccomandata semplice
@@ -236,7 +236,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 240 secondi
     And Cliccare sulla notifica restituita
-    And Si clicca sul opzione Vedi Dettaglio
+    And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica che l'invio della notifica sia fallito 1 volte
     And Si verifica l'invio della notifica al domicilio speciale inserito "prova@test.it"
     Then Si verifica che la notifica abbia lo stato "Consegnata"
@@ -281,7 +281,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 330 secondi
     And Cliccare sulla notifica restituita
-    And Si clicca sul opzione Vedi Dettaglio
+    And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica il tentato invio della notifica al domicilio speciale inserito "prova2@fail.it"
     And Si verifica che l'invio della notifica sia fallito 4 volte
     And Si verifica l'invio della raccomandata semplice
@@ -317,7 +317,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
-    And Si clicca sul opzione Vedi Dettaglio
+    And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica l'invio della notifica al domicilio generale "BRGLRZ80D58H501Q@pec.it"
     Then Si verifica che la notifica abbia lo stato "Consegnata"
     And Logout da portale mittente
@@ -351,7 +351,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si finalizza l'invio della notifica e si controlla che venga creata correttamente
     And Aspetta 180 secondi
     And Cliccare sulla notifica restituita
-    And Si clicca sul opzione Vedi Dettaglio
+    And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica l'invio della notifica al domicilio generale "27957814470@pec.it"
     Then Si verifica che la notifica abbia lo stato "Consegnata"
     And Logout da portale mittente

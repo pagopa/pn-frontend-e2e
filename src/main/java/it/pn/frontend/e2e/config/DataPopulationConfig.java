@@ -367,6 +367,7 @@ public class DataPopulationConfig {
         personaFisica.setCodicePostale(DataPopulationValue.getDefaultValue(DataPopulationValue.CAP_PF.key));
         personaFisica.setOTPPec(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_PEC_PF.key));
         personaFisica.setOTPMail(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_MAIL_PF.key));
+        personaFisica.setOTPCellulare(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_CELL_PF.key));
         return personaFisica;
 
     }
@@ -427,6 +428,7 @@ public class DataPopulationConfig {
         personaGiuridica.setBearerToken(DataPopulationValue.getDefaultValue(DataPopulationValue.BEARER_TOKEN_PG.key));
         personaGiuridica.setOTPPec(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_PEC_PG.key));
         personaGiuridica.setOTPMail(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_MAIL_PG.key));
+        personaGiuridica.setOTPCellulare(DataPopulationValue.getDefaultValue(DataPopulationValue.OTP_CELL_PG.key));
         return personaGiuridica;
 
     }

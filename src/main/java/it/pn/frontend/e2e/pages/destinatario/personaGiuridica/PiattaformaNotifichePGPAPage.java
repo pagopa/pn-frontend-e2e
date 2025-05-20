@@ -437,4 +437,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
+    public void clickNotificheENotificheImpresa() {
+        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Notifiche"))));
+        sideItemNotificheButton = driver.findElement(By.id("side-item-Notifiche"));
+        sideItemNotificheButton.click();
+
+        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("menu-item(notifiche dell'impresa)"))));
+        WebElement notificheImpresaButton = driver.findElement(By.id("menu-item(notifiche dell'impresa)"));
+        js().executeScript("arguments[0].click()", notificheImpresaButton);
+        logger.info("Si clicca correttamente sulla voce notifiche notifiche dell'impresa");
+    }
 }
