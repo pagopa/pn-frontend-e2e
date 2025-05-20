@@ -19,7 +19,8 @@ Feature: invio notifica con sequence
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Amedeo Modigliani |
-      | codiceFiscale           | MDGMDA80T25F2Lucrezia Borgia 05W |
+      | codiceFiscale           | MDGMDA80T25F2Lucrezia|
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via OK-GiacenzaDelegato-gt10_890 |
       | civico    | 20                         |
@@ -40,5 +41,5 @@ Feature: invio notifica con sequence
     And Si verifica che la notifica è stata creata correttamente
     And Aspetta 10 secondi
     And Si seleziona la notifica mittente
-#  TODO Inerte al nuovo sviluppo da fare appena si sblocca dev
+#  TODO nuovo sviluppo da fare appena si sblocca dev
 #    And Si attende completamento notifica "Invio in corso"

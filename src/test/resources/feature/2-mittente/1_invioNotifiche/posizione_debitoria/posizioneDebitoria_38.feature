@@ -12,6 +12,7 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
 ## Persona Giuridica
     And Nella section Destinatario selezionare il radio button persona giuridica
     And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 0
     And Cliccare su continua
 ##    Posizione Debitoria

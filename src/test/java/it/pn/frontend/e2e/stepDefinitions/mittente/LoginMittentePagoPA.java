@@ -130,16 +130,16 @@ public class LoginMittentePagoPA extends BasePage {
 
         String environment = webDriverConfig.getEnvironment();
         String token = "";
-        switch (environment) {
-            case "dev" ->
-                    token = webDriverConfig.getTokendevMittente();
-            case "test" ->
-                    token = webDriverConfig.getTokentestMittente();
-            default -> {
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
-
+//        switch (environment) {
+//            case "dev" ->
+//                    token = webDriverConfig.getTokendevMittente();
+//            case "test" ->
+//                    token = webDriverConfig.getTokentestMittente();
+//            default -> {
+//                Assertions.fail("Ambiente non valido o non trovato!");
+//            }
+//        }
+        token = webDriverConfig.getTokentestMittente();
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
 //        String urlLogin = "https://pa-webapp.fe-prototype.dev.notifichedigitali.it/#selfCareToken=eyJraWQiOiJqd3QtZXhjaGFuZ2VfZWE6NDg6NTI6ZTQ6YWU6OGY6MzA6YjU6YWQ6M2M6ZDI6MDU6NzQ6Nzk6Yzk6ZWYiLCJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJmYW1pbHlfbmFtZSI6IkJhcm9uZSIsImZpc2NhbF9udW1iZXIiOiJCUk5CQ0g5MUw0OUg4MjJFIiwibmFtZSI6IkJhY2NoaXNpbyIsInNwaWRfbGV2ZWwiOiJodHRwczovL3d3dy5zcGlkLmdvdi5pdC9TcGlkTDIiLCJmcm9tX2FhIjpmYWxzZSwidWlkIjoiMjEzNGQ5MmItNWQxYi00OWI1LTlhNmUtNDI4M2Y0ODc5YmJmIiwibGV2ZWwiOiJMMiIsImlhdCI6MTcwMDIyMjY2MiwiZXhwIjoxOTAwMjIyNjc3LCJhdWQiOiJzZWxmY2FyZS5kZXYubm90aWZpY2hlZGlnaXRhbGkuaXQiLCJpc3MiOiJodHRwczovL3VhdC5zZWxmY2FyZS5wYWdvcGEuaXQiLCJqdGkiOiJhYWY3NWE0NS03MmYwLTRmY2ItOWI5MC01YjliNWMyMTQ1YWMiLCJlbWFpbCI6InJzYW5uYUBnbWFpbC5jb20iLCJvcmdhbml6YXRpb24iOnsiaWQiOiJhOTVkYWNlNC00YTQ3LTQxNDktYTgxNC0wZTY2OTExM2NlNDAiLCJuYW1lIjoiQ29tdW5lIGRpIFZlcm9uYSIsInJvbGVzIjpbeyJwYXJ0eVJvbGUiOiJNQU5BR0VSIiwicm9sZSI6ImFkbWluIn1dLCJncm91cHMiOlsiNjMyMWQzMjU2NGZmMDYxYTUxNDY0YjlkIl0sInN1YlVuaXRDb2RlIjpudWxsLCJzdWJVbml0VHlwZSI6bnVsbCwiYW9vUGFyZW50IjpudWxsLCJwYXJlbnREZXNjcmlwdGlvbiI6bnVsbCwicm9vdFBhcmVudCI6eyJpZCI6bnVsbCwiZGVzY3JpcHRpb24iOm51bGx9LCJmaXNjYWxfY29kZSI6IjAwMjE1MTUwMjM2IiwiaXBhQ29kZSI6ImNfbDc4MSJ9LCJkZXNpcmVkX2V4cCI6MTkwMDIyMjY3N30.NKZRi2mFvcWeWbrOiqZEqji3V9DQ3dUg3vk9yrZxaNEnKVU4l3nHuip_Ej9qZiyJvN5lPmvU4PhuLCRM1rIZcTIhyXO0uAJFbjBudt1j0oa7ErW-G394ab4dErUWarikhHs_xSW1hgAbOEHfwKPXTsb1-N5c0nl3wEG84YZ0fBdOtFKR__DHVrYyx5PkixaiN2Ch4pTAYnI8myAjsfO3MTEEvVb2qO-9qvpjG-4swG-hzk36NyG1J1jenUHvNvqhymb3maNoZ-aiVZocVZumCRxmWxrGSWmqFXwsD-QwE4iltfCNKqvF4ONKc-itNoAPXjLkFvJqILYiv07XajFaXA";
@@ -158,16 +158,17 @@ public class LoginMittentePagoPA extends BasePage {
         //TODO Il parametro comune potrebbe servire in futuro se esiste il token exchange
         String environment = webDriverConfig.getEnvironment();
         String token = "";
-        switch (environment) {
-            case "dev" ->
-                    token = webDriverConfig.getTokendevMittenteViggiu();
-            case "test" ->
-                    token = webDriverConfig.getTokentestMittenteViggiu();
-            default -> {
-                logger.error("Ambiente non valido");
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
+//        switch (environment) {
+//            case "dev" ->
+//                    token = webDriverConfig.getTokendevMittenteViggiu();
+//            case "test" ->
+//                    token = webDriverConfig.getTokentestMittenteViggiu();
+//            default -> {
+//                logger.error("Ambiente non valido");
+//                Assertions.fail("Ambiente non valido o non trovato!");
+//            }
+//        }
+        token = webDriverConfig.getTokentestMittenteViggiu();
 
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
@@ -536,11 +537,12 @@ public class LoginMittentePagoPA extends BasePage {
         String urlInziale = "https://selfcare." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
 
-        if (variabileAmbiente.equalsIgnoreCase("test")) {
-            token = webDriverConfig.getTokentestMittente();
-        } else {
-            token = webDriverConfig.getTokendevMittente();
-        }
+//        if (variabileAmbiente.equalsIgnoreCase("test")) {
+//            token = webDriverConfig.getTokentestMittente();
+//        } else {
+//            token = webDriverConfig.getTokendevMittente();
+//        }
+        token = webDriverConfig.getTokentestMittente();
         String url = urlInziale + token;
         driver.get(url);
     }

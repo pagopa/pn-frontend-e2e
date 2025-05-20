@@ -109,19 +109,19 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     public void loginMittenteConTokenExchange(String personaFisica) {
        String environment = webDriverConfig.getEnvironment();
         String token = "";
-        switch (environment) {
-            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokendevPFDelegante()
-                    :
-                    webDriverConfig.getTokendevPGDelegato();
-            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokentestPFDelegante()
-                    :
-                    webDriverConfig.getTokentestPFDelegato();
-            default -> {
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
+//        switch (environment) {
+//            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokendevPFDelegante()
+//                    :
+//                    webDriverConfig.getTokendevPGDelegato();
+//            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokentestPFDelegante()
+//                    :
+//                    webDriverConfig.getTokentestPFDelegato();
+//            default -> {
+//                Assertions.fail("Ambiente non valido o non trovato!");
+//            }
+//        }
 
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
@@ -686,17 +686,19 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         String token;
         if (webDriverConfig.getUserCesare().equalsIgnoreCase("cesare")) {
 
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                token = webDriverConfig.getTokentestPFDelegante();
-            } else {
-                token = webDriverConfig.getTokendevPFDelegante();
-            }
+//            if (variabileAmbiente.equalsIgnoreCase("test")) {
+//                token = webDriverConfig.getTokentestPFDelegante();
+//            } else {
+//                token = webDriverConfig.getTokendevPFDelegante();
+//            }
+            token = webDriverConfig.getTokentestPFDelegante();
         } else {
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                token = webDriverConfig.getTokentestPFDelegato();
-            } else {
-                token = webDriverConfig.getTokendevPFDelegato();
-            }
+//            if (variabileAmbiente.equalsIgnoreCase("test")) {
+//                token = webDriverConfig.getTokentestPFDelegato();
+//            } else {
+//                token = webDriverConfig.getTokendevPFDelegato();
+//            }
+            token = webDriverConfig.getTokentestPFDelegato();
         }
         String url = urlIniziale + token;
         driver.get(url);
@@ -705,20 +707,21 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     public String getTokenExchangePFFromFile(String personaFisica) {
         String environment = webDriverConfig.getEnvironment();
         String token = "";
-        switch (environment) {
-            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokendevPFDelegante()
-                    :
-                    webDriverConfig.getTokendevPGDelegato();
-            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokentestPFDelegante()
-                    :
-                    webDriverConfig.getTokentestPFDelegato();
-            default -> {
-                logger.error("Ambiente non valido");
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
+//        switch (environment) {
+//            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokendevPFDelegante()
+//                    :
+//                    webDriverConfig.getTokendevPGDelegato();
+//            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokentestPFDelegante()
+//                    :
+//                    webDriverConfig.getTokentestPFDelegato();
+//            default -> {
+//                logger.error("Ambiente non valido");
+//                Assertions.fail("Ambiente non valido o non trovato!");
+//            }
+//        }
+        token = personaFisica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPFDelegante() : webDriverConfig.getTokentestPFDelegato();
         return token;
     }
 
