@@ -25,6 +25,7 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     And Cliccare su continua
     #      Aggiungere alle notifiche
     And Seleziona Nessun Pagamento 1
+    And Seleziona Nessun Pagamento 2
     And Cliccare su continua
 #      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati

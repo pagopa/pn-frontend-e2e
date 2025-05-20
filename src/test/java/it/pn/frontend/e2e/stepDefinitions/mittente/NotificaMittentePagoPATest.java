@@ -1185,11 +1185,22 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica senza salvare numero di protocollo")
     public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotificaSenzaNumero(Map<String, String> datiNotifica) {
         logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
+        String gruppo = "";
+        switch (webDriverConfig.getEnvironment()) {
+            case "dev" ->
+                    informazioniPreliminariPASection.insertGruppo(dataPopulationConfig.getDatiNotifica().getGruppoDev());
+            case "test" ->
+                    informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+            default -> {
+                logger.error("Ambiente non valido");
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
         String numeroDiProtocollo = WebTool.generatePaProtocolNumber();
         informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
-        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+//        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
         if (datiNotifica.get("modalitaInvio").equals("A/R")) {
             informazioniPreliminariPASection.selectRaccomandataAR();

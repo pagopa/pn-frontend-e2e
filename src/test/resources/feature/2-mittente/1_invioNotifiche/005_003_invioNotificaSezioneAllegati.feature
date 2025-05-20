@@ -26,6 +26,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Cliccare su continua
     #      Aggiungere alle notifiche
     And Seleziona Nessun Pagamento 1
+    And Seleziona Nessun Pagamento 2
     And Cliccare su continua
 #      Aggiungere alle notifiche
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
