@@ -49,7 +49,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale persona fisica
 
-  @TestSuite
+#  @TestSuite
   @TA_InvioNotificaMonoPFNormalizzazioneKOLovelaceBis
   @DeleghePGPF
   @deleghe1

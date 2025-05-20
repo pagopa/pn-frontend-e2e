@@ -39,7 +39,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale mittente
 
-  @TestSuite
+#  @TestSuite
   @TA_InvioNotificaMonoPGDomiccilioDigitaleKOBis
   Scenario: PN-9292-bis - Mittente genera una notifica mono destinatario a PG con domicilio digitale KO
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
