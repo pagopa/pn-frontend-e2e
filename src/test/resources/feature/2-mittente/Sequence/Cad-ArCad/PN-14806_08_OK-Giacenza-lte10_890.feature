@@ -2,6 +2,7 @@ Feature: invio notifica con sequence
 
   @Tag_PN_14806_08_OK-Giacenza-lte10_890
   @TestSuite
+  @Tag_CARD_ARCAD
   @NRT
 
   Scenario: [PN-14806_08] CAD/ARCAD SEQUENCE OK-Giacenza-lte10_890
@@ -17,9 +18,9 @@ Feature: invio notifica con sequence
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
-      | soggettoGiuridico       | PF               |
-      | nomeCognomeDestinatario | Amedeo Modigliani  |
-      | codiceFiscale           | MDGMDA80T25F205W |
+      | soggettoGiuridico       | PF                |
+      | nomeCognomeDestinatario | Amedeo Modigliani |
+      | codiceFiscale           | MDGMDA80T25F205W  |
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via @OK-Giacenza-lte10_890 |
