@@ -618,6 +618,15 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
+    public boolean trovaDocumentoDaZipConDimensioni(String docName) throws IOException {
+        String workingDirectory = System.getProperty("user.dir");
+        String extractDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip/extract/" + docName;
+        Path extractPath = Paths.get(extractDirectoryPath);
+        long fileSize = Files.size(extractPath);
+        logger.info("File {} ha size {}", docName, fileSize);
+        return fileSize > 0;
+    }
+
     private void deleteFilesInDirectory(String directoryPath, String extension) throws IOException {
         Path dir = Paths.get(directoryPath);
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {

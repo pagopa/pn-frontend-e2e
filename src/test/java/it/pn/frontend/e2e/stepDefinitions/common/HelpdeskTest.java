@@ -8,25 +8,20 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
-import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -270,6 +265,14 @@ public class HelpdeskTest extends BasePage {
         webTool.waitTime(5);
         Assertions.assertTrue (helpdeskPage.trovaDocumentoConTitolo(docName), "Documento " + docName + " non è trovato");
             logger.info("Documento " + docName + " è trovato");
+    }
+
+    @And("Controllo sia presente documento vuoto {string}")
+    public void controlloPresenteDocumentoVuoto(String docName) throws IOException {
+        logger.info("Controllo sia presente documento" + docName + "e che sia vuoto");
+        webTool.waitTime(5);
+        Assertions.assertTrue (!helpdeskPage.trovaDocumentoDaZipConDimensioni(docName), "Documento " + docName + " non è trovato oppure non è vuoto");
+        logger.info("Documento " + docName + " è trovato ed è vuoto");
     }
 
     @And("Si elimina file estratto")
