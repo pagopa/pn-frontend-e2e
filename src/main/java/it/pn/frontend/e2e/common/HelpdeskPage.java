@@ -707,7 +707,7 @@ public class HelpdeskPage extends BasePage {
     public void inserimentoArcoTemporale() {
         webTool.waitTime(60);
 
-        WebElement calendarButton = driver.findElement(By.xpath("//div[@data-testid='data-range-picker']//div//div//button"));
+        WebElement calendarButton = driver.findElement(By.xpath("//button[contains(@aria-label, 'Choose date')]"));
         getWebDriverWait(20).until(ExpectedConditions.visibilityOf(calendarButton));
         calendarButton.click();
         WebElement previousMonth = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));

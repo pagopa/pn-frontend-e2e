@@ -5,9 +5,9 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
     And Si visualizza correttamente home Helpdesk
 
   @TestSuite
-  @OttenereTracciatoNonAnonimizzataDiPersonaFisica
+  @OttenereTracciatoNonAnonimizzataDiPersonaFisicaDaCodiceUnivoco
   @loginFE
-  Scenario: [QA-1072] - Ottenere  il tracciato non anonimizzata di una persona fisica dato il suo codice fiscale
+  Scenario: [QA-1075] - Ottenere  il tracciato non anonimizzata di una persona fisica dato il suo codice univoco
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati
     And Selezione ottieni log completi
