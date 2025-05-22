@@ -6,6 +6,7 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
+import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -35,11 +36,15 @@ public class RecapitiTest extends BasePage {
     @Lazy
     private BackgroundTest backgroundTest;
 
+
+    PiattaformaNotifichePage piattaformaNotifichePage;
+
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
         recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
         iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         backgroundTest.setRecapitiTest(this);
 
     }
@@ -268,5 +273,36 @@ public class RecapitiTest extends BasePage {
     @And("Si chiude pop-up Impossibile disattivare il Domicilio Digitale")
     public void siChiudeImpossibileDisattivareIlDomicilioDigitale() {
         iTuoiRecapitiPage.siChiudeImpossibileDisattivareDomicilioDigitale();
+    }
+
+    @And("Click Notifiche")
+    public void clickNotifiche() {
+        iTuoiRecapitiPage.clickNotifiche();
+    }
+
+    @And("Click Le Tue Notifiche")
+    public void clickLeTueNotifiche() {
+        iTuoiRecapitiPage.clickLeTueNotifiche();
+    }
+
+    @And("Click Bottone Inizia nel Banner")
+    public void clickBottoneIniziaNelBanner() {
+        iTuoiRecapitiPage.clickBottoneIniziaNelBanner();
+    }
+
+    @And("Click Annulla Servizio Notifiche Digitali")
+    public void clickAnnullaServizioNotificheDigitali() {
+        iTuoiRecapitiPage.clickAnnullaServizioNotificheDigitali();
+    }
+
+    @And("Click I Tuoi Dati")
+    public void clickITuoiDati() {
+        iTuoiRecapitiPage.clickITuoiDati();
+    }
+
+    @And("Seleziona Numero di pagine")
+    public void selezionaNumeroDiPagine() {
+        piattaformaNotifichePage.buttonRighePagine();
+        piattaformaNotifichePage.selezionaPage50();
     }
 }

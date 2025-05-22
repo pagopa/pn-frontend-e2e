@@ -426,6 +426,11 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale();
     }
 
+    @And("Seleziona la notifica Avvenuto Accesso")
+    public void selezionaLaNotificaAvvenutoAccesso() {
+        recapitiDestinatarioPage.selezionaLaNotificaAvvenutoAccesso();
+    }
+
 //    @And("Verifica e Disattiva {string}")
 //    public void verificaAndOrDisattiva(String testo) {
 //        recapitiDestinatarioPage.verificaAndOrDisattiva(testo);
