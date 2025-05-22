@@ -12,9 +12,9 @@ Feature: invio notifica con sequence
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
       | oggettoNotifica   | FAIL-Giacenza-gt10_890 |
       | descrizione       | FAIL-Giacenza-gt10_890 |
-      | gruppo            | test-TA-FE              |
-      | codiceTassonomico | 100105P                 |
-      | modalitaInvio     | 890                     |
+      | gruppo            | test-TA-FE             |
+      | codiceTassonomico | 100105P                |
+      | modalitaInvio     | 890                    |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
@@ -47,4 +47,4 @@ Feature: invio notifica con sequence
     And Aspetta 300 secondi
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //*[contains(text(), 'avviso di ricevimento della raccomandata che contiene la comunicazione di avvenuto deposito')] |
-      | vediDettagli | false
+      | vediDettagli | false                                                                                                                |

@@ -24,12 +24,12 @@ Feature: invio notifica con sequence
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via @OK-GiacenzaDelegato-gt10_890 |
-      | civico    | 20                               |
-      | localita  | Milano                           |
-      | comune    | Milano                           |
-      | provincia | MI                               |
-      | cap       | 20147                            |
-      | stato     | Italia                           |
+      | civico    | 20                                |
+      | localita  | Milano                            |
+      | comune    | Milano                            |
+      | provincia | MI                                |
+      | cap       | 20147                             |
+      | stato     | Italia                            |
     And Cliccare su continua
     And Seleziona Nessun Pagamento 1
     And Cliccare su continua
@@ -47,4 +47,4 @@ Feature: invio notifica con sequence
     And Aspetta 300 secondi
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //*[contains(text(), 'avviso di ricevimento della raccomandata che contiene la comunicazione di avvenuto deposito')] |
-      | vediDettagli | false
+      | vediDettagli | false                                                                                                                |
