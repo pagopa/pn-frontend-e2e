@@ -627,6 +627,25 @@ public class HelpdeskPage extends BasePage {
         return fileSize > 0;
     }
 
+    public boolean trovaTestoInDocumentoDaZip(String docName, String searchText) throws IOException {
+        String workingDirectory = System.getProperty("user.dir");
+        String extractDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip/extract/" + docName;
+        Path extractPath = Paths.get(extractDirectoryPath);
+        try (Stream<String> lines = Files.lines(extractPath)) {
+            boolean found = lines.anyMatch(line -> line.contains(searchText));
+            if (found) {
+                logger.info("Testo {} trovato in file {}", searchText, docName);
+            } else {
+                logger.info("Testo {} non trovato in file {}", searchText, docName);
+            }
+            return found;
+        } catch (IOException e) {
+            logger.error("Errore nel leggere il file {}", docName, e);
+            Assertions.fail("Errore nel leggere il file " + docName + ": " + e.getMessage());
+            return false;
+        }
+    }
+
     private void deleteFilesInDirectory(String directoryPath, String extension) throws IOException {
         Path dir = Paths.get(directoryPath);
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {

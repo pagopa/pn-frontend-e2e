@@ -261,18 +261,26 @@ public class HelpdeskTest extends BasePage {
 
     @And("Controllo sia presente documento {string}")
     public void controlloPresenteDocumento(String docName) throws IOException {
-        logger.info("Controllo sia presente documento" + docName);
+        logger.info("Controllo sia presente documento {}", docName);
         webTool.waitTime(5);
         Assertions.assertTrue (helpdeskPage.trovaDocumentoConTitolo(docName), "Documento " + docName + " non è trovato");
-            logger.info("Documento " + docName + " è trovato");
+        logger.info("Documento {} è trovato", docName);
     }
 
-    @And("Controllo sia presente documento vuoto {string}")
-    public void controlloPresenteDocumentoVuoto(String docName) throws IOException {
-        logger.info("Controllo sia presente documento" + docName + "e che sia vuoto");
+    @And("Controllo sia presente documento estratto da zip con testo {string} {string}")
+    public void controlloPresenteDocumentoDaZipConTesto(String docName, String testo) throws IOException {
+        logger.info("Controllo sia presente documento {} e che contenga il testo {}", docName, testo);
         webTool.waitTime(5);
-        Assertions.assertTrue (!helpdeskPage.trovaDocumentoDaZipConDimensioni(docName), "Documento " + docName + " non è trovato oppure non è vuoto");
-        logger.info("Documento " + docName + " è trovato ed è vuoto");
+        Assertions.assertTrue(helpdeskPage.trovaTestoInDocumentoDaZip(docName, testo), "Documento " + docName + " non è trovato o non contiene il testo " + testo);
+        logger.info("Documento {} è trovato e contiene il testo {}", docName, testo);
+    }
+
+    @And("Controllo sia presente documento estratto da zip e che sia vuoto {string}")
+    public void controlloPresenteDocumentoDaZipVuoto(String docName) throws IOException {
+        logger.info("Controllo sia presente documento {} e che sia vuoto", docName);
+        webTool.waitTime(5);
+        Assertions.assertFalse(helpdeskPage.trovaDocumentoDaZipConDimensioni(docName), "Documento " + docName + " non è trovato oppure non è vuoto");
+        logger.info("Documento {} è trovato ed è vuoto", docName);
     }
 
     @And("Si elimina file estratto")
