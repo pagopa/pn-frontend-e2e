@@ -46,5 +46,5 @@ Feature: invio notifica con sequence
     And Si attende completamento notifica "Consegnata"
     And Aspetta 300 secondi
     And Si controlla lo stato timeline in dettaglio notifica
-      | xpathStato   | //*[contains(text(), 'avviso di ricevimento della raccomandata che contiene la comunicazione di avvenuto deposito')] |
-      | vediDettagli | false                                                                                                                |
+      | xpathStato   | //*[contains(text(), 'della raccomandata che contiene la comunicazione di avvenuto deposito')] |
+      | vediDettagli | false                                                                                          |
