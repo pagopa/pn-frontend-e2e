@@ -703,7 +703,6 @@ public class PiattaformaNotifichePage extends BasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonVediDettaglio);
             logger.info("Cliccato sul pulsante 'Vedi Dettaglio'");
         } catch (Exception e) {
-            logger.error("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
             Assertions.fail("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
         }
     }

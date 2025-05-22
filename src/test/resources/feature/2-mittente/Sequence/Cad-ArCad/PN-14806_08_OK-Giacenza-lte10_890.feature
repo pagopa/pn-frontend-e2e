@@ -40,8 +40,11 @@ Feature: invio notifica con sequence
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-#    And Aspetta 400 secondi
+
     And Aspetta 10 secondi
     And Si seleziona la notifica mittente
-#  TODO nuovo sviluppo da fare appena si sblocca dev
-#    And Si attende completamento notifica "Invio in corso"
+    And Si attende completamento notifica "Consegnata"
+    And Aspetta 300 secondi
+    And Si controlla lo stato timeline in dettaglio notifica
+      | xpathStato   | //*[contains(text(), 'avviso di ricevimento della raccomandata che contiene la comunicazione di avvenuto deposito')] |
+      | vediDettagli | false                                 |
