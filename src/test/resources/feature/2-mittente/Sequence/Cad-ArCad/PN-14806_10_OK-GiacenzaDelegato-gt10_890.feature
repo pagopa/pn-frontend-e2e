@@ -23,7 +23,7 @@ Feature: invio notifica con sequence
       | codiceFiscale           | MDGMDA80T25F205W  |
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | Via OK-GiacenzaDelegato-gt10_890 |
+      | indirizzo | Via @OK-GiacenzaDelegato-gt10_890 |
       | civico    | 20                               |
       | localita  | Milano                           |
       | comune    | Milano                           |

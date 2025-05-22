@@ -10,8 +10,8 @@ Feature: invio notifica con sequence
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | @OK-CompiutaGiacenza_890 |
-      | descrizione       | @OK-CompiutaGiacenza_890 |
+      | oggettoNotifica   | OK-CompiutaGiacenza_890 |
+      | descrizione       | OK-CompiutaGiacenza_890 |
       | gruppo            | test-TA-FE               |
       | codiceTassonomico | 100105P                  |
       | modalitaInvio     | 890                      |
