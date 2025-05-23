@@ -37,7 +37,7 @@ Component: Aggiunta dell’annotazione @Component per rendere la classe gestibil
 
 public class PiattaformaNotifichePage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
+    private static final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePage");
 
 
     @FindBy(id = "recipientId")
@@ -187,10 +187,52 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selectFiltraNotificaButtonMittente() {
-        getWebDriverWait(20).withMessage("Il bottone filtra non è cliccabile").until(elementToBeClickable( driver.findElement(By.id("filter-button"))));
-        filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
-        filtraNotificaButtonMittente.click();
-        logger.info("Bottone filtra, nella pagina del mittente, cliccato correttamente");
+        webTool.waitTime(2);
+        WebElement buttonFiltraNotifica = getWebDriverWait(50)
+                .withMessage("Il bottone 'Filtra' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("filter-button")));
+
+        webTool.waitTime(1); // eventuale animazione
+
+        try {
+            buttonFiltraNotifica.click();
+        } catch (Exception e) {
+            js().executeScript("arguments[0].click();", buttonFiltraNotifica);
+        }
+    }
+
+    public void clickBottoneFiltraNotifica(String xpath, String codiceIUN) {
+//        "filter-button"
+//        filter-notifications-button
+        final int maxTentativi = 10;
+        final int attesaSecondi = 10;
+        boolean trovato = false;
+
+        for (int i = 0; i <= maxTentativi && !trovato; i++) {
+            try {
+                WebElement bottoneFiltra = getWebDriverWait(10)
+                        .withMessage("Il bottone 'Filtra' non è cliccabile")
+                        .until(ExpectedConditions.elementToBeClickable(By.id(xpath)));
+                webTool.waitTime(1);
+                try {
+                    bottoneFiltra.click();
+                } catch (Exception e) {
+                    js().executeScript("arguments[0].click();", bottoneFiltra);
+                }
+                webTool.waitTime(1);
+                By selettoreIUN = By.xpath("//*[contains(@id, 'notifications-table')]//td[contains(text(), '" + codiceIUN + "')]");
+                getWebDriverWait(5)
+                        .withMessage("Codice IUN '" + codiceIUN + "' non trovato nella tabella notifiche")
+                        .until(ExpectedConditions.visibilityOfElementLocated(selettoreIUN));
+
+                trovato = true;
+            } catch (Exception ex) {
+                webTool.waitTime(attesaSecondi);
+            }
+        }
+        if (!trovato) {
+            Assertions.fail("Impossibile cliccare sul bottone 'Filtra': la tabella non è visibile o il bottone non è cliccabile dopo " + maxTentativi + " tentativi.");
+        }
     }
 
     public void selectFiltraNotificaButtonDestinatario() {
@@ -661,7 +703,6 @@ public class PiattaformaNotifichePage extends BasePage {
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonVediDettaglio);
             logger.info("Cliccato sul pulsante 'Vedi Dettaglio'");
         } catch (Exception e) {
-            logger.error("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
             Assertions.fail("Errore durante il clic sul pulsante 'Vedi Dettaglio': " + e.getMessage());
         }
     }
@@ -696,10 +737,18 @@ public class PiattaformaNotifichePage extends BasePage {
         driver.navigate().to("https://selfcare." + environment + ".notifichedigitali.it/dashboard/" + IUN + "/dettaglio");
     }
 
+    //    public void selectInviaUnaNuovaNotificaButton() {
+//        getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("new-notification-btn"))));
+//        inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
+//        inviaNuovaNotificaButton.click();
+//    }
     public void selectInviaUnaNuovaNotificaButton() {
-        getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("new-notification-btn"))));
-        inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
-        inviaNuovaNotificaButton.click();
+
+        WebElement button = getWebDriverWait(10)
+                .withMessage("Il bottone invia notifica non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("new-notification-btn")));
+
+        button.click();
     }
 
 
