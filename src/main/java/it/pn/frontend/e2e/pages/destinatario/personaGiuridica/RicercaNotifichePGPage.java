@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
 import java.sql.Driver;
+import java.util.List;
 
 public class RicercaNotifichePGPage extends BasePage {
 
@@ -139,4 +140,12 @@ public class RicercaNotifichePGPage extends BasePage {
         confermaButton.click();
     }
 
+    public void verificaNeumroCopyCostiDiNotificaInclusi(int numeroCopy) {
+        List<WebElement> costElements = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il Copy Costi Di Notifica Inclusi")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//p[contains(@data-testid, 'apply-costs-caption')]")));
+
+        Assertions.assertEquals(numeroCopy, costElements.size(), "Il numero atteso: " + numeroCopy + " non corrisponde al numero di Copy Costi Di Notifica Inclusi visualizzato: " + costElements.size());
+
+    }
 }
