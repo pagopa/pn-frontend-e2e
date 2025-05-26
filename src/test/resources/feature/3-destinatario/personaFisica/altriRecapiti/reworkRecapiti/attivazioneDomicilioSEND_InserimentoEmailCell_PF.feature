@@ -38,4 +38,6 @@ Feature: Rework della pagina dei contatti
 
     And Verifica Pagina "La tua mail per ricevere aggiornamenti"
     And Verifica Pagina "email dove possiamo informarti quando"
+
 #  ----------------------------------------------------------------------
+#  AD oggi  il test non è implementabile perchè non abbiamo la possibilita di recupero OTP

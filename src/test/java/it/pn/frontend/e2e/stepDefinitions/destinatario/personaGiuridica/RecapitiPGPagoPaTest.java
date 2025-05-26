@@ -121,7 +121,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Si annulla eliminazione email")
     public void siAnnullaEliminazioneEmail() {
         recapitiDestinatarioPage.checkButtonAnnullaEliminazioneInPopUp();
-        recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
     }
 
     @And("Si conferma {string} nel pop up")
@@ -182,7 +181,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiInserisceUnPECMaggioreDiCaratteri(int numeroCaratteri) {
         StringBuilder email = new StringBuilder("test");
         email.append("a".repeat(Math.max(0, numeroCaratteri)));
-        recapitiDestinatarioPage.insertPECAggiuntiva(email.toString());
+        recapitiDestinatarioPage.insertPEC(email.toString());
     }
 
     @And("Nella sezione altri recapiti si visualizza il messaggio di errore {string}")
@@ -424,6 +423,23 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @When("Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale")
     public void clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale() {
         recapitiDestinatarioPage.clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale();
+    }
+
+    @And("Inserisci Pec Errata {string}")
+    public void inserisciPecErrata(String pec) {
+        recapitiDestinatarioPage.insertPEC(pec);
+    }
+
+    @When("Inserisci Email errata {string}")
+    public void inserisciEmailErrata(String email) {
+        recapitiDestinatarioPage.insertEmail(email);
+    }
+
+    @And("Si visualizza correttamente il messaggio di email non valida")
+    public void siVisualizzaCorrettamenteIlMessaggioDiEmailNonValida() {
+        String errorMessageRead = recapitiDestinatarioPage.getEmailInvalidMessage();
+        Assertions.assertNotNull(errorMessageRead, "Messaggio di errore letto : '" + errorMessageRead + "' ");
+
     }
 
 //    @And("Verifica e Disattiva {string}")

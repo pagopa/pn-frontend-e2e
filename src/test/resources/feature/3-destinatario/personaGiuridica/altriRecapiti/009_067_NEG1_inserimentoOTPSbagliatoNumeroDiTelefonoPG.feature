@@ -1,20 +1,26 @@
 Feature: la persona giuridica inserisce l'OTP numero di telefono  errato
 
   @TestSuite
-  @PG
-  @TA_inserimentoOTPErratoCellularePG
-  @recapitiPG
   @addressBook2
-  @recapitiPFPG
-  Scenario: PN-9158-A66 - La persona giuridica inserisce l'OTP numero di telefono errato
+  @TA_OFF
+
+
+  Scenario: OFF_REWORK_DOMICILIO_DIGITALE_PG_PN-9158-A66 - La persona giuridica inserisce l'OTP numero di telefono errato
+
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
-    And Si visualizza correttamente la pagina Recapiti persona giuridica
-    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PG e clicca sul bottone avvisami via SMS
-    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+#    verificare mancano pezzi inerente a SEND sull'appIO
+    And Verifica ed Elimina personalizzati per ente
+    And Verifica ed Elimina personalizzati per ente
+    And Verifica e Disattiva domicilio digitale
+    And Attesa 2 secondi
+    And Verifica e Disattiva cellulare
+    # Creazione Cellulare
+    When Click Bottone "Aggiungi un numero di cellulare"
+    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3328560082" e si clicca sul bottone avvisami via SMS
+  And  Si clicca sul bottone del pop-up ok ho capito
+
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato "15494"
     And Nella pagina I Tuoi Recapiti clicca sul bottone conferma
     And Si visualizza correttamente il messaggio di errore
     Then Cliccare sul bottone Annulla
-    And Logout da portale persona giuridica

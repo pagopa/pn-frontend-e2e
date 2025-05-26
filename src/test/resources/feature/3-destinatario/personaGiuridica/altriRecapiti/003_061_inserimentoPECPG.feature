@@ -1,12 +1,13 @@
 Feature: La persona giuridica inserisce una PEC
 
-  @TestSuite
-  @TA_inserimentoPECPG
-  @PG
-  @recapitiPG
-  @mittente_x1
-  @addressBook2
-  @recapitiPFPG
+#  @TestSuite
+#  @TA_inserimentoPECPG
+#  @PG
+#  @recapitiPG
+#  @mittente_x1
+#  @addressBook2
+#  @recapitiPFPG
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2 -> REWORK_DOMICILIO_DIGITALE_PG_79_80_82_83_84_81
   Scenario: PN-9152 - La persona giuridica inserisce una PEC
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

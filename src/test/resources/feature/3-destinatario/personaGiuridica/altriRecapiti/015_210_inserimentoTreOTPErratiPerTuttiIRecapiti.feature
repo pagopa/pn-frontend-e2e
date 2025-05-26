@@ -1,12 +1,15 @@
 Feature: La persona giuridica inserisce l'OTP errato 3 volte per i campi PEC, email di cortesia e numero di cellulare
 
-  @TestSuite
-  @TA_inserimentoTreOTPErratiPerTuttiIRecapiti
-  @PG
-  @recapitiPG
-  @mittente_x1
-  @addressBook2
-  @recapitiPFPG
+#  @TestSuite
+#  @TA_inserimentoTreOTPErratiPerTuttiIRecapiti
+#  @PG
+#  @recapitiPG
+#  @mittente_x1
+#  @addressBook2
+#  @recapitiPFPG
+
+
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PG_69 70]
   Scenario: PN - 9709 - La persona giuridica inserisce l'OTP errato 3 volte per i campi PEC, email di cortesia e numero di cellulare
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
