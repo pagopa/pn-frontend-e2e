@@ -1437,6 +1437,7 @@ public void verificaEDisattivaEmail() {
     }
 
 
+
     public void selezionaLaNotificaAvvenutoAccesso() {
         // Attendi che tutte le righe della tabella siano visibili e ottienile
         List<WebElement> rows = getWebDriverWait(10)
@@ -1469,5 +1470,11 @@ public void verificaEDisattivaEmail() {
 
                 }
         }
+
+    public String getEmailInvalidMessage() {
+        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email-helper-text"))));
+        WebElement errorMessage = driver.findElement(By.id("default_email-helper-text"));
+        return errorMessage.getText();
+
     }
 }

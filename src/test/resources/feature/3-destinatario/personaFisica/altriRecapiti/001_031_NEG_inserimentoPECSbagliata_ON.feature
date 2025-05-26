@@ -1,10 +1,11 @@
 Feature: La persona fisica inserisce una PEC sbagliata
 
   @TestSuite
-  @TA_inserimentoPECErrataPF
+  @TA_inserimentoPECErrataPF_ON
   @addressBook1
-  @TA_OFF
-  Scenario: OFF_REWORK_DOMICILIO_DIGITALE_PF_PN-9240-B31 - La persona fisica inserisce una PEC sbagliata
+  @TA_ON
+  @NRT
+  Scenario: ON_REWORK_DOMICILIO_DIGITALE_PF_PN-9240-B31 - La persona fisica inserisce una PEC sbagliata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -17,6 +18,7 @@ Feature: La persona fisica inserisce una PEC sbagliata
     And Verifica e Disattiva cellulare
 
     When Click Inizia
+    And Click Bottone "Inserisci PEC"
 
     And Inserisci Pec Errata "testpagopa2@@pnpagopa.postecert.local"
     And Si visualizza correttamente il messaggio di pec non valida

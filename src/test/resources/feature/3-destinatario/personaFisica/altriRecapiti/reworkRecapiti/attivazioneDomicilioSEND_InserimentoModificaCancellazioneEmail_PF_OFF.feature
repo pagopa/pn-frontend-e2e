@@ -40,6 +40,13 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     And Verifica Pagina "prova@test.it"
     And Verifica Pagina "ti avvisiamo con una email all"
+
+    #Disattiva email e annullo
+    And Attesa 1 secondi
+    And Verifica e Disattiva email
+    And Attesa 2 secondi
+    And Si annulla eliminazione email
+
 #  Modifica Email
     Then Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
@@ -52,7 +59,7 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "ti avvisiamo con una email all"
 # Verifica assenza banner email mancante
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
-    And Aspetta 5 secondi
+    And Aspetta 10 secondi
     And Non si visualizza correttamente il banner di email mancante
     And La persona fisica clicca sulla prima notifica restituita
     And Non si visualizza correttamente il banner di email mancante

@@ -1,12 +1,13 @@
 Feature: la persona fisica inserisce una email pec
 
-  @TestSuite
-  @TA_inserimentoPECPF
-  @PF
-  @recapitiPF
-  @mittente_x1
-  @addressBook1
-  @recapitiPFPG
+#  @TestSuite
+#  @TA_inserimentoPECPF
+#  @PF
+#  @recapitiPF
+#  @mittente_x1
+#  @addressBook1
+#  @recapitiPFPG
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PF_6_75]
   Scenario: PN-9240-A31 - La persona fisica inserisce una email pec
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
