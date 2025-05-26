@@ -623,4 +623,75 @@ public class DestinatarioPage extends BasePage {
         Assertions.assertEquals(new HashSet<>(codiciAvvisi), new HashSet<>(codiciTrovati),
                 "I codici avviso presenti non corrispondono a quelli attesi.");
     }
+
+    public void cliccareSuComeMai() {
+        WebElement link = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il link Come Mai?")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[data-testid='faqNotificationCosts']")));
+        link.click();
+    }
+
+    public void verificaPaginaComeMai() {
+        try {
+
+            // Verifica la sezione "Cosa sono le notifiche SEND?"
+            verificaSezione(
+                    By.cssSelector("#notifiche-cosa-sono .MuiAccordionDetails-root p"),
+                    Arrays.asList(
+                            "Le notifiche SEND sono comunicazioni a valore legale",
+                            "Fino ad ora, queste comunicazioni venivano inviate quasi sempre tramite raccomandata cartacea"
+                    )
+            );
+
+            // Verifica la sezione "Cosa significa che una comunicazione è 'a valore legale'?"
+            verificaSezione(
+                    By.cssSelector("#notifiche-valore-legale .MuiAccordionDetails-root p"),
+                    Arrays.asList(
+                            "Significa che l'invio e la ricezione di queste comunicazioni producono degli effetti giuridici",
+                            "se ricevi una multa per violazione del codice stradale"
+                    )
+            );
+
+            // Verifica la sezione "Cosa succede se ignoro una notifica?"
+            verificaSezione(
+                    By.cssSelector("#ignorare-notifica .MuiAccordionDetails-root p"),
+                    Arrays.asList(
+                            "Che tu abbia ricevuto l'avviso di avvenuta ricezione in digitale o cartaceo",
+                            "La notifica produce effetti giuridici anche se è stato depositato in piattaforma il relativo avviso di mancato recapito"
+                    )
+            );
+
+            // Verifica la sezione "Come funzionano i costi di notifica?"
+            verificaSezione(
+                    By.cssSelector("#costi-di-notifica .MuiAccordionDetails-root p"),
+                    Arrays.asList(
+                            "A seconda delle tue preferenze e delle specifiche circostanze",
+                            "Il costo della notifica digitale è di 2€",
+                            "Se non accedi alla notifica digitale entro determinati tempi",
+                            "Nel caso di notifiche con più avvisi di pagamento i costi connessi alla notifica saranno inclusi soltanto in uno"
+                    )
+            );
+
+        } catch (Exception e) {
+            // Se si verifica un errore, lancia un'eccezione
+            Assertions.fail("Errore durante la verifica del contenuto della pagina: " + e.getMessage());
+        }
+    }
+
+    private void verificaSezione(By selector, List<String> expectedPhrases) {
+        try {
+            WebElement sectionElement = getWebDriverWait(20)
+                    .withMessage("imposibile trovare: "+selector )
+                    .until(
+                    ExpectedConditions.visibilityOfElementLocated(selector)
+            );
+            String sectionText = sectionElement.getText();
+
+            for (String phrase : expectedPhrases) {
+                Assertions.assertTrue(sectionText.contains(phrase), "La sezione non contiene la frase: " + phrase);
+            }
+        } catch (Exception e) {
+            Assertions.fail("Errore durante la verifica della sezione: " + e.getMessage());
+        }
+    }
 }

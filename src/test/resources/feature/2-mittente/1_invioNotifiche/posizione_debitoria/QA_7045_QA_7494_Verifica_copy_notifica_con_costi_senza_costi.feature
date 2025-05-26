@@ -9,6 +9,8 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "UNRQ-AEAX-QXLA-202505-K-1"
     And Cliccare sulla notifica restituita dal filtro
     And Verifica Neumro Copy Costi di notifica Inclusi 1
+    And Cliccare su Come Mai
+#    And Verifica Pagina Come Mai
     And Attesa 10 secondi
 
 
