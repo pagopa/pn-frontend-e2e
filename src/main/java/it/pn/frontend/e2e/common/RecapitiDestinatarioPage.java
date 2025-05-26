@@ -1445,31 +1445,32 @@ public void verificaEDisattivaEmail() {
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("tr[data-testid='notificationsTable.body.row']")));
 
         for (WebElement row : rows) {
-                // Attendi che lo stato della notifica nella riga corrente sia visibile
-                WebElement statusChip = getWebDriverWait(10)
-                        .withMessage("Impossibile trovare lo colonna STATO")
-                        .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[data-testid^='statusChip-']")));
-                String status = statusChip.getAttribute("aria-label");
+            // Attendi che lo stato della notifica nella riga corrente sia visibile
+            WebElement statusChip = getWebDriverWait(10)
+                    .withMessage("Impossibile trovare lo colonna STATO")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div[data-testid^='statusChip-']")));
+            String status = statusChip.getAttribute("aria-label");
 
-                // Controlla se lo stato è "Avvenuto accesso"
-                if (status.contains("Avvenuto accesso")) {
-                    // Attendi che il pulsante "Vedi dettaglio" nella riga corrente sia cliccabile
-                    WebElement detailButton = getWebDriverWait(10)
-                            .withMessage("Impossibile Trovare il tasto Vedi Dettaglio con stato Avvenuto accesso")
-                            .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='goToNotificationDetail']")));
-                    // Scorri l'elemento nella vista (se necessario)
-                    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailButton);
-                    // Attendi che l'elemento sia cliccabile
-                    detailButton = getWebDriverWait(10)
-                            .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
-                            .until(ExpectedConditions.elementToBeClickable(detailButton));
+            // Controlla se lo stato è "Avvenuto accesso"
+            if (status.contains("Avvenuto accesso")) {
+                // Attendi che il pulsante "Vedi dettaglio" nella riga corrente sia cliccabile
+                WebElement detailButton = getWebDriverWait(10)
+                        .withMessage("Impossibile Trovare il tasto Vedi Dettaglio con stato Avvenuto accesso")
+                        .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='goToNotificationDetail']")));
+                // Scorri l'elemento nella vista (se necessario)
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", detailButton);
+                // Attendi che l'elemento sia cliccabile
+                detailButton = getWebDriverWait(10)
+                        .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
+                        .until(ExpectedConditions.elementToBeClickable(detailButton));
 
-                    // Forza il clic utilizzando JavascriptExecutor (se necessario)
-                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", detailButton);
+                // Forza il clic utilizzando JavascriptExecutor (se necessario)
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", detailButton);
 
 
-                }
+            }
         }
+    }
 
     public String getEmailInvalidMessage() {
         getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email-helper-text"))));
