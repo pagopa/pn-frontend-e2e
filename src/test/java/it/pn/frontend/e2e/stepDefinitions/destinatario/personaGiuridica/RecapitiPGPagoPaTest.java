@@ -425,6 +425,12 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale();
     }
 
+
+    @And("Seleziona la notifica Avvenuto Accesso")
+    public void selezionaLaNotificaAvvenutoAccesso() {
+        recapitiDestinatarioPage.selezionaLaNotificaAvvenutoAccesso();
+    }
+
     @And("Inserisci Pec Errata {string}")
     public void inserisciPecErrata(String pec) {
         recapitiDestinatarioPage.insertPEC(pec);
@@ -439,6 +445,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void siVisualizzaCorrettamenteIlMessaggioDiEmailNonValida() {
         String errorMessageRead = recapitiDestinatarioPage.getEmailInvalidMessage();
         Assertions.assertNotNull(errorMessageRead, "Messaggio di errore letto : '" + errorMessageRead + "' ");
+
 
     }
 
