@@ -279,12 +279,28 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
-        logger.info("Si inserisce il codice IUN...." + codiceIUN);
-        webTool.waitTime(10);
-        getWebDriverWait(100).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
-        driver.findElement(By.id("iunMatch")).click();
-        driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
-        logger.info("Codice IUN inserito");
+//        logger.info("Si inserisce il codice IUN...." + codiceIUN);
+//        webTool.waitTime(10);
+//        getWebDriverWait(100).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+//        driver.findElement(By.id("iunMatch")).click();
+//        driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
+//        logger.info("Codice IUN inserito");
+
+
+        // Attendi che il campo per l'inserimento del codice IUN sia visibile
+        WebElement iunField = getWebDriverWait(100)
+                .withMessage("Il campo per l'inserimento del codice IUN non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("iunMatch")));
+
+        // Clicca sul campo
+        iunField.click();
+
+        // Cancella il contenuto del campo
+        iunField.clear();
+
+        // Inserisci il nuovo codice IUN
+        iunField.sendKeys(codiceIUN);
+
     }
 
     public boolean verificaCodiceIUN(String codiceIUNInserito) {

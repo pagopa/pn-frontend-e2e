@@ -140,12 +140,41 @@ public class RicercaNotifichePGPage extends BasePage {
         confermaButton.click();
     }
 
-    public void verificaNeumroCopyCostiDiNotificaInclusi(int numeroCopy) {
-        List<WebElement> costElements = getWebDriverWait(10)
-                .withMessage("Impossibile trovare il Copy Costi Di Notifica Inclusi")
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//p[contains(@data-testid, 'apply-costs-caption')]")));
+    public void verificaNeumroCopyCostiDiNotificaInclusi(int numeroCopy, String codiceIUN) {
+//        List<WebElement> costElements = getWebDriverWait(10)
+//                .withMessage("Impossibile trovare il Copy Costi Di Notifica Inclusi")
+//                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//p[contains(@data-testid, 'apply-costs-caption')]")));
+//
+//        Assertions.assertEquals(numeroCopy, costElements.size(), "Il numero atteso: " + numeroCopy + " non corrisponde al numero di Copy Costi Di Notifica Inclusi visualizzato: " + costElements.size());
 
-        Assertions.assertEquals(numeroCopy, costElements.size(), "Il numero atteso: " + numeroCopy + " non corrisponde al numero di Copy Costi Di Notifica Inclusi visualizzato: " + costElements.size());
+        try {
+            if (numeroCopy == 0) {
+                // Verifica l'assenza di elementi
+                try {
+                    List<WebElement> costElements = getWebDriverWait(2).until(
+                            ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                                    By.xpath("//p[contains(@data-testid, 'apply-costs-caption')]")
+                            )
+                    );
+                    Assertions.assertTrue(costElements.isEmpty(), "Dovrebbero non esserci elementi con 'apply-costs-caption', ma ne sono stati trovati: " + costElements.size());
+                } catch (TimeoutException e) {
+                    // Se non vengono trovati elementi, il test continua
+                    System.out.println("Nessun elemento con 'apply-costs-caption' trovato, come atteso.");
+                }
+            } else {
+                // Verifica la presenza di un numero specifico di elementi
+                List<WebElement> costElements = getWebDriverWait(10)
+                        .withMessage("Impossibile trovare il Copy Costi Di Notifica Inclusi")
+                        .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                                By.xpath("//p[contains(@data-testid, 'apply-costs-caption')]")
+                        ));
+                logger.info("costElements.size(): " + costElements.size());
+                Assertions.assertEquals(numeroCopy, costElements.size(), "Il numero atteso: " + numeroCopy + " non corrisponde al numero di Copy Costi Di Notifica Inclusi visualizzato: " + costElements.size() + " Con Codice IUN: " + codiceIUN);
+            }
+        } catch (Exception e) {
+            // Se si verifica un errore, lancia un'eccezione
+            Assertions.fail("Errore durante la verifica del numero di Copy Costi Di Notifica Inclusi: " + e.getMessage());
+        }
 
     }
 }

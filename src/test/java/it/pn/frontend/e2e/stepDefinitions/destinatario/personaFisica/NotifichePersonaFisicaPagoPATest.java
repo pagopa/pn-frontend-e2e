@@ -542,6 +542,11 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     public void verificaSezionePagamenti() {
         notifichePFPage.verificaSezionePagamenti();
     }
+
+    @And("Verifica testo {string}")
+    public void verificaTesto(String test0) {
+        notifichePFPage.verificaTesto(test0);
+    }
 }
 
 
