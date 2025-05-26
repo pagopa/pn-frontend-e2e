@@ -637,6 +637,7 @@ public class DestinatarioPage extends BasePage {
 
     public void selezionareApplicaCostoDiNotifica() {
         WebElement switchBase = getWebDriverWait(10)
+                .withMessage("Impossibile trovare ApplicaCostoDiNotifica")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("span.MuiSwitch-switchBase")));
         WebElement inputCheckbox = driver.findElement(By.id("applyCost"));
         boolean isChecked = inputCheckbox.isSelected();
