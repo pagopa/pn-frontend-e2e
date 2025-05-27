@@ -1,4 +1,4 @@
-Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG contenente più avvisi PagoPa e più modelli F24
+Feature: Verifica_copy_notifica_con_costi_senza_costi PG
 
   @TestSuite
   @TA_QA_7048_QA_7495

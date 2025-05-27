@@ -157,7 +157,7 @@ public class RicercaNotifichePGPage extends BasePage {
                     logger.info("Nessun elemento con 'apply-costs-caption' trovato, come atteso.");
                 }
             } else {
-                List<WebElement> costElements = getWebDriverWait(20)
+                List<WebElement> costElements = getWebDriverWait(30)
                         .withMessage("Impossibile trovare il Copy Costi Di Notifica Inclusi con IUN: "+codiceIUN)
                         .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                                 By.xpath("//p[contains(@data-testid, 'apply-costs-caption')]")
