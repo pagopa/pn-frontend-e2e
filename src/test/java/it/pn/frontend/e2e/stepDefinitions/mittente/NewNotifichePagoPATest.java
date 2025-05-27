@@ -295,4 +295,14 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.verificaPaginaComeMai();
 
     }
+
+    @And("Verifica campo precompilato creditorTaxId")
+    public void verificaCampoPrecompilatoCreditorTaxId() {
+        destinatarioPage.verificaCampoPrecompilatoCreditorTaxId();
+    }
+
+    @And("Selezionare Applica Costo di notifica")
+    public void selezionareApplicaCostoDiNotifica() {
+        destinatarioPage.selezionareApplicaCostoDiNotifica();
+    }
 }

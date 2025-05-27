@@ -676,4 +676,30 @@ public class DestinatarioPage extends BasePage {
     }
 
 
+
+    public void verificaCampoPrecompilatoCreditorTaxId() {
+
+        WebElement taxIdInput = getWebDriverWait(10)
+                .withMessage("Input creditorTaxId non presente")
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("creditorTaxId")));
+
+        String valore = taxIdInput.getAttribute("value");
+        Assertions.assertFalse(valore == null || valore.trim().isEmpty(),"Il campo 'creditorTaxId' non è precompilato!");
+
+    }
+
+    public void selezionareApplicaCostoDiNotifica() {
+        WebElement switchBase = getWebDriverWait(10)
+                .withMessage("Impossibile trovare ApplicaCostoDiNotifica")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("span.MuiSwitch-switchBase")));
+        WebElement inputCheckbox = driver.findElement(By.id("applyCost"));
+        boolean isChecked = inputCheckbox.isSelected();
+
+        if (!isChecked) {
+            switchBase.click();
+            logger.info("Switch 'Applica costo di notifica' attivato");
+        } else {
+            logger.info("Switch 'Applica costo di notifica' era già attivo");
+        }
+    }
 }

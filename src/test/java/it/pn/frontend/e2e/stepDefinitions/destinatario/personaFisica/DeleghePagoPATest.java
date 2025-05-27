@@ -81,7 +81,6 @@ public class DeleghePagoPATest extends BasePage {
     private HooksNew hooksNew;
 
 
-    //    Map<String, Object> deleghe = new HashMap<>();
     @Setter
     private String codiceVerifica;
 
@@ -164,8 +163,6 @@ public class DeleghePagoPATest extends BasePage {
         //NUOVA DELEGA
         String codiceVerifica = leTueDelegheSection.salvataggioCodiceVerifica();
 
-//        deleghe.put("codiceDelega", codiceVerifica);
-//        dataPopulation.writeDataPopulation(dpFile + ".yaml", deleghe);
         logger.info("CodiceVerifica Creazione delega: " + codiceVerifica);
         dataPopulationConfig.getNuovaDelega().setCodiceDelega(codiceVerifica);
 
@@ -576,7 +573,6 @@ public class DeleghePagoPATest extends BasePage {
         logger.info("Si controlla che la delega non sia più presente nella lista");
         //personaFisica
         deleghePage.waitLoadingSpinner();
-//        if (!deleghePage.verificaEsistenzaDelega(this.deleghe.get("name").toString(), this.deleghe.get("familyName").toString())) {
         if (!deleghePage.verificaEsistenzaDelega(dataPopulationConfig.getPersonaFisica().getName(), dataPopulationConfig.getPersonaFisica().getFamilyName())) {
             logger.info("La delega non è più presente nella lista");
         } else {
@@ -725,5 +721,20 @@ public class DeleghePagoPATest extends BasePage {
     public void inserisciCredenzialiDelegante(Map<String, String> destinatario) {
         logger.info("Inserisci credenziali Delegato");
         leTueDelegheSection.inserisciCredenzialiDelegato(destinatario);
+    }
+
+    @And("Seleziona PG radio button portale {string}")
+    public void selezionaPGRadioButtonPortale(String portale) {
+        deleghePage.selezionaPGRadioButton(portale);
+    }
+
+    @And("Inserire Codice Fiscale {string}")
+    public void inserireCodiceFiscale(String codiceFiscale) {
+        leTueDelegheSection.inserireCF(codiceFiscale);
+    }
+
+    @Then("Verifica messaggio errore Deleghe {string}")
+    public void verificaMessaggioErroreDeleghe(String messaggio) {
+        deleghePage.verificaMessaggioErroreDeleghe(messaggio);
     }
 }
