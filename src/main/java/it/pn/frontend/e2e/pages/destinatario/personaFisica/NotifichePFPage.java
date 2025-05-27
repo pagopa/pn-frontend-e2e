@@ -189,7 +189,6 @@ public class NotifichePFPage extends BasePage {
     }
 
     public int siVisualizzaNotifichePresenti() {
-       // List<WebElement> rigaDelegaBy = driver.findElements(By.id("notificationsTable.body.row"));
         getWebDriverWait(30).withMessage("Nessuna notifica presente nella tabella notifiche").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
         return driver.findElements(By.id("notificationsTable.body.row")).size();
     }
@@ -386,62 +385,30 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void verificaTesto(String testoAtteso) {
-//        try {
-//            // Cerca l'elemento che contiene il testo
-//            WebElement element = getWebDriverWait(10).until(
-//                    ExpectedConditions.visibilityOfElementLocated(
-//                            By.cssSelector("p[data-testid='notification-payment-recipient-subtitle']")
-//                    )
-//            );
-//
-//            // Estrai il testo dall'elemento
-//            String actualText = element.getText();
-//
-//            // Confronta il testo atteso con il testo effettivo
-//            Assertions.assertTrue(actualText.contains(testoAtteso), "Il testo Trovato "+actualText+" mentre il testo passato  non contiene la stringa attesa: " + testoAtteso);
-//
-//
-//        } catch (Exception e) {
-//            // Se si verifica un errore, lancia un'eccezione
-//            Assertions.fail("Errore durante la verifica del testo dell'elemento: " + e.getMessage());
-//        }
 
         try {
-            // Cerca l'elemento che contiene il testo
             WebElement element = getWebDriverWait(10).until(
                     ExpectedConditions.visibilityOfElementLocated(
                             By.cssSelector("p[data-testid='notification-payment-recipient-subtitle']")
                     )
             );
 
-            // Estrai il testo dall'elemento
             String actualText = element.getText();
-            System.out.println("Testo actualText: " + actualText);
-            // Sostituisci i punti interrogativi con apostrofi nel testo effettivo
             String processedActualText = actualText.replaceAll("\\?", "");
 
-            // Normalizza il testo rimuovendo gli accenti e altri caratteri speciali
             String normalizedActualText = Normalizer.normalize(processedActualText, Normalizer.Form.NFD)
                     .replaceAll("\\p{M}", "")
                     .replaceAll("'", "")
                     .replaceAll("\\s+", " ");
-            System.out.println("Testo normalizedActualText: " + normalizedActualText);
 
             String normalizedTestoAtteso = Normalizer.normalize(testoAtteso, Normalizer.Form.NFD)
                     .replaceAll("\\p{M}", "")
                     .replaceAll("'", "")
                     .replaceAll("\\s+", " ");
-            System.out.println("Testo normalizedTestoAtteso: " + normalizedTestoAtteso);
-            // Stampa il testo effettivo per il debug
-
-
-            // Confronta il testo atteso con il testo effettivo
             Assertions.assertTrue(normalizedActualText.contains(normalizedTestoAtteso),
                     "Il testo trovato '" + normalizedActualText + "' non contiene la stringa attesa: '" + normalizedTestoAtteso + "'");
 
-
         } catch (Exception e) {
-            // Se si verifica un errore, lancia un'eccezione
             Assertions.fail("Errore durante la verifica del testo dell'elemento: " + e.getMessage());
         }
     }

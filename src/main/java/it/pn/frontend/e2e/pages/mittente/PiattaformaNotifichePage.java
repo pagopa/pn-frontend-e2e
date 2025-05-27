@@ -166,7 +166,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
-            logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
             Assertions.fail("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
         }
     }
@@ -180,7 +179,6 @@ public class PiattaformaNotifichePage extends BasePage {
             getWebDriverWait(3).until(ExpectedConditions.attributeToBe(cfTextField, "value", codiceFiscale));
             logger.info("Codice Fiscale inserito correttamente");
         } catch (TimeoutException e) {
-            logger.error("Codice Fiscale Non inserito con errore: " + e.getMessage());
             Assertions.fail("Codice Fiscale Non inserito con errore: " + e.getMessage());
         }
 
@@ -580,7 +578,6 @@ public class PiattaformaNotifichePage extends BasePage {
             selezionaPage50();
 
             webTool.waitTime(10);
-           // notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
             List<WebElement> notifiche = getWebDriverWait(10)
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
 
@@ -638,7 +635,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
                 int randomNumber = 0;
                 if (notifiche.size()>1){
-                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);;
+                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
                 }
 
                 Calendar calendar = GregorianCalendar.getInstance();
@@ -682,6 +679,7 @@ public class PiattaformaNotifichePage extends BasePage {
             selezionaPage50();
 
             List<WebElement> notifiche = getWebDriverWait(10)
+                    .withMessage("Impossibile trovare notificationsTable.body.row")
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
 
             if (!notifiche.isEmpty()) {
@@ -707,15 +705,12 @@ public class PiattaformaNotifichePage extends BasePage {
                             primaNotifica, By.cssSelector("button[data-testid='goToNotificationDetail']"))
                     );
 
-            // Scorri l'elemento nella vista (se necessario)
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonVediDettaglio);
 
-            // Attendi che l'elemento sia cliccabile
             buttonVediDettaglio = getWebDriverWait(10)
                     .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
                     .until(ExpectedConditions.elementToBeClickable(buttonVediDettaglio));
 
-            // Forza il clic utilizzando JavascriptExecutor (se necessario)
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonVediDettaglio);
             logger.info("Cliccato sul pulsante 'Vedi Dettaglio'");
         } catch (Exception e) {
@@ -753,11 +748,6 @@ public class PiattaformaNotifichePage extends BasePage {
         driver.navigate().to("https://selfcare." + environment + ".notifichedigitali.it/dashboard/" + IUN + "/dettaglio");
     }
 
-    //    public void selectInviaUnaNuovaNotificaButton() {
-//        getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("new-notification-btn"))));
-//        inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
-//        inviaNuovaNotificaButton.click();
-//    }
     public void selectInviaUnaNuovaNotificaButton() {
 
         WebElement button = getWebDriverWait(10)
@@ -1689,7 +1679,6 @@ public class PiattaformaNotifichePage extends BasePage {
         if (!destinatario.isEmpty() && destinatario.get(0).isDisplayed()) {
             logger.info("Si visualizza correttamente il destinatario {} con CF {}", tipo, cf);
         } else {
-            logger.error("Non si visualizza il destinatario {} con CF {}", tipo, cf);
             Assertions.fail("Non si visualizza il destinatario " + tipo + " con CF " + cf);
         }
     }
@@ -1780,7 +1769,7 @@ public class PiattaformaNotifichePage extends BasePage {
             informativaPrivacyOrTerminiCondizioneLink.click();
             webTool.waitTime(1);
         } catch (TimeoutException e) {
-            System.out.println("Link Informativa Privacy  o Termini e Condizione non trovato o non visibile.");
+            logger.info("Link Informativa Privacy  o Termini e Condizione non trovato o non visibile.");
         }
     }
 
@@ -1810,7 +1799,6 @@ public class PiattaformaNotifichePage extends BasePage {
         if (StringUtils.isEmpty(banner)){
             //assenza di banner
             boolean nonPresente = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xPathBanner)));
-            logger.info("Non Presente:" +nonPresente);
             Assertions.assertTrue(nonPresente, "Banner Bilinguismo presente");
         }
         else {
@@ -1821,25 +1809,10 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaPopUp(String verifica) {
-//        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
-//        webTool.waitTime(5);
-
-
         WebElement popup = getWebDriverWait(10)
-                .until(ExpectedConditions.visibilityOfElementLocated(
-                        By.id("alert-api-status")
-                ));
-
+                .withMessage("Impossibile Trovare alert-api-status")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("alert-api-status")));
         Assertions.assertTrue(popup.getText().contains(verifica));
-
-//        try {
-//            WebElement alert = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("alert-api-status")));
-//            Assertions.assertEquals(verifica, alert.getText(), "Il messaggio del pop-up non corrisponde!");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il pop-up non è comparso entro il tempo limite.");
-//        }
-
-
     }
 
     public void selezioneImpostazioneLingua() {
@@ -1873,7 +1846,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
         getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
-        logger.info("gruppo " + gruppoLingua + " trovato con successo");
         gruppoLingua.click();
     }
 
