@@ -8,25 +8,20 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.HelpdeskPage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.enums.Disservice;
 import it.pn.frontend.e2e.model.enums.Status;
-import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -266,10 +261,26 @@ public class HelpdeskTest extends BasePage {
 
     @And("Controllo sia presente documento {string}")
     public void controlloPresenteDocumento(String docName) throws IOException {
-        logger.info("Controllo sia presente documento" + docName);
+        logger.info("Controllo sia presente documento {}", docName);
         webTool.waitTime(5);
         Assertions.assertTrue (helpdeskPage.trovaDocumentoConTitolo(docName), "Documento " + docName + " non è trovato");
-            logger.info("Documento " + docName + " è trovato");
+        logger.info("Documento {} è trovato", docName);
+    }
+
+    @And("Controllo sia presente documento estratto da zip con testo {string} {string}")
+    public void controlloPresenteDocumentoDaZipConTesto(String docName, String testo) throws IOException {
+        logger.info("Controllo sia presente documento {} e che contenga il testo {}", docName, testo);
+        webTool.waitTime(5);
+        Assertions.assertTrue(helpdeskPage.trovaTestoInDocumentoDaZip(docName, testo), "Documento " + docName + " non è trovato o non contiene il testo " + testo);
+        logger.info("Documento {} è trovato e contiene il testo {}", docName, testo);
+    }
+
+    @And("Controllo sia presente documento estratto da zip e che sia vuoto {string}")
+    public void controlloPresenteDocumentoDaZipVuoto(String docName) throws IOException {
+        logger.info("Controllo sia presente documento {} e che sia vuoto", docName);
+        webTool.waitTime(5);
+        Assertions.assertFalse(helpdeskPage.trovaDocumentoDaZipConDimensioni(docName), "Documento " + docName + " non è trovato oppure non è vuoto");
+        logger.info("Documento {} è trovato ed è vuoto", docName);
     }
 
     @And("Si elimina file estratto")

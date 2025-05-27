@@ -12,6 +12,7 @@ import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
+import it.pn.frontend.e2e.pages.destinatario.personaFisica.ConfermaDatiSpidPFPage;
 import it.pn.frontend.e2e.pages.mittente.*;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
@@ -66,6 +67,7 @@ public class LoginMittentePagoPA extends BasePage {
     private SelezionaEntePAPage selezionaEntePAPage;
 
     private AreaRiservataPAPage areaRiservataPAPage;
+    private ConfermaDatiSpidPFPage confermaDatiSpidPFPage ;
 
     @Autowired
     BasicCookieStore cookieStore;
@@ -92,6 +94,7 @@ public class LoginMittentePagoPA extends BasePage {
         scegliSpidPAPage = new ScegliSpidPAPage(driver);
         acccediAreaRiservataPAPage = new AcccediAreaRiservataPAPage(driver);
         cookiesSection = new CookiesSection(driver);
+        confermaDatiSpidPFPage = new ConfermaDatiSpidPFPage(driver);
     }
 
 
@@ -220,8 +223,8 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginConMittente(Map<String,String> datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
 
-        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
-        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
+//        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
+//        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -236,20 +239,39 @@ public class LoginMittentePagoPA extends BasePage {
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
-        scegliSpidPAPage.selezionareTestButton();
+        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
 
-        loginPAPage.waitLoadLoginPAPage();
-        loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
-        loginPAPage.inserisciPassword( webDriverConfig.getPwdMittente());
-        loginPAPage.selezionaInviaDati();
 
-        autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
-        autorizziInvioDatiPAPage.selezionareInvia();
+//        scegliSpidPAPage.selezionareTestButton();
+
+//        loginPAPage.waitLoadLoginPAPage();
+        loginPAPage.inserisciUtenete(datiMittenteFile.get("user"));
+        loginPAPage.inserisciPassword(datiMittenteFile.get("pwd"));
+        loginPAPage.entraConSpid();
+
+        confermaDatiSpidPFPage.selezionaConfermaButton();
+
+//        headerPFSection.waitUrlToken();
+
+//        loginPAPage.selezionaInviaDati();
+
+//        autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
+//        autorizziInvioDatiPAPage.selezionareInvia()
+
+        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+                !webDriverManager.getCookieConfig().isCookieEnabled()) {
+            logger.info("cookies start");
+            cookiesSection.selezionaAccettaTuttiButton();
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+            logger.info("cookies end");
+        }
 
         webTool.waitTime(10);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
-        selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
+        selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));
+        selezionaEntePAPage.selezionareComune(datiMittenteFile.get("comune"));
         selezionaEntePAPage.selezionaAccedi();
     }
 
