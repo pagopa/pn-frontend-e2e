@@ -141,7 +141,7 @@ public class RicercaNotifichePGPage extends BasePage {
     }
 
     public void verificaNeumroCopyCostiDiNotificaInclusi(int numeroCopy, String codiceIUN) {
-
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
         try {
             if (numeroCopy == 0) {
                 // Verifica l'assenza di elementi
