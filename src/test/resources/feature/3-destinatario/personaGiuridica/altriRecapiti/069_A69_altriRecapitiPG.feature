@@ -1,8 +1,8 @@
 Feature: La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
 
 
-  @TA_altriRecapitiPGVisualizzaCorrettamente
-
+#  @TA_altriRecapitiPGVisualizzaCorrettamente
+# NON replicabile perche il test prevede eliminazione del cell, ma per poter eliminareil cell dovremmo prima inserirlo ad oggi  il test non è implementabile perchè non abbiamo la possibilita di recupero OTP
   Scenario: PN-9161 -A1 La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

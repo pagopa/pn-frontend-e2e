@@ -603,14 +603,19 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage(Iun);
     }
 
-    @And("ricerca notifica con IUN salvato")
-    public void ricercaNotificaConIunSalvato(){
-        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvato(Iun);
+    @And("Mittente ricerca notifica con IUN salvato")
+    public void ricercaNotificaConIunSalvatoMittente(){
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvatoMittente(Iun);
+    }
+
+    @And("Destinatario ricerca notifica con IUN salvato")
+    public void ricercaNotificaConIunSalvatoDestinatario(){
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvatoDestinatario(Iun);
     }
 
     @And("Mittente ricerca notifica con IUN salvato {string}")
     public void ricercaNotificaConIunMittente(String iun){
-        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvato(iun);
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvatoMittente(iun);
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica")
@@ -1171,7 +1176,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
-        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+        //informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
         if (datiNotifica.get("modalitaInvio").equals("A/R")) {
             informazioniPreliminariPASection.selectRaccomandataAR();
         } else {

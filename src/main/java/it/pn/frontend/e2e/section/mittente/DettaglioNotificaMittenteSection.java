@@ -613,9 +613,14 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         ente.click();
     }
 
-    public void ricercaNotificaConIunSalvato(String iun) {
+    public void ricercaNotificaConIunSalvatoMittente(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
+    }
+
+    public void ricercaNotificaConIunSalvatoDestinatario(String iun) {
+        piattaformaNotifichePage.inserimentoCodiceIUN(iun);
+        piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
     }
 
     public void selezionaServizioNotificheDigitale() {

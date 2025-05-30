@@ -1,12 +1,13 @@
 Feature: la persona giuridica inserisce un OTP email sbagliato
 
-  @TestSuite
-  @PG
-  @TA_inserimentoOTPErratoEmailPG
-  @recapitiPG
-  @mittente_x1
-  @addressBook2
-  @recapitiPFPG
+#  @TestSuite
+#  @PG
+#  @TA_inserimentoOTPErratoEmailPG
+#  @recapitiPG
+#  @mittente_x1
+#  @addressBook2
+#  @recapitiPFPG
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2  [REWORK_DOMICILIO_DIGITALE_PG_70]
   Scenario: PN-9155-D63 - La persona giuridica inserisce un OTP email sbagliato
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

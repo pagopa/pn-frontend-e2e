@@ -39,13 +39,13 @@ public class ITuoiRecapitiPage extends BasePage {
 
 public void iTuoiRecapitiButtonClick() {
     try {
-        WebElement iTuoiRecapitiButton = getWebDriverWait(20)
+        WebElement buttonTuoiRecapiti = getWebDriverWait(20)
                 .withMessage("Impossibile cliccare su menu laterale 'I tuoi recapiti'")
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("side-item-I tuoi recapiti")));
-        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(iTuoiRecapitiButton));
-        getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(iTuoiRecapitiButton));
-        js().executeScript("arguments[0].scrollIntoView(true);", iTuoiRecapitiButton);
-        js().executeScript("arguments[0].click();", iTuoiRecapitiButton);
+        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(buttonTuoiRecapiti));
+        getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(buttonTuoiRecapiti));
+        js().executeScript("arguments[0].scrollIntoView(true);", buttonTuoiRecapiti);
+        js().executeScript("arguments[0].click();", buttonTuoiRecapiti);
 
         logger.info("Cliccato su 'I tuoi recapiti' con successo.");
     } catch (TimeoutException e) {
@@ -403,5 +403,56 @@ public void iTuoiRecapitiButtonClick() {
                 .withMessage("Bottone 'Ok, ho capito' per pop-up 'Impossibile disattivare il Domicilio Digitale' non è visibile")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("buttonClose"))));
         buttonChiudi.click();
+    }
+
+    public void clickNotifiche() {
+        WebElement notificaButton = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare sul menu laterale la Voce Notifiche ")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='sideMenuItem-Notifiche']")));
+        notificaButton.click();
+    }
+
+    public void clickLeTueNotifiche() {
+        WebElement elemento = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare sul menu laterale la Voce Le Tue Notifiche ")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='sideMenuItem-Le tue notifiche']")));
+        elemento.click();
+    }
+
+    public void clickBottoneIniziaNelBanner() {
+
+        getWebDriverWait(10)
+                .withMessage("Impossibile Trovare il Banner ")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-testid='addDomicileBanner']")));
+
+        WebElement iniziaButton = getWebDriverWait(10)
+                .withMessage("Impossibile I tasto Inizia")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-testid='addDomicileBanner']//button[contains(@class, 'MuiButton-root')]")));
+        iniziaButton.click();
+    }
+
+    public void clickAnnullaServizioNotificheDigitali() {
+        WebElement annullaButton = getWebDriverWait(10)
+                .withMessage("Impossibile Trovare il tasto Annulla")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//div[contains(@class, 'css-ipfk0c')]//button")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", annullaButton);
+    }
+
+    public void clickITuoiDati() {
+        WebElement buttonITuoiDati = getWebDriverWait(10)
+                .withMessage("Impossibile trovare I Tuoi Dati Dall'icona della PF")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='party-menu-button']")));
+        buttonITuoiDati.click();
+        // Prendi tutte le voci del menu
+        List<WebElement> menuItems =
+                getWebDriverWait(10)
+                        .withMessage("Impossibile trovare il menu a tendina I Tuoi Dati Dall'icona della PF")
+                        .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                                By.cssSelector("ul[role='menu'] > li")
+                        ));
+
+        // Clicca la seconda voce (indice 0): "I TUoi dati", indipendente dalla lingua
+        menuItems.get(0).click();
     }
 }

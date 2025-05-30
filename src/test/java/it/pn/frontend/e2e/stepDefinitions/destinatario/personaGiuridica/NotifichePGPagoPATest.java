@@ -182,8 +182,6 @@ public class NotifichePGPagoPATest extends BasePage {
 
     @And("Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheImpresa() {
-        logger.info("Si clicca correttamente su notifiche dell' impresa");
-
         piattaformaNotifichePGPAPage.clickNotificheENotificheImpresa();
     }
 
