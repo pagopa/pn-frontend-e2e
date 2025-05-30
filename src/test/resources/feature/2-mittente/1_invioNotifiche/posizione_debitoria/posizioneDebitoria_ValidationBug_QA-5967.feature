@@ -10,6 +10,7 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Cliccare su continua
 #    Posizione Debitoria
@@ -17,6 +18,7 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Cliccare su continua
 ## Step Dettaglio posizione debitoria
     And Seleziona A Carico del Destinatario 1
+    And Seleziona Modo Asincrono 1
     And Inserire IVA
     And Inserire Costo di notifica
     
@@ -24,7 +26,6 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
 #    And Seleziona A Carico del Destinatario 1
 #    And Inserire IVA
 #    And Inserire Costo di notifica
-    And Seleziona Modo Asincrono 1
 ##  Posizione debitoria di xxxx
     And Inserire Tutti Codice Avviso
     And Verifica campo precompilato creditorTaxId
