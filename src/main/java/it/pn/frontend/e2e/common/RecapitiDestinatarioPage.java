@@ -1432,7 +1432,7 @@ public void verificaEDisattivaEmail() {
         WebElement esciButton = getWebDriverWait(10)
                 .withMessage("Impossibile Trovare il tasto Esci del metodo clickBottoneEsciPF")
                 .until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("button.css-y0rh4q")));
+                By.xpath("//button//*[@data-testid='ArrowBackIcon']")));
         esciButton.click();
     }
 

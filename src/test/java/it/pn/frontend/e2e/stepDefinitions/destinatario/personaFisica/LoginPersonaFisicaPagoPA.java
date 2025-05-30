@@ -109,19 +109,15 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     public void loginMittenteConTokenExchange(String personaFisica) {
        String environment = webDriverConfig.getEnvironment();
         String token = "";
-//        switch (environment) {
-//            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-//                    webDriverConfig.getTokendevPFDelegante()
-//                    :
-//                    webDriverConfig.getTokendevPGDelegato();
-//            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-//                    webDriverConfig.getTokentestPFDelegante()
-//                    :
-//                    webDriverConfig.getTokentestPFDelegato();
-//            default -> {
-//                Assertions.fail("Ambiente non valido o non trovato!");
-//            }
-//        }
+        switch (environment) {
+            case "dev", "test", "uat" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+                    webDriverConfig.getTokentestPFDelegante()
+                    :
+                    webDriverConfig.getTokentestPFDelegato();
+            default -> {
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
 
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
