@@ -253,7 +253,6 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         webTool.waitTime(3);
         List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
         if (disserviziTableRows.isEmpty()) {
-            logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
             Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
             return;
         }

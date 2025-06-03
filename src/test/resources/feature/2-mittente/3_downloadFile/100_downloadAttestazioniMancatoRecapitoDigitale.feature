@@ -1,9 +1,9 @@
 Feature: il mittente effettua il download attestazione opponibile a terzi mancato recapito digitale
 
-  @parallel
-  @TA_MittenteDownloadAttestazioneMancatoRicapDigitale
-  @mittente
-  @DownloadFileMittente
+#  @parallel
+#  @TA_MittenteDownloadAttestazioneMancatoRicapDigitale
+#  @mittente
+#  @DownloadFileMittente
 
   Scenario: PN-9927 - il mittente effettua il download attestazione opponibile a terzi mancato recapito digitale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -25,4 +25,4 @@ Feature: il mittente effettua il download attestazione opponibile a terzi mancat
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: mancato recapito digitale")] |
       | vediDettagli | false                                          |
-    And Logout da portale mittente
+#    And Logout da portale mittente

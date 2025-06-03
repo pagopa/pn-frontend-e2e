@@ -2,11 +2,12 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
 
   @TestSuite
   @TA_MittenteScaricaAARDellaNotificaAnnullata
-  @mittente
-  @visualizzazioneNotificheMittente
+#  @mittente
+#  @visualizzazioneNotificheMittente
 
+  @DownloadFileMittente
 
-  @loginFE
+#  @loginFE
   Scenario: PN-10245-A - Mittente scarica documento AAR della notifica annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN "NPMK-EKTP-AGAD-202410-N-1"
@@ -18,7 +19,7 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
       | xpathStato   | //button[@id='document-button' and .//div[contains(text(),'Avviso di avvenuta ricezione')]]  |
       | vediDettagli | false                                          |
     Then Si clicca sul documento AAR
-    And Logout da portale mittente
+#    And Logout da portale mittente
 
 
 

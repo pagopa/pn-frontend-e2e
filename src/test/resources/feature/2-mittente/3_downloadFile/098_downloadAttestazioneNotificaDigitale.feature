@@ -3,7 +3,6 @@ Feature: il mittente effettua il download attestazione opponibile a terzi notifi
   @TestSuite
   @TA_MittenteDownloadAttestazioneNotificaDigitale
   @DownloadFileMittente
-  @loginFE
   Scenario: PN-9926 - il mittente effettua il download attestazione opponibile a terzi notifica digitale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche si recupera un codice IUN di una persona giuridica
@@ -13,4 +12,4 @@ Feature: il mittente effettua il download attestazione opponibile a terzi notifi
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
       | vediDettagli | false                                          |
-    And Logout da portale mittente
+#    And Logout da portale mittente

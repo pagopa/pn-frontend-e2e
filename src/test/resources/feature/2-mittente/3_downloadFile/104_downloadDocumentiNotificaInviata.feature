@@ -2,9 +2,9 @@ Feature: il mittente download attestazione notifica presa in carico
 
   @TestSuite
   @TA_MittenteDownloadDocumentiNotificaInviata
-  @mittente
+#  @mittente
   @DownloadFileMittente
-  @120gg
+#  @120gg
   Scenario: PN-11678 - il mittente download documenti di una notifica inviata da oltre 120 giorni
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'
@@ -27,7 +27,9 @@ Feature: il mittente download attestazione notifica presa in carico
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita
     And Salva codice IUN
-    And Logout da portale mittente
+
+#    And Logout da portale mittente
+
     And Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
