@@ -21,11 +21,6 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     And Seleziona Modo Asincrono 1
     And Inserire IVA
     And Inserire Costo di notifica
-    
-#    And Seleziona Incluso Nell Atto 1
-#    And Seleziona A Carico del Destinatario 1
-#    And Inserire IVA
-#    And Inserire Costo di notifica
 ##  Posizione debitoria di xxxx
     And Inserire Tutti Codice Avviso
     And Verifica campo precompilato creditorTaxId
@@ -33,11 +28,5 @@ Feature: Avviso PagoPa a carico sincrona con iva + importo Piu codici Avvisi per
     #  PosizioneDebitoria_10
     And Carica Singolo File PDF Posizione Debitoria Numero Notifiche Pari a 1
     And Selezionare Applica Costo di notifica
-
-
-
-
-
     And Cliccare su continua
-    And Attendi secondi "10"
 
