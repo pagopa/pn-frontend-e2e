@@ -3,6 +3,7 @@ Feature: il mittente download attestazione notifica presa in carico
   @TestSuite
   @TA_MittenteDownloadAttestazionePresaInCarico
   @DownloadFileMittente
+  @NRT
   Scenario: PN-9925 - il mittente scarica il file Attestazione opponibile a terzi: notifica presa in carico
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Cliccare sulla notifica restituita
