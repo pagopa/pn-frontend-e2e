@@ -601,6 +601,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("viene inserito codice IUN salvato")
     public void vieneInseritoIunSalvato() {
         dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage(Iun);
+//        dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage("XVAU-NMXQ-RKUL-202408-Y-1");
     }
 
     @And("Mittente ricerca notifica con IUN salvato")

@@ -1058,7 +1058,7 @@ public class PiattaformaNotifichePage extends BasePage {
             js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
         int i = 0;
-        while (element(By.id("next")).isEnabled()) {
+        while (element(By.id("next")).isEnabled() && i<=pagina ) {
             element(By.id("next")).click();
             webTool.waitTime(2);
             try {
@@ -1068,6 +1068,7 @@ public class PiattaformaNotifichePage extends BasePage {
             } catch (NoSuchElementException e) {
                 logger.error(paginaString +" non visualizzata");
             }
+            i++;
         }
 
     }

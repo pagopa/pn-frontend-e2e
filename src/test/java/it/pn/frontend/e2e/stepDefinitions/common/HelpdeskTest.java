@@ -248,6 +248,7 @@ public class HelpdeskTest extends BasePage {
 
     @Then("controllo link per scaricare zip e scarico file")
     public void controlloLinkPerScaricareZip() throws IOException, AWTException {
+
         helpdeskPage.setHeadlessParam(webDriverConfig.getHeadless());
         helpdeskPage.checkZipLink();
     }

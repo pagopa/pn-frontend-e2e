@@ -79,7 +79,6 @@ public class DisserviziAppPAPage extends BasePage {
 
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la sezione disservizi con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
         }
     }
@@ -421,10 +420,9 @@ public boolean confrontoFileConDisservizio() {
 }
 
     public void checkMessaggioScadenzaDownload() {
-        //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
-        //webTool.waitTime(2);
-       // WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
-        getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
+        getWebDriverWait(10)
+                .withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
     }
 
 }

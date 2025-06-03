@@ -12,9 +12,11 @@ Feature: il mittente download attestazione notifica presa in carico
     And Si visualizza correttamente la tabella dei disservizi
     And Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro
     #And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima
-    And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 15
+    And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 18
     And Download file attestazione disservizio
+
     And Si controlla che esista pop up scadenza disservizi
+
     And Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'
     And Nella pagina Piattaforma Notifiche mittente inserire un arco temporale di maggiore di 120 giorni
     #And Nella pagina Piattaforma Notifiche mittente inserire un arco temporale
@@ -27,19 +29,18 @@ Feature: il mittente download attestazione notifica presa in carico
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita
     And Salva codice IUN
-
-#    And Logout da portale mittente
-
     And Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati
     And Selezione ottieni notifica
+
     And viene inserito codice IUN salvato
+
     And controllo messaggio di successo
     And controllo password
     And controllo link per scaricare zip e scarico file
     And Aspetta 5 secondi
     And Inserisco la password ed estraggo il file zip
-    And Controllo sia presente documento "Riepilogo fallimenti.txt"
+    And Controllo sia presente documento "dati.txt"
     And Si elimina file estratto

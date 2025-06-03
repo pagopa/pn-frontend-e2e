@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -237,7 +238,6 @@ public class HelpdeskPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(ricercaButton));
             elements(ricercaButton).get(0).click();
         } catch (TimeoutException e) {
-            logger.error("Card ricerca non cliccabile: " + e.getMessage());
             Assertions.fail("Card ricerca non cliccabile: " + e.getMessage());
         }
     }
@@ -452,49 +452,72 @@ public class HelpdeskPage extends BasePage {
 
 
     public void checkZipLink() throws IOException, AWTException {
-   
-        boolean headless = headlessParam.equalsIgnoreCase("true");
-        if (!headless) {
-            logger.info("controllo esistenza link per scaricare zip");
-            By zipLink = By.xpath("//a[contains(text(),'Download')]");
-            this.getWebDriverWait(10).withMessage("Link per scaricare zip non trovato").until(ExpectedConditions.visibilityOfElementLocated(zipLink));
-            this.element(zipLink).click();
-            Robot robot = new Robot();
-            robot.setAutoDelay(100);
-            robot.delay(2000);
+
+            By zipLinkLocator = By.xpath("//a[contains(text(),'Download')]");
+
+            // Aspetta il link e prendi l'URL del file ZIP
+            WebElement zipLink = getWebDriverWait(10)
+                    .withMessage("Link 'Download' non trovato")
+                    .until(ExpectedConditions.elementToBeClickable(zipLinkLocator));
+
+            String url = zipLink.getAttribute("href");
             String workingDirectory = System.getProperty("user.dir");
-            String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
+            File downloadDir = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
 
-            pressTabKey(robot, 6);
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
+            // Crea la cartella se non esiste
+            if (!downloadDir.exists()) {
+                downloadDir.mkdirs();
+            }
 
-            typeFilePath(robot, path);
-
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-
-            robot.delay(1000);
-
-            pressTabKey(robot, 8);
-
-            robot.keyPress(KeyEvent.VK_ENTER);
-            robot.keyRelease(KeyEvent.VK_ENTER);
-
-            logger.info("Zip scaricato");
-        } else {
-            By zipLink = By.xpath("//a[contains(text(),'Download')]");
-            String url = this.element(zipLink).getAttribute("href");
-            String workingDirectory = System.getProperty("user.dir");
-            File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
-
-            // Generate a unique filename for the downloaded ZIP file
+            // Scarica il file
             String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
+            File destFile = new File(downloadDir, fileName);
+            FileUtils.copyURLToFile(new URL(url), destFile, 5000, 5000);
 
-            File downloadFile = new File(downloadDirectory, fileName);
-            FileUtils.copyURLToFile(new URL(url), downloadFile, 1000, 1000);
-            logger.info("ZIP file downloaded successfully.");
-        }
+
+//        if (!headless) {
+//            logger.info("controllo esistenza link per scaricare zip");
+//            By zipLink = By.xpath("//a[contains(text(),'Download')]");
+//            WebElement linkZip = getWebDriverWait(10)
+//                    .withMessage("Link per scaricare zip non trovato")
+//                    .until(ExpectedConditions.visibilityOfElementLocated(zipLink));
+//            linkZip.click();
+//            Robot robot = new Robot();
+//            robot.setAutoDelay(100);
+//            robot.delay(2000);
+//            String workingDirectory = System.getProperty("user.dir");
+//            String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
+//
+//            pressTabKey(robot, 6);
+//            robot.keyPress(KeyEvent.VK_ENTER);
+//            robot.keyRelease(KeyEvent.VK_ENTER);
+//
+//            typeFilePath(robot, path);
+//
+//            robot.keyPress(KeyEvent.VK_ENTER);
+//            robot.keyRelease(KeyEvent.VK_ENTER);
+//
+//            robot.delay(1000);
+//
+//            pressTabKey(robot, 8);
+//
+//            robot.keyPress(KeyEvent.VK_ENTER);
+//            robot.keyRelease(KeyEvent.VK_ENTER);
+//
+//            logger.info("Zip scaricato");
+//        } else {
+//            By zipLink = By.xpath("//a[contains(text(),'Download')]");
+//            String url = this.element(zipLink).getAttribute("href");
+//            String workingDirectory = System.getProperty("user.dir");
+//            File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
+//
+//            // Generate a unique filename for the downloaded ZIP file
+//            String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
+//
+//            File downloadFile = new File(downloadDirectory, fileName);
+//            FileUtils.copyURLToFile(new URL(url), downloadFile, 1000, 1000);
+//            logger.info("ZIP file downloaded successfully.");
+//        }
     }
 
     private void typeFilePath(Robot robot, String filePath) {
@@ -571,9 +594,14 @@ public class HelpdeskPage extends BasePage {
 
     public void checkPassword() {
         logger.info("controllo esistenza password");
-        webTool.waitTime(5);
-        WebElement messaggio = driver.findElement(By.xpath("//p[contains(text(),'Password:')]"));
-        getWebDriverWait(10).withMessage("Password non trovato").until(ExpectedConditions.visibilityOf(messaggio));
+//        webTool.waitTime(5);
+//        WebElement messaggio = driver.findElement(By.xpath("//p[contains(text(),'Password:')]"));
+//        getWebDriverWait(10).withMessage("Password non trovato").until(ExpectedConditions.visibilityOf(messaggio));
+//        String password = messaggio.getText().split(": ")[1];
+//        setPassword(password);
+        WebElement messaggio = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la Passwrd ")
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//p[contains(text(),'Password:')]")));
         String password = messaggio.getText().split(": ")[1];
         setPassword(password);
     }
