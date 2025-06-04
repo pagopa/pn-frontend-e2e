@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.text.DateFormatSymbols;
 import java.text.MessageFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
@@ -953,51 +954,93 @@ public class PiattaformaNotifichePage extends BasePage {
         return nRigheBy.getText();
     }
 
+//    public void controlloOrdineNotifiche() {
+//        List<WebElement> listaDate = getListaDate();
+//        LocalDate dataSuccessiva;
+//        final String dataOggi = "Oggi";
+//        LocalDate dataPrecedente;
+//        if (listaDate != null) {
+//            for (int i = 0; i < listaDate.size() - 1; i++) {
+//                String dataDopo = listaDate.get(i).getText();
+//                String dataPrima = listaDate.get(i + 1).getText();
+//                if (dataOggi.equals(dataDopo)) {
+//                    dataSuccessiva = LocalDate.now();
+//                } else {
+//                    String[] dateA = dataDopo.split("/");
+//                    dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+//                    dataSuccessiva = LocalDate.parse(dataDopo);
+//                }
+//                if (dataOggi.equals(dataPrima)) {
+//                    dataPrecedente = LocalDate.now();
+//                } else {
+//                    String[] dateA = dataPrima.split("/");
+//                    dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+//                    dataPrecedente = LocalDate.parse(dataPrima);
+//                }
+//                if (dataSuccessiva.isBefore(dataPrecedente)) {
+//                    logger.error("Le date non sono ordinate dal più recente");
+//                    Assertions.fail("Le date non sono ordinate dal più recente");
+//                    return;
+//                }
+//            }
+//        }
+//        logger.info("Le date sono visualizzate correttamente");
+//    }
+
     public void controlloOrdineNotifiche() {
         List<WebElement> listaDate = getListaDate();
-        LocalDate dataSuccessiva;
         final String dataOggi = "Oggi";
-        LocalDate dataPrecedente;
-        if (listaDate != null) {
-            for (int i = 0; i < listaDate.size() - 1; i++) {
-                String dataDopo = listaDate.get(i).getText();
-                String dataPrima = listaDate.get(i + 1).getText();
-                if (dataOggi.equals(dataDopo)) {
-                    dataSuccessiva = LocalDate.now();
-                } else {
-                    String[] dateA = dataDopo.split("/");
-                    dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                    dataSuccessiva = LocalDate.parse(dataDopo);
-                }
-                if (dataOggi.equals(dataPrima)) {
-                    dataPrecedente = LocalDate.now();
-                } else {
-                    String[] dateA = dataPrima.split("/");
-                    dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                    dataPrecedente = LocalDate.parse(dataPrima);
-                }
-                if (dataSuccessiva.isBefore(dataPrecedente)) {
-                    logger.error("Le date non sono ordinate dal più recente");
-                    Assertions.fail("Le date non sono ordinate dal più recente");
-                    return;
-                }
+
+        // Gestisci caso lista vuota o nulla
+        if (listaDate == null || listaDate.isEmpty()) {
+            logger.warn("La lista delle date è vuota o nulla.");
+            return;
+        }
+
+        // Usa DateTimeFormatter per un parsing più robusto
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (int i = 0; i < listaDate.size() - 1; i++) {
+            String dataDopo = listaDate.get(i).getText();
+            String dataPrima = listaDate.get(i + 1).getText();
+
+            LocalDate dataSuccessiva = dataOggi.equals(dataDopo) ? LocalDate.now() : LocalDate.parse(dataDopo, formatter);
+            LocalDate dataPrecedente = dataOggi.equals(dataPrima) ? LocalDate.now() : LocalDate.parse(dataPrima, formatter);
+
+            // Verifica se le date sono ordinate
+            if (dataSuccessiva.isBefore(dataPrecedente)) {
+                logger.error("Le date non sono ordinate dal più recente");
+                Assertions.fail("Le date non sono ordinate dal più recente");
+                return;
             }
         }
+
         logger.info("Le date sono visualizzate correttamente");
     }
 
     private List<WebElement> getListaDate() {
-        try {
-            attesaCaricamentoPagina();
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
-            List<WebElement> dataListBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
-            logger.info("Date trovate correttamente");
+//        try {
+//            attesaCaricamentoPagina();
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
+//            List<WebElement> dataListBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
+//            logger.info("Date trovate correttamente");
+//
+//            return dataListBy;
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Date NON trovate con errore: " + e.getMessage());
+//            return null;
+//        }
+//        webTool.waitTime(5);
+        List<WebElement> dataListBy = getWebDriverWait(30)
+                .withMessage("Impossibile Estrarre la prima colonna inerente alle date")
+                .until(d -> d.findElements(By.cssSelector("#notifications-table td:nth-child(1)")));
 
-            return dataListBy;
-        } catch (TimeoutException e) {
-            Assertions.fail("Date NON trovate con errore: " + e.getMessage());
+        if (dataListBy == null || dataListBy.isEmpty()) {
+            logger.warn("Nessuna data trovata.");
             return null;
         }
+        return dataListBy;
+
     }
 
     public void siScrollaFinoAllaFineDellaPagina() {
