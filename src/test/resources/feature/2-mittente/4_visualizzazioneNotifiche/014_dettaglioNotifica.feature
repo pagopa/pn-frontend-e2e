@@ -12,4 +12,3 @@ Feature: Mittente visualizza il dettaglio di una notifica
     And Si visualizza correttamente l elenco completo degli stati che la notifica ha percorso
     Then Si clicca sul bottone indietro
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Logout da portale mittente

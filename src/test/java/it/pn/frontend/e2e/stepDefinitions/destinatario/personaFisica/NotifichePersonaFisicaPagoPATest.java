@@ -231,7 +231,8 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     @When("La persona fisica clicca sulla notifica restituita")
     public void ilDestinatarioCliccaSullaNotificaRestituita() {
         logger.info("Si clicca sulla notifica");
-        notifichePFPage.selezionaNotifica();
+        piattaformaNotifichePage.selezionaPrimaNotifica();
+//        notifichePFPage.selezionaNotifica();
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica persona fisica")
@@ -315,7 +316,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
 
             if (headless && urlFileAttestazioneOppponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
-                logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
                 Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloads/notificaN" + i + ".pdf");
@@ -335,9 +335,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     @And("Si visualizza correttamente la Pagina Notifiche persona fisica delegante")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaFisicaDelegante() {
         //personaFisica
-//        String nome = personaFisicaDelgante.get("name").toString();
-//        String cognome = personaFisicaDelgante.get("familyName").toString();
-
         notifichePFPage.waitLoadNotificheDEPageDelegante(dataPopulationConfig.getPersonaFisica().getName(),dataPopulationConfig.getPersonaFisica().getFamilyName());
     }
 
@@ -346,14 +343,11 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
         logger.info("Si recupera un codice IUN valido");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresentiPF();
-//        personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         String codiceIun = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
         } else {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiciIun.get(0));
-//            personaFisica.put("codiceIUN", codiciIun.get(0));
-//            dataPopulation.writeDataPopulation("datiNotifica.yaml",personaFisica);
             dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiciIun.get(0));
         }
     }
@@ -377,8 +371,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
 
     @And("Si clicca sulla notifica del delegante")
     public void siCliccaSullaNotificaDelDelegante() {
-        //NON Utilizzata
-//        destinatarioPage.clickSulDettaglioNotificaDelegante();
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
