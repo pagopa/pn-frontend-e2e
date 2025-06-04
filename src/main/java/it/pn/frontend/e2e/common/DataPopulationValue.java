@@ -168,6 +168,7 @@ public enum DataPopulationValue {
     COD_AVVISO("codiceAvviso","302047770009990299",false),
     API_KEY_TEST("codiceApiKeyTEST","2b3d47f4-44c1-4b49-b6ef-54dc1c531311",false),
     API_KEY_DEV("codiceApiKeyDEV","a9f0508d-c344-4347-807f-343bc8210996",false),
+    API_KEY_UAT("codiceApiKeyUAT","776c8ea9-1adb-4518-8593-76890d788758",false),
 
     //NUOVA DELEGA
     NAME_DELEGA("nome_delega_pf","Lucrezia",false),

@@ -1152,6 +1152,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
                     informazioniPreliminariPASection.insertGruppo("GruppoTest");
             case "test" ->
                     informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+            case "uat" ->
+                    informazioniPreliminariPASection.insertGruppo("Gruppo1");
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
@@ -1696,11 +1698,15 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         final String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/delivery/v2.3/requests/";
-        String codiceApi;
-        if (webDriverConfig.getEnvironment().equals("test")) {
-            codiceApi = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
-        } else {
-            codiceApi = "a9f0508d-c344-4347-807f-343bc8210996";
+        String codiceApi = "environmentCode";
+        switch (webDriverConfig.getEnvironment()) {
+            case "dev" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyDEV();
+            case "test" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyTEST();
+            case "uat" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyUAT();
+            default -> {
+                logger.error("Ambiente non valido per siVerificaEsitoNotifica");
+                Assertions.fail("Ambiente non valido o non trovato per siVerificaEsitoNotifica!");
+            }
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
