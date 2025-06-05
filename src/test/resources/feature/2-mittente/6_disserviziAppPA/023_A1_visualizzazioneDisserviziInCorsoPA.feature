@@ -2,7 +2,7 @@ Feature: Mittente visualizza i disservizi della applicazione in corso
 
   @TestSuite
   @TA_PA_VisualizzaDisservizioInCorso
-  @NRT_Disservizi
+  @NRT
 
   Scenario: PN-9237 - Mittente visualizza i disservizi della applicazione in corso
     Given Creazione disservizio new su portale helpdesk

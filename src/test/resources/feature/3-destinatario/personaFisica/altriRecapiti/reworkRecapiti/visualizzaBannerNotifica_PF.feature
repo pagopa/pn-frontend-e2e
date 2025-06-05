@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite
   @TA_VisualizzaBannerNotifica_PF
   @addressBook1
-  @TA_ON
-  @NRT
+  @TA_REWORK_RECAPITI_ON
+
   Scenario: [REWORK_DOMICILIO_DIGITALE_PF_65_66_67] - Visualizza banner - Notifica/I tuoi dati
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica

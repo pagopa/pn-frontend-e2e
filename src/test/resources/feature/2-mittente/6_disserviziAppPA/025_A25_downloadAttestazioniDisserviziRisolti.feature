@@ -2,7 +2,7 @@ Feature: Mittente effettua il download delle attestazioni dei disservizi risolti
 
   @TestSuite
   @TA_MittenteDownloadDisservizioRisolto
-  @NRT_Disservizi
+  @NRT
 
   Scenario: PN-9238 - Mittente effettua il download delle attestazioni dei disservizi risolti
     Given Creazione disservizio new su portale helpdesk

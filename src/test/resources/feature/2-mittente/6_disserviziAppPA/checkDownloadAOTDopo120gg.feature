@@ -2,7 +2,7 @@ Feature: Mittente prova ad effettuare download AOT scaduti da 120gg
 
   @TestSuite
   @TA_PA_DownloadDisserviziScadutiDa120gg
-  @NRT_Disservizi
+  @NRT
 
   Scenario: [TA-FE MITTENTE EFFETTUA DOWNLOAD DI AOT SCADUTO DA 120 GG] - mittente effettua download di aot scaduto da 120gg
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

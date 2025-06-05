@@ -1,12 +1,11 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite
   @TA_AttivazioneRecapitiVerificaCell_PF
   @addressBook1
-  @TA_ON
-  @NRT
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_31_32] Attivazione Recapiti Verifica CEll PF
+  @TA_REWORK_RECAPITI_ON
 
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_31_32] Attivazione Recapiti Verifica CEll PF
 
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica

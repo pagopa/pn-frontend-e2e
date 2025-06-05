@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite
   @TA_inserimentoCellOTPErrato_PF
   @addressBook1
-  @TA_ON
-  @NRT
+  @TA_REWORK_RECAPITI_ON
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_71] La persona giuridica loggata inserisce un OTP sbagliato cellulare
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata

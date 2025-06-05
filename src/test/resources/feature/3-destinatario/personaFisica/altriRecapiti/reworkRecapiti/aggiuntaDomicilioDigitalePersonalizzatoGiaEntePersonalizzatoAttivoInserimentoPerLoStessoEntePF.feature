@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite
   @TA_REWORK_DOMICILIO_DIGITALE_75_72_73_76_74_PF
   @addressBook1
-  @TA_ON
-  @NRT
+  @TA_REWORK_RECAPITI_ON
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_75_72_73_76_74] Aggiunta domicilio digitale personalizzato (principale PEC) - Già ente personalizzato attivo - Inserimento per lo stesso ente PG
 
     Given Login Page persona fisica test viene visualizzata

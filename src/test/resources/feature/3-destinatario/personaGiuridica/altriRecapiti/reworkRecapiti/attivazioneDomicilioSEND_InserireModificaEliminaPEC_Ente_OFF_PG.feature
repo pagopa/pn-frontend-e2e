@@ -1,9 +1,11 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite_OFF
+  @TestSuite
   @TA_OFF_REWORK_DOMICILIO_DIGITALE_79_80_82_83_84_81_PG
   @addressBook2
-  @TA_OFF
+  @TA_REWORK_RECAPITI_OFF
+  @NRT
+
   Scenario:[OFF_REWORK_DOMICILIO_DIGITALE_PG_79_80_82_83_84_81] Attivazione Domicilio Digitale SEND - Inserisci - Modifica - Elimina PEC  PG
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

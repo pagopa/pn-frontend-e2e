@@ -1,9 +1,10 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite_OFF
+  @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciModificaCancellaEmail_PG_OFF
   @addressBook2
-  @TA_OFF
+  @TA_REWORK_RECAPITI_OFF
+  @NRT
 
   Scenario:[OFF_REWORK_DOMICILIO_DIGITALE_PG_85_86_87_92_93] Attivazione Domicilio Digitale SEND - Inserimento, modifica, cancellazione mail PG - Feature flag spento
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

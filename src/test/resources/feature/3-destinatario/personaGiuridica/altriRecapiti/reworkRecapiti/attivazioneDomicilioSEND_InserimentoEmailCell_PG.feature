@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciEmailCell_PG
   @addressBook2
-  @TA_ON
-  @NRT
+  @TA_REWORK_RECAPITI_ON
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_6_75] Attivazione Domicilio Digitale SEND - Inserimento mail e cellulare PG
 
    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
