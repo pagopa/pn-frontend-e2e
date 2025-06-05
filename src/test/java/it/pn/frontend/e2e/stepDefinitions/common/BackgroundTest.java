@@ -313,6 +313,15 @@ public class BackgroundTest  extends BasePage {
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 
+    public void creazioneDisservizioNew() {
+        helpdeskTest.loginHelpdeskConUtenteTest();
+        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+        helpdeskTest.siCreaIlDisservizioNew();
+        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
+    }
+
     public void risoluzioneDisservizio() {
         helpdeskTest.loginHelpdeskConUtenteTest();
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
@@ -322,6 +331,17 @@ public class BackgroundTest  extends BasePage {
         helpdeskTest.siRisolveIlDisservizio();
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
+
+    public void risoluzioneDisservizioNew() {
+        helpdeskTest.loginHelpdeskConUtenteTest();
+        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+        helpdeskTest.siRisolveIlDisservizionew();
+//        helpdeskTest.siRisolveIlDisservizionew();
+        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
+    }
+
 
     public void aggiuntaEmailDiCortesia(String email) {
         recapitiTest.siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(email);

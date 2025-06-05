@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +29,7 @@ import java.nio.file.Paths;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -118,23 +118,48 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void checkHome() {
+//        try {
+//            monitoraggioPN = driver.findElement(By.id("cardTitle-Monitoraggio Piattaforma Notifiche"));
+//            getWebDriverWait(10).withMessage("home non presente").until(ExpectedConditions.visibilityOf(monitoraggioPN));
+//            logger.info("pagina home carica");
+//        } catch (TimeoutException e) {
+//            logger.error("errore caricamento home helpdesk: " + e.getMessage());
+//            Assertions.fail("errore caricamento home helpdesk: " + e.getMessage());
+//        }
         try {
-            monitoraggioPN = driver.findElement(By.id("cardTitle-Monitoraggio Piattaforma Notifiche"));
-            getWebDriverWait(10).withMessage("home non presente").until(ExpectedConditions.visibilityOf(monitoraggioPN));
-            logger.info("pagina home carica");
+            logger.info("In attesa che la pagina home venga caricata...");
+
+          getWebDriverWait(10)
+                    .withMessage("La pagina home non è stata caricata correttamente: elemento 'Monitoraggio Piattaforma Notifiche' non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("cardTitle-Monitoraggio Piattaforma Notifiche")));
+
         } catch (TimeoutException e) {
-            logger.error("errore caricamento home helpdesk: " + e.getMessage());
-            Assertions.fail("errore caricamento home helpdesk: " + e.getMessage());
+            Assertions.fail("Errore caricamento home helpdesk: " + e.getMessage());
         }
     }
 
     public void waitLoadServiceTable() {
-        services = driver.findElements(By.xpath(".//div[@data-field='functionality' and @role='cell']"));
-        if (services.size() < 3) {
-            logger.error("I servizi visualizzati sono meno di 3");
-            Assertions.fail("I servizi visualizzati sono meno di 3");
+//        services = driver.findElements(By.xpath(".//div[@data-field='functionality' and @role='cell']"));
+//        if (services.size() < 3) {
+//            Assertions.fail("I servizi visualizzati sono meno di 3");
+//        }
+//        getWebDriverWait(10).withMessage("Non è visibile la tabella dei disservizi").until(ExpectedConditions.visibilityOfAllElements(services));
+//        By serviceXpath = By.xpath(".//div[@data-field='functionality' and @role='cell']");
+
+        List<WebElement> services = getWebDriverWait(10)
+                .withMessage("Non è visibile la tabella dei disservizi o i servizi sono meno di 3")
+                .until(d -> {
+                    List<WebElement> elements = d.findElements(By.xpath(".//div[@data-field='functionality' and @role='cell']"));
+                    if (elements.size() >= 3) {
+                        return elements;
+                    }
+                    return null; // continua ad aspettare finché non ne trova almeno 3
+                });
+
+        if (services == null || services.isEmpty()) {
+            Assertions.fail("Nessun servizio trovato entro il timeout");
         }
-        getWebDriverWait(10).withMessage("Non è visibile la tabella dei disservizi").until(ExpectedConditions.visibilityOfAllElements(services));
+
     }
 
     public void insertUsername(String user) {
@@ -156,15 +181,29 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void clickMonitoraggio() {
+//        try {
+//            logger.info("clicco sulla card monitoraggio piattaforma notifiche");
+//            monitoraggioPN = driver.findElement(By.id("cardTitle-Monitoraggio Piattaforma Notifiche"));
+//            getWebDriverWait(10).withMessage("Il bottone monitoraggio non è cliccabile").until(ExpectedConditions.elementToBeClickable(monitoraggioPN));
+//            monitoraggioPN.click();
+//        } catch (TimeoutException e) {
+//            logger.error("Card monitoraggio non cliccabile: " + e.getMessage());
+//            Assertions.fail("Card monitoraggio non cliccabile: " + e.getMessage());
+//        }
+
         try {
-            logger.info("clicco sulla card monitoraggio piattaforma notifiche");
-            monitoraggioPN = driver.findElement(By.id("cardTitle-Monitoraggio Piattaforma Notifiche"));
-            getWebDriverWait(10).withMessage("Il bottone monitoraggio non è cliccabile").until(ExpectedConditions.elementToBeClickable(monitoraggioPN));
+            logger.info("In attesa che la card 'Monitoraggio Piattaforma Notifiche' sia cliccabile...");
+            WebElement monitoraggioPN = getWebDriverWait(10)
+                    .withMessage("La card 'Monitoraggio Piattaforma Notifiche' non è cliccabile entro il timeout")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("cardTitle-Monitoraggio Piattaforma Notifiche")));
+
             monitoraggioPN.click();
+
         } catch (TimeoutException e) {
-            logger.error("Card monitoraggio non cliccabile: " + e.getMessage());
-            Assertions.fail("Card monitoraggio non cliccabile: " + e.getMessage());
+            Assertions.fail("Card 'Monitoraggio Piattaforma Notifiche' non cliccabile: " + e.getMessage());
         }
+
+
     }
 
     public void handleDisservizio(Disservice disservizio, Status status) {
@@ -196,10 +235,72 @@ public class HelpdeskPage extends BasePage {
                 ExpectedConditions.elementToBeClickable(buttonInsert)
         ));
         buttonInsert.click();
-        // When we insert a new status of a service there is alway an alert that shows up, this is useful when we want to make sure the status has changed
+        //ok va sistemato il codice
         WebElement alertSuccess = element(By.xpath(".//div[@role='alert']"));
         getWebDriverWait(10).withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile").until(ExpectedConditions.visibilityOf(alertSuccess));
         logger.info(disservizio.getValue() + " è stato cambiato con successo in " + status.getValue());
+    }
+
+    public void handleDisservizioNew(Disservice disservice, Status status) {
+        waitLoadServiceTable();
+        logger.info ("*-*-*-*-*-*-*-*- handleDisservizioNew *-*-*-*-*-*-*-*-*-**-");
+        clickInserisciRisolviKOCreazioneNotifiche(disservice,status);
+        selezionaCheckBoxPopUpCreazioneNotifiche();
+        clickInserisciRisolviKOPopUpInserisciEvento();
+        verificaAlert();
+    }
+    public void handleRisolviDisservizionew(Disservice disservice, Status status) {
+        driver.navigate().refresh();
+        waitLoadServiceTable();
+        logger.info ("*-*-*-*-*-*-*-*- handleRisolviDisservizionew *-*-*-*-*-*-*-*-*-**-");
+        clickInserisciRisolviKOCreazioneNotifiche(disservice,status);
+        scriviTesto();
+        clickInserisciRisolviKOPopUpInserisciEvento();
+        selezionaCheckBoxPopUpCreazioneNotifiche();
+        clickInserisciRisolviKOPopUpInserisciEvento();
+        verificaAlert();
+
+    }
+
+    private void scriviTesto() {
+        WebElement campoEditabile = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il campo editabile nel pop up Risolvi Evento")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ProseMirror[contenteditable='true']")));
+
+        String testoCasuale = "TEST AUTOMATICO: " + (new Random().nextInt(90000) + 10000);
+        campoEditabile.sendKeys(testoCasuale);
+    }
+
+    private void verificaAlert() {
+        getWebDriverWait(10)
+               .withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile")
+               .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@role='alert']")));
+    }
+
+    private void clickInserisciRisolviKOPopUpInserisciEvento() {
+        WebElement bottoneInserisciKO = getWebDriverWait(30)
+                .withMessage("Impossibile trovare checkbox nel pop-up Inseriscvi Evento | Creazine Notifiche")
+                .until(ExpectedConditions.elementToBeClickable( By.id("createEvent")));
+        bottoneInserisciKO.click();
+    }
+
+    private void selezionaCheckBoxPopUpCreazioneNotifiche() {
+        WebElement checkbox = getWebDriverWait(30)
+                .withMessage("Impossibile trovare checkbox nel pop-up Inseriscvi Evento | Creazine Notifiche")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(@class, 'MuiCheckbox-root') and .//input[@type='checkbox']]")));
+        checkbox.click();
+    }
+
+    private void clickInserisciRisolviKOCreazioneNotifiche(Disservice disservice, Status status) {
+            logger.info("Cerco la riga 'Creazione Notifiche' e clicco su 'Inserisci KO'...");
+
+            WebElement bottoneInserisciKO = getWebDriverWait(30)
+                    .withMessage("Bottone 'Inserisci KO' non trovato nella riga '"+disservice.getValue()+"'")
+                    .until(driver -> driver.findElement(By.xpath(
+                            "//div[@role='row' and .//p[text()='"+disservice.getValue()+"']]//button[@id='"+status.getValue()+"']"
+                    )));
+
+            bottoneInserisciKO.click();
     }
 
     public boolean checkServiceStatus(Disservice disservizio) {
@@ -216,17 +317,35 @@ public class HelpdeskPage extends BasePage {
     }
 
     public boolean checkIsCreatedDisservizio() {
+//        try {
+//            WebElement dateDisservizio = elements(By.xpath("//div[@data-field='data']")).get(1);
+//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(dateDisservizio));
+//            if (dateDisservizio.getText() != null && !dateDisservizio.getText().isEmpty()) {
+//                logger.info("disservizio già in corso");
+//                return true;
+//            }
+//            return false;
+//        } catch (TimeoutException e) {
+//            Assertions.fail("disservizio non creato: " + e.getMessage());
+//            return false;
+//        }
         try {
-            WebElement dateDisservizio = elements(By.xpath("//div[@data-field='data']")).get(1);
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(dateDisservizio));
-            if (dateDisservizio.getText() != null && !dateDisservizio.getText().isEmpty()) {
-                logger.info("disservizio già in corso");
-                return true;
+            List<WebElement> dateElements = getWebDriverWait(10)
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-field='data']")));
+
+            if (!dateElements.isEmpty() && dateElements.size() > 1) {
+                WebElement secondDateElement = dateElements.get(1);
+                String text = secondDateElement.getText();
+                if (text != null && !text.trim().isEmpty()) {
+                    logger.info("Disservizio già in corso rilevato.");
+                    return true;
+                }
             }
+            logger.info("Nessun disservizio in corso.");
             return false;
+
         } catch (TimeoutException e) {
-            logger.error("disservizio non creato: " + e.getMessage());
-            Assertions.fail("disservizio non creato: " + e.getMessage());
+            logger.warn("Nessun disservizio trovato: timeout durante l'attesa degli elementi.");
             return false;
         }
     }
@@ -763,4 +882,6 @@ public class HelpdeskPage extends BasePage {
         WebElement dateEleven = driver.findElement(By.xpath("//button[contains(text(),'11')]"));
         dateEleven.click();
     }
+
+
 }

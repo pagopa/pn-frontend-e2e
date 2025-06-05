@@ -148,12 +148,10 @@ public class DisserviziAppPAPage extends BasePage {
                     }
                 }
             } else {
-                logger.error("Non si visualizzano correttamente le righe della tabella dei disservizi");
                 Assertions.fail("Non si visualizzano correttamente le righe della tabella dei disservizi");
             }
             logger.info("Si visualizza correttamente la tabella dei disservizi");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la tabella dei disservizi con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente la tabella dei disservizi con errore" + e.getMessage());
         }
     }
@@ -195,7 +193,6 @@ public class DisserviziAppPAPage extends BasePage {
             if (dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()) {
                 logger.info("Disservizio risolto trovato");
             } else {
-                logger.error("Non si visualizza un record in elenco relativo ad un disservizio risolto");
                 Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
             }
         }
@@ -259,7 +256,6 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         logger.info("Tabella caricata e non vuota");
         int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
 
-       // int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
         int randomNumber = 0;
         if (disserviziTableRows.size()>1){
             randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
@@ -272,7 +268,6 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
          **/
 
         logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
-      //  WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
         WebElement linkDownloadAttestazione = driver.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
         linkDownloadAttestazione.click();
         logger.info("Click effettuato con successo");
@@ -411,10 +406,10 @@ public boolean confrontoFileConDisservizio() {
                 }
             }
         } else {
-            System.out.println("La cartella è vuota o non è possibile accedervi.");
+            logger.info("La cartella è vuota o non è possibile accedervi.");
         }
     } else {
-        System.out.println("Il percorso specificato non è una directory.");
+        logger.info("Il percorso specificato non è una directory.");
     }
     return false;
 }

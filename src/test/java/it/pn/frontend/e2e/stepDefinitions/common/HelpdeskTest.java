@@ -110,12 +110,28 @@ public class HelpdeskTest extends BasePage {
         }
     }
 
+    @And("Si crea il disservizio new")
+    public void siCreaIlDisservizioNew() {
+//        webTool.waitTime(5);
+        if (!helpdeskPage.checkIsCreatedDisservizio()) {
+            helpdeskPage.handleDisservizioNew(Disservice.CREAZIONE_NOTIFICHE, Status.INSERISCI_KO);
+//            webTool.waitTime(5);
+        }
+    }
+
     @And("Si risolve il disservizio")
     public void siRisolveIlDisservizio() {
         webTool.waitTime(5);
         if (helpdeskPage.checkIsCreatedDisservizio()) {
             helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE,Status.OK);
             webTool.waitTime(5);
+        }
+    }
+
+    @And("Si risolve il disservizio new")
+    public void siRisolveIlDisservizionew() {
+        if (helpdeskPage.checkIsCreatedDisservizio()) {
+            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE,Status.RISOLVI_KO);
         }
     }
 
@@ -349,9 +365,18 @@ public class HelpdeskTest extends BasePage {
         backgroundTest.creazioneDisservizio();
     }
 
+    @Given("Creazione disservizio new su portale helpdesk")
+    public void creazioneDisservizioNewSuPortaleHelpdesk() {
+        backgroundTest.creazioneDisservizioNew();
+    }
+
     @And("Risoluzione disservizio su portale helpdesk")
     public void risoluzioneDisservizioSuPortaleHelpdesk() {
         backgroundTest.risoluzioneDisservizio();
+    }
+    @And("Risoluzione disservizio new su portale helpdesk")
+    public void risoluzioneDisservizioNewSuPortaleHelpdesk() {
+        backgroundTest.risoluzioneDisservizioNew();
     }
 
     @And("Selezione ottieni notifica")
