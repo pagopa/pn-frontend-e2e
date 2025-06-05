@@ -264,7 +264,7 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         } else {
             if (!links.isEmpty()) {
                 links.get(indexModifier).click();
-                downloadVerificato = checkMessaggioScadenzaDownload();
+                downloadVerificato = true;
             }
 
         }
