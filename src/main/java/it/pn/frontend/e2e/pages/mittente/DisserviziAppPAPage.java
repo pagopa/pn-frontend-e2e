@@ -244,33 +244,61 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
     }
 
     private void performDownloadAttestazione(int indexModifier) {
-        webTool.waitTime(5);
-        WebElement disserviziTable = element(By.id("notifications-table"));
-        webTool.waitTime(3);
-        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-        if (disserviziTableRows.isEmpty()) {
-            Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
-            return;
+
+        //if == o random
+        //if  > 0 prrendo quello selezionato
+        boolean downloadVerificato = false;
+        List<WebElement> links = getWebDriverWait(45)
+                .withMessage("Lista vuota nella pagina Stato della Piattaforma")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='download-legal-fact']")));
+        if (indexModifier == 0) {
+            for (WebElement link : links) {
+                link.click();
+                downloadVerificato = checkMessaggioScadenzaDownload();
+                if (downloadVerificato) {
+                    break;
+                }
+                else // Torna indietro alla pagina di Google
+                    driver.navigate().back();
+            }
+        } else {
+            if (!links.isEmpty()) {
+                links.get(indexModifier).click();
+                downloadVerificato = checkMessaggioScadenzaDownload();
+            }
+
+        }
+        if (!downloadVerificato) {
+            Assertions.fail("Nessun download ha superato la verifica.");
         }
 
-        logger.info("Tabella caricata e non vuota");
-        int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
-
-        int randomNumber = 0;
-        if (disserviziTableRows.size()>1){
-            randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
-        }
-
-        /**
-        if (indexModifier == 0){
-            randomNumber = 0;
-        }
-         **/
-
-        logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
-        WebElement linkDownloadAttestazione = driver.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
-        linkDownloadAttestazione.click();
-        logger.info("Click effettuato con successo");
+//        webTool.waitTime(5);
+//        WebElement disserviziTable = element(By.id("notifications-table"));
+//        webTool.waitTime(3);
+//        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
+//        if (disserviziTableRows.isEmpty()) {
+//            Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
+//            return;
+//        }
+//
+//        logger.info("Tabella caricata e non vuota");
+//        int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
+//
+//        int randomNumber = 0;
+//        if (disserviziTableRows.size()>1){
+//            randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
+//        }
+//
+//        /**
+//        if (indexModifier == 0){
+//            randomNumber = 0;
+//        }
+//         **/
+//
+//        logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
+//        WebElement linkDownloadAttestazione = driver.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
+//        linkDownloadAttestazione.click();
+//        logger.info("Click effettuato con successo");
     }
 
 
@@ -414,10 +442,15 @@ public boolean confrontoFileConDisservizio() {
     return false;
 }
 
-    public void checkMessaggioScadenzaDownload() {
-        getWebDriverWait(10)
-                .withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile")
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
+    public boolean checkMessaggioScadenzaDownload() {
+        try {
+            getWebDriverWait(10)
+                    .withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
 }

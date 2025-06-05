@@ -14,7 +14,7 @@ Feature: il mittente download attestazione notifica presa in carico
     And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 18
     And Download file attestazione disservizio
 
-    And Si controlla che esista pop up scadenza disservizi
+#    And Si controlla che esista pop up scadenza disservizi
 
     And Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'
     And Nella pagina Piattaforma Notifiche mittente inserire un arco temporale di maggiore di 120 giorni

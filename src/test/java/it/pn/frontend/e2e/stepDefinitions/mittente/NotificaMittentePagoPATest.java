@@ -752,6 +752,14 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.selezionaUltimaPaginaUtilizzandoUnaFrecetta();
     }
 
+    @And("Nella pagina stato della piattaforma si cambia pagina")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPagina() {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
+        int pagina = piattaformaNotifichePage.getPageMeseCorrente();
+//        piattaformaNotifichePage.selezionaFrecettaFinoaPagina(2);
+        piattaformaNotifichePage.selezionaFrecettaFinoaPagina(pagina);
+    }
+
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina {int}")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccettaFinoPagina(Integer pagina) {
         piattaformaNotifichePage.setHooksNew(hooksNew);

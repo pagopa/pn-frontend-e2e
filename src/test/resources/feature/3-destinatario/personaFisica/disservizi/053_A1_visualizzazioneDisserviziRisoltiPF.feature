@@ -4,7 +4,6 @@ Feature: Il destinatario persona fisica visualizza i disservizi della piattaform
   @PF
   @disserviziPF
   @TA_PF_VisualizzaDisserviziRisolti
-  @loginFE_8
   Scenario: PN-9433 - Il destinatario persona fisica visualizza i disservizi della piattaforma risolti
     Given Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk
@@ -15,4 +14,3 @@ Feature: Il destinatario persona fisica visualizza i disservizi della piattaform
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'
     And Si visualizza correttamente la tabella dei disservizi
     And Si visualizzano tutti i record in elenco relativi a disservizi risolti
-    And Logout da portale persona fisica
