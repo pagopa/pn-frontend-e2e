@@ -644,6 +644,22 @@ public class DeleghePagoPATest extends BasePage {
         }
     }
 
+    @Then("Si controlla che non ci sia più una delega e si chiude la pagina in parallelo")
+    public void siControllaCheNonCiSiaPiuUnaDelegaESiChiudePaginaInParallelo() {
+        logger.info("Si controlla che non sia più presente una delega");
+        webTool.waitTime(6);
+        //this.deleghe = dataPopulation.readDataPopulation("delegatoPF.yaml")
+        String nome = dataPopulationConfig.getDelegatePF().getFirstName();
+        String cognome = dataPopulationConfig.getDelegatePF().getLastName();
+        if (!deleghePage.siVisualizzaUnaDelegaConNome(nome, cognome)) {
+            logger.info("La delega è stata revocata correttamente");
+        } else {
+            logger.error("La delega è ancora presente in lista");
+            Assertions.fail("La delega è ancora presente in lista");
+        }
+        webTool.closeTab();
+    }
+
     @And("Si annulla azione revoca")
     public void siAnnullaAzioneRevoca() {
         deleghePage.clickAnnullaRevoca();

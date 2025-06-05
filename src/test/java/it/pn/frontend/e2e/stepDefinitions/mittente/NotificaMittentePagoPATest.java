@@ -1351,6 +1351,20 @@ public class NotificaMittentePagoPATest  extends BasePage {
         webTool.closeTab();
     }
 
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica come delegante")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFDelegante() {
+        logger.info("switchToPortal(AppPortal.PF)");
+        webTool.switchToPortalUrl(urlFactory,AppPortalUrl.PF_URL);
+        logger.info("Accesso parallelo a portale persona fisica eseguito");
+    }
+
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica come delegante")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGDelegante() {
+        logger.info("switchToPortal(AppPortal.PG)");
+        webTool.switchToPortalUrl(urlFactory,AppPortalUrl.PG_URL);
+        logger.info("Accesso parallelo a portale persona giuridica eseguito");
+    }
+
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messaggio) {
         logger.info("switchToPortal(AppPortal.PF)");
@@ -1968,9 +1982,14 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.selezioneImpostazioneLingua();
     }
 
-    @And("Verifica Pop-up {string}")
-    public void verificaPopUp(String verifica) {
-        piattaformaNotifichePage.verificaPopUp(verifica);
+    @And("Verifica Pop-up Toast Errore {string}")
+    public void verificaPopUpToast(String verifica) {
+        piattaformaNotifichePage.verificaPopUpToastErrore(verifica);
+    }
+
+    @And("Verifica Messaggio Toast Errore {string}")
+    public void verificaMessaggioToastErrore(String verifica) {
+        piattaformaNotifichePage.verificaMessaggioToastErrore(verifica);
     }
 
     @And("Verifica Banner {string}")
