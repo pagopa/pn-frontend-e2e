@@ -1,4 +1,5 @@
 @TestSuite
+@TA_Download
 Feature: Il destinatario accede ad una notifica non ancora pagata e scarica i file
 
   @downloadFileNotificaConPagamento
@@ -11,7 +12,6 @@ Feature: Il destinatario accede ad una notifica non ancora pagata e scarica i fi
     Then Si clicca sul bottone scarica F24
     #And Si controlla di aver aperto il file F24
     And Si torna alla pagina precedente
-    And Logout da portale persona fisica
 
   @downloadFileNotificaConPagamento
 
@@ -23,4 +23,3 @@ Feature: Il destinatario accede ad una notifica non ancora pagata e scarica i fi
     Then Si clicca sul bottone scarica avviso PagoPA
     #And Si controlla di aver aperto l'avviso PagoPa
     And Si torna alla pagina precedente
-    And Logout da portale persona fisica

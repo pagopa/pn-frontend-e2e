@@ -3,7 +3,7 @@ Feature: Mittente seleziona CTA annulla in ruota api Key
   @TestSuite
   @TA_MittenteAnnullaRuotazioneApiKey
   @ApikeyMittente
-  @loginFE_72
+  @integrazioneApi
   Scenario: PN-9648 - Mittente seleziona CTA annulla in ruota api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
@@ -12,4 +12,3 @@ Feature: Mittente seleziona CTA annulla in ruota api Key
     And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
     And Nella pagina Api Key si visualizza il pop up ruota Api Key
     And Nella pop up cliccare sul tasto annulla
-    And Logout da portale mittente

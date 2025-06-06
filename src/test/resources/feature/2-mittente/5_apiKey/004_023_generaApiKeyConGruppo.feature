@@ -3,7 +3,8 @@ Feature: Mittente genera Api Key con gruppo
   @TestSuite
   @TA_MittenteGeneraApiKeyConGruppo
   @ApikeyMittente
-  @loginFE_72
+  @integrazioneApi
+    @NRT
   Scenario: PN-9231 - Mittente genera Api Key con gruppo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
@@ -19,4 +20,3 @@ Feature: Mittente genera Api Key con gruppo
     Then Si visualizza correttamente l api key "testAutomationFE" nell elenco in stato attivo
     And Si clicca visualizza codice e verifica che il valore dell'apikey copiato sia uguale
     And Nella pop up cliccare sul tasto chiudi
-    And Logout da portale mittente

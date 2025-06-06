@@ -5,6 +5,9 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
   @DownloadFilePG
   @PG
   @loginFE
+
+  @TA_Download
+
   Scenario: PN-9151 - Persona giuridica scarica attestazione
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "EGNM-DPAR-VTLR-202401-T-1"
@@ -15,4 +18,3 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
       | vediDettagli | false                                          |
-    And Logout da portale persona giuridica

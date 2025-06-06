@@ -4,6 +4,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica scaduta
   @TA_PGDownloadAttestazioniOltre120gg
   @PG
   @120gg
+  @TA_Download
   Scenario: [TA-FE PG SCARICA ATTESTAZIONE SCADUTA]- persona giuridica scarica attestazione scaduta da oltre 120 gg
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche mittente inserire un arco temporale di maggiore di 120 giorni
@@ -20,4 +21,3 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica scaduta
     Then Si visualizza correttamente la section Dettaglio Notifica
     And Si clicca sul documento Attestazione scaduta
     And Si controlla che esista pop up scadenza
-    And Logout da portale persona giuridica

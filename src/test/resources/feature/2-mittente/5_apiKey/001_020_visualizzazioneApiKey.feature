@@ -3,7 +3,7 @@ Feature: Mittente visualizza correttamente la pagina Api Key
   @TestSuite
   @TA_MittenteVisualizzazioneApiKey
   @ApikeyMittente
-  @loginFE_72
+  @integrazioneApi
   Scenario: PN-9228 - Mittente visualizza correttamente la pagina Api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
@@ -12,7 +12,6 @@ Feature: Mittente visualizza correttamente la pagina Api Key
     And Si copia correttamente la Api Key cliccando sul bottone di copia
     Then Nella pagina Api Key posizionare il cursore sullo stato dell'operazione
     Then Nella pagina Api Key posizionare il cursuore sopra il numero gruppi
-    And Logout da portale mittente
 
 
 

@@ -1,11 +1,8 @@
 Feature: Il destinatario persona fisica visualizza i disservizi della piattaforma in corso
 
   @TestSuite
-  @PF
-  @disserviziPF
   @TA_PF_VisualizzaDisservizioInCorso
-  @loginFE
-
+  @NRT
   Scenario: PN-9432 - Il destinatario persona fisica visualizza i disservizi della piattaforma in corso
     Given Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk

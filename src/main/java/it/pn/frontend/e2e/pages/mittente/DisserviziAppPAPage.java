@@ -182,20 +182,60 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisservizioRisolto(String tipoDisservizio) {
+//        aggiornamentoPagina();
+//        webTool.waitTime(15);
+//        WebElement disserviziTable = driver.findElement(By.id("notifications-table"));
+//        List<WebElement> disserviziTableRowsWithTypeOfDisservice = disserviziTable.findElements(By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]"));
+//        if (!disserviziTableRowsWithTypeOfDisservice.isEmpty()) {
+//            WebElement primaRiga = disserviziTableRowsWithTypeOfDisservice.get(0);
+//            WebElement dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//p[contains(text(), 'ore')]")).get(1);
+//            WebElement statoPrimaRiga = primaRiga.findElement(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//span[contains(text(), 'Risolto')]"));
+//            if (dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()) {
+//                logger.info("Disservizio risolto trovato");
+//            } else {
+//                Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
+//            }
+//        }
         aggiornamentoPagina();
         webTool.waitTime(15);
-        WebElement disserviziTable = driver.findElement(By.id("notifications-table"));
-        List<WebElement> disserviziTableRowsWithTypeOfDisservice = disserviziTable.findElements(By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]"));
+
+        // Attendi che la tabella dei disservizi sia presente
+       getWebDriverWait(10)
+                .withMessage("Impossibile trovare notifications-table in checkDisservizioRisolto")
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("notifications-table")));
+
+        // Attendi che le righe della tabella con il tipo di disservizio specificato siano presenti
+        List<WebElement> disserviziTableRowsWithTypeOfDisservice = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il disservizio: "+tipoDisservizio)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]")));
+
         if (!disserviziTableRowsWithTypeOfDisservice.isEmpty()) {
-            WebElement primaRiga = disserviziTableRowsWithTypeOfDisservice.get(0);
-            WebElement dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1);
-            WebElement statoPrimaRiga = primaRiga.findElement(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//span[contains(text(), 'Risolto')]"));
-            if (dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()) {
+//            WebElement primaRiga = disserviziTableRowsWithTypeOfDisservice.get(0);
+
+            // Attendi che gli elementi della data di fine siano presenti nella prima riga
+            List<WebElement> dataFineElements =  getWebDriverWait(10)
+                    .withMessage("Impossibile trovare nella tabella le ore")
+            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(".//td[@data-testid='tableDowntimeLog.row.cell']//div//p[contains(text(), 'ore')]")));
+
+            WebElement dataFinePrimaRiga = dataFineElements.size() > 1 ? dataFineElements.get(1) : null;
+
+            // Attendi che lo stato "Risolto" sia presente nella prima riga
+            WebElement statoPrimaRiga = getWebDriverWait(10)
+                    .withMessage("Impossibile trovare nella tabella le Risolto")
+                    .until(ExpectedConditions.presenceOfElementLocated( By.xpath(".//td[@data-testid='tableDowntimeLog.row.cell']//div//span[contains(text(), 'Risolto')]")));
+
+            if (dataFinePrimaRiga != null && dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()) {
                 logger.info("Disservizio risolto trovato");
             } else {
                 Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
             }
+        } else {
+            Assertions.fail("Nessun disservizio trovato del tipo specificato: " + tipoDisservizio);
         }
+
+
+
     }
 
     public void checkDisserviziDisponibili() {

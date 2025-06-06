@@ -3,7 +3,7 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
   @TestSuite
   @TA_MittenteGeneraApiKeySenzaNome
   @ApikeyMittente1
-  @loginFE_72
+  @integrazioneApi
   Scenario: PN-9235 - Mittente genera Api Key senza inserire il nome dell api key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu

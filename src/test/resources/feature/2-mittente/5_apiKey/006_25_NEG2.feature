@@ -3,7 +3,7 @@ Feature: Mittente seleziona CTA annulla in blocca api Key
   @TestSuite
   @TA_MittenteAannullaBloccaApiKey
   @ApikeyMittente
-  @loginFE_72
+  @integrazioneApi
   Scenario: PN-9233 - Mittente seleziona CTA annulla in blocca api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
@@ -12,5 +12,4 @@ Feature: Mittente seleziona CTA annulla in blocca api Key
     And Nella pagina Api Key si clicca sulla voce blocca del menu Api Key
     And Nella pagina Api Key si visualizza il pop up blocca Api Key
     And Nella pop up cliccare sul tasto annulla
-    And Logout da portale mittente
 
