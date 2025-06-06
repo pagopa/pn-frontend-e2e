@@ -213,8 +213,15 @@ public class NotifichePGPagoPATest extends BasePage {
             backgroundTest.loginPGDeleghe("personaGiuridica");
             backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
             backgroundTest.logoutPG();
-            backgroundTest.loginPGDeleghe("delegatoPG");
-            backgroundTest.accettazioneDelegaPG();
+            /*delegatoPG ha codice fiscale non più valido e utente non più abilitato,
+              step continua dopo login su nellaSezioneDelegheSiAccettaLaDelegaAccettataPerPG */
+            //backgroundTest.loginPGDeleghe("delegatoPG");
+    }
+
+    @And("Nella sezione Deleghe si accetta la delega accettata per PG")
+    public void nellaSezioneDelegheSiAccettaLaDelegaAccettataPerPG() {
+        logger.info("Si controlla che sia presente una delega accettata");
+        backgroundTest.accettazioneDelegaPG();
 
         driver.navigate().refresh();
     }

@@ -1810,8 +1810,32 @@ public class PiattaformaNotifichePage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//div[@id='alert-api-status']/parent::div[contains(text, '')]")
                 ));
-        logger.info("toast message {}", toastMessage.getText());
         Assertions.assertTrue(toastMessage.getText().contains(verifica));
+    }
+
+    public void verificaCodiceToastErrore(String verifica) {
+        WebElement toastErrorCode = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@id='alert-api-status']/following-sibling::div/div/p[contains(text(),'')][1]")
+                ));
+        Assertions.assertTrue(toastErrorCode.getText().contains(verifica));
+    }
+
+    public String copiaTraceIDToastErrore() {
+        WebElement traceIDCopyButton = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@id='alert-api-status']/following-sibling::div//a[@role='button']")
+                ));
+        traceIDCopyButton.click();
+        WebElement traceIDValue = driver.findElement(By.xpath("//div[@id='alert-api-status']/following-sibling::div/div/p[contains(text(),'')][2]"));
+        return traceIDValue.getAttribute("value");
+    }
+
+    public void clickChiudiToastErrore() {
+        WebElement closeIcon = getWebDriverWait(10)
+                .withMessage("Impossibile chiudere il toast di errore")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='alert-api-status']/parent::div/parent::div//button[@title='Close']")));
+        closeIcon.click();
     }
 
     public void selezioneImpostazioneLingua() {

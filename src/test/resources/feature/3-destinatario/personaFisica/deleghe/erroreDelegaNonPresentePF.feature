@@ -56,4 +56,8 @@ Feature: Il delegato visualizza la notifiche del delegante
       | cognome | Cesare   |
     And Nella pagina Deleghe si sceglie opzione rifiuta
     And Si clicca sul bottone rifiuta all'interno del pop-up
-    And Verifica Messaggio Toast Errore "Delega non trovata"
+    And Verifica Messaggio toast di errore "Delega non trovata"
+    And Refresh pagina
+    And Si controlla che non sia presente una delega con stesso nome
+      | nome          | Gaio Giulio            |
+      | cognome       | Cesare                 |

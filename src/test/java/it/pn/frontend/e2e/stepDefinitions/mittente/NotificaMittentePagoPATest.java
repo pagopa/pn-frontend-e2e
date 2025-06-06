@@ -1982,14 +1982,32 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.selezioneImpostazioneLingua();
     }
 
-    @And("Verifica Pop-up Toast Errore {string}")
+    @And("Verifica Pop-up toast di errore {string}")
     public void verificaPopUpToast(String verifica) {
         piattaformaNotifichePage.verificaPopUpToastErrore(verifica);
     }
 
-    @And("Verifica Messaggio Toast Errore {string}")
+    @And("Verifica Messaggio toast di errore {string}")
     public void verificaMessaggioToastErrore(String verifica) {
         piattaformaNotifichePage.verificaMessaggioToastErrore(verifica);
+    }
+
+    @And("Verifica Codice toast di errore {string}")
+    public void verificaCodiceToastErrore(String verifica) {
+        piattaformaNotifichePage.verificaCodiceToastErrore(verifica);
+    }
+
+    @And("Copia TraceID toast di errore")
+    public void copiaTraceIDToastErrore() {
+        logger.info("Si clicca copia sul tasto 'Copia informazioni errore' per copiare il traceID dell'errore");
+        String copiedValue = piattaformaNotifichePage.copiaTraceIDToastErrore();
+        logger.info("Il traceID copiato è {}", copiedValue);
+    }
+
+    @And("Si chiude toast di errore")
+    public void siChiudeToastDiErrore() {
+        logger.info("Si chiude toast di errore");
+        piattaformaNotifichePage.clickChiudiToastErrore();
     }
 
     @And("Verifica Banner {string}")

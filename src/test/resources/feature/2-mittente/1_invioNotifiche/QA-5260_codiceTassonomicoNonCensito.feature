@@ -6,7 +6,7 @@ Feature: Invio notifica con codice tassonomico non censito
   @NRT
   @GestioneErrori
     
-  Scenario: PN-5260-Codice Tassonomico non censito
+  Scenario: [PN-5260-PN_GENERIC_INVALIDPARAMETER_TAXONOMYCODE] - Codice Tassonomico non censito
 
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Selezionare da impostazione lingua la lingua "Italiano"
@@ -27,4 +27,4 @@ Feature: Invio notifica con codice tassonomico non censito
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
-    Then Verifica Pop-up Toast Errore "Codice tassonomico non valido"
+    Then Verifica Pop-up toast di errore "Codice tassonomico non valido"

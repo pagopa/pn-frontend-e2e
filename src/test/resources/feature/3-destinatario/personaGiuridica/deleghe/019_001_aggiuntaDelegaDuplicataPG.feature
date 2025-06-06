@@ -6,14 +6,22 @@ Feature:Il delegato persona giuridica accede ad una delega
   @DeleghePFPG1
   @deleghe2
   @TA_PGdeleganteAggiuntaDelegaDuplicata
+  @GestioneErrori
 
-  Scenario: [DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega duplicata PG
+  Scenario: [PN-14926-PN_MANDATE_ALREADYEXISTS DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega duplicata PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
-    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Le Epistolae srl"
+    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Vita Nova Sas"
     And Nella sezione Deleghe si crea una delega accettata per PG
+    And Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Vita Nova Sas  |
+    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
+    And Nella sezione Deleghe si accetta la delega accettata per PG
 
     And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
@@ -23,11 +31,12 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Si visualizza la sezione Aggiungi Delega persona giuridica
     And Nella sezione Aggiungi Delega persona giuridica inserire i dati
       | accessoCome    | delegante         |
-      | ragioneSociale | Le Epistolae srl  |
-      | codiceFiscale  | LELPTR04A01C352E  |
+      | ragioneSociale | Vita Nova Sas  |
+      | codiceFiscale  | 12666810299  |
       | ente           | Comune di Palermo |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
     Then Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta
+    And Refresh pagina
     And Logout da portale persona giuridica
 
 
