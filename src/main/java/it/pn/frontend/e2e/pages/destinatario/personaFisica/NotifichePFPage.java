@@ -134,8 +134,14 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean getListData() {
-        getWebDriverWait(60).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")));
-        return !elements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")).isEmpty();
+        try {
+            List<WebElement> elements = getWebDriverWait(60)
+                    .withMessage("La colonna Data nella pagina notifiche non è visibile")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(@class, 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1wrlhv9')]")));
+            return !elements.isEmpty();
+        } catch (StaleElementReferenceException e) {
+            return getListData(); // Richiama il metodo per riacquisire gli elementi
+        }
     }
 
     public void clickNotificheButton() {

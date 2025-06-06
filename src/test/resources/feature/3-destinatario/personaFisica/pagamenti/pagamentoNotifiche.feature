@@ -61,7 +61,6 @@ Feature:Pagamento notifica
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona fisica
 
 
   @PagamentoNotificaMonoPFConPiuAvvisi
@@ -93,7 +92,6 @@ Feature:Pagamento notifica
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona fisica
 
 
 
@@ -137,7 +135,6 @@ Feature:Pagamento notifica
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona fisica
 
 
   @PagamentoNotificaMultiPFConPiuAvvisi
@@ -178,4 +175,3 @@ Feature:Pagamento notifica
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona giuridica

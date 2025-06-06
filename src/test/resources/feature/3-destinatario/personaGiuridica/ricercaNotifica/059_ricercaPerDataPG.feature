@@ -15,4 +15,3 @@ Feature: La persona giuridica ricerca per periodo temporale
     And  Nella pagina Piattaforma Notifiche destinatario si inserisce una data con formato errato
     And Cliccare sul bottone Filtra persona giuridica
     Then Il rettangolo del campo errato diventa rosso e il tasto Filtra è disattivo
-    And  Logout da portale persona giuridica
