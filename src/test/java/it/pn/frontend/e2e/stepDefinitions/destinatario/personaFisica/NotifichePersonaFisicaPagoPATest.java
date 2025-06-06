@@ -165,17 +165,14 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     public void siVisualizzanoLeNotificheDallaPiuRecente() {
         driver.navigate().refresh();
         List<WebElement> dateNotifiche = notifichePFPage.getDateNotifiche();
-
-        if (dateNotifiche.size() != 0) {
+        if (!dateNotifiche.isEmpty()) {
             boolean result = notifichePFPage.controllaNotifiche(dateNotifiche);
             if (result) {
                 logger.info("Le date sono ordinate correttamente");
             } else {
-                logger.error("Le date NON sono ordinate correttamente");
                 Assertions.fail("Le date NON sono ordinate correttamente");
             }
         } else {
-            logger.error("Non sono presenti notifiche con date");
             Assertions.fail("Non sono presenti notifiche con date");
         }
     }

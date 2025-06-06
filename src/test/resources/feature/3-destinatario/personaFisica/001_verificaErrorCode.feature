@@ -2,9 +2,7 @@ Feature: La persona fisica visualizza la sezione notifiche
 
   @TestSuite
   @TA_VerificaMessaggioErroreErrorCode
-  @PFvisualizzaNotifiche
-  @PF
-  @loginFE
+  @NRT
 
   @TA_VerificaMessaggioErroreErrorCode19
   Scenario:PN-10537 - La persona fisica visualizza la sezione notifiche

@@ -182,15 +182,25 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean codiceAvvisoDisplayed() {
+//        try {
+//            webTool.waitTime(5);
+//            codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
+//            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+//            return true;
+//        } catch (RuntimeException e) {
+//            return false;
+//        }
         try {
-            webTool.waitTime(5);
-            codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
-            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
-            return true;
-        } catch (RuntimeException e) {
+            WebElement codiceAvviso = getWebDriverWait(25)
+                    .withMessage("La sezione codice avviso non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(), 'Codice avviso')]")));
+            return codiceAvviso.isDisplayed();
+        } catch (Exception e) {
             return false;
         }
     }
+
+
 
     public boolean modelloF24Displayed() {
         webTool.waitTime(5);

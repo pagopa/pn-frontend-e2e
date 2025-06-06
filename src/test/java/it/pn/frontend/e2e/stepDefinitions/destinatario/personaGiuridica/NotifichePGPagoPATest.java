@@ -429,7 +429,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (accediAPiattaformaNotifichePage.codiceAvvisoDisplayed()) {
             logger.info("Codice avviso è visuallizato corrttamente");
         } else {
-            logger.error("Codice avviso non è visuallizato corrttamente");
             Assertions.fail("Codice avviso non è visuallizato corrttamente");
         }
     }
