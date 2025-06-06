@@ -3,9 +3,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
   @TestSuite
   @test19
   @TA_PFDownloadAttestazioni
-
-  @TA_Download
-
+  @NRT
   Scenario: PN-9239 - persona fisica scarica attestazione
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche PF si recupera un codice IUN valido

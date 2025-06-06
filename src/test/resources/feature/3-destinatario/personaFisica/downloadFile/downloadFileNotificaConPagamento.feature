@@ -1,5 +1,5 @@
 @TestSuite
-@TA_Download
+@NRT
 Feature: Il destinatario accede ad una notifica non ancora pagata e scarica i file
 
   @downloadFileNotificaConPagamento
