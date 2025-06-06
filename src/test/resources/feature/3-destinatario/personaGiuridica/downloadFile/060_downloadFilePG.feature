@@ -12,7 +12,7 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "EGNM-DPAR-VTLR-202401-T-1"
     And Cliccare sul bottone Filtra persona giuridica
-    When La persona giuridica clicca sulla notifica restituita "EGNM-DPAR-VTLR-202401-T-1"
+    And Cliccare sulla notifica restituita dal filtro
     And Si visualizza correttamente la section Dettaglio Notifica persona giuridica delegato
     And Si controlla se la notifica prevede il pagamento
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
