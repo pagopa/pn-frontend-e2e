@@ -414,7 +414,6 @@ public class HelpdeskPage extends BasePage {
             getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
             buttonRicerca.click();
         } catch (TimeoutException e) {
-            logger.error("bottone non cliccabile:" + e.getMessage());
             Assertions.fail("bottone non cliccabile:" + e.getMessage());
 
         }
@@ -475,7 +474,6 @@ public class HelpdeskPage extends BasePage {
             getWebDriverWait(30).withMessage("Codice univoco non trovato").until(ExpectedConditions.visibilityOf(Uid));
             setCodiceIdentificativoPF(Uid.getText().replace("Codice Univoco: ", ""));
         } catch (TimeoutException e) {
-            logger.error("codice univoco non trovato: " + e.getMessage());
             Assertions.fail("codice univoco non trovato: " + e.getMessage());
         }
     }
