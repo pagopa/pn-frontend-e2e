@@ -17,6 +17,7 @@ Feature: Invio notifica con codice tassonomico non censito
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
+    # Check se VAS on/off
     #And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
     And Cliccare su continua
