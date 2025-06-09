@@ -12,6 +12,4 @@ Feature: Persona Giuridica prova ad effettuare download AOT scaduti da 120gg
     #And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima
     And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 15
     And Download file attestazione disservizio
-#    And Si controlla che esista pop up scadenza disservizi
-#    And Logout da portale persona giuridica
 

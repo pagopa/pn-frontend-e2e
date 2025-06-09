@@ -15,8 +15,6 @@ Feature:Deleghe lato ruolo operatore
     And Si clicca su prodotto
     Then Home page persona giuridica ruolo operatore viene visualizzata correttamente
       | ragioneSociale | DivinaCommedia Srl   |
-#    And Si controlla che non esista il bottone deleghe nel side menu
-    And Logout da portale persona giuridica
 
   @TA_PGRuoloOperatoreControlloAnnullamentoNotifica
   Scenario: [TA-FE CONTROLLO DELGHE LAYOUT RUOLO OPERATORE]- Si controlla lato ruolo operatore che non sia possibile annullare la notifica
@@ -30,7 +28,7 @@ Feature:Deleghe lato ruolo operatore
       | displayName | Convivio Spa |
       | person      | false        |
     And Si accetta la delega con gruppo "gruppo-ruolo-operatore"
-    And Logout da portale persona giuridica
+#    And Logout da portale persona giuridica
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
       | user           | GabrieleDAnnunzio |
@@ -42,4 +40,3 @@ Feature:Deleghe lato ruolo operatore
       | ragioneSociale | Convivio Spa   |
     And Cliccare sulla notifica restituita
     And Il bottone annulla notifica non è visualizzabile nella descrizione della notifica
-    And Logout da portale persona giuridica

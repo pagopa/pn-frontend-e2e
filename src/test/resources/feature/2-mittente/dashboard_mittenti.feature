@@ -8,7 +8,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     Then Si visualizza correttamente la pagina di Statistiche
-    And Logout da portale mittente
 
 
   @MittenteVerificaEsportaGrafici
@@ -20,7 +19,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Statistiche si visualizza il grafico
     And Nella pagina Statistiche si clicca il bottone esporta jpeg
     And Si elimina jpeg scaricato
-    And Logout da portale mittente
 
 
   @ApplicareFiltriDisponibiliVisulizzaGrafici
@@ -36,7 +34,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Statistiche si clicca sul bottone Filtra
     And Nella pagina Statistiche si visualizza il grafico
     Then Nella pagina Statistiche si clicca sul bottone Annulla filtri
-    And Logout da portale mittente
 
 
   @VisualizzazioneStatisticheRelativePA
@@ -51,7 +48,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Statistiche si visualizza il grafico
     And Si sceglie opzione Giorni
     Then Nella pagina Statistiche si visualizza il grafico
-    And Logout da portale mittente
 
 
   @VisualizzazioneGraficoDelleStatistiche
@@ -61,7 +57,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina di Statistiche
     And Nella pagina Statistiche cliccare sul bottone ultimi 6 mesi
     Then Nella pagina Statistiche si visualizza il grafico Notifiche inviate per stato
-    And Logout da portale mittente
 
 
   @VisualizzazioneGraficoModalitaInvio
@@ -75,7 +70,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si cambia tipo di grafico per modalita di invio
     And Si sceglie opzione Giorni
     Then Nella pagina Statistiche si visualizza il grafico Notifiche consegnate per modalità di invio
-    And Logout da portale mittente
 
 
   @VisualizzareGraficiRelativiDatiFiltrati
@@ -91,7 +85,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Statistiche Notifiche digitali si clicca sul bottone Filtra
     And Nella pagina Statistiche si visualizza il grafico Invii digitali per esito
     Then Nella pagina Statistiche Notifiche digitali si clicca sul bottone Annulla filtri
-    And Logout da portale mittente
 
 
   @VisualizzazioneGraficoPerEsitoInvio
@@ -101,7 +94,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina di Statistiche
     And Nella pagina Statistiche Notifiche digitali cliccare sul bottone ultimi 6 mesi
     Then Nella pagina Statistiche si visualizza il grafico Invii digitali per esito
-    And Logout da portale mittente
 
   @VisualizzazioneGraficoTempoMedioInviiDigitali
   Scenario: PN-12045 - Dashboard mittenti - Visualizzazione grafico relativo al Tempo medio degli invii digitali
@@ -110,7 +102,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina di Statistiche
     And Nella pagina Statistiche Notifiche digitali cliccare sul bottone ultimi 6 mesi
     Then Nella pagina Statistiche si visualizza il grafico Tempo medio degli invii digitali
-    And Logout da portale mittente
 
 
   @VisualizzazioneGraficoErroriTecnici
@@ -120,7 +111,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina di Statistiche
     And Nella pagina Statistiche Notifiche digitali cliccare sul bottone ultimi 6 mesi
     Then Nella pagina Statistiche si visualizza il grafico Errori tecnici per tipologia
-    And Logout da portale mittente
 
 
 
@@ -130,4 +120,3 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
     And Nella pagina Statistiche cliccare sul bottone ultimi 6 mesi
     Then Nella pagina Statistiche si visualizza il grafico
-    And Logout da portale mittente

@@ -38,4 +38,3 @@ Feature:Il delegato persona giuridica accede ad una delega
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
     And Si seleziona la notifica destinatario
-    And Logout da portale persona giuridica

@@ -28,4 +28,3 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Si seleziona la notifica mittente
     And Aspetta 60 secondi
     And Si attende completamento notifica "Consegnata"
-    And Logout da portale mittente

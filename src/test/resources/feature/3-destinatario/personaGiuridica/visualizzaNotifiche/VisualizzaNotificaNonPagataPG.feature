@@ -34,7 +34,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si controlla sia presente il modello F24 destinatario
     And Si clicca sul modello F24 destinatario numero 1
     Then Si torna alla pagina precedente
-    And Logout da portale persona giuridica
 
   @TestSuite
   @CheckNotificaConDocumentiAllegatiPGBis
@@ -48,7 +47,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si controlla sia presente il modello F24 destinatario
     And Si clicca sul modello F24 destinatario numero 1
     Then Si torna alla pagina precedente
-    And Logout da portale persona giuridica
 
 
   @CheckNotificaConDocumentiAllegatiPG
@@ -80,7 +78,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si clicca l'avviso PagoPa destinatario
     And Aspetta 3 secondi
     Then Si torna alla pagina precedente
-    And Logout da portale persona giuridica
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizza dettaglio notifica con attestazione opponibile a terzi notifica presa in carico
@@ -89,7 +86,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si clicca la notifica ricercata
     And Si controlla sia presente il modello F24 destinatario
     Then Si controlla sia presente attestazione opponibile a terzi notifica presa in carico
-    And Logout da portale persona giuridica
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizzazione notifica da pagare annullata
@@ -99,7 +95,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si verifica che la notifica abbia lo stato "Annullata"
     And Si controlla non sia presente l'avviso PagoPa
     Then Si controlla non sia presente il modello F24 destinatario
-    And Logout da portale persona giuridica
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizza Notifica mono destinatario non ancora pagata solo con più modelli F24
@@ -113,7 +108,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     #And Si torna alla pagina precedente
     And Si clicca sul modello F24 destinatario numero 2
     #Then Si torna alla pagina precedente
-    And Logout da portale persona giuridica
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizza Notifica mono destinatario non ancora pagata solo con avviso PagoPa e assenza del PDF relativo al bollettino
@@ -122,4 +116,3 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si clicca la notifica ricercata
     And Si controlla la presenza di codice avviso
     And Si controlla non sia presente l'avviso PagoPa
-    And Logout da portale persona giuridica

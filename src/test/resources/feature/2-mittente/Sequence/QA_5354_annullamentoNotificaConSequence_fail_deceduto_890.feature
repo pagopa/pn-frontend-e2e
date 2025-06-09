@@ -44,4 +44,3 @@ Feature: invio notifica con sequence
       | vediDettagli | false                                          |
     And Si clicca il bottone indietro nella descrizione della notifica
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
-    And Logout da portale mittente

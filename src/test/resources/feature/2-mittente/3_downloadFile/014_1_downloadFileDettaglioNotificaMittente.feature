@@ -43,4 +43,3 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Ricevuta di accettazione PEC")] |
       | vediDettagli | false                                          |
-    And Logout da portale mittente

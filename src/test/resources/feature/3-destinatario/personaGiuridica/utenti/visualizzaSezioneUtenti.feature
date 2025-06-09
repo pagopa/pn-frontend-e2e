@@ -37,4 +37,3 @@ Feature: La persona giuridica visualizza gli utenti
     And Si visualizza correttamente la pagina riepilogativa
     And Nella pagina riepilogativa utenti si clicca sul bottone rimuovi
     Then Si clicca sul bottone rimuovi dell popup
-    # And  Logout da portale persona giuridica

@@ -31,4 +31,3 @@ Feature: Mittente invia una notifica analogica con controllo RADD
       | tipoDestinatario  | PG              |
     And Aspetta 30 secondi
     And Controllo alert RADD
-    And Logout da portale persona giuridica

@@ -16,4 +16,3 @@ Feature: La persona giuridica annulla l'operazione di revoca una delega
     And Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega "nuova_delega"
     And Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca
     Then Si clicca sul bottone annulla
-    And Logout da portale persona giuridica

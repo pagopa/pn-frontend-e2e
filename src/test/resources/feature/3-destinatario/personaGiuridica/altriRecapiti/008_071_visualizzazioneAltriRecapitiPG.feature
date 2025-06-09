@@ -20,4 +20,3 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     Then Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente
     And Nella sezione altri recapiti si inserisce un recapito
     Then Si visualizzano correttamente tutti gli elementi della sezione altri recapiti
-    And Logout da portale persona giuridica

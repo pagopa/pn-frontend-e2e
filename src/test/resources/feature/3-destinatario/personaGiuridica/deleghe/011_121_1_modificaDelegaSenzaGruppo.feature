@@ -23,4 +23,3 @@ Feature: Il delegato persona giuridica modifica una delega non assegnandoli un g
     And Si clicca sul bottone non assegna a un gruppo
     And Si clicca su conferma in assegnazione gruppo
     And Si controlla che la delega non abbia più il gruppo
-    And Logout da portale persona giuridica

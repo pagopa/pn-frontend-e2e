@@ -22,4 +22,3 @@ Feature:Il delegato persona giuridica rifiuta la delega
     And Nella sezione Deleghe si clicca sul bottone rifiuta
     And Si clicca sul bottone rifiuta delega
     And Si controlla che la delega non si più presente in elenco
-    And Logout da portale persona giuridica

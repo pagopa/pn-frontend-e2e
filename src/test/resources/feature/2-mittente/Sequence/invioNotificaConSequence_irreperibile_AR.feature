@@ -43,4 +43,3 @@ Feature: invio notifica con sequence
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //span[contains(text(),"Scansione dell'indagine")] |
       | vediDettagli | false                                              |
-    And Logout da portale mittente

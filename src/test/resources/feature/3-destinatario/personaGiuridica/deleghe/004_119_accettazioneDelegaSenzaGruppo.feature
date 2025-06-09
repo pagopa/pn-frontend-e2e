@@ -20,4 +20,3 @@ Feature:Il delegato persona giuridica accetta la delega non assegnandoli un grup
     Then Le textbox che contengono le cifre del codice delega diventano rosse
     And Si accetta la delega senza gruppo
     And Si controlla che la delega PG ha lo stato Attiva "Convivio Spa"
-    And Logout da portale persona giuridica

@@ -19,4 +19,3 @@ Feature: La persona giuridica inserisce l'email
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
-    And Logout da portale persona giuridica

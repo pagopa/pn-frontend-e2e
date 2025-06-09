@@ -34,4 +34,3 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il gruppo del delegante
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si clicca su bottone Filtra
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si controlla che ci sia una delega con la ragione sociale inserita "Convivio Spa"
-    And Logout da portale persona giuridica

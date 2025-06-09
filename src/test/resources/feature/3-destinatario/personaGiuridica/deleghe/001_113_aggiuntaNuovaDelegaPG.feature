@@ -25,4 +25,3 @@ Feature: La persona giuridica aggiunge una nuova delega
     And Nella sezione Delegati dall impresa si visualizza la delega in stato di attesa di conferma
     And Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca
     And Si conferma l'azione scegliendo revoca la delega
-    And Logout da portale persona giuridica

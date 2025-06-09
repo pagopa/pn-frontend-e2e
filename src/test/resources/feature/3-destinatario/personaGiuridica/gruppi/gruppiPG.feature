@@ -59,4 +59,3 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
     And Si "Elimina" il gruppo "Gruppo Test" creato inizialmente
     Then Si visualizza il popup di conferma con la scritta "Gruppo eliminato correttamente"
     And Si visualizza correttamente la pagina gruppi
-    And Logout da portale persona giuridica

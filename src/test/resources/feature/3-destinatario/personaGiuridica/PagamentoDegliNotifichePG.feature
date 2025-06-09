@@ -35,7 +35,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona giuridica
 
   @PagaNotificaMonoPiuAvvisiEF24
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG  visualizza Notifica mono destinatario con più avvisi PagoPa e modello F24  - Pagamento di un avviso PagoPa
@@ -68,7 +67,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona giuridica
 
   @PagaNotificaMultiConAvviso
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG  visualizza Notifica multi destinatario - Pagamento di un solo avviso PagoPa
@@ -108,7 +106,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona giuridica
 
 
   @PagaNotificaMultiConPiuAvvisi
@@ -150,7 +147,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona giuridica
 
   @PagaNotificaMultiConPiuAvvisiEF24
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG  visualizza Notifica multi destinatario con più avvisi PagoPa e modello F24  - Pagamento di un avviso PagoPa
@@ -194,4 +190,3 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona giuridica

@@ -31,7 +31,6 @@ Feature: Ente figlio e Ente radice
     And Mittente ricerca notifica con IUN salvato
     Then Si verifica che non ci sono notifiche disponibili
     And Si clicca sul bottone esci
-    And Logout da portale mittente
 
   @verificaAssenzaApikeyEnteFiglio
   Scenario: PN-10412 - Ente Radice - Verifica assenza apikey ente figlio
@@ -58,7 +57,6 @@ Feature: Ente figlio e Ente radice
     And Si verifica che Api Key sono diversi
     Then Nel pop up visualizza cliccare sul tasto chiudi
     And Si clicca sul bottone esci
-    And Logout da portale mittente
 
   @verificaAssenzaApikeyEnteRadice
   Scenario: PN-10414 - Ente Figlio - Verifica assenza apikey ente radice
@@ -84,7 +82,6 @@ Feature: Ente figlio e Ente radice
     And Si verifica che Api Key sono diversi
     Then Nel pop up visualizza cliccare sul tasto chiudi
     And Si clicca sul bottone esci
-    And Logout da portale mittente
 
 
   @EnteRadiceEFiglio
@@ -105,7 +102,7 @@ Feature: Ente figlio e Ente radice
     And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe
@@ -114,7 +111,7 @@ Feature: Ente figlio e Ente radice
     And Si sceglie opzione accetta
     And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     #Esecuzione scenario
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
@@ -179,7 +176,7 @@ Feature: Ente figlio e Ente radice
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[@id='document-button' and .//div[contains(text(),'Avviso di avvenuta ricezione')]]  |
       | vediDettagli | false                                          |
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Destinatario ricerca notifica con IUN salvato
     And Cliccare sulla notifica restituita
@@ -202,7 +199,6 @@ Feature: Ente figlio e Ente radice
       | cognome | Borgia   |
     And Nella sezione Deleghe si sceglie l'opzione revoca
     And Si conferma l'azione scegliendo revoca la delega
-    And Logout da portale persona fisica
 
   @EnteRadiceEFiglio
   @verificaPresenzaNotificheRadiceDaDelegato
@@ -222,7 +218,7 @@ Feature: Ente figlio e Ente radice
     And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe
@@ -231,7 +227,7 @@ Feature: Ente figlio e Ente radice
     And Si sceglie opzione accetta
     And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     #Esecuzione scenario
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |

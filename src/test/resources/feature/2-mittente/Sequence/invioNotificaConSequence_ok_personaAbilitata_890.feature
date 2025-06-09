@@ -37,4 +37,3 @@ Feature: invio notifica con sequence
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata consegnata a una persona abilitata")] |
       | vediDettagli | false                                                                                                          |
-    And Logout da portale mittente

@@ -47,4 +47,3 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Aspetta 10 secondi
     And Si seleziona la notifica
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona giuridica

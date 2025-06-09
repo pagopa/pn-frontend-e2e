@@ -26,4 +26,3 @@ Feature: Visualizzazione sezione Integrazione API
     And Da Visualizza codice si copia correttamente il campo KID cliccando sul bottone di copia
     And Da Visualizza codice si copia correttamente il campo Issuer cliccando sul bottone di copia
     And Nella pop up cliccare sul tasto chiudi
-    And Logout da portale persona giuridica delegante

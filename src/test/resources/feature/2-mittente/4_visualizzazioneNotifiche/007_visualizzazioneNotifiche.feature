@@ -9,7 +9,6 @@ Feature: Mittente visualizza correttamente la pagina notifiche
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche visualizzano correttamente i filtri di ricerca
     Then Nella pagina Piattaforma Notifiche si visualizza correttamente l'elenco delle notifiche
-    And Logout da portale mittente
 
   @visualizzazioneNotificheMittente
   Scenario: [TA-FE VISUALIZZAZIONE NOTIFICA DOPO INVIO PG] - Invio notifica a PA con successiva visualizzazione lato PG
@@ -35,7 +34,7 @@ Feature: Mittente visualizza correttamente la pagina notifiche
       | stato                 | ITALIA             |
       | nomeDocumentoNotifica | RATA SCADUTA IMU   |
     And Si verifica che la notifica è stata creata correttamente
-    And Logout da portale mittente
+#    And Logout da portale mittente
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
       | user           | baldassarremazza |
@@ -45,7 +44,6 @@ Feature: Mittente visualizza correttamente la pagina notifiche
 #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
     And Si seleziona la notifica
-    And Logout da portale persona giuridica
 
 
 

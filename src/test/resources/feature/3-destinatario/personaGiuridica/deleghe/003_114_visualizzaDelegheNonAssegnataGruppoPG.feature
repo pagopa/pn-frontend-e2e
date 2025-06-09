@@ -30,4 +30,3 @@ Feature: La persona giuridica visualizza le deleghe
       | person         | false         |
     And Si controlla la tabella deleghe a carico dell impresa
     And Si accetta la delega senza gruppo
-    And Logout da portale persona giuridica

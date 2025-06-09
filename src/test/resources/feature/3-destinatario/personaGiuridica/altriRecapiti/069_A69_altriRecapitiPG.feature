@@ -12,4 +12,3 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     And Nella sezione altri recapiti PG si seleziona l'ente "Agenzia delle Entrate"
     And Nella sezione altri recapiti si seleziona il tipo di indirizzo PG scegliendo "pec"
     Then Nella sezione altri recapiti si inserisce la PEC aggiuntiva "prova@pec.it"
-    And Logout da portale persona giuridica

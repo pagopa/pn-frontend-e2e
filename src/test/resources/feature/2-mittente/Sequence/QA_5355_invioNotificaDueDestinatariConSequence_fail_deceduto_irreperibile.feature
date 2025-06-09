@@ -58,5 +58,4 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline "Invio via PEC fallito"
     And Aspetta 10 secondi
     And In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline "Invio via PEC fallito"
-    And Logout da portale mittente
 

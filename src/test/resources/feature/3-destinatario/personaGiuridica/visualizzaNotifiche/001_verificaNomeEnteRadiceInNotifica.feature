@@ -32,7 +32,6 @@ Feature: La persona fisica visualizza il nome concatenato dell'ente Radice nel c
     And Aspetta 60 secondi
     And Si visualizza correttamente la section Dettaglio Notifica
     Then Si verifica che il mittente sia "Comune di Palermo"
-    And Logout da portale persona giuridica
 
 
   @TestSuite
@@ -46,4 +45,3 @@ Feature: La persona fisica visualizza il nome concatenato dell'ente Radice nel c
     When La persona giuridica clicca sulla notifica restituita "QPTV-HLXM-LGJE-202410-G-1"
     And Si visualizza correttamente la section Dettaglio Notifica
     Then Si verifica che il mittente sia "Comune di Palermo"
-    And Logout da portale persona giuridica

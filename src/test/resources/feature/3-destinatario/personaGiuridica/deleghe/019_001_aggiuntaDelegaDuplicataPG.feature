@@ -28,7 +28,6 @@ Feature:Il delegato persona giuridica accede ad una delega
       | ente           | Comune di Palermo |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
     Then Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta
-    And Logout da portale persona giuridica
 
 
   @TA_PGdeleganteAggiuntaDelegaPF
@@ -78,4 +77,3 @@ Feature:Il delegato persona giuridica accede ad una delega
       | cognome | Spa      |
     And Nella sezione Deleghe si sceglie l'opzione revoca
     Then Si conferma l'azione scegliendo revoca la delega
-    And Logout da portale persona giuridica

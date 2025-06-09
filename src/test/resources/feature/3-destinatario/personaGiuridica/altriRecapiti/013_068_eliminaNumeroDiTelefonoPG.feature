@@ -33,4 +33,3 @@ Feature: La persona giuridica elimina il numero di cellulare di cortesia
     And Nella pagina I Tuoi Recapiti si preme sul bottone "Elimina" del numero di cellulare di cortesia
     And Si conferma "Rimuovi cellulare" nel pop up
     Then Nella pagina I Tuoi Recapiti si controlla che il numero di cellulare non sia presente
-    And Logout da portale persona giuridica

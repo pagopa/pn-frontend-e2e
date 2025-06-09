@@ -9,7 +9,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si verifica siano presenti recapiti digitali
       | email | provaemail@test.it |
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | AR                |
@@ -31,4 +31,3 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     And Si clicca il bottone indietro nella descrizione della notifica
     And Aspetta 20 secondi
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
-    And Logout da portale mittente

@@ -18,4 +18,3 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
       | displayName    | Convivio Spa  |
       | person         | false         |
     And Si emula accettazione della delega con gruppo con errore
-    And Logout da portale persona giuridica

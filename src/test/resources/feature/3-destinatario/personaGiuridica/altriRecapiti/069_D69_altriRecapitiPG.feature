@@ -43,4 +43,3 @@ Feature: La persona giuridica visualizza tutti gli elementi della sezione altri 
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
     Then Si visualizzano correttamente tutti gli elementi della sezione altri recapiti
-    And Logout da portale persona giuridica
