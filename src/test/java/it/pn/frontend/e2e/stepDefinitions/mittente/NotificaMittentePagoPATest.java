@@ -1082,10 +1082,22 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.clickSuTornaInformazioniPreliminari();
     }
 
-    @And("Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva")
-    public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
+    @And("Nella section Destinatario inserire i dati del secondo destinatario come persona fisica")
+    public void nellaSectionDestinatarioInserireIDatiDelSecondoDestinatarioPersonaFisica(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere la persona fisica aggiuntiva");
+        destinatarioPASection.inserimentoSecondoDestinatarioPF(destinatario);
+    }
+
+    @And("Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiDelSecondoDestinatarioPersonaGiuridica(Map<String, String> destinatario) {
         logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
+    }
+
+    @And("Nella section Destinatario inserire i dati del terzo destinatario come persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiDelTerzoDestinatarioPersonaGiuridica(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
+        destinatarioPASection.inserimentoTerzoDestinatarioPG(destinatario);
     }
 
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
@@ -1161,6 +1173,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
                     informazioniPreliminariPASection.insertGruppo("GruppoTest");
             case "test" ->
                     informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+            case "uat" ->
+                    informazioniPreliminariPASection.insertGruppo("Gruppo1");
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
@@ -1425,6 +1439,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("selezionaPrimaNotifica");
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
+        driver.navigate().refresh();
         piattaformaNotifichePage.visualizzaTimeline(messaggio);
         webTool.closeTab();
     }
@@ -1439,7 +1454,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiVerificaLaTimeline(String messagio) {
-        webTool.switchToPortal(AppPortal.PG);
+        webTool.switchToPortalUrl(urlFactory,AppPortalUrl.PG_URL);
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
         piattaformaNotifichePage.visualizzaTimeline(messagio);
@@ -1705,11 +1720,15 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         final String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/delivery/v2.3/requests/";
-        String codiceApi;
-        if (webDriverConfig.getEnvironment().equals("test")) {
-            codiceApi = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
-        } else {
-            codiceApi = "a9f0508d-c344-4347-807f-343bc8210996";
+        String codiceApi = "environmentCode";
+        switch (webDriverConfig.getEnvironment()) {
+            case "dev" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyDEV();
+            case "test" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyTEST();
+            case "uat" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyUAT();
+            default -> {
+                logger.error("Ambiente non valido per siVerificaEsitoNotifica");
+                Assertions.fail("Ambiente non valido o non trovato per siVerificaEsitoNotifica!");
+            }
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";

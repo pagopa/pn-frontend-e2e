@@ -23,7 +23,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
       | soggettoGiuridico       | PF               |
-      | nomeCognomeDestinatario | Gaio Giulio      |
+      | nomeCognomeDestinatario | Gaio Giulio Cesare     |
       | codiceFiscale           | CSRGGL44L13H501E |
     And Si aggiungi un domicilio digitale "test@fail.it"
      #      TODO verificare VAS
@@ -37,7 +37,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | cap       | 20147                 |
       | stato     | Italia                |
     And Nella section Destinatario cliccare su Aggiungi destinatario
-    And Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva
+    And Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica
       | soggettoGiuridico | PG           |
       | ragioneSociale    | Convivio Spa |
       | codiceFiscale     | 27957814470  |
