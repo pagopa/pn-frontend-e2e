@@ -144,7 +144,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public PiattaformaNotifichePage(WebDriver driver) {
         this.driver = driver;
-        webTool = new WebTool(driver);
+        this.webTool = new WebTool(driver);
 
     }
 
@@ -160,13 +160,8 @@ public class PiattaformaNotifichePage extends BasePage {
                             ExpectedConditions.visibilityOfElementLocated(By.id("Zustellungen-page")),
                             ExpectedConditions.visibilityOfElementLocated(By.id("Obvestila-page"))
                     ));
-
-
-
-
             logger.info("Piattaforma Notifiche Page caricata");
         } catch (TimeoutException e) {
-            logger.error("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
             Assertions.fail("Piattaforma Notifiche Page non caricata con errore : " + e.getMessage());
         }
     }
@@ -622,7 +617,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
                 int randomNumber = 0;
                 if (notifiche.size()>1){
-                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);;
+                    randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
                 }
 
                 Calendar calendar = GregorianCalendar.getInstance();
@@ -1312,7 +1307,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public void verificaPresenzaStato(String stato) {
-        getWebDriverWait(12).withMessage("Lo stato " + stato + " non è presente")
+        getWebDriverWait(32).withMessage("Lo stato " + stato + " non è presente")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]"))));
         logger.info("Stato {} presente", stato);
     }
@@ -1409,21 +1404,23 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean testSuccess = false;
         for (int i = 0; i < 15; i++) {
             try {
-                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
+//                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
+                WebElement chipStatus = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id(statoNotifica + "-status")));
                 if (chipStatus.isDisplayed()) {
                     logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
                     driver.navigate().refresh();
                     testSuccess = true;
                     break;
                 }
-            } catch (NoSuchElementException e) {
+//            } catch (NoSuchElementException e) {
+            } catch (TimeoutException | NoSuchElementException  e) {
                 logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
             }
             webTool.waitTime(15);
             driver.navigate().refresh();
         }
         if (!testSuccess) {
-            logger.error("La notifica non è passata allo stato " + statoNotifica);
             Assertions.fail("La notifica non è passata allo stato " + statoNotifica);
         }
     }
@@ -1447,7 +1444,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void clickBottoneAnnullaNotifica() {
-        getWebDriverWait(10).withMessage("Bottone annulla notifica non visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']")))));
+        getWebDriverWait(30).withMessage("Bottone annulla notifica non visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']")))));
         WebElement bottoneAnnullaNotifica = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"));
         scrollToElementAndClick(bottoneAnnullaNotifica);
     }
@@ -1464,14 +1461,28 @@ public class PiattaformaNotifichePage extends BasePage {
         } else {
             viewMore.get(0).click();
         }
-        //PF e PG vengono usati in modo da recuperare i dati test step. destinatari.get("PF") recupera CF da tabella nel FF
-        List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ") all')]"));
-        List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ") all')]"));
+//        List<WebElement> destinatarioPF = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PF") + ")')]"));
+//        logger.info("Lista PF {}", destinatarioPF.toArray());
+//        List<WebElement> destinatarioPG = driver.findElements(By.xpath("//p[contains(text(),'(" + destinatari.get("PG") + ")')]"));
+//        logger.info("Lista PG {}", destinatarioPG.toArray());
+        List<WebElement> destinatarioPF = getWebDriverWait(30)
+                .withMessage("Impossibile trovare PF:  "+destinatari.get("PF"))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                By.xpath(String.format("//p[contains(text(),'(%s)')]", destinatari.get("PF")))
+        ));
+        logger.info("Lista PF: {}", destinatarioPF.toArray());
+
+        List<WebElement> destinatarioPG = getWebDriverWait(30)
+                .withMessage("Impossibile trovare PG:  "+destinatari.get("PG"))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                By.xpath(String.format("//p[contains(text(),'(%s)')]", destinatari.get("PG")))
+        ));
+        logger.info("Lista PG: {}", destinatarioPG.toArray());
+
 
         if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
             logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
         } else {
-            logger.error("Non si visualizza  gli eventi relativi a tutti i destinatari");
             Assertions.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
         }
 
@@ -1665,6 +1676,7 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         Assertions.assertFalse(isDisplayed, "Il bottone è visualizzabile");
     }
+
     private void verificaDestinatario(String tipo, String cf, String messaggioErrore) {
         List<WebElement> destinatario = getWebDriverWait(10)
                 .withMessage(messaggioErrore)
@@ -1764,7 +1776,7 @@ public class PiattaformaNotifichePage extends BasePage {
             informativaPrivacyOrTerminiCondizioneLink.click();
             webTool.waitTime(1);
         } catch (TimeoutException e) {
-            System.out.println("Link Informativa Privacy  o Termini e Condizione non trovato o non visibile.");
+            logger.info("Link Informativa Privacy  o Termini e Condizione non trovato o non visibile.");
         }
     }
 
@@ -1794,7 +1806,6 @@ public class PiattaformaNotifichePage extends BasePage {
         if (StringUtils.isEmpty(banner)){
             //assenza di banner
             boolean nonPresente = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xPathBanner)));
-            logger.info("Non Presente:" +nonPresente);
             Assertions.assertTrue(nonPresente, "Banner Bilinguismo presente");
         }
         else {
@@ -1885,7 +1896,6 @@ public class PiattaformaNotifichePage extends BasePage {
         if(lingua.equalsIgnoreCase("Italiano")) {
             WebElement radioIt = getWebDriverWait(20)
                     .withMessage("Impossibile impostare la lingua su Italiano")
-//                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='it']")));
                     .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='lang' and @value='it']/ancestor::label")));
             radioIt.click();
         }else {

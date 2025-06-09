@@ -1073,10 +1073,22 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.clickSuTornaInformazioniPreliminari();
     }
 
-    @And("Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva")
-    public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
+    @And("Nella section Destinatario inserire i dati del secondo destinatario come persona fisica")
+    public void nellaSectionDestinatarioInserireIDatiDelSecondoDestinatarioPersonaFisica(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere la persona fisica aggiuntiva");
+        destinatarioPASection.inserimentoSecondoDestinatarioPF(destinatario);
+    }
+
+    @And("Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiDelSecondoDestinatarioPersonaGiuridica(Map<String, String> destinatario) {
         logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
+    }
+
+    @And("Nella section Destinatario inserire i dati del terzo destinatario come persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiDelTerzoDestinatarioPersonaGiuridica(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
+        destinatarioPASection.inserimentoTerzoDestinatarioPG(destinatario);
     }
 
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
@@ -1418,6 +1430,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("selezionaPrimaNotifica");
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
+        driver.navigate().refresh();
         piattaformaNotifichePage.visualizzaTimeline(messaggio);
         webTool.closeTab();
     }
@@ -1432,7 +1445,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiVerificaLaTimeline(String messagio) {
-        webTool.switchToPortal(AppPortal.PG);
+        webTool.switchToPortalUrl(urlFactory,AppPortalUrl.PG_URL);
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
         piattaformaNotifichePage.visualizzaTimeline(messagio);
