@@ -13,11 +13,12 @@ Feature: PA invia notifica manuale in Italiano
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
+    And Selezionare da impostazione lingua "Italiano"
 #    And Selezionare da impostazione lingua "Italiano"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Selezionare da impostazione lingua "Italiano"
+    And verifica lingua selezionata "Italiano"
 
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Italiano"
     And Cliccare su continua

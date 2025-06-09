@@ -13,12 +13,12 @@ Feature: PA invia notifica manuale bilingue: Italiano e Francese
     And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
-
+    And Selezionare da impostazione lingua "Francese"
 #    And Selezionare da impostazione lingua "Italiano"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Selezionare da impostazione lingua "Francese"
+    And verifica lingua selezionata "Francese"
 
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Francese"
     And Cliccare su continua

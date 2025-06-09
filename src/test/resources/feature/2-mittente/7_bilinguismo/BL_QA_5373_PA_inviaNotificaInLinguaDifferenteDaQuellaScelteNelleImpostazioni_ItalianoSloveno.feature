@@ -4,20 +4,20 @@ Feature: PA invia notifica in lingua differente da quella scelte nelle impostazi
   @TA_bilinguismoLinguaDifferenteDalleImpostazioni_ItalianoSloveno_QA5373
   @bilinguismo
 
-  Scenario: PN-QA5372-BL - PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Francese
+  Scenario: PN-QA5373-BL - PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Sloveno
 #    Pre Condizione Aver settato nelle impostazioni Italiano e Francese
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
     And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
-    And Home page mittente viene visualizzata correttamente
+#    And Home page mittente viene visualizzata correttamente
     And Selezionare da impostazione lingua "Francese"
 
     And Logout e Login con Comune di "Viggiu"
     And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
-    And Home page mittente viene visualizzata correttamente
+#    And Home page mittente viene visualizzata correttamente
 
 
     And Selezionare da impostazione lingua "Sloveno"

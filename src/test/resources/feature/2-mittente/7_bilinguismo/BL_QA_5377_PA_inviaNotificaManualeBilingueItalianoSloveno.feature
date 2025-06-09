@@ -15,9 +15,10 @@ Feature: PA invia notifica manuale bilingue: Italiano e Sloveno
 
 #    And Selezionare da impostazione lingua "Italiano"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
+    And Selezionare da impostazione lingua "Sloveno"
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Selezionare da impostazione lingua "Sloveno"
+    And verifica lingua selezionata "Sloveno"
 
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua "Sloveno"
     And Cliccare su continua

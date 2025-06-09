@@ -1825,8 +1825,11 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaFooterLingua(String lingua) {
-        WebElement linguaElement = driver.findElement(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root"));
-        Assertions.assertEquals(linguaElement.getText(),lingua,"La Lingua presente nel footer è diversa da: "+lingua);
+//        WebElement linguaElement = driver.findElement(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root"));
+        WebElement linguaElement = getWebDriverWait(20)
+                .withMessage("Elemento della lingua nel footer non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root")));
+        Assertions.assertEquals(linguaElement.getText(), lingua, "La Lingua presente nel footer è diversa da: " + lingua);
     }
 
     public void verificaCampiVuoti() {

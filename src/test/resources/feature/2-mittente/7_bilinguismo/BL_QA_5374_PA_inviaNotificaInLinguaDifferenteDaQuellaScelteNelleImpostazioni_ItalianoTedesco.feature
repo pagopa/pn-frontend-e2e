@@ -4,7 +4,7 @@ Feature: PA invia notifica in lingua differente da quella scelte nelle impostazi
   @TA_bilinguismoLinguaDifferenteDalleImpostazioni_ItalianoTedesco_QA5374
   @bilinguismo
 
-  Scenario: PN-QA5372-BL - PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Tedesco
+  Scenario: PN-QA5374-BL - PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Tedesco
 #    Pre Condizione Aver settato nelle impostazioni Italiano
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
