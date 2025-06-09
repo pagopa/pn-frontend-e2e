@@ -526,4 +526,10 @@ public class NotifichePGPagoPATest extends BasePage {
     public void riduciZoomPaginaAl(String size) {
         piattaformaNotifichePage.riduciZoomPaginaAl( size);
     }
+
+    @When("Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN {string}")
+    public void portalePFVaiANotifica(String codiceIUN) {
+        String env = webDriverConfig.getEnvironment();
+        this.driver.get("https://imprese."+ env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
+    }
 }

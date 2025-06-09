@@ -529,9 +529,5 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.clickVediTutti();
     }
 
-    @When("Nella pagina Piattaforma Notifiche pubblica amministrazione si accede alla notifica con codice IUN {string}")
-    public void portalePAVaiANotifica(String codiceIUN) {
-        this.driver.get("https://selfcare.test.notifichedigitali.it/dashboard/" + codiceIUN + "/dettaglio");
-    }
 }
 

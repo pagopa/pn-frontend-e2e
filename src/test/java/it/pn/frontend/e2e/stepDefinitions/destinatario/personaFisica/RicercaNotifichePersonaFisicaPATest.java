@@ -291,8 +291,4 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
         piattaformaNotifichePage.clickSuNotifica(codiceIUN);
     }
-    @When("Nella pagina Piattaforma Notifiche persona fisica si accede alla notifica con codice IUN {string}")
-    public void portalePFVaiANotifica(String codiceIUN) {
-        this.driver.get("https://cittadini.test.notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
-    }
 }

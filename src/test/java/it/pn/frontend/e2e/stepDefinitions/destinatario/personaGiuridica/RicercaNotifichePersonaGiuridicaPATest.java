@@ -248,8 +248,4 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         ricercaNotifichePGPage.clickBottoneConfermaPopUp();
     }
 
-    @When("Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN {string}")
-    public void portalePFVaiANotifica(String codiceIUN) {
-        this.driver.get("https://imprese.test.notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
-    }
 }

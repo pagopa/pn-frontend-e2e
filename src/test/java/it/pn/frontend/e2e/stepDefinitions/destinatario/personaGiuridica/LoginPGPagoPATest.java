@@ -120,6 +120,10 @@ public class LoginPGPagoPATest extends BasePage {
                     webDriverConfig.getTokentestPGDelegante()
                     :
                     webDriverConfig.getTokentestPGDelegato();
+            case "uat" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+                    webDriverConfig.getTokentestPGDelegante()
+                    :
+                    webDriverConfig.getTokentestPGDelegato();
             default -> {
                 logger.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
