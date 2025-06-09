@@ -29,6 +29,8 @@ Feature: persona giuridica scarica attestazione opponibile
       | soggettoGiuridico       | PG           |
       | nomeCognomeDestinatario | Convivio Spa |
       | codiceFiscale           | 27957814470  |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |

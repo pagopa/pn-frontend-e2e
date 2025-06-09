@@ -56,12 +56,14 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "Fehlerhistorie"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
     And Cambia lingua footer "Englisch"
+    And Attendi secondi "1"
     And Cambia lingua footer "French"
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Procurations"
     And Verifica traduzione testo "Coordonnées"
     And Verifica traduzione testo "Utilisateurs"
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
+    And Attesa 1 secondi
     When Seleziona voce menu laterale "Coordonnées"
     And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
 #    Selezionare Stato della Piattaforma

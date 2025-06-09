@@ -15,6 +15,9 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario selezionare il radio button persona giuridica
     And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica
+    #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
+
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi destinatario

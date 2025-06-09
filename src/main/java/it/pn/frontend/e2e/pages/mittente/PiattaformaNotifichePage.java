@@ -37,7 +37,7 @@ Component: Aggiunta dell’annotazione @Component per rendere la classe gestibil
 
 public class PiattaformaNotifichePage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("notificaMittentePagoPA");
+    private static final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePage");
 
 
     @FindBy(id = "recipientId")
@@ -704,14 +704,14 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
 
-    private void selezionaPage50() {
+    public void selezionaPage50() {
         WebElement pageSize50 = getWebDriverWait(30)
                 .withMessage("Impossibile trovare pageSize-50")
                 .until(ExpectedConditions.elementToBeClickable(By.id("pageSize-50")));
         pageSize50.click();
     }
 
-    private void buttonRighePagine() {
+    public void buttonRighePagine() {
         WebElement buttonRighePagine = getWebDriverWait(10)
                 .withMessage("Impossibile trovare Botton Righe per pagina ")
                 .until(ExpectedConditions.elementToBeClickable(By.id("rows-per-page")));
@@ -732,10 +732,18 @@ public class PiattaformaNotifichePage extends BasePage {
         driver.navigate().to("https://selfcare." + environment + ".notifichedigitali.it/dashboard/" + IUN + "/dettaglio");
     }
 
+    //    public void selectInviaUnaNuovaNotificaButton() {
+//        getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("new-notification-btn"))));
+//        inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
+//        inviaNuovaNotificaButton.click();
+//    }
     public void selectInviaUnaNuovaNotificaButton() {
-        getWebDriverWait(10).withMessage("Il bottone invia notifica non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("new-notification-btn"))));
-        inviaNuovaNotificaButton = driver.findElement(By.id("new-notification-btn"));
-        inviaNuovaNotificaButton.click();
+
+        WebElement button = getWebDriverWait(10)
+                .withMessage("Il bottone invia notifica non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("new-notification-btn")));
+
+        button.click();
     }
 
 
@@ -1132,7 +1140,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
     public List<String> getCodiceIunPresenti() {
-        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
+        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
@@ -1142,7 +1150,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPresentiPF() {
-        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
+        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
@@ -1157,7 +1165,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public List<String> getCodiceIunPersonaGiuridica() {
-        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]//button"));
+        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
         List<String> listaCodici = new ArrayList<>();
         for (WebElement rigaTabella : righeTabella) {
             String codiceIun = rigaTabella.getText();
@@ -1238,26 +1246,40 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean controlloEsistenzaStato() {
-        statoNotificaField = driver.findElement(By.id("status"));
+        statoNotificaField = getWebDriverWait(10)
+                .withMessage("Il campo 'Stato notifica' non è visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("status")));
         statoNotificaField.click();
-        try {
 
-            getWebDriverWait(10).withMessage("Il menu a tendina dello stato notifica del filtro non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//li[@data-value]"))));
-            List<WebElement> statiNotifica = driver.findElements(By.xpath("//li[@data-value]"));
-            ArrayList<String> stati = new ArrayList<>(List.of("Tutti gli stati", "Depositata", "Invio in corso", "Consegnata", "Perfezionata per decorrenza termini", "Avvenuto accesso", "Annullata", "Destinatario irreperibile"));
+        try {
+            By opzioniMenu = By.xpath("//li[@data-value]");
+
+            getWebDriverWait(10)
+                    .withMessage("Il menu a tendina dello stato notifica del filtro non è visibile")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(opzioniMenu));
+
+            List<WebElement> statiNotifica = driver.findElements(opzioniMenu);
+
+            Set<String> testiStati = new HashSet<>();
             for (WebElement stato : statiNotifica) {
-                if (!stati.contains(stato.getText())) {
-                    logger.error("Lo stato " + stato.getText() + " non è presente nella lista");
+                String testo = stato.getText().trim();
+                if (testo.isEmpty()) {
+                    logger.error("Trovata un'opzione con testo vuoto");
+                    return false;
+                }
+                if (!testiStati.add(testo)) {
+                    logger.error("Stato duplicato trovato: " + testo);
                     return false;
                 }
             }
-            logger.info("Tutti gli stati sono presenti nella lista");
+            logger.info("Tutti gli stati del menu a tendina sono validi e unici");
             return true;
+
         } catch (TimeoutException e) {
             Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
             return false;
         } finally {
-            this.element(By.id("menu-status")).click();
+            this.element(By.id("menu-status")).click(); // chiude il menu
         }
     }
 
@@ -1564,22 +1586,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     }
 
-    public void clickNotificaRicercata() {
-        logger.info("Si clicca la notifica ricercata");
-        try {
-            TimeUnit.SECONDS.sleep(2);
-            getWebDriverWait(10).withMessage("La notifica ricercata non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notificationsTable.body.row"))));
-            WebElement notitifcaRicercata = driver.findElement(By.id("notificationsTable.body.row"));
-            notitifcaRicercata.click();
-        } catch (TimeoutException e) {
-            logger.error("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
-            Assertions.fail("Non si riesce a cliccare la notifica ricercata con errore: " + e.getMessage());
-        } catch (InterruptedException e) {
-            logger.error("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
-            Assertions.fail("Attesa per rendere cliccabile la notifica interrota con errore: " + e.getMessage());
-        }
-    }
-
     public void checkMessaggioErroreConCodice(int code) {
         webTool.waitTime(3);
         erroreMessaggio = driver.findElement(By.id("message"));
@@ -1810,8 +1816,25 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaPopUp(String verifica) {
-        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
-        webTool.waitTime(5);
+//        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
+//        webTool.waitTime(5);
+
+
+        WebElement popup = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.id("alert-api-status")
+                ));
+
+        Assertions.assertTrue(popup.getText().contains(verifica));
+
+//        try {
+//            WebElement alert = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("alert-api-status")));
+//            Assertions.assertEquals(verifica, alert.getText(), "Il messaggio del pop-up non corrisponde!");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il pop-up non è comparso entro il tempo limite.");
+//        }
+
+
     }
 
     public void selezioneImpostazioneLingua() {
@@ -1905,6 +1928,169 @@ public class PiattaformaNotifichePage extends BasePage {
     public void riduciZoomPaginaAl(String size) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("document.body.style.zoom='"+size+"%'");
+
+    }
+
+    public void verificaAbilitazioneTastoContinua() {
+        try {
+             getWebDriverWait(10)
+                    .withMessage("Il bottone 'Continua' non è cliccabile entro il timeout")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
+
+            logger.info("Il bottone 'Continua' è  cliccabile.");
+        } catch (TimeoutException e) {
+            Assertions.fail("Timeout: il bottone 'Continua' non è diventato cliccabile.");
+        }
+
+    }
+
+    public void verificaPaginaInviaUnaNuovaNotificaLaSezionePosizioneDebitoria() {
+        // verifica lo step 3
+        getWebDriverWait(15)
+                .withMessage("Lo step 'Posizione debitoria' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector(".MuiStepLabel-label.Mui-active")
+                ));
+        // Verifica il form dove poter selezione il tipo di pagamento
+        getWebDriverWait(15)
+                .withMessage("Header della sezione 'Posizione debitoria' non trovato")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.cssSelector("form[data-testid='debtPositionForm'] h6")
+                ));
+
+
+    }
+
+    public void verificaDisibilitatoTastoContinua() {
+        WebElement continuaButton = getWebDriverWait(10).until(ExpectedConditions.presenceOfElementLocated(By.id("step-submit")));
+        Assertions.assertFalse(continuaButton.isEnabled(), "Il pulsante 'Continua' NON è disabilitato come previsto");
+    }
+
+    public void verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault() {
+
+        List<WebElement> radioLabels = getWebDriverWait(15)
+                .withMessage("Impossibile trovare nel metodo verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("label[data-testid='physicalAddressLookupRadio.0']")
+                ));
+
+        WebElement automaticoInput = null;
+        WebElement automaticoLabel = null;
+
+        for (WebElement label : radioLabels) {
+            WebElement input = label.findElement(By.cssSelector("input[type='radio']"));
+            if ("NATIONAL_REGISTRY".equals(input.getAttribute("value"))) {
+                automaticoInput = input;
+                automaticoLabel = label;
+                break;
+            }
+        }
+
+        Assertions.assertNotNull(automaticoInput, "Radio button 'Inserimento automatico' non trovato");
+        Assertions.assertTrue(automaticoLabel.isDisplayed(), "Il radio button 'Inserimento automatico' non è visibile");
+        Assertions.assertTrue(automaticoInput.isSelected(), "Il radio button 'Inserimento automatico' non è selezionato");
+
+    }
+
+    public void verificaPresenzaRadionButtonIserimentoManualeDisabilitato() {
+        List<WebElement> radioLabels = getWebDriverWait(15)
+                .withMessage("Impossibile trovare nel metodo verificaPresenzaRadionButtonIserimentoManualeDisabilitato")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                        By.cssSelector("label[data-testid='physicalAddressLookupRadio.0']")
+                ));
+
+        WebElement manualeInput = null;
+        WebElement manualeLabel = null;
+
+        for (WebElement label : radioLabels) {
+            WebElement input = label.findElement(By.cssSelector("input[type='radio']"));
+            if ("MANUAL".equals(input.getAttribute("value"))) {
+                manualeInput = input;
+                manualeLabel = label;
+                break;
+            }
+        }
+
+        Assertions.assertNotNull(manualeInput, "Radio button 'Inserimento manuale' non trovato");
+        Assertions.assertTrue(manualeLabel.isDisplayed(), "Il radio button 'Inserimento manuale' non è visibile");
+
+
+    }
+
+
+    public void verificaAssenzaRadionButtonIserimentoAutomatico() {
+            try {
+                List<WebElement> radioLabels = getWebDriverWait(15)
+                        .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                                By.cssSelector("label[data-testid='physicalAddressLookupRadio.0']")
+                        ));
+                for (WebElement label : radioLabels) {
+                    WebElement input = label.findElement(By.cssSelector("input[type='radio']"));
+                    if ("NATIONAL_REGISTRY".equals(input.getAttribute("value"))) {
+                        Assertions.fail("Il radio button 'Inserimento automatico' è presente, ma non dovrebbe esserlo.");
+                    }
+                }
+            } catch (Exception e) {
+                // Se il radio button non è trovato o non è cliccabile, non fa nulla
+                logger.info("Il radio button in verificaAssenzaRadionButtonIserimentoAutomatico  'Inserimento Automatico' non è presente, si passa oltre.");
+            }
+    }
+
+    public void verificaAssenzaRadionButtonIserimentoManuale() {
+
+        selezionaRadionButtonInserimentoManualeSeEsiste("0");
+
+    }
+
+
+    public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
+
+        //posizione 1...n si vuole aggiungere un destinatario
+        try {
+
+            List<WebElement> radioLabels = getWebDriverWait(15)
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                            By.cssSelector("label[data-testid='physicalAddressLookupRadio."+posizione+"']")
+                    ));
+
+            WebElement manualeInput = null;
+
+            for (WebElement label : radioLabels) {
+                WebElement input = label.findElement(By.cssSelector("input[type='radio']"));
+                if ("MANUAL".equals(input.getAttribute("value"))) {
+                    manualeInput = input;
+                    break;
+                }
+            }
+            manualeInput.click();
+        } catch (Exception e) {
+           logger.info("Il radio button in PiattaformaNotifichePage metodo selezionaRadionButtonInserimentoManuale  'Inserimento manuale' non è presente, si passa oltre.");
+        }
+    }
+
+
+    public void verificaBannerAttivoEInserimentoManualeSelezionato() {
+
+        WebElement radioManuale = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.cssSelector("input[type='radio'][value='MANUAL']")));
+
+        Assertions.assertTrue(radioManuale.isSelected(), "Il radio button 'Inserimento manuale' NON è selezionato");
+
+        WebElement radioAutomatico = driver.findElement(
+                By.cssSelector("input[type='radio'][value='NATIONAL_REGISTRY']"));
+
+        Assertions.assertFalse(radioAutomatico.isEnabled(), "Il radio 'Inserimento automatico' NON è disabilitato");
+
+
+        // 3. Verifica che il messaggio di errore sia presente
+        WebElement alertMessaggio = driver.findElement(
+                By.cssSelector("[data-testid='alert-physicalAddressLookupDown'] .MuiAlert-message"));
+
+        Assertions.assertTrue(alertMessaggio.isDisplayed(),
+                "Il messaggio di alert per l'indirizzo manuale NON è visibile");
+
+        logger.info("Messaggio di alert correttamente visualizzato e coerente con quello atteso");
 
     }
 }

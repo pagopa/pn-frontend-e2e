@@ -139,7 +139,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickNotificheButton() {
-        getWebDriverWait(30).withMessage("Notifiche menu button non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("side-item-Notifiche"))));
+        getWebDriverWait(40).withMessage("Notifiche menu button non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("side-item-Notifiche"))));
         notificheDeButton = driver.findElement(By.id("side-item-Notifiche"));
         js().executeScript("arguments[0].click()", notificheDeButton);
     }

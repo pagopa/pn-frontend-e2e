@@ -25,7 +25,7 @@ Feature: PG - Utente Amministratore di gruppo non abilitato prova a censire una 
     And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
-    Then Nella sezione Integrazione API non si visualizza alcuna chiave "Per poter creare una chiave personale un amministratore deve prima abilitare"
+    Then Nella sezione Integrazione API non si visualizza alcuna chiave "Per poter creare una chiave personale, un amministratore deve prima abilitare l’integrazione."
 
 
 

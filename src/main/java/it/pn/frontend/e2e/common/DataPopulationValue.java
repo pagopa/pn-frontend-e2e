@@ -168,6 +168,7 @@ public enum DataPopulationValue {
     COD_AVVISO("codiceAvviso","302047770009990299",false),
     API_KEY_TEST("codiceApiKeyTEST","2b3d47f4-44c1-4b49-b6ef-54dc1c531311",false),
     API_KEY_DEV("codiceApiKeyDEV","a9f0508d-c344-4347-807f-343bc8210996",false),
+    API_KEY_UAT("codiceApiKeyUAT","776c8ea9-1adb-4518-8593-76890d788758",false),
 
     //NUOVA DELEGA
     NAME_DELEGA("nome_delega_pf","Lucrezia",false),
@@ -221,6 +222,7 @@ public enum DataPopulationValue {
     STATO_PF("stato_pf","ITALIA",false),
     OTP_PEC_PF("OTPpec_pf","45903",false),
     OTP_MAIL_PF("OTPmail_pf","10377",false),
+    OTP_CELL_PF("OTPCell_pf","10111",false),
 
     //PERSONA GIURIDICA
     USER_PG("user_pg","DanteAlighieri",false),
@@ -246,6 +248,7 @@ public enum DataPopulationValue {
     BEARER_TOKEN_PG ("bearer_token_pg","Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImU0ZjJhYTIyLTE5MDctNDIyNC1iYWViLTExYzZiY2RkZDNkYSJ9.eyJpYXQiOjE3MDczMDIwMzgsImV4cCI6MTkwMDIyMzkxNywidWlkIjoiZTQ5MGYwMmUtOTQyOS00YjM4LWJiMTEtZGRiOGE1NjFmYjYyIiwiaXNzIjoiaHR0cHM6Ly93ZWJhcGkudGVzdC5ub3RpZmljaGVkaWdpdGFsaS5pdCIsImF1ZCI6IndlYmFwaS50ZXN0Lm5vdGlmaWNoZWRpZ2l0YWxpLml0IiwianRpIjoiMmVlYmY5ZTMtYTBkYS00NTEzLTkxMWQtNjMyMjBjODE2NTIyIiwib3JnYW5pemF0aW9uIjp7ImlkIjoiZDBmNTJjN2QtNzZkNS00NTIwLTg5NzEtZWRmZmViNWI0NmQ1Iiwicm9sZSI6InBnLWFkbWluIiwiZmlzY2FsX2NvZGUiOiIyNzk1NzgxNDQ3MCJ9fQ.n9ohCtZlbMXqD95Ini_-dDFRtG5Udc7a8CXz8dvqAs3Wn_FG-dfMi79LN25PULkYjv6LaygpGPELNg1dDmyg9HY4uaqdkwQGeoseZIA3V3jjMzeeWM1K7lTFxhhsPjanl2z4jgqkFLIbhrD_qg0UeKDun_oa5_W6Kk3miTh6wC7XgT19jPJWI68P5e8J8c7M2y4IzKrTG8da1hT_g41o9JUR2SC7zxKhMwf-FzGGb41ct90rTLP-9ngxjF4VvoOOJTL6g0pb0qs-Wep0vS-U_zM-H4qjEvScGCX136FKwZP75Er-M_hDGZeamqIg-bIOA9mASgtyIxVy1gLPXEGsPw",false),
     OTP_PEC_PG ("otp_pec_pg","83583",false),
     OTP_MAIL_PG("otp_mail_pg", "38630",false),
+    OTP_CELL_PG("otp_mail_pg", "00000",false),
 
     //PERSONA GIURIDICA 1
     USER_PG_1("user_pg_1", "DanteAlighieri",false),

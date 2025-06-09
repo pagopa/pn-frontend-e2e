@@ -191,7 +191,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return false;
     }
 
-    public void clickVediPiuDettaglio() {
+    public void clickVediPiuDettagli() {
         getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(0)));
         logger.info("click su vedi dettagli");
         vediDettagliButton = driver.findElements(By.id("more-less-timeline-step"));
@@ -613,9 +613,14 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         ente.click();
     }
 
-    public void ricercaNotificaConIunSalvato(String iun) {
+    public void ricercaNotificaConIunSalvatoMittente(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
+    }
+
+    public void ricercaNotificaConIunSalvatoDestinatario(String iun) {
+        piattaformaNotifichePage.inserimentoCodiceIUN(iun);
+        piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
     }
 
     public void selezionaServizioNotificheDigitale() {

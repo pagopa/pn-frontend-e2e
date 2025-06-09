@@ -98,34 +98,37 @@ public class LoginPGPagoPATest extends BasePage {
     @Given("Login Page persona giuridica viene visualizzata")
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
         String variabileAmbiente = webDriverConfig.getEnvironment();
-        switch (variabileAmbiente) {
-            case "dev" -> driver.get(webDriverConfig.getBaseUrlPgDev());
-            case "test", "uat" ->
-                    driver.get(webDriverConfig.getBaseUrlPgTest().replace("dev", variabileAmbiente));
-            default ->
-                    Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
-        }
+//        switch (variabileAmbiente) {
+//            case "dev" -> driver.get(webDriverConfig.getBaseUrlPgDev());
+//            case "test", "uat" ->
+//                    driver.get(webDriverConfig.getBaseUrlPgTest().replace("dev", variabileAmbiente));
+//            default ->
+//                    Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
+//        }
+
+        driver.get(webDriverConfig.getBaseUrlPgTest().replace("dev", variabileAmbiente));
+
     }
 
     @Given("PG - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange(String personaGiuridica) {
         String environment = webDriverConfig.getEnvironment();
         String token = "";
-        switch (environment) {
-            case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokendevPGDelegante()
-                    :
-                    webDriverConfig.getTokendevPGDelegato();
-            case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokentestPGDelegante()
-                    :
-                    webDriverConfig.getTokentestPGDelegato();
-            default -> {
-                logger.error("Ambiente non valido");
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
-
+//        switch (environment) {
+//            case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokendevPGDelegante()
+//                    :
+//                    webDriverConfig.getTokendevPGDelegato();
+//            case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokentestPGDelegante()
+//                    :
+//                    webDriverConfig.getTokentestPGDelegato();
+//            default -> {
+//                logger.error("Ambiente non valido");
+//                Assertions.fail("Ambiente non valido o non trovato!");
+//            }
+//        }
+        token = personaGiuridica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPGDelegante():webDriverConfig.getTokentestPGDelegato();
 
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
         driver.get(urlLogin);
@@ -394,16 +397,17 @@ public class LoginPGPagoPATest extends BasePage {
         String urlIniziale = "https://imprese." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
         if (nomeFileLogin.equalsIgnoreCase("delegatoPG")) {
-            token = variabileAmbiente.equalsIgnoreCase("test") ?
-                    webDriverConfig.getTokentestPGDelegato():
-                    webDriverConfig.getTokendevPGDelegato();
+//            token = variabileAmbiente.equalsIgnoreCase("test") ?
+//                    webDriverConfig.getTokentestPGDelegato():
+//                    webDriverConfig.getTokendevPGDelegato();
+            token = webDriverConfig.getTokentestPGDelegato();
         }
         else  {
-            token = variabileAmbiente.equalsIgnoreCase("test") ?
-                    webDriverConfig.getTokentestPGDelegante():
-                    webDriverConfig.getTokendevPGDelegante();
+//            token = variabileAmbiente.equalsIgnoreCase("test") ?
+//                    webDriverConfig.getTokentestPGDelegante():
+//                    webDriverConfig.getTokendevPGDelegante();
+            token = webDriverConfig.getTokentestPGDelegante();
         }
-
         String url = urlIniziale + token;
         driver.get(url);
     }
@@ -411,20 +415,23 @@ public class LoginPGPagoPATest extends BasePage {
     public String getTokenExchangePGFromFile(String personaGiuridica) {
         String environment = webDriverConfig.getEnvironment();
         String token = "";
-        switch (environment) {
-            case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokendevPGDelegante()
-                    :
-                    webDriverConfig.getTokendevPGDelegato();
-            case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokentestPGDelegante()
-                    :
-                    webDriverConfig.getTokentestPGDelegato();
-            default -> {
-                logger.error("Ambiente non valido");
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
+//        switch (environment) {
+//            case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokendevPGDelegante()
+//                    :
+//                    webDriverConfig.getTokendevPGDelegato();
+//            case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokentestPGDelegante()
+//                    :
+//                    webDriverConfig.getTokentestPGDelegato();
+//            default -> {
+//                logger.error("Ambiente non valido");
+//                Assertions.fail("Ambiente non valido o non trovato!");
+//            }
+//        }
+
+        token = personaGiuridica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPGDelegante():webDriverConfig.getTokentestPGDelegato();
+
         return token;
     }
 

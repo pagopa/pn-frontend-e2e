@@ -32,6 +32,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND"
     And Verifica traduzione testo "Fehlerhistorie"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
+    And Attesa 1 secondi
     And Cambia lingua footer "Englisch"
     When Seleziona voce menu laterale "Notifications"
     And Aspetta 1 secondi

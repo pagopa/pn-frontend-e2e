@@ -28,7 +28,6 @@ public class RecapitiPGPage extends BasePage {
             getWebDriverWait(10).withMessage("il titolo Recapiti della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOf(racapitiPageTitle));
             logger.info("Si visualizza correttamente recapiti page");
         }catch (TimeoutException e){
-            logger.error("Non si visualizza correttamente recapiti page con errore:"+e.getMessage());
             Assertions.fail("Non si visualizza correttamente recapiti page con errore:"+e.getMessage());
         }
     }

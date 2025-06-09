@@ -2,38 +2,22 @@ package it.pn.frontend.e2e.stepDefinitions.destinatario.personaGiuridica;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.common.DettaglioNotificaSection;
-import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.listeners.HooksNew;
-import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
-import it.pn.frontend.e2e.pages.destinatario.personaFisica.AccediAPiattaformaNotifichePage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DeleghePGPagoPAPage;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
-import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
-import it.pn.frontend.e2e.section.CookiesSection;
-import it.pn.frontend.e2e.section.destinatario.personaFisica.LeTueDelegheSection;
-import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
 import it.pn.frontend.e2e.utility.DataPopulation;
-import it.pn.frontend.e2e.utility.DownloadFile;
 import it.pn.frontend.e2e.utility.WebTool;
 
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-
-import java.util.Map;
 
 public class RecapitiPGPagoPaTest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger("RecapitiPGPagoPaTest");
@@ -76,7 +60,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella pagina Recapiti si inserisce la PEC del persona giuridica")
     public void nellaPaginaITuoiRecapitiSiInserisceLaPECDelPersonaGiuridica() {
         logger.info("Si cerca di inserire la email pec");
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         recapitiDestinatarioPage.insertEmailPEC(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
     }
 
@@ -98,7 +81,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti si inserisce l'email del PG e clicca sul bottone avvisami via email")
     public void nellaPaginaITuoiRecapitiSiInserisceLEmailDelPGECliccaSulBottoneAvvisamiViaEmail() {
         logger.info("Si inserisce l'email del PG e si clicca sul bottone avvisami via email");
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         recapitiDestinatarioPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getEmailPec());
         recapitiDestinatarioPage.clickAvvisami();
     }
@@ -122,7 +104,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti di PG, si controlla che ci sia già una pec")
     public void nellaPaginaITuoiRecapitiDiPgSiControllaCheCiSiaGiaUnaPec() {
         logger.info("Si controlla la presenza di una pec");
-        String pec = dataPopulation.readDataPopulation("personaGiuridica.yaml").get("emailPec").toString();
+        String pec = dataPopulationConfig.getPersonaGiuridica().getEmailPec();
         if (!recapitiDestinatarioPage.siVisualizzaPecInserita()) {
             backgroundTest.aggiungiPECPG();
         } else if (!recapitiDestinatarioPage.siControllaPECModificata(pec)) {
@@ -139,7 +121,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Si annulla eliminazione email")
     public void siAnnullaEliminazioneEmail() {
         recapitiDestinatarioPage.checkButtonAnnullaEliminazioneInPopUp();
-        recapitiDestinatarioPage.clickButtonAnnullaEliminazioneInPopUp();
     }
 
     @And("Si conferma {string} nel pop up")
@@ -162,7 +143,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti si visualizza il pop up di disclaimer")
     public void nellaPaginaITuoiRecapitiSiVisualizzaIlPopUpDiDisclaimer() {
         logger.info("Si controlla il disclaimer per il cambio dell'email di cortesia");
-        recapitiDestinatarioPage.checkDisclaimer();
+        recapitiDestinatarioPage.confermaButtonEliminaClick();
     }
 
       @And("Nella pagina I Tuoi Recapiti si visualizza correttamente la sezione altri recapiti persona giuridica {string}")
@@ -200,7 +181,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiInserisceUnPECMaggioreDiCaratteri(int numeroCaratteri) {
         StringBuilder email = new StringBuilder("test");
         email.append("a".repeat(Math.max(0, numeroCaratteri)));
-        recapitiDestinatarioPage.insertPECAggiuntiva(email.toString());
+        recapitiDestinatarioPage.insertPEC(email.toString());
     }
 
     @And("Nella sezione altri recapiti si visualizza il messaggio di errore {string}")
@@ -227,9 +208,244 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Nella sezione altri recapiti si visualizza correttamente il messaggio di errore di popup")
     public void nellaSezioneAltriRecapitiSiVisualizzaMessagioDiErrorePopup(){
        if (!recapitiDestinatarioPage.waitErrorMessagePopupOTP()){
-           logger.error("Il messaggio di errore OTP popup non è visibile");
            Assertions.fail("Il messaggio di errore OTP popup non è visibile");
        }
     }
+
+    @When("Click Inizia")
+    public void clickInizia() {
+        recapitiDestinatarioPage.clickInizia();
+    }
+
+    @And("Click Attiva")
+    public void clickAttiva() {
+        recapitiDestinatarioPage.clickAttiva();
+    }
+
+    @And("Click Non ora")
+    public void clickNonOra() {
+        recapitiDestinatarioPage.clickNonOra();
+    }
+    @And("Click Non ora Uat")
+    public void clickNonOraUat() {
+        recapitiDestinatarioPage.clickNonOraUat();
+    }
+
+    @And("Click Lo Faro piu tardi")
+    public void clickLoFaroPiuTardi() {
+        recapitiDestinatarioPage.clickLoFaroPiuTardiOrConfermaModificaRecapito();
+    }
+
+    @And("Click Torna ai tuoi recapiti")
+    public void clickTornaAiTuoiRecapiti() {
+        recapitiDestinatarioPage.clickTornaAiTuoiRecapiti();
+    }
+
+    @Then("Verifica Attivazione Domicilio digitale")
+    public void verificaAttivazioneDomicilioDigitaleDellaTuaImpresa() {
+        recapitiDestinatarioPage.verificaAttivazioneDomicilioDigitaleDellaTuaImpresa();
+    }
+
+    @And("Click Annulla")
+    public void clickAnnulla() {
+        recapitiDestinatarioPage.clickAnnulla();
+    }
+
+    @Then("Verifica Da Attivare Domicilio digitale")
+    public void verificaDaAttivareDomicilioDigitale() {
+        recapitiDestinatarioPage.verificaDaAttivareDomicilioDigitale();
+    }
+
+    @And("Click Bottone {string}")
+    public void cliccaBottone(String testo) {
+        recapitiDestinatarioPage.cliccaBottone(testo);
+    }
+
+    @And("Click Bottone Esci PG")
+    public void cliccaBottoneEsciPG() {
+        recapitiDestinatarioPage.cliccaBottoneEsciPG();
+    }
+
+    @And("Verifica Pagina {string}")
+    public void verificaPagina(String testo) {
+        recapitiDestinatarioPage.verificaPagina(testo);
+    }
+
+    @And("Click Inserisci Email Pop-Up")
+    public void clickInserisciEmailPopUp() {
+        recapitiDestinatarioPage.clickInserisciEmailPopUp();
+    }
+
+    @When("Click Modifica Email")
+    public void clickModificaEmail() {
+        recapitiDestinatarioPage.clickSuModifica();
+    }
+
+    @And("Si inserisce la nuova Email del PG e clicca su Conferma")
+    public void siInserisceLaNuovaEmailDelPGECliccaSuConferma() {
+        iTuoiRecapitiPage.cancellaTesto();
+        iTuoiRecapitiPage.insertEmail(dataPopulationConfig.getPersonaGiuridica().getEmail());
+        iTuoiRecapitiPage.clickConfermaEmail();
+    }
+
+    @And("Click Insirisci Pec")
+    public void clickInsirisciPec() {
+        iTuoiRecapitiPage.clickInsirisciPec();
+    }
+
+    @And("Click Bottone Notifiche dell Impresa")
+    public void clickBottoneNotificheDellImpresa() {
+        iTuoiRecapitiPage.clickBottoneNotificheDellImpresa();
+    }
+
+    @And("Click Bottone Conferma per modifica PEC")
+    public void clickBottoneConfermaPerModificaPEC() {
+        iTuoiRecapitiPage.clickBottoneConfermaPerModificaPEC();
+    }
+
+    @And("Click Bottone Trasferisci su una PEC")
+    public void clickBottoneConfermaInTrasferisciSuUnaPEC() {
+        recapitiDestinatarioPage.clickConferma();
+    }
+
+    @And("Click Bottone Conferma in Trasferisci il domicilio digitale su una PEC")
+    public void clickBottoneConfermaInTrasferisciIlDomicilioDigitaleSuUnaPEC() {
+        recapitiDestinatarioPage.clickConferma();
+    }
+
+
+    @Then("Verifica Da Attivare Email")
+    public void verificaDaAttivareEmail() {
+        recapitiDestinatarioPage.verificaDaAttivareEmail();
+    }
+
+    @And("Click Bottone Conferma email")
+    public void clickBottoneConfermaEmail() {
+        recapitiDestinatarioPage.clickSuConfermaElimina();
+    }
+
+    @And("Click Menu Ente Mittente Inserimento ente {string}")
+    public void clickMenuEnteMittenteInseriemntoEnte(String ente) {
+        recapitiDestinatarioPage.clickMenuEnteMittenteInseriemntoEnte(ente);
+    }
+    @And("Click Menu Ente Mittente Inserimento ente")
+    public void clickMenuEnteMittenteInseriemntoEnte() {
+        recapitiDestinatarioPage.clickMenuEnteMittenteInseriemntoEnte();
+    }
+
+    @And("Inserisci Pec in Personalizza il tuo domicilio digitale per ente {string}")
+    public void inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnte(String pecOrEmail) {
+        recapitiDestinatarioPage.inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnte(pecOrEmail);
+    }
+
+    @And("Verifica ed Elimina personalizzati per ente")
+    public void verificaEdEliminaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.verificaEdEliminaPersonalizzatiPerEnte();
+    }
+
+    @And("Click Modifica personalizzati per ente")
+    public void clickModificaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.clickModificaPersonalizzatiPerEnte();
+    }
+    @And("Click Modifica personalizzati per ente OFF")
+    public void clickModificaPersonalizzatiPerEnteOff() {
+        recapitiDestinatarioPage.clickModificaPersonalizzatiPerEnteOFF();
+    }
+
+    @And("Click Elimina personalizzati per ente")
+    public void clickEliminaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.clickEliminaPersonalizzatiPerEnte();
+    }
+
+
+    @And("Modifica Pec personalizzati per Ente e conferma {string}")
+    public void modificaPecPersonalizzatiPerEnteEConferma(String pec) {
+        recapitiDestinatarioPage.modificaPecPersonalizzatiPerEnteEConferma(pec);
+    }
+
+    @And("Seleziona Tipologia {string}")
+    public void selezionaTipologia(String tipologia) {
+        recapitiDestinatarioPage.selezionaTipologia(tipologia);
+    }
+
+    @And("Verifica presenza messaggio")
+    public void verificaPresenzaMessaggio() {
+        recapitiDestinatarioPage.verificaPresenzaMessaggio();
+    }
+
+    @And("Verifica Assenza Sezione Personalizzati Per Ente")
+    public void verificaAssenzaSezionePersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.verificaAssenzaSezionePersonalizzatiPerEnte();
+    }
+
+    @And("Click Bottone Conferma Personalizza il tuo domicilio digitale per ente")
+    public void clickBottoneConfermaPersonalizzaIlTuoDomicilioDigitalePerEnte() {
+        recapitiDestinatarioPage.clickConferma();
+    }
+
+    @When("Click Bottone Disattiva In domicilio digitale {string}")
+    public void clickBottoneDisattivaInDomicilioDigitale(String testo) {
+        recapitiDestinatarioPage.clickBottoneDisattivaInDomicilioDigitale(testo);
+    }
+
+    @And("Verifica e Disattiva Personalizzati per Ente")
+    public void verificaEDisattivaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.verificaEDisattivaPersonalizzatiPerEnte();
+    }
+
+    @And("Click Bottone Conferma Modifica Recapito")
+    public void clickBottoneConfermaModificaRecapito() {
+        recapitiDestinatarioPage.clickLoFaroPiuTardiOrConfermaModificaRecapito();
+    }
+
+    @And("Verifica e Disattiva domicilio digitale")
+    public void verificaEDisattivaDomicilioDigitale() {
+        recapitiDestinatarioPage.verificaEDisattivaDomicilioDigitale();
+    }
+
+    @And("Verifica e Disattiva app IO")
+    public void verificaEDisattivaAppIO() {
+        recapitiDestinatarioPage.verificaEDisattivaAppIO();
+
+    }
+
+    @And("Verifica e Disattiva email")
+    public void verificaEDisattivaEmail() {
+        recapitiDestinatarioPage.verificaEDisattivaEmail();
+    }
+
+
+    @And("Verifica e Disattiva cellulare")
+    public void verificaEDisattivaCellulare() {
+        recapitiDestinatarioPage.verificaEDisattivaCellulare();
+    }
+
+    @When("Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale")
+    public void clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale() {
+        recapitiDestinatarioPage.clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale();
+    }
+
+    @And("Inserisci Pec Errata {string}")
+    public void inserisciPecErrata(String pec) {
+        recapitiDestinatarioPage.insertPEC(pec);
+    }
+
+    @When("Inserisci Email errata {string}")
+    public void inserisciEmailErrata(String email) {
+        recapitiDestinatarioPage.insertEmail(email);
+    }
+
+    @And("Si visualizza correttamente il messaggio di email non valida")
+    public void siVisualizzaCorrettamenteIlMessaggioDiEmailNonValida() {
+        String errorMessageRead = recapitiDestinatarioPage.getEmailInvalidMessage();
+        Assertions.assertNotNull(errorMessageRead, "Messaggio di errore letto : '" + errorMessageRead + "' ");
+
+
+    }
+
+//    @And("Verifica e Disattiva {string}")
+//    public void verificaAndOrDisattiva(String testo) {
+//        recapitiDestinatarioPage.verificaAndOrDisattiva(testo);
+//    }
 
 }

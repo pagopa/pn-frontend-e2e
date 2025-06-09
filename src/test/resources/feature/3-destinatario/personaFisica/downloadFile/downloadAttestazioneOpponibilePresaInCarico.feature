@@ -60,6 +60,8 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Giulio Cesare    |
       | codiceFiscale           | CSRGGL44L13H501E |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -105,6 +107,8 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Giulio Cesare    |
       | codiceFiscale           | CSRGGL44L13H501E |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |

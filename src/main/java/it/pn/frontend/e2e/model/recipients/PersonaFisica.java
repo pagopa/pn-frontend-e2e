@@ -25,6 +25,7 @@ public class PersonaFisica {
     private String stato;
     private String OTPPec;
     private String OTPMail;
+    private String OTPCellulare;
     private String additionalEmail;
 
 }

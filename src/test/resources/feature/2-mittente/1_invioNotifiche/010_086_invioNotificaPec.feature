@@ -15,6 +15,9 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisicaPec"
+    #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
+
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisicaPec" destinatario 0
     And Cliccare su continua
     #      Aggiungere alle notifiche

@@ -48,17 +48,22 @@ public class DeleghePage extends BasePage {
             getWebDriverWait(10).withMessage("Il titolo  della pagina deleghe non è visibile").until(ExpectedConditions.visibilityOf(deleghePageTitle));
             logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiungiDeleghe");
         } catch (TimeoutException e) {
-            logger.error("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiungiDeleghe con errore : " + e.getMessage());
             Assertions.fail("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiungiDeleghe con errore : " + e.getMessage());
         }
     }
 
     public void clickAggiungiDelegaButton() {
-        addDelegaButton = driver.findElement(By.id("add-delegation-button"));
-        getWebDriverWait(10).withMessage("Il bottone aggiungi delega non è visualizzato").until(ExpectedConditions.elementToBeClickable(addDelegaButton));
-        logger.info("click sul bottone add deleghe");
-        webTool.waitTime(3);
-        addDelegaButton.click();
+//        addDelegaButton = driver.findElement(By.id("add-delegation-button"));
+//        getWebDriverWait(10).withMessage("Il bottone aggiungi delega non è visualizzato").until(ExpectedConditions.elementToBeClickable(addDelegaButton));
+//        logger.info("click sul bottone add deleghe");
+//        webTool.waitTime(3);
+//        addDelegaButton.click();
+
+        WebElement aggiungiDelegaButton = getWebDriverWait(20)
+                .withMessage("Il bottone aggiungi delega non è visualizzato o non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("add-delegation-button")));
+
+        aggiungiDelegaButton.click();
 
     }
 
@@ -119,7 +124,6 @@ public class DeleghePage extends BasePage {
                 return;
             }
         } else {
-            logger.error("Non è stato trovato nessun delegato con il nome: " + fullName);
             Assertions.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
         }
     }
@@ -134,7 +138,6 @@ public class DeleghePage extends BasePage {
             menuButton.click();
             logger.info("Cliccato correttamente su menu delega button");
         } else {
-            logger.error("Non è stato trovato nessun delegato con il nome: " + fullName);
             Assertions.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
         }
     }
@@ -151,7 +154,6 @@ public class DeleghePage extends BasePage {
             logger.info("Il bottone chiudi viene visualizzato correttamente");
             closeCodiceButtonBy.click();
         } catch (TimeoutException e) {
-            logger.error("Il bottone chiudi viene visualizzato NON correttamente con errore:" + e.getMessage());
             Assertions.fail("Il bottone chiudi viene visualizzato NON correttamente con errore:" + e.getMessage());
         }
     }
@@ -171,7 +173,6 @@ public class DeleghePage extends BasePage {
                      By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
             element(menuDelegheBy).click();
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
         }
     }
@@ -183,7 +184,6 @@ public class DeleghePage extends BasePage {
             rifiutaButtonBy.click();
             logger.info("Si visualizza il bottone rifiuta");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente il bottone rifiuta con errore: " + e.getMessage());
             Assertions.fail("Non si visualizza correttamente il bottone rifiuta con errore: " + e.getMessage());
         }
     }
@@ -195,7 +195,6 @@ public class DeleghePage extends BasePage {
             rifiutaButtonPopUpBy.click();
             logger.info("Si visualizza il bottone rifiuta nel pop-up");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente il bottone rifiuta pop-up con errore: " + e.getMessage());
             Assertions.fail("Non si visualizza correttamente il bottone rifiuta pop-up errore: " + e.getMessage());
         }
     }
@@ -207,7 +206,6 @@ public class DeleghePage extends BasePage {
             annullaButtonPopUpBy.click();
             logger.info("Si visualizza il bottone Annulla nel pop-up");
         } catch (TimeoutException e) {
-            logger.error("Non si clicca correttamente sul bottone Annulla pop-up con errore: " + e.getMessage());
             Assertions.fail("Non si clicca correttamente sul bottone Annulla pop-up errore: " + e.getMessage());
         }
     }
@@ -240,7 +238,6 @@ public class DeleghePage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaConNomeDelegato(String nome, String cognome) {
         try {
-//            WebElement delegaBy = driver.findElement(By.xpath("//table[@id='notifications-table']//p[contains(text(),'" + nome + " " + cognome + "')]"));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//p[contains(text(),'" + nome + " " + cognome + "')]")));
             logger.info("Si trova una delega");
             return true;
@@ -270,7 +267,6 @@ public class DeleghePage extends BasePage {
                 i--;
             }
         } catch (TimeoutException e) {
-            logger.error("modale mostra codice non caricata con errore: " + e.getMessage());
             Assertions.fail("modale mostra codice non caricata con errore: " + e.getMessage());
         }
     }
@@ -291,5 +287,29 @@ public class DeleghePage extends BasePage {
                 ExpectedConditions.elementToBeClickable(menuDelegheDelegante)
         ));
         menuDelegheDelegante.click();
+    }
+
+    public void selezionaPGRadioButton(String portale) {
+
+        String xpath;
+        if(portale.equalsIgnoreCase("PF"))
+            xpath="//label[@id='recipent-pg']";
+        else
+            xpath="//label[@id='select-pg']";
+
+        WebElement labelElement = getWebDriverWait(10)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+        labelElement.click();
+    }
+
+    public void verificaMessaggioErroreDeleghe(String messaggio) {
+
+        WebElement messaggioErrore = getWebDriverWait(5)
+                .withMessage("Il messaggio di errore sul Codice Fiscale non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("codiceFiscale-helper-text")));
+
+        String testoErrore = messaggioErrore.getText();
+
+        Assertions.assertTrue(testoErrore.contains(messaggio),"Messaggio atteso non trovato. Messaggio rilevato: " + testoErrore);
     }
 }

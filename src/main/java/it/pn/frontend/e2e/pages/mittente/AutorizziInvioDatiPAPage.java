@@ -28,7 +28,6 @@ public class AutorizziInvioDatiPAPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(titlePage));
             logger.info("Autorizzi Invio Dati PA Page caricata");
         } catch (TimeoutException | NoSuchElementException e) {
-            logger.error("Il titolo di Autorizzi Invio Dati PA Page non è caricato con errore: " + e.getMessage());
             Assertions.fail("Il titolo di Autorizzi Invio Dati PA Page non è caricato con errore: " + e.getMessage());
         }
     }
@@ -40,7 +39,6 @@ public class AutorizziInvioDatiPAPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(inviaButton));
             inviaButton.click();
         } catch (TimeoutException e) {
-            logger.error("Il bottone Invia nella pagina Autorizza Invio Dati non è stato cliccato con errore: " + e.getMessage());
             Assertions.fail("Il bottone Invia nella pagina Autorizza Invio Dati non è stato cliccato con errore: " + e.getMessage());
         }
     }

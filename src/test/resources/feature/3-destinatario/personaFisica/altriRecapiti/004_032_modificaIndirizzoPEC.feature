@@ -1,12 +1,13 @@
 Feature: la persona fisica modifica l'indirizzo pec già presente
 
-  @TestSuite
-  @PF
-  @TA_modificaPECPF
-  @recapitiPF
-  @mittente_x1
-  @addressBook1
-  @recapitiPFPG
+#  @TestSuite
+#  @PF
+#  @TA_modificaPECPF
+#  @recapitiPF
+#  @mittente_x1
+#  @addressBook1
+#  @recapitiPFPG
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PF_4_19]
   Scenario: PN-9306-D32 - la persona fisica modifica l'indirizzo pec già presente
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono

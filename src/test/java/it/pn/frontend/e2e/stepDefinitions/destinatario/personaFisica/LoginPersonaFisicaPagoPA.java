@@ -33,7 +33,6 @@ import java.util.concurrent.TimeUnit;
 public class LoginPersonaFisicaPagoPA extends BasePage{
 
     private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
-//    private Map<String, Object> datiPersonaFisica;
     private Map<String, String> urlPersonaFisica;
 
 
@@ -111,11 +110,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
        String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
-            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokendevPFDelegante()
-                    :
-                    webDriverConfig.getTokendevPGDelegato();
-            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+            case "dev", "test", "uat" -> token = personaFisica.equalsIgnoreCase("delegante") ?
                     webDriverConfig.getTokentestPFDelegante()
                     :
                     webDriverConfig.getTokentestPFDelegato();
@@ -687,17 +682,19 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         String token;
         if (webDriverConfig.getUserCesare().equalsIgnoreCase("cesare")) {
 
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                token = webDriverConfig.getTokentestPFDelegante();
-            } else {
-                token = webDriverConfig.getTokendevPFDelegante();
-            }
+//            if (variabileAmbiente.equalsIgnoreCase("test")) {
+//                token = webDriverConfig.getTokentestPFDelegante();
+//            } else {
+//                token = webDriverConfig.getTokendevPFDelegante();
+//            }
+            token = webDriverConfig.getTokentestPFDelegante();
         } else {
-            if (variabileAmbiente.equalsIgnoreCase("test")) {
-                token = webDriverConfig.getTokentestPFDelegato();
-            } else {
-                token = webDriverConfig.getTokendevPFDelegato();
-            }
+//            if (variabileAmbiente.equalsIgnoreCase("test")) {
+//                token = webDriverConfig.getTokentestPFDelegato();
+//            } else {
+//                token = webDriverConfig.getTokendevPFDelegato();
+//            }
+            token = webDriverConfig.getTokentestPFDelegato();
         }
         String url = urlIniziale + token;
         driver.get(url);
@@ -706,21 +703,29 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     public String getTokenExchangePFFromFile(String personaFisica) {
         String environment = webDriverConfig.getEnvironment();
         String token = "";
-        switch (environment) {
-            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokendevPFDelegante()
-                    :
-                    webDriverConfig.getTokendevPGDelegato();
-            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokentestPFDelegante()
-                    :
-                    webDriverConfig.getTokentestPFDelegato();
-            default -> {
-                logger.error("Ambiente non valido");
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
+//        switch (environment) {
+//            case "dev" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokendevPFDelegante()
+//                    :
+//                    webDriverConfig.getTokendevPGDelegato();
+//            case "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokentestPFDelegante()
+//                    :
+//                    webDriverConfig.getTokentestPFDelegato();
+//            default -> {
+//                logger.error("Ambiente non valido");
+//                Assertions.fail("Ambiente non valido o non trovato!");
+//            }
+//        }
+        token = personaFisica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPFDelegante() : webDriverConfig.getTokentestPFDelegato();
         return token;
+    }
+
+    @When("La persona fisica seleziona la voce I tuoi dati")
+    public void iTuoiDatiPersonaFisica() {
+        headerPFSection.waitLoadHeaderDESection();
+        headerPFSection.selezionaProfiloUtenteMenu();
+        headerPFSection.selezionaVoceITuoiDati();
     }
 
     @When("Login con persona fisica scelta lingua")

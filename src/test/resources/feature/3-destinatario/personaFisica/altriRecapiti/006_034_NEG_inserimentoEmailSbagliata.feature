@@ -2,18 +2,20 @@ Feature: La persona fisica inserisce una email sbagliata
 
   @TestSuite
   @TA_inserimentoEmailErrataPF
-  @PF
-  @recapitiPF
-  @mittente_x1
   @addressBook1
-  @recapitiPFPG
-  Scenario: PN-9308-B34 - La persona fisica inserisce una email sbagliata
+  @TA_OFF
+  Scenario: OFF_REWORK_DOMICILIO_DIGITALE_PF_PN-9308-B34 - La persona fisica inserisce una email sbagliata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Si visualizza correttamente la pagina I Tuoi Recapiti
-    And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email
-    And Nella pagina I Tuoi Recapiti si inserisce l'email errata "provà&@gmail.com"
-    Then Nella pagina I Tuoi Recapiti si visualizza correttamente il messaggio email errata
-    And Si controlla che il tasto avvisami via email sia bloccato
-    And Logout da portale persona fisica
+    And Verifica ed Elimina personalizzati per ente
+    And Verifica e Disattiva domicilio digitale
+    And Attesa 1 secondi
+    And Verifica e Disattiva email
+    And Attesa 2 secondi
+
+    When Inserisci Email errata "prova..@gmail.com"
+    And Si visualizza correttamente il messaggio di email non valida
+    And Nella pagina I Tuoi Recapiti si inserisce un email maggiore di 255 caratteri
+    And Si visualizza correttamente il messaggio di email non valida
+
+

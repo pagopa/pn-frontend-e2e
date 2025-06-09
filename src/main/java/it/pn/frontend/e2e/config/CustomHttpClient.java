@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import io.cucumber.java.Before;
+import it.pn.frontend.e2e.common.DataPopulationValue;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
 import lombok.Getter;
@@ -61,7 +62,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
         System.out.println("CustomHttpClient.......");
         this.baseUrlApi = "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
-        this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
+        this.apiKey = DataPopulationValue.getDefaultValue(DataPopulationValue.API_KEY_TEST.key);
     }
 
     public CustomHttpClient(String baseUrlApi, String apiKeyTest) {
@@ -77,7 +78,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
         instance = customHttpClient;
         this.baseUrlApi = "https://api.test.notifichedigitali.it";
         this.httpClient = HttpClients.createDefault();
-        this.apiKey = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
+        this.apiKey = DataPopulationValue.getDefaultValue(DataPopulationValue.API_KEY_TEST.key);
     }
 
     public CustomHttpClient(String apiKeyTest) {

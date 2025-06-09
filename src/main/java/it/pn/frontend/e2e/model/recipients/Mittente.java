@@ -15,6 +15,6 @@ public class Mittente {
     private String codiceAvviso;
     private String codiceApiKeyTEST;// ???
     private String codiceApiKeyDEV;// ???
-
+    private String codiceApiKeyUAT;
 
 }

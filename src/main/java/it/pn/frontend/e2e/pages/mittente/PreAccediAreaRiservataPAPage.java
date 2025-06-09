@@ -25,11 +25,9 @@ public class PreAccediAreaRiservataPAPage extends BasePage {
 
     public void waitLoadPreAccediAreaRiservataPAPage(){
         try{
-            //WebElement titleLabel = driver.findElement(By.id("login-page-title"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("login-page-title"))));
             logger.info("Il titolo della Pre Accedi Area Riservata PA Page è caricato");
         }catch (TimeoutException e){
-            logger.error("Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore : "+e.getMessage());
             Assertions.fail("Il titolo della Pre Accedi Area Riservata PA Page non caricato con errore  : "+e.getMessage());
         }
     }

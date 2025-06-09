@@ -1,8 +1,8 @@
 Feature: La persona giuridica visualizza tutti gli elementi della sezione altri recapiti
 
 
-  @TA_altriRecapitiPGInseriscePec
-
+#  @TA_altriRecapitiPGInseriscePec
+# La nuova UI è completamente diversa  TEST PREVISTI in rework-sezione-recapiti-fase-2
   Scenario: PN-9161 -B1 La persona giuridica inserisce PEC sbagliato e corretto
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

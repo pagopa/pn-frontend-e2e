@@ -63,4 +63,15 @@ public class AcccediAreaRiservataPAPage extends BasePage {
         forwardButton.click();
     }
 
+    public void bottoneConImgPagoPA() {
+
+        WebElement bottoneConImgPagoPA = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare su Immagine PAGOPA")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='idp-button-https://validator.dev.oneid.pagopa.it/demo']")
+                ));
+
+        bottoneConImgPagoPA.click();
+
+    }
 }
