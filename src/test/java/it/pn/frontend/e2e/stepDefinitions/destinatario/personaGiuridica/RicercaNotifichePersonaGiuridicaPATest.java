@@ -141,7 +141,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
-            logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
             Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }

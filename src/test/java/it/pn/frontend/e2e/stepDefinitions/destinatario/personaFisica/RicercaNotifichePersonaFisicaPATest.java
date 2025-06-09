@@ -148,7 +148,6 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
-            logger.error("Il risultato NON é coerente con il codice IUN inserito");
             Assertions.fail("Il risultato NON é coerente con il codice IUN inserito");
         }
     }

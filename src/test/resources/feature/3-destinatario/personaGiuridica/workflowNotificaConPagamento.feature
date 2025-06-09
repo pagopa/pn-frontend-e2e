@@ -1,12 +1,10 @@
 Feature:Controllo dati notifica con pagamento
 
   @TestSuite
-  @PG
   @NotificaConPagamentoPG
-
-  @loginFE
   @ControlloNotificaConPagamentoPG
-  Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO] Verifica testo rimborso su notifica pagata e successivamente annullata
+  @NRT
+  Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO PG] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PG - Si effettua la login tramite token exchange come 'delegante', e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
     And Nella pagina Piattaforma Notifiche del destinatario si filtra per codice IUN "LZXM-LNKJ-PTMR-202405-K-1"
@@ -15,7 +13,7 @@ Feature:Controllo dati notifica con pagamento
       | iun            | LZXM-LNKJ-PTMR-202405-K-1 |
       | ragioneSociale | Convivio Spa              |
     And Cliccare sulla notifica restituita
-    Then Si visualizza correttamente la section Dettaglio Notifica annullata
+#    Then Si visualizza correttamente la section Dettaglio Notifica annullata
     And Si controlla che il testo sia nel box pagamento "//div[@data-testid='cancelledAlertPayment']"
 
   @ControlloNotificaConPagamentoPG

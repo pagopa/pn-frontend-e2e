@@ -367,7 +367,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()) {
             logger.info("Avviso PagoPA è trovato");
         } else {
-            logger.error("Avviso PagoPA non è trovato");
             Assertions.fail("Avviso PagoPA non è trovato");
         }
     }
