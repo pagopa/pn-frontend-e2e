@@ -5,7 +5,7 @@ Feature: PG Verifica contenuti Privacy e ToS in Tedesco
   @TA_Tedesco
   @bilinguismo
 
-  Scenario: PN-QA5404 - PG - Verifica contenuti Privacy e ToS in Tedesco
+  Scenario: PN-QA5404-BL - PG - Verifica contenuti Privacy e ToS in Tedesco
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

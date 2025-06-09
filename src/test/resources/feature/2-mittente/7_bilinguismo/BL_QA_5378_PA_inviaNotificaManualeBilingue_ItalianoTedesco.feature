@@ -4,12 +4,12 @@ Feature: PA invia notifica manuale bilingue: Italiano e Tedesco
   @TA_bilinguismoRefreshPaginaItalianoTedesco_QA5378
   @bilinguismo
 
-  Scenario: PN-QA5378 - PA invia notifica manuale bilingue: Italiano e Tedesco
+  Scenario: PN-QA5378-BL - PA invia notifica manuale bilingue: Italiano e Tedesco
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

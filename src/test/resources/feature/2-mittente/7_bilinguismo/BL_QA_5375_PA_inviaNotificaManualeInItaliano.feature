@@ -4,12 +4,12 @@ Feature: PA invia notifica manuale in Italiano
   @TA_bilinguismoRefreshPaginaItaliano_QA5375
   @bilinguismo
 
-  Scenario: PN-QA5375 - PA invia notifica manuale in Italiano
+  Scenario: PN-QA5375-BL - PA invia notifica manuale in Italiano
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

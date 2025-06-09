@@ -5,13 +5,13 @@ Feature: PA Verifica contenuti Privacy e ToS in Tedesco
   @TA_Tedesco
   @bilinguismo
 
-  Scenario: PN-QA5383 - PA - Verifica contenuti Privacy e ToS in Tedesco
+  Scenario: PN-QA5383-BL - PA - Verifica contenuti Privacy e ToS in Tedesco
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
 
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

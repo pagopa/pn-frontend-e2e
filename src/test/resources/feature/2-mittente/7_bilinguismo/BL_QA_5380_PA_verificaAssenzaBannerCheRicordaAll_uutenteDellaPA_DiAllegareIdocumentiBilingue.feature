@@ -4,13 +4,13 @@ Feature: PA Verifica presenza banner che ricorda all’utente della PA di allega
   @TA_bilinguismoVerificaAssenzaBannerAllegareDocumentiBilingue_QA5380
   @bilinguismo
 
-  Scenario: PN-QA5380 - PA Verifica presenza banner che ricorda all’utente della PA di allegare i documenti bilingue
+  Scenario: PN-QA5380-BL - PA Verifica presenza banner che ricorda all’utente della PA di allegare i documenti bilingue
 #    Pre Condizione Aver effettuato l’accesso al portale SEND e aver scelto allo step 1 di inviare una notifica in Italiano
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

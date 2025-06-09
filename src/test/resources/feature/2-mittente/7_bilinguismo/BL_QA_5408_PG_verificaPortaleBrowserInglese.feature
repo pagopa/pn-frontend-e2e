@@ -6,7 +6,7 @@ Feature: PG - Verifica portale browser Inglese
   @bilinguismo
   @deleghe2
 
-  Scenario: PN-5408 - PG - Verifica portale browser Inglese
+  Scenario: PN-5408-BL - PG - Verifica portale browser Inglese
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

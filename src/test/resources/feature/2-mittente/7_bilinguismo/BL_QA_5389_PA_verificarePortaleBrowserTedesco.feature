@@ -5,13 +5,13 @@ Feature: PA - Verificare portale browser Tedesco
   @TA_Tedesco
   @bilinguismo
 
-  Scenario: PN-QA5389 - PA - Verificare portale browser Tedesco
+  Scenario: PN-QA5389-BL - PA - Verificare portale browser Tedesco
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
 
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
@@ -68,6 +68,8 @@ Feature: PA - Verificare portale browser Tedesco
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
+    And Cliccare su continua
+    And Seleziona Nessun Pagamento 1
     And Cliccare su continua
 
 #    Traduzione terza pagina notifica

@@ -4,7 +4,7 @@ Feature: PF - Verifica corretta traduzione nella pagina di Login - FR
   @TA_multiLinguaFrancese_QA5270
   @multiLingua
   @NRT
-  Scenario: PN-QA5270 - PF - Verifica corretta traduzione nella pagina di Login - FR
+  Scenario: PN-QA5270-ML - PF - Verifica corretta traduzione nella pagina di Login - FR
 
     Given Login Page persona fisica test viene visualizzata
     Then Cambia lingua footer "Francese"

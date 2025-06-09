@@ -4,7 +4,7 @@ Feature: PG - Verifica corretta traduzione nella pagina di Area Riservata - DE
   @TA_multiLinguaTedesco_QA5267
   @multiLingua
   @NRT
-  Scenario: PN-QA5267 - PG - Verifica corretta traduzione nella pagina di Area Riservata - DE
+  Scenario: PN-QA5267-ML - PG - Verifica corretta traduzione nella pagina di Area Riservata - DE
 
     Given Login Page persona giuridica viene visualizzata
     And Cambia lingua footer "Tedesco"

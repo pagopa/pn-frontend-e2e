@@ -5,7 +5,7 @@ Feature: PF Verificare portale browser Sloveno
   @TA_Tedesco
   @bilinguismo
 
-  Scenario: PN-QA5401 - PF - Verificare portale browser Sloveno
+  Scenario: PN-QA5401-BL - PF - Verificare portale browser Sloveno
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

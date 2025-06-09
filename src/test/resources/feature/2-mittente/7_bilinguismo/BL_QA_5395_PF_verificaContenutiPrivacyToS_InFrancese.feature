@@ -5,7 +5,7 @@ Feature: PF Verifica contenuti Privacy e ToS in Francese
   @TA_Francese
   @bilinguismo
 
-  Scenario: PN-QA5395 - PF - Verifica contenuti Privacy e ToS in Francese
+  Scenario: PN-QA5395-BL - PF - Verifica contenuti Privacy e ToS in Francese
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

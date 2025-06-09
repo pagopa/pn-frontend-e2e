@@ -5,13 +5,13 @@ Feature: PA Verifica contenuti Privacy e ToS in Sloveno
   @TA_Sloveno
   @bilinguismo
 
-  Scenario: PN-QA5385 - PA - Verifica contenuti Privacy e ToS in Sloveno
+  Scenario: PN-QA5385-BL - PA - Verifica contenuti Privacy e ToS in Sloveno
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
 
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

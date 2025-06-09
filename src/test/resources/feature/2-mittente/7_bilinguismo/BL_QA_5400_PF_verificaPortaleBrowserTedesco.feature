@@ -5,7 +5,7 @@ Feature: PF Verificare portale browser Tedesco
   @TA_Tedesco
   @bilinguismo
 
-  Scenario: PN-QA5400 - PF - Verificare portale browser Tedesco
+  Scenario: PN-QA5400-BL - PF - Verificare portale browser Tedesco
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

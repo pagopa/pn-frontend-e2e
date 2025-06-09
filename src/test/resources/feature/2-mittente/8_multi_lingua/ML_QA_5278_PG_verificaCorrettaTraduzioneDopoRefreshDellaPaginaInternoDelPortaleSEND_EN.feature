@@ -4,7 +4,7 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
   @TA_multiLinguaInglese_QA5278
   @multiLingua
   @NRT
-  Scenario: PN-QA5278- PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- EN
+  Scenario: PN-QA5278-ML - PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- EN
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

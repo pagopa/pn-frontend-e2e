@@ -4,7 +4,7 @@ Feature: PF - Verifica corretta traduzione nella pagina di Login - DE
   @TA_multiLinguaTedesco_QA5297
   @multiLingua
   @NRT
-  Scenario: PN-QA5297 - PF - Verifica corretta traduzione nella pagina di Login - DE
+  Scenario: PN-QA5297-ML - PF - Verifica corretta traduzione nella pagina di Login - DE
     Given Login Page persona fisica test viene visualizzata
     Then Cambia lingua footer "Tedesco"
     And Verifica traduzione testo "Wie möchtest du dich anmelden"

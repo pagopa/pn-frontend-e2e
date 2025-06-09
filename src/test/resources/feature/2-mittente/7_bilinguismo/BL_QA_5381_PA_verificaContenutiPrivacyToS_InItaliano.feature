@@ -5,13 +5,13 @@ Feature: PA PA Verifica contenuti Privacy e ToS in Italiano
   @TA_Italian
   @bilinguismo
 
-  Scenario: PN-QA5381 - PA Verifica contenuti Privacy e ToS in Italiano
+  Scenario: PN-QA5381-BL - PA Verifica contenuti Privacy e ToS in Italiano
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
 
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

@@ -5,7 +5,7 @@ Feature: PG Verifica contenuti Privacy e ToS in Italiano
   @TA_Italian
   @bilinguismo
 
-  Scenario: PN-QA5402 - PG - Verifica contenuti Privacy e ToS in Italiano
+  Scenario: PN-QA5402-BL - PG - Verifica contenuti Privacy e ToS in Italiano
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

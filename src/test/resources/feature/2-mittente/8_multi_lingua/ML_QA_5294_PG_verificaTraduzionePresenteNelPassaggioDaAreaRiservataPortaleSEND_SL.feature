@@ -4,7 +4,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
   @TA_multiLinguaSloveno_QA5294
   @multiLingua
   @NRT
-  Scenario: PN-QA5294 - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - SL
+  Scenario: PN-QA5294-ML - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - SL
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

@@ -5,7 +5,7 @@ Feature: PF Verifica contenuti Privacy e ToS in Italiano
   @TA_Italian
   @bilinguismo
 
-  Scenario: PN-QA5392 - PF - Verifica contenuti Privacy e ToS in Italiano
+  Scenario: PN-QA5392-BL - PF - Verifica contenuti Privacy e ToS in Italiano
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

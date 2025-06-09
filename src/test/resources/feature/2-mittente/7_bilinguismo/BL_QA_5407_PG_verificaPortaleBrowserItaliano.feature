@@ -6,7 +6,7 @@ Feature: PG - Verifica portale browser Italiano
   @bilinguismo
   @deleghe2
 
-  Scenario: PN-5407 - PG - Verifica portale browser Italiano
+  Scenario: PN-5407-BL - PG - Verifica portale browser Italiano
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 ##  Eseguire l’accesso al portale e e verificarne le traduzioni

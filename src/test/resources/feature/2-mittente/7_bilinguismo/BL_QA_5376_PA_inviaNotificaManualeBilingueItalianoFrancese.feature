@@ -4,13 +4,13 @@ Feature: PA invia notifica manuale bilingue: Italiano e Francese
   @TA_bilinguismoRefreshPaginaItalianoFrancese_QA5376
   @bilinguismo
 
-  Scenario: PN-QA5376 - PA invia notifica manuale bilingue: Italiano e Francese
+  Scenario: PN-QA5376-BL - PA invia notifica manuale bilingue: Italiano e Francese
 
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

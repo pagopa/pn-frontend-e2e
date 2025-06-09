@@ -4,7 +4,7 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
   @TA_multiLinguaInglese_QA5281
   @multiLingua
   @NRT
-  Scenario: PN-QA5281 - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - EN
+  Scenario: PN-QA5281-ML - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - EN
 
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica scelta lingua

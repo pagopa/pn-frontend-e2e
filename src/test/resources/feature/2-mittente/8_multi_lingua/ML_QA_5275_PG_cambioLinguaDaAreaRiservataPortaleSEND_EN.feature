@@ -4,7 +4,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
   @TA_multiLinguaInglese_QA5275
   @multiLingua
   @NRT
-  Scenario: PN-QA5275 - PG - Cambio Lingua da Area Riservata a portale SEND - EN
+  Scenario: PN-QA5275-ML - PG - Cambio Lingua da Area Riservata a portale SEND - EN
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

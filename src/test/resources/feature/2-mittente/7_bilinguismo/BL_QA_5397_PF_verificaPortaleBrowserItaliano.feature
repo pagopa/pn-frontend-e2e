@@ -5,7 +5,7 @@ Feature: PF Verificare portale browser Italiano
   @TA_Italiano
   @bilinguismo
 
-  Scenario: PN-QA5397 - PF - Verificare portale browser Italiano
+  Scenario: PN-QA5397-BL - PF - Verificare portale browser Italiano
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

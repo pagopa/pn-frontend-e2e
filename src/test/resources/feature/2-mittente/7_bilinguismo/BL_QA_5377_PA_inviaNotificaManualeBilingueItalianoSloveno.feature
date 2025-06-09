@@ -4,12 +4,12 @@ Feature: PA invia notifica manuale bilingue: Italiano e Sloveno
   @TA_bilinguismoRefreshPaginaItalianoSloveno_QA5377
   @bilinguismo
 
-  Scenario: PN-QA5377 -PA invia notifica manuale bilingue: Italiano e Sloveno
+  Scenario: PN-QA5377-BL -PA invia notifica manuale bilingue: Italiano e Sloveno
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

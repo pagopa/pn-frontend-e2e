@@ -5,7 +5,7 @@ Feature: PG Verifica contenuti Privacy e ToS in Francese
   @TA_Francese
   @bilinguismo
 
-  Scenario: PN-QA5405 - PG - Verifica contenuti Privacy e ToS in Francese
+  Scenario: PN-QA5405-BL - PG - Verifica contenuti Privacy e ToS in Francese
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

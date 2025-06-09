@@ -5,7 +5,7 @@ Feature: PF Verificare portale browser Inglese
   @TA_Inglese
   @bilinguismo
 
-  Scenario: PN-QA5398 - PF - Verificare portale browser Inglese
+  Scenario: PN-QA5398-BL - PF - Verificare portale browser Inglese
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 
