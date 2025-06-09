@@ -16,13 +16,18 @@ Feature: il mittente inserisce i dati fino alla sezione Destinatario
       And Nella section Destinatario selezionare il radio button persona giuridica
       And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica
       And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica
+#      TODO verificare VAS
+      And Seleziona radion button Inserimento Manuale se esiste "0"
+
       And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 0
       And Nella section Destinatario cliccare su Aggiungi destinatario
+
       And Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per <numero destinatari>
     #And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 1
       And Cliccare su continua
 #      Aggiungere alle notifiche
       And Seleziona Nessun Pagamento 1
+      And Seleziona Nessun Pagamento 2
       And Cliccare su continua
 #      Aggiungere alle notifiche
 

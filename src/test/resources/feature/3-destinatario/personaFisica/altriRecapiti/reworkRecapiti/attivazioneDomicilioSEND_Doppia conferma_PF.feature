@@ -35,4 +35,4 @@ Feature: Rework della pagina dei contatti
     And Click Non ora
     And Click Lo Faro piu tardi
     Then Verifica Pagina "Hai attivato il tuo domicilio digitale"
-    And Verifica Pagina "Torna ai tuoi recapiti"
+    And Verifica Pagina "Vai ai tuoi recapiti"

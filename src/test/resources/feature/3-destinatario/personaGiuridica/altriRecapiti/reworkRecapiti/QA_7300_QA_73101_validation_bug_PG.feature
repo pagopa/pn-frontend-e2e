@@ -19,7 +19,7 @@ Feature: Rework della pagina dei contatti
     And Click Annulla
     And Attesa 1 secondi
     And Seleziona Numero di pagine
-    And Seleziona la notifica Avvenuto Accesso
+    And La persona giuridica clicca sulla prima notifica restituita
     And Click Bottone Inizia nel Banner
     And Click Attiva
     And Attesa 2 secondi
