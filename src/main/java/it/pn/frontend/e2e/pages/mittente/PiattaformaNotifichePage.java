@@ -1882,44 +1882,82 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezioneImpostazioneLingua() {
-        WebElement impostazioneLingua = getWebDriverWait(10)
+        WebElement impostazioneLingua = getWebDriverWait(20)
                 .withMessage("Impossibile selezioneImpostazioneLingua")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='settingsLangBtn']")));
+//                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='settingsLangBtn']")));
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='settingsLangBtn']")));
         impostazioneLingua.click();
     }
 
     public void verificaLinguaSelezionata(String lingua) {
+//        if (lingua.equalsIgnoreCase("Italiano")) {
+//            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
+//            Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella " + lingua);
+//        } else {
+//            WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+//            Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella " + lingua);
+//            //verifica che la label ci sia scritto la lingua scelta
+//            Assertions.assertEquals(driver.findElement(By.xpath("//div[@id='additionalLang']")).getText(), lingua);
+//            webTool.waitTime(5);
+//        }
         if (lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
-            Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella " + lingua);
+            WebElement radioIt = getWebDriverWait(20)
+                    .withMessage("Impossibile trovare //input[@value='it'] con la lingua: " + lingua)
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@value='it']")));
+            Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella attesa: " + lingua);
         } else {
-            WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
-            Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella " + lingua);
-            //verifica che la label ci sia scritto la lingua scelta
-            Assertions.assertEquals(driver.findElement(By.xpath("//div[@id='additionalLang']")).getText(), lingua);
-            webTool.waitTime(5);
+            WebElement radioOther = getWebDriverWait(20)
+                    .withMessage("Impossibile trovare //input[@value='other'] con la lingua: " + lingua)
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@value='other']")));
+            Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella attesa: " + lingua);
+
+            // Verifica che la label contenga la lingua scelta
+            WebElement additionalLangDiv = getWebDriverWait(20)
+                    .withMessage("Impossibile trovare //div[@id='additionalLang'] con la lingua: " + lingua)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='additionalLang']")));
+            Assertions.assertEquals(additionalLangDiv.getText(), lingua);
         }
     }
 
     public void selezioneItalianoAltralingua() {
-        WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+//        WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+//        radioOther.click();
+
+        WebElement radioOther = getWebDriverWait(20)
+                .withMessage("Il radio button 'Altra lingua' non è selezionabile")
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[value='other']")));
         radioOther.click();
     }
 
     public void selezioneLingua(String lingua) {
-        WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
+//        WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
+//        selezionaLingua.click();
+//
+//        WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
+//        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
+//        logger.info("gruppo " + gruppoLingua + " trovato con successo");
+//        gruppoLingua.click();
+        WebElement selezionaLingua = getWebDriverWait(10)
+                .withMessage("Impossibile trovare selezioneLingua //div[@id='additionalLang']")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='additionalLang']")));
         selezionaLingua.click();
 
-        WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
-        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
-        logger.info("gruppo " + gruppoLingua + " trovato con successo");
+        WebElement gruppoLingua = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la lista con la lingua: "+lingua)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + lingua + "')]")));
+
+        logger.info("Lingua '" + lingua + "' trovata con successo");
         gruppoLingua.click();
     }
 
     public void selezionareDaImpostazioneLingua(String lingua) {
         selezioneImpostazioneLingua();
         if (lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = driver.findElement(By.cssSelector("input[name='lang'][value='it']"));
+//            WebElement radioIt = driver.findElement(By.cssSelector("input[name='lang'][value='it']"));
+//            radioIt.click();
+            WebElement radioIt = getWebDriverWait(10)
+                    .withMessage("Impossibile trovare input[name='lang'][value='it']")
+                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[name='lang'][value='it']")));
             radioIt.click();
         } else {
             logger.info("Lingua: "+lingua);
@@ -1930,7 +1968,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
         webTool.waitTime(3);
         //chiusura della schermata tramite la X
-        WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
+//        WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
+//        closeIcon.click();
+        WebElement closeIcon = getWebDriverWait(10)
+                .withMessage("Impossibile trovare //button[@aria-label='close']")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='close']")));
         closeIcon.click();
         webTool.waitTime(3);
     }

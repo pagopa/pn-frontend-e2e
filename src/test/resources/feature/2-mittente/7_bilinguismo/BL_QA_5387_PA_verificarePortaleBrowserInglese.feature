@@ -63,7 +63,6 @@ Feature: PA Verificare portale browser Inglese
     And Verifica traduzione testo "Street no"
 
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-         #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
@@ -199,11 +198,13 @@ Feature: PA Verificare portale browser Inglese
     And Verifica traduzione testo "Numéro de rue"
 
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-         #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
     And Cliccare su continua
+    And Seleziona Nessun Pagamento 1
+    And Cliccare su continua
+
     #    Traduzione terza pagina notifica
     And Verifica traduzione testo "Annexes"
     And Verifica traduzione testo "Joindre l"
