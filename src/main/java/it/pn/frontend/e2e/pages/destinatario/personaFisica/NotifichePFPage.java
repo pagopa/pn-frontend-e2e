@@ -286,16 +286,38 @@ public class NotifichePFPage extends BasePage {
 
     public void siSceglieUnaPaginaDiversaConNumeroESiFiltra(String iun) {
 
-        getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("page3"))));
-        numeroPaginaTreButton = driver.findElement(By.id("page3"));
+//        getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("page3"))));
+//        numeroPaginaTreButton = driver.findElement(By.id("page3"));
+//        js().executeScript("arguments[0].click()", numeroPaginaTreButton);
+//
+//        codiceIunTextField = driver.findElement(By.id("iunMatch"));
+//        codiceIunTextField.click();
+//        codiceIunTextField.sendKeys(iun);
+//        clickFiltraButton();
+//        webTool.waitTime(2);
+//        clickRimuoviFiltriButton();
+
+        WebElement numeroPaginaTreButton = getWebDriverWait(30)
+                .withMessage("La terza pagina delle notifiche non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("page3")));
+
         js().executeScript("arguments[0].click()", numeroPaginaTreButton);
 
-        codiceIunTextField = driver.findElement(By.id("iunMatch"));
+        WebElement codiceIunTextField = getWebDriverWait(30)
+                .withMessage("Inpossibile trovare iunMatch")
+                .until(ExpectedConditions.elementToBeClickable(By.id("iunMatch")));
+
         codiceIunTextField.click();
+        codiceIunTextField.clear();
         codiceIunTextField.sendKeys(iun);
+
         clickFiltraButton();
-        webTool.waitTime(2);
+
         clickRimuoviFiltriButton();
+
+
+
+
     }
 
     public void modificaNumeroNotifichePagina() {
@@ -337,8 +359,13 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickFiltraButton() {
-        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));
-        filtraButton = driver.findElement(By.id("filter-notifications-button"));
+//        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));
+//        filtraButton = driver.findElement(By.id("filter-notifications-button"));
+//        filtraButton.click();
+        WebElement filtraButton = getWebDriverWait(30)
+                .withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("filter-notifications-button")));
+
         filtraButton.click();
     }
 
@@ -356,9 +383,16 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickRimuoviFiltriButton() {
-        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.cssSelector("[data-testid='cancelButton']"))));
-        rimuoviFiltriButton = driver.findElement(By.cssSelector("[data-testid='cancelButton']"));
+//        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.cssSelector("[data-testid='cancelButton']"))));
+//        rimuoviFiltriButton = driver.findElement(By.cssSelector("[data-testid='cancelButton']"));
+//        rimuoviFiltriButton.click();
+
+        WebElement rimuoviFiltriButton = getWebDriverWait(30)
+                .withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='cancelButton']")));
+
         rimuoviFiltriButton.click();
+
     }
 
     public void firstPageDisplayed() {
