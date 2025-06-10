@@ -108,20 +108,25 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange(String personaFisica) {
        String environment = webDriverConfig.getEnvironment();
-        String token = "";
-        switch (environment) {
-            case "dev", "test", "uat" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokentestPFDelegante()
-                    :
-                    webDriverConfig.getTokentestPFDelegato();
-            case "uat" -> token = personaFisica.equalsIgnoreCase("delegante") ?
-                    webDriverConfig.getTokentestPFDelegante()
-                    :
-                    webDriverConfig.getTokentestPFDelegato();
-            default -> {
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
+//        String token = "";
+//        switch (environment) {
+//            case "dev", "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokentestPFDelegante()
+//                    :
+//                    webDriverConfig.getTokentestPFDelegato();
+//            case "uat" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+//                    webDriverConfig.getTokentestPFDelegante()
+//                    :
+//                    webDriverConfig.getTokentestPFDelegato();
+//            default -> {
+//                Assertions.fail("Ambiente non valido o non trovato!");
+//            }
+//        }
+
+        String token = personaFisica.equalsIgnoreCase("delegante") ?
+                webDriverConfig.getTokentestPFDelegante()
+                :
+                webDriverConfig.getTokentestPFDelegato();
 
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
