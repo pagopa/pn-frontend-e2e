@@ -30,6 +30,7 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
       | cap       | 20147    |
       | stato     | Italia   |
     And Nella section Destinatario cliccare su Aggiungi destinatario
+    And Seleziona radion button Inserimento Manuale se esiste "1"
     And Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica
       | soggettoGiuridico | PG                    |
       | ragioneSociale    | Convivio Spa          |
