@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -128,20 +129,43 @@ public class LoginMittentePagoPA extends BasePage {
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange() {
 
+//        String environment = webDriverConfig.getEnvironment();
+//        String token = "";
+//        token = webDriverConfig.getTokentestMittente();
+//
+//        // Si effettua il login con token exchange
+//        String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
+//        driver.get(urlLogin);
+//        logger.info("Login effettuato con successo");
+//        // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
+//        webTool.waitTime(10);
+//
+//        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+//        headerPASection.waitLoadHeaderSection();
+//        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+
+
         String environment = webDriverConfig.getEnvironment();
-        String token = "";
-        token = webDriverConfig.getTokentestMittente();
+        String token = webDriverConfig.getTokentestMittente();
 
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
-        driver.get(urlLogin);
-        logger.info("Login effettuato con successo");
-        // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
-        webTool.waitTime(10);
 
-        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        headerPASection.waitLoadHeaderSection();
-        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+        // Imposta un timeout più lungo per il caricamento della pagina
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+
+        try {
+            driver.get(urlLogin);
+            logger.info("Login effettuato con successo");
+
+            // Attendi che la dashboard sia completamente caricata
+            headerPASection.waitLoadHeaderSection();
+            piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+        } catch (Exception e) {
+            // Gestione delle eccezioni: stampa l'errore
+            logger.info("Errore durante il login: " + e.getMessage());
+            throw e;
+        }
     }
 
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di {string}")

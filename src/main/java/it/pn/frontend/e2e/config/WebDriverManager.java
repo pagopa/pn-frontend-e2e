@@ -90,7 +90,10 @@ public class WebDriverManager {
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
         var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
-        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
+        long id = Thread.currentThread().getId();
+        logger.info("Thread.currentThread(): "+ id);
+        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + id);
+//        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
