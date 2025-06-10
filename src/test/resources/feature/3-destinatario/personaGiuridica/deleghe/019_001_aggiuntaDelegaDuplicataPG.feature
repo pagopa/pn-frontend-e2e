@@ -19,7 +19,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Click entra su Send Persona Giuridica
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella sezione Deleghe si accetta la delega accettata per PG
 

@@ -401,10 +401,14 @@ public class LoginPGPagoPATest extends BasePage {
         if (nomeFileLogin.equalsIgnoreCase("delegatoPG")) {
             token = variabileAmbiente.equalsIgnoreCase("test") ?
                     webDriverConfig.getTokentestPGDelegato():
+                    variabileAmbiente.equalsIgnoreCase("uat") ?
+                    webDriverConfig.getTokentestPGDelegato():
                     webDriverConfig.getTokendevPGDelegato();
         }
         else  {
             token = variabileAmbiente.equalsIgnoreCase("test") ?
+                    webDriverConfig.getTokentestPGDelegante():
+                    variabileAmbiente.equalsIgnoreCase("uat") ?
                     webDriverConfig.getTokentestPGDelegante():
                     webDriverConfig.getTokendevPGDelegante();
         }
@@ -457,7 +461,7 @@ public class LoginPGPagoPATest extends BasePage {
         switch (environment) {
             case "dev" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("DEV");
             case "test" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("TEST");
-            case "uat" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("UAT");
+            case "uat" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridicaUAT();
             case "hotfix" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("HOTFIX");
             case "collaudo" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("COLL");
 

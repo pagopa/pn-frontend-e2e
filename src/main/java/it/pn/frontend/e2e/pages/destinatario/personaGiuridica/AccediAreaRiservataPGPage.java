@@ -68,10 +68,19 @@ public class AccediAreaRiservataPGPage extends BasePage {
         }
     }
 
+    //N.B.: Non può cliccare su portale UAT (SEND ha un bottone 'UAT SVIL' che impedisce di accedere a UAT tramite questo metodo)
     public void clickScegliAmbienteSendBottonePersonaGiuridica(String ambiente) {
         WebElement forwardButton = getWebDriverWait(20)
-                .withMessage("Il bottone per l Ambiente  '"+ambiente+"' non è cliccabile")
+                .withMessage("Il bottone per l Ambiente '"+ambiente+"' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[contains(@aria-label, '"+ambiente+"')]/ancestor::div[contains(@class, 'MuiCard-root')]//button")));
+        forwardButton.click();
+    }
+
+    //Metodo creato per click sul bottone del portale UAT
+    public void clickScegliAmbienteSendBottonePersonaGiuridicaUAT() {
+        WebElement forwardButton = getWebDriverWait(20)
+                .withMessage("Il bottone per l Ambiente 'UAT' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[@aria-label='SEND - Notifiche Digitali UAT']/ancestor::div[contains(@class, 'MuiCard-root')]//button")));
         forwardButton.click();
     }
 }
