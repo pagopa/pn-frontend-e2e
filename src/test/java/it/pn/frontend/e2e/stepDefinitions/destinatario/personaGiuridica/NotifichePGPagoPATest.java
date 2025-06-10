@@ -213,8 +213,15 @@ public class NotifichePGPagoPATest extends BasePage {
             backgroundTest.loginPGDeleghe("personaGiuridica");
             backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
             backgroundTest.logoutPG();
-            backgroundTest.loginPGDeleghe("delegatoPG");
-            backgroundTest.accettazioneDelegaPG();
+            /*delegatoPG ha codice fiscale non più valido e utente non più abilitato,
+              step continua dopo login su nellaSezioneDelegheSiAccettaLaDelegaAccettataPerPG */
+            //backgroundTest.loginPGDeleghe("delegatoPG");
+    }
+
+    @And("Nella sezione Deleghe si accetta la delega accettata per PG")
+    public void nellaSezioneDelegheSiAccettaLaDelegaAccettataPerPG() {
+        logger.info("Si controlla che sia presente una delega accettata");
+        backgroundTest.accettazioneDelegaPG();
 
         driver.navigate().refresh();
     }
@@ -516,5 +523,11 @@ public class NotifichePGPagoPATest extends BasePage {
     @And("Riduci zoom pagina al {string}%")
     public void riduciZoomPaginaAl(String size) {
         piattaformaNotifichePage.riduciZoomPaginaAl( size);
+    }
+
+    @When("Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN {string}")
+    public void portalePFVaiANotifica(String codiceIUN) {
+        String env = webDriverConfig.getEnvironment();
+        this.driver.get("https://imprese."+ env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
     }
 }

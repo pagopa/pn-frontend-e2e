@@ -531,6 +531,12 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     public void verificaSezionePagamenti() {
         notifichePFPage.verificaSezionePagamenti();
     }
+
+    @When("Nella pagina Piattaforma Notifiche persona fisica si accede alla notifica con codice IUN {string}")
+    public void portalePFVaiANotifica(String codiceIUN) {
+        String env = webDriverConfig.getEnvironment();
+        this.driver.get("https://cittadini." + env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
+    }
 }
 
 

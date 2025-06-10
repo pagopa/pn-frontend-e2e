@@ -290,5 +290,4 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
         piattaformaNotifichePage.clickSuNotifica(codiceIUN);
     }
-
 }

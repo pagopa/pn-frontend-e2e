@@ -114,6 +114,10 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                     webDriverConfig.getTokentestPFDelegante()
                     :
                     webDriverConfig.getTokentestPFDelegato();
+            case "uat" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+                    webDriverConfig.getTokentestPFDelegante()
+                    :
+                    webDriverConfig.getTokentestPFDelegato();
             default -> {
                 Assertions.fail("Ambiente non valido o non trovato!");
             }

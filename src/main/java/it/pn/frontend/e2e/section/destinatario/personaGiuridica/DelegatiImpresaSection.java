@@ -120,13 +120,12 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void clickMenuDelega(String ragioneSociale) {
         try {
-            //WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"));
-            getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"))));
-            if (element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
-                js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+            getWebDriverWait(40).until(ExpectedConditions.elementToBeClickable(element(By.xpath("//table[@id='notifications-table']//td[p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']"))));
+            if (element(By.xpath("//table[@id='notifications-table']//td[p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
+                js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
             } else {
-                js().executeScript("arguments[0].scrollIntoView(true);", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
-                js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+                js().executeScript("arguments[0].scrollIntoView(true);", element(By.xpath("//table[@id='notifications-table']//td[p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+                js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[p[contains(text(),'" + ragioneSociale + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
             }
             logger.info("cliccato correttamente su menu delega button");
         } catch (TimeoutException e) {
@@ -250,8 +249,8 @@ public class DelegatiImpresaSection extends BasePage {
     public void waitPopUpRevoca(String ragionSociale) {
         try {
            // WebElement titlePopUpBy = driver.findElement(By.id("dialog-title"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-            getWebDriverWait(10).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("dialog-title")), "Vuoi revocare la delega a " + ragionSociale + "?"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("confirmation-dialog-title"))));
+            getWebDriverWait(10).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("confirmation-dialog-title")), "Vuoi revocare la delega a " + ragionSociale + "?"));
             logger.info("Il pop-up revoca si visualizza correttamente");
         } catch (TimeoutException e) {
             logger.error("Il pop-up revoca NON si visualizza correttamente con errore: " + e.getMessage());
@@ -272,10 +271,9 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
-    //analizzare metodo ridontante con quello di riga 106
     public void clickRevocaButton() {
         logger.info("Click su revoca delega");
-        revocaButton = driver.findElement(By.id("dialog-action-button"));
+        revocaButton = driver.findElement(By.id("dialog-confirm-button"));
         revocaButton.click();
     }
 

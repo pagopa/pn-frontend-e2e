@@ -246,4 +246,5 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
     public void clickBottoneConfermaPopUp() {
         ricercaNotifichePGPage.clickBottoneConfermaPopUp();
     }
+
 }

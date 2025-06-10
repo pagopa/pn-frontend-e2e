@@ -331,6 +331,7 @@ public class LoginPGPagoPATest extends BasePage {
     public void logoutDaPortalePersonaGiuridica() {
         headerPGSection.waitLoadHeaderPGPage();
         headerPGSection.clickEsciButton();
+        headerPGSection.clickEsciButtonPopUp();
         webTool.waitTime(5);
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
 

@@ -185,10 +185,11 @@ public enum DataPopulationValue {
     ENTE_ERR("ente_delega_err_pf","Comune di Palermo",false),
     CODE_DELEGA_ERR("codiceDelega_delega_err_pf","22611",false),
 
+    //Cambiato da Epistolae Srl a Vita Nova Sas per CF non più in formato valido (PN-11148)
     //NUOVA DELEGA PG
-    RAGIONE_SOC_NUOVA_DELEGA_PG("ragionesociale_nuova_delega_pg","Le Epistolae srl",false),
-    CODICE_FISCALE_NUOVA_DELEGA_PG("codicefiscale_nuova_delega_pg","LELPTR04A01C352E",false),
-    ENTE_DELEGA_NUOVA_DELEGA_PG("ente_nuova_delega_pg","Comune di Verona",false),
+    RAGIONE_SOC_NUOVA_DELEGA_PG("ragionesociale_nuova_delega_pg","Vita Nova Sas",false),
+    CODICE_FISCALE_NUOVA_DELEGA_PG("codicefiscale_nuova_delega_pg","12666810299",false),
+    ENTE_DELEGA_NUOVA_DELEGA_PG("ente_nuova_delega_pg","Comune di Palermo",false),
     CODE_DELEGA_NUOVA_DELEGA_PG("codicedelega_nuova_delega_pg","10166",false),
 
     //HELP_DESK

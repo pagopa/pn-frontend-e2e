@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DateFormatSymbols;
-import java.text.MessageFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -1862,26 +1861,47 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void verificaPopUp(String verifica) {
-//        Assertions.assertEquals(driver.findElement(By.id("alert-api-status")).getText(), verifica);
-//        webTool.waitTime(5);
-
-
+    public void verificaPopUpToastErrore(String verifica) {
+        //webTool.waitTime(5);
         WebElement popup = getWebDriverWait(10)
                 .until(ExpectedConditions.visibilityOfElementLocated(
                         By.id("alert-api-status")
                 ));
 
         Assertions.assertTrue(popup.getText().contains(verifica));
+    }
 
-//        try {
-//            WebElement alert = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("alert-api-status")));
-//            Assertions.assertEquals(verifica, alert.getText(), "Il messaggio del pop-up non corrisponde!");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il pop-up non è comparso entro il tempo limite.");
-//        }
+    public void verificaMessaggioToastErrore(String verifica) {
+        WebElement toastMessage = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@id='alert-api-status']/parent::div[contains(text, '')]")
+                ));
+        Assertions.assertTrue(toastMessage.getText().contains(verifica));
+    }
 
+    public void verificaCodiceToastErrore(String verifica) {
+        WebElement toastErrorCode = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@id='alert-api-status']/following-sibling::div/div/p[contains(text(),'')][1]")
+                ));
+        Assertions.assertTrue(toastErrorCode.getText().contains(verifica));
+    }
 
+    public String copiaTraceIDToastErrore() {
+        WebElement traceIDCopyButton = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@id='alert-api-status']/following-sibling::div//a[@role='button']")
+                ));
+        traceIDCopyButton.click();
+        WebElement traceIDValue = driver.findElement(By.xpath("//div[@id='alert-api-status']/following-sibling::div/div/p[contains(text(),'')][2]"));
+        return traceIDValue.getAttribute("value");
+    }
+
+    public void clickChiudiToastErrore() {
+        WebElement closeIcon = getWebDriverWait(10)
+                .withMessage("Impossibile chiudere il toast di errore")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='alert-api-status']/parent::div/parent::div//button[@title='Close']")));
+        closeIcon.click();
     }
 
     public void selezioneImpostazioneLingua() {
