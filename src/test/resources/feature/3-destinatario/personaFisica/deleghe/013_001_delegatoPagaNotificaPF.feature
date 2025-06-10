@@ -6,6 +6,7 @@ Feature:Il delegato persona giuridica accede ad una delega
   @PF
   @DeleghePFPG
   @deleghe1
+  @NRT
   Scenario: PN-10388 - Il delegato persona fisica paga una notifica
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
@@ -61,4 +62,3 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "(gaio giulio cesare)"
     And Si seleziona la notifica
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona fisica

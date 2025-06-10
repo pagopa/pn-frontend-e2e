@@ -2,10 +2,8 @@ Feature:La persona fisica aggiunge una nuova delega
 
   @TestSuite
   @TA_PF_aggiuntaNuovaDelega
-  @DeleghePF
-  @PF
+    @NRT
   @deleghe1
-  @DeleghePFPG
   Scenario:PN-9401 - La persona fisica aggiunge una nuova delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
@@ -24,5 +22,4 @@ Feature:La persona fisica aggiunge una nuova delega
     And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
-    And Logout da portale persona fisica
 

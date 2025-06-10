@@ -163,7 +163,7 @@ public class LoginMittentePagoPA extends BasePage {
             piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         } catch (Exception e) {
             // Gestione delle eccezioni: stampa l'errore
-            logger.info("Errore durante il login: " + e.getMessage());
+            logger.info("Errore durante il login PA: " + e.getMessage());
             throw e;
         }
     }

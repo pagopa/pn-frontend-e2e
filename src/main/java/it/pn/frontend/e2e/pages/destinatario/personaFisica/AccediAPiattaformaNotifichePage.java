@@ -357,10 +357,10 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         titolare.sendKeys("Titolare");
         driver.switchTo().defaultContent();
         WebElement continuaBottone = getWebDriverWait(55)
-                .withMessage("Il bottone Continua non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("mui-5")));
+                .withMessage("Il bottone Continua non è cliccabile in Inserisci i dati della carta ")
+                .until(ExpectedConditions.elementToBeClickable(By.id("submit"))); // mui-5
         continuaBottone.click();
-        logger.info("Il bottone Continua cliccato");
+        logger.info("Il bottone Continua cliccato in Inserisci i dati della carta");
         //Select Nexi
         webTool.waitTime(10);
         WebElement modificaButton = getWebDriverWait(120)
@@ -377,7 +377,9 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         getWebDriverWait(15).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
         pagaButton.click();
         webTool.waitTime(120);//necessaria
-        getWebDriverWait(50).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continu')]"))));
+        getWebDriverWait(50)
+                .withMessage("Il bottone Continua non è cliccabile ")
+                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continu')]"))));
         driver.findElement(By.xpath("//button[contains(text(),'Continu')]")).click();//for local test use //button[@aria-label='Continua']
     }
 

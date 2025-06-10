@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.MessageFormat;
+import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -107,7 +108,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
     @Given("PF - Si effettua la login tramite token exchange come {string}, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange(String personaFisica) {
-       String environment = webDriverConfig.getEnvironment();
+        String environment = webDriverConfig.getEnvironment();
 //        String token = "";
 //        switch (environment) {
 //            case "dev", "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
@@ -130,13 +131,20 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
-        driver.get(urlLogin);
-        logger.info("Login effettuato con successo");
-        webTool.waitTime(10);
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        try {
+            driver.get(urlLogin);
+            logger.info("Login effettuato con successo");
+            webTool.waitTime(10);
 
-        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        headerPFSection.waitLoadHeaderDESection();
-        notifichePFPage.waitLoadNotificheDEPage();
+            // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+            headerPFSection.waitLoadHeaderDESection();
+            notifichePFPage.waitLoadNotificheDEPage();
+        } catch (Exception e) {
+            // Gestione delle eccezioni: stampa l'errore
+            logger.info("Errore durante il login PF: " + e.getMessage());
+            throw e;
+        }
     }
 
 

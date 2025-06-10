@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -128,28 +129,35 @@ public class LoginPGPagoPATest extends BasePage {
 //                Assertions.fail("Ambiente non valido o non trovato!");
 //            }
 //        }
-        token = personaGiuridica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPGDelegante():webDriverConfig.getTokentestPGDelegato();
+        token = personaGiuridica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPGDelegante() : webDriverConfig.getTokentestPGDelegato();
 
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
-        driver.get(urlLogin);
-        logger.info("Login effettuato con successo");
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        try {
+            driver.get(urlLogin);
+            logger.info("Login effettuato con successo");
 
-        webTool.waitTime(10);
+            webTool.waitTime(10);
 
-        headerPGSection.waitLoadHeaderPGPage();
+            headerPGSection.waitLoadHeaderPGPage();
 
-        if (personaGiuridica.equalsIgnoreCase("delegante")) {
-            logger.info("DELEGANTE: {}", dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
-            piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
-            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
-        } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
-            logger.info("BALDASSARRE: {} ", webDriverConfig.getRagioneSocialeBaldassarre());
-            piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
-            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
-        } else {
-            logger.info("DELEGATO: {}", dataPopulationConfig.getDelegatePG().getCompanyName());
-            piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
-            piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getDelegatePG().getCompanyName());
+            if (personaGiuridica.equalsIgnoreCase("delegante")) {
+                logger.info("DELEGANTE: {}", dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
+                piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
+                piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
+            } else if (personaGiuridica.equalsIgnoreCase("baldassarre")) {
+                logger.info("BALDASSARRE: {} ", webDriverConfig.getRagioneSocialeBaldassarre());
+                piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
+                piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(webDriverConfig.getRagioneSocialeBaldassarre());
+            } else {
+                logger.info("DELEGATO: {}", dataPopulationConfig.getDelegatePG().getCompanyName());
+                piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
+                piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getDelegatePG().getCompanyName());
+            }
+        } catch (Exception e) {
+            // Gestione delle eccezioni: stampa l'errore
+            logger.info("Errore durante il login PG: " + e.getMessage());
+            throw e;
         }
     }
 
