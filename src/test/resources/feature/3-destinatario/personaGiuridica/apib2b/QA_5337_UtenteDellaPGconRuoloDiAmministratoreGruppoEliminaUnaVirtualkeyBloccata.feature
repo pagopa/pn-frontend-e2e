@@ -11,7 +11,7 @@ Feature: PG -Eliminazione di una virtual key bloccata per un utente della PG con
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #  Censire una chiave pubblica per un Operatore
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente public keys
@@ -31,7 +31,7 @@ Feature: PG -Eliminazione di una virtual key bloccata per un utente della PG con
       | user           | m.montessori       |
       | pwd            | test          |
       | ragioneSociale | Vita Nova Sas |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys

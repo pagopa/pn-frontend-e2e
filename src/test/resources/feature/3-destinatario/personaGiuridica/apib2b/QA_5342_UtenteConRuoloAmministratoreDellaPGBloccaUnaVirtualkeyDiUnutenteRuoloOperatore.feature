@@ -11,7 +11,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #  Censire una chiave pubblica per un Operatore
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
 ##    **************************************************************************
@@ -33,7 +33,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
       | user           | n.lotti       |
       | pwd            | test          |
       | ragioneSociale | Vita Nova Sas |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
 # #    **************************************************************************
@@ -50,7 +50,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #  Censire una chiave pubblica per un Operatore
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Verifica stato Chiave Personale "Attiva"

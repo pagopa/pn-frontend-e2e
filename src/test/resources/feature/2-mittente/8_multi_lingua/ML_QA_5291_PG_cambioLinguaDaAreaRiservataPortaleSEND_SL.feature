@@ -13,7 +13,6 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Sloveno"
-#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
 #    And Riduci zoom pagina al "60"%
     And Aspetta 2 secondi

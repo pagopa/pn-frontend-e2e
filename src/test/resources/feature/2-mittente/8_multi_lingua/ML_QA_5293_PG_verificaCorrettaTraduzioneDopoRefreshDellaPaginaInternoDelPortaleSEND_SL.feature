@@ -13,7 +13,6 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Sloveno"
-#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
     And Aspetta 2 secondi
     And Refresh pagina

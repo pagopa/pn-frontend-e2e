@@ -11,7 +11,6 @@ Feature: PG - Cambio Lingua da SEND a portale Area Riservata - FR
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
- #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
 #   Cambio lingua
     And Cambia lingua footer "Francese"

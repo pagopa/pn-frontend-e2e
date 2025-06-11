@@ -11,7 +11,6 @@ Feature:Deleghe lato ruolo operatore
       | user           | GabrieleDAnnunzio |
       | pwd            | test           |
       | ragioneSociale | DivinaCommedia Srl   |
-#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
     Then Home page persona giuridica ruolo operatore viene visualizzata correttamente
       | ragioneSociale | DivinaCommedia Srl   |
@@ -34,7 +33,6 @@ Feature:Deleghe lato ruolo operatore
       | user           | GabrieleDAnnunzio |
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
-#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
     Then Home page persona giuridica ruolo operatore viene visualizzata correttamente
       | ragioneSociale | Convivio Spa   |

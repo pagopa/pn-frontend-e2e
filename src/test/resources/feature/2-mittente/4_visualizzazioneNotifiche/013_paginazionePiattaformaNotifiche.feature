@@ -4,7 +4,7 @@ Feature:il mittente cambia visualizzazione della pagina
   @TA_MittentePaginazioneNotifiche
   @visualizzazioneNotificheMittente
   @loginFE
-  # @NRT
+  @NRT
   Scenario: PN-9223 - il mittente cambia visualizzazione della pagina
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche si visualizzano le notifiche a partire dalla più recente

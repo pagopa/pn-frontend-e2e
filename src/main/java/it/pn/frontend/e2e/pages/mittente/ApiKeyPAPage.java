@@ -481,8 +481,8 @@ public class ApiKeyPAPage extends BasePage {
 
     public String copiaApiKey() {
         try {
-            getWebDriverWait(15).withMessage("il bottone copia api key non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[@data-testid='copyToClipboardGroupsId']")).get(0)));
-            List<WebElement> apiKeys = driver.findElements(By.xpath("//button[@data-testid='copyToClipboardGroupsId']"));
+            getWebDriverWait(15).withMessage("il bottone copia api key non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[@data-testid='copyToClipboard']")).get(0)));
+            List<WebElement> apiKeys = driver.findElements(By.xpath("//button[@data-testid='copyToClipboard']"));
             apiKeys.get(0).click();
              /* We can't check if there is the green "CheckIcon" element because webdriver doesn't refresh the elements reloaded
              i.e: When you click the button 'copy-to-clipboard' and you try to get the attribute 'aria-label' you'll notice that the attribute
