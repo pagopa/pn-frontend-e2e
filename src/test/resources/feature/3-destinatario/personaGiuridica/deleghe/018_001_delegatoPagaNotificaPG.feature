@@ -38,12 +38,16 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
-    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Le Epistolae srl"
+    # Seconda PG per TA non disponibile, si crea una delega per PF
+    #And Si controlla che non sia presente una delega con stesso nome persona giuridica "Le Epistolae srl"
+    And Si controlla che non sia presente una delega con stesso nome
+      | nome          | Lucrezia            |
+      | cognome       | Borgia              |
     And Nella sezione Deleghe si verifica sia presente una delega accettata per PG
 
-    And PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
+    And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella Pagina Notifiche destinatario si clicca solo su notifiche delegate
-    And Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate "Le Epistolae srl"
+    And Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate "Lucrezia Borgia"
     And Aspetta 10 secondi
     And Si seleziona la notifica
     And Si verifica che visualizzato lo stato Pagato

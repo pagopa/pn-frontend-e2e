@@ -187,8 +187,11 @@ public class DeleghePGPagoPATest extends BasePage {
 //        this.datiDelega = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml");
 
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
-        delegatiImpresaSection.controlloEsistenzaDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
-        delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        //PG non disponibile per TA, si usa una PF
+        //delegatiImpresaSection.controlloEsistenzaDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        //delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        delegatiImpresaSection.controlloEsistenzaDelega(dataPopulationConfig.getDelegatePF().getDisplayName());
+        delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getDelegatePF().getDisplayName());
         delegatiImpresaSection.esistenzaRevocaButton();
     }
 
@@ -282,8 +285,10 @@ public class DeleghePGPagoPATest extends BasePage {
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String nameConfig) {
-        logger.info("Si clicca sul menu delle delega");
-        this.delegatiImpresaSection.controlloEsistenzaDelega(getRagioneSociale(nameConfig));
+        logger.info("Si clicca sul menu delle delega {}");
+        //Seconda PG per deleghe non disponibile per testing, si usa PF
+        //this.delegatiImpresaSection.controlloEsistenzaDelega(getRagioneSociale(nameConfig));
+        this.delegatiImpresaSection.controlloEsistenzaDelega(nameConfig);
     }
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice")
