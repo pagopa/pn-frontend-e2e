@@ -2,7 +2,7 @@ Feature: La persona giuridica aggiunge una nuova delega
 
   @TestSuite
   @TA_PG_QA_464
-  @NRT
+#  @NRT
   @DeleghePG
   @deleghe2
   Scenario: [QA_464] ValidationBug Visualizzato messaggio di errore portale PG

@@ -2,7 +2,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
 
   @TestSuite
   @TA_MittenteDettaglioNotificheConDocumenti
-  @NRT
+  # @NRT
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box allegati modelli F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
