@@ -479,26 +479,17 @@ public class ApiKeyPAPage extends BasePage {
         }
     }
 
-    public String copiaApiKey() {
-        try {
-            getWebDriverWait(15).withMessage("il bottone copia api key non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[@data-testid='copyToClipboard']")).get(0)));
-            List<WebElement> apiKeys = driver.findElements(By.xpath("//button[@data-testid='copyToClipboard']"));
-            apiKeys.get(0).click();
-             /* We can't check if there is the green "CheckIcon" element because webdriver doesn't refresh the elements reloaded
-             i.e: When you click the button 'copy-to-clipboard' and you try to get the attribute 'aria-label' you'll notice that the attribute
-             won't change at all and will keep staying 'Copia' even though it should be 'Group ID copiati' for a couple of seconds. */
+    public void copiaApiKey(int rowIndex) {
 
-            // This will just copy from the modal the value of the input field
-            clickMenuButton();
-            clickSuVisualizza();
-            WebElement inputFieldApiKey = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input"));
-            return inputFieldApiKey.getAttribute("value");
-        } catch (TimeoutException e) {
-            Assertions.fail("NON si visualizza correttamente il campo ApiKey con errore:" + e.getMessage());
-            return null;
-        } finally {
-            this.chiudiPopUpVisualizza();
-        }
+        By copyButtonLocator = By.xpath("(//button[@data-testid='copyToClipboard'])[" + rowIndex + "]");
+
+        logger.info("Clicco su 'Copia' nella riga {}", rowIndex);
+        WebElement copyButton = getWebDriverWait(15)
+                .withMessage("Impossibile trovare il tasto copi dell API key")
+                .until(ExpectedConditions.elementToBeClickable(copyButtonLocator));
+        copyButton.click();
+
+
     }
 
     public boolean generaChiavePubblicaDisplayed() {
@@ -846,6 +837,104 @@ public void pulisciAmbientePublickeys() {
             logger.info("Tabella NON visibile. Proseguo comunque.");
         }
 
+    }
+
+    // Metodo ausiliario per ottenere tutte le righe
+    private List<WebElement> getRows() {
+        return getWebDriverWait(20)
+                .withMessage("Impossibile accedere table.MuiTable-root tbody tr.MuiTableRow-root")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.cssSelector("table.MuiTable-root tbody tr.MuiTableRow-root")));
+    }
+
+    // 1. Verifica la colonna "Nome API Key"
+    public void verificaColonnaNomeApiKey() {
+       logger.info("verificaColonnaNomeApiKey");
+        List<WebElement> celle = getWebDriverWait(20)
+                .withMessage("Impossibile accedere verifica Colonna Nome ApiKey")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.cssSelector("table.MuiTable-root td:nth-child(1) p.MuiTypography-body1")));
+
+        logger.info("Verifico che la colonna 'Nome API Key' non abbia valori nulli...");
+        for (WebElement cella : celle) {
+            String text = cella.getText().trim();
+            if (text.isEmpty()) {
+                throw new AssertionError("Cella nella colonna 'Nome API Key' è vuota");
+            }
+        }
+    }
+
+    public void verificaColonnaApiKey() {
+        List<WebElement> celle = getWebDriverWait(20)
+                .withMessage("Impossibile accedere verifica Colonna  ApiKey")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.cssSelector("table.MuiTable-root td:nth-child(2) .MuiTypography-body2")));
+
+        logger.info("Verifico che la colonna 'Chiave API' non abbia valori nulli...");
+        for (WebElement cella : celle) {
+            String text = cella.getText().trim();
+            if (text.isEmpty()) {
+                throw new AssertionError("Cella nella colonna 'Chiave API' è vuota");
+            }
+        }
+    }
+
+    // 3. Verifica la colonna "Data creazione"
+    public void verificaColonnaDataCreazione() {
+        List<WebElement> celle = getWebDriverWait(20)
+                .withMessage("Impossibile accedere verifica Colonna  Data Creazione")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.cssSelector("table.MuiTable-root td:nth-child(3) p[aria-current='date']")));
+
+        logger.info("Verifico che la colonna 'Data creazione' non abbia valori nulli...");
+        for (WebElement cella : celle) {
+            String text = cella.getText().trim();
+            if (text.isEmpty()) {
+                throw new AssertionError("Cella nella colonna 'Data creazione' è vuota");
+            }
+        }
+    }
+
+    // 4. Verifica la colonna "Gruppi"
+    public void verificaColonnaGruppi() {
+        List<WebElement> celle = getWebDriverWait(20)
+                .withMessage("Impossibile accedere verifica Colonna  Gruppi")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.cssSelector("table.MuiTable-root td:nth-child(4) span.css-l24ofh")));
+
+        logger.info("Verifico che la colonna 'Gruppi' non abbia valori nulli...");
+        for (WebElement cella : celle) {
+            String text = cella.getText().trim();
+            if (text.isEmpty()) {
+                throw new AssertionError("Cella nella colonna 'Gruppi' è vuota");
+            }
+        }
+    }
+
+    // 5. Verifica la colonna "Stato"
+    public void verificaColonnaStato() {
+        List<WebElement> celle = getWebDriverWait(20)
+                .withMessage("Impossibile accedere verifica Colonna  Stato")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.cssSelector("table.MuiTable-root td:nth-child(5) .MuiChip-label")));
+
+        logger.info("Verifico che la colonna 'Stato' non abbia valori nulli...");
+        for (WebElement cella : celle) {
+            String text = cella.getText().trim();
+            if (text.isEmpty()) {
+                throw new AssertionError("Cella nella colonna 'Stato' è vuota");
+            }
+        }
+    }
+
+    // 6. Verifica la colonna "Azioni" (solo presenza del bottone)
+    public void verificaColonnaAzioni() {
+        List<WebElement> celle = driver.findElements(By.cssSelector("table.MuiTable-root td:nth-child(6) button"));
+
+        logger.info("Verifico che la colonna 'Azioni' non abbia valori nulli...");
+        if (celle.isEmpty()) {
+            throw new AssertionError("Nessun bottone trovato nella colonna 'Azioni'");
+        }
     }
 
 }

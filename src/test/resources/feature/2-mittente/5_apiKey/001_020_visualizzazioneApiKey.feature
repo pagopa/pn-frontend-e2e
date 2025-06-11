@@ -4,6 +4,7 @@ Feature: Mittente visualizza correttamente la pagina Api Key
   @TA_MittenteVisualizzazioneApiKey
   @ApikeyMittente
   @integrazioneApi
+    @NRT
   Scenario: PN-9228 - Mittente visualizza correttamente la pagina Api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
