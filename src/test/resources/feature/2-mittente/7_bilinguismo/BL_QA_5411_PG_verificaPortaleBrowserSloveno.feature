@@ -1,6 +1,6 @@
 Feature: PG - Verifica portale browser Sloveno
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoPGVerificaPortaleBrowserInSloveno_5411
   @Sloveno
   @bilinguismo

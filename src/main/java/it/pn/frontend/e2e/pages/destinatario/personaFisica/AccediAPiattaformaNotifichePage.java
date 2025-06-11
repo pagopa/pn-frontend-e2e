@@ -361,6 +361,16 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("submit"))); // mui-5
         continuaBottone.click();
         logger.info("Il bottone Continua cliccato in Inserisci i dati della carta");
+
+        clickIntesaSanpaoloRadioButton();
+
+        WebElement continuaButtonScegliPagamento = getWebDriverWait(60)
+                .withMessage("Il bottone Continua su Scegli chi gestirà il pagamento non è cliccabile ")
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.id("paymentPspListPageButtonContinue")
+                ));
+        continuaButtonScegliPagamento.click();
+
         //Select Nexi
         webTool.waitTime(10);
         WebElement modificaButton = getWebDriverWait(120)
@@ -368,19 +378,53 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));////for local test use //button[@aria-label='Modifica PSP']
         modificaButton.click();
         webTool.waitTime(10);
+
         getWebDriverWait(80)
                 .withMessage("Intesa Sanpaolo S.p.A non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"))));
-        driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]")).click();
+        driver.findElement(By.xpath("(//div[contains(text(),'Intesa Sanpaolo S.p.A')])[2]")).click();
 
-        WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
-        getWebDriverWait(15).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
+//        WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
+//        getWebDriverWait(15).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
+//        pagaButton.click();
+        WebElement pagaButton = getWebDriverWait(25)
+                .withMessage("Il bottone Paga non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='paymentCheckPageButtonPay']")));
         pagaButton.click();
+
         webTool.waitTime(120);//necessaria
-        getWebDriverWait(50)
-                .withMessage("Il bottone Continua non è cliccabile ")
-                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continu')]"))));
-        driver.findElement(By.xpath("//button[contains(text(),'Continu')]")).click();//for local test use //button[@aria-label='Continua']
+//        getWebDriverWait(50)
+//                .withMessage("Il bottone Continua non è cliccabile ")
+//                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continu')]"))));
+//        driver.findElement(By.xpath("//button[contains(text(),'Continu')]")).click();//for local test use //button[@aria-label='Continua']
+        WebElement continueButton = getWebDriverWait(170)
+                .withMessage("Il bottone Continua non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'Continu')]")));
+
+        // Clicca sul bottone
+        continueButton.click();
+    }
+
+    public void clickIntesaSanpaoloRadioButton() {
+        try {
+            // Trova il radio button associato a "Intesa Sanpaolo S.p.A"
+            WebElement intesaSanpaoloContainer = getWebDriverWait(20)
+                    .until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//div[@id='BCITITMM']")
+            ));
+
+            // Trova il radio button all'interno del container specifico
+            WebElement radioButton = intesaSanpaoloContainer.findElement(
+                    By.xpath(".//*[local-name()='svg' and @data-testid='RadioButtonUncheckedIcon']")
+            );
+
+            // Clicca sul radio button
+            radioButton.click();
+        } catch (Exception e) {
+            // Gestione delle eccezioni: stampa l'errore se il radio button non è trovato o non è cliccabile
+            logger.error("Errore durante il click sul radio button di Intesa Sanpaolo S.p.A: " + e.getMessage());
+            throw e;
+        }
     }
 
     public void siVisualizzaStatoPagato() {

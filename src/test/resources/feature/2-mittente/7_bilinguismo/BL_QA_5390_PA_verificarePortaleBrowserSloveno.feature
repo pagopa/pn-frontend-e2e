@@ -1,6 +1,6 @@
 Feature: PA - Verificare portale browser Sloveno
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoVerificaPortaleBrowserFrancese_QA5390
   @TA_Sloveno
   @bilinguismo

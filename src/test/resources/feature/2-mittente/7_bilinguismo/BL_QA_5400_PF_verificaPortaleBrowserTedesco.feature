@@ -1,6 +1,6 @@
 Feature: PF Verificare portale browser Tedesco
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoPFVerificaPortaleBrowserTedesco_QA5400
   @TA_Tedesco
   @bilinguismo

@@ -1,6 +1,6 @@
 Feature: PA Verifica contenuti Privacy e ToS in Tedesco
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoVerificaContenutiPrivacyToSInTedesco_QA5383
   @TA_Tedesco
   @bilinguismo

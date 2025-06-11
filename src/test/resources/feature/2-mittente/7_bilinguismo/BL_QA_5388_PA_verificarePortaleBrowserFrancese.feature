@@ -1,6 +1,6 @@
 Feature: PA Verificare portale browser Francese
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoVerificaPortaleBrowserFrancese_QA5388
   @TA_Francese
   @bilinguismo

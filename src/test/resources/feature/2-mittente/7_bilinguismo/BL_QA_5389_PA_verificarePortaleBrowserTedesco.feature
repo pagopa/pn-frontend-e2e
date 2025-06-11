@@ -1,6 +1,6 @@
 Feature: PA - Verificare portale browser Tedesco
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoVerificaPortaleBrowserFrancese_QA5389
   @TA_Tedesco
   @bilinguismo

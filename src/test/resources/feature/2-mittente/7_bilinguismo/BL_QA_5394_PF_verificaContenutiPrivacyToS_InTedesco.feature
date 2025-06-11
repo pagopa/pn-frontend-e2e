@@ -1,6 +1,6 @@
 Feature: PF Verifica contenuti Privacy e ToS in Tedesco
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoPFVerificaContenutiPrivacyToSInTedesco_QA5394
   @TA_Tedesco
   @bilinguismo

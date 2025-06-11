@@ -1,6 +1,6 @@
 Feature: PG Verifica contenuti Privacy e ToS in Italiano
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoPGVerificaContenutiPrivacyToSInItaliano_QA5402
   @TA_Italian
   @bilinguismo

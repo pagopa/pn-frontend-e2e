@@ -1,6 +1,6 @@
 Feature: PG - Verifica portale browser Inglese
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoPGVerificaPortaleBrowserInInglese_5408
   @TA_Inglese
   @bilinguismo

@@ -1,6 +1,6 @@
 Feature: PA Verifica contenuti Privacy e ToS in Sloveno
 
-  @TestSuite
+  @TestSuite_BL
   @TA_bilinguismoVerificaContenutiPrivacyToSInSloveno_QA5385
   @TA_Sloveno
   @bilinguismo

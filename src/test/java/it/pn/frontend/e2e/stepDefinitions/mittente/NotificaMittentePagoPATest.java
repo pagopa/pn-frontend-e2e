@@ -1571,9 +1571,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         backgroundTest.setPiattaformaNotifichePage(piattaformaNotifichePage);
         backgroundTest.setHooksNew(hooksNew);
-       // String iun = notificationSingleton.getIun(HooksNew.scenario);
-        logger.info("IUN............."+ backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(hooksNew.getScenario()));
+       //// String iun = notificationSingleton.getIun(HooksNew.scenario);
         String iun = backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(hooksNew.getScenario());
+        logger.info("si Seleziona La Notifica con lo IUN............."+ iun);
+//          backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario("PYLX-KQXU-HEPY-202506-D-1");
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
 

@@ -424,7 +424,7 @@ public class BackgroundTest  extends BasePage {
         logger.info("SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNDestinatario");
         piattaformaNotifichePage.setHooksNew(hooksNew);
         logger.info("DOPO SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNDestinatario");
-        piattaformaNotifichePage.clickSuNotifica();
+        piattaformaNotifichePage.clickSuNotifica(iun);
     }
 
     public void siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(String iun) {
