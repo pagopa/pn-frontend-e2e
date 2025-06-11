@@ -7,7 +7,7 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
   @deleghe1
   @DeleghePFPG
   @GestioneErrori
-  @NRT
+  #    @NRT
   Scenario:[PN-9431-PN_MANDATE_ALREADYEXISTS_PF] - La persona fisica aggiunge una delega allo stesso delegato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
