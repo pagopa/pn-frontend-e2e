@@ -13,7 +13,7 @@ Feature:La persona giuridica visualizza il codice di una delega
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
     And Nella pagina Deleghe sezione Deleghe dell impresa  si verifica sia presente una delega
-    And Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega "nuovaDelegaPG"
+    And Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega "Lucrezia Borgia"
     And Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice
     Then Si clicca sul bottone chiudi
-    And Si ripristina lo stato iniziale delle deleghe dall impresa "Le Epistolae srl"
+    And Si controlla che la delega non sia più presente nella lista "Lucrezia Borgia"

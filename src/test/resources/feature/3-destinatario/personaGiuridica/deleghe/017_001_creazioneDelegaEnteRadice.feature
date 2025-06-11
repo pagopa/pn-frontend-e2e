@@ -14,10 +14,11 @@ Feature: persona giuridica aggiunge una delega dall'elenco degli enti radice
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
+    # Non c'è seconda PG disponibile per creazione delega TA, si usa un'altra PG e si cancella subito dopo
     And Nella sezione Aggiungi Delega persona giuridica inserire i dati
       | accessoCome    | delegante         |
-      | ragioneSociale | Le Epistolae srl  |
-      | codiceFiscale  | LELPTR04A01C352E  |
+      | ragioneSociale | Vita Nova Sas  |
+      | codiceFiscale  | 12666810299  |
       | ente           | Comune di Palermo |
     Then Nella sezione della nuova delega si sceglie la visualizzazione delle notifiche da parte di: "solo enti selezionati"
     And Si verifica che nell'elenco degli enti sono presenti solamente enti radice
@@ -33,5 +34,6 @@ Feature: persona giuridica aggiunge una delega dall'elenco degli enti radice
       | Mercurio Riscossioni         |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
-    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Le Epistolae srl"
+    # Rimozione delega appena creata
+    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Vita Nova Sas"
     And Nella sezione Deleghe sezione Deleghe dell'impresa si controlla che non sia più presente la delega

@@ -160,9 +160,11 @@ public class BackgroundTest  extends BasePage {
 
     public void accettazioneDelegaPG() {
         deleghePagoPATest.siSceglieOpzioneAccetta();
-        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelegaPG);
+        //Seconda PG non disponibile per PA, si usa PF
+        //deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelegaPG);
+        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelega);
         deleghePagoPATest.siCliccaSulBottoneAccetta();
-        deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
+        //deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
 
     }
 
@@ -269,12 +271,17 @@ public class BackgroundTest  extends BasePage {
     public void aggiuntaNuovaDelegaDellImpresaPG() {
         deleghePGPagoPATest.nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa();
         deleghePGPagoPATest.nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega();
-        deleghePGPagoPATest.siVisualizzaLaSezioneLeTueDeleghePersonaGiuridica();
-        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati();
-        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile();
-        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaVerificareCheLaDataSiaCorretta();
-        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
-        deleghePGPagoPATest.nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
+        //Seconda PG per deleghe non disponibile per testing, si usa PF
+        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati();
+        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile();
+        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaVerificareCheLaDataSiaCorretta();
+        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
+        //deleghePGPagoPATest.nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
+        deleghePagoPATest.nellaSezioneLeTueDelegheInserireIDati(datiPersonaFisica);
+        deleghePagoPATest.nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta();
+        deleghePagoPATest.nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile();
+        deleghePagoPATest.nellaSezioneLeTueDelegheClickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
+        deleghePagoPATest.nellaSezioneDelegheSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
     }
 
     public void logoutPG() {

@@ -45,6 +45,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | cap               | 20147                 |
       | stato             | Italia                |
     And Nella section Destinatario cliccare su Aggiungi destinatario
+    And Seleziona radion button Inserimento Manuale se esiste "2"
     And Nella section Destinatario inserire i dati del terzo destinatario come persona giuridica
       | soggettoGiuridico | PG                         |
       | ragioneSociale    | Convivio Spa               |
