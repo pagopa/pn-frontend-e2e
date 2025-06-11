@@ -5,7 +5,7 @@ Feature: Mittente effetua una ricerca notifiche per CF
   @mittente
   @ricercaNotificheMittente
   @loginFE
-  @NRT
+  # @NRT
   Scenario: PN-9217 - Mittente loggato effettua una ricerca per CF
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica

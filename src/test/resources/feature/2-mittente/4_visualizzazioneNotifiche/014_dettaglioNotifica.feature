@@ -4,7 +4,7 @@ Feature: Mittente visualizza il dettaglio di una notifica
   @TA_MittenteDettaglioNotifiche
   @visualizzazioneNotificheMittente
   @loginFE
-  @NRT
+  # @NRT
   Scenario: PN-9225 - Mittente visualizza dettaglio notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Cliccare sulla notifica restituita

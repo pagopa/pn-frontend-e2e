@@ -5,7 +5,7 @@ Feature: il mittente fa una ricerca combinata tra stato e data
     @ricercaNotificheMittente
     @TA_MittenteRicercaPerDataStato
     @loginFE
-    @NRT
+    # @NRT
   Scenario Outline: PN-9222_2 - il mittente fa una ricerca sia per data che per stato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche inserire una data
