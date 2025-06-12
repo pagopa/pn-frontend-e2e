@@ -13,4 +13,3 @@ Feature: Mittente genera Api Key senza inserire il nome dell api key
     And Nella sezione genera Api Key inserire il nome "testAutomationFE" per l Api Key
     And Nella sezione genera Api Key cancellare il testo inserito
     Then Nella sezione genera si visualizza un messaggio di errore
-    # And Logout da portale mittente

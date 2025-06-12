@@ -3,7 +3,7 @@ Feature: Mittente seleziona l'opzione visualizza ID gruppo
   @TestSuite
   @TA_MittenteVisualizzaIDGroup
   @ApikeyMittente
-
+ @NRT
   @integrazioneApi
   Scenario: PN-9236 - Mittente seleziona l'opzione visualizza ID gruppo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

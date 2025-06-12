@@ -4,6 +4,8 @@ Feature: Mittente seleziona l'opzione visualizza api Key
   @TA_MittenteOpzioneVisualizzaApiKey
   @ApikeyMittente
   @integrazioneApi
+  @NRT
+
   Scenario: PN-9232 - Mittente seleziona l'opzione visualizza api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu
