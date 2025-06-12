@@ -18,7 +18,8 @@ Feature: La persona giuridica visualizza le deleghe
     #  | companyName    | Le Epistolae srl  |
     #  | displayName    | Le Epistolae srl  |
     #  | person         | false             |
-    When Creo in background una delega per persona fisica
+    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Lucrezia Borgia"
+    When Creo in background una delega per persona giuridica
       | accessoCome | delegante        |
       | fiscalCode  | BRGLRZ80D58H501Q |
       | person      | true             |
@@ -30,18 +31,11 @@ Feature: La persona giuridica visualizza le deleghe
     And Si revoca delega come delegante con api
     And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
-    #And Creo in background una delega per persona giuridica
-    #  | accessoCome    | delegante     |
-    #  | fiscalCode     | 27957814470   |
-    #  | companyName    | Convivio Spa  |
-    #  | displayName    | Convivio Spa  |
-    #  | person         | false         |
-    When Creo in background una delega per persona fisica
-      | accessoCome | delegante        |
-      | fiscalCode  | BRGLRZ80D58H501Q |
-      | person      | true             |
-      | displayName | Lucrezia Borgia  |
-      | firstName   | Lucrezia         |
-      | lastName    | Borgia           |
+    And Creo in background una delega per persona giuridica
+      | accessoCome    | delegante     |
+      | fiscalCode     | 27957814470   |
+      | companyName    | Convivio Spa  |
+      | displayName    | Convivio Spa  |
+      | person         | false         |
     And Si controlla la tabella deleghe a carico dell impresa
     And Si accetta la delega senza gruppo
