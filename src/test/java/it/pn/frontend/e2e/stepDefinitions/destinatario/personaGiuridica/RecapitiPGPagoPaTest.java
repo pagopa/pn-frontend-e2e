@@ -425,12 +425,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale();
     }
 
-
-    @And("Seleziona la notifica Avvenuto Accesso")
-    public void selezionaLaNotificaAvvenutoAccesso() {
-        recapitiDestinatarioPage.selezionaLaNotificaAvvenutoAccesso();
-    }
-
     @And("Inserisci Pec Errata {string}")
     public void inserisciPecErrata(String pec) {
         recapitiDestinatarioPage.insertPEC(pec);
