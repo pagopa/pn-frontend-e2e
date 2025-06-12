@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
@@ -526,5 +527,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         logger.info("Si clicca sul bottone vedi tutti");
         piattaformaNotifichePage.clickVediTutti();
     }
+
 }
 

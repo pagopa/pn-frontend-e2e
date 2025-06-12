@@ -129,8 +129,7 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginMittenteConTokenExchange() {
 
         String environment = webDriverConfig.getEnvironment();
-        String token = "";
-        token = webDriverConfig.getTokentestMittente();
+        String token = webDriverConfig.getTokentestMittente();
 
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
