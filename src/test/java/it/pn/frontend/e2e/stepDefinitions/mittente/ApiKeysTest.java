@@ -180,44 +180,19 @@ public class ApiKeysTest  extends BasePage {
 
     @And("Si visualizza correttamente la lista delle Api Key generate")
     public void siVisualizzaCorrettamenteLaListaDelleApiKeyGenerate() {
-        if (apiKeyPAPage.siVisualizzaApiKeyConTesto()) {
-            logger.info("Si visualizza correttamente l'Api Key delle Api Key");
-        } else {
-            logger.error("NON si visualizza correttamente l'Api Key delle Api Key");
-            Assertions.fail("NON si visualizza correttamente l'Api Key delle Api Key");
-        }
+        logger.info("Sono dentro siVisualizzaCorrettamenteLaListaDelleApiKeyGenerate");
+        apiKeyPAPage.verificaColonnaNomeApiKey();
+        apiKeyPAPage.verificaColonnaApiKey();
+        apiKeyPAPage.verificaColonnaDataCreazione();
+        apiKeyPAPage.verificaColonnaGruppi();
+        apiKeyPAPage.verificaColonnaStato();
+        apiKeyPAPage.verificaColonnaAzioni();
 
-        if (apiKeyPAPage.siVisualizzaNomeEDataConTesto()) {
-            logger.info("Si visualizza correttamente le date delle Api Key");
-        } else {
-            logger.error("NON si visualizza correttamente le date delle Api Key");
-            Assertions.fail("NON si visualizza correttamente le date delle Api Key");
-        }
-
-        if (apiKeyPAPage.siVisualizzaGruppoConTesto()) {
-            logger.info("Si visualizza correttamente il gruppo delle Api Key");
-        } else {
-            logger.error("NON si visualizza correttamente il gruppo delle Api Key");
-            Assertions.fail("NON si visualizza correttamente il gruppo delle Api Key");
-        }
-
-        if (apiKeyPAPage.siVisualizzaStatoConTesto()) {
-            logger.info("Si visualizza correttamente lo stato delle api key");
-        } else {
-            logger.error("NON si visualizza correttamente lo stato delle api key");
-            Assertions.fail("NON si visualizza correttamente lo stato delle api key");
-        }
-
-        if (apiKeyPAPage.siVisualizzaMenuApiKey()) {
-            logger.info("Si visualizza correttamente il bottone del menu Api Key");
-        } else {
-            logger.error("NON si visualizza correttamente il bottone del menu Api Key");
-            Assertions.fail("NON si visualizza correttamente il bottone del menu Api Key");
-        }
     }
 
     @Then("Nella pagina Api Key posizionare il cursore sullo stato dell'operazione")
     public void nellaPaginaApiKeyPosizionareIlCursoreSulloStatoDellOperazione() {
+        logger.info("nellaPaginaApiKeyPosizionareIlCursoreSulloStatoDellOperazione");
         apiKeyPAPage.mouseHover();
         apiKeyPAPage.waitLoadMessaggioData();
     }
@@ -289,8 +264,7 @@ public class ApiKeysTest  extends BasePage {
     @And("Si copia correttamente la Api Key cliccando sul bottone di copia")
     public void siCopiaCorrettamenteLaApiKeyCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'copy-clipboard' per copiare la Api Key");
-        String apikeyCopied = apiKeyPAPage.copiaApiKey();
-        logger.info("La Api Key copiata è: {}", apikeyCopied);
+         apiKeyPAPage.copiaApiKey(1);
     }
 
     @Then("Nella pagina Api Key posizionare il cursuore sopra il numero gruppi")

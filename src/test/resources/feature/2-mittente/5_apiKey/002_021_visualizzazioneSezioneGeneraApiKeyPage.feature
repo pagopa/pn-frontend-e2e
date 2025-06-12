@@ -4,8 +4,7 @@ Feature: Mittente visualizza correttamente la sezione genera Api Key
   @TA_MittenteVisualizzaGeneraApiKey
   @ApikeyMittente
   @integrazioneApi
-
-    # @NRT
+#  @NRT
 
   Scenario: PN-9229 - Mittente visualizza correttamente la sezione genera Api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
