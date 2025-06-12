@@ -6,7 +6,7 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
   @PG
   @DeleghePFPG
   @deleghe2
-
+  @deleghecambio
   Scenario: PN-9167 - La persona giuridica fa una ricerca per gruppo delle deleghe
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

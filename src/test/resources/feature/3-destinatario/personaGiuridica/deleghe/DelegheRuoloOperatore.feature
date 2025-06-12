@@ -5,6 +5,8 @@ Feature:Deleghe lato ruolo operatore
   @PG
 
   @TA_PGRuoloOperatoreControlloAssenzaDeleghe
+  @deleghecambio
+
   Scenario: [TA-FE CONTROLLO DELGHE LAYOUT RUOLO OPERATORE]- Si controlla lato ruolo operatore assenza deleghe
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
