@@ -498,6 +498,7 @@ public class DataPopulationConfig {
         datiNotifica.setDescrizione(DataPopulationValue.getDefaultValue(DataPopulationValue.DESCRIZIONE_DN.key));
         datiNotifica.setGruppoTest(DataPopulationValue.getDefaultValue(DataPopulationValue.GRUPPO_TEST_DN.key));
         datiNotifica.setGruppoDev(DataPopulationValue.getDefaultValue(DataPopulationValue.GRUPPO_DEV_DN.key));
+        datiNotifica.setGruppoUat(DataPopulationValue.getDefaultValue(DataPopulationValue.GRUPPO_UAT_DN.key));
         datiNotifica.setCodiceTassonometrico(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_TASSONOMETRICO_DN.key));
         datiNotifica.setNomeDocumentoNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.NOME_DOCUMENTO_NOTIFICA_DN.key));
         datiNotifica.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN_DN.key));

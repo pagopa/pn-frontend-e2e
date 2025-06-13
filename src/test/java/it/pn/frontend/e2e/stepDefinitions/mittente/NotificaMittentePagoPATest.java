@@ -260,7 +260,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
-            case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
+            case "test" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
+            case "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoUat();
         }
         informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
         informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
