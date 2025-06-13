@@ -1,6 +1,6 @@
 Feature: PA PA Verifica contenuti Privacy e ToS in Italiano
 
-  @TestSuite_BL
+  @TestSuite_BROWSER
   @TA_bilinguismoVerificaContenutiPrivacyToSInItaliano_QA5381
   @TA_Italian
   @bilinguismo

@@ -1,6 +1,6 @@
 Feature: la persona fisica inserisce una Email
 
-#  @TestSuite
+#  @TestSuite_VECCHIO
 #  @TA_inserimentoEmailPF
 #  @recapitiPF
 #  @PF

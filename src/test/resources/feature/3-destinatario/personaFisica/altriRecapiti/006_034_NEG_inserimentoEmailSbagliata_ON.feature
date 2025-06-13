@@ -1,6 +1,6 @@
 Feature: La persona fisica inserisce una email sbagliata
 
-#  @TestSuite
+#  @TestSuite_ON
   @TA_inserimentoEmailErrataPF_ON
   @addressBook1
   @TA_REWORK_RECAPITI_ON

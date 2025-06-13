@@ -1,6 +1,6 @@
 Feature:La persona fisica inserisce una OTP sbagliato PEC
 
-#  @TestSuite
+#  @TestSuite_ON
   @TA_inserimentoPECOTPErrato_PF
   @addressBook1
   @TA_REWORK_RECAPITI_ON

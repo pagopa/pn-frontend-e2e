@@ -1,6 +1,6 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite_OFF
+#  @TestSuite_UAT_OFF
   @TA_CollegamentoSENDaIO_PF_OFF
   @addressBook1
   @TA_REWORK_RECAPITI_UAT_OFF

@@ -1,6 +1,6 @@
 Feature: La persona giuridica inserisce una PEC
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_inserimentoPECPG
 #  @PG
 #  @recapitiPG

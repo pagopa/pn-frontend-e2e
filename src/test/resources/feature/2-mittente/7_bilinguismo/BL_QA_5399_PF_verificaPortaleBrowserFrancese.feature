@@ -1,6 +1,6 @@
 Feature: PF Verificare portale browser Francese
 
-  @TestSuite_BL
+  @TestSuite_BROWSER
   @TA_bilinguismoPFVerificaPortaleBrowserFrancese_QA5399
   @TA_Francese
   @bilinguismo

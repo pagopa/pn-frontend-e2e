@@ -1,6 +1,6 @@
 Feature: la persona giuridica inserisce un OTP email sbagliato
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @PG
 #  @TA_inserimentoOTPErratoEmailPG
 #  @recapitiPG

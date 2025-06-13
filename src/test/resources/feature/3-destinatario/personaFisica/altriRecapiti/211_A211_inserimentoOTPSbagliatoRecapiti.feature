@@ -1,6 +1,6 @@
 Feature:La persona fisica inserisce una OTP sbagliato PEC
 
-#  @TestSuite
+#  @TestSuite_VECCHIO
 #  @TA_inserimentoOTP3Volte
 #  @PF
 #  @recapitiPF

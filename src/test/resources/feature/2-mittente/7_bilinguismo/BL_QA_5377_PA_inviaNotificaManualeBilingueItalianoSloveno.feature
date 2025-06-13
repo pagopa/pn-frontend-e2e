@@ -3,6 +3,7 @@ Feature: PA invia notifica manuale bilingue: Italiano e Sloveno
   @TestSuite
   @TA_bilinguismoRefreshPaginaItalianoSloveno_QA5377
   @bilinguismo
+  @NRT_BL
 
   Scenario: PN-QA5377-BL -PA invia notifica manuale bilingue: Italiano e Sloveno
 

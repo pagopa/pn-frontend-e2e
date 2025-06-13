@@ -3,6 +3,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
   @TestSuite
   @TA_bilinguismoItalianoFrancese_QA5368
   @bilinguismo
+  @NRT_BL
 
   Scenario: PN-QA5368-BL - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Francese
 #    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di "Viggiu"

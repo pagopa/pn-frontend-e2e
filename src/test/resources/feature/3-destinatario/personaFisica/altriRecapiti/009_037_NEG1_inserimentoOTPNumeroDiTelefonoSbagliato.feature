@@ -1,6 +1,6 @@
 Feature: la persona fisica inserisce l'OTP numero di telefono  errato
 
-#  @TestSuite
+#  @TestSuite_VECCHIO
 #  @TA_inserimentoOTPTelefonoErrato
 #  @PF
 #  @recapitiPF

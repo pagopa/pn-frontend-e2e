@@ -1,6 +1,6 @@
 Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
-  @TestSuite
+  @TestSuite_DOWN
   @TA_VAS_31
   @NRT_PHYSICAL_ADDRESS_LOOKUP_DOWN
   Scenario: [VAS_31_DOWN] - La sezione "destinatari" relativa alla creazione della notifica, Banner attivo e Inserimento manuale selezionato

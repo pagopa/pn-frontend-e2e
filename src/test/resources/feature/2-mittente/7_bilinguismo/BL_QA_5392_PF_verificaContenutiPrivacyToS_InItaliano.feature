@@ -1,6 +1,6 @@
 Feature: PF Verifica contenuti Privacy e ToS in Italiano
 
-  @TestSuite_BL
+  @TestSuite_BROWSER
   @TA_bilinguismoPFVerificaContenutiPrivacyToSInItaliano_QA5392
   @TA_Italian
   @bilinguismo

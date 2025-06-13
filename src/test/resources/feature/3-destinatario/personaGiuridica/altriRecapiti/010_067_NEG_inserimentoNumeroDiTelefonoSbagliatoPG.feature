@@ -1,6 +1,6 @@
 Feature: la persona giuridica inserisce un numero di telefono errato
 
-  @TestSuite
+  @TestSuite_OFF
   @TA_inserimentoCellulareErratoPG
   @addressBook2
   @TA_REWORK_RECAPITI_OFF

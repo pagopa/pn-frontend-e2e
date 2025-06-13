@@ -1,6 +1,6 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite
+#  @TestSuite_ON
   @TA_REWORK_DOMICILIO_DIGITALE_PF_44_45_48
   @addressBook1
   @TA_REWORK_RECAPITI_UAT_ON

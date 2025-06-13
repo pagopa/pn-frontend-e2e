@@ -1,6 +1,6 @@
 Feature: PF Verifica contenuti Privacy e ToS in Sloveno
 
-  @TestSuite_BL
+  @TestSuite_BROWSER
   @TA_bilinguismoPFVerificaContenutiPrivacyToSInSloveno_QA5396
   @TA_Sloveno
   @bilinguismo

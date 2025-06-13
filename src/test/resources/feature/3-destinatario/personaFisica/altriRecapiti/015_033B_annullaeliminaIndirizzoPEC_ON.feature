@@ -1,6 +1,6 @@
 Feature: la persona fisica elimina l'indirizzo pec
 
-  @TestSuite
+#  @TestSuite_ON
   @PF
   @TA_annulaEliminaPECPF_ON
   @addressBook1

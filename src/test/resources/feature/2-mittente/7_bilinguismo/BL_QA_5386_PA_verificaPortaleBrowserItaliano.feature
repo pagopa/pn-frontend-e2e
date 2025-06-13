@@ -1,6 +1,6 @@
 Feature: PA Verificare portale browser Italiano
 
-  @TestSuite_BL
+  @TestSuite_BROWSER
   @TA_bilinguismoVerificaPortaleBrowserItaliano_QA5386
   @TA_Italiano
   @bilinguismo

@@ -1,6 +1,6 @@
 Feature: La persona giuridica elimina l'indirizzo email
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_eliminaEmailPG
 #  @PG
 #  @recapitiPG

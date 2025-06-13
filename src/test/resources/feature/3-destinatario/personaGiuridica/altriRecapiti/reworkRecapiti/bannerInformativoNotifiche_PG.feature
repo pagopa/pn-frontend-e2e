@@ -1,6 +1,6 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite
+#  @TestSuite_ON
   @TA_BanneInformativoNotifiche_PG
   @addressBook2
   @TA_REWORK_RECAPITI_ON
