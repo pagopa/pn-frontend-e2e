@@ -292,7 +292,7 @@ public class DeleghePage extends BasePage {
 
     public void clickDelegheDelDelegante(String personaFisica) {
 
-        WebElement menuDelegheDelegante = driver.findElement(By.id("menu-item" + personaFisica));
+        WebElement menuDelegheDelegante = driver.findElement(By.id("menu-item" + personaFisica.toLowerCase()));
         getWebDriverWait(10).withMessage("Voce del menu laterale non visibile e non cliccabile").until(ExpectedConditions.and(
                 ExpectedConditions.visibilityOf(menuDelegheDelegante),
                 ExpectedConditions.elementToBeClickable(menuDelegheDelegante)
