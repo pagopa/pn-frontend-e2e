@@ -2550,6 +2550,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.verificaBannerAttivoEInserimentoManualeSelezionato();
     }
 
+    @And("Disabilita Pop-Up Chrome")
+    public void disabilitaPopUpChrome() {
+        driver.switchTo().alert().accept();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

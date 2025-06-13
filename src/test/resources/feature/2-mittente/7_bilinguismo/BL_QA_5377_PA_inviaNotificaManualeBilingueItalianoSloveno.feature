@@ -30,6 +30,7 @@ Feature: PA invia notifica manuale bilingue: Italiano e Sloveno
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
     Then Refresh pagina
+    And Disabilita Pop-Up Chrome
     And verifica lingua selezionata "Italiano"
     And verifica campi vuoti
 
