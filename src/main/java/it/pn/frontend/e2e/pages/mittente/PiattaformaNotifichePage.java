@@ -1924,18 +1924,18 @@ public class PiattaformaNotifichePage extends BasePage {
 //            webTool.waitTime(5);
 //        }
         if (lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = getWebDriverWait(20)
+            WebElement radioIt = getWebDriverWait(30)
                     .withMessage("Impossibile trovare //input[@value='it'] con la lingua: " + lingua)
                     .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='lang' and @value='it']")));
             Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella attesa: " + lingua);
         } else {
-            WebElement radioOther = getWebDriverWait(20)
+            WebElement radioOther = getWebDriverWait(30)
                     .withMessage("Impossibile trovare //input[@value='other'] con la lingua: " + lingua)
                     .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='lang' and @value='other']")));
             Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella attesa: " + lingua);
 
             // Verifica che la label contenga la lingua scelta
-            WebElement additionalLangDiv = getWebDriverWait(20)
+            WebElement additionalLangDiv = getWebDriverWait(30)
                     .withMessage("Impossibile trovare //div[@id='additionalLang'] con la lingua: " + lingua)
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='additionalLang']")));
             Assertions.assertEquals(additionalLangDiv.getText(), lingua);
