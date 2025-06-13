@@ -1,6 +1,6 @@
 Feature: PF Verificare portale browser Sloveno
 
-  @TestSuite_BL
+  @TestSuite_BROWSER
   @TA_bilinguismoPFVerificaPortaleBrowserSloveno_QA5401
   @TA_Tedesco
   @bilinguismo

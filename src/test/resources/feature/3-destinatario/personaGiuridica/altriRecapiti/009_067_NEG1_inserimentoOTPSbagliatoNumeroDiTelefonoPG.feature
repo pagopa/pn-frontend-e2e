@@ -1,6 +1,6 @@
 Feature: la persona giuridica inserisce l'OTP numero di telefono  errato
 
-#  @TestSuite
+#  @TestSuite_OFF
   @addressBook2
   @TA_REWORK_RECAPITI_OFF
   @NRT

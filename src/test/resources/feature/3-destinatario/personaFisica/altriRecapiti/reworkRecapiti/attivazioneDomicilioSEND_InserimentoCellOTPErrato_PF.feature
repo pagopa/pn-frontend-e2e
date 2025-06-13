@@ -1,6 +1,6 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite
+#  @TestSuite_ON
   @TA_inserimentoCellOTPErrato_PF
   @addressBook1
   @TA_ON

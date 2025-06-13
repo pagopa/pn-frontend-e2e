@@ -1,6 +1,6 @@
 Feature: PG - Verifica portale browser Tedesco
 
-  @TestSuite_BL
+  @TestSuite_BROWSER
   @TA_bilinguismoPGVerificaPortaleBrowserInTedesco_5410
   @Tedesco
   @bilinguismo

@@ -1,6 +1,6 @@
 Feature: La persona giuridica inserisce l'OTP errato 3 volte per i campi PEC, email di cortesia e numero di cellulare
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_inserimentoTreOTPErratiPerTuttiIRecapiti
 #  @PG
 #  @recapitiPG

@@ -1,6 +1,6 @@
 Feature: La persona fisica inserisce una PEC sbagliata
 
-#  @TestSuite
+#  @TestSuite_ON
   @TA_inserimentoPECErrataPF_ON
   @addressBook1
   @TA_REWORK_RECAPITI_ON

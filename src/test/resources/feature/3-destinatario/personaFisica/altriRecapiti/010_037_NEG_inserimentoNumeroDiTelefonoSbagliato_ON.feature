@@ -1,6 +1,6 @@
 Feature: la persona fisica inserisce un numero di telefono errato
 
-#  @TestSuite
+#  @TestSuite_ON
   @TA_inserimentoTelefonoErratoPF_ON
   @addressBook1
   @TA_REWORK_RECAPITI_ON

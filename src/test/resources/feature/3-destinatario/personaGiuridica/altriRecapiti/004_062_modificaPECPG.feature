@@ -1,6 +1,6 @@
 Feature: La persona giuridica modifica l'indirizzo PEC
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_modificaPECPG
 #  @PG
 #  @recapitiPG

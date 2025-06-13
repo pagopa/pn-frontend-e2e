@@ -1,6 +1,6 @@
 Feature: La persona giuridica elimina l'indirizzo PEC
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_eliminaPECPG
 #  @PG
 #  @recapitiPG

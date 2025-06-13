@@ -3,6 +3,7 @@ Feature: PA invia notifica in lingua differente da quella scelte nelle impostazi
   @TestSuite
   @TA_bilinguismoLinguaDifferenteDalleImpostazioni_ItalianoSloveno_QA5373
   @bilinguismo
+  @NRT_BL
 
   Scenario: PN-QA5373-BL - PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Sloveno
 #    Pre Condizione Aver settato nelle impostazioni Italiano e Francese

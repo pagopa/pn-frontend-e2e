@@ -1,6 +1,6 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite
+#  @TestSuite_UAT_ON
   @TA_attivazioneDomicilioSEND_RecapitoCortesiaAttivo_PF_UAT
   @addressBook1
   @TA_REWORK_RECAPITI_UAT_ON

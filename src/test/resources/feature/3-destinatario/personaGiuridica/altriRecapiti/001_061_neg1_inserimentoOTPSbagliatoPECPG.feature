@@ -1,6 +1,6 @@
 Feature: La persona giuridica inserisce una OTP sbagliato PEC
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @PG
 #  @recapitiPG
 #  @TA_inserimentoOTPErratoPG

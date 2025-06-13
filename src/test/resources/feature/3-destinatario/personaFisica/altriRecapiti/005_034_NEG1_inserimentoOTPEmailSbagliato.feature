@@ -1,6 +1,6 @@
 Feature: la persona fisica inserisce un OTP email sbagliato
 
-#  @TestSuite
+#  @TestSuite_VECCHIO
 #  @TA_inserimentoOTPMailErratoPF
 #  @PF
 #  @recapitiPF

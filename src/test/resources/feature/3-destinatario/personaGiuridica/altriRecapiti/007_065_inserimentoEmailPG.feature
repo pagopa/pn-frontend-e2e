@@ -1,6 +1,6 @@
 Feature: La persona giuridica inserisce l'email
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_inserimentoEmailPG
 #  @PG
 #  @recapitiPG

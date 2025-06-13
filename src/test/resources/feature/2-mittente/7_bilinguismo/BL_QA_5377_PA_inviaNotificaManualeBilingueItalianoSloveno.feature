@@ -3,6 +3,7 @@ Feature: PA invia notifica manuale bilingue: Italiano e Sloveno
   @TestSuite
   @TA_bilinguismoRefreshPaginaItalianoSloveno_QA5377
   @bilinguismo
+  @NRT_BL
 
   Scenario: PN-QA5377-BL -PA invia notifica manuale bilingue: Italiano e Sloveno
 
@@ -29,7 +30,8 @@ Feature: PA invia notifica manuale bilingue: Italiano e Sloveno
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
     Then Refresh pagina
-    And verifica lingua selezionata "Italiano"
+    And Disabilita Pop-Up Chrome
+    And verifica lingua selezionata "Sloveno"
     And verifica campi vuoti
 
 

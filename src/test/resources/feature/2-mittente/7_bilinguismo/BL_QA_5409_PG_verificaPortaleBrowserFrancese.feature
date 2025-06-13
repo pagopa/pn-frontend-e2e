@@ -1,6 +1,6 @@
 Feature: PG - Verifica portale browser Francese
 
-  @TestSuite_BL
+  @TestSuite_BROWSER
   @TA_bilinguismoPGVerificaPortaleBrowserInFrancese_5409
   @TA_Francese
   @bilinguismo

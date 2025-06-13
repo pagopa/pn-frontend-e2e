@@ -3,6 +3,7 @@ Feature: PA invia notifica manuale bilingue: Italiano e Tedesco
   @TestSuite
   @TA_bilinguismoRefreshPaginaItalianoTedesco_QA5378
   @bilinguismo
+  @NRT_BL
 
   Scenario: PN-QA5378-BL - PA invia notifica manuale bilingue: Italiano e Tedesco
 

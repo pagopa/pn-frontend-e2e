@@ -1,6 +1,6 @@
   Feature: La persona giuridica modifica l'email di cortesia
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_modificaEmailPG
 #  @PG
 #  @recapitiPG

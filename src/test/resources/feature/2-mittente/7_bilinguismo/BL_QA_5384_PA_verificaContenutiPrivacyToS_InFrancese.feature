@@ -1,6 +1,6 @@
 Feature: PA Verifica contenuti Privacy e ToS in Francese
 
-  @TestSuite_BL
+  @TestSuite_BROWSER
   @TA_bilinguismoVerificaContenutiPrivacyToSInFrancese_QA5384
   @TA_Francese
   @bilinguismo

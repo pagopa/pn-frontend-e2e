@@ -1,6 +1,6 @@
 Feature: la persona giuridica inserisce una email errata
 
-#  @TestSuite
+#  @TestSuite_ON
   @TA_inserimentoEmailErrataPG_ON
   @addressBook2
   @TA_REWORK_RECAPITI_ON

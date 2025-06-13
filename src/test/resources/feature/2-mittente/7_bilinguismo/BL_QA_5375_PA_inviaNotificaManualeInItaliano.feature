@@ -3,6 +3,7 @@ Feature: PA invia notifica manuale in Italiano
   @TestSuite
   @TA_bilinguismoRefreshPaginaItaliano_QA5375
   @bilinguismo
+  @NRT_BL
 
   Scenario: PN-QA5375-BL - PA invia notifica manuale in Italiano
 
@@ -29,6 +30,7 @@ Feature: PA invia notifica manuale in Italiano
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
     Then Refresh pagina
+    And Disabilita Pop-Up Chrome
     And verifica lingua selezionata "Italiano"
     And verifica campi vuoti
 

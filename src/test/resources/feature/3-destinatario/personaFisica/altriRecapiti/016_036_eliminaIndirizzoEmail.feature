@@ -1,6 +1,6 @@
 Feature: la persona fisica elimina l'indirizzo Email
 
-#  @TestSuite
+#  @TestSuite_VECCHIO
 #  @TA_eliminaEmailPF
 #  @recapitiPF
 #  @PF
