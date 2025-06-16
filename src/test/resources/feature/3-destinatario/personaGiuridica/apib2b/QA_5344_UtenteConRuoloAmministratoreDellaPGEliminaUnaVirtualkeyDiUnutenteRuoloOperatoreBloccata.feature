@@ -2,7 +2,8 @@ Feature: PG - Utente con ruolo Amministratore della PG elimina una virtual key r
 
   @TestSuite
   @TA_PG_AmministratorePG_EliminaVirtualKeyDiUnUtenteRuoloOperatoreBloccata_QA_5344
-  @integrazioneApi_NRT
+  @integrazioneApi
+  @apiKey
   #@bilinguismo
 
   Scenario:PN-QA-5344  PG - Utente con ruolo Amministratore della PG elimina una virtual key ruotata di un utente con ruolo di operatore

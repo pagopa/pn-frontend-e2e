@@ -1,7 +1,8 @@
 Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica per la Persona Giuridica
 
   @TA_PG_RotazioneChiavePubblicaECreazioneChiavePubblicaConStessoValore_QA_5310
-  @integrazioneApi_NRT
+  @integrazioneApi
+  @apiKey
   #@bilinguismo
   @PG
   @TestSuite

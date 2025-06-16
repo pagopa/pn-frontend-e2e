@@ -1,7 +1,8 @@
 Feature: Creazione chiave pubblica
 
   @TA_PG_OperatoreNonAbilitatoCreazioneChiavePubblica_QA_5317
-  @integrazioneApi_NRT
+  @integrazioneApi
+  @apiKey
   #@bilinguismo
   @PG
   @TestSuite
@@ -26,3 +27,4 @@ Feature: Creazione chiave pubblica
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Nella pagina Integrazione API si controlla che non sia presente il bottone Genera chiave pubblica
     Then Nella pagina Integrazione API si visualizza il messaggio di alert "Le chiavi personali non sono utilizzabili perché l’integrazione è stata disabilitata. Per usarle, chiedi a un amministratore di abilitare l’integrazione."
+#  Per poter creare una chiave personale, un amministratore deve prima abilitare l’integrazione.

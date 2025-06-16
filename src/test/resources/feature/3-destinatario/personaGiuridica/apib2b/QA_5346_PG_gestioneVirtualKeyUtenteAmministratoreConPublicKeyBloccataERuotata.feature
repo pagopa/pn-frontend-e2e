@@ -1,7 +1,8 @@
 Feature: Visualizzazione sezione Integrazione API
 
   @TA_PG_VerificaAzioniUtenteAmministratoreVirtualKeyConPublicKeyRuotataEBloccata_QA_5346
-  @integrazioneApi_NRT
+  @integrazioneApi
+  @apiKey
   #@bilinguismo
   @PG
   @TestSuite

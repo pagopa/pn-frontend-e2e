@@ -2,7 +2,8 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
 
   @TestSuite
   @TA_PG_OperatoreCensisceVirtualKey_QA_5327
-  @integrazioneApi_NRT
+  @integrazioneApi
+  @apiKey
   #@bilinguismo
 
   Scenario:PN-QA-5327  PG - Utente della PG con ruolo di operatore censisce una virtual key

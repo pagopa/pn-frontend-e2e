@@ -2,7 +2,8 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
 
   @TestSuite
   @TA_PG_AmministratorePG_BloccaVirtualKeyDiUnUtenteRuoloOperatore_QA_5342
-  @integrazioneApi_NRT
+  @integrazioneApi
+  @apiKey
   #@bilinguismo
 
   Scenario:PN-QA-5342  PG - Utente con ruolo Amministratore della PG blocca una virtual key di un utente con ruolo di operatore

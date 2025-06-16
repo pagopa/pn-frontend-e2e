@@ -7,6 +7,7 @@ Feature: Il delegato visualizza la notifiche del delegante
   @deleghe2
   @DeleghePFPG
   @GestioneErrori
+    @NRT
   Scenario: [PN-14926-MANDATE_NOTFOUND_PG] - Errore per operazioni su una delega che non esiste
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

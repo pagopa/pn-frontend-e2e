@@ -2,7 +2,8 @@ Feature: PG - Utente Amministratore Persona Giuridica con public key attiva, blo
 
   @TestSuite
   @TA_PG_StatoAttivaRuotataBloccata_QA_5316
-  @integrazioneApi_NRT
+  @integrazioneApi
+  @apiKey
   #@bilinguismo
 
   Scenario:PN-QA-5315  PG - Utente Amministratore Persona Giuridica con public key attiva, blocca la public key e registra una nuova public key che verrà a sua volta ruotata e ne verrà registrata una nuova

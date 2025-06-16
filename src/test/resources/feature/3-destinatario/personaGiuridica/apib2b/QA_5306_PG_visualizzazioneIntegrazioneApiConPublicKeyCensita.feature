@@ -1,7 +1,8 @@
 Feature: Visualizzazione sezione Integrazione API
 
   @TA_PG_VisualizzazioneIntegrazioneAPIPublicKeyCensita_QA_5306
-  @integrazioneApi_NRT
+  @integrazioneApi
+  @apiKey
   #@bilinguismo
   @PG
   @TestSuite
