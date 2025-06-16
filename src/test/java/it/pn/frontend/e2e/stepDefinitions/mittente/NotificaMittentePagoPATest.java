@@ -1767,6 +1767,36 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
     }
 
+    @And("Si ottiene il codice IUN dalla notifica creata")
+    public void ottieniIUNdaRichiestaNotifica() {
+        piattaformaNotifichePage.setNetWorkInfos(webDriverManager.getNetworkInfosThread().get());
+        piattaformaNotifichePage.setWebDriverManager(webDriverManager);
+        piattaformaNotifichePage.setRestNotificationParam(restNotification);
+        piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
+        piattaformaNotifichePage.setHooksNew(hooksNew);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
+        String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
+        logger.info("ID della notifica creata: {}", notificationRequestId);
+        Iun = WebTool.decodeNotificationRequestId(notificationRequestId);
+        logger.info("IUN della notifica creata: {}", Iun);
+    }
+
+    @And("Aspetta la notifica con IUN salvato")
+    public void aspettaNotificaConIUNSalvato() {
+        boolean notificaTrovata = piattaformaNotifichePage.attesaNotificaConIUN(Iun);
+        if (!notificaTrovata) {
+            Assertions.fail("La notifica risulta ancora non visibile sulla tabella notifiche dopo 8 tentativi");
+        }
+        else {
+            logger.info("La notifica è visualizzata sulla tabella notifiche");
+        }
+    }
+
     private String getNotificationRequestId(String urlNotificationRequest) {
         /*
          * In case of error, I prefer to display a message that corresponds to the actual situation,

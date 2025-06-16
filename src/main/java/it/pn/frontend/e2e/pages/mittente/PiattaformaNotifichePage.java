@@ -2083,4 +2083,25 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("Messaggio di alert correttamente visualizzato e coerente con quello atteso");
 
     }
+
+    public boolean attesaNotificaConIUN(String iun) {
+        int maximumRetry;
+        for (maximumRetry = 0; maximumRetry <= 8; maximumRetry++) {
+
+            WebElement cellaCodiceIUN = driver.findElement(By.xpath("//table[@id='notifications-table']//tr//td[4]"));
+            String valoreCodiceIUN = cellaCodiceIUN.getText();
+            logger.info("IUN da cercare {}", iun);
+            logger.info("Valore prima cella di colonna codice IUN {}", valoreCodiceIUN);
+            if (valoreCodiceIUN.equalsIgnoreCase(iun)) {
+                getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), iun);
+                return true;
+            } else {
+                webTool.waitTime(90);
+                maximumRetry++;
+                logger.info("Tentativo n.{}", maximumRetry);
+                driver.navigate().refresh();
+            }
+        }
+        return false;
+    }
 }
