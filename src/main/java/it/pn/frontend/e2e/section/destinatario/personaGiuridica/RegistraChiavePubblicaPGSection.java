@@ -73,16 +73,38 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
     }
 
     public void waitLoadOttieniParametriSection() {
+//        try {
+//            getWebDriverWait(15).withMessage("il titolo della sezione Ottieni parametri non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(@data-testid,'title')]"))));
+//            getWebDriverWait(15).withMessage("il bottone Kid della sezione Ottieni parametri non è cliccabile").until(ExpectedConditions.visibilityOf((driver.findElement(By.id("kid")))));
+//            getWebDriverWait(15).withMessage("il bottone Issuer della sezione Ottieni parametri non è cliccabile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//input[@aria-invalid='false']")))));
+//            getWebDriverWait(15).withMessage("il bottone Fine della sezione Ottieni parametri non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.id("step-submit")))));
+//            logger.info("Si visualizza correttamente la sezione Ottieni parametri");
+//        } catch (TimeoutException e) {
+//            logger.error("Non si visualizza correttamente la sezione Ottieni parametri con errore:{}", e.getMessage());
+//            Assertions.fail("Non si visualizza correttamente la sezione Ottieni parametri con errore:" + e.getMessage());
+//        }
         try {
-            getWebDriverWait(15).withMessage("il titolo della sezione Ottieni parametri non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(@data-testid,'title')]"))));
-            getWebDriverWait(15).withMessage("il bottone Kid della sezione Ottieni parametri non è cliccabile").until(ExpectedConditions.visibilityOf((driver.findElement(By.id("kid")))));
-            getWebDriverWait(15).withMessage("il bottone Issuer della sezione Ottieni parametri non è cliccabile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//input[@aria-invalid='false']")))));
-            getWebDriverWait(15).withMessage("il bottone Fine della sezione Ottieni parametri non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.id("step-submit")))));
-            logger.info("Si visualizza correttamente la sezione Ottieni parametri");
+            getWebDriverWait(25)
+                    .withMessage("Il titolo della sezione Ottieni parametri non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(@data-testid,'title')]")));
+
+            getWebDriverWait(25)
+                    .withMessage("Il bottone Kid della sezione Ottieni parametri non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("kid")));
+
+            getWebDriverWait(25)
+                    .withMessage("Il campo Issuer della sezione Ottieni parametri non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@aria-invalid='false']")));
+
+            getWebDriverWait(25)
+                    .withMessage("Il bottone Fine della sezione Ottieni parametri non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
+
+            logger.info("La sezione Ottieni parametri è visualizzata correttamente");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la sezione Ottieni parametri con errore:{}", e.getMessage());
-            Assertions.fail("Non si visualizza correttamente la sezione Ottieni parametri con errore:" + e.getMessage());
+            Assertions.fail("La sezione Ottieni parametri non è visualizzata correttamente con errore: " + e.getMessage());
         }
+
     }
 
     public String ottieniParametriCopiaKIDRegistraChiavePubblica() {

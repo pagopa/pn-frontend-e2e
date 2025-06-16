@@ -57,6 +57,7 @@ public class HeaderPGSection extends BasePage {
 //                .withMessage("Non Si Visualizza il tasto Esci sul Pop-Up")
 //                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(),'Esci')]"))));
 //        esciButtonPopUp.click();
+        webTool.waitTime(5);
 
         WebElement esciButtonPopUp = getWebDriverWait(60)
                 .withMessage("Non si visualizza il tasto Esci sul Pop-Up")
