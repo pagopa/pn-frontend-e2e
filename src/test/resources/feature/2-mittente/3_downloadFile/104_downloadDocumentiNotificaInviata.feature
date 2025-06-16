@@ -3,7 +3,7 @@ Feature: il mittente download attestazione notifica presa in carico
   @TestSuite
   @TA_MittenteDownloadDocumentiNotificaInviata
   @DownloadFileMittente
-  # @NRT
+   @NRT_Blocco_1
   Scenario: PN-11678 - il mittente download documenti di una notifica inviata da oltre 120 giorni
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'

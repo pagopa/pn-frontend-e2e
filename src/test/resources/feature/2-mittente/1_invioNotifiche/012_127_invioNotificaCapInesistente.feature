@@ -3,7 +3,7 @@ Feature: invio notifica con lo stesso codice fiscale
   @TestSuite
   @TA_invioNotificaCapInesistente
   @invioNotifiche_07
-  @NRT
+  @NRT_Blocco_1
   @loginFE_8
   Scenario: PN-9646 - il mittente invia la notifica con CAP inesistente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

@@ -4,7 +4,7 @@ Feature: il mittente inserisce tutti i dati di una notifica senza allegati
   @TestSuite
   @mittente
   @invioNotifiche_07
-  @NRT
+  @NRT_Blocco_1
   @loginFE
   Scenario: PN-9642 - il mittente inserisce tutti i dati di una notifica senza allegati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

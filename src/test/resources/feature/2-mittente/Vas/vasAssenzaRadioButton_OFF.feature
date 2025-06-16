@@ -3,6 +3,8 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
   @TestSuite_OFF
   @TA_VAS_30
   @NRT_PHYSICAL_ADDRESS_LOOKUP_OFF
+  @NRT_Blocco_1
+
   Scenario: [VAS_30_OFF] - La sezione "destinatari" relativa alla creazione della notifica, assenza radion Button Inserimento automatico e manuale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica

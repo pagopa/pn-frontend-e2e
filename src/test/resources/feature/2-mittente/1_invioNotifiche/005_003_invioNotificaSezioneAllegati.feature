@@ -3,7 +3,7 @@ Feature: il mittente inserisce tutti i dati di una notifica
   @TA_invioNotificaConAllegati
     @TestSuite
     @invioNotifiche_07
-    @NRT
+    @NRT_Blocco_1
     @loginFE_8
   Scenario Outline: PN-9215 - il mittente inserisce tutti i dati di una notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

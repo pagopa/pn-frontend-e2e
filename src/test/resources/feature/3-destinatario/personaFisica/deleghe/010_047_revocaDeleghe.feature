@@ -6,7 +6,7 @@ Feature:La persona fisica revoca una delega
   @PF
   @deleghe1
   @DeleghePFPG
-  @NRT
+  @NRT_Blocco_1
   Scenario:PN-9403 - La persona fisica revoca una delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

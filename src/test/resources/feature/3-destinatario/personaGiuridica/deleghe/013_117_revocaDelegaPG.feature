@@ -6,7 +6,7 @@ Feature:La persona giuridica revoca una delega
     @PG
     @deleghe2
     @DeleghePFPG
-    @NRT
+    @NRT_Blocco_1
     Scenario:PN-9169 - La persona giuridica revoca una delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

@@ -3,7 +3,7 @@ Feature: Avviso PagoPa - inserire un modello F24 per ogni destinatario a cui è 
   @TestSuite
   @TA_PosizioneDebitoria_12_14_16
   @TA_PosizioneDebitoria_ON
-  @NRT
+  @NRT_Blocco_1
   Scenario Outline: [Posizione_Debitoria_12_14_16] - Avviso PagoPa - inserire un modello F24 per ogni destinatario a cui è indirizzata la notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica

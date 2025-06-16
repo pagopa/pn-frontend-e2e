@@ -5,7 +5,7 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale
     @ricercaNotificheMittente
     @TA_MittenteRicercaPerStatoPeriodo
     @loginFE
-    # @NRT
+    @NRT_Blocco_1_Blocco_1
   Scenario Outline: PN-9222_3 - il mittente fa una ricerca sia per arco temporale che per stato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche inserire un arco temporale

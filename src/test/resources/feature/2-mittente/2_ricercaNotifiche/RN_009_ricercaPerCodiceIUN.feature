@@ -5,7 +5,7 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN
   @mittente
   @ricercaNotificheMittente
   @loginFE_8
-  # @NRT
+  @NRT_Blocco_1_Blocco_1
   Scenario: PN-9218 - Mittente loggato effettua una ricerca per codice IUN
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si visualizza correttamente la pagina Piattaforma Notifiche

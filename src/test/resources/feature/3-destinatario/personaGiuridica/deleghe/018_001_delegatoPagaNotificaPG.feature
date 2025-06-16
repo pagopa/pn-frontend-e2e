@@ -6,7 +6,7 @@ Feature:Il delegato persona giuridica accede ad una delega
   @PG
   @deleghe2
   @DeleghePFPG1
-  @NRT
+  @NRT_Blocco_1
   Scenario: PN-10389 - Il delegato persona giuridica paga una notifica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica

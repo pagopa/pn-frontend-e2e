@@ -3,7 +3,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi notifi
   @TestSuite
   @TA_MittenteDownloadAttestazioneNotificaDigitale
   @DownloadFileMittente
-   @NRT
+   @NRT_Blocco_1
   Scenario: PN-9926 - il mittente effettua il download attestazione opponibile a terzi notifica digitale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche si recupera un codice IUN di una persona giuridica

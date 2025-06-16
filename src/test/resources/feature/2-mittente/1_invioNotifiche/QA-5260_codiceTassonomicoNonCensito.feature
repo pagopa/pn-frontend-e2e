@@ -3,7 +3,7 @@ Feature: Invio notifica con codice tassonomico non censito
   @TestSuite
   @TA_codiceTassonomicoNonCensito
   @bilinguismo
-  @NRT
+  @NRT_Blocco_1
   @GestioneErrori
 
   Scenario: [PN-5260-PN_GENERIC_INVALIDPARAMETER_TAXONOMYCODE] - Codice Tassonomico non censito

@@ -6,7 +6,7 @@ Feature: persona giuridica aggiunge una delega dall'elenco degli enti radice
   @PG
   @DeleghePFPG
   @deleghe2
-  @NRT
+  @NRT_Blocco_1
   Scenario:PN-10429 - La persona giuridica aggiunge una delega dall'elenco enti radice
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

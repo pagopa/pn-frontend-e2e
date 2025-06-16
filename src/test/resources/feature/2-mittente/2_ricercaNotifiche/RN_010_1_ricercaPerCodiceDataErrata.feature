@@ -23,7 +23,7 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
     @mittente
     @ricercaNotificheMittente
     @loginFE
-    # @NRT
+    @NRT_Blocco_1_Blocco_1
   Scenario Outline: PN-9323 - Mittente loggato effettua una ricerca per periodo temporale errato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche inserire un arco temporale errato da <inizioArcoTemporale> a <fineArcoTemporale>

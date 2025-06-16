@@ -3,7 +3,7 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
   @TestSuite
   @TA_MittenteScaricaAARDellaNotificaAnnullata
   @DownloadFileMittente
-  # @NRT
+   @NRT_Blocco_1
 
 #  @loginFE
   Scenario: PN-10245-A - Mittente scarica documento AAR della notifica annullata
