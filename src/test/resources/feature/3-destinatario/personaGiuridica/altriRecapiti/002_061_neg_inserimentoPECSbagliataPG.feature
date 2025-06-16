@@ -4,7 +4,7 @@ Feature: La persona giuridica inserisce una PEC
   @TA_inserimentoPECErrataPG
   @addressBook2
   @TA_REWORK_RECAPITI_OFF
-  @NRT
+  @NRT_Blocco_3
 
   Scenario: OFF_REWORK_DOMICILIO_DIGITALE_PG_PN-9152-B60 - La persona giuridica loggato inserisce una PEC errata
 

@@ -6,7 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @OttenereTracciatoNonAnonimizzataDiPersonaFisicaDaCodiceFiscale
-  @@NRT
+  @NRT_Blocco_3
   Scenario: [QA-1072] - Ottenere  il tracciato non anonimizzata di una persona fisica dato il suo codice fiscale
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati

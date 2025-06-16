@@ -6,7 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @OttenereTracciatoNonAnonimizzataDiPersonaFisicaDaCodiceUnivoco
-  @@NRT
+  @NRT_Blocco_3
   Scenario: [QA-1075] - Ottenere  il tracciato non anonimizzata di una persona fisica dato il suo codice univoco
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati

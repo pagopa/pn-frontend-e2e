@@ -2,7 +2,7 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
 
   @TestSuite
   @TA_QA_5358
-  @NRT
+  @NRT_Blocco_3
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_AR_QA-5358] Notifica analogica multidestinatario tipo AR per PG e PF dove solo per uno di quest'ultimi è stato notificato il decesso mentre per l'altro è avvenuta la visualizzazione: VIEWED come macro stato della notifica

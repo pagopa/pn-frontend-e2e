@@ -3,7 +3,7 @@ Feature: PG - Verifica corretta traduzione nella pagina di Area Riservata - DE
   @TestSuite
   @TA_multiLinguaTedesco_QA5267
   @multiLingua
-  # @NRT
+   @NRT_Blocco_3
   Scenario: PN-QA5267-ML - PG - Verifica corretta traduzione nella pagina di Area Riservata - DE
 
     Given Login Page persona giuridica viene visualizzata

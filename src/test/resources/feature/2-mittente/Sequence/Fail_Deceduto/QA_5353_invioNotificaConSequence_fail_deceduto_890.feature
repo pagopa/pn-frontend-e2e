@@ -2,7 +2,7 @@ Feature: invio notifica con sequence
 
   @NotificaConSequenceDeceduto890
   @TestSuite
-  @NRT
+  @NRT_Blocco_3_Blocco_3
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_890_QA-5353] - Il mittente invia una notifica a destinatario con sequence

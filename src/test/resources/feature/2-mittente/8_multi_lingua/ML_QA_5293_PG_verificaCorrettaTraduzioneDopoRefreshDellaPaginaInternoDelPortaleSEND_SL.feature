@@ -3,7 +3,7 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
   @TestSuite
   @TA_multiLinguaSloveno_QA5293
   @multiLingua
-  # @NRT
+  @NRT_Blocco_3
   Scenario: PN-QA5293-ML - PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- SL
 
     Given Login Page persona giuridica viene visualizzata

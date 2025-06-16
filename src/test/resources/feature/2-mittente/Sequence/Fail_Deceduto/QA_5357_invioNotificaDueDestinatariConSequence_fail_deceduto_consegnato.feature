@@ -2,7 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @NotificaADueDestinatariConSequenceDecedutoConsegnato890
-  @NRT
+  @NRT_Blocco_3
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_890_QA-5357] - Il mittente invia una notifica a due destinatari, solo uno raggiungibile al primo tentativo
