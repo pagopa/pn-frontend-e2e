@@ -388,7 +388,7 @@ public class DataPopulationConfig {
         mittente.setCodiceAvviso(DataPopulationValue.getDefaultValue(DataPopulationValue.COD_AVVISO.key));
         mittente.setCodiceApiKeyTEST(DataPopulationValue.getDefaultValue(DataPopulationValue.API_KEY_TEST.key));
         mittente.setCodiceApiKeyDEV(DataPopulationValue.getDefaultValue(DataPopulationValue.API_KEY_DEV.key));
-
+        mittente.setCodiceApiKeyUAT(DataPopulationValue.getDefaultValue(DataPopulationValue.API_KEY_UAT.key));
         return mittente;
     }
 

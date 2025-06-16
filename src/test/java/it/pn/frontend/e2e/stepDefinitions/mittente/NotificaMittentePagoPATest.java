@@ -32,7 +32,6 @@ import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -47,7 +46,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.TimeoutException;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 import static org.apache.commons.lang3.StringUtils.substring;
@@ -269,6 +267,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 //        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
         informazioniPreliminariPASection.insertNumeroDiProtocollo(WebTool.generatePaProtocolNumber());
         informazioniPreliminariPASection.insertGruppo(gruppo);
+//        informazioniPreliminariPASection.insertGruppo("GruppoTest");
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
@@ -604,14 +603,19 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage(Iun);
     }
 
-    @And("ricerca notifica con IUN salvato")
-    public void ricercaNotificaConIunSalvato(){
-        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvato(Iun);
+    @And("Mittente ricerca notifica con IUN salvato")
+    public void ricercaNotificaConIunSalvatoMittente(){
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvatoMittente(Iun);
+    }
+
+    @And("Destinatario ricerca notifica con IUN salvato")
+    public void ricercaNotificaConIunSalvatoDestinatario(){
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvatoDestinatario(Iun);
     }
 
     @And("Mittente ricerca notifica con IUN salvato {string}")
     public void ricercaNotificaConIunMittente(String iun){
-        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvato(iun);
+        dettaglioNotificaMittenteSection.ricercaNotificaConIunSalvatoMittente(iun);
     }
 
     @And("Si visualizza correttamente la section Dettaglio Notifica")
@@ -1069,10 +1073,22 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.clickSuTornaInformazioniPreliminari();
     }
 
-    @And("Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva")
-    public void nellaSectionDestinatarioInserireIDatiDelDestinatarioPersonaGiuridichaAggiuntiva(Map<String, String> destinatario) {
+    @And("Nella section Destinatario inserire i dati del secondo destinatario come persona fisica")
+    public void nellaSectionDestinatarioInserireIDatiDelSecondoDestinatarioPersonaFisica(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere la persona fisica aggiuntiva");
+        destinatarioPASection.inserimentoSecondoDestinatarioPF(destinatario);
+    }
+
+    @And("Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiDelSecondoDestinatarioPersonaGiuridica(Map<String, String> destinatario) {
         logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
         destinatarioPASection.inserimentoDestinatarioPGAggiuntivo(destinatario);
+    }
+
+    @And("Nella section Destinatario inserire i dati del terzo destinatario come persona giuridica")
+    public void nellaSectionDestinatarioInserireIDatiDelTerzoDestinatarioPersonaGiuridica(Map<String, String> destinatario) {
+        logger.info("Si cerca di aggiungere la persona giuridica aggiuntiva");
+        destinatarioPASection.inserimentoTerzoDestinatarioPG(destinatario);
     }
 
     @And("Verifica dello stato della notifica persona giuridica come depositata {string}")
@@ -1142,7 +1158,20 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
-        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+        String environment = webDriverConfig.getEnvironment();
+        switch (environment) {
+            case "dev" ->
+                    informazioniPreliminariPASection.insertGruppo("GruppoTest");
+            case "test" ->
+                    informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+            case "uat" ->
+                    informazioniPreliminariPASection.insertGruppo("Gruppo1");
+            default -> {
+                logger.error("Ambiente non valido");
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
+
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
         if (datiNotifica.get("modalitaInvio").equals("A/R")) {
             informazioniPreliminariPASection.selectRaccomandataAR();
@@ -1161,7 +1190,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
-        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+        //informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
         if (datiNotifica.get("modalitaInvio").equals("A/R")) {
             informazioniPreliminariPASection.selectRaccomandataAR();
         } else {
@@ -1175,11 +1204,22 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Then("Nella section Informazioni preliminari si inseriscono i dati della notifica senza salvare numero di protocollo")
     public void nellaSectionInformazioniPreliminariSiInserisconoIDatiDellaNotificaSenzaNumero(Map<String, String> datiNotifica) {
         logger.info("Si inseriscono i dati della notifica nella sezione Informazioni Preliminari");
+        String gruppo = "";
+        switch (webDriverConfig.getEnvironment()) {
+            case "dev" ->
+                    informazioniPreliminariPASection.insertGruppo(dataPopulationConfig.getDatiNotifica().getGruppoDev());
+            case "test" ->
+                    informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+            default -> {
+                logger.error("Ambiente non valido");
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
         String numeroDiProtocollo = WebTool.generatePaProtocolNumber();
         informazioniPreliminariPASection.insertOggettoNotifica(datiNotifica.get("oggettoNotifica"));
         informazioniPreliminariPASection.insertDescrizione(datiNotifica.get("descrizione"));
         informazioniPreliminariPASection.insertNumeroDiProtocollo(numeroDiProtocollo);
-        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
+//        informazioniPreliminariPASection.insertGruppo(datiNotifica.get("gruppo"));
         informazioniPreliminariPASection.insertCodiceTassonometrico(datiNotifica.get("codiceTassonomico"));
         if (datiNotifica.get("modalitaInvio").equals("A/R")) {
             informazioniPreliminariPASection.selectRaccomandataAR();
@@ -1192,16 +1232,33 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @Then("Nella section Destinatario si inseriscono i dati del destinatario")
     public void nellaSectionDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
         logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
-        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
+        String nomeCognomeDestinatario = destinatario.get("nomeCognomeDestinatario");
         if (destinatario.get("soggettoGiuridico").equals("PF")) {
             destinatarioPASection.selezionarePersonaFisica();
-            destinatarioPASection.inserireNomeDestinatario(nomeDestinatario.split(" ")[0]);
-            destinatarioPASection.inserireCognomeDestinatario(nomeDestinatario.split(" ")[1]);
+//            destinatarioPASection.inserireNomeDestinatario(nomeDestinatario.split(" ")[0]);
+//            destinatarioPASection.inserireCognomeDestinatario(nomeDestinatario.split(" ")[1]);
+            destinatarioPASection.inserireNomeDestinatario(estraiNome(nomeCognomeDestinatario));
+            destinatarioPASection.inserireCognomeDestinatario(estraiCognome(nomeCognomeDestinatario));
         } else {
             destinatarioPASection.clickRadioButtonPersonaGiuridica();
-            destinatarioPASection.insertRagioneSociale(nomeDestinatario);
+            destinatarioPASection.insertRagioneSociale(nomeCognomeDestinatario);
         }
         destinatarioPASection.inserireCodiceFiscaleDestinatario(destinatario.get("codiceFiscale"));
+    }
+
+    @Then("Nella section Aggiungi Destinatario si inseriscono i dati del destinatario")
+    public void nellaSectionAggiungiDestinatarioSiInserisconoIDatiDelDestinatario(Map<String, String> destinatario) {
+        logger.info("Si inseriscono i dati del destinatario nella sezione Destinatario");
+        String nomeDestinatario = destinatario.get("nomeCognomeDestinatario");
+        if (destinatario.get("soggettoGiuridico").equals("PF")) {
+//            destinatarioPASection.selezionarePersonaFisica();
+            destinatarioPASection.inserireAggiungiNomeDestinatario(nomeDestinatario.split(" ")[0]);
+            destinatarioPASection.inserireAggiungiCognomeDestinatario(nomeDestinatario.split(" ")[1]);
+        } else {
+//            destinatarioPASection.clickRadioButtonPersonaGiuridica();
+//            destinatarioPASection.insertRagioneSociale(nomeDestinatario);
+        }
+        destinatarioPASection.inserireAggiungiCodiceFiscaleDestinatario(destinatario.get("codiceFiscale"));
     }
 
     @And("Si verifica che il form di inserimento manuale della notifica è vuoto")
@@ -1245,6 +1302,24 @@ public class NotificaMittentePagoPATest  extends BasePage {
         destinatarioPASection.inserireComune(indirizzo.get("comune"),0);
         destinatarioPASection.inserireProvincia(indirizzo.get("provincia"),0);
         destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"),0);
+        //destinatarioPASection.inserireStato(indirizzo.get("stato"),0);
+    }
+    @And("Nella section Aggiungi Destinitario si clicca su {string} e si inseriscono i dati")
+    public void nellaSectionAggiungiDestinitarioSiCliccaSuESiInserisconoIDati(String tipoIndirizzo, Map<String, String> indirizzo) {
+        logger.info("Aggiungi Si clicca su " + tipoIndirizzo + " e si inseriscono i dati");
+        if (tipoIndirizzo.contains("Aggiungi un indirizzo fisico")) {
+            //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
+        } else {
+            destinatarioPASection.checkBoxAggiungiDomicilio();
+            destinatarioPASection.insertDomicilioDigitale(indirizzo.get("digitalAddress"));
+            return;
+        }
+        destinatarioPASection.inserireIndirizzo(indirizzo.get("indirizzo"),1);
+        destinatarioPASection.inserireNumeroCivico(indirizzo.get("civico"),1);
+        destinatarioPASection.inserireLocalita(indirizzo.get("localita"),1);
+        destinatarioPASection.inserireComune(indirizzo.get("comune"),1);
+        destinatarioPASection.inserireProvincia(indirizzo.get("provincia"),1);
+        destinatarioPASection.inserireCodicePostale(indirizzo.get("cap"),1);
         //destinatarioPASection.inserireStato(indirizzo.get("stato"),0);
     }
 
@@ -1348,6 +1423,20 @@ public class NotificaMittentePagoPATest  extends BasePage {
         webTool.closeTab();
     }
 
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica come delegante")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFDelegante() {
+        logger.info("switchToPortal(AppPortal.PF)");
+        webTool.switchToPortalUrl(urlFactory,AppPortalUrl.PF_URL);
+        logger.info("Accesso parallelo a portale persona fisica eseguito");
+    }
+
+    @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica come delegante")
+    public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGDelegante() {
+        logger.info("switchToPortal(AppPortal.PG)");
+        webTool.switchToPortalUrl(urlFactory,AppPortalUrl.PG_URL);
+        logger.info("Accesso parallelo a portale persona giuridica eseguito");
+    }
+
     @Then("In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPFESiVerificaLaTimeline(String messaggio) {
         logger.info("switchToPortal(AppPortal.PF)");
@@ -1355,6 +1444,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("selezionaPrimaNotifica");
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
+        driver.navigate().refresh();
         piattaformaNotifichePage.visualizzaTimeline(messaggio);
         webTool.closeTab();
     }
@@ -1369,7 +1459,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @Then("In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline {string}")
     public void inParalleloSiEffettuaLAccessoAlPortaleDestinatarioPGESiVerificaLaTimeline(String messagio) {
-        webTool.switchToPortal(AppPortal.PG);
+        webTool.switchToPortalUrl(urlFactory,AppPortalUrl.PG_URL);
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
         piattaformaNotifichePage.visualizzaTimeline(messagio);
@@ -1635,11 +1725,15 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("si verifica se la notifica è stata accettata o rifiutata");
         final String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
         final String urlRichiestaNotifica = "https://api." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/delivery/v2.3/requests/";
-        String codiceApi;
-        if (webDriverConfig.getEnvironment().equals("test")) {
-            codiceApi = "2b3d47f4-44c1-4b49-b6ef-54dc1c531311";
-        } else {
-            codiceApi = "a9f0508d-c344-4347-807f-343bc8210996";
+        String codiceApi = "environmentCode";
+        switch (webDriverConfig.getEnvironment()) {
+            case "dev" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyDEV();
+            case "test" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyTEST();
+            case "uat" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyUAT();
+            default -> {
+                logger.error("Ambiente non valido per siVerificaEsitoNotifica");
+                Assertions.fail("Ambiente non valido o non trovato per siVerificaEsitoNotifica!");
+            }
         }
         accettazioneRichiestaNotifica.setxApikey(codiceApi);
         String statusNotifica = "WAITING";
@@ -1965,9 +2059,32 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.selezioneImpostazioneLingua();
     }
 
-    @And("Verifica Pop-up {string}")
-    public void verificaPopUp(String verifica) {
-        piattaformaNotifichePage.verificaPopUp(verifica);
+    @And("Verifica Pop-up toast di errore {string}")
+    public void verificaPopUpToast(String verifica) {
+        piattaformaNotifichePage.verificaPopUpToastErrore(verifica);
+    }
+
+    @And("Verifica Messaggio toast di errore {string}")
+    public void verificaMessaggioToastErrore(String verifica) {
+        piattaformaNotifichePage.verificaMessaggioToastErrore(verifica);
+    }
+
+    @And("Verifica Codice toast di errore {string}")
+    public void verificaCodiceToastErrore(String verifica) {
+        piattaformaNotifichePage.verificaCodiceToastErrore(verifica);
+    }
+
+    @And("Copia TraceID toast di errore")
+    public void copiaTraceIDToastErrore() {
+        logger.info("Si clicca copia sul tasto 'Copia informazioni errore' per copiare il traceID dell'errore");
+        String copiedValue = piattaformaNotifichePage.copiaTraceIDToastErrore();
+        logger.info("Il traceID copiato è {}", copiedValue);
+    }
+
+    @And("Si chiude toast di errore")
+    public void siChiudeToastDiErrore() {
+        logger.info("Si chiude toast di errore");
+        piattaformaNotifichePage.clickChiudiToastErrore();
     }
 
     @And("Verifica Banner {string}")
@@ -2381,6 +2498,48 @@ public class NotificaMittentePagoPATest  extends BasePage {
     }
 
 
+    @And("Verifica abilitazione Tasto Continua")
+    public void verificaAbilitazioneTastoContinua() {
+        piattaformaNotifichePage.verificaAbilitazioneTastoContinua();
+    }
+
+    @And("Verifica Pagina  Invia una nuova notifica la sezione Posizione Debitoria")
+    public void verificaPaginaInviaUnaNuovaNotificaLaSezionePosizioneDebitoria() {
+        piattaformaNotifichePage.verificaPaginaInviaUnaNuovaNotificaLaSezionePosizioneDebitoria();
+    }
+
+    @And("Verifica Disibilitato Tasto Continua")
+    public void verificaDisibilitatoTastoContinua() {
+        piattaformaNotifichePage.verificaDisibilitatoTastoContinua();
+    }
+
+    @And("Verifica presenza radion Button Inserimento automatico abilitato di default e manuale disabilitato")
+    public void verificaPresenzaRadionButtonIserimentoAutomaticoAbilitatoDiDefaultEManualeDisabilitato() {
+        piattaformaNotifichePage.verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault();
+        piattaformaNotifichePage.verificaPresenzaRadionButtonIserimentoManualeDisabilitato();
+    }
+
+    @And("Verifica assenza radion Button Inserimento automatico e manuale")
+    public void verificaAssenzaRadionButtonIserimentoAutomaticoEManuale() {
+        piattaformaNotifichePage.verificaAssenzaRadionButtonIserimentoAutomatico();
+        piattaformaNotifichePage.verificaAssenzaRadionButtonIserimentoManuale();
+    }
+
+    @And("Verifica radion button Inserimento Automatico abilitato di default")
+    public void verificaRadionButtonInserimentoAutomaticoAbilitatoDiDefault() {
+        piattaformaNotifichePage.verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault();
+    }
+
+    @And("Seleziona radion button Inserimento Manuale se esiste {string}")
+    public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
+        piattaformaNotifichePage.selezionaRadionButtonInserimentoManualeSeEsiste(posizione);
+    }
+
+    @And("Verifica Banner attivo e Inserimento manuale selezionato")
+    public void verificaBannerAttivoEInserimentoManualeSelezionato() {
+        piattaformaNotifichePage.verificaBannerAttivoEInserimentoManualeSelezionato();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
@@ -2449,6 +2608,43 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
     }
 
+    private static final Set<String> PREFISSI_COGNOME = Set.of(
+            "de", "di", "del", "della", "la", "lo", "van", "von", "san", "santa", "dos", "da", "das", "do", "dei", "degli"
+    );
 
+    public static String estraiNome(String fullName) {
+        String[] parts = normalizza(fullName);
+        if (parts.length <= 1) return ""; // Solo cognome o vuoto
+
+        int splitIndex = trovaInizioCognome(parts);
+        return String.join(" ", Arrays.copyOfRange(parts, 0, splitIndex)).trim();
+    }
+
+    public static String estraiCognome(String fullName) {
+        String[] parts = normalizza(fullName);
+        if (parts.length == 0) return "";
+
+        int splitIndex = trovaInizioCognome(parts);
+        return String.join(" ", Arrays.copyOfRange(parts, splitIndex, parts.length)).trim();
+    }
+
+    private static String[] normalizza(String fullName) {
+        if (fullName == null) return new String[0];
+        return fullName.trim().split("\\s+");
+    }
+
+    private static int trovaInizioCognome(String[] parts) {
+        int splitIndex = parts.length - 1;
+
+        // Torna indietro se ci sono prefissi del cognome
+        for (int i = parts.length - 1; i > 0; i--) {
+            if (PREFISSI_COGNOME.contains(parts[i - 1].toLowerCase())) {
+                splitIndex = i - 1;
+            } else {
+                break;
+            }
+        }
+        return splitIndex;
+    }
 
 }

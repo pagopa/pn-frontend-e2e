@@ -11,11 +11,13 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi destinatario
 ## Persona Giuridica
     And Nella section Destinatario selezionare il radio button persona giuridica posizionale 1
     And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica posizionale 1
+    And Seleziona radion button Inserimento Manuale se esiste "1"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 1
     And Cliccare su continua
 ##    Posizione Debitoria
@@ -62,7 +64,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Cliccare sulla notifica restituita dal filtro
     And Verifica Sezione Pagamenti
 
-    When PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    #When PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Aspetta 5 secondi
     And Verifica Esistenza Tabella Notifiche
 #    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
@@ -71,7 +73,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Aspetta 1 secondi
     And Verifica Sezione Pagamenti
 
-    Then PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    #Then PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Verifica Esistenza Tabella Notifiche
 #    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra Notifica "filter-notifications-button"

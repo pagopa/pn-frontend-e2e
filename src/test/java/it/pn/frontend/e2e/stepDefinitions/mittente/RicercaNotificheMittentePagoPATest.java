@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
@@ -71,7 +72,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         logger.info("Si clicca sul tasto filtra Notifica");
         String codiceIUN =dataPopulationConfig.getDatiNotifica().getCodiceIUN();
 //        String codiceIUN ="HWEG-REZK-XPMT-202504-X-3";
-        //        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
         piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath,codiceIUN);
     }
@@ -158,8 +158,8 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica")
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
-//        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
-        piattaformaNotifichePage.inserimentoCodiceIUN("HWEG-REZK-XPMT-202504-X-3");
+        piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
+//        piattaformaNotifichePage.inserimentoCodiceIUN("HWEG-REZK-XPMT-202504-X-3");
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
@@ -527,5 +527,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         logger.info("Si clicca sul bottone vedi tutti");
         piattaformaNotifichePage.clickVediTutti();
     }
+
 }
 

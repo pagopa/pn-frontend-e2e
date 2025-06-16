@@ -14,6 +14,10 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
+
+    #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
+
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per <numero destinatari>
@@ -21,6 +25,7 @@ Feature: Mittente genera una notifica con più destinatari che non prevede pagam
     And Cliccare su continua
     #      Aggiungere alle notifiche
     And Seleziona Nessun Pagamento 1
+    And Seleziona Nessun Pagamento 2
     And Cliccare su continua
 #      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati

@@ -120,7 +120,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     public boolean cercaEsistenzaDelegaPG(String ragioneSociale) {
         try {
             logger.info("CERCA_ESISTENZA_DELEGA_PG: "+ ragioneSociale);
-            getWebDriverWait(35).withMessage("delega non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + ragioneSociale + "')]]"))));
+            getWebDriverWait(35).withMessage("delega non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//td[p[contains(text(),'" + ragioneSociale + "')]]"))));
             return true;
         } catch (TimeoutException | NoSuchElementException  e) {
             return false;
@@ -273,14 +273,13 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void clickBottoneRifiuta() {
-        rifiutaButton = driver.findElement(By.id("dialog-action-button"));
+        rifiutaButton = driver.findElement(By.id("dialog-confirm-button"));
         rifiutaButton.click();
     }
 
     public void waitLoadPopUpRevoca() {
         try {
-            //WebElement revocaPopUpBy = driver.findElement(By.xpath("//div[@aria-labelledby='responsive-dialog-title']"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@aria-labelledby='responsive-dialog-title']"))));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@aria-labelledby='confirmation-dialog-title']"))));
             logger.info("Si visualizza il pop-up rifiuta delega");
         } catch (TimeoutException e) {
             logger.error("Non si visualizza il pop-up rifiuta delega con errore: " + e.getMessage());

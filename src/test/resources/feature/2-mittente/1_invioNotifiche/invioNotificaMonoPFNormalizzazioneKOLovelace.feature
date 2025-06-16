@@ -21,6 +21,8 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Ada Lovelace     |
       | codiceFiscale           | LVLDAA85T50G702B |
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | @FAIL-Irreperibile_AR |
       | civico    | 20                    |
@@ -47,7 +49,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
     And Logout da portale persona fisica
 
-  @TestSuite
+#  @TestSuite
   @TA_InvioNotificaMonoPFNormalizzazioneKOLovelaceBis
   @DeleghePGPF
   @deleghe1

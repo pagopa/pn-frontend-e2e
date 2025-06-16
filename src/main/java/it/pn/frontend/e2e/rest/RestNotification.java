@@ -2,6 +2,8 @@ package it.pn.frontend.e2e.rest;// ... Altre importazioni ...
 
 import com.google.gson.internal.LinkedTreeMap;
 import it.pn.frontend.e2e.config.CustomHttpClient;
+import it.pn.frontend.e2e.config.DataPopulationConfig;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
 import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
 import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
@@ -24,7 +26,11 @@ import java.util.List;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class RestNotification {
 
-//    @Autowired
+    @Autowired
+    private WebDriverConfig webDriverConfig;
+
+    @Autowired
+    private DataPopulationConfig dataPopulationConfig;
 
     private  CustomHttpClient customHttpClient;
 
@@ -86,8 +92,25 @@ public class RestNotification {
     }
 
     public LinkedTreeMap<String, Object> getNotificationStatus(String notificationRequestId) {
+        String env = webDriverConfig.getEnvironment();
+        log.info("getNotificationStatus_getEnvironment: "+env);
         final CustomHttpClient<Object, Object> httpClient2 = new CustomHttpClient<>();//customHttpClient;  // Modifica qui
-        httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
+        switch (env) {
+            case "dev" -> {
+                httpClient2.setBaseUrlApi("https://api.dev.notifichedigitali.it");
+                httpClient2.setApiKey(dataPopulationConfig.getMittente().getCodiceApiKeyDEV());
+            }
+            case "test" ->
+                    httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
+            case "uat" -> {
+                    httpClient2.setBaseUrlApi("https://api.uat.notifichedigitali.it");
+                    httpClient2.setApiKey(dataPopulationConfig.getMittente().getCodiceApiKeyUAT());
+            }
+            default -> {
+                Assertions.fail("Ambiente non valido o non trovato!");
+            }
+        }
+
         try {
             Object response = httpClient2.sendHttpGetRequest("/delivery/v2.3/requests?notificationRequestId=" + notificationRequestId, null, Object.class);
             if (response instanceof LinkedTreeMap) {

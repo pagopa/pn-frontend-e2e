@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
+import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -56,6 +57,9 @@ public class DownloadFileMittentePagoPATest extends BasePage {
 
     @Autowired
     private DataPopulation dataPopulation;
+
+    @Autowired
+    private WebDriverConfig webDriverConfig;
 
     private DownloadFile downloadFile;
 
@@ -497,5 +501,9 @@ public class DownloadFileMittentePagoPATest extends BasePage {
         disserviziAppPAPage.checkMessaggioScadenzaDownload();
     }
 
-
+    @When("Nella pagina Piattaforma Notifiche pubblica amministrazione si accede alla notifica con codice IUN {string}")
+    public void portalePAVaiANotifica(String codiceIUN) {
+        String env = this.webDriverConfig.getEnvironment();
+        this.driver.get("https://selfcare." + env + ".notifichedigitali.it/dashboard/" + codiceIUN + "/dettaglio");
+    }
 }

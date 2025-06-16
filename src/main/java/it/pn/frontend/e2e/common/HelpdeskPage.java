@@ -618,6 +618,34 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
+    public boolean trovaDocumentoDaZipConDimensioni(String docName) throws IOException {
+        String workingDirectory = System.getProperty("user.dir");
+        String extractDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip/extract/" + docName;
+        Path extractPath = Paths.get(extractDirectoryPath);
+        long fileSize = Files.size(extractPath);
+        logger.info("File {} ha size {}", docName, fileSize);
+        return fileSize > 0;
+    }
+
+    public boolean trovaTestoInDocumentoDaZip(String docName, String searchText) throws IOException {
+        String workingDirectory = System.getProperty("user.dir");
+        String extractDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip/extract/" + docName;
+        Path extractPath = Paths.get(extractDirectoryPath);
+        try (Stream<String> lines = Files.lines(extractPath)) {
+            boolean found = lines.anyMatch(line -> line.contains(searchText));
+            if (found) {
+                logger.info("Testo {} trovato in file {}", searchText, docName);
+            } else {
+                logger.info("Testo {} non trovato in file {}", searchText, docName);
+            }
+            return found;
+        } catch (IOException e) {
+            logger.error("Errore nel leggere il file {}", docName, e);
+            Assertions.fail("Errore nel leggere il file " + docName + ": " + e.getMessage());
+            return false;
+        }
+    }
+
     private void deleteFilesInDirectory(String directoryPath, String extension) throws IOException {
         Path dir = Paths.get(directoryPath);
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
@@ -698,7 +726,7 @@ public class HelpdeskPage extends BasePage {
     public void inserimentoArcoTemporale() {
         webTool.waitTime(60);
 
-        WebElement calendarButton = driver.findElement(By.xpath("//div[@data-testid='data-range-picker']//div//div//button"));
+        WebElement calendarButton = driver.findElement(By.xpath("//button[contains(@aria-label, 'Choose date')]"));
         getWebDriverWait(20).until(ExpectedConditions.visibilityOf(calendarButton));
         calendarButton.click();
         WebElement previousMonth = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));

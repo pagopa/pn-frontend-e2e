@@ -6,7 +6,8 @@ Feature:La persona fisica aggiunge una delega a se stessi
   @PF
   @deleghe1
   @DeleghePFPG
-  Scenario:PN-9420 - La persona fisica aggiunge una delega a se stessi
+  @GestioneErrori
+  Scenario: [PN-9420-PN_MANDATE_DELEGATEHIMSELF_PF] - La persona fisica aggiunge una delega a se stessi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
@@ -19,4 +20,4 @@ Feature:La persona fisica aggiunge una delega a se stessi
       | ente          | Comune di Palermo |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
     And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore
-    And Logout da portale persona fisica
+    And Refresh pagina

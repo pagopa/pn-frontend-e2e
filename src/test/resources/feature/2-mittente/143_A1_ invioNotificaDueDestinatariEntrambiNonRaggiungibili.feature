@@ -20,6 +20,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
     And Si aggiungi un domicilio digitale "test@fail.it"
+     #      TODO verificare VAS
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | @fail-irreperibile_ar |
       | civico    | 20                    |
@@ -29,7 +31,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | cap       | 20147                 |
       | stato     | Italia                |
     And Nella section Destinatario cliccare su Aggiungi destinatario
-    And Nella section Destinatario inserire i dati del destinatario persona giuridica aggiuntiva
+    And Nella section Destinatario inserire i dati del secondo destinatario come persona giuridica
       | soggettoGiuridico | PG           |
       | ragioneSociale    | Convivio Spa |
       | codiceFiscale     | 27957814470  |
