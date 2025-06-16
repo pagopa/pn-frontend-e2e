@@ -681,33 +681,47 @@ public void pulisciAmbientePublickeys() {
         );
     }
 
+//    public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
+//        if(StringUtils.isNotBlank(chiave.get("ruota"))){
+//            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("ruota")+"' NON VISIBILE").until(
+//                    ExpectedConditions.visibilityOfElementLocated(By.id("button-rotate"))
+//            );
+//        }
+//
+//        if(StringUtils.isNotBlank(chiave.get("blocca"))){
+//            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("blocca")+"' NON VISIBILE").until(
+//                    ExpectedConditions.visibilityOfElementLocated(By.id("button-block"))
+//            );
+//        }
+//        if(StringUtils.isNotBlank(chiave.get("view"))){
+//            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("view")+"' NON VISIBILE").until(
+//                    ExpectedConditions.visibilityOfElementLocated(By.id("button-view"))
+//            );
+//        }
+//        if(StringUtils.isNotBlank(chiave.get("delete"))){
+//            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("view")+"' NON VISIBILE").until(
+//                    ExpectedConditions.visibilityOfElementLocated(By.id("button-delete"))
+//            );
+//        }
+//    }
     public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
-        if(StringUtils.isNotBlank(chiave.get("ruota"))){
-            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("ruota")+"' NON VISIBILE").until(
-                    ExpectedConditions.visibilityOfElementLocated(By.id("button-rotate"))
-            );
-        }
+        verificaVisibilitaPulsante(chiave, "ruota", "button-rotate");
+        verificaVisibilitaPulsante(chiave, "blocca", "button-block");
+        verificaVisibilitaPulsante(chiave, "view", "button-view");
+        verificaVisibilitaPulsante(chiave, "delete", "button-delete");
+    }
 
-        if(StringUtils.isNotBlank(chiave.get("blocca"))){
-            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("blocca")+"' NON VISIBILE").until(
-                    ExpectedConditions.visibilityOfElementLocated(By.id("button-block"))
-            );
-        }
-        if(StringUtils.isNotBlank(chiave.get("view"))){
-            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("view")+"' NON VISIBILE").until(
-                    ExpectedConditions.visibilityOfElementLocated(By.id("button-view"))
-            );
-        }
-        if(StringUtils.isNotBlank(chiave.get("delete"))){
-            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("view")+"' NON VISIBILE").until(
-                    ExpectedConditions.visibilityOfElementLocated(By.id("button-delete"))
-            );
+    private void verificaVisibilitaPulsante(Map<String, String> chiave, String chiaveNome, String buttonId) {
+        if (StringUtils.isNotBlank(chiave.get(chiaveNome))) {
+            getWebDriverWait(50)
+                    .withMessage("Il tasto: '" + chiave.get(chiaveNome) + "' NON VISIBILE")
+                    .until(ExpectedConditions.elementToBeClickable(By.id(buttonId)));
         }
     }
 
     public void verificaTestoNelPopUp(String testo) {
 
-        getWebDriverWait(40).withMessage("Il tasto: '"+testo+"' NON VISIBILE nel pop-up")
+        getWebDriverWait(40).withMessage("Il tasto: '" + testo + "' NON VISIBILE nel pop-up")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '" + testo + "')]")));
     }
 

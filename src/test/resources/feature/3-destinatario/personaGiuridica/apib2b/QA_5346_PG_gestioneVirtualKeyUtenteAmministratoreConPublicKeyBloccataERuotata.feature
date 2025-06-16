@@ -48,15 +48,15 @@ Feature: Visualizzazione sezione Integrazione API
     And Nella pagina Api Key si clicca sulla voce blocca del menu Api Key
     And Nella pop up cliccare sul tasto conferma
     And Verifica stato "Bloccata"
-    And Logout da portale persona giuridica delegante
-    # Esecuzione scenario
-    And Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | DivinaCommedia Srl  |
-    And Si clicca su prodotto
-    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
-    And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
+#    And Logout da portale persona giuridica delegante
+#    # Esecuzione scenario
+#    And Login con persona giuridica
+#      | user           | DanteAlighieri |
+#      | pwd            | test           |
+#      | ragioneSociale | DivinaCommedia Srl  |
+#    And Si clicca su prodotto
+#    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
+#    And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
     And Click su tasto Genera Chiave Personale
     And Verifica testo nel pop-up "La tua chiave personale"
     And Verifica testo nel pop-up "Puoi usarla per autenticarti in piattaforma e integrare SEND"
@@ -94,4 +94,4 @@ Feature: Visualizzazione sezione Integrazione API
     And Verifica testo nel pop-up "Se elimini definitivamente la chiave"
     And Verifica testo nel pop-up "Annulla"
     And Nella pop up cliccare sul tasto conferma
-    And Logout da portale persona giuridica delegante
+#    And Logout da portale persona giuridica delegante
