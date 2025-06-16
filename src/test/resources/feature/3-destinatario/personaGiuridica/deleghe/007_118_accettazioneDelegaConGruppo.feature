@@ -6,7 +6,7 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
   @PG
   @DeleghePFPG
   @deleghe2
-    @deleghecambio
+  @NRT
   Scenario: PN-9170-A116 - Il delegato persona giuridica accetta la delega assegnandoli un gruppo
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
@@ -18,4 +18,4 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
       | displayName | Convivio Spa |
       | person      | false        |
     And Si accetta la delega con gruppo "Test gruppi"
-    And Si controlla che la delega PG ha lo stato Attiva "Convivio Spa"
+    And Si controlla che la delega PG ha lo stato Attiva "Convivio"
