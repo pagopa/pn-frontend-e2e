@@ -2,7 +2,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
 
   @TestSuite
   @TA_PFNumeroNotificheVisualizzati
-  @NRT
+  @NRT_Blocco_2
 
   Scenario:PN-9209-B27 - La persona fisica modificare il numero di elementi visualizzati per pagina
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

@@ -4,7 +4,7 @@ Feature: Mittente seleziona l'opzione blocca api Key
   @TA_MittenteBloccaApikey
   @ApikeyMittente
   @integrazioneApi
-  @NRT
+  @NRT_Blocco_2
 
   Scenario: PN-9233 - Mittente seleziona l'opzione blocca Api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

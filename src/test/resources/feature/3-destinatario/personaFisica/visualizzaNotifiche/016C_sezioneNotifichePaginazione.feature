@@ -2,7 +2,7 @@ Feature:La persona fisica visualizza le notifiche in elenco
 
   @TestSuite
   @TA_PFPaginazioneConFiltro
-  @NRT
+  @NRT_Blocco_2
 
   Scenario:PN-9209-C27 - La persona fisica posizionarsi su una pagina diversa e poi applica un filtro di ricerca
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

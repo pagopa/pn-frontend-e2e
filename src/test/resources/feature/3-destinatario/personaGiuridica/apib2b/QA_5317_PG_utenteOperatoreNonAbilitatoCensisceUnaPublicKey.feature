@@ -6,7 +6,7 @@ Feature: Creazione chiave pubblica
   #@bilinguismo
   @PG
   @TestSuite
-
+  @NRT_Blocco_2
   Scenario: PN-QA-5305 [REFERENTE OPERATIVO PG] - Utente Operatore non abilitato prova a censire una public key
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata

@@ -3,7 +3,7 @@ Feature: invio notifica con sequence
   @Tag_PN_14806_08_OK-Giacenza-lte10_890
   @TestSuite
   @Tag_CARD_ARCAD
-  @NRT
+  @NRT_Blocco_2
 
   Scenario: [PN-14806_08] CAD/ARCAD SEQUENCE OK-Giacenza-lte10_890
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

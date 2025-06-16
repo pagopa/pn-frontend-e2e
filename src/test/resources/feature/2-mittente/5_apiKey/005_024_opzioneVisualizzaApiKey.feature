@@ -4,7 +4,7 @@ Feature: Mittente seleziona l'opzione visualizza api Key
   @TA_MittenteOpzioneVisualizzaApiKey
   @ApikeyMittente
   @integrazioneApi
-  @NRT
+  @NRT_Blocco_2
 
   Scenario: PN-9232 - Mittente seleziona l'opzione visualizza api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

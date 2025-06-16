@@ -2,7 +2,7 @@ Feature: Ricerca notifica per periodo temporale persona fisica
 
   @TestSuite
   @TA_PFVisualizzaNotificaApiV1
-  @NRT
+  @NRT_Blocco_2
   Scenario: PN-9441 - Visualizzazione dettaglio notifica inserita con API v.1
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica

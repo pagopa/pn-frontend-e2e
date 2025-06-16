@@ -5,7 +5,7 @@ Feature: PG -Eliminazione di una virtual key ruotata per un utente della PG con 
   @integrazioneApi
   @apiKey
   #@bilinguismo
-
+  @NRT_Blocco_2
   Scenario:PN-QA-5334  PG - Eliminazione di una virtual key ruotata per un utente della PG con ruolo di operatore
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

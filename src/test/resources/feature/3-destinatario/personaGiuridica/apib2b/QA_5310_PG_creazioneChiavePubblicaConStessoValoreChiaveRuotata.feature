@@ -6,7 +6,7 @@ Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica pe
   #@bilinguismo
   @PG
   @TestSuite
-
+  @NRT_Blocco_2
   Scenario: PN-QA-5310 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG ruota una chiave pubblica attiva e censisce una chiave pubblica con il valore della chiave ruotata
     # Reset ambiente di test
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

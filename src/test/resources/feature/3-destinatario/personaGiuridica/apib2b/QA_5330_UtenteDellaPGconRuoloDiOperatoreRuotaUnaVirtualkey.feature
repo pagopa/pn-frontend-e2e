@@ -5,7 +5,7 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
   @integrazioneApi
   @apiKey
   #@bilinguismo
-
+  @NRT_Blocco_2
   Scenario:PN-QA-5330  PG - Utente della PG con ruolo di operatore censisce una virtual key
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

@@ -5,7 +5,7 @@ Feature: PG - Utente Amministratore di gruppo non abilitato prova a censire una 
   @integrazioneApi
   @apiKey
   #@bilinguismo
-
+  @NRT_Blocco_2
   Scenario:PN-QA-5328  PG - Utente Amministratore di gruppo non abilitato prova a censire una public key
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

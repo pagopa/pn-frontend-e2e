@@ -6,7 +6,7 @@ Feature: Visualizzazione sezione Integrazione API
   #@bilinguismo
   @PG
   @TestSuite
-
+  @NRT_Blocco_2
   Scenario: QA-5346 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG può gestire chiavi virtuali (creazione, rotazione, blocco, eliminazione) con public key ruotata e bloccata
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata

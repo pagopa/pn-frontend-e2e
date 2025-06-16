@@ -5,7 +5,7 @@ Feature: PG - Blocco di una virtual key per un utente Amministratore Persona Giu
   @integrazioneApi
   @apiKey
   #@bilinguismo
-
+  @NRT_Blocco_2
   Scenario:PN-QA-5324  PG - Blocco di una virtual key per un utente Amministratore Persona Giuridica con già una virtual key bloccata
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

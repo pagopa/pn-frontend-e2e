@@ -2,7 +2,7 @@ Feature: La persona fisica visualizza la sezione notifiche
 
   @TestSuite
   @TA_PFvisualizzaNotifiche_015
-  @NRT
+  @NRT_Blocco_2
 
   Scenario:PN-9184 - La persona fisica visualizza la sezione notifiche
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard

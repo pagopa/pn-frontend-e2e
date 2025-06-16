@@ -2,7 +2,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica scaduta
 
   @TestSuite
   @TA_PFDownloadAttestazioniOltre120gg
-  @NRT
+  @NRT_Blocco_2
   Scenario: [TA-FE PF SCARICA ATTESTAZIONE SCADUTA]- persona fisica scarica attestazione scaduta da oltre 120 gg
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica

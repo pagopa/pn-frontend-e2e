@@ -6,6 +6,7 @@ Feature: Visualizzazione sezione Integrazione API
   #@bilinguismo
   @PG
   @TestSuite
+  @NRT_Blocco_2
 
   Scenario: PN-QA-5306 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG visualizza sezione Integrazione con Public Key censita
     # Reset ambiente di test

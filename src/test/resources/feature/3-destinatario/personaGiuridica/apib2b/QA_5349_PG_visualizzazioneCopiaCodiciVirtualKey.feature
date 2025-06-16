@@ -6,7 +6,7 @@ Feature: Visualizzazione sezione Integrazione API
   #@bilinguismo
   @PG
   @TestSuite
-
+  @NRT_Blocco_2
   Scenario: QA-5349 [DELEGANTE PG AMMINISTRATORE O REFERENTE OPERATIVO] - Visualizzazione e copia dei codici di una virtual key per un utente Amministratore PG o Operatore
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata

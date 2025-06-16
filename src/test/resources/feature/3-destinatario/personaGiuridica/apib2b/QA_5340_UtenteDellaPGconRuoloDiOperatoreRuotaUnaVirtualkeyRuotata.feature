@@ -5,7 +5,7 @@ Feature: PG - Utente della PG con ruolo di operatore prova a ruotare una virtual
   @integrazioneApi
   @apiKey
   #@bilinguismo
-
+  @NRT_Blocco_2
   Scenario:PN-QA-5340  PG - Utente della PG con ruolo di operatore prova a ruotare una virtual key con una virtual key già ruotata
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

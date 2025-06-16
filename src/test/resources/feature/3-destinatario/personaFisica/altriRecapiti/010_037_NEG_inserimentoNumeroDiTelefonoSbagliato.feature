@@ -4,7 +4,7 @@ Feature: la persona fisica inserisce un numero di telefono errato
   @TA_inserimentoTelefonoErratoPF
   @addressBook1
   @TA_REWORK_RECAPITI_OFF
-  @NRT
+  @NRT_Blocco_2
   Scenario: OFF_REWORK_DOMICILIO_DIGITALE_PF_PN-9311-B37 - La persona fisica inserisce un numero di telefono errato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti

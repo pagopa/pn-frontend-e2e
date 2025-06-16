@@ -5,7 +5,7 @@ Feature: PG - Utente Amministratore Persona Giuridica censisce una virtual key
   @integrazioneApi
   @apiKey
   #@bilinguismo
-
+  @NRT_Blocco_2
   Scenario:PN-QA-5318  PG - Utente Amministratore Persona Giuridica censisce una virtual key
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

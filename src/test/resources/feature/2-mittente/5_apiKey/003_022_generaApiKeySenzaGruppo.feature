@@ -4,7 +4,7 @@ Feature: Mittente genera Api Key senza gruppo
   @TA_MittenteGeneraApiKeySenzaGruppo
   @ApikeyMittente
   @integrazioneApi
-#  @NRT
+  @NRT_Blocco_2
 
   Scenario: PN-9230 - Mittente genera Api Key senza gruppo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

@@ -4,7 +4,7 @@ Feature: Mittente seleziona CTA annulla in blocca api Key
   @TA_MittenteAannullaBloccaApiKey
   @ApikeyMittente
   @integrazioneApi
-    @NRT
+    @NRT_Blocco_2
 
   Scenario: PN-9233 - Mittente seleziona CTA annulla in blocca api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

@@ -2,7 +2,7 @@ Feature: Mittente visualizza correttamente la pagina notifiche
 
   @TestSuite
   @TA_MittentevisualizzazioneNotifiche
-#  @NRT
+  @NRT_Blocco_2
   @loginFE
   @visualizzazioneNotificheMittente
   Scenario: [TA-FE VISUALIZZAZIONE NOTIFICA] - Mittente visualizza correttamente la pagina notifiche

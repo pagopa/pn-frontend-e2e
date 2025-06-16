@@ -3,7 +3,7 @@ Feature:Controllo dati notifica con pagamento
   @TestSuite
   @NotificaConPagamentoPF
   @ControlloNotificaConPagamentoPF
-  @NRT
+  @NRT_Blocco_2
   Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO PF] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca

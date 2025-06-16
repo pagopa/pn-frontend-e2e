@@ -6,6 +6,7 @@ Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica pe
   #@bilinguismo
   @PG
   @TestSuite
+  @NRT_Blocco_2
 
   Scenario: PN-QA-5305 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG censisce una chiave pubblica per la Persona Giuridica
     # Reset ambiente di test

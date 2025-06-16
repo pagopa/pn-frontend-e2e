@@ -4,7 +4,7 @@ Feature: PG - Eliminazione di una virtual key bloccata per un utente Amministrat
 @integrazioneApi
 @apiKey
 #@bilinguismo
-
+@NRT_Blocco_2
 Scenario:PN-QA-5323  PG - Eliminazione di una virtual key bloccata per un utente Amministratore Persona Giuridica
   Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
   When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

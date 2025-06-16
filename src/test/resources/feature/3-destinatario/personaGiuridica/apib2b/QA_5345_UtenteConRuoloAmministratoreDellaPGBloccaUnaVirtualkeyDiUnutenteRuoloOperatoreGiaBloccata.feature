@@ -5,7 +5,7 @@ Feature: PG - Utente con ruolo amministratore della PG blocca una virtual key di
   @integrazioneApi
   @apiKey
   #@bilinguismo
-
+  @NRT_Blocco_2
   Scenario:PN-QA-5345  PG - Utente con ruolo amministratore della PG blocca una virtual key di un utente della PG con ruolo di operatore con già una virtual key bloccata
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

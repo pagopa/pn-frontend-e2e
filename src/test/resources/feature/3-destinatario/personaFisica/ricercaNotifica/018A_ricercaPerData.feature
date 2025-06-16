@@ -2,7 +2,7 @@ Feature: Ricerca notifica per periodo temporale persona fisica
 
   @TestSuite
   @TA_PFricercaPerData
-  @NRT
+  @NRT_Blocco_2
 
   Scenario: PN-9224-A29 - La persona fisica fa una ricerca per date
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
