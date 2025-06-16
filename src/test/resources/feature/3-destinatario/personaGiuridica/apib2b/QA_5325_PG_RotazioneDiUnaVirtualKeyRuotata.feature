@@ -2,7 +2,7 @@ Feature: PG - Rotazione di una virtual key per un utente Amministratore Persona 
 
   @TestSuite
   @TA_PG_RotazioneDiUnaVirtualKeyRuotata_QA_5325
-  @integrazioneApi
+  @integrazioneApi_NRT
   #@bilinguismo
 
   Scenario:PN-QA-5325  PG - Rotazione di una virtual key per un utente Amministratore Persona Giuridica con già una virtual key ruotata

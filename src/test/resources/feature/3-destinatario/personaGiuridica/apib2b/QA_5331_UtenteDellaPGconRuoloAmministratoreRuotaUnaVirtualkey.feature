@@ -2,7 +2,7 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo ruota una vi
 
   @TestSuite
   @TA_PG_AmministratoreDiGruppoRuotaVirtualKey_QA_5331
-  @integrazioneApi
+  @integrazioneApi_NRT
   #@bilinguismo
 
   Scenario:PN-QA-5331  PG - Utente della PG con ruolo di amministratore di gruppo ruota una virtual key

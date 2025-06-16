@@ -2,7 +2,7 @@ Feature: PG - Blocco di una virtual key per un utente Amministratore Persona Giu
 
   @TestSuite
   @TA_PG_BloccoDiUnaVirtualKeyBloccata_QA_5324
-  @integrazioneApi
+  @integrazioneApi_NRT
   #@bilinguismo
 
   Scenario:PN-QA-5321  PG - Blocco di una virtual key per un utente Amministratore Persona Giuridica con già una virtual key bloccata

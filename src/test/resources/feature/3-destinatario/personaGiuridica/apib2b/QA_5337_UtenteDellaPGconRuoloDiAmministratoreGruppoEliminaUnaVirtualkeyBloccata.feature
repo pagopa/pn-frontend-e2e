@@ -2,7 +2,7 @@ Feature: PG -Eliminazione di una virtual key bloccata per un utente della PG con
 
   @TestSuite
   @TA_PG_AmministratoreDiGruppoEliminaVirtualKeyBloccata_QA_5337
-  @integrazioneApi
+  @integrazioneApi_NRT
   #@bilinguismo
 
   Scenario:PN-QA-5337  PG - Eliminazione di una virtual key bloccata per un utente della PG con ruolo di amministratore di gruppo
