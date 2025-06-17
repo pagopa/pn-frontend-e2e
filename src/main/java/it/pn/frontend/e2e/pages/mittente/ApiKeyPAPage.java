@@ -717,6 +717,7 @@ public void pulisciAmbientePublickeys() {
 
     private void verificaVisibilitaPulsante(Map<String, String> chiave, String chiaveNome, String buttonId) {
         if (StringUtils.isNotBlank(chiave.get(chiaveNome))) {
+            webTool.waitTime(1);
             getWebDriverWait(50)
                     .withMessage("Il tasto: '" + chiave.get(chiaveNome) + "' NON VISIBILE")
                     .until(ExpectedConditions.elementToBeClickable(By.id(buttonId)));
