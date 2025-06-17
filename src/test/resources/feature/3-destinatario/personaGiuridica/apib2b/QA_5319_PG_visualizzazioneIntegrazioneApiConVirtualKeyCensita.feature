@@ -48,4 +48,4 @@ Feature: Visualizzazione sezione Integrazione API
       | ragioneSociale | DivinaCommedia Srl  |
     And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
-    Then Si visualizza correttamente la lista delle Api Key generate
+    Then Si visualizza correttamente la lista delle Api Key generate PG

@@ -190,6 +190,15 @@ public class ApiKeysTest  extends BasePage {
 
     }
 
+    @Then("Si visualizza correttamente la lista delle Api Key generate PG")
+    public void siVisualizzaCorrettamenteLaListaDelleApiKeyGeneratePG() {
+        apiKeyPAPage.verificaColonnaNomeChiave();
+        apiKeyPAPage.verificaColonnaValoreChiave();
+        apiKeyPAPage.verificaColonnaDataScadenza();
+        apiKeyPAPage.verificaColonnaStatoPG();
+        apiKeyPAPage.verificaColonnaOpzioni();
+    }
+
     @Then("Nella pagina Api Key posizionare il cursore sullo stato dell'operazione")
     public void nellaPaginaApiKeyPosizionareIlCursoreSulloStatoDellOperazione() {
         logger.info("nellaPaginaApiKeyPosizionareIlCursoreSulloStatoDellOperazione");
@@ -422,5 +431,6 @@ public class ApiKeysTest  extends BasePage {
     public void clickTrePuntiniVirtualKeys(String stato) {
         apiKeyPAPage.clickTrePuntiniVirtualKeys(stato);
     }
+
 
 }

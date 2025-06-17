@@ -32,7 +32,7 @@ Feature: Visualizzazione sezione Integrazione API
     And Verifica testo nel pop-up "Ok, ho capito"
     And Nel pop up visualizza cliccare sul tasto chiudi
     # Esecuzione scenario per amministratore
-    Then Si visualizza correttamente la lista delle Api Key generate
+    Then Si visualizza correttamente la lista delle Api Key generate PG
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
       | ruota  | Ruota             |

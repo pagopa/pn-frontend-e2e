@@ -975,4 +975,61 @@ public void pulisciAmbientePublickeys() {
         return celle;
     }
 
+
+
+    public void verificaColonnaNomeChiave() {
+        List<WebElement> nomeChiaveCells = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la colonna Nome ")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//td[1]//p[contains(@class, 'MuiTypography-body1')]")
+        ));
+        nomeChiaveCells.forEach(cell ->
+                Assertions.assertFalse(cell.getText().isEmpty(), "Una cella nella colonna Nome Chiave è vuota.")
+        );
+    }
+
+    public void verificaColonnaValoreChiave() {
+        List<WebElement> valoreChiaveCells = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la colonna Valore ")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//td[2]//p[contains(@class, 'MuiTypography-body2')]")
+        ));
+        valoreChiaveCells.forEach(cell ->
+                Assertions.assertFalse(cell.getText().isEmpty(), "Una cella nella colonna Valore Chiave è vuota.")
+        );
+    }
+
+    public void verificaColonnaDataScadenza() {
+        List<WebElement> dataScadenzaCells = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la colonna Scadenza ")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//td[3]//p[contains(@class, 'MuiTypography-body1')]")
+        ));
+        dataScadenzaCells.forEach(cell ->
+                Assertions.assertFalse(cell.getText().isEmpty(), "Una cella nella colonna Data Scadenza è vuota.")
+        );
+    }
+
+    public void verificaColonnaStatoPG() {
+        List<WebElement> statoCells = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la colonna Stato ")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//td[4]//div[contains(@class, 'MuiChip-root')]//span[contains(@class, 'MuiChip-label')]")
+        ));
+        statoCells.forEach(cell ->
+                Assertions.assertFalse(cell.getText().isEmpty(), "Una cella nella colonna Stato è vuota.")
+        );
+    }
+
+    public void verificaColonnaOpzioni() {
+        List<WebElement> opzioniButtons = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la colonna Opzioni (3 puntini) ")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//td[5]//button[contains(@data-testid, 'contextMenuButton')]")
+        ));
+        opzioniButtons.forEach(button ->
+                Assertions.assertTrue(button.isDisplayed(), "Un pulsante nella colonna Opzioni non è visibile.")
+        );
+    }
+
 }
