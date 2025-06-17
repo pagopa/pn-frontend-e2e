@@ -10,6 +10,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
     And Cliccare su continua
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisicaPec"
+    And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisicaPec" destinatario 0
     And Cliccare su continua
     And Si verifica l'assenza della sezione Posizione Debitoria

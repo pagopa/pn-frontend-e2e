@@ -129,18 +129,7 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginMittenteConTokenExchange() {
 
         String environment = webDriverConfig.getEnvironment();
-        String token = "";
-        switch (environment) {
-            case "dev" ->
-                    token = webDriverConfig.getTokendevMittente();
-            case "test" ->
-                    token = webDriverConfig.getTokentestMittente();
-            case "uat" ->
-                    token = webDriverConfig.getTokentestMittente();
-            default -> {
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
+        String token = webDriverConfig.getTokentestMittente();
 
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
@@ -159,16 +148,7 @@ public class LoginMittentePagoPA extends BasePage {
         //TODO Il parametro comune potrebbe servire in futuro se esiste il token exchange
         String environment = webDriverConfig.getEnvironment();
         String token = "";
-        switch (environment) {
-            case "dev" ->
-                    token = webDriverConfig.getTokendevMittenteViggiu();
-            case "test" ->
-                    token = webDriverConfig.getTokentestMittenteViggiu();
-            default -> {
-                logger.error("Ambiente non valido");
-                Assertions.fail("Ambiente non valido o non trovato!");
-            }
-        }
+        token = webDriverConfig.getTokentestMittenteViggiu();
 
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
@@ -537,11 +517,7 @@ public class LoginMittentePagoPA extends BasePage {
         String urlInziale = "https://selfcare." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
 
-        if (variabileAmbiente.equalsIgnoreCase("test")) {
-            token = webDriverConfig.getTokentestMittente();
-        } else {
-            token = webDriverConfig.getTokendevMittente();
-        }
+        token = webDriverConfig.getTokentestMittente();
         String url = urlInziale + token;
         driver.get(url);
     }
