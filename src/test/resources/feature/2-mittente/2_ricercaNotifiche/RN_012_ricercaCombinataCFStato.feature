@@ -12,7 +12,7 @@ Feature: il mittente fa una ricerca combinata tra cf e stato
     And Nella pagina piattaforma Notifiche selezionare uno stato notifica <stato>
     And Cliccare sul bottone Filtra
     And Il sistema restituisce notifiche con codice fiscale e stato uguale a quelli inserito <stato>
-#    And Logout da portale mittente
+
     Examples:
       | stato                               |
       | Perfezionata per decorrenza termini |

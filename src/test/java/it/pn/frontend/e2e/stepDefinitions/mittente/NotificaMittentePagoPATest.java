@@ -872,7 +872,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
             }
         }
         if (!notificaTrovata) {
-            logger.error("La notifica non è stata trovata dopo 1m40s");
             Assertions.fail("La notifica non è stata trovata dopo 1m40s");
         }
     }

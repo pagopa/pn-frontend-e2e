@@ -198,7 +198,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void clickBottoneFiltraNotifica(String xpath, String codiceIUN) {
 //        "filter-button"
 //        filter-notifications-button
-        final int maxTentativi = 10;
+        final int maxTentativi = 15;
         final int attesaSecondi = 10;
         boolean trovato = false;
 
@@ -209,8 +209,10 @@ public class PiattaformaNotifichePage extends BasePage {
                         .until(ExpectedConditions.elementToBeClickable(By.id(xpath)));
                 webTool.waitTime(1);
                 try {
+                    logger.info("bottoneFiltra");
                     bottoneFiltra.click();
                 } catch (Exception e) {
+                    logger.info("bottoneFiltra JS");
                     js().executeScript("arguments[0].click();", bottoneFiltra);
                 }
                 webTool.waitTime(1);

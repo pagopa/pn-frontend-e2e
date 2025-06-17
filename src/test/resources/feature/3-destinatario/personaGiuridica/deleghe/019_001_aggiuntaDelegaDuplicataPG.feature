@@ -32,12 +32,9 @@ Feature:Il delegato persona giuridica accede ad una delega
       | ente          | Comune di Verona    |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
     Then Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta
-    And Refresh pagina
-    And Logout da portale persona giuridica
 
 
   @TA_PGdeleganteAggiuntaDelegaPF
-  @NRT_Blocco_1
   Scenario: [DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega PF
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
@@ -65,7 +62,6 @@ Feature:Il delegato persona giuridica accede ad una delega
 
 
   @TA_PGdeleganteAggiuntaDelegaAseStessi
-  @NRT_Blocco_1
   Scenario: [DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega a se stessi
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

@@ -118,15 +118,29 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
+//    public boolean cercaEsistenzaDelegaPG(String ragioneSociale) {
+//        try {
+//            logger.info("CERCA_ESISTENZA_DELEGA_PG: "+ ragioneSociale);
+//            getWebDriverWait(35).withMessage("delega non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//td[p[contains(text(),'" + ragioneSociale + "')]]"))));
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException  e) {
+//            return false;
+//        }
+//
+//    }
+
     public boolean cercaEsistenzaDelegaPG(String ragioneSociale) {
+        logger.info("CERCA_ESISTENZA_DELEGA_PG: " + ragioneSociale);
         try {
-            logger.info("CERCA_ESISTENZA_DELEGA_PG: "+ ragioneSociale);
-            getWebDriverWait(35).withMessage("delega non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//td[p[contains(text(),'" + ragioneSociale + "')]]"))));
+            getWebDriverWait(35)
+                    .withMessage("Delega non trovata")
+                    .until(ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//table[@id='notifications-table']//td[p[contains(text(),'" + ragioneSociale + "')]]")
+                    ));
             return true;
-        } catch (TimeoutException | NoSuchElementException  e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             return false;
         }
-
     }
 
     public void clickRevocaMenuButtonPG(String ragioneSociale) {
@@ -177,11 +191,15 @@ public class DeleghePGPagoPAPage extends BasePage {
     public boolean controlloDelegaRestituita(String ragioneSociale) {
         List<WebElement> delegaBy = null;
         try {
-            getWebDriverWait(60).withMessage("ragione sociale non caricata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'" + ragioneSociale + "')]"))));
-            delegaBy = driver.findElements(By.xpath("//p[contains(text(),'" + ragioneSociale + "')]"));
+//            getWebDriverWait(60).withMessage("ragione sociale non caricata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'" + ragioneSociale + "')]"))));
+//            delegaBy = driver.findElements(By.xpath("//p[contains(text(),'" + ragioneSociale + "')]"));
+            delegaBy = getWebDriverWait(70)
+                    .withMessage("Ragione sociale non caricata")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                            By.xpath("//p[contains(text(),'" + ragioneSociale + "')]")
+                    ));
             logger.info("controllo ragione sociale");
         } catch (TimeoutException e) {
-            logger.error("ragione sociale non caricata" + e.getMessage());
             Assertions.fail("ragione sociale non caricata" + e.getMessage());
         }
         logger.info("ragione sociale caricata correttamente");

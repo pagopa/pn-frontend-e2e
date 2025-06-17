@@ -378,7 +378,6 @@ public class DeleghePGPagoPATest extends BasePage {
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG( dataPopulationConfig.getPersonaGiuridica().getRagioneSociale())) {
             logger.info("La delega è stata rifiutata correttamente");
         } else {
-            logger.error("La delega NON è stata rifiutata correttamente");
             Assertions.fail("La delega NON è stata rifiutata correttamente");
         }
     }
@@ -685,7 +684,6 @@ public class DeleghePGPagoPATest extends BasePage {
         if (deleghePGPagoPAPage.controlloDelegaRestituita(codFiscale)) {
             this.logger.info("La delega restituita è corretta");
         } else {
-            this.logger.error("La delega restituita NON è corretta");
             Assertions.fail("La delega restituita NON è corretta");
         }
     }

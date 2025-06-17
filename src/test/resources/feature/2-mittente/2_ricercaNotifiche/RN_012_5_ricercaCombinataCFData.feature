@@ -13,4 +13,3 @@ Feature: il mittente fa una ricerca combinata tra cf e data
     And Nella pagina Piattaforma Notifiche inserire una data
     And Cliccare sul bottone Filtra
     And Il sistema restituisce notifiche con codice fiscale e data uguale a quelli inserito
-#    And Logout da portale mittente
