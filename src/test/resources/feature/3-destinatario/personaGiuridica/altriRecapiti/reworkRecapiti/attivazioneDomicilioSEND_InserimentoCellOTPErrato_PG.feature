@@ -5,7 +5,7 @@ Feature: Rework della pagina dei contatti
   @addressBook2
   @TA_ON
   @NRT
-  @GestioneErrori
+  #@GestioneErrori
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_71] La persona giuridica loggata inserisce un OTP sbagliato cellulare
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

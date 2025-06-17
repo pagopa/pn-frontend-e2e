@@ -110,7 +110,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
        String environment = webDriverConfig.getEnvironment();
         String token = "";
         switch (environment) {
-            case "dev", "test", "uat" -> token = personaFisica.equalsIgnoreCase("delegante") ?
+            case "dev", "test" -> token = personaFisica.equalsIgnoreCase("delegante") ?
                     webDriverConfig.getTokentestPFDelegante()
                     :
                     webDriverConfig.getTokentestPFDelegato();

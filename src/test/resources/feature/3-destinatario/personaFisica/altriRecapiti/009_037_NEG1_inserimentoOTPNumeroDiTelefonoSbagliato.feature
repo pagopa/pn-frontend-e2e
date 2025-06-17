@@ -1,21 +1,22 @@
 Feature: la persona fisica inserisce l'OTP numero di telefono  errato
 
-#  @TestSuite
-#  @TA_inserimentoOTPTelefonoErrato
-#  @PF
-#  @recapitiPF
-#  @addressBook1
-#  @recapitiPFPG
-    #  TEST PREVISTI in rework-sezione-recapiti-fase-2 [REWORK_DOMICILIO_DIGITALE_PF_71]
-  Scenario: PN-9311-C37 - la persona fisica inserisce l'OTP numero di telefono errato
+  #  @TestSuite
+  @TA_inserimentoOTPTelefonoErratoPF
+  @TA_OFF
+  @addressBook1
+  @GestioneErrori
+  Scenario: [PN-9311-C37-PN_USERATTRIBUTES_EXPIREDVERIFICATIONCODE] - la persona fisica inserisce l'OTP numero di telefono errato
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Rimuovi tutti i recapiti se esistono
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Si visualizza correttamente la pagina I Tuoi Recapiti
-    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PF e clicca sul bottone avvisami via SMS
-    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato "15494"
-    And Nella pagina I Tuoi Recapiti clicca sul bottone conferma
+    And Verifica ed Elimina personalizzati per ente
+    And Verifica ed Elimina personalizzati per ente
+    And Verifica e Disattiva domicilio digitale
+    And Attesa 2 secondi
+    And Verifica e Disattiva cellulare
+
+    When Click Bottone "Aggiungi un numero di cellulare"
+    And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3328560082" e si clicca sul bottone avvisami via SMS
+    And  Si clicca sul bottone del pop-up ok ho capito
+    And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore
     Then Cliccare sul bottone Annulla
-    And Logout da portale persona fisica

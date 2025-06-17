@@ -106,7 +106,7 @@ public class LoginPGPagoPATest extends BasePage {
 //                    Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
 //        }
 
-        driver.get(webDriverConfig.getBaseUrlPgTest().replace("dev", variabileAmbiente));
+        driver.get(webDriverConfig.getBaseUrlPgTest().replace("test", variabileAmbiente));
 
     }
 
