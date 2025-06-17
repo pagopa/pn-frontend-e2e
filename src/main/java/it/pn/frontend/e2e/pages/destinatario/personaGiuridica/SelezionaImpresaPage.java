@@ -28,10 +28,12 @@ public class SelezionaImpresaPage extends BasePage {
 
     public void waitLoadSelezionaImpresaPage() {
         webTool.waitTime(1);
-        //accediButton = driver.findElement(By.xpath("//button[contains(text(),'Accedi')]"));
-        //WebElement titlePageBy = driver.findElement(By.xpath("//h3[contains(text(),'Seleziona la tua impresa')]"));
-        getWebDriverWait(70).withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//h3[contains(text(),'Le tue imprese su SEND')]")));
-        getWebDriverWait(70).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'Accedi')]")));
+        getWebDriverWait(70)
+                .withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//h3[contains(text(),'Le tue imprese su SEND')]")));
+        getWebDriverWait(70)
+                .withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'Accedi')]")));
         logger.info("Seleziona Impresa Page caricata correttamente");
     }
 
