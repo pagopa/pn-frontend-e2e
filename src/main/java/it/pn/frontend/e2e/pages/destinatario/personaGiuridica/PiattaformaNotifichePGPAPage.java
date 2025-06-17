@@ -190,7 +190,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             js().executeScript("arguments[0].click()", integrazioneAPIMenu);
             logger.info("click sul bottone Integrazione API effetuato");
         } catch (TimeoutException e) {
-            logger.error("il bottone Integrazione API non è stato trovato " + e.getMessage());
             Assertions.fail("il bottone Integrazione API non è stato trovato" + e.getMessage());
         }
     }

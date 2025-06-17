@@ -269,7 +269,6 @@ public class NotifichePGPagoPATest extends BasePage {
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneIntegrazioneAPI() {
         logger.info("Si clicca sul bottone Integrazione API");
-
         piattaformaNotifichePGPAPage.clickSuIntegrazioneAPIButton();
     }
 

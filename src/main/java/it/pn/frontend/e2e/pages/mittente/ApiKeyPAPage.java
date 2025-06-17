@@ -515,7 +515,11 @@ public class ApiKeyPAPage extends BasePage {
 
     public boolean generaChiavePubblicaDisplayed() {
         try {
-            return getWebDriverWait(5).withMessage("Il bottone Genera chiave pubblica non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("generate-public-key")))).isDisplayed();
+//            return getWebDriverWait(5).withMessage("Il bottone Genera chiave pubblica non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("generate-public-key")))).isDisplayed();
+            return getWebDriverWait(15)
+                    .withMessage("Il bottone Genera chiave pubblica non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("generate-public-key")))
+                    .isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             logger.warn("Il bottone Genera chiave pubblica non è visibile");
             return false;
