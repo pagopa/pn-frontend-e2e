@@ -253,7 +253,7 @@ public class DestinatarioPASection extends BasePage {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminari(destinatari, i);
             selezionaRadionButtonInserimentoManualeSeEsiste(Integer.toString(j));
-            inserimentoInformazioniAggiuntive(destinatari, i+1);
+            inserimentoInformazioniAggiuntive(destinatari, i);
            if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
             }

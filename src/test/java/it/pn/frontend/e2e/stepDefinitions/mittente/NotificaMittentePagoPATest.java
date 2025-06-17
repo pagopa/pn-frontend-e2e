@@ -1740,7 +1740,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
             case "test" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyTEST();
             case "uat" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyUAT();
             default -> {
-                logger.error("Ambiente non valido per siVerificaEsitoNotifica");
                 Assertions.fail("Ambiente non valido o non trovato per siVerificaEsitoNotifica!");
             }
         }
