@@ -1,13 +1,16 @@
 Feature: Utente helpdesk dopo il login effettua il logout
 
-  Background: Login utente in helpdesk
-    Given Login helpdesk con utente test
-    And Si visualizza correttamente home Helpdesk
+#  Background: Login utente in helpdesk
+#    Given Login helpdesk con utente test
+#    And Si visualizza correttamente home Helpdesk
 
   @TestSuite
   @test75
   @NRT_Blocco_3
+  @helpDesk
   Scenario: PN-9603 - Visualizzazione corretta pagina login dopo logout
+    Given Login helpdesk con utente test
+    And Si visualizza correttamente home Helpdesk
     And Nella Home di helpdesk utente clicca su logout
     Then visualizzazione corretta pagina di login
 

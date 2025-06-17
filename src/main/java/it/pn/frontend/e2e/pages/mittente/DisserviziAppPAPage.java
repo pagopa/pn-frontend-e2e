@@ -200,12 +200,12 @@ public class DisserviziAppPAPage extends BasePage {
         webTool.waitTime(15);
 
         // Attendi che la tabella dei disservizi sia presente
-       getWebDriverWait(10)
+       getWebDriverWait(20)
                 .withMessage("Impossibile trovare notifications-table in checkDisservizioRisolto")
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("notifications-table")));
 
         // Attendi che le righe della tabella con il tipo di disservizio specificato siano presenti
-        List<WebElement> disserviziTableRowsWithTypeOfDisservice = getWebDriverWait(10)
+        List<WebElement> disserviziTableRowsWithTypeOfDisservice = getWebDriverWait(20)
                 .withMessage("Impossibile trovare il disservizio: "+tipoDisservizio)
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
                 By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]")));
@@ -214,7 +214,7 @@ public class DisserviziAppPAPage extends BasePage {
 //            WebElement primaRiga = disserviziTableRowsWithTypeOfDisservice.get(0);
 
             // Attendi che gli elementi della data di fine siano presenti nella prima riga
-            List<WebElement> dataFineElements =  getWebDriverWait(10)
+            List<WebElement> dataFineElements =  getWebDriverWait(20)
                     .withMessage("Impossibile trovare nella tabella le ore")
             .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(".//td[@data-testid='tableDowntimeLog.row.cell']//div//p[contains(text(), 'ore')]")));
 
