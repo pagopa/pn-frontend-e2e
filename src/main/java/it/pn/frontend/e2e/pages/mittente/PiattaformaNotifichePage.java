@@ -204,15 +204,15 @@ public class PiattaformaNotifichePage extends BasePage {
 
         for (int i = 0; i <= maxTentativi && !trovato; i++) {
             try {
+                inserimentoCodiceIUN(codiceIUN);
+
                 WebElement bottoneFiltra = getWebDriverWait(10)
                         .withMessage("Il bottone 'Filtra' non è cliccabile")
                         .until(ExpectedConditions.elementToBeClickable(By.id(xpath)));
                 webTool.waitTime(1);
                 try {
-                    logger.info("bottoneFiltra");
                     bottoneFiltra.click();
                 } catch (Exception e) {
-                    logger.info("bottoneFiltra JS");
                     js().executeScript("arguments[0].click();", bottoneFiltra);
                 }
                 webTool.waitTime(1);
@@ -225,6 +225,7 @@ public class PiattaformaNotifichePage extends BasePage {
             } catch (Exception ex) {
                 webTool.waitTime(attesaSecondi);
             }
+            driver.navigate().refresh();
         }
         if (!trovato) {
             Assertions.fail("Impossibile cliccare sul bottone 'Filtra': la tabella non è visibile o il bottone non è cliccabile dopo " + maxTentativi + " tentativi.");
