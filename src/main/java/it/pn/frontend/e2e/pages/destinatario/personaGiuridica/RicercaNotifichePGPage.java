@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
 import java.sql.Driver;
+import java.util.List;
 
 public class RicercaNotifichePGPage extends BasePage {
 
@@ -139,4 +140,35 @@ public class RicercaNotifichePGPage extends BasePage {
         confermaButton.click();
     }
 
+    public void verificaNeumroCopyCostiDiNotificaInclusi(int numeroCopy, String codiceIUN) {
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+        try {
+            if (numeroCopy == 0) {
+                // Verifica l'assenza di elementi
+                try {
+                    List<WebElement> costElements = getWebDriverWait(2).until(
+                            ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                                    By.xpath("//p[contains(@data-testid, 'apply-costs-caption')]")
+                            )
+                    );
+                    Assertions.assertTrue(costElements.isEmpty(), "Dovrebbero non esserci elementi con 'apply-costs-caption', ma ne sono stati trovati: " + costElements.size());
+                } catch (TimeoutException e) {
+                    // Se non vengono trovati elementi, il test continua
+                    logger.info("Nessun elemento con 'apply-costs-caption' trovato, come atteso.");
+                }
+            } else {
+                ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
+                webTool.waitTime(1);
+                List<WebElement> costElements = getWebDriverWait(30)
+                        .withMessage("Impossibile trovare il Copy Costi Di Notifica Inclusi con IUN: "+codiceIUN)
+                        .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                                By.xpath("//p[contains(@data-testid, 'apply-costs-caption')]")
+                        ));
+                Assertions.assertEquals(numeroCopy, costElements.size(), "Il numero atteso: " + numeroCopy + " non corrisponde al numero di Copy Costi Di Notifica Inclusi visualizzato: " + costElements.size() + " Con Codice IUN: " + codiceIUN);
+            }
+        } catch (Exception e) {
+            Assertions.fail("Errore durante la verifica del numero di Copy Costi Di Notifica Inclusi: " + e.getMessage());
+        }
+
+    }
 }

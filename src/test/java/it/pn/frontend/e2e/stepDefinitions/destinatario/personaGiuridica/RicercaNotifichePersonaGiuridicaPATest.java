@@ -247,4 +247,10 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         ricercaNotifichePGPage.clickBottoneConfermaPopUp();
     }
 
+
+    @And("Verifica Neumro Copy Costi di notifica Inclusi {int} IUN {string}")
+    public void verificaNeumroCopyCostiDiNotificaInclusi(int numeroCopy, String codiceIUN) {
+        ricercaNotifichePGPage.verificaNeumroCopyCostiDiNotificaInclusi(numeroCopy,codiceIUN);
+    }
+
 }

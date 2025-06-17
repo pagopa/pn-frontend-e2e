@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -195,7 +196,6 @@ public class NotifichePFPage extends BasePage {
     }
 
     public int siVisualizzaNotifichePresenti() {
-       // List<WebElement> rigaDelegaBy = driver.findElements(By.id("notificationsTable.body.row"));
         getWebDriverWait(30).withMessage("Nessuna notifica presente nella tabella notifiche").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.id("notificationsTable.body.row"))));
         return driver.findElements(By.id("notificationsTable.body.row")).size();
     }
@@ -456,5 +456,34 @@ public class NotifichePFPage extends BasePage {
         );
 
         Assertions.assertFalse(elements.isEmpty(), "La sezione Pagamenti non è presente sulla pagina!");
+    }
+
+    public void verificaTesto(String testoAtteso) {
+
+        try {
+            WebElement element = getWebDriverWait(10).until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            By.cssSelector("p[data-testid='notification-payment-recipient-subtitle']")
+                    )
+            );
+
+            String actualText = element.getText();
+            String processedActualText = actualText.replaceAll("\\?", "");
+
+            String normalizedActualText = Normalizer.normalize(processedActualText, Normalizer.Form.NFD)
+                    .replaceAll("\\p{M}", "")
+                    .replaceAll("'", "")
+                    .replaceAll("\\s+", " ");
+
+            String normalizedTestoAtteso = Normalizer.normalize(testoAtteso, Normalizer.Form.NFD)
+                    .replaceAll("\\p{M}", "")
+                    .replaceAll("'", "")
+                    .replaceAll("\\s+", " ");
+            Assertions.assertTrue(normalizedActualText.contains(normalizedTestoAtteso),
+                    "Il testo trovato '" + normalizedActualText + "' non contiene la stringa attesa: '" + normalizedTestoAtteso + "'");
+
+        } catch (Exception e) {
+            Assertions.fail("Errore durante la verifica del testo dell'elemento: " + e.getMessage());
+        }
     }
 }

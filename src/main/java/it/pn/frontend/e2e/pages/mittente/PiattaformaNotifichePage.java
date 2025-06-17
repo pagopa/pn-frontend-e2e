@@ -175,7 +175,6 @@ public class PiattaformaNotifichePage extends BasePage {
             getWebDriverWait(3).until(ExpectedConditions.attributeToBe(cfTextField, "value", codiceFiscale));
             logger.info("Codice Fiscale inserito correttamente");
         } catch (TimeoutException e) {
-            logger.error("Codice Fiscale Non inserito con errore: " + e.getMessage());
             Assertions.fail("Codice Fiscale Non inserito con errore: " + e.getMessage());
         }
 
@@ -274,12 +273,28 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void inserimentoCodiceIUN(String codiceIUN) {
-        logger.info("Si inserisce il codice IUN...." + codiceIUN);
-        webTool.waitTime(10);
-        getWebDriverWait(100).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
-        driver.findElement(By.id("iunMatch")).click();
-        driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
-        logger.info("Codice IUN inserito");
+//        logger.info("Si inserisce il codice IUN...." + codiceIUN);
+//        webTool.waitTime(10);
+//        getWebDriverWait(100).withMessage("Il campo per l'inserimento del codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+//        driver.findElement(By.id("iunMatch")).click();
+//        driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
+//        logger.info("Codice IUN inserito");
+
+
+        // Attendi che il campo per l'inserimento del codice IUN sia visibile
+        WebElement iunField = getWebDriverWait(100)
+                .withMessage("Il campo per l'inserimento del codice IUN non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("iunMatch")));
+
+        // Clicca sul campo
+        iunField.click();
+
+        // Cancella il contenuto del campo
+        iunField.clear();
+
+        // Inserisci il nuovo codice IUN
+        iunField.sendKeys(codiceIUN);
+
     }
 
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
@@ -559,7 +574,6 @@ public class PiattaformaNotifichePage extends BasePage {
             selezionaPage50();
 
             webTool.waitTime(10);
-           // notificaBy = driver.findElements(By.id("notificationsTable.body.row"));
             List<WebElement> notifiche = getWebDriverWait(10)
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
 
@@ -661,6 +675,7 @@ public class PiattaformaNotifichePage extends BasePage {
             selezionaPage50();
 
             List<WebElement> notifiche = getWebDriverWait(10)
+                    .withMessage("Impossibile trovare notificationsTable.body.row")
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
 
             if (!notifiche.isEmpty()) {
@@ -686,15 +701,12 @@ public class PiattaformaNotifichePage extends BasePage {
                             primaNotifica, By.cssSelector("button[data-testid='goToNotificationDetail']"))
                     );
 
-            // Scorri l'elemento nella vista (se necessario)
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", buttonVediDettaglio);
 
-            // Attendi che l'elemento sia cliccabile
             buttonVediDettaglio = getWebDriverWait(10)
                     .withMessage("Il pulsante 'Vedi Dettaglio' non è cliccabile")
                     .until(ExpectedConditions.elementToBeClickable(buttonVediDettaglio));
 
-            // Forza il clic utilizzando JavascriptExecutor (se necessario)
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", buttonVediDettaglio);
             logger.info("Cliccato sul pulsante 'Vedi Dettaglio'");
         } catch (Exception e) {
@@ -1728,7 +1740,6 @@ public class PiattaformaNotifichePage extends BasePage {
         if (!destinatario.isEmpty() && destinatario.get(0).isDisplayed()) {
             logger.info("Si visualizza correttamente il destinatario {} con CF {}", tipo, cf);
         } else {
-            logger.error("Non si visualizza il destinatario {} con CF {}", tipo, cf);
             Assertions.fail("Non si visualizza il destinatario " + tipo + " con CF " + cf);
         }
     }
@@ -1864,11 +1875,10 @@ public class PiattaformaNotifichePage extends BasePage {
     public void verificaPopUpToastErrore(String verifica) {
         //webTool.waitTime(5);
         WebElement popup = getWebDriverWait(10)
-                .until(ExpectedConditions.visibilityOfElementLocated(
-                        By.id("alert-api-status")
-                ));
-
+                .withMessage("Impossibile Trovare alert-api-status")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("alert-api-status")));
         Assertions.assertTrue(popup.getText().contains(verifica));
+
     }
 
     public void verificaMessaggioToastErrore(String verifica) {
@@ -1902,6 +1912,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 .withMessage("Impossibile chiudere il toast di errore")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='alert-api-status']/parent::div/parent::div//button[@title='Close']")));
         closeIcon.click();
+
     }
 
     public void selezioneImpostazioneLingua() {

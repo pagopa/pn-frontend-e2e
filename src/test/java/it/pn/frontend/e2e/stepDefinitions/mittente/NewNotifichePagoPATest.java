@@ -285,6 +285,17 @@ public class NewNotifichePagoPATest extends BasePage {
 
     }
 
+    @And("Cliccare su Come Mai")
+    public void cliccareSuComeMai() {
+        destinatarioPage.cliccareSuComeMai();
+    }
+
+    @And("Verifica Pagina Come Mai")
+    public void verificaPaginaComeMai() {
+        destinatarioPage.verificaPaginaComeMai();
+
+    }
+
     @And("Verifica campo precompilato creditorTaxId")
     public void verificaCampoPrecompilatoCreditorTaxId() {
         destinatarioPage.verificaCampoPrecompilatoCreditorTaxId();
