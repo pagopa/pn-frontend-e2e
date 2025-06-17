@@ -71,7 +71,7 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     public void cliccareSulBottoneFiltraNotifica(String xpath) {
         logger.info("Si clicca sul tasto filtra Notifica");
         String codiceIUN =dataPopulationConfig.getDatiNotifica().getCodiceIUN();
-//        String codiceIUN ="HWEG-REZK-XPMT-202504-X-3";
+//        String codiceIUN ="DPTV-WMWK-TPNA-202506-H-1";
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
         piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath,codiceIUN);
     }
