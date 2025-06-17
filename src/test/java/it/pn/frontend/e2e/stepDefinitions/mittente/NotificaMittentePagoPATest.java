@@ -1781,6 +1781,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
         String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
         String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
+        if (notificationRequestId == null) {
+            Assertions.fail("NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso da 202 ");
+        }
         logger.info("ID della notifica creata: {}", notificationRequestId);
         Iun = WebTool.decodeNotificationRequestId(notificationRequestId);
         logger.info("IUN della notifica creata: {}", Iun);
@@ -1788,6 +1791,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Aspetta la notifica con IUN salvato")
     public void aspettaNotificaConIUNSalvato() {
+        if (Iun.isEmpty()) {
+            Assertions.fail("IUN della notifica non presente!");
+        }
         boolean notificaTrovata = piattaformaNotifichePage.attesaNotificaConIUN(Iun);
         if (!notificaTrovata) {
             Assertions.fail("La notifica risulta ancora non visibile sulla tabella notifiche dopo 8 tentativi");

@@ -2086,13 +2086,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean attesaNotificaConIUN(String iun) {
         int maximumRetry;
+        boolean cellaPresente = false;
         for (maximumRetry = 0; maximumRetry <= 8; maximumRetry++) {
-
-            WebElement cellaCodiceIUN = driver.findElement(By.xpath("//table[@id='notifications-table']//tr//td[4]"));
-            String valoreCodiceIUN = cellaCodiceIUN.getText();
-            logger.info("IUN da cercare {}", iun);
-            logger.info("Valore prima cella di colonna codice IUN {}", valoreCodiceIUN);
-            if (valoreCodiceIUN.equalsIgnoreCase(iun)) {
+            List<WebElement> cellaCodiceIUN = driver.findElements(By.xpath("//table[@id='notifications-table']//tr//td[contains(text(), '" + iun + "')]"));
+            if (!cellaCodiceIUN.isEmpty()) cellaPresente = true;
+            if (cellaPresente) {
                 getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), iun);
                 return true;
             } else {
