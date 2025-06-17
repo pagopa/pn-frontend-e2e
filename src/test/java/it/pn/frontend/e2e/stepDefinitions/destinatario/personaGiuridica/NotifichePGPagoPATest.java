@@ -528,8 +528,30 @@ public class NotifichePGPagoPATest extends BasePage {
     }
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN {string}")
-    public void portalePFVaiANotifica(String codiceIUN) {
+    public void portalePGVaiANotifica(String codiceIUN) {
         String env = webDriverConfig.getEnvironment();
         this.driver.get("https://imprese."+ env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
+    }
+
+    //N.B.: Cambiare IUN se non sono più validi!
+    @When("Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN di un destinatario non accessibile")
+    public void portalePGVaiANotificaNonAccessibile() {
+        String env = webDriverConfig.getEnvironment();
+        String iun = "";
+        switch (env) {
+            case "test":
+                iun = "XVRJ-HRGW-AQZN-202505-N-1";
+                break;
+            case "dev":
+                Assertions.fail("IUN da configurare");
+                break;
+            case "uat":
+                iun = "GNZN-HUHA-ZDMH-202506-D-1";
+                break;
+            default:
+                Assertions.fail("No environment found!");
+                break;
+        }
+        this.driver.get("https://imprese."+ env + ".notifichedigitali.it/notifiche/" + iun + "/dettaglio");
     }
 }

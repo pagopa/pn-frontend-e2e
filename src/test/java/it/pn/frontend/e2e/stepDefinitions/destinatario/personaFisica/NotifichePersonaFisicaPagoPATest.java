@@ -548,6 +548,28 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
         String env = webDriverConfig.getEnvironment();
         this.driver.get("https://cittadini." + env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
     }
+
+    //N.B.: Cambiare IUN se non sono più validi!
+    @When("Nella pagina Piattaforma Notifiche persona fisica si accede alla notifica con codice IUN di un destinatario non accessibile")
+    public void portalePFVaiANotificaNonAccessibile() {
+        String env = webDriverConfig.getEnvironment();
+        String iun = "";
+        switch (env) {
+            case "test":
+                iun = "XVRJ-HRGW-AQZN-202505-N-1";
+                break;
+            case "dev":
+                Assertions.fail("IUN da configurare");
+                break;
+            case "uat":
+                iun = "GNZN-HUHA-ZDMH-202506-D-1";
+                break;
+            default:
+                Assertions.fail("No environment found!");
+                break;
+        }
+        this.driver.get("https://cittadini." + env + ".notifichedigitali.it/notifiche/" + iun + "/dettaglio");
+    }
 }
 
 
