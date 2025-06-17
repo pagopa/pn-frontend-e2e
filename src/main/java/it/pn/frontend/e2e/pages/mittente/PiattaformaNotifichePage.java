@@ -225,7 +225,9 @@ public class PiattaformaNotifichePage extends BasePage {
             } catch (Exception ex) {
                 webTool.waitTime(attesaSecondi);
             }
-            driver.navigate().refresh();
+            if (!trovato) {
+                driver.navigate().refresh();
+            }
         }
         if (!trovato) {
             Assertions.fail("Impossibile cliccare sul bottone 'Filtra': la tabella non è visibile o il bottone non è cliccabile dopo " + maxTentativi + " tentativi.");
