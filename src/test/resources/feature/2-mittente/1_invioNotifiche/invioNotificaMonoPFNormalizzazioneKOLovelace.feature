@@ -21,7 +21,6 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Ada Lovelace     |
       | codiceFiscale           | LVLDAA85T50G702B |
-     #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | @FAIL-Irreperibile_AR |

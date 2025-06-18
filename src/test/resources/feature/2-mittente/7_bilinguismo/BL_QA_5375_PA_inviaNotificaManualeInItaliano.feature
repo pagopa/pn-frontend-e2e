@@ -3,7 +3,7 @@ Feature: PA invia notifica manuale in Italiano
   @TestSuite
   @TA_bilinguismoRefreshPaginaItaliano_QA5375
   @bilinguismo
-  @NRT_BL
+  @NRT_Blocco_1
 
   Scenario: PN-QA5375-BL - PA invia notifica manuale in Italiano
 

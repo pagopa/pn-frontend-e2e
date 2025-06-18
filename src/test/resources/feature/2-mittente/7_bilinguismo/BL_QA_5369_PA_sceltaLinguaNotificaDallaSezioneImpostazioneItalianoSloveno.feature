@@ -3,7 +3,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
   @TestSuite
   @TA_bilinguismoItalianoSloveno_QA5369
   @bilinguismo
-  @NRT_BL
+  @NRT_Blocco_1
 
   Scenario: PN-QA5369-BL - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Sloveno
 #    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di "Viggiu"

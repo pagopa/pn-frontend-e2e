@@ -3,7 +3,7 @@ Feature: PA Verifica presenza banner che ricorda all’utente della PA di allega
   @TestSuite
   @TA_bilinguismoVerificaPresenzaBannerAllegareDocumentiBilingue_QA5379
   @bilinguismo
-  @NRT_BL
+  @NRT_Blocco_1
 
   Scenario: PN-QA5379-BL - PA Verifica presenza banner che ricorda all’utente della PA di allegare i documenti bilingue
 #    Pre Condizione Aver effettuato l’accesso al portale SEND e aver scelto allo step 1 di inviare una notifica bilingue

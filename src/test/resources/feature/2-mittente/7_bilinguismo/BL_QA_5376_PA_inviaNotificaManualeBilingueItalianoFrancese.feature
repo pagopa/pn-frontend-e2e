@@ -3,7 +3,7 @@ Feature: PA invia notifica manuale bilingue: Italiano e Francese
   @TestSuite
   @TA_bilinguismoRefreshPaginaItalianoFrancese_QA5376
   @bilinguismo
-  @NRT_BL
+  @NRT_Blocco_1
 
   Scenario: PN-QA5376-BL - PA invia notifica manuale bilingue: Italiano e Francese
 

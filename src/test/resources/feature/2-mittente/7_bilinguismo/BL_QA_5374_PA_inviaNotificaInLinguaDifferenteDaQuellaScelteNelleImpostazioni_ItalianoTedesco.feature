@@ -3,7 +3,7 @@ Feature: PA invia notifica in lingua differente da quella scelte nelle impostazi
   @TestSuite
   @TA_bilinguismoLinguaDifferenteDalleImpostazioni_ItalianoTedesco_QA5374
   @bilinguismo
-  @NRT_BL
+  @NRT_Blocco_1
 
   Scenario: PN-QA5374-BL - PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Tedesco
 #    Pre Condizione Aver settato nelle impostazioni Italiano
