@@ -624,6 +624,59 @@ public class DestinatarioPage extends BasePage {
                 "I codici avviso presenti non corrispondono a quelli attesi.");
     }
 
+    public void cliccareSuComeMai() {
+        WebElement link = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il link Come Mai?")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[data-testid='faqNotificationCosts']")));
+        link.click();
+    }
+
+    public void verificaPaginaComeMai() {
+
+        driver.switchTo().window(driver.getWindowHandles().toArray()[1].toString());
+
+        // Lista delle domande attese
+        List<String> expectedQuestions = Arrays.asList(
+                "Cosa sono le notifiche SEND?",
+                "Cosa significa che una comunicazione è \"a valore legale\"?",
+                "Da cosa è composta una notifica?",
+                "Cosa succede se ignoro una notifica?",
+                "La notifica che ho ricevuto è stata annullata, ma l'ho già pagata. Cosa devo fare?",
+                "Come funzionano i costi di notifica?",
+                "Dove posso inserire o modificare i miei recapiti digitali?",
+                "Cosa succede se non inserisco nessun recapito digitale o se non posso accedere a SEND?",
+                "Cos'è un avviso di avvenuta ricezione?",
+                "Cos'è l'avviso di cortesia?",
+                "Cos'è l'attestazione opponibile a terzi?",
+                "Cosa significa \"perfezionamento\"?",
+                "Quando una notifica assume pieno valore di legge?",
+                "Come posso sapere quando una notifica si è perfezionata?",
+                "Dove posso effettuare segnalazioni relative all'accessibilità?",
+                "Come posso registrare la mia impresa a SEND?",
+                "Come delegare una persona a gestire le notifiche della mia impresa?"
+        );
+            List<WebElement> faqs = getWebDriverWait(20)
+                    .withMessage("Impossibile Trovare l'elemento .MuiAccordion-root")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".MuiAccordion-root")));
+
+            for (WebElement faq : faqs) {
+                try {
+                    // Trova l'elemento della domanda
+                    WebElement questionEl = getWebDriverWait(10).until(
+                            ExpectedConditions.visibilityOf(faq.findElement(By.cssSelector(".MuiAccordionSummary-content p")))
+                    );
+                    String question = questionEl.getText();
+                        Assertions.assertTrue(expectedQuestions.contains(question),
+                                "Domanda non trovata nella lista delle domande attese: " + question);
+
+                } catch (Exception e) {
+                    Assertions.fail("Errore durante l'estrazione della domanda: " + e.getMessage());
+                }
+            }
+    }
+
+
+
     public void verificaCampoPrecompilatoCreditorTaxId() {
 
         WebElement taxIdInput = getWebDriverWait(10)
