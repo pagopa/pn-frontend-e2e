@@ -465,7 +465,7 @@ public class DownloadFileMittentePagoPATest extends BasePage {
 //        String codiceIun = personaFisica.get("codiceIUN").toString();
         String codiceIun = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         if (!codiciIun.contains(codiceIun)) {
-            backgroundTest.invioNotificaErrorePec();
+            backgroundTest.invioNotificaErrorePec("NotificaErrorePec");
         }
     }
 

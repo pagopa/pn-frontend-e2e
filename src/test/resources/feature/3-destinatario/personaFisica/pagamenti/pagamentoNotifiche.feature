@@ -10,7 +10,7 @@ Feature:Pagamento notifica
     When Si inizializzano i dati per la notifica
       | modello         | 890                |
       | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
+      | oggettoNotifica | Pagamento rata IMU NOTIFICA-PAGAMENTO NOTIFICA AVVISO PAGOPA |
       | costiNotifica   | true               |
     And Si aggiunge un destinatario alla notifica
       | at                | Presso             |

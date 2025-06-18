@@ -10,7 +10,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     When Si inizializzano i dati per la notifica
       | modello         | AR                                              |
       | documenti       | 1                                               |
-      | oggettoNotifica | Pagamento rata IMU per immobile in via XXXXXXXX |
+      | oggettoNotifica | Pagamento rata IMU per immobile in via DECEDUTO_AR_QA-5364 |
       | costiNotifica   | false                                           |
     And Si aggiunge un destinatario alla notifica
       | nomeCognome       | Gaio Giulio Cesare    |

@@ -7,7 +7,7 @@ Feature: Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã
   Scenario Outline: [Posizione_Debitoria_05_11] - Avviso PagoPa - inserire un codice avviso per ogni destinatario a cui Ã¨ indirizzata la notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "Posizione_Debitoria_05_11"
     And Cliccare su continua
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Seleziona radion button Inserimento Manuale se esiste "0"

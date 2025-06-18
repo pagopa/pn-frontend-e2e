@@ -15,7 +15,6 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
       | vediDettagli | false                                          |
     Then Si verifica che il link sul documento Attestazione è cliccabile
-#    And Logout da portale mittente
 
 
 

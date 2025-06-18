@@ -10,8 +10,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica senza salvare numero di protocollo
-      | oggettoNotifica   | Pagamento rata IMU |
-      | descrizione       | PAGAMENTO RATA IMU |
+      | oggettoNotifica   | Pagamento rata IMU PN-9316 |
+      | descrizione       | PAGAMENTO RATA IMU PN-9316 |
       | gruppo            | test-TA-FE-TEST    |
       | codiceTassonomico | 100105P            |
       | modalitaInvio     | A/R                |

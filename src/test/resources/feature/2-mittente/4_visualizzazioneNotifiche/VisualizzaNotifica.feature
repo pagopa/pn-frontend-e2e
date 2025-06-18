@@ -8,7 +8,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
     When Si inizializzano i dati per la notifica
       | modello         | A/R                |
       | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
+      | oggettoNotifica | Pagamento rata IMU TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
       | at        | Presso     |

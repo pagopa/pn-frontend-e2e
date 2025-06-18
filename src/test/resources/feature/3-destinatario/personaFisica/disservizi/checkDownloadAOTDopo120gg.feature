@@ -12,5 +12,4 @@ Feature: Persona Fisica prova ad effettuare download AOT scaduti da 120gg
     And Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro
     And Nella pagina stato della piattaforma si cambia pagina
     And Download file attestazione disservizio
-#    And Si controlla che esista pop up scadenza disservizi
 

@@ -10,7 +10,7 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | descrizione       | PAGAMENTO RATA IMU |
+      | descrizione       | PAGAMENTO RATA IMU DECEDUTO_890_QA-5357 |
       | gruppo            | test-TA-FE         |
       | codiceTassonomico | 100105P            |
       | modalitaInvio     | A/R                |

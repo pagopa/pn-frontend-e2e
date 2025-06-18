@@ -14,7 +14,6 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[@id='document-button' and .//div[contains(text(),'PN_NOTIFICATION_ATTACHMENTS')]] |
       | vediDettagli | false                                          |
-#    And Logout da portale mittente
 
 
 

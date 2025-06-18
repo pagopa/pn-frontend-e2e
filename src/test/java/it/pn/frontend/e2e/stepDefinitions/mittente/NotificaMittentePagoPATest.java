@@ -252,18 +252,34 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.waitLoadInformazioniPreliminariPASection();
     }
 
-    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento")
-    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento() {
-        logger.info("Inserimento dei dati della notifica senza pagamento" );
-        //datiNotifica
-//        aggiornamentoNumeroProtocollo();
+//    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento")
+//    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento() {
+//        logger.info("Inserimento dei dati della notifica senza pagamento" );
+//        String gruppo = "";
+//        switch (webDriverConfig.getEnvironment()) {
+//            case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
+//            case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
+//        }
+//        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
+//        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+////        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+//        informazioniPreliminariPASection.insertNumeroDiProtocollo(WebTool.generatePaProtocolNumber());
+//        informazioniPreliminariPASection.insertGruppo(gruppo);
+////        informazioniPreliminariPASection.insertGruppo("GruppoTest");
+//        informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
+//        informazioniPreliminariPASection.selectRaccomandataAR();
+//    }
+
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento {string}")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String numeroNotificaID) {
+                logger.info("Inserimento dei dati della notifica senza pagamento" );
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
             case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
         }
-        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
-        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica()+" "+numeroNotificaID);
+        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione()+" "+numeroNotificaID);
 //        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
         informazioniPreliminariPASection.insertNumeroDiProtocollo(WebTool.generatePaProtocolNumber());
         informazioniPreliminariPASection.insertGruppo(gruppo);
@@ -271,6 +287,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
+
     @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua {string}")
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoSenzaGruppoConLingua(String lingua) {
         logger.info("Inserimento dei dati della notifica senza pagamento" );

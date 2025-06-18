@@ -10,7 +10,7 @@ Feature: Presenza del documento di attestazione opponibile a terzi relativo all'
     When Si inizializzano i dati per la notifica
       | modello         | 890                |
       | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
+      | oggettoNotifica | Pagamento rata IMU ATTESTATO_ANNULLAMENTO_LEGAL_FACT_PA_PF |
       | costiNotifica   | true               |
     And Si aggiunge un destinatario alla notifica
       | at                | Presso             |

@@ -19,8 +19,8 @@ Feature: persona giuridica scarica attestazione opponibile
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento RATA IMU |
-      | descrizione       | PAGAMENTO RATA IMU |
+      | oggettoNotifica   | Pagamento RATA IMU PN-10432 |
+      | descrizione       | PAGAMENTO RATA IMU PN-10432 |
       | codiceTassonomico | 100105P            |
       | modalitaInvio     | A/R                |
       | gruppo            | test-TA-FE-TEST    |
