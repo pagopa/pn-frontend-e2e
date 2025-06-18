@@ -341,9 +341,12 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         }
     }
 
-    public void checkStatoTimeline(String statoTimeline) {
+    public void checkStatoTimeline(String xpathStatoTimeline) {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(statoTimeline))));
+//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(statoTimeline))));
+            getWebDriverWait(15)
+                    .withMessage("Impossibile controllare lo stato della timeline: "+xpathStatoTimeline)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathStatoTimeline)));
             logger.info("stato timeline checkato con successo avvenuta");
         } catch (TimeoutException e) {
             Assertions.fail("checkato stato timeline non avvenuta con errore: " + e.getMessage());

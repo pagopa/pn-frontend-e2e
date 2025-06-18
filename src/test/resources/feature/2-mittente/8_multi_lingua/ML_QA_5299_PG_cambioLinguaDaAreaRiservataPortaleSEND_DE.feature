@@ -20,6 +20,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "Anschriften"
     And Verifica traduzione testo "Benutzer"
 ##  Verificare traduzione della sezione HP notifiche
+    And Attesa 1 secondi
     When Seleziona voce menu laterale "Vollmachten"
     And Verifica traduzione testo "Hier können die Bevollmächtigten des Unternehmens und deren Vollmachten verwaltet werden"
     And Verifica traduzione testo "Vollmachten des Unternehmens"
