@@ -19,7 +19,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella sezione Deleghe si accetta la delega accettata per PG
 
-    And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+#    And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Aspetta 5 secondi

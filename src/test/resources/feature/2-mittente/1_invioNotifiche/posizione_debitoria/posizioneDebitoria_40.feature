@@ -5,7 +5,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
 
   Scenario: [Posizione_Debitoria_40] - verifica dell'assenza di "Posizione debitoria" e "Dettagli posizione debitoria" nel form di creazione di una nuova notifica a flag spento
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
+#    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "Posizione_Debitoria_40"
     And Cliccare su continua

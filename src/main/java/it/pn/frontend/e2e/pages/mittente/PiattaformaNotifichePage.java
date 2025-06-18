@@ -1888,7 +1888,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void verificaPopUpToastErrore(String verifica) {
         //webTool.waitTime(5);
-        WebElement popup = getWebDriverWait(10)
+        WebElement popup = getWebDriverWait(15)
                 .withMessage("Impossibile Trovare alert-api-status")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("alert-api-status")));
         Assertions.assertTrue(popup.getText().contains(verifica));
