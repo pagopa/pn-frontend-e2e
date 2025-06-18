@@ -2,7 +2,7 @@ Feature: invio notifica con sequence
 
   @Tag_PN_14806_09_OK-GiacenzaDelegato-lte10_890
   @TestSuite
-  @Tag_CARD_ARCAD
+  @Tag_CAD_ARCAD
   @NRT
 
   Scenario: [PN-14806_09] CAD/ARCAD SEQUENCE OK-GiacenzaDelegato-lte10_890

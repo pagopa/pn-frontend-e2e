@@ -2,7 +2,7 @@ Feature: invio notifica con sequence
 
   @Tag_PN_14806_13_OK-CompiutaGiacenza_890
   @TestSuite
-  @Tag_CARD_ARCAD
+  @Tag_CAD_ARCAD
   @NRT
 
   Scenario: [PN-14806_13] CAD/ARCAD SEQUENCE OK-CompiutaGiacenza_890
