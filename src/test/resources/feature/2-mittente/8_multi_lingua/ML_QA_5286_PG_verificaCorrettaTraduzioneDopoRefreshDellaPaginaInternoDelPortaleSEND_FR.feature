@@ -19,6 +19,7 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     And Verifica traduzione testo "Utilisateurs"
  ##  Verificare traduzione della sezione HP notifiche
     When Seleziona voce menu laterale "Notifications"
+    And Attesa 1 secondi
     And Seleziona voce menu laterale "Notifications de l"
     And Verifica traduzione testo "Notifications de"
 #    And Verifica traduzione testo "Lire les notifications de Convivio Spa"

@@ -18,9 +18,9 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
 #    And Riduci zoom pagina al "60"%
     And Aspetta 3 secondi
     When Seleziona voce menu laterale "Notifications"
-    And Aspetta 1 secondi
+    And Attesa 1 secondi
     And Seleziona voce menu laterale "Notifications de l"
-    And Aspetta 1 secondi
+    And Attesa 1 secondi
     And Verifica traduzione testo "Notifications de"
     And Verifica traduzione testo "Lire les notifications de Convivio Spa"
     And Entro dentro la prima notifica

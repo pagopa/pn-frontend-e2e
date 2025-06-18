@@ -1808,16 +1808,23 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaVoceMenuLaterale(String testo) {
-        WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'" + testo + "')]")));
+
+        WebElement element = getWebDriverWait(20)
+                .withMessage("Voce menu laterale non trovata: "+testo)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'" + testo + "')]")));
         element.click();
     }
 
     public void cambiaLinguaFooter(String lingua) {
-        WebElement menuLingua = getWebDriverWait(10).withMessage("Seleziona: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[@aria-label='lingua']")));
+
+        WebElement menuLingua = getWebDriverWait(20)
+                .withMessage("Menu lingua: '" + lingua + "' non trovato")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='lingua']")));
         menuLingua.click();
-        WebElement opzioneLingua = getWebDriverWait(10).withMessage("Scelta Lingua: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//li[contains(text(),'" + lingua + "')]")));
+
+        WebElement opzioneLingua = getWebDriverWait(20)
+                .withMessage("Opzione  Lingua: '" + lingua + "' non trovato")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(text(),'" + lingua + "')]")));
         opzioneLingua.click();
     }
 

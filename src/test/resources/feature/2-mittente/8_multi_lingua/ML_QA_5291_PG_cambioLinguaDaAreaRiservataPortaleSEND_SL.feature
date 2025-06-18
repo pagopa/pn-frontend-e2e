@@ -56,6 +56,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
     And Verifica traduzione testo "Fehlerhistorie"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
     And Cambia lingua footer "Slowenisch"
+    And Attesa 1 secondi
     And Cambia lingua footer "Angleško"
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Delegations of authority"
