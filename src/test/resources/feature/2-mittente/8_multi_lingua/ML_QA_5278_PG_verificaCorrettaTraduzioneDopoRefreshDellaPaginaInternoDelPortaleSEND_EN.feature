@@ -19,7 +19,7 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
     And Aspetta 2 secondi
   ##  Verificare traduzione della sezione HP notifiche
     When Seleziona voce menu laterale "Notifications"
-    And Attesa 1 secondi
+    And Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Company notifications"
     And Verifica traduzione testo "Notifications of"
     And Verifica traduzione testo "You can filter them by IUN Code and send date"

@@ -18,7 +18,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
 #    And Riduci zoom pagina al "60"%
     And Aspetta 3 secondi
     When Seleziona voce menu laterale "Notifications"
-    And Attesa 1 secondi
+    And Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Notifications de l"
     And Attesa 1 secondi
     And Verifica traduzione testo "Notifications de"
