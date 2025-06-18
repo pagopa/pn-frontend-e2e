@@ -1830,7 +1830,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean isTextPresent(String testo) {
         try {
-            return getWebDriverWait(30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
+            return getWebDriverWait(30)
+                    .withMessage("Il testo '" + testo + "' non è stato trovato sulla pagina entro il tempo previsto")
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
         } catch (Exception e) {
             return false;
         }
