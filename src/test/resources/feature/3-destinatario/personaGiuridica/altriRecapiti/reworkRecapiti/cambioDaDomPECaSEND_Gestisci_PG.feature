@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_REWORK_DOMICILIO_DIGITALE_43_47_PG
   @addressBook2
   @TA_ON
-  @NRT
+    @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_43_47] Cambio da dom PEC a SEND - Gestisci PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
