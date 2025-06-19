@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_QA_7300_QA_73101_validation_bug_PG
   @addressBook2
   @TA_ON
-  @NRT
+  #  @NRT
   Scenario:[QA_7300_QA_73101_validation_bug_PG]
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

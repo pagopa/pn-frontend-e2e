@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_AttivazioneDomicilioDigitaleSEND_Annulla_PG
   @addressBook2
   @TA_ON
-  @NRT
+  #  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_3] Attivazione Domicilio Digitale SEND - Annulla PG
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_AttivazioneGestisciDomicilioDigitaleSEND_PG
   @addressBook2
   @TA_ON
-  @NRT
+  #  @NRT
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_1_20_21_22_23_26_24_25] Attivazione Gestisci Domicilio Digitale SEND PG - I tuoi Recapiti
    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
