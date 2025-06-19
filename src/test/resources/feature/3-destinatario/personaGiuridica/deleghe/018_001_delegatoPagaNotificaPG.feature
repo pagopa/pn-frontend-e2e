@@ -29,7 +29,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | avvisoPagoPa      | 1                  |
       | F24               | 1                  |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Aspetta 10 secondi
+    And Aspetta 15 secondi
     And La persona giuridica clicca sulla prima notifica restituita
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
@@ -45,11 +45,13 @@ Feature:Il delegato persona giuridica accede ad una delega
       | nome          | Lucrezia            |
       | cognome       | Borgia              |
     And Nella sezione Deleghe si crea una delega accettata per PG
+
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella sezione Deleghe si accetta la delega accettata per PG
 
 #    And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
+    And  Click Notifiche
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "(Convivio Spa)"
     And Si controlla la pagina delle notifiche delegati di "Convivio Spa"
     And Aspetta 10 secondi
