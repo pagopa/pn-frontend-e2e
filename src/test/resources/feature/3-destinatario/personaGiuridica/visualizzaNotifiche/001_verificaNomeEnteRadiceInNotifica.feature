@@ -1,7 +1,7 @@
 Feature: La persona fisica visualizza il nome concatenato dell'ente Radice nel campo mittente della notifica
 
   @Parallel
-  @TA_PGVisualizzaNotifiche
+  @TA_PGVisualizzaNotifiche_NO
   @verificaNomeEnteRadice
   @DeleghePG
   @PG

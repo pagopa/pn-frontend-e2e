@@ -2,7 +2,8 @@ Feature:La persona fisica aggiunge una nuova delega
 
   @TestSuite
   @TA_PF_aggiuntaNuovaDelega
-@NRT_Blocco_1
+  @DeleghePF
+  @NRT_Blocco_1
   @deleghe1
   Scenario:PN-9401 - La persona fisica aggiunge una nuova delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

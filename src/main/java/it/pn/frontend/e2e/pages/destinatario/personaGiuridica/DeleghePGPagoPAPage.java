@@ -230,7 +230,6 @@ public void clickDelegatiImpresa() {
             getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//span[@data-testid='associate-group']"))));
             logger.info("Si vede correttamente il pop-up di assegnazione gruppo");
         } catch (TimeoutException e) {
-            logger.error("Non si vede correttamente il pop-up di assegnazione gruppo con errore: " + e.getMessage());
             Assertions.fail("Non si vede correttamente il pop-up di assegnazione gruppo con errore: " + e.getMessage());
         }
     }
