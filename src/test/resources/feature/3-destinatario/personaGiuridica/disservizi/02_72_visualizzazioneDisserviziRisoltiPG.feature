@@ -2,6 +2,7 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
 
   @TestSuite
   @TA_PG_VisualizzaDisservizioRisolto
+  @bilinguismo
   @NRT_Blocco_3
 
   Scenario: PN-9164 - Il persona giuridica loggato visualizza lo stato dei disservizi

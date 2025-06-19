@@ -2,6 +2,7 @@ Feature: Mittente visualizza i disservizi della applicazione in corso
 
   @TestSuite
   @TA_PA_VisualizzaDisservizioInCorso
+  @bilinguismo
   @NRT_Blocco_1
 
   Scenario: PN-9237 - Mittente visualizza i disservizi della applicazione in corso
