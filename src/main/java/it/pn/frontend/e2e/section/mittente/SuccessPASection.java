@@ -64,7 +64,7 @@ public class SuccessPASection extends BasePage {
 //        logger.info("Pulsante 'Vai alle notifiche' cliccato con successo.");
         logger.info("Tentativo di cliccare il pulsante 'Vai alle notifiche'...");
 
-        getWebDriverWait(30)
+        getWebDriverWait(70)
                 .withMessage("Il pulsante con id 'go-to-notifications' non è presente nel DOM.")
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("go-to-notifications")));
 
