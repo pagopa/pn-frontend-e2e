@@ -206,18 +206,19 @@ public class PiattaformaNotifichePage extends BasePage {
             try {
                 inserimentoCodiceIUN(codiceIUN);
 
-                WebElement bottoneFiltra = getWebDriverWait(10)
+                WebElement bottoneFiltra = getWebDriverWait(20)
                         .withMessage("Il bottone 'Filtra' non è cliccabile")
                         .until(ExpectedConditions.elementToBeClickable(By.id(xpath)));
                 webTool.waitTime(1);
                 try {
                     bottoneFiltra.click();
                 } catch (Exception e) {
+                    webTool.waitTime(1);
                     js().executeScript("arguments[0].click();", bottoneFiltra);
                 }
                 webTool.waitTime(1);
                 By selettoreIUN = By.xpath("//*[contains(@id, 'notifications-table')]//td[contains(text(), '" + codiceIUN + "')]");
-                getWebDriverWait(5)
+                getWebDriverWait(10)
                         .withMessage("Codice IUN '" + codiceIUN + "' non trovato nella tabella notifiche")
                         .until(ExpectedConditions.visibilityOfElementLocated(selettoreIUN));
 

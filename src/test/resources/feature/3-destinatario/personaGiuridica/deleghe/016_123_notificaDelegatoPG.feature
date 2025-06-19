@@ -21,7 +21,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     When Si inizializzano i dati per la notifica
       | modello         | A/R                |
       | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
+      | oggettoNotifica | Pagamento rata IMU -> PN-9177 |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
       | at        | Presso     |

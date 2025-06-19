@@ -41,7 +41,7 @@ Feature: Il delegato visualizza la notifiche del delegante
     When Si inizializzano i dati per la notifica
       | modello         | A/R                |
       | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
+      | oggettoNotifica | Pagamento rata IMU -> PN-9419 |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
       | indirizzo        | VIA ROMA           |

@@ -70,10 +70,10 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Cliccare sul bottone Filtra Notifica {string}")
     public void cliccareSulBottoneFiltraNotifica(String xpath) {
         logger.info("Si clicca sul tasto filtra Notifica");
-        String codiceIUN =dataPopulationConfig.getDatiNotifica().getCodiceIUN();
+        String codiceIUN = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
 //        String codiceIUN ="DPTV-WMWK-TPNA-202506-H-1";
 //        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath,codiceIUN);
+        piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath, codiceIUN);
     }
 
     @And("Si verifica che non ci sono notifiche disponibili")

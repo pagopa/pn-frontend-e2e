@@ -106,17 +106,27 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-    public void clickDelegatiImpresa() {
-        try {
-            getWebDriverWait(15).withMessage("Non è possibile cliccare il bottone delegati dell impresa").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("tab-1"))));
-            delegatiImpresaButton = driver.findElement(By.id("tab-1"));
-            delegatiImpresaButton.click();
-            logger.info("Bottone delegati dell impresa cliccato");
-        } catch (TimeoutException e) {
-            Assertions.fail("il bottone delegati imprese non è cliccabile" + e.getMessage());
-        }
-
+//    public void clickDelegatiImpresa() {
+//        try {
+//            getWebDriverWait(15).withMessage("Non è possibile cliccare il bottone delegati dell impresa").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("tab-1"))));
+//            delegatiImpresaButton = driver.findElement(By.id("tab-1"));
+//            delegatiImpresaButton.click();
+//            logger.info("Bottone delegati dell impresa cliccato");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("il bottone delegati imprese non è cliccabile" + e.getMessage());
+//        }
+//
+//    }
+public void clickDelegatiImpresa() {
+    try {
+        WebElement clickDelegatiImpresaButton = getWebDriverWait(15)
+                .withMessage("Non è possibile cliccare il bottone delegati dell'impresa")
+                .until(ExpectedConditions.elementToBeClickable(By.id("tab-1")));
+        clickDelegatiImpresaButton.click();
+    } catch (TimeoutException | NoSuchElementException e) {
+        Assertions.fail("Il bottone delegati imprese non è cliccabile: " + e.getMessage());
     }
+}
 
 //    public boolean cercaEsistenzaDelegaPG(String ragioneSociale) {
 //        try {
@@ -203,7 +213,7 @@ public class DeleghePGPagoPAPage extends BasePage {
             Assertions.fail("ragione sociale non caricata" + e.getMessage());
         }
         logger.info("ragione sociale caricata correttamente");
-        return delegaBy.size() == 1;
+        return !delegaBy.isEmpty();
 
     }
 

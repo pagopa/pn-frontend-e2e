@@ -12,7 +12,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     When Si inizializzano i dati per la notifica
       | modello         | A/R                |
       | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
+      | oggettoNotifica | Pagamento rata IMU -> PN-10389 |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
       | indirizzo         | VIA ROMA 20        |
@@ -55,10 +55,3 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Aspetta 10 secondi
     And Si seleziona la notifica
     And Si verifica che visualizzato lo stato Pagato
-    #Decommentare queste righe e commentare step per PF quando si avrà la seconda PG per i test
-    #And PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
-    #And Nella Pagina Notifiche destinatario si clicca solo su notifiche delegate
-    #And Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate "Lucrezia Borgia"
-    #And Aspetta 10 secondi
-    #And Si seleziona la notifica
-    #And Si verifica che visualizzato lo stato Pagato

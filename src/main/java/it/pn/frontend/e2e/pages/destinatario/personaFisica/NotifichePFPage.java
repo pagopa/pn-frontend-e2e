@@ -452,6 +452,7 @@ public class NotifichePFPage extends BasePage {
 
     public void verificaSezionePagamenti() {
         List<WebElement> elements = getWebDriverWait(15)
+                .withMessage("Impossibile Verificare la Sezione Pagamenti")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("[data-testid='paymentInfoBox']"))
         );
 
