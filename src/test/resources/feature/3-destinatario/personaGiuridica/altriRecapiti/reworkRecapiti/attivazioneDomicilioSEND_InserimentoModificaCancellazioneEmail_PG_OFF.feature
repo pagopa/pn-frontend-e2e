@@ -5,7 +5,7 @@ Feature: Rework della pagina dei contatti
   @addressBook2
   @TA_REWORK_RECAPITI_OFF
   @NRT
-  @NRT_Blocco_1
+  @NRT_Blocco_1_OFF_1
 
   Scenario:[OFF_REWORK_DOMICILIO_DIGITALE_PG_85_86_87_92_93] Attivazione Domicilio Digitale SEND - Inserimento, modifica, cancellazione mail PG - Feature flag spento
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

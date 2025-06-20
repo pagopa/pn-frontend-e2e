@@ -4,6 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_attivazioneDomicilioSEND_DoppiaConferma_PG
   @addressBook2
   @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_7_9] Attivazione Domicilio Digitale SEND PG - Doppia conferma
 

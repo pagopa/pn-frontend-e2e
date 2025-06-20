@@ -4,6 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciEmailCell_PG
   @addressBook2
   @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_6_75] Attivazione Domicilio Digitale SEND - Inserimento mail e cellulare PG
 

@@ -4,6 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_ValidazionePEC_PG
   @addressBook2
   @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_68] Visualizza banner - PEC personalizzati per ente
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

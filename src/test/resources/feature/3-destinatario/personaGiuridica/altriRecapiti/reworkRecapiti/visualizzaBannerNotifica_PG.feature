@@ -4,6 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_VisualizzaBannerNotifica_PG
   @addressBook2
   @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
 
   Scenario: [REWORK_DOMICILIO_DIGITALE_PG_65_66] - Visualizza banner - Notifica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

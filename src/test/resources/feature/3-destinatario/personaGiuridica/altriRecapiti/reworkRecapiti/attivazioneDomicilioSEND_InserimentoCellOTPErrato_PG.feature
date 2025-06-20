@@ -4,6 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_inserimentoCellOTPErrato_PG
   @addressBook2
   @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
   @GestioneErrori
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_71] La persona giuridica loggata inserisce un OTP sbagliato cellulare

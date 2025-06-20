@@ -4,6 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_attivazioneDomicilioSEND_RecapitoCortesiaAttivo_PG
   @addressBook2
   @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_38] Attivazione Domicilio Digitale SEND PG - Recapiti di cortesia presenti
 
