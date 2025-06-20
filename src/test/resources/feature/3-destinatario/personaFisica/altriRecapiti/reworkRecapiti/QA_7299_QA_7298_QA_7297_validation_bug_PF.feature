@@ -20,6 +20,7 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
     And Click Notifiche
+    And Aspetta 1 secondi
     And Click Bottone Inizia nel Banner
     And Click Annulla Servizio Notifiche Digitali
     And Entro dentro la prima notifica

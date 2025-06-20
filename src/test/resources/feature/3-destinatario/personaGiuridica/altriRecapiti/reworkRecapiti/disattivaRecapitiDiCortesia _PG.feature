@@ -16,6 +16,7 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
+    And Attesa 1 secondi
     When Click Inizia
     And Click Attiva
     And Attesa 1 secondi

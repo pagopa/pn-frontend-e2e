@@ -33,4 +33,5 @@ Feature: Rework della pagina dei contatti
     And Aspetta 5 secondi
     And Si visualizza correttamente il banner di recapito di cortesia mancante
     And La persona giuridica clicca sulla prima notifica restituita
+    And Aspetta 1 secondi
     And Si visualizza correttamente il banner di recapito di cortesia mancante
