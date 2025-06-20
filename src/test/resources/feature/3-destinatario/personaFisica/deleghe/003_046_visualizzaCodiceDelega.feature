@@ -2,7 +2,7 @@ Feature:La persona fisica visualizza il codice  di una delega
 
   @TestSuite
   @TA_PFvisualizzaCodiceDelega
-  @NRT_Blocco_1
+  @NRT_Blocco_3
   @deleghe1
   Scenario:PN-9402 - La persona fisica visualizza il codice  di una delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

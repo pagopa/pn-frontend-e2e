@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_OFF_REWORK_DOMICILIO_DIGITALE_79_80_82_83_84_81_PG
   @addressBook2
   @TA_REWORK_RECAPITI_OFF
-  @NRT_Blocco_3
+  @NRT_Blocco_1
 
   Scenario:[OFF_REWORK_DOMICILIO_DIGITALE_PG_79_80_82_83_84_81] Attivazione Domicilio Digitale SEND - Inserisci - Modifica - Elimina PEC  PG
 

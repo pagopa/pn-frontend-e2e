@@ -2,7 +2,7 @@ Feature:La persona fisica aggiunge una nuova delega
 
   @TestSuite
   @TA_PF_QA_441
-  @NRT_Blocco_1
+  @NRT_Blocco_3
   @DeleghePF
   @deleghe1
   Scenario: [QA_441] ValidationBug Visualizzato messaggio di errore portale PF

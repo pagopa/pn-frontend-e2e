@@ -3,7 +3,7 @@ Feature: la persona giuridica inserisce l'OTP numero di telefono  errato
 #  @TestSuite_OFF
   @addressBook2
   @TA_REWORK_RECAPITI_OFF
-  @NRT_Blocco_3
+  @NRT_Blocco_1
 
   Scenario: OFF_REWORK_DOMICILIO_DIGITALE_PG_PN-9158-A66 - La persona giuridica inserisce l'OTP numero di telefono errato
 
