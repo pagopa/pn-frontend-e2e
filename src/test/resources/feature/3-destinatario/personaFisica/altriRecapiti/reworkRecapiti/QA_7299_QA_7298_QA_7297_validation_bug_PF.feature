@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_QA_7299_QA_7298_QA_7297_validation_bug_PF
   @addressBook1
   @TA_REWORK_RECAPITI_ON
-
+  @NRT_Blocco_2
   Scenario:[QA_7299_QA_7298_QA_7297_validation_bug_PF]
     Given Login Page persona fisica test viene visualizzata
     And Login con persona fisica

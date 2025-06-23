@@ -6,6 +6,7 @@ Feature: Rework della pagina dei contatti
   @TA_ON
   @NRT_ON
   @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_2
   @GestioneErrori
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_71] La persona giuridica loggata inserisce un OTP sbagliato cellulare
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
