@@ -6,6 +6,14 @@ Feature: invio notifica con sequence
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_890_QA-5353] - Il mittente invia una notifica a destinatario con sequence
+    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
+    And Si clicca su prodotto
+    And Home page persona giuridica viene visualizzata correttamente
+    And Rimuovi tutti i recapiti se esistono
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | 890                                             |
