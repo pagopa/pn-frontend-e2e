@@ -6,6 +6,15 @@ Feature: invio notifica con sequence
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_AR_QA-5352] - Il mittente invia una notifica a destinatario con sequence
+    Given Login Page persona fisica test viene visualizzata
+    And Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
+    And Rimuovi tutti i recapiti se esistono
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | AR                                              |

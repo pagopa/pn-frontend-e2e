@@ -62,7 +62,7 @@ public class RestContact {
      * Rimuove l'indirizzo email di cortesia predefinito.
      */
     public void removeDigitalAddressCourtesyEmail() throws RestContactException {
-        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/address-book/v1/digital-address/courtesy/default/EMAIL";
+        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/bff/v1/addresses/COURTESY/default/EMAIL";
         try {
             headers.put("Authorization", System.getProperty("token"));
             String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
@@ -87,7 +87,22 @@ public class RestContact {
         } catch (IOException e) {
             logger.error("Error during removeDigitalAdressLegalPec: {}", e.getMessage());
             logger.error("Non è stato possibile rimuovere l'indirizzo PEC legale", e);
-            //throw new RestContactException("Non è stato possibile rimuovere l'indirizzo PEC legale", e);
+        }
+    }
+
+    /**
+     * Rimuove il domicilio digitale di piattaforma SEND.
+     */
+    public void removeDigitalAddressLegalSend() throws RestContactException {
+        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/SERCQ_SEND";
+        try {
+            headers.put("Authorization", System.getProperty("token"));
+            String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
+            logger.info("Risposta ricevuta: " + response);
+            logger.info("Domicilio digitale di piattaforma SEND rimosso con successo");
+        } catch (IOException e) {
+            logger.error("Error during removeDigitalAdressLegalSend: {}", e.getMessage());
+            logger.error("Non è stato possibile rimuovere il domicilio digitale di piattaforma SEND", e);
         }
     }
 
@@ -96,8 +111,8 @@ public class RestContact {
      */
     public void removeSpecialContact(DigitalAddress digitalAddress) throws RestDelegationException {
         String channelType = digitalAddress.getChannelType().toString();
-        String addressType = digitalAddress.getAddressType().toString().toLowerCase();
-        String url = "https://webapi." +webDriverConfig.getEnvironment() + ".notifichedigitali.it/address-book/v1/digital-address/"
+        String addressType = digitalAddress.getAddressType().toString();
+        String url = "https://webapi." +webDriverConfig.getEnvironment() + ".notifichedigitali.it/bff/v1/addresses/"
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
 
         try {

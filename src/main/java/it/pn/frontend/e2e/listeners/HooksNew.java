@@ -233,9 +233,15 @@ public class HooksNew {
         if (digitalAddresses != null && !digitalAddresses.isEmpty()) {
             digitalAddresses.forEach(address -> {
                 if ("default".equalsIgnoreCase(address.getSenderId())) {
-                    if ("PEC".equalsIgnoreCase(address.getChannelType())) {
-                        restContact.removeDigitalAddressLegalPec();
-                    } else {
+                    if ("LEGAL".equalsIgnoreCase(address.getAddressType())) {
+                        if ("SERCQ_SEND".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressLegalSend();
+                        }
+                        else if ("PEC".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressLegalPec();
+                        }
+                    }
+                    else {
                         restContact.removeDigitalAddressCourtesyEmail();
                     }
                 } else {
