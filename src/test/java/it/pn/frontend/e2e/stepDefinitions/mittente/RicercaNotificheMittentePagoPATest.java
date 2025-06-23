@@ -73,6 +73,7 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         String codiceIUN = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
 //        String codiceIUN ="DPTV-WMWK-TPNA-202506-H-1";
 //        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        logger.info("IUN cliccareSulBottoneFiltraNotifica: "+codiceIUN);
         piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath, codiceIUN);
     }
 

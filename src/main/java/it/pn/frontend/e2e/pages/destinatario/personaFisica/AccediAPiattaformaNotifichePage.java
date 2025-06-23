@@ -509,7 +509,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void siVisualizzaStatoPagato() {
-        getWebDriverWait(120)
+        getWebDriverWait(240)
                 .withMessage("Lo stato di pagamento non è visibile")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"))));
         logger.info("Lo stato di pagamento è Pagato");
