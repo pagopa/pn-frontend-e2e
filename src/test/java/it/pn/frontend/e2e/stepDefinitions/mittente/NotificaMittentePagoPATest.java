@@ -124,6 +124,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
     private RestNotification restNotification;
     @Autowired
     private AppPortalUrlFactory urlFactory;
+
+    @Autowired
+    private RicercaNotificheMittentePagoPATest ricercaNotificheMittentePagoPATest;
  
     @PostConstruct
     public void init(){
@@ -140,6 +143,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
         informazioniPreliminariPASection = new InformazioniPreliminariPASection(driver);
         invioNotifichePAPage = new InvioNotifichePAPage(driver);
+
+        ricercaNotificheMittentePagoPATest.setHooksNew(hooksNew);
+
         backgroundTest = new BackgroundTest();
     }
 
@@ -1795,6 +1801,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         EsitoNotifica esitoNotifica = siVerificaEsitoNotifica(dpFile);
         if (esitoNotifica.statusNotifica.equals("ACCEPTED")) {
             logger.info("La notifica è stata Accettata");
+            //String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
             if (codiceIUN != null && !codiceIUN.isEmpty()) {
 
@@ -2592,11 +2599,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
         //dataPopulation.writeDataPopulation(dpFile + ".yaml", datiNotifica);
         switch (dpFile) {
             case "datiNotifica" -> {
-                dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
+                notificationSingleton.setScenarioIun(hooksNew.getScenario(),codiceIUN);
+                //dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
                 logger.info("datiNotifica codiceIUN: "+codiceIUN);
             }
             case "datiNotificaPG" -> {
-                dataPopulationConfig.getDatiNotificaPg().setCodiceIUN(codiceIUN);
+                notificationSingleton.setScenarioIun(hooksNew.getScenario(),codiceIUN);
+                //dataPopulationConfig.getDatiNotificaPg().setCodiceIUN(codiceIUN);
                 logger.info("datiNotificaPG codiceIUN: "+codiceIUN);
             }
 
