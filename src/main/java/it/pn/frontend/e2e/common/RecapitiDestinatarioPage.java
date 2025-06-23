@@ -963,7 +963,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickLoFaroPiuTardiOrConfermaModificaRecapito() {
-        WebElement loFaroPiuTardi = getWebDriverWait(25).withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
+        WebElement loFaroPiuTardi = getWebDriverWait(25)
+                .withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
                 .until(ExpectedConditions.elementToBeClickable(
                 By.id("dialog-confirm-button")));
         loFaroPiuTardi.click();
@@ -1337,7 +1338,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaEDisattivaDomicilioDigitale() {
         try {
-            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro Domicilio Digitale il testo 'Disattiva'")
+            WebElement disattivaButton = getWebDriverWait(20).withMessage("Non è presente dentro Domicilio Digitale il testo 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
                             (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {

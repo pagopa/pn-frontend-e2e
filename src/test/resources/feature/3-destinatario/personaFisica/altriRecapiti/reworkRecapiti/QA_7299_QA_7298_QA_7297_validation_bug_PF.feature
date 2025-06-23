@@ -4,7 +4,7 @@ Feature: Rework della pagina dei contatti
   @TA_QA_7299_QA_7298_QA_7297_validation_bug_PF
   @addressBook1
   @TA_REWORK_RECAPITI_ON
-
+  @NRT_Blocco_2
   Scenario:[QA_7299_QA_7298_QA_7297_validation_bug_PF]
     Given Login Page persona fisica test viene visualizzata
     And Login con persona fisica
@@ -20,6 +20,7 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
     And Click Notifiche
+    And Aspetta 1 secondi
     And Click Bottone Inizia nel Banner
     And Click Annulla Servizio Notifiche Digitali
     And Entro dentro la prima notifica

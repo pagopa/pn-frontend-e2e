@@ -806,7 +806,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public List<WebElement> ricercaListaOggetti() {
         try {
-            return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1sdct2p')]"));
+            return getWebDriverWait(30)
+                    .withMessage("Impossibile trovare la Lista Oggetti")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                            By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[3]")));
+//            return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1sdct2p')]"));
         } catch (TimeoutException e) {
             logger.info("lista oggetti ancora non presenti");
             return null;
