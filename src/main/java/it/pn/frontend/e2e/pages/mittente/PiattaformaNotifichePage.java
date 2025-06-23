@@ -1825,6 +1825,8 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement menuLingua = getWebDriverWait(20)
                 .withMessage("Menu lingua: '" + lingua + "' non trovato")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='lingua']")));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", menuLingua);
         menuLingua.click();
 
         WebElement opzioneLingua = getWebDriverWait(20)

@@ -157,7 +157,7 @@ public class LoginMittentePagoPA extends BasePage {
         try {
             driver.get(urlLogin);
             logger.info("Login effettuato con successo");
-
+            webTool.waitTime(10);
             // Attendi che la dashboard sia completamente caricata
             headerPASection.waitLoadHeaderSection();
             piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
