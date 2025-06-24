@@ -282,6 +282,10 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     public void laPersonaFisicaCliccaSullaPrimaNotificaRestituita() {
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
+    @And("La persona fisica clicca sulla prima notifica restituita con stato {string}")
+    public void laPersonaFisicaCliccaSullaPrimaNotificaRestituita(String stato) {
+        piattaformaNotifichePage.selezionaPrimaNotifica(stato);
+    }
 
     @And("Cliccare la notifica destinatario")
     public void cliccareSulBottoneFiltraPortaleCittadino() {

@@ -39,7 +39,7 @@ Feature: Rework della pagina dei contatti
     And Aspetta 5 secondi
     And Si visualizza correttamente la Pagina Notifiche persona fisica
     And Si visualizza correttamente il banner di recapito di cortesia mancante
-    And La persona fisica clicca sulla prima notifica restituita
+    And La persona fisica clicca sulla prima notifica restituita con stato "Avvenuto accesso"
     And Si visualizza correttamente il banner di recapito di cortesia mancante
     And La persona fisica seleziona la voce I tuoi dati
     And Si visualizza correttamente il banner di recapito di cortesia mancante
