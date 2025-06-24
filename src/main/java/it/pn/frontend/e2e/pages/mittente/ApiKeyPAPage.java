@@ -709,6 +709,7 @@ public void pulisciAmbientePublickeys() {
 //        }
 //    }
     public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
+        webTool.waitTime(1);
         verificaVisibilitaPulsante(chiave, "ruota", "button-rotate");
         verificaVisibilitaPulsante(chiave, "blocca", "button-block");
         verificaVisibilitaPulsante(chiave, "view", "button-view");
