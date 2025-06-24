@@ -4,6 +4,7 @@ Feature:Controllo dati notifica con pagamento
   @NotificaConPagamentoPG
   @ControlloNotificaConPagamentoPG
   @NRT_Blocco_3
+    @PersonaGiuridica
   Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO PG] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PG - Si effettua la login tramite token exchange come 'delegante', e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
