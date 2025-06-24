@@ -2168,6 +2168,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
     public void entroDentroLaPrimaNotifica() {
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
+    @And("Entro dentro la prima notifica con stato {string}")
+    public void entroDentroLaPrimaNotificaConStato(String stato) {
+        piattaformaNotifichePage.selezionaPrimaNotifica(stato);
+    }
 
     @When("Seleziona voce menu laterale {string}")
     public void selezionaVoceMenuLaterale(String testo) {

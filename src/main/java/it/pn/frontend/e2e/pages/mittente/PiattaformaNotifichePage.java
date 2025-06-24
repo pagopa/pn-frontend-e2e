@@ -697,6 +697,43 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public void selezionaPrimaNotifica(String stato) {
+        waitLoadPage();
+        try {
+            attesaCaricamentoPagina();
+            verificaEsistenzaTabellaNotifiche();
+            buttonRighePagine();
+            selezionaPage50();
+
+            List<WebElement> notificationsTables = getWebDriverWait(10)
+                    .withMessage("Impossibile trovare notificationsTable")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("tr[id='notificationsTable.body.row']")) );
+
+            for (WebElement row : notificationsTables) {
+                WebElement statusChip = getWebDriverWait(10)
+                        .withMessage("Impossibile la colonna con lo stato: "+stato)
+                        .until(
+                        ExpectedConditions.visibilityOf(row.findElement(By.cssSelector("div[id^='status-chip-']")))
+                );
+                if (statusChip.getText().trim().equals(stato)) {
+
+                    WebElement vediDettaglioButton = getWebDriverWait(10)
+                            .withMessage("Impossibile dettagli con lo stato: "+stato)
+                            .until( ExpectedConditions.elementToBeClickable(row.findElement(By.cssSelector("button[data-testid='goToNotificationDetail']"))));
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", vediDettaglioButton);
+
+                    // Utilizza JavaScript per fare clic
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", vediDettaglioButton);
+
+                    break;
+                }
+            }
+
+        } catch (TimeoutException e) {
+            Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
+        }
+    }
+
 
     private void clickRowNotificationIndex(WebElement primaNotifica) {
         try {

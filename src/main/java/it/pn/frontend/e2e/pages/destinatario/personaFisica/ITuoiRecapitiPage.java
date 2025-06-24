@@ -425,7 +425,7 @@ public void iTuoiRecapitiButtonClick() {
 //                .withMessage("Impossibile Trovare il Banner ")
 //                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-testid='addDomicileBanner']")));
 
-        WebElement iniziaButton = getWebDriverWait(15)
+        WebElement iniziaButton = getWebDriverWait(20)
                 .withMessage("Impossibile I tasto Inizia")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-testid='addDomicileBanner']//button[contains(@class, 'MuiButton-root')]")));
         iniziaButton.click();

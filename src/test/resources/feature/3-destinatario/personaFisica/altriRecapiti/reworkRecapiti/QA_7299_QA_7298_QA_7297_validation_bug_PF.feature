@@ -23,7 +23,7 @@ Feature: Rework della pagina dei contatti
     And Aspetta 1 secondi
     And Click Bottone Inizia nel Banner
     And Click Annulla Servizio Notifiche Digitali
-    And Entro dentro la prima notifica
+    And Entro dentro la prima notifica con stato "Avvenuto accesso"
     And Click Bottone Inizia nel Banner
     And Click Annulla Servizio Notifiche Digitali
     And Click I Tuoi Dati
