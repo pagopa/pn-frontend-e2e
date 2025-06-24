@@ -3,6 +3,7 @@ Feature: La persona giuridica visualizza la sezione notifiche
   @TestSuite
   @TA_PGPaginazioneNotifiche
   @NRT_Blocco_3
+  @VisualizzaNotifiche
   Scenario: PN-9148 - La persona giuridica visualizza la sezione notifiche
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa

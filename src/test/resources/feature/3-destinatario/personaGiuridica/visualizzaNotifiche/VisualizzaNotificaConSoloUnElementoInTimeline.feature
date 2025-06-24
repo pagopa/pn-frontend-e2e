@@ -33,6 +33,7 @@ Feature: PG visualizza il dettaglio di una notifica con solo un elemento in time
   @TestSuite
   @VisualizzaNotificaMonoDestinatarioConUnElementoInTimelineARBis
   @NRT_Blocco_3
+  @VisualizzaNotifiche
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG] - bis - PG  Verifica presenza solo un elemento in timeline contenente la ricevuta di postalizzazione in formato zip - OK_AR_ZIP
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "QPTV-HLXM-LGJE-202410-G-1"
