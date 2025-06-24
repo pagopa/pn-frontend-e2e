@@ -191,16 +191,45 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return false;
     }
 
+    //    public void clickVediPiuDettagli() {
+//        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(0)));
+//        logger.info("click su vedi dettagli");
+//        vediDettagliButton = driver.findElements(By.id("more-less-timeline-step"));
+//        vediDettagliButton.get(0).click();
+//        try {
+//            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(1)));
+//            vediDettagliButton.get(1).click();
+//        } catch (Exception e) {
+//            logger.info("ulteriore vedi dettaglio non presente");
+//        }
+//    }
     public void clickVediPiuDettagli() {
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(0)));
-        logger.info("click su vedi dettagli");
-        vediDettagliButton = driver.findElements(By.id("more-less-timeline-step"));
-        vediDettagliButton.get(0).click();
+
+        logger.info("Cerco il primo bottone 'Vedi dettaglio'");
+
+        List<WebElement> vediDettagliButtons = getWebDriverWait(20)
+                .withMessage("Imposibile trovare il primo Vedi piu dettagli ")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("more-less-timeline-step")));
+
+        if (vediDettagliButtons.isEmpty()) {
+            Assertions.fail("Non è stato trovato alcun bottone 'Vedi dettaglio'");
+        }
+
+        vediDettagliButtons.get(0).click();
+        logger.info("Primo bottone 'Vedi dettaglio' cliccato");
+
         try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(1)));
-            vediDettagliButton.get(1).click();
-        } catch (Exception e) {
-            logger.info("ulteriore vedi dettaglio non presente");
+            vediDettagliButtons = getWebDriverWait(20)
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("more-less-timeline-step")));
+
+            if (vediDettagliButtons.size() > 1) {
+                vediDettagliButtons.get(1).click();
+                logger.info("Secondo bottone 'Vedi dettaglio' cliccato");
+            } else {
+                logger.info("Solo un bottone 'Vedi dettaglio' disponibile");
+            }
+        } catch (TimeoutException e) {
+            logger.info("Nessun ulteriore bottone 'Vedi dettaglio' trovato");
         }
     }
 

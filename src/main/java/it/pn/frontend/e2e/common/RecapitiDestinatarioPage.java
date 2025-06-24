@@ -660,12 +660,29 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+//    public void checkButtonAnnullaEliminazioneInPopUp() {
+//        try {
+//            getWebDriverWait(10).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("buttonAnnulla"))));
+//            logger.info("pulsante annulla eliminazione visibile");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("caricamento pop-up con errore:" + e.getMessage());
+//        }
+//    }
+
     public void checkButtonAnnullaEliminazioneInPopUp() {
         try {
-            getWebDriverWait(10).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("buttonAnnulla"))));
-            logger.info("pulsante annulla eliminazione visibile");
+            getWebDriverWait(10)
+                    .withMessage("Pulsante annulla eliminazione non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("buttonAnnulla")));
+
+            logger.info("Pulsante annulla eliminazione visibile");
         } catch (TimeoutException e) {
-            Assertions.fail("caricamento pop-up con errore:" + e.getMessage());
+            Assertions.fail("Caricamento pop-up con errore: " + e.getMessage());
+        } catch (StaleElementReferenceException e) {
+
+             getWebDriverWait(10)
+                     .withMessage("Pulsante annulla eliminazione non trovato eccezione StaleElementReferenceException")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("buttonAnnulla")));
         }
     }
 
