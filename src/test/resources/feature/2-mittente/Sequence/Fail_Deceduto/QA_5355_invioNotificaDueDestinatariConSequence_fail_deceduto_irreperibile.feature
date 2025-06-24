@@ -2,7 +2,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @NotificaADueDestinatariConSequenceDecedutoIrreperibileAR
-  @NRT_Blocco_3_prova_VAS_DEC
+  @NRT_Blocco_3
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_AR_QA-5355] - Il mittente invia una notifica a due destinatari , solo uno raggiungibile al primo tentativo
