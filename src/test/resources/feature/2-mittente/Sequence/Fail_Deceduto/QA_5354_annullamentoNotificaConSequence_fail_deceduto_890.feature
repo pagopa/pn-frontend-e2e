@@ -2,7 +2,7 @@ Feature: invio notifica con sequence
 
   @annullamentoNotificaConSequenceDeceduto890
   @TestSuite
-  @NRT_Blocco_3
+  @NRT_Blocco_3_prova_VAS_DEC
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_890_QA-5354] - Il mittente invia una notifica a destinatario con sequence e viene annullata dopo essere passata allo stato Resa al mittente

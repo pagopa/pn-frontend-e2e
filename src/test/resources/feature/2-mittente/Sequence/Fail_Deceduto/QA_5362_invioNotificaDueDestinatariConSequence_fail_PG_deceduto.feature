@@ -2,7 +2,7 @@ Feature: Mittente invia una notifica a due destinatari, PG deceduti
 
   @TestSuite
   @TAG_DECEDUTO_890_QA-5362
-  @NRT_Blocco_3
+  @NRT_Blocco_3_prova_VAS_DEC
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_890_QA-5362] - Il mittente invia una notifica a due destinatari, PG deceduti
