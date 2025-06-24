@@ -6,6 +6,25 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_AR_QA-5358] Notifica analogica multidestinatario tipo AR per PG e PF dove solo per uno di quest'ultimi è stato notificato il decesso mentre per l'altro è avvenuta la visualizzazione: VIEWED come macro stato della notifica
+    # Rimozione preventiva recapiti per permettere la ricezione delle sequence
+    Given Login Page persona fisica test viene visualizzata
+    And Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
+    And Rimuovi tutti i recapiti se esistono
+    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
+    And Si clicca su prodotto
+    And Home page persona giuridica viene visualizzata correttamente
+    And Rimuovi tutti i recapiti se esistono
+    # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
