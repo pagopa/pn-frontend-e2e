@@ -3,6 +3,7 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
   @TestSuite
   @TA_PG_DownloadFile
   @NRT_Blocco_3
+  @DownloadFile
 
   Scenario: PN-9151 - Persona giuridica scarica attestazione
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

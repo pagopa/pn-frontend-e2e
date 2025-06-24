@@ -6,6 +6,7 @@ Feature: persona giuridica scarica attestazione opponibile
   @PG
   @deleghe1
   @NRT_Blocco_3
+  @DownloadFile
   Scenario: PN-10432 - Persona giuridica scarica Attestazione opponibile a terzi: notifica presa in carico
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
