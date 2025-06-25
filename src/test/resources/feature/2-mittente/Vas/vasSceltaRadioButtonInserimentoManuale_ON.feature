@@ -3,7 +3,7 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
   @TestSuite
   @TA_VAS_36_35
   @NRT_PHYSICAL_ADDRESS_LOOKUP_ON
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   Scenario: [VAS_36_35_ON] - Selezionando la modalità di inserimento manuale dell'indirizzo tramite il radio button <Inserimento manuale>
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
