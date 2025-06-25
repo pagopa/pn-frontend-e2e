@@ -4,7 +4,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
   @TA_multiLinguaSloveno_QA5291
   @multiLingua
   @multiLinguaPg
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   Scenario: PN-QA5291-ML - PG - Cambio Lingua da Area Riservata a portale SEND - SL
 
     Given Login Page persona giuridica viene visualizzata
