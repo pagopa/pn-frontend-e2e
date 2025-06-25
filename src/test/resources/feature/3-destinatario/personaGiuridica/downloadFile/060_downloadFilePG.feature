@@ -2,7 +2,7 @@ Feature: persona giuridica scarica attestazioni all'interno di una notifica
 
   @TestSuite
   @TA_PG_DownloadFile
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   @DownloadFile
 
   Scenario: PN-9151 - Persona giuridica scarica attestazione

@@ -5,7 +5,7 @@ Feature: persona giuridica scarica attestazione opponibile
   @DownloadFilePG
   @PG
   @deleghe1
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   @DownloadFile
   Scenario: PN-10432 - Persona giuridica scarica Attestazione opponibile a terzi: notifica presa in carico
     Given Login Page mittente viene visualizzata

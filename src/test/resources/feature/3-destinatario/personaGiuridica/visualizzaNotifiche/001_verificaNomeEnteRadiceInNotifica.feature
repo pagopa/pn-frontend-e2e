@@ -36,7 +36,7 @@ Feature: La persona fisica visualizza il nome concatenato dell'ente Radice nel c
 
   @TestSuite
   @verificaNomeEnteRadiceBis
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   @VisualizzaNotifiche
   Scenario: PN-10431 - bis - La persona giuridica visualizza il campo mittente della notifica con il nome concatenato dell'ente Radice
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

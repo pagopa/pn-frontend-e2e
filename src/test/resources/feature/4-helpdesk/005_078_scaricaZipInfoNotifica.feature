@@ -6,7 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @OttenereInfoCompletaDiNotifica
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   @helpDesk
   Scenario: PN-9606 - Ottenere le informazioni complete di una notifica
     Given Login helpdesk con utente test

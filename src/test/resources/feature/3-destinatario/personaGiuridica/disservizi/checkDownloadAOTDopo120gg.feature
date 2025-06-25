@@ -2,7 +2,7 @@ Feature: Persona Giuridica prova ad effettuare download AOT scaduti da 120gg
 
   @TestSuite
   @TA_PG_DownloadDisserviziScadutiDa120gg
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
     @Disservizi
 
   Scenario: [TA-FE PG EFFETTUA DOWNLOAD DI AOT SCADUTO DA 120 GG] - PG effettua download di aot scaduto da 120gg

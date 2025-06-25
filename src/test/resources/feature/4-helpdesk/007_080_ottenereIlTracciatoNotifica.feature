@@ -6,7 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @OttenereTracciatoNonAnonimizzataDiNotifica
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   @helpDesk
   Scenario: PN-9608 - Ottenere  il tracciato non anonimizzata di una notifica dato il suo IUN
     Given Login helpdesk con utente test
