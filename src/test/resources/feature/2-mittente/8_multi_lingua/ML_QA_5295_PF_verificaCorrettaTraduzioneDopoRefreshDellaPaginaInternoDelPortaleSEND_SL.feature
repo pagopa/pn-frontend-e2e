@@ -3,6 +3,7 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
   @TestSuite
   @TA_multiLinguaSloveno_QA5295
   @multiLingua
+  @multiLinguaPf
    @NRT_Blocco_3
   Scenario: PN-QA5295-ML - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - SL
 

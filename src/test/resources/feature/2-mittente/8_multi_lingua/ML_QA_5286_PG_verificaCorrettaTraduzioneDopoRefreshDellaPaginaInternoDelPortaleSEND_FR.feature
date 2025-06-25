@@ -3,6 +3,7 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
   @TestSuite
   @TA_multiLinguaFrancese_QA5286
   @multiLingua
+  @multiLinguaPg
   @NRT_Blocco_3
   Scenario: PN-QA5286-ML - PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- FR
 

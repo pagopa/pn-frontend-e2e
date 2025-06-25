@@ -1,5 +1,5 @@
 package it.pn.frontend.e2e.resources;
 
-public interface MultiLinguaResources {
+public interface MultiLinguaPgResources {
     //ONLY FOR CONCURRENCY
 }

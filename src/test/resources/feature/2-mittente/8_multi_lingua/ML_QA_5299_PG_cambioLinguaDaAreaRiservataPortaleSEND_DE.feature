@@ -3,6 +3,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
   @TestSuite
   @TA_multiLinguaTedesco_QA5299
   @multiLingua
+  @multiLinguaPg
   @NRT_Blocco_3
   Scenario: PN-QA5299-ML - PG - Cambio Lingua da Area Riservata a portale SEND - DE
 
