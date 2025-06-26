@@ -37,9 +37,6 @@ public class HomePagePG extends BasePage {
         getWebDriverWait(10).withMessage("il sottotitolo nella pagina home page riepilogo dati non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h4[contains(text(),'Notifiche digitali')]"))));
         getWebDriverWait(10).withMessage("la card SEND - Notifiche Digitali DEV non è visibile ").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//h6[@aria-label='SEND - Notifiche Digitali DEV']"))));
 
-        //Aggiunta wait per tabella notifiche in modo da consentire il fetch di tutti gli header dopo l'accesso al portale
-        getWebDriverWait(80).withMessage("Pagina Notifiche PG non caricata correttamente: la tabella delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
-
         logger.info("HomePagePG caricata correttamente");
     }
 

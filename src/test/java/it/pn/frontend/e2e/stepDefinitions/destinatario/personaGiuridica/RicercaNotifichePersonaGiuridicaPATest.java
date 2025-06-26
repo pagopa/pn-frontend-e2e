@@ -56,6 +56,12 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
 
     }
 
+    @When("Si visualizza correttamente la pagina Piattaforma Notifiche persona giuridica")
+    public void siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheDestinatarioPG() {
+        logger.info("Verifica visualizzazione piattaforma notifiche persona giuridica");
+        headerPGSection.waitLoadHeaderPGPage();
+        ricercaNotifichePGPage.waitLoadNotifichePGPage();
+    }
 
     @When("Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa")
     public void cliccareSuNotificheDellImpresa() {

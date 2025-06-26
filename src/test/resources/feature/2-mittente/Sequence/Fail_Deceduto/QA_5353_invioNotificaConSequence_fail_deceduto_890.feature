@@ -13,7 +13,7 @@ Feature: invio notifica con sequence
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     And Si clicca su prodotto
-    And Home page persona giuridica viene visualizzata correttamente
+    And Si visualizza correttamente la pagina Piattaforma Notifiche persona giuridica
     And Rimuovi tutti i recapiti se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
