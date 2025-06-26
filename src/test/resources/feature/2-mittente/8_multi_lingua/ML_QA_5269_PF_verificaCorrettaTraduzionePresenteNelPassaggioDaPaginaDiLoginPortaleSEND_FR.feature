@@ -14,9 +14,11 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       | lingua       | Francese |
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Refresh pagina
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Verifica traduzione testo "Vos notifications"
     And Verifica traduzione testo "Vos adresses"
     And Verifica traduzione testo "Procurations"

@@ -15,9 +15,11 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
     #   Cambio lingua
     And Cambia lingua footer "Inglese"
     And Si clicca su prodotto
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Refresh pagina
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
   ##  Verificare traduzione della sezione HP notifiche
     When Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Notifications"

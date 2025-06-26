@@ -15,7 +15,8 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       | lingua       | Tedesco |
     And Refresh pagina
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     When Seleziona voce menu laterale "Zustellungen"
 #   Verificole traduzioni del portale
     And Verifica traduzione testo "Zustellungen"

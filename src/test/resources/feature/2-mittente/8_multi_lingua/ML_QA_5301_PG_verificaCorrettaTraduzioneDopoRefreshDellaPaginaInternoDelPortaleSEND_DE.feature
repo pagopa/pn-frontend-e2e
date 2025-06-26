@@ -15,9 +15,11 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
     #   Cambio lingua
     And Cambia lingua footer "Tedesco"
     And Si clicca su prodotto
-    And Aspetta 3 secondi
+#    And Aspetta 3 secondi
+    And Attesa 3 secondi
     And Refresh pagina
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     When Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
     And Verifica traduzione testo "Anschriften"

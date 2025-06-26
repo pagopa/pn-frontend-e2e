@@ -31,7 +31,8 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     When Seleziona voce menu laterale "Coordonnées"
     And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
 #    Selezionare Stato della Piattaforma
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"

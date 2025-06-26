@@ -15,7 +15,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
     #   Cambio lingua
     And Cambia lingua footer "Sloveno"
     And Si clicca su prodotto
-    And Attendi secondi "3"
+    And Attesa 3 secondi
     And Seleziona voce menu laterale "Obvestila"
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"

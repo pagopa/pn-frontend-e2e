@@ -13,11 +13,13 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 1 secondi
     And Cambia lingua footer "Francese"
     And Si clicca su prodotto
 #    And Riduci zoom pagina al "60"%
-    And Aspetta 3 secondi
+#    And Aspetta 3 secondi
+    And Attesa 3 secondi
     When Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Notifications de l"
@@ -49,7 +51,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
     When Seleziona voce menu laterale "Vollmachten"
     And Verifica traduzione testo "Hier können die Bevollmächtigten des Unternehmens und deren Vollmachten verwaltet werden"
     And Verifica traduzione testo "Vollmachten des Unternehmens"
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Anschriften"
     And Verifica traduzione testo "Hier können digitale Anschriften angeben und geändert werden, an die Bescheide für Convivio Spa gesendet werden sollen"
@@ -60,7 +63,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
     And Cambia lingua footer "Französisch"
     And Cambia lingua footer "Anglais"
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 1 secondi
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Delegations of authority"
     And Verifica traduzione testo "Contact details"

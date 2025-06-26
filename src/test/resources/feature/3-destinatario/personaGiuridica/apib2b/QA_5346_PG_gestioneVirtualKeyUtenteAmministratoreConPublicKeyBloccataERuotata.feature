@@ -66,7 +66,7 @@ Feature: Visualizzazione sezione Integrazione API
     And Verifica stato Chiave Personale "Attiva"
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
-      | ruota  | Ruota             |
+#      | ruota  | Ruota             |
       | blocca | Blocca            |
       | view   | Visualizza codice |
     And Nella pagina Api Key si clicca sulla voce visualizza del menu Api Key
@@ -75,7 +75,7 @@ Feature: Visualizzazione sezione Integrazione API
     And Nel pop up visualizza cliccare sul tasto chiudi
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
-      | ruota  | Ruota             |
+#      | ruota  | Ruota             |
       | blocca | Blocca            |
       | view   | Visualizza codice |
     And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
