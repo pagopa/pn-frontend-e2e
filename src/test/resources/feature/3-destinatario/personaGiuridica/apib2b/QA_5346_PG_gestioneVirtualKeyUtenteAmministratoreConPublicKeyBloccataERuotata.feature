@@ -95,4 +95,3 @@ Feature: Visualizzazione sezione Integrazione API
     And Verifica testo nel pop-up "Se elimini definitivamente la chiave"
     And Verifica testo nel pop-up "Annulla"
     And Nella pop up cliccare sul tasto conferma
-#    And Logout da portale persona giuridica delegante
