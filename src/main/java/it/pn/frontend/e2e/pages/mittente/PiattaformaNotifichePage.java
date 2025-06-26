@@ -150,7 +150,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
-            getWebDriverWait(60).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("new-notification-btn"))));
+            getWebDriverWait(60).withMessage("Il bottone invia notifica non visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("new-notification-btn")));
+//                    .until(ExpectedConditions.visibilityOf( driver.findElement(By.id("new-notification-btn"))));
 
             getWebDriverWait(60)
                     .withMessage("Il titolo non è visibile")
