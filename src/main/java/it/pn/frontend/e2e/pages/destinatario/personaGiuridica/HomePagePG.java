@@ -28,17 +28,34 @@ public class HomePagePG extends BasePage {
         this.driver = driver;
     }
 
+//    public void waitLoadHomePagePGPage() {
+//
+//       // WebElement titlePageBy = driver.findElement(By.xpath("//h4[contains(text(),'Panoramica')]"));
+//       // WebElement subtitlePageBy = driver.findElement(By.xpath("//h4[contains(text(),'Notifiche digitali')]"));
+//       // WebElement cardNotificheDevBy = driver.findElement(By.xpath("//h6[@aria-label='SEND - Notifiche Digitali DEV']"));
+//        getWebDriverWait(10).withMessage("il titolo Panoramica nella pagina home page riepilogo dati non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h4[contains(text(),'Panoramica')]"))));
+//        getWebDriverWait(10).withMessage("il sottotitolo nella pagina home page riepilogo dati non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h4[contains(text(),'Notifiche digitali')]"))));
+//        getWebDriverWait(10).withMessage("la card SEND - Notifiche Digitali DEV non è visibile ").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//h6[@aria-label='SEND - Notifiche Digitali DEV']"))));
+//
+//        logger.info("HomePagePG caricata correttamente");
+//    }
+
     public void waitLoadHomePagePGPage() {
+        getWebDriverWait(10)
+                .withMessage("Il titolo 'Panoramica' nella pagina home non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[contains(text(),'Panoramica')]")));
 
-       // WebElement titlePageBy = driver.findElement(By.xpath("//h4[contains(text(),'Panoramica')]"));
-       // WebElement subtitlePageBy = driver.findElement(By.xpath("//h4[contains(text(),'Notifiche digitali')]"));
-       // WebElement cardNotificheDevBy = driver.findElement(By.xpath("//h6[@aria-label='SEND - Notifiche Digitali DEV']"));
-        getWebDriverWait(10).withMessage("il titolo Panoramica nella pagina home page riepilogo dati non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h4[contains(text(),'Panoramica')]"))));
-        getWebDriverWait(10).withMessage("il sottotitolo nella pagina home page riepilogo dati non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h4[contains(text(),'Notifiche digitali')]"))));
-        getWebDriverWait(10).withMessage("la card SEND - Notifiche Digitali DEV non è visibile ").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//h6[@aria-label='SEND - Notifiche Digitali DEV']"))));
+        getWebDriverWait(10)
+                .withMessage("Il sottotitolo 'Notifiche digitali' nella pagina home non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[contains(text(),'Notifiche digitali')]")));
 
-        //Aggiunta wait per tabella notifiche in modo da consentire il fetch di tutti gli header dopo l'accesso al portale
-        getWebDriverWait(80).withMessage("Pagina Notifiche PG non caricata correttamente: la tabella delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
+        getWebDriverWait(20)
+                .withMessage("La card 'SEND - Notifiche Digitali DEV' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@aria-label='SEND - Notifiche Digitali DEV']")));
+
+        getWebDriverWait(80)
+                .withMessage("La card 'SEND - Notifiche Digitali TEST' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@aria-label='SEND - Notifiche Digitali TEST']")));
 
         logger.info("HomePagePG caricata correttamente");
     }
