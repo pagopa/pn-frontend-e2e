@@ -3,6 +3,7 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
   @TestSuite
   @TA_multiLinguaTedesca_QA5303
   @multiLingua
+  @multiLinguaPf
   @NRT_Blocco_3
   Scenario: PN-QA5303-ML - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - DE
     Given Login Page persona fisica test viene visualizzata

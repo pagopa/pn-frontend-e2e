@@ -3,6 +3,7 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
   @TestSuite
   @TA_multiLinguaSloveno_QA5292
   @multiLingua
+  @multiLinguaPg
   @NRT_Blocco_3
   Scenario: PN-QA5292-ML - PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine di Utenti e Gruppi - SL
 

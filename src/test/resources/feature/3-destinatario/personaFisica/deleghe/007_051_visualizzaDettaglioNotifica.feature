@@ -6,7 +6,7 @@ Feature: Il delegato visualizza il dettaglio di una notifica
   @PF
   @deleghe1
   @DeleghePFPG
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   Scenario:PN-9417 - Accesso alla sezione notifiche da parte delegato
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

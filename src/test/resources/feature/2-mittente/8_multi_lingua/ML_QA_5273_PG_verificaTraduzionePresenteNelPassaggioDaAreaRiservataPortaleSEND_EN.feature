@@ -3,6 +3,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
   @TestSuite
   @TA_multiLinguaInglese_QA5273
   @multiLingua
+  @multiLinguaPg
   @NRT_Blocco_3
   Scenario: PN-QA5273-ML - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - EN
 

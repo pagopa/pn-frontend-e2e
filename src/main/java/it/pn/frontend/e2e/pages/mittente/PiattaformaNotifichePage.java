@@ -1861,25 +1861,44 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void cambiaLinguaFooter(String lingua) {
 
-        WebElement menuLingua = getWebDriverWait(20)
+        WebElement menuLingua = getWebDriverWait(30)
                 .withMessage("Menu lingua: '" + lingua + "' non trovato")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='lingua']")));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", menuLingua);
-        menuLingua.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", menuLingua);
 
-        WebElement opzioneLingua = getWebDriverWait(20)
+        WebElement opzioneLingua = getWebDriverWait(30)
                 .withMessage("Opzione  Lingua: '" + lingua + "' non trovato")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(text(),'" + lingua + "')]")));
-        opzioneLingua.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", opzioneLingua);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", opzioneLingua);
+//        opzioneLingua.click();
     }
+
+//    public boolean isTextPresent(String testo) {
+//        try {
+//            return getWebDriverWait(30)
+//                    .withMessage("Il testo '" + testo + "' non è stato trovato sulla pagina entro il tempo previsto")
+//                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
 
     public boolean isTextPresent(String testo) {
         try {
+            // Attendi che l'elemento contenente il testo sia visibile
             return getWebDriverWait(30)
                     .withMessage("Il testo '" + testo + "' non è stato trovato sulla pagina entro il tempo previsto")
-                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
+                    .until(ExpectedConditions.textToBePresentInElementLocated(
+                            By.xpath("//*"), testo));
+
+        } catch (TimeoutException e) {
+            logger.error("Timeout durante la ricerca del testo '" + testo + "': " + e.getMessage());
+            return false;
         } catch (Exception e) {
+            logger.error("Errore durante la ricerca del testo '" + testo + "': " + e.getMessage());
             return false;
         }
     }

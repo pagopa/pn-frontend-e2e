@@ -2,7 +2,7 @@ Feature: La persona giuridica ricerca per codice IUN
 
   @TestSuite
   @TA_PGricercaNotificaPerIUN
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   Scenario: PN-9149 - La persona giuridica ricerca per codice IUN
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella Pagina Notifiche persona giuridica si clicca su notifiche dell impresa

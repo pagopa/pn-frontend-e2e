@@ -37,7 +37,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
 
   @TestSuite
   @CheckNotificaConDocumentiAllegatiPGBis
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   @VisualizzaNotifiche
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - bis - PG scarica modello F24
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

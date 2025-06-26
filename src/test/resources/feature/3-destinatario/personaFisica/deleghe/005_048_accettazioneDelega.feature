@@ -6,7 +6,7 @@ Feature: il delegato accetta la delega
   @PF
   @deleghe1
   @DeleghePFPG
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   Scenario: PN-9411 - il delegato accetta la delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

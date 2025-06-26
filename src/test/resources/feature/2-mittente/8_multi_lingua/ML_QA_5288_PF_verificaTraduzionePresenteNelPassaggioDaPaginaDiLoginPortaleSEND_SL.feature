@@ -3,6 +3,7 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
   @TestSuite
   @TA_multiLinguaSloveno_QA5288
   @multiLingua
+  @multiLinguaPf
   @NRT_Blocco_3
   Scenario: PN-QA5288-ML - PF - Verifica traduzione presente nel passaggio da pagina di Login a portale SEND - SL
     Given Login Page persona fisica test viene visualizzata

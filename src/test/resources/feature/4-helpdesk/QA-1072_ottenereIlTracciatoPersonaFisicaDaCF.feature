@@ -6,7 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @OttenereTracciatoNonAnonimizzataDiPersonaFisicaDaCodiceFiscale
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   @helpDesk
   Scenario: [QA-1072] - Ottenere  il tracciato non anonimizzata di una persona fisica dato il suo codice fiscale
     Given Login helpdesk con utente test

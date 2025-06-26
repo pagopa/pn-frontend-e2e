@@ -6,7 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @test77
-  @NRT_Blocco_3
+  @NRT_Blocco_3_GRUPPO_AWS
   @helpDesk
   Scenario: PN-9605 - Visualizzazione corretta pagina sezione ricerca ed estrazione dati in helpdesk
     Given Login helpdesk con utente test
