@@ -3,6 +3,7 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
   @TestSuite
   @TA_PG_VisualizzaDisservizioRisolto
   @bilinguismo
+  @helpDesk
   @NRT_Blocco_3_GRUPPO_AWS
   @Disservizi
 

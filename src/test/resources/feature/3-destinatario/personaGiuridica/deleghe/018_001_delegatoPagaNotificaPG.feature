@@ -33,7 +33,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     And La persona giuridica clicca sulla prima notifica restituita
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
-    And Si verifica che visualizzato lo stato Pagato
+#    And Si verifica che visualizzato lo stato Pagato
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa

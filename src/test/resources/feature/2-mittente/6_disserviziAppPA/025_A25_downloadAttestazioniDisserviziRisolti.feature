@@ -3,6 +3,7 @@ Feature: Mittente effettua il download delle attestazioni dei disservizi risolti
   @TestSuite
   @TA_MittenteDownloadDisservizioRisolto
   @bilinguismo
+  @helpDesk
   @NRT_Blocco_1
 
   Scenario: PN-9238 - Mittente effettua il download delle attestazioni dei disservizi risolti

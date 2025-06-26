@@ -2,6 +2,7 @@ Feature: Il destinatario persona fisica visualizza i disservizi della piattaform
 
   @TestSuite
   @TA_PF_VisualizzaDisserviziRisolti
+  @helpDesk
   @NRT_Blocco_2
 
   Scenario: PN-9433 - Il destinatario persona fisica visualizza i disservizi della piattaforma risolti
