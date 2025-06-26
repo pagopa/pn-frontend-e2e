@@ -12,6 +12,7 @@ Feature: il mittente download attestazione notifica presa in carico
     And Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro
     #And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino all'ultima
     And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 18
+    And Attesa 3 secondi
     And Download file attestazione disservizio
 
 #    And Si controlla che esista pop up scadenza disservizi
