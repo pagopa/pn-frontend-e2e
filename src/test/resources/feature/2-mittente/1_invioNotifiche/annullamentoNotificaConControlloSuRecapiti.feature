@@ -109,6 +109,6 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata e 
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"È in corso l'invio del messaggio di cortesia tramite email.")] |
       | vediDettagli | true  |
-    And Logout da portale mittente
+#    And Logout da portale mittente
 
 
