@@ -20,6 +20,7 @@ Feature: PG - Utente Amministratore Persona Giuridica con virtual key attiva, bl
     And Cliccare su registra
 
     And Pulisci ambiente virtual keys
+    And Attesa 1 secondi
 # Inserire una chiave Attiva
     When Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
     And Click su tasto Genera Chiave Personale

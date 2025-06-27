@@ -41,7 +41,7 @@ Feature: invio notifica con sequence
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
 
-    And Aspetta 10 secondi
+    And Aspetta 15 secondi
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
     And Aspetta 300 secondi
