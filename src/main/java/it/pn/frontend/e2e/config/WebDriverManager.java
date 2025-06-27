@@ -96,7 +96,13 @@ public class WebDriverManager {
 //        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
-            chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
+//            chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
+            chromeOptions.addArguments("--headless=new"); // O anche "--headless"
+            chromeOptions.addArguments("--no-sandbox");
+            chromeOptions.addArguments("--disable-dev-shm-usage");
+            chromeOptions.addArguments("window-size=1920,1080");
+//            chromeOptions.addArguments("--disable-gpu");
+//            chromeOptions.addArguments("--remote-allow-origins=*");
         }
 
         getDriver(chromeOptions, null, null);

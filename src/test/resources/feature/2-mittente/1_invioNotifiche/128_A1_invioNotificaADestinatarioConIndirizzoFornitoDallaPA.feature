@@ -30,4 +30,4 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
     Then In parallelo si effettua l'accesso al portale destinatario "persona fisica" e si apre la notifica ricevuta
-    And Logout da portale mittente
+#    And Logout da portale mittente
