@@ -40,7 +40,9 @@ Feature: il mittente download attestazione notifica presa in carico
     And controllo messaggio di successo
     And controllo password
     And controllo link per scaricare zip e scarico file
-    And Aspetta 5 secondi
+    #And Aspetta 5 secondi
+    And Attendi secondi "5"
+    And Refresh pagina
     And Inserisco la password ed estraggo il file zip
     And Controllo sia presente documento "dati.txt"
     And Si elimina file estratto
