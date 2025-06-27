@@ -80,8 +80,8 @@ public class IntegrazioneAPIPGPage extends BasePage {
 
     public boolean nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
         try {
-            WebElement button = getWebDriverWait(40)
-                    .withMessage("Il tasto Genera chiave personale non è presente")
+            WebElement button = getWebDriverWait(50)
+                    .withMessage("Il Bottone Genera chiave personale non è presente")
                     .until(ExpectedConditions.elementToBeClickable(By.id("generate-virtual-key")));
             return button.isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {

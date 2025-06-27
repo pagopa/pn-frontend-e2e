@@ -26,6 +26,7 @@ Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
       | F24              | 3            |
     Then Creo in background una notifica per destinatario tramite API REST
     And Aspetta 5 secondi
+    And Cliccare sul bottone Filtra Notifica "filter-button"
     And La persona fisica clicca sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si controlla sia visualizza box allegati modelli F24

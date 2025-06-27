@@ -317,7 +317,6 @@ public class ApiKeysTest  extends BasePage {
         if (apiKeyPAPage.generaChiavePubblicaDisplayed()) {
             logger.info("Il bottone Genera chiave pubblica è trovato");
         } else {
-            logger.error("Il bottone Genera chiave pubblica non è trovato");
             Assertions.fail("Il bottone Genera chiave pubblica non è trovato");
         }
     }
