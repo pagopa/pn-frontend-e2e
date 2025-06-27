@@ -39,8 +39,13 @@ public class LoginSpidPFPage extends BasePage {
     public void waitLoadLoginSpidDEPage(){
         try{
             webTool.waitTime(5);
-            WebElement spidLogo = driver.findElement(By.id("idp-logo"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(spidLogo));
+//            WebElement spidLogo = driver.findElement(By.id("idp-logo"));
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(spidLogo));
+
+             getWebDriverWait(40)
+                    .withMessage("Il logo SPID non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("idp-logo")));
+
             logger.info("Login Spid DE Page caricata");
         }catch (TimeoutException e){
             Assertions.fail("Login Spid DE Page non caricata con errore : "+e.getMessage());
