@@ -18,7 +18,8 @@ Feature: Rework della pagina dei contatti
     And Attesa 2 secondi
 # Verifica presenza banner email mancante
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
-    And Aspetta 5 secondi
+    #And Aspetta 5 secondi
+    And Refresh pagina
     And Si visualizza correttamente il banner di email mancante
     And La persona giuridica clicca sulla prima notifica restituita
     And Si visualizza correttamente il banner di email mancante
@@ -43,13 +44,15 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "Quando c’è una notifica per la tua impresa, ti informiamo con una email."
 # Verifica assenza banner email mancante
     Then Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
-    And Aspetta 5 secondi
+    #And Aspetta 5 secondi
+    And Refresh pagina
     And Non si visualizza correttamente il banner di email mancante
     And La persona giuridica clicca sulla prima notifica restituita
     And Non si visualizza correttamente il banner di email mancante
 #  Elimina Email
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica e Disattiva email
-    And Aspetta 5 secondi
+    #And Aspetta 5 secondi
+    And Refresh pagina
     And Verifica Da Attivare Email
 

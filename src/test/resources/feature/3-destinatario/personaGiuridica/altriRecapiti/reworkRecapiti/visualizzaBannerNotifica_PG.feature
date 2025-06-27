@@ -30,8 +30,10 @@ Feature: Rework della pagina dei contatti
     When Verifica Attivazione Domicilio digitale
 #   Check banner notifiche
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
-    And Aspetta 5 secondi
+    #And Aspetta 5 secondi
+    And Refresh pagina
     And Si visualizza correttamente il banner di recapito di cortesia mancante
     And La persona giuridica clicca sulla prima notifica restituita
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Si visualizza correttamente il banner di recapito di cortesia mancante

@@ -28,8 +28,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
-    And Aspetta 1 secondi
-
+    #And Aspetta 1 secondi
+    And Refresh pagina
 
 #  REWORK_DOMICILIO_DIGITALE_PG_59
     When Click Bottone Gestisci
@@ -51,7 +51,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     When Si visualizza correttamente la pagina di avvenuta attivazione del Domicilio Digitale
     And Click Torna ai tuoi recapiti
-    And Aspetta 2 secondi
+    #And Aspetta 2 secondi
+    And Refresh pagina
 ##  REWORK_DOMICILIO_DIGITALE_PG_62
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
@@ -61,7 +62,8 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Esci PG
     And Attesa 1 secondi
     And Click Elimina personalizzati per ente
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica Assenza Sezione Personalizzati Per Ente
 
 

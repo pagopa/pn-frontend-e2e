@@ -26,7 +26,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
-    And Aspetta 2 secondi
+    #And Aspetta 2 secondi
+    And Refresh pagina
 ##  REWORK_DOMICILIO_DIGITALE_PG_80
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC
     And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "provaa@pec.it"
@@ -45,7 +46,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "provae@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Click Torna ai tuoi recapiti
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
 ##  REWORK_DOMICILIO_DIGITALE_PG_83
     When Click Modifica personalizzati per ente OFF
     And Modifica Pec personalizzati per Ente e conferma "pec@pec.pagopa.it"
@@ -56,10 +58,12 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "pec@pec.pagopa.it"
 ##  REWORK_DOMICILIO_DIGITALE_PG_84
     When Click Elimina personalizzati per ente
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica Assenza Sezione Personalizzati Per Ente
 ##  REWORK_DOMICILIO_DIGITALE_PG_81
     And Verifica e Disattiva domicilio digitale
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     Then Verifica Da Attivare Domicilio digitale
 

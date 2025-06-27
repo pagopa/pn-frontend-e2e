@@ -12,7 +12,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Verifica e Disattiva domicilio digitale
-    And Aspetta 2 secondi
+    #And Aspetta 2 secondi
+    And Refresh pagina
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email

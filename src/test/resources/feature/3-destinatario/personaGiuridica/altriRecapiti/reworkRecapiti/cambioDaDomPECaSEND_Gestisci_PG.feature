@@ -24,7 +24,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
 
 ##  REWORK_DOMICILIO_DIGITALE_PG_43
     When Click Bottone Gestisci

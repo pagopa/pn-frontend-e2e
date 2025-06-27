@@ -24,7 +24,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
 
     And Si inserisce l'email della "personaGiuridiche" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
@@ -66,7 +67,8 @@ Feature: Rework della pagina dei contatti
     And Click Torna ai tuoi recapiti
     And Verifica Pagina "Validazione PEC in corso"
 ###  REWORK_DOMICILIO_DIGITALE_PG_56
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Click Modifica personalizzati per ente
     And Click Bottone "Annulla"
     And Verifica Pagina "prova@pec.it"

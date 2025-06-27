@@ -28,7 +28,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
-    And Aspetta 2 secondi
+    #And Aspetta 2 secondi
+    And Refresh pagina
 ## Modifica
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC
     And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "provaa@pec.it"
