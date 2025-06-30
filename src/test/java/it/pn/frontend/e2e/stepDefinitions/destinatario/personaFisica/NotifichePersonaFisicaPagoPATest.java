@@ -412,7 +412,7 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     public void siControllaTestoSiaNelBoxPagamento(String xpath) {
         boolean isPresent = dettaglioNotifica.isFieldDisplayed(By.xpath(xpath));
         if (!isPresent) {
-            Assertions.fail("L'elemento non esiste");
+            Assertions.fail("L'elemento Paga non esiste");
         }
     }
 
