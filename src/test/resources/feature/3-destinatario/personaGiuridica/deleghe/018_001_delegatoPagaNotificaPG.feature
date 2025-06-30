@@ -50,8 +50,6 @@ Feature:Il delegato persona giuridica accede ad una delega
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella sezione Deleghe si accetta la delega accettata per PG
-
-#    And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And  Click Notifiche
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "(Convivio Spa)"
     And Si controlla la pagina delle notifiche delegati di "Convivio Spa"
