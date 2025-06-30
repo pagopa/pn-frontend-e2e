@@ -35,7 +35,6 @@ Feature: Visualizzazione sezione Integrazione API
     Then Si visualizza correttamente la lista delle Api Key generate PG
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
-#      | ruota  | Ruota             |
       | blocca | Blocca            |
       | view   | Visualizza codice |
     And Nella pagina Api Key si clicca sulla voce visualizza del menu Api Key
@@ -59,7 +58,6 @@ Feature: Visualizzazione sezione Integrazione API
     # Esecuzione scenario per Operatore
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
-      | ruota  | Ruota             |
       | blocca | Blocca            |
       | view   | Visualizza codice |
     And Nella pagina Api Key si clicca sulla voce visualizza del menu Api Key
