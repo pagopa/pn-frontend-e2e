@@ -3,7 +3,7 @@ Feature:Controllo dati notifica con pagamento
   @TestSuite
   @NotificaConPagamentoPG
   @ControlloNotificaConPagamentoPG
-  @NRT_Blocco_3_GRUPPO_AWS
+  @NRT_Blocco_3
     @PersonaGiuridica
   Scenario:[NOTIFICA-ANNULLATA CON PAGAMENTO AFFETTUATO PG] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PG - Si effettua la login tramite token exchange come 'delegante', e viene visualizzata la dashboard

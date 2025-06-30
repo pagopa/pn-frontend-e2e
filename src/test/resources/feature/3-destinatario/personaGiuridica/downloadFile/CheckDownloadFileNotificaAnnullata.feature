@@ -2,7 +2,7 @@
 Feature: Il destinatario apre una notifica con pagamento annullata
   @checkDownloadFileNotificaAnnullata
   @TA_Download
-  @NRT_Blocco_3_GRUPPO_AWS
+  @NRT_Blocco_3
   @DownloadFile
   Scenario: [TA-FE DESTINATARIO APRE UNA NOTIFICA CON PAGAMENTO ANNULLATA] - Il destinatario apre una notifica con pagamento annullata, non vede la CTA Paga e non può scaricare i file per il pagamento
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

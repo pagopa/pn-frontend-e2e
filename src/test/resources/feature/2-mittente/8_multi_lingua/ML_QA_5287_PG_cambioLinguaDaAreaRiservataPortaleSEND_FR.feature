@@ -4,7 +4,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
   @TA_multiLinguaFrancese_QA5287
   @multiLingua
   @multiLinguaPg
-  @NRT_Blocco_3_GRUPPO_AWS
+  @NRT_Blocco_3
   Scenario: PN-QA5287-ML - PG - Cambio Lingua da Area Riservata a portale SEND - FR
 
     Given Login Page persona giuridica viene visualizzata

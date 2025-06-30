@@ -7,7 +7,7 @@ Feature: Il delegato visualizza la notifiche del delegante
   @PF
   @DeleghePFPG1
     @loginFE_8_x
-  @NRT_Blocco_3_GRUPPO_AWS
+  @NRT_Blocco_3
   Scenario: PN-9419 - Il delegato visualizza la notifiche del delegante
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Aspetta 10 secondi

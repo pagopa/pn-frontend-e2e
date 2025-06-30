@@ -6,7 +6,7 @@ Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
   @PF
   @DeleghePFPG1
   @deleghe1
-  @NRT_Blocco_3_GRUPPO_AWS
+  @NRT_Blocco_3
   Scenario: PN-9414 - Il delegato persona fisica rifiuta la delega che gli è stata inviata
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

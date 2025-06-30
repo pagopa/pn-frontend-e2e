@@ -6,7 +6,7 @@ Feature: Utente helpdesk dopo il login effettua il logout
 
   @TestSuite
   @test75
-  @NRT_Blocco_3_GRUPPO_AWS
+  @NRT_Blocco_3
   @helpDesk
   Scenario: PN-9603 - Visualizzazione corretta pagina login dopo logout
     Given Login helpdesk con utente test

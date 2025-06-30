@@ -4,7 +4,7 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
   @TA_multiLinguaInglese_QA5282
   @multiLingua
   @multiLinguaPf
-  @NRT_Blocco_3_GRUPPO_AWS
+  @NRT_Blocco_3
   Scenario: PN-QA5282-ML - PF - Verifica traduzione presente nel passaggio da pagina di Login a portale SEND - EN
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica scelta lingua

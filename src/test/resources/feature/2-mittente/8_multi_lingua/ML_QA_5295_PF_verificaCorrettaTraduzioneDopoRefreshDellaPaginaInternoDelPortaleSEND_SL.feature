@@ -4,7 +4,7 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
   @TA_multiLinguaSloveno_QA5295
   @multiLingua
   @multiLinguaPf
-   @NRT_Blocco_3_GRUPPO_AWS
+   @NRT_Blocco_3
   Scenario: PN-QA5295-ML - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - SL
 
     Given Login Page persona fisica test viene visualizzata

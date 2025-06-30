@@ -4,7 +4,7 @@ Feature: La persona fisica visualizza la sezione notifiche
   @TA_PGVisualizzaNotifiche
   @DeleghePG
   @deleghe2
-  @NRT_Blocco_3_GRUPPO_AWS
+  @NRT_Blocco_3
   @VisualizzaNotifiche
   Scenario: PN-9147 - La persona giuridica visualizza la sezione notifiche
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

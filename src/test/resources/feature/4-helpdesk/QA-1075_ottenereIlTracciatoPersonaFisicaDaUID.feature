@@ -6,7 +6,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
   @TestSuite
   @OttenereTracciatoNonAnonimizzataDiPersonaFisicaDaCodiceUnivoco
-  @NRT_Blocco_3_GRUPPO_AWS
+  @NRT_Blocco_3
   @helpDesk
   Scenario: [QA-1075] - Ottenere  il tracciato non anonimizzata di una persona fisica dato il suo codice univoco
     Given Login helpdesk con utente test
