@@ -11,7 +11,7 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
     And  Aspetta 10 secondi
     And Si verifica che i campi della ricerca delle date siano errate
     And Si verifica che il bottone Filtra sia disabilitato
-    And Logout da portale mittente
+#    And Logout da portale mittente
 
     Examples:
       | inizioArcoTemporale | fineArcoTemporale |

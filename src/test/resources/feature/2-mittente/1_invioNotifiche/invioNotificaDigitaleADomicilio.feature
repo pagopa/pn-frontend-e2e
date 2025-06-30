@@ -125,7 +125,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica che l'invio della notifica sia fallito 2 volte
     And Si verifica l'invio della raccomandata semplice
-    And Logout da portale mittente
+#    And Logout da portale mittente
     And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
   @invioNotificaDigitaleADomicilioImpostato
@@ -363,4 +363,4 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Si verifica l'invio della notifica al domicilio generale "27957814470@pec.it"
     Then Si verifica che la notifica abbia lo stato "Consegnata"
-    And Logout da portale mittente
+#    And Logout da portale mittente

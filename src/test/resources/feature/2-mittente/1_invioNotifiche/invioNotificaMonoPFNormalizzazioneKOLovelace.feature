@@ -36,7 +36,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Aspetta 600 secondi
     And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
-    And Logout da portale mittente
+#    And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
     And Login con persona fisicainput
       | user         | ada                    |
@@ -57,7 +57,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Si clicca la notifica ricercata
     And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
-    And Logout da portale mittente
+#    And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
     And Login con persona fisica input
       | user         | ada                    |
