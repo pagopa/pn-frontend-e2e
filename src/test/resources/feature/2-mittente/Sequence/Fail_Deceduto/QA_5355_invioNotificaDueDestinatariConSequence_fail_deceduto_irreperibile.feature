@@ -80,7 +80,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | CSRGGL44L13H501E |
       | PG | 27957814470      |
-    And Aspetta 10 secondi
+    #Ulteriore tempo di attesa per completamento flusso per destinatario irreperibile
+    And Aspetta 400 secondi
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'irreperibile')] |
       | vediDettagli | true                                 |
