@@ -30,6 +30,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | F24               | 1                  |
     Then Creo in background una notifica per destinatario tramite API REST
     And Refresh pagina
+    And Cliccare sul bottone Filtra Notifica "filter-notifications-button"
     And La persona giuridica clicca sulla prima notifica restituita
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
@@ -56,4 +57,4 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Si controlla la pagina delle notifiche delegati di "Convivio Spa"
     And Refresh pagina
     And Si seleziona la notifica
-    And Si verifica che visualizzato lo stato Pagato
+    And Si controlla che il testo sia nel box pagamento "//button[@data-testid='pay-button']"

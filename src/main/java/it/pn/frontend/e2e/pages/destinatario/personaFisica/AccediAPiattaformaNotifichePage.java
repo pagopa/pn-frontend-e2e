@@ -293,8 +293,14 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     public void cliccaPaga() {
         logger.info("Si clicca su bottone paga");
         webTool.waitTime(15);
-        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
-        pagaAvviso.click();
+//        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
+//        pagaAvviso.click();
+        WebElement cliccaPaga = getWebDriverWait(15)
+                .withMessage("Il bottone 'Paga' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='pay-button']")));
+
+        // Clicca sul pulsante 'Paga'
+        cliccaPaga.click();
     }
 
     public void inserireDatiPagamento(String email) {
@@ -509,9 +515,13 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void siVisualizzaStatoPagato() {
+//        getWebDriverWait(240)
+//                .withMessage("Lo stato di pagamento non è visibile")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"))));
         getWebDriverWait(240)
-                .withMessage("Lo stato di pagamento non è visibile")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"))));
+                .withMessage("Lo stato di pagamento 'Pagato' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='status-chip-Pagato']")));
+
         logger.info("Lo stato di pagamento è Pagato");
     }
 }
