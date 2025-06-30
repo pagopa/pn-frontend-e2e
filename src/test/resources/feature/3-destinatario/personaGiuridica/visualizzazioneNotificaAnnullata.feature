@@ -31,7 +31,7 @@ Feature: PG visualizza notifica annullata da mittente
     And Si attende la visualizzazione corretta del dettaglio della notifica
     And Si annulla la notifica
     And Si visualizza correttamente la section Dettaglio Notifica annullata
-    And Logout da portale mittente
+#    And Logout da portale mittente
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
     And Si seleziona la notifica destinatario
