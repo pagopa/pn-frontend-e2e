@@ -717,7 +717,8 @@ public class PiattaformaNotifichePage extends BasePage {
                         .until(
                         ExpectedConditions.visibilityOf(row.findElement(By.cssSelector("div[id^='status-chip-']")))
                 );
-                if (statusChip.getText().trim().equals(stato)) {
+
+                if (statusChip.getText().trim().toLowerCase().contains(stato.toLowerCase())) {
 
                     WebElement vediDettaglioButton = getWebDriverWait(10)
                             .withMessage("Impossibile dettagli con lo stato: "+stato)
