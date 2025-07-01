@@ -12,6 +12,7 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
+import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -20,13 +21,22 @@ import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -70,6 +80,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     @Autowired
     private WebDriverManager webDriverManager;
 
+    @Autowired
+    private HooksNew hooksNew;
 
     @PostConstruct
     public void init(){
@@ -746,7 +758,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     }
 
     @When("Login con persona fisica scelta lingua")
-    public void loginConPersonaFisicaSceltaLingua(Map<String, String> datiPF) {
+    public void loginConPersonaFisicaSceltaLingua(Map<String, String> datiPF) throws IOException {
 
         logger.info("user persona fisica {}",  webDriverConfig.getUserCesare());
         logger.info("cookies start");
@@ -768,6 +780,14 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
+
+        //screenshot per debug
+        var screenshot = ((TakesScreenshot) webDriverManager.getDriverThreadLocal().get()).getScreenshotAs(OutputType.FILE);
+        var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+        var timestamp = formatter.format(new Date());
+        var fileName = "logs/" + hooksNew.getScenario() + "_" + timestamp + ".png";
+        FileUtils.copyFile(screenshot, new File(fileName));
+        logger.info("screenshot salvato in {}", fileName);
 
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
