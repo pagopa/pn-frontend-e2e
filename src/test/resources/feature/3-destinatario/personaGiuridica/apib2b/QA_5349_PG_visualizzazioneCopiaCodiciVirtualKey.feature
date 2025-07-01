@@ -57,6 +57,7 @@ Feature: Visualizzazione sezione Integrazione API
     And Da Visualizza codice si copia correttamente il campo Chiave Personale cliccando sul bottone di copia
     And Nel pop up visualizza cliccare sul tasto chiudi
     And Logout da portale persona giuridica delegante
+    And Attesa 5 secondi
     # Creazione chiave virtuale per operatore
     And Login con persona giuridica
       | user           | GiuseppeUngaretti |
