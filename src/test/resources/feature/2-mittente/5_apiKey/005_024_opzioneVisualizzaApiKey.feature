@@ -3,7 +3,7 @@ Feature: Mittente seleziona l'opzione visualizza api Key
   @TestSuite
   @TA_MittenteOpzioneVisualizzaApiKey
   @ApikeyMittente
-  @integrazioneApi
+  @integrazioneApiPa
   @NRT_Blocco_2
 
   Scenario: PN-9232 - Mittente seleziona l'opzione visualizza api Key
