@@ -792,6 +792,14 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
 
+        //screenshot per debug
+        var screenshot2 = ((TakesScreenshot) webDriverManager.getDriverThreadLocal().get()).getScreenshotAs(OutputType.FILE);
+        var formatter2 = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
+        var timestamp2 = formatter2.format(new Date());
+        var fileName2 = "logs/" + "DEBUG_2_" + hooksNew.getScenario() + "_" + timestamp2 + ".png";
+        FileUtils.copyFile(screenshot2, new File(fileName2));
+        logger.info("screenshot salvato in {}", fileName2);
+
         loginSpidPFPage.waitLoadLoginSpidDEPage();
         loginSpidPFPage.inserisciUtente(webDriverConfig.getUserCesare());
         loginSpidPFPage.inserisciPassword(webDriverConfig.getPwdCesare());
