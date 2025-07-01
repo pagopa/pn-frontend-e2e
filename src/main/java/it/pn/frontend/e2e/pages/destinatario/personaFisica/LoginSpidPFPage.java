@@ -48,7 +48,7 @@ public class LoginSpidPFPage extends BasePage {
 
             logger.info("Login Spid DE Page caricata");
         }catch (TimeoutException e){
-            Assertions.fail("Login Spid DE Page non caricata con errore : "+e.getMessage());
+            Assertions.fail("Login Spid waitLoadLoginSpidDEPage con errore : "+e.getMessage());
         }
     }
 
