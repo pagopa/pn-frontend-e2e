@@ -785,7 +785,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         var screenshot = ((TakesScreenshot) webDriverManager.getDriverThreadLocal().get()).getScreenshotAs(OutputType.FILE);
         var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
         var timestamp = formatter.format(new Date());
-        var fileName = "logs/" + hooksNew.getScenario() + "_" + timestamp + ".png";
+        var fileName = "logs/" + "DEBUG_" + hooksNew.getScenario() + "_" + timestamp + ".png";
         FileUtils.copyFile(screenshot, new File(fileName));
         logger.info("screenshot salvato in {}", fileName);
 
