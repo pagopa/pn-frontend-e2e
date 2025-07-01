@@ -1506,9 +1506,8 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void pollingSuStatoNotificaPerCompletamento(String statoNotifica) {
         boolean testSuccess = false;
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 20; i++) {
             try {
-//                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
                 WebElement chipStatus = getWebDriverWait(10)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id(statoNotifica + "-status")));
                 if (chipStatus.isDisplayed()) {
@@ -1517,7 +1516,6 @@ public class PiattaformaNotifichePage extends BasePage {
                     testSuccess = true;
                     break;
                 }
-//            } catch (NoSuchElementException e) {
             } catch (TimeoutException | NoSuchElementException  e) {
                 logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
             }
