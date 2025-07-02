@@ -7,7 +7,7 @@ Feature: Creazione chiave pubblica
   @PG
   @TestSuite
   @NRT_Blocco_2
-  Scenario: PN-QA-5305 [REFERENTE OPERATIVO PG] - Utente Operatore non abilitato prova a censire una public key
+  Scenario: PN-QA-5317 [REFERENTE OPERATIVO PG] - Utente Operatore non abilitato prova a censire una public key
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata
     And Login con persona giuridica
@@ -26,4 +26,4 @@ Feature: Creazione chiave pubblica
     And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Nella pagina Integrazione API si controlla che non sia presente il bottone Genera chiave pubblica
-    Then Nella pagina Integrazione API si visualizza il messaggio di alert "Le chiavi personali non sono utilizzabili"
+    Then Nella sezione Integrazione API non si visualizza alcuna chiave "Per poter creare una chiave personale, un amministratore deve prima abilitare l’integrazione."

@@ -18,6 +18,23 @@ Feature: Visualizzazione sezione Integrazione API
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
+
+    And Logout da portale persona giuridica delegante
+    And Login con persona giuridica
+      | user           | GiuseppeUngaretti |
+      | pwd            | test           |
+      | ragioneSociale | DivinaCommedia Srl   |
+    And Si clicca su prodotto
+    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
+    And Pulisci ambiente virtual keys
+    And Logout da portale persona giuridica
+
+    And Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | DivinaCommedia Srl  |
+    And Si clicca su prodotto
+    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     # Creazione chiave 1 per scenario
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
