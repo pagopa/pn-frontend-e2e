@@ -74,7 +74,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
 #    And Aspetta 10 secondi
-    And Attesa 10 secondi
+    And Attesa 15 secondi
     And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Invio in corso"
