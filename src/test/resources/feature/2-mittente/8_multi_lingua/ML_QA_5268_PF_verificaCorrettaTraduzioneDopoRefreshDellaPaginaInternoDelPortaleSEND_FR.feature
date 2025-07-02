@@ -8,13 +8,15 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
   Scenario: PN-QA5268-ML - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - FR
 
     Given Login Page persona fisica test viene visualizzata
-    When Login con persona fisica scelta lingua
+    And Si clicca bottone accetta cookies
+    And Cambia lingua footer "Francese"
+    When Login con persona fisica
       | user         | cesare                 |
       | pwd          | password123            |
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-      | lingua       | Francese |
+      #| lingua       | Francese |
     Then Refresh pagina
 #    And Aspetta 2 secondi
     And Attesa 2 secondi

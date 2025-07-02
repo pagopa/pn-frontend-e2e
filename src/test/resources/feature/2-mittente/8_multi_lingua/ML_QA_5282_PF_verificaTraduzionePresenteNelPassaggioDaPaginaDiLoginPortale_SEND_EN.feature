@@ -7,13 +7,16 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
   @NRT_Blocco_3
   Scenario: PN-QA5282-ML - PF - Verifica traduzione presente nel passaggio da pagina di Login a portale SEND - EN
     Given Login Page persona fisica test viene visualizzata
-    When Login con persona fisica scelta lingua
+    #When Login con persona fisica scelta lingua
+    And Si clicca bottone accetta cookies
+    And Cambia lingua footer "Inglese"
+    When Login con persona fisica
       | user         | cesare                 |
       | pwd          | password123            |
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-      | lingua       | Inglese |
+      #| lingua       | Inglese |
 #   Verificole traduzioni del portale
     And Verifica traduzione testo "Notifications"
     And Verifica traduzione testo "Your addresses"
