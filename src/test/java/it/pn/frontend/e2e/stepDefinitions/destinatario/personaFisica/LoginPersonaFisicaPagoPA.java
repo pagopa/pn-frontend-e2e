@@ -782,7 +782,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
-        webTool.waitTime(20);
+        webTool.waitTime(40);
         scegliSpidPFPage.selezionareTestButton();
 
         loginSpidPFPage.waitLoadLoginSpidDEPage();
