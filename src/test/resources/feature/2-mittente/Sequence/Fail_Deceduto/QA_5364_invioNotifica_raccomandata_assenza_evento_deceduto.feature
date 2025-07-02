@@ -37,7 +37,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
-    And Aspetta 400 secondi
+#    And Aspetta 400 secondi
+    And Attesa 400 secondi
+    And Refresh pagina
     And Si visualizza testo nella timeline "invio via raccomandata semplice"
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"La raccomandata") and contains(text(),"stampata ed imbustata")] |

@@ -39,7 +39,9 @@ Feature: invio notifica con sequence
     And Si annulla la notifica
     And Si verifica che la notifica abbia lo stato "Annullata"
     And Il bottone annulla notifica non è visualizzabile nella descrizione della notifica
-    And Aspetta 400 secondi
+#    And Aspetta 400 secondi
+    And Attesa 400 secondi
+    And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //span[contains(text(),"L'ente ha annullato l'invio della notifica")] |
       | vediDettagli | true                                                                  |

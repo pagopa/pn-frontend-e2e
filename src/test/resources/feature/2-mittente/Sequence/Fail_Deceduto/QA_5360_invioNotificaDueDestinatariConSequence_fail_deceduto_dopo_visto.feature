@@ -73,10 +73,14 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-    And Aspetta 10 secondi
+#    And Aspetta 10 secondi
+    And Attesa 15 secondi
+    And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Invio in corso"
-    And Aspetta 400 secondi
+#    And Aspetta 400 secondi
+    And Attesa 400 secondi
+    And Refresh pagina
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | CSRGGL44L13H501E |
       | PG | 27957814470      |
