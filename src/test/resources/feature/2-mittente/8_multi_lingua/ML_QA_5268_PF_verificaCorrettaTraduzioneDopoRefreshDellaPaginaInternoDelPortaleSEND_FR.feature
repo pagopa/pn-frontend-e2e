@@ -21,3 +21,4 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
     And Verifica traduzione testo "Vos notifications"
     And Verifica traduzione testo "Vos adresses"
     And Verifica traduzione testo "Procurations"
+    And Chiudi pagina

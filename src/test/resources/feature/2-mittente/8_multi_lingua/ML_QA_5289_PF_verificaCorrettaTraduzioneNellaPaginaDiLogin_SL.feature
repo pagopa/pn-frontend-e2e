@@ -13,3 +13,4 @@ Feature: PF - Verifica corretta traduzione nella pagina di Login - SL
     And Verifica traduzione testo "Izberite želeni način"
     And Verifica traduzione testo "Vstopite s SPID"
     And Verifica traduzione testo "Vstopite s CIE"
+    And Chiudi pagina

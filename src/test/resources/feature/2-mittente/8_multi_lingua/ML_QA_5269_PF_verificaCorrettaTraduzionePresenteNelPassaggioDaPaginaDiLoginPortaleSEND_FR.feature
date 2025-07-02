@@ -47,3 +47,4 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
 #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
     Then Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "historique des dysfonctionnements et télécharge les attestations correspondantes opposables à des tiers"
+    And Chiudi pagina

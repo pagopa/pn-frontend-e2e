@@ -23,3 +23,4 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
     And Verifica traduzione testo "Vaši kontaktni podatki"
     And Verifica traduzione testo "Pooblastila"
     And Verifica traduzione testo "Stanje platforme"
+    And Chiudi pagina

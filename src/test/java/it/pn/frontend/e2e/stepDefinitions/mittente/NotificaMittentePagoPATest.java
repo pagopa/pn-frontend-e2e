@@ -2129,6 +2129,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         driver.navigate().refresh();
     }
 
+    @And("Chiudi pagina")
+    public void chiudiPagina() {
+        driver.close();
+    }
+
     @And("verifica campi vuoti")
     public void verificaCampiVuoti() {
         piattaformaNotifichePage.verificaCampiVuoti();

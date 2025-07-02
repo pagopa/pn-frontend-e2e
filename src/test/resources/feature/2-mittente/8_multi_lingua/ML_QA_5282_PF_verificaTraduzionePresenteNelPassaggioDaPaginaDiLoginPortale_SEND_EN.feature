@@ -43,3 +43,4 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
   #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
     Then Seleziona voce menu laterale "Platform status"
     And Verifica traduzione testo "Check the operation of SEND, view the history of disruptions and download the related certificates enforceable against third parties"
+    And Chiudi pagina

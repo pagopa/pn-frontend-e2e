@@ -22,3 +22,4 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
     And Verifica traduzione testo "Zustellungen"
     And Verifica traduzione testo "Deine Adressen"
     And Verifica traduzione testo "Plattformstatus"
+    And Chiudi pagina
