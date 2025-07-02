@@ -96,10 +96,14 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-    And Aspetta 10 secondi
+#    And Aspetta 10 secondi
+    And Attesa 10 secondi
+    And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Invio in corso"
-    And Aspetta 400 secondi
+#    And Aspetta 400 secondi
+    And Attesa 400 secondi
+    And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'(CSRGGL44L13H501E)')] |
       | vediDettagli | true                                       |
@@ -115,7 +119,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | vediDettagli | true                                                                          |
     And Aspetta 10 secondi
     And In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline ""
-    And Aspetta 60 secondi
+#    And Aspetta 60 secondi
+    And Attesa 60 secondi
+    And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'risultato irreperibile assoluto')] |
       | vediDettagli | true                                                    |

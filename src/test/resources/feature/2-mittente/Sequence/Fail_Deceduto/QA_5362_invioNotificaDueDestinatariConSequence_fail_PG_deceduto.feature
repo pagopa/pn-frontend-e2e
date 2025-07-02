@@ -73,11 +73,15 @@ Feature: Mittente invia una notifica a due destinatari, PG deceduti
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-    And Aspetta 10 secondi
+#    And Aspetta 10 secondi
+    And Attesa 10 secondi
+    And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Invio in corso"
     And In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline ""
-    And Aspetta 400 secondi
+#    And Aspetta 400 secondi
+    And Attesa 400 secondi
+    And Refresh pagina
     Then Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'(CSRGGL44L13H501E)')] |
       | vediDettagli | true                                       |
