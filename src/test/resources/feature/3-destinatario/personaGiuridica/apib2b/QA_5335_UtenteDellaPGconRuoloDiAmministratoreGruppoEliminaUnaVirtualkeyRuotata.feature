@@ -1,11 +1,12 @@
 Feature: PG -Eliminazione di una virtual key ruotata per un utente della PG con ruolo di amministratore di gruppo
 
-  @TestSuite
-  @TA_PG_AmministratoreDiGruppoEliminaVirtualKeyRuotata_QA_5335
-  @integrazioneApi
-  @integrazioneApiPg3
-  #@bilinguismo
-  @NRT_Blocco_2
+#  @TestSuite
+#  @TA_PG_AmministratoreDiGruppoEliminaVirtualKeyRuotata_QA_5335
+#  @integrazioneApi
+#  @integrazioneApiPg3
+#  #@bilinguismo
+#  @NRT_Blocco_2
+  #  Inglobato in 5331
   Scenario:PN-QA-5335  PG - Eliminazione di una virtual key ruotata per un utente della PG con ruolo di amministratore di gruppo
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

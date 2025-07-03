@@ -1,11 +1,12 @@
 Feature: PG - Utente della PG con ruolo di amministratore di gruppo censisce una virtual key
 
-  @TestSuite
-  @TA_PG_AmministratoreDiGruppoCensisceVirtualKey_QA_5329
-  @integrazioneApi
-  @integrazioneApiPg3
-  #@bilinguismo
-  @NRT_Blocco_2
+#  @TestSuite
+#  @TA_PG_AmministratoreDiGruppoCensisceVirtualKey_QA_5329
+#  @integrazioneApi
+#  @integrazioneApiPg3
+#  #@bilinguismo
+#  @NRT_Blocco_2
+  #  Inglobato in 5331
   Scenario:PN-QA-5329  PG - Utente della PG con ruolo di amministratore di gruppo censisce una virtual key
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
