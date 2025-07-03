@@ -3,7 +3,7 @@ Feature: PG - Utente Amministratore Persona Giuridica censisce una virtual key
   @TestSuite
   @TA_PG_PersonaGiuridicaCensisceUnaVirtualkey_QA_5318
   @integrazioneApi
-  @apiKey
+  @integrazioneApiDelegato
   #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5318  PG - Utente Amministratore Persona Giuridica censisce una virtual key

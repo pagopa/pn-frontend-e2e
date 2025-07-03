@@ -3,7 +3,7 @@ Feature: PG - Blocco di una public key per un utente Amministratore Persona Giur
   @TestSuite
   @TA_PG_BloccoPublicKeyBloccata_QA_5314
   @integrazioneApi
-  @apiKey
+  @integrazioneApiDelegato
   #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5314  PG - Blocco di una public key per un utente Amministratore Persona Giuridica con già una public key bloccata

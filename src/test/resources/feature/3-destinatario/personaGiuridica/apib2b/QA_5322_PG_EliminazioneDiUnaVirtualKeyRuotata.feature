@@ -3,7 +3,7 @@ Feature: PG - Eliminazione di una virtual key ruotata per un utente Amministrato
   @TestSuite
   @TA_PG_EliminazioneDiUnaVirtualKeyRuotata_QA_5322
   @integrazioneApi
-  @apiKey
+  @integrazioneApiDelegato
   #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5322  PG - Eliminazione di una virtual key ruotata per un utente Amministratore Persona Giuridica

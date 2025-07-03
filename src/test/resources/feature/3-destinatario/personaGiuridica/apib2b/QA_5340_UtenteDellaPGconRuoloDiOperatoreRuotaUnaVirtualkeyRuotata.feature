@@ -3,7 +3,7 @@ Feature: PG - Utente della PG con ruolo di operatore prova a ruotare una virtual
   @TestSuite
   @TA_PG_OperatoreRuotaVirtualKeyGiaRuotata_QA_5340
   @integrazioneApi
-  @apiKey
+  @integrazioneApiPg2
   #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5340  PG - Utente della PG con ruolo di operatore prova a ruotare una virtual key con una virtual key già ruotata

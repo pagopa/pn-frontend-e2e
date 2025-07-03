@@ -3,7 +3,7 @@ Feature: PG -Utente della PG con ruolo di operatore blocca una virtual key
   @TestSuite
   @TA_PG_OperatoreBloccaVirtualKey_QA_5332
   @integrazioneApi
-  @apiKey
+  @integrazioneApiPg2
   #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5332  PG - Utente della PG con ruolo di operatore blocca una virtual key

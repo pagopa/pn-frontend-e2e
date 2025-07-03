@@ -1,12 +1,15 @@
 Feature: Visualizzazione sezione Integrazione API
 
-  @TA_PG_VisualizzazioneIntegrazioneAPIVirtualKeyCensita_QA_5319
-  @integrazioneApi
-  @apiKey
-  #@bilinguismo
-  @PG
-  @TestSuite
-  @NRT_Blocco_2
+#  @TA_PG_VisualizzazioneIntegrazioneAPIVirtualKeyCensita_QA_5319
+#  @integrazioneApi
+#  @apiKey
+#  #@bilinguismo
+#  @PG
+#  @TestSuite
+#  @NRT_Blocco_2
+
+  #  Inclobato nella 5317
+
   Scenario: PN-QA-5319 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG visualizza sezione Integrazione API con Virtual Key censita
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata

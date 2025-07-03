@@ -3,7 +3,7 @@ Feature: PG -Utente della PG con ruolo di amministratore di gruppo prova a blocc
   @TestSuite
   @TA_PG_AmministratoreDiGruppoProvaBloccaVirtualKeyBloccata_QA_5339
   @integrazioneApi
-  @apiKey
+  @integrazioneApiPg3
   #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5339  PG - Utente della PG con ruolo di amministratore di gruppo prova a bloccare una virtual key con una virtual key già bloccata

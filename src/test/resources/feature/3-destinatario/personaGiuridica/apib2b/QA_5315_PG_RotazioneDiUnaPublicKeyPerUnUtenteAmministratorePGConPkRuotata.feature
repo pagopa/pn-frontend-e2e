@@ -3,7 +3,7 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
   @TestSuite
   @TA_PG_RuotaPublicKeyRuotata_QA_5315
   @integrazioneApi
-  @apiKey
+  @integrazioneApiDelegato
   #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5315  PG - Rotazione di una public key per un utente Amministratore Persona Giuridica con già una public key ruotata
