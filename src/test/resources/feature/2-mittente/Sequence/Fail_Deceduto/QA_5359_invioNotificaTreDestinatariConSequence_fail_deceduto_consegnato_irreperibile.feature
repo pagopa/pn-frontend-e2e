@@ -7,14 +7,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   Scenario: [DECEDUTO_890_QA-5359] - Il mittente invia una notifica a tre destinatari, solo uno raggiungibile al primo tentativo
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
-    Given Login Page persona fisica test viene visualizzata
-    And Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
-    And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
     And Logout da portale persona fisica
     And Login con persona fisica input
