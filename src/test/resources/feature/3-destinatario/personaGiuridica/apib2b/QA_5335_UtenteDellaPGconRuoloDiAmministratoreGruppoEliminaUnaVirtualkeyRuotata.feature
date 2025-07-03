@@ -3,7 +3,6 @@ Feature: PG -Eliminazione di una virtual key ruotata per un utente della PG con 
 #  @TestSuite
 #  @TA_PG_AmministratoreDiGruppoEliminaVirtualKeyRuotata_QA_5335
 #  @integrazioneApi
-#  @integrazioneApiPg3
 #  #@bilinguismo
 #  @NRT_Blocco_2
   #  Inglobato in 5331

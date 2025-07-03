@@ -3,7 +3,6 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo prova a ruot
 #  @TestSuite
 #  @TA_PG_OperatoreRuotaVirtualKeyGiaRuotata_QA_5341
 #  @integrazioneApi
-#  @integrazioneApiPg3
 #  #@bilinguismo
 #  @NRT_Blocco_2
     #  Inglobato in 5331

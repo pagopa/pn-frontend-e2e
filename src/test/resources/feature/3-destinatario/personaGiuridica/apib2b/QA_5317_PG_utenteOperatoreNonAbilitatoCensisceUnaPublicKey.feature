@@ -2,7 +2,7 @@ Feature: Creazione chiave pubblica
 
   @TA_PG_OperatoreNonAbilitatoCreazioneChiavePubblica_QA_5317_5319
   @integrazioneApi
-  @IntegrazioneApiPg1
+  @integrazioneApiPg1
   @apiKey
   #@bilinguismo
   @PG

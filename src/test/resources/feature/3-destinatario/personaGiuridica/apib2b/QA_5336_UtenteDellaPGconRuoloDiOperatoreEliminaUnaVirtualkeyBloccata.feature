@@ -3,7 +3,6 @@ Feature: PG -Eliminazione di una virtual key bloccata per un utente della PG con
 #  @TestSuite
 #  @TA_PG_OperatoreEliminaVirtualKeyBloccata_QA_5336
 #  @integrazioneApi
-#  @integrazioneApiPg2
 #  #@bilinguismo
 #  @NRT_Blocco_2
   #  Inglobato in 5327
