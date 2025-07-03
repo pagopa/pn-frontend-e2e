@@ -1,11 +1,12 @@
 Feature: PG -Utente della PG con ruolo di operatore blocca una virtual key
 
-  @TestSuite
-  @TA_PG_OperatoreBloccaVirtualKey_QA_5332
-  @integrazioneApi
-  @integrazioneApiPg2
-  #@bilinguismo
-  @NRT_Blocco_2
+#  @TestSuite
+#  @TA_PG_OperatoreBloccaVirtualKey_QA_5332
+#  @integrazioneApi
+#  @integrazioneApiPg2
+#  #@bilinguismo
+#  @NRT_Blocco_2
+  #  Inglobato in 5327
   Scenario:PN-QA-5332  PG - Utente della PG con ruolo di operatore blocca una virtual key
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

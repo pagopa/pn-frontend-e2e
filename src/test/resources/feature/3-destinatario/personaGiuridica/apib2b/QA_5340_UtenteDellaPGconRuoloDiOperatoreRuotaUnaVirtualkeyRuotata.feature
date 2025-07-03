@@ -1,11 +1,12 @@
 Feature: PG - Utente della PG con ruolo di operatore prova a ruotare una virtual key con una virtual key già ruotata
 
-  @TestSuite
-  @TA_PG_OperatoreRuotaVirtualKeyGiaRuotata_QA_5340
-  @integrazioneApi
-  @integrazioneApiPg2
-  #@bilinguismo
-  @NRT_Blocco_2
+#  @TestSuite
+#  @TA_PG_OperatoreRuotaVirtualKeyGiaRuotata_QA_5340
+#  @integrazioneApi
+#  @integrazioneApiPg2
+#  #@bilinguismo
+#  @NRT_Blocco_2
+  #  Inglobato in 5327
   Scenario:PN-QA-5340  PG - Utente della PG con ruolo di operatore prova a ruotare una virtual key con una virtual key già ruotata
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
