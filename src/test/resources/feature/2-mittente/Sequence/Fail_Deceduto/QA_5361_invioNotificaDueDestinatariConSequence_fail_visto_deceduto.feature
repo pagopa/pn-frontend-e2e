@@ -7,8 +7,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   Scenario: [DECEDUTO_890_QA-5361] - Il mittente invia una notifica a due destinatari, entrambi deceduti
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
-    Given Login Page persona fisica test viene visualizzata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Attesa 10 secondi
     And Rimuovi tutti i recapiti se esistono
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
