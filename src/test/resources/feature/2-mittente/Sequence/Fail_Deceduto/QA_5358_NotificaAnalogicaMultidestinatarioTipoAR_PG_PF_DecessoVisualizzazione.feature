@@ -8,7 +8,7 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
   Scenario: [DECEDUTO_AR_QA-5358] Notifica analogica multidestinatario tipo AR per PG e PF dove solo per uno di quest'ultimi è stato notificato il decesso mentre per l'altro è avvenuta la visualizzazione: VIEWED come macro stato della notifica
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Attesa 10 secondi
+    And Attesa 20 secondi
     And Rimuovi tutti i recapiti se esistono
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

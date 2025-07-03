@@ -162,7 +162,7 @@ public class RestContact {
             logger.info("Indirizzi digitali ricevuti con successo");
             return response;
         } catch (IOException e) {
-            logger.error("Error during getAllDigitalAddress", e);
+            logger.error("Error during getAllDigitalAddress {}", e.getMessage());
             throw new RestContactException("Non è stato possibile ricevere gli indirizzi digitali", e);
         }
     }
