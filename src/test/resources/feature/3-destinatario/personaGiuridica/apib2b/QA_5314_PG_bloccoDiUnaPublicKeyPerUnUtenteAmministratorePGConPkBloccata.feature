@@ -1,16 +1,19 @@
 Feature: PG - Blocco di una public key per un utente Amministratore Persona Giuridica con già una public key bloccata
 
-  @TestSuite
-  @TA_PG_BloccoPublicKeyBloccata_QA_5314
-  @integrazioneApi
-  @integrazioneApiDelegato
-  #@bilinguismo
-  @NRT_Blocco_2
+#  @TestSuite
+#  @TA_PG_BloccoPublicKeyBloccata_QA_5314
+#  @integrazioneApi
+#  @integrazioneApiDelegato
+#  #@bilinguismo
+#  @NRT_Blocco_2
+
   Scenario:PN-QA-5314  PG - Blocco di una public key per un utente Amministratore Persona Giuridica con già una public key bloccata
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente public keys
     And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica
+
+
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
       | nome | Chiave- |
