@@ -2,8 +2,6 @@ Feature: PG - Eliminazione di una public key bloccata per un utente Amministrato
 
 #  @TestSuite
 #  @TA_PG_EliminazionePublicKeyBloccata_QA_5313
-#  @integrazioneApi
-#  @integrazioneApiDelegato
 #  #@bilinguismo
 #  @NRT_Blocco_2
 

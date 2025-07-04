@@ -2,7 +2,6 @@ Feature: PG -Utente della PG con ruolo di amministratore di gruppo prova a blocc
 
 #  @TestSuite
 #  @TA_PG_AmministratoreDiGruppoProvaBloccaVirtualKeyBloccata_QA_5339
-#  @integrazioneApi
 #  #@bilinguismo
 #  @NRT_Blocco_2
   #  Inglobato in 5331

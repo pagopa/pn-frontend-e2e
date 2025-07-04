@@ -2,7 +2,6 @@ Feature: PG -Utente della PG con ruolo di operatore prova a bloccare una virtual
 
 #  @TestSuite
 #  @TA_PG_OperatoreProvaBloccaVirtualKeyBloccata_QA_5338
-#  @integrazioneApi
 #  #@bilinguismo
 #  @NRT_Blocco_2
    #  Inglobato in 5327

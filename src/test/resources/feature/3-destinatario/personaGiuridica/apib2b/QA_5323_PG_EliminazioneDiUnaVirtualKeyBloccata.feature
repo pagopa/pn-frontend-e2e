@@ -1,8 +1,6 @@
 Feature: PG - Eliminazione di una virtual key bloccata per un utente Amministratore Persona Giuridica
 #@TestSuite
 #@TA_PG_EliminazioneDiUnaVirtualKeyRuotata_QA_5323
-#@integrazioneApi
-#@integrazioneApiDelegato
 ##@bilinguismo
 #@NRT_Blocco_2
    #  Inglobato in 5315

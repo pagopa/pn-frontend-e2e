@@ -2,8 +2,6 @@ Feature: PG - Rotazione di una virtual key attiva per un utente Amministratore P
 
 #  @TestSuite
 #  @TA_PG_RotazioneDiUnaVirtualKeyAttiva_QA_5320
-#  @integrazioneApi
-#  @integrazioneApiDelegato
 #  #@bilinguismo
 #  @NRT_Blocco_2
   #  Inglobato in 5318

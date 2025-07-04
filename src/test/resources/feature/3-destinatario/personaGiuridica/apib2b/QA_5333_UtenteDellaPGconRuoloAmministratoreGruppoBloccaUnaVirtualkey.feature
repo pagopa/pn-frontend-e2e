@@ -2,7 +2,6 @@ Feature: PG -Utente della PG con ruolo di amministratore di gruppo blocca una vi
 
 #  @TestSuite
 #  @TA_PG_AmministratoreDiGruppoBloccaVirtualKey_QA_5333
-#  @integrazioneApi
 #  #@bilinguismo
 #  @NRT_Blocco_2
    #  Inglobato in 5331

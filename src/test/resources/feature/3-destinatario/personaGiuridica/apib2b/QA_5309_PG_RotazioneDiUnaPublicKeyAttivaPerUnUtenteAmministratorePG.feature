@@ -2,8 +2,6 @@ Feature: PG - Rotazione di una public key attiva per un utente Amministratore Pe
 
 #  @TestSuite
 #  @TA_PG_RotazionePublicKey_QA_5309
-#  @integrazioneApi
-#  @integrazioneApiDelegato
 #  #@bilinguismo
 #  @NRT_Blocco_2
 #  Inglobato in 5307

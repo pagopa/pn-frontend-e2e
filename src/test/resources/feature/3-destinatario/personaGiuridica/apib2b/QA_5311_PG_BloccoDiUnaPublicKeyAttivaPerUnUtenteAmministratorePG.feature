@@ -2,8 +2,6 @@ Feature: PG -Blocco di una public key attiva per un utente Amministratore Person
 
 #  @TestSuite
 #  @TA_PG_BloccoPublicKey_QA_5311
-#  @integrazioneApi
-#  @integrazioneApiDelegato
 #  #@bilinguismo
 #  @NRT_Blocco_2
   #  Inglobato in 5307

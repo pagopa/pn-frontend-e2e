@@ -1,7 +1,6 @@
 Feature: Visualizzazione sezione Integrazione API
 
 #  @TA_PG_VerificaAzioniUtenteOperatoreVirtualKeyConPublicKeyRuotataEBloccata_QA_5347
-#  @integrazioneApi
 #  @apiKey
 #  #@bilinguismo
 #  @PG

@@ -2,8 +2,6 @@ Feature: PG - Utente Amministratore Persona Giuridica con virtual key attiva, bl
 
 #  @TestSuite
 #  @TA_PG_VirtualKeyAttivaVirtualKeyBloccataNewVirtualKeyRotazioneVirtualKey_QA_5326
-#  @integrazioneApi
-#  @integrazioneApiDelegato
 #  #@bilinguismo
 #  @NRT_Blocco_2
    #  Inglobato in 5315

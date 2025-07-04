@@ -2,7 +2,6 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo censisce una
 
 #  @TestSuite
 #  @TA_PG_AmministratoreDiGruppoCensisceVirtualKey_QA_5329
-#  @integrazioneApi
 #  #@bilinguismo
 #  @NRT_Blocco_2
   #  Inglobato in 5331

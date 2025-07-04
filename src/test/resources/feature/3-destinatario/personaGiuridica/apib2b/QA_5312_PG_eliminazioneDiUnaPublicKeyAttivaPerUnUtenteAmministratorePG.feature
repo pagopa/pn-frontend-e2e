@@ -2,8 +2,6 @@ Feature: PG - Eliminazione di una public key ruotata per un utente Amministrator
 
 #  @TestSuite
 #  @TA_PG_EliminazionePublicKey_QA_5312
-#  @integrazioneApi
-#  @integrazioneApiDelegato
 #  #@bilinguismo
 #  @NRT_Blocco_2
   #  Inglobato in 5307

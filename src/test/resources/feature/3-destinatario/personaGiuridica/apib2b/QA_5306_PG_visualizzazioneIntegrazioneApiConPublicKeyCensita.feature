@@ -1,7 +1,6 @@
 Feature: Visualizzazione sezione Integrazione API
 
 #  @TA_PG_VisualizzazioneIntegrazioneAPIPublicKeyCensita_QA_5306
-#  @integrazioneApi
 #  @apiKey
 #  #@bilinguismo
 #  @PG

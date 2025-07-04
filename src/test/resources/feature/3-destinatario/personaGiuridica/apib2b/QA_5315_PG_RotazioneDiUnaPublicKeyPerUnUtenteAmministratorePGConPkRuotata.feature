@@ -13,10 +13,12 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
                                       Eliminazione di una virtual key ruotata per un utente Amministratore Persona Giuridica,
                                       Eliminazione di una virtual key bloccata per un utente Amministratore Persona Giuridica,
                                       Rotazione di una virtual key per un utente Amministratore Persona Giuridica con già una virtual key ruotata.
-  con virtual key attiva, blocca la virtual key e registra una nuova virtual key che verrà a sua volta ruotata e ne verrà registrata una nuova.
+                                      Virtual key attiva, blocca la virtual key e registra una nuova virtual key che verrà a sua volta ruotata e ne verrà registrata una nuova.
 
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
+    And Refresh pagina
+    And Attesa 1 secondi
     And Pulisci ambiente public keys
     And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
@@ -96,6 +98,8 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
     And Nella pagina Api Key si clicca sulla voce Elimina del menu Api Key
     And Nella pop up cliccare sul tasto conferma
 
+    And Refresh pagina
+
 #  5323
     And Pulisci ambiente virtual keys
 
@@ -138,6 +142,7 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
       | ruota | Ruota             |
       | view  | Visualizza codice |
 
+    And Refresh pagina
 #  5325
     And Pulisci ambiente virtual keys
 # Inserire una chiave Attiva
@@ -158,6 +163,8 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
     And verifica tre puntini mostra di piu
       | blocca | Blocca            |
       | view   | Visualizza codice |
+
+    And Refresh pagina
 #  5326
     And Pulisci ambiente virtual keys
     And Attesa 1 secondi
