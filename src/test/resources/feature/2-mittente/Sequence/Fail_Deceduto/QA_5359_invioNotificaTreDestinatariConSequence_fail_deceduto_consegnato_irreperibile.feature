@@ -27,6 +27,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | ragioneSociale | Convivio Spa   |
     And Si clicca su prodotto
     And Si visualizza correttamente la pagina Piattaforma Notifiche persona giuridica
+    And Attesa 20 secondi
+    And Refresh pagina
     And Rimuovi tutti i recapiti se esistono
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
