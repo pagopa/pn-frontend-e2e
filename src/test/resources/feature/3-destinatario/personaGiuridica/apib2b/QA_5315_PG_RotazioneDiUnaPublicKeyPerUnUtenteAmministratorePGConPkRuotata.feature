@@ -165,9 +165,9 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
       | view   | Visualizza codice |
 
     And Refresh pagina
+    And Attesa 8 secondi
 #  5326
     And Pulisci ambiente virtual keys
-    And Attesa 1 secondi
 # Inserire una chiave Attiva
     When Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
     And Click su tasto Genera Chiave Personale
