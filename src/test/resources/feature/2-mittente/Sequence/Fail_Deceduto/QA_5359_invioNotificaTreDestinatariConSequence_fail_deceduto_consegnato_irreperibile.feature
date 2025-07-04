@@ -9,6 +9,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Attesa 20 secondi
+    And Refresh pagina
     And Rimuovi tutti i recapiti se esistono
     And Logout da portale persona fisica
     And Login con persona fisica input
