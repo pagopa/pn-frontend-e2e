@@ -38,6 +38,8 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
       | blocca | Blocca            |
       | view   | Visualizza codice |
 
+    And Refresh pagina
+
 #  5318
     And Pulisci ambiente virtual keys
     When Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale

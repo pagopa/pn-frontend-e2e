@@ -76,6 +76,8 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo ruota una vi
       | blocca | Blocca            |
       | view   | Visualizza codice |
 
+    And Refresh pagina
+
 #    5335
     And Cliccare sui tre puntini Virtual key con stato "Ruotata"
     Then verifica tre puntini mostra di piu
