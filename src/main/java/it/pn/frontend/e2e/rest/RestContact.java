@@ -174,14 +174,15 @@ public class RestContact {
     private String waitLoadToken() {
         int maxAttempts = 9;
         int attempt = 1;
+        String token = "";
         try {
             while (attempt <= maxAttempts) {
                 if (System.getProperty("token").isEmpty()) {
                     TimeUnit.SECONDS.sleep(90);
                     attempt++;
                 } else {
-                    logger.info("Headers token after attempt {}: {}", attempt, headers.get("Authorization"));
-                    return System.getProperty("token");
+                    token = System.getProperty("token");
+                    logger.info("Headers token after attempt {}: {}", attempt, token);
                 }
             }
         }
@@ -189,5 +190,6 @@ public class RestContact {
             Thread.currentThread().interrupt();
             throw new RestContactException("Non è stato possibile ricevere gli indirizzi digitali", e);
         }
+        return token;
     }
 }
