@@ -8,8 +8,6 @@ Feature: Mittente invia una notifica a due destinatari, PG deceduti
   Scenario: [DECEDUTO_890_QA-5362] - Il mittente invia una notifica a due destinatari, PG deceduti
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Attesa 20 secondi
-    And Refresh pagina
     And Rimuovi tutti i recapiti se esistono
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -18,8 +16,6 @@ Feature: Mittente invia una notifica a due destinatari, PG deceduti
       | ragioneSociale | Convivio Spa   |
     And Si clicca su prodotto
     And Si visualizza correttamente la pagina Piattaforma Notifiche persona giuridica
-    And Attesa 20 secondi
-    And Refresh pagina
     And Rimuovi tutti i recapiti se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

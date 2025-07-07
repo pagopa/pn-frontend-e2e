@@ -8,8 +8,6 @@ Feature: invio notifica con sequence
   Scenario: [DECEDUTO_890_QA-5354] - Il mittente invia una notifica a destinatario con sequence e viene annullata dopo essere passata allo stato Resa al mittente
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Attesa 40 secondi
-    And Refresh pagina
     And Rimuovi tutti i recapiti se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
