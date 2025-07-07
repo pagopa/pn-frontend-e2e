@@ -183,6 +183,7 @@ public class RestContact {
                 } else {
                     token = System.getProperty("token");
                     logger.info("Headers token after attempt {}: {}", attempt, token);
+                    break;
                 }
             }
         }
