@@ -157,6 +157,7 @@ public class RestContact {
 
         try {
             headers.put("Authorization", System.getProperty("token"));
+            logger.info("Headers token {}", headers.get("Authorization"));
             List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, headers, DigitalAddress.class);
             logger.info("Risposta ricevuta: {}", response);
             logger.info("Indirizzi digitali ricevuti con successo");
