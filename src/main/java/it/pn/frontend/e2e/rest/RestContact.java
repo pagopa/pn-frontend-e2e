@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+
 /*
 *Modifiche principali:
 Annotazioni @Autowired: Utilizzate per il caricamento automatico delle dipendenze CustomHttpClient e WebDriverConfig.
@@ -156,14 +159,34 @@ public class RestContact {
         String url = "/bff/v1/addresses";
 
         try {
-            headers.put("Authorization", System.getProperty("token"));
-            logger.info("Headers token {}", headers.get("Authorization"));
+            String token = waitLoadToken();
+            headers.put("Authorization", token);
             List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, headers, DigitalAddress.class);
             logger.info("Risposta ricevuta: {}", response);
             logger.info("Indirizzi digitali ricevuti con successo");
             return response;
         } catch (IOException e) {
             logger.error("Error during getAllDigitalAddress {}", e.getMessage());
+            throw new RestContactException("Non è stato possibile ricevere gli indirizzi digitali", e);
+        }
+    }
+
+    private String waitLoadToken() {
+        int maxAttempts = 9;
+        int attempt = 1;
+        try {
+            while (attempt <= maxAttempts) {
+                if (System.getProperty("token").isEmpty()) {
+                    TimeUnit.SECONDS.sleep(90);
+                    attempt++;
+                } else {
+                    logger.info("Headers token after attempt {}: {}", attempt, headers.get("Authorization"));
+                    return System.getProperty("token");
+                }
+            }
+        }
+        catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RestContactException("Non è stato possibile ricevere gli indirizzi digitali", e);
         }
     }

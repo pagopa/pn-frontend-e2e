@@ -69,6 +69,7 @@ public class HooksNew {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
         // WebDriverManager.getDriverThreadLocal().get();
