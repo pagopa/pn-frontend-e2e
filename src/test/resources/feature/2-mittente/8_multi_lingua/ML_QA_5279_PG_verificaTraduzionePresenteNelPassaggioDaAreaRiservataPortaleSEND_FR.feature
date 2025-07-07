@@ -35,6 +35,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"
+    And Chiudi pagina
 
 
 

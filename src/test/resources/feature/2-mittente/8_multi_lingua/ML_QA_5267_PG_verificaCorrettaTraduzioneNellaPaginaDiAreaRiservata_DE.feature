@@ -18,4 +18,5 @@ Feature: PG - Verifica corretta traduzione nella pagina di Area Riservata - DE
     Then Verifica traduzione testo "Übersicht"
     And Verifica traduzione testo "Zeige die Datenübersicht an und lies die Zustellungen von"
     And Verifica traduzione testo "Digitale Zustellungen"
+    And Chiudi pagina
 

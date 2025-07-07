@@ -23,3 +23,4 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
 
     When Seleziona voce menu laterale "Groupes"
     And Verifica traduzione testo "utilisateurs, par exemple appartenant au même bureau ou département, auxquels est confiée la gestion des notifications"
+    And Chiudi pagina

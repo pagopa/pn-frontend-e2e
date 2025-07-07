@@ -36,3 +36,4 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"
+    And Chiudi pagina
