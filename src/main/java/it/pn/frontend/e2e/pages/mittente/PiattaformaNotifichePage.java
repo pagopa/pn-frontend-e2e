@@ -2085,20 +2085,16 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean attesaNotificaConIUN(String iun) {
-        int maximumRetry;
-        boolean cellaPresente = false;
-        for (maximumRetry = 0; maximumRetry <= 8; maximumRetry++) {
+        int maxTentativi = 8;
+        for (int tentativo = 0; tentativo <= maxTentativi; tentativo++) {
             List<WebElement> cellaCodiceIUN = driver.findElements(By.xpath("//table[@id='notifications-table']//tr//td[contains(text(), '" + iun + "')]"));
-            if (!cellaCodiceIUN.isEmpty()) cellaPresente = true;
-            if (cellaPresente) {
+            if (!cellaCodiceIUN.isEmpty()) {
                 getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), iun);
                 return true;
-            } else {
-                webTool.waitTime(90);
-                maximumRetry++;
-                logger.info("Tentativo n.{}", maximumRetry);
-                driver.navigate().refresh();
             }
+            logger.info("Tentativo n.{}: notifica non trovata!", tentativo); 
+            webTool.waitTime(90);            
+            driver.navigate().refresh();
         }
         return false;
     }
