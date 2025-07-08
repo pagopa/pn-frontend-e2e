@@ -8,6 +8,19 @@ Feature: PG - Utente con ruolo amministratore della PG blocca una virtual key di
   @NRT_Blocco_2
   Scenario:PN-QA-5345  PG - Utente con ruolo amministratore della PG blocca una virtual key di un utente della PG con ruolo di operatore con già una virtual key bloccata
     Given Login Page persona giuridica viene visualizzata
+     #    *-*-*-*-*-*-*-* Inizio -*-*-*-*-*-*-*-*-*-*
+    And Login con persona giuridica
+      | user           | n.lotti       |
+      | pwd            | test          |
+      | ragioneSociale | Vita Nova Sas |
+    And Si clicca su prodotto
+#    Cliccando sulla CTA “Genera chiave personale”
+    When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
+    And Pulisci ambiente virtual keys
+    And Logout da portale persona giuridica delegante
+   #    *-*-*-*-*-*-*-* Fine -*-*-*-*-*-*-*-*-*-*
+
+
     When Login con persona giuridica
       | user           | DanteAlighieri |
       | pwd            | test           |

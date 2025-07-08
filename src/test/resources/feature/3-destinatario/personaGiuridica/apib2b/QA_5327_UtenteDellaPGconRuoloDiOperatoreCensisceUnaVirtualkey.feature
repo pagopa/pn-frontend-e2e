@@ -15,6 +15,21 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
 
 
     Given Login Page persona giuridica viene visualizzata
+#    *-*-*-*-*-*-*-* Inizio -*-*-*-*-*-*-*-*-*-*
+    And Login con persona giuridica
+      | user           | n.lotti       |
+      | pwd            | test          |
+      | ragioneSociale | Vita Nova Sas |
+    And Si clicca su prodotto
+#    Cliccando sulla CTA “Genera chiave personale”
+    When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
+    And Pulisci ambiente virtual keys
+    And Logout da portale persona giuridica delegante
+
+   #    *-*-*-*-*-*-*-* Fine -*-*-*-*-*-*-*-*-*-*
+
+
+
     When Login con persona giuridica
       | user           | DanteAlighieri |
       | pwd            | test           |
@@ -43,7 +58,7 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
     And Si clicca su prodotto
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
-    And Pulisci ambiente virtual keys
+#    And Pulisci ambiente virtual keys
     When Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
     And Click su tasto Genera Chiave Personale
     And Verifica testo nel pop-up "La tua chiave personale"
