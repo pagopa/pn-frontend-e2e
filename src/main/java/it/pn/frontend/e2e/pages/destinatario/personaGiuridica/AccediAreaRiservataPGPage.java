@@ -73,5 +73,6 @@ public class AccediAreaRiservataPGPage extends BasePage {
                 .withMessage("Il bottone per l Ambiente  '"+ambiente+"' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[contains(@aria-label, '"+ambiente+"')]/ancestor::div[contains(@class, 'MuiCard-root')]//button")));
         forwardButton.click();
+        webTool.waitTime(2);
     }
 }
