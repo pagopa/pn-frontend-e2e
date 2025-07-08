@@ -42,7 +42,7 @@ Feature: invio notifica con sequence
     And Si verifica che la notifica è stata creata correttamente
 
 #    And Aspetta 10 secondi
-    And Attesa 10 secondi
+    And Attesa 15 secondi
     And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"

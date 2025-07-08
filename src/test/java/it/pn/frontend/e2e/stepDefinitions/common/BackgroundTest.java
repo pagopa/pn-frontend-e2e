@@ -446,14 +446,14 @@ public class BackgroundTest  extends BasePage {
 
 
     public void siFiltraLaTabellaDelleNotifichePerIUNMittente(String iun) {
-        piattaformaNotifichePage.setHooksNew(hooksNew);
-        piattaformaNotifichePage.clickBottoneFiltraNotifica("filter-button",iun);
-
-//        piattaformaNotifichePage.inserimentoCodiceIUN(iun);
-//        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
-//        logger.info("SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");
 //        piattaformaNotifichePage.setHooksNew(hooksNew);
-//        logger.info("DOPO SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");
-//        piattaformaNotifichePage.clickSuNotifica();
+//        piattaformaNotifichePage.clickBottoneFiltraNotifica("filter-button",iun);
+
+        piattaformaNotifichePage.inserimentoCodiceIUN(iun);
+        piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
+        logger.info("SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");
+        piattaformaNotifichePage.setHooksNew(hooksNew);
+        logger.info("DOPO SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");
+        piattaformaNotifichePage.clickSuNotifica();
     }
 }
