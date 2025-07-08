@@ -33,6 +33,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -183,6 +184,7 @@ public class CustomHttpClient<RequestType, ResponseType> {
             if (headers != null) {
                 headers.forEach(this.httpRequest::addHeader);
             }
+            log.info("Request headers {}", Arrays.toString(this.httpRequest.getHeaders()));
             return client.execute(httpRequest, response -> {
                 final HttpEntity entity;
                 final String responseString;

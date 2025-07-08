@@ -2,8 +2,6 @@ Feature: Notifica analogica multidestinatario tipo AR per PG e PF dove solo per 
 
   @TestSuite
   @TA_QA_5358
-  @addressBook1
-  @addressBook2
   @NRT_Blocco_3
   @Sequence_Deceduto
 

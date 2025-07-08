@@ -2,8 +2,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @TAG_DECEDUTO_AR_QA-5363
-  @addressBook1
-  @addressBook2
   @NRT_Blocco_3
   @Sequence_Deceduto
 

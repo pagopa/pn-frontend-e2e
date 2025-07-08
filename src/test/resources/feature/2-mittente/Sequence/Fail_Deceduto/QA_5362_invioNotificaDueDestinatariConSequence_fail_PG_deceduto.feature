@@ -2,8 +2,6 @@ Feature: Mittente invia una notifica a due destinatari, PG deceduti
 
   @TestSuite
   @TAG_DECEDUTO_890_QA-5362
-  @addressBook1
-  @addressBook2
   @NRT_Blocco_3
   @Sequence_Deceduto
 
