@@ -68,5 +68,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Esci PF
     And Attesa 1 secondi
     And Click Elimina personalizzati per ente
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 2 secondi
+    And Refresh pagina
     And Verifica Assenza Sezione Personalizzati Per Ente

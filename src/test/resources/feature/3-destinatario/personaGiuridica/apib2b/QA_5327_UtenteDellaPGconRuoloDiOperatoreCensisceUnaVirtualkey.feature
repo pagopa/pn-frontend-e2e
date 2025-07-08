@@ -129,6 +129,7 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
       | view   | Visualizza codice |
 
     And Refresh pagina
+    And Attesa 3 secondi
 #5340
     And Pulisci ambiente virtual keys
     When Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale

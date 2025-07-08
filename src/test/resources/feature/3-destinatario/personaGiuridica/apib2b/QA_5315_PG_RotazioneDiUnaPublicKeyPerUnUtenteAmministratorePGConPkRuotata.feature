@@ -41,6 +41,7 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
       | view   | Visualizza codice |
 
     And Refresh pagina
+    And Attesa 2 secondi
 
 #  5318
     And Pulisci ambiente virtual keys
@@ -99,6 +100,7 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
     And Nella pop up cliccare sul tasto conferma
 
     And Refresh pagina
+    And Attesa 2 secondi
 
 #  5323
     And Pulisci ambiente virtual keys
@@ -143,6 +145,7 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
       | view  | Visualizza codice |
 
     And Refresh pagina
+    And Attesa 2 secondi
 #  5325
     And Pulisci ambiente virtual keys
 # Inserire una chiave Attiva

@@ -17,11 +17,17 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     ##     verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 1 secondi
+    And Refresh pagina
     And Verifica ed Elimina personalizzati per ente
+#    And Attesa 1 secondi
     And Attesa 1 secondi
+    And Refresh pagina
     And Verifica e Disattiva domicilio digitale
+#    And Attesa 1 secondi
     And Attesa 1 secondi
+    And Refresh pagina
     And Verifica e Disattiva email
 
     When Click Inizia
@@ -41,7 +47,9 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "Validazione PEC in corso"
 
 
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
+    And Refresh pagina
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
@@ -62,7 +70,9 @@ Feature: Rework della pagina dei contatti
     And Seleziona Tipologia "Domicilio Digitale SEND"
     And Verifica Pagina "possibile associare il domicilio digitale SEND"
     And Click Bottone Esci PF
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
+    And Refresh pagina
 
 ##  REWORK_DOMICILIO_DIGITALE_PG_74
     When Click Bottone Gestisci
@@ -79,5 +89,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     When Verifica Pagina "domicilio digitale"
     And Click Torna ai tuoi recapiti
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 2 secondi
+    And Refresh pagina
     And Verifica Pagina "prova2@pec.it"
