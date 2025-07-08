@@ -2,18 +2,13 @@ Feature: invio notifica con sequence
 
   @NotificaConSequenceDeceduto890
   @TestSuite
+  @addressBook2
   @NRT_Blocco_3
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_890_QA-5353] - Il mittente invia una notifica a destinatario con sequence
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
-    Given Login Page persona giuridica viene visualizzata
-    When Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | Convivio Spa   |
-    And Si clicca su prodotto
-    And Si visualizza correttamente la pagina Piattaforma Notifiche persona giuridica
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

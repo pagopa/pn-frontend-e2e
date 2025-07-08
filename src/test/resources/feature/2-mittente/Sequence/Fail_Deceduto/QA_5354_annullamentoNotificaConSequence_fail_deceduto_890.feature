@@ -2,6 +2,7 @@ Feature: invio notifica con sequence
 
   @annullamentoNotificaConSequenceDeceduto890
   @TestSuite
+  @addressBook1
   @NRT_Blocco_3
   @Sequence_Deceduto
 

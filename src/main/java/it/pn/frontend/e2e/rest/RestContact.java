@@ -159,8 +159,7 @@ public class RestContact {
         String url = "/bff/v1/addresses";
 
         try {
-            String token = waitLoadToken();
-            headers.put("Authorization", token);
+            headers.put("Authorization", System.getProperty("token"));
             List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, headers, DigitalAddress.class);
             logger.info("Risposta ricevuta: {}", response);
             logger.info("Indirizzi digitali ricevuti con successo");
@@ -169,28 +168,5 @@ public class RestContact {
             logger.error("Error during getAllDigitalAddress {}", e.getMessage());
             throw new RestContactException("Non è stato possibile ricevere gli indirizzi digitali", e);
         }
-    }
-
-    private String waitLoadToken() {
-        int maxAttempts = 9;
-        int attempt = 1;
-        String token = "";
-        try {
-            while (attempt <= maxAttempts) {
-                if (System.getProperty("token").isEmpty()) {
-                    TimeUnit.SECONDS.sleep(90);
-                    attempt++;
-                } else {
-                    token = System.getProperty("token");
-                    logger.info("Headers token after attempt {}: {}", attempt, token);
-                    break;
-                }
-            }
-        }
-        catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RestContactException("Non è stato possibile ricevere gli indirizzi digitali", e);
-        }
-        return token;
     }
 }

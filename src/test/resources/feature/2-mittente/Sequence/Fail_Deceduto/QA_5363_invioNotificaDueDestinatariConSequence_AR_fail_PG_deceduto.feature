@@ -2,6 +2,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @TAG_DECEDUTO_AR_QA-5363
+  @addressBook1
+  @addressBook2
   @NRT_Blocco_3
   @Sequence_Deceduto
 
@@ -9,13 +11,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
-    Given Login Page persona giuridica viene visualizzata
-    When Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | Convivio Spa   |
-    And Si clicca su prodotto
-    And Si visualizza correttamente la pagina Piattaforma Notifiche persona giuridica
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
