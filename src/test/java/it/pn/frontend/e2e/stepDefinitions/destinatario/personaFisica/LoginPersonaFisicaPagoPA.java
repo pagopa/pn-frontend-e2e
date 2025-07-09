@@ -9,13 +9,14 @@ import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
@@ -80,8 +81,19 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     @Autowired
     private WebDriverManager webDriverManager;
 
+    @Getter
+    @Setter
+    private String tokenExchange;
+
+    @Getter
+    @Setter
+    private String sessionToken;
+
     @Autowired
-    private HooksNew hooksNew;
+    private CustomHttpClient customHttpClient;
+
+    @Autowired
+    private RestContact restContact;
 
     @PostConstruct
     public void init(){
@@ -152,6 +164,10 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
             headerPFSection.waitLoadHeaderDESection();
             notifichePFPage.waitLoadNotificheDEPage();
+
+            //Salva il token exchange che verrà riusato per ottenere il session token da usare nelle chiamate a API SEND
+            tokenExchange = token;
+
         } catch (Exception e) {
             // Gestione delle eccezioni: stampa l'errore
             logger.info("Errore durante il login PF: " + e.getMessage());
@@ -816,5 +832,44 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
 
+    }
+
+    @When("Da portale persona fisica si ottiene un token di sessione")
+    public void portalePFNewSessionToken() {
+        CustomHttpClient<?, String> httpClient = customHttpClient;
+        logger.info("token exchange ottenuto {}", tokenExchange);
+        try {
+            String jwtToken = httpClient.getJwtToken(tokenExchange);
+            logger.info("session token ottenuto {}", jwtToken);
+            sessionToken = jwtToken;
+        } catch (IOException e) {
+            logger.error("Errore durante portalePFNewSessionToken", e);
+            throw new RuntimeException("Errore durante la richiesta di fetch di un session token", e);
+        }
+    }
+
+    @And("Rimuovi da API tutti i recapiti per persona fisica se esistono")
+    public void clearRecapitiPF() {
+        restContact.setSessionToken(sessionToken);
+        var digitalAddresses = restContact.getAllDigitalAddress();
+        if (digitalAddresses != null && !digitalAddresses.isEmpty()) {
+            digitalAddresses.forEach(address -> {
+                if ("default".equalsIgnoreCase(address.getSenderId())) {
+                    if ("LEGAL".equalsIgnoreCase(address.getAddressType())) {
+                        if ("SERCQ_SEND".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressLegalSend();
+                        }
+                        else if ("PEC".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressLegalPec();
+                        }
+                    }
+                    else {
+                        restContact.removeDigitalAddressCourtesyEmail();
+                    }
+                } else {
+                    restContact.removeSpecialContact(address);
+                }
+            });
+        }
     }
 }

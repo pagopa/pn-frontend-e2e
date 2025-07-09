@@ -6,6 +6,8 @@ import it.pn.frontend.e2e.exceptions.RestContactException;
 import it.pn.frontend.e2e.exceptions.RestDelegationException;
 import it.pn.frontend.e2e.model.address.DigitalAddress;
 import it.pn.frontend.e2e.model.address.DigitalAddressResponse;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,10 @@ public class RestContact {
    private CustomHttpClient customHttpClient;
 
     private final CustomHttpClient<?, String> httpClient;
+
+    @Setter
+    @Getter
+    private String sessionToken;
 
     @Autowired
     public RestContact(WebDriverConfig webDriverConfig, CustomHttpClient<?, String> httpClient) {
@@ -159,7 +165,7 @@ public class RestContact {
         String url = "/bff/v1/addresses";
 
         try {
-            headers.put("Authorization", System.getProperty("token"));
+            headers.put("Authorization", setAuthorizationToken());
             List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, headers, DigitalAddress.class);
             logger.info("Risposta ricevuta: {}", response);
             logger.info("Indirizzi digitali ricevuti con successo");
@@ -168,5 +174,12 @@ public class RestContact {
             logger.error("Error during getAllDigitalAddress {}", e.getMessage());
             throw new RestContactException("Non è stato possibile ricevere gli indirizzi digitali", e);
         }
+    }
+
+    private String setAuthorizationToken() {
+        if (sessionToken == null)
+            return System.getProperty("token");
+        else
+            return "Bearer " + sessionToken;
     }
 }

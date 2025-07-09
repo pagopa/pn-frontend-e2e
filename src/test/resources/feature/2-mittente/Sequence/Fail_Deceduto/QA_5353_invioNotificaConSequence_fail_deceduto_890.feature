@@ -8,7 +8,8 @@ Feature: invio notifica con sequence
   Scenario: [DECEDUTO_890_QA-5353] - Il mittente invia una notifica a destinatario con sequence
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Rimuovi tutti i recapiti se esistono
+    And Da portale persona giuridica si ottiene un token di sessione
+    And Rimuovi da API tutti i recapiti per persona giuridica se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica

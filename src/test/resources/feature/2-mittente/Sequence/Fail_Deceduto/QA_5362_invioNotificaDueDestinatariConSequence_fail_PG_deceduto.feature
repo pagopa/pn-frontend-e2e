@@ -8,9 +8,11 @@ Feature: Mittente invia una notifica a due destinatari, PG deceduti
   Scenario: [DECEDUTO_890_QA-5362] - Il mittente invia una notifica a due destinatari, PG deceduti
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Rimuovi tutti i recapiti se esistono
+    And Da portale persona fisica si ottiene un token di sessione
+    And Rimuovi da API tutti i recapiti per persona fisica se esistono
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Rimuovi tutti i recapiti se esistono
+    And Da portale persona giuridica si ottiene un token di sessione
+    And Rimuovi da API tutti i recapiti per persona giuridica se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica

@@ -8,7 +8,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   Scenario: [DECEDUTO_890_QA-5359] - Il mittente invia una notifica a tre destinatari, solo uno raggiungibile al primo tentativo
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Rimuovi tutti i recapiti se esistono
+    And Da portale persona fisica si ottiene un token di sessione
+    And Rimuovi da API tutti i recapiti per persona fisica se esistono
     And Logout da portale persona fisica
     And Login con persona fisica input
       | user         | garibaldi              |
@@ -19,7 +20,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
     And Rimuovi tutti i recapiti se esistono
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Rimuovi tutti i recapiti se esistono
+    And Da portale persona giuridica si ottiene un token di sessione
+    And Rimuovi da API tutti i recapiti per persona giuridica se esistono
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
