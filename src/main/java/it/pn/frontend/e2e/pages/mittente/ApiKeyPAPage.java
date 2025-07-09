@@ -804,20 +804,23 @@ public void pulisciAmbientePublickeys() {
 
     public void pulisciAmbienteVirtualKeys() {
         try {
+            logger.info("Entrato nel metodo pulisciAmbienteVirtualKeys");
             WebElement table = getWebDriverWait(20).withMessage("Prima Accesso alla Tabella Integrazione Api VirtualKeys  NON VISIBILE")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathVirtualKeysTableDesktop)));
             int b = 0;
+            logger.info("Tabella pulisciAmbienteVirtualKeys size:"+table.getSize());
             List<WebElement> righeBloccate = table.findElements(By.xpath(".//tr//td//div[@id='status-chip-Bloccata']"));
             //Si cancellano prima le righe bloccate per far proseguire i test automatici
-            logger.info("Si cancellano prima le {} righe bloccate", righeBloccate.size());
+            logger.info("Numero di righe bloccate da cancellare: {} ", righeBloccate.size());
             while (b < righeBloccate.size()) {
 
                 WebElement row = righeBloccate.get(b);
                 //si cliccano i tre puntini sulla riga con stato Bloccata
                 row.findElement(By.xpath("./parent::td//..//button[@data-testid='contextMenuButton']")).click();
                 clickEliminaIntegrazioneApi();
+                logger.info("Elimina riga bloccata: {}   ", b);
                 clickSuConfermaNelPopUp();
-                logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                logger.info("Tasto Conferma Elimina cliccato su stato Bloccata.");
                 aggiornaPaginaWaitTime(3);
 
                 //Si aggiorna il conto delle righe dopo la cancellazione della riga

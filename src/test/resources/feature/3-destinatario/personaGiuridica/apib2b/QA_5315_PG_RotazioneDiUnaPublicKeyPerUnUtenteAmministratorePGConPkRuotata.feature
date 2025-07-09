@@ -19,6 +19,7 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Refresh pagina
     And Attesa 1 secondi
+    And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
     And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
