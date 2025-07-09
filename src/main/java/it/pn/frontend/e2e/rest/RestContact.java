@@ -73,7 +73,7 @@ public class RestContact {
     public void removeDigitalAddressCourtesyEmail() throws RestContactException {
         String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/bff/v1/addresses/COURTESY/default/EMAIL";
         try {
-            headers.put("Authorization", System.getProperty("token"));
+            headers.put("Authorization", setAuthorizationToken());
             String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di cortesia rimosso con successo");
@@ -89,7 +89,7 @@ public class RestContact {
     public void removeDigitalAddressLegalPec() throws RestContactException {
         String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/PEC";
         try {
-            headers.put("Authorization", System.getProperty("token"));
+            headers.put("Authorization", setAuthorizationToken());
             String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo PEC legale rimosso con successo");
@@ -105,7 +105,7 @@ public class RestContact {
     public void removeDigitalAddressLegalSend() throws RestContactException {
         String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/bff/v1/addresses/LEGAL/default/SERCQ_SEND";
         try {
-            headers.put("Authorization", System.getProperty("token"));
+            headers.put("Authorization", setAuthorizationToken());
             String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Domicilio digitale di piattaforma SEND rimosso con successo");
@@ -125,7 +125,7 @@ public class RestContact {
                 + addressType + "/" + digitalAddress.getSenderId() + "/" + channelType;
 
         try {
-            headers.put("Authorization", System.getProperty("token"));
+            headers.put("Authorization", setAuthorizationToken());
             String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
             logger.info("Risposta ricevuta: " + response);
             logger.info("Indirizzo digitale di 'altri recapiti' rimosso con successo");
@@ -144,8 +144,9 @@ public class RestContact {
         String url = "/bff/v1/addresses/LEGAL/default/PEC";
 
         try {
-            logger.info("TOKEN..."+System.getProperty("token"));
-            headers.put("Authorization", System.getProperty("token"));
+            String token = setAuthorizationToken();
+            headers.put("Authorization", token);
+            logger.info("TOKEN...{}", token);
             DigitalAddressResponse response = httpClientDigitalAddress.sendHttpGetRequest(url, headers, DigitalAddressResponse.class);
             logger.info("Risposta ricevuta: {}", response);
             logger.info("Indirizzi digitali ricevuti con successo");
@@ -176,6 +177,10 @@ public class RestContact {
         }
     }
 
+    //Per generare richieste CRUD sui recapiti, si deve recuperare il token di sessione
+    //Se si è entrati dalla pagina di login il token di sessione è già presente sulla property di sistema
+    //Altrimenti si recupera il valore della variabile sessionToken che deve essere preventivamente settato sulle
+    //istanze della classe RestContact
     private String setAuthorizationToken() {
         if (sessionToken == null)
             return System.getProperty("token");

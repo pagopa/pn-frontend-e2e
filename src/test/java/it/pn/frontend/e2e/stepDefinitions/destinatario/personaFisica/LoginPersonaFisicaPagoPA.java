@@ -848,6 +848,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
     }
 
+    // Si setta il token di sessione per avere risposte API valide dal server SEND
+    // (thread in parallelo usano lo stesso token di sessione, causando risposte 403)
     @And("Rimuovi da API tutti i recapiti per persona fisica se esistono")
     public void clearRecapitiPF() {
         restContact.setSessionToken(sessionToken);

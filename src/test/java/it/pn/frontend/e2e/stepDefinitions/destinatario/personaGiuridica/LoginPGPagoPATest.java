@@ -511,6 +511,8 @@ public class LoginPGPagoPATest extends BasePage {
         }
     }
 
+    // Si setta il token di sessione per avere risposte API valide dal server SEND
+    // (thread in parallelo usano lo stesso token di sessione, causando risposte 403)
     @And("Rimuovi da API tutti i recapiti per persona giuridica se esistono")
     public void clearRecapitiPG() {
         restContact.setSessionToken(sessionToken);
