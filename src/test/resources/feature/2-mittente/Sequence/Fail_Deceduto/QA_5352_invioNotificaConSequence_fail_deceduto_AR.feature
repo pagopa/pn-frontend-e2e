@@ -7,7 +7,6 @@ Feature: invio notifica con sequence
 
   Scenario: [DECEDUTO_AR_QA-5352] - Il mittente invia una notifica a destinatario con sequence
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
-    #Given Attesa 20 secondi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Da portale persona fisica si ottiene un token di sessione
     And Rimuovi da API tutti i recapiti per persona fisica se esistono
