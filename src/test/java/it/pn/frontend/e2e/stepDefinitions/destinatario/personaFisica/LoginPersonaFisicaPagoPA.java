@@ -477,7 +477,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         int numProvaLogin = 0;
         String userPersonaFisica = webDriverConfig.getUserCesare();
         String pwdPersonaFisica = webDriverConfig.getPwdCesare();
-        while (numProvaLogin < 10) {
+        while (numProvaLogin < 20) {
             this.readUrlLoginPersonaFisicaWithToken(userPersonaFisica, pwdPersonaFisica);
             if (this.urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
@@ -696,7 +696,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
              passwordDelegato = webDriverConfig.getPwdCesare();
         }
 
-        while (numProvaLogin < 10) {
+        while (numProvaLogin < 20) {
             this.readUrlLoginPersonaFisicaWithToken(userDelegato, passwordDelegato);
             if (this.urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;

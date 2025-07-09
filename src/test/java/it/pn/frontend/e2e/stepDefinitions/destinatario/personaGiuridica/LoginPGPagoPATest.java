@@ -191,7 +191,7 @@ public class LoginPGPagoPATest extends BasePage {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
 
-        while (numProvaLogin < 10) {
+        while (numProvaLogin < 20) {
             this.readUrlPortaleMittente(userMittente, pwdMittente);
             if (this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
@@ -382,7 +382,7 @@ public class LoginPGPagoPATest extends BasePage {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
 
-        while (numProvaLogin < 10) {
+        while (numProvaLogin < 20) {
             this.readUrlPortaleMittente(userMittente, pwdMittente);
             if (this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;

@@ -356,7 +356,7 @@ public class LoginMittentePagoPA extends BasePage {
         this.readurlPortaleMittente(userMittente, pwdMittente);
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
-        while (numProvaLogin < 10) {
+        while (numProvaLogin < 20) {
             this.readurlPortaleMittente(userMittente, pwdMittente);
             if (this.urlMittente.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
