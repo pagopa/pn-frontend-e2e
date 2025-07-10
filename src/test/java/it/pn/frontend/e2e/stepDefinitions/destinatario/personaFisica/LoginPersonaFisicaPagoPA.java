@@ -840,7 +840,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         logger.info("token exchange ottenuto {}", tokenExchange);
         try {
             String jwtToken = httpClient.getJwtToken(tokenExchange);
-            logger.info("session token ottenuto {}", jwtToken);
             sessionToken = jwtToken;
         } catch (IOException e) {
             logger.error("Errore durante portalePFNewSessionToken", e);
