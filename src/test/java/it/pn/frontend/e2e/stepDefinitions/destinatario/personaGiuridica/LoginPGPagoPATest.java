@@ -500,7 +500,6 @@ public class LoginPGPagoPATest extends BasePage {
     @When("Da portale persona giuridica si ottiene un token di sessione")
     public void portalePGNewSessionToken() {
         CustomHttpClient<?, String> httpClient = customHttpClient;
-        logger.info("token exchange ottenuto {}", tokenExchange);
         try {
             String jwtToken = httpClient.getJwtToken(tokenExchange);
             sessionToken = jwtToken;

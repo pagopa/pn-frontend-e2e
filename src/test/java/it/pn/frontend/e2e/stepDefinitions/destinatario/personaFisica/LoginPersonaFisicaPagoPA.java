@@ -837,7 +837,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     @When("Da portale persona fisica si ottiene un token di sessione")
     public void portalePFNewSessionToken() {
         CustomHttpClient<?, String> httpClient = customHttpClient;
-        logger.info("token exchange ottenuto {}", tokenExchange);
         try {
             String jwtToken = httpClient.getJwtToken(tokenExchange);
             sessionToken = jwtToken;
