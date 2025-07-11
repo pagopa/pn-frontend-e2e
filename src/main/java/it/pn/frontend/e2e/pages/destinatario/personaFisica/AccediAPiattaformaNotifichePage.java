@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -464,6 +465,18 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
                 .withMessage("Il bottone Paga non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='paymentCheckPageButtonPay']")));
         pagaButton.click();
+
+        //verifica conferma pagamento
+        WebElement titoloConfermaPagamento = getWebDriverWait(200)
+                .withMessage("Il titolo di conferma di pagamento avvenuto non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("responsePageMessageTitle")));
+
+        WebElement bodyConfermaPagamento = getWebDriverWait(200)
+                .withMessage("Il body di conferma di pagamento avvenuto non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("responsePageMessageBody")));
+
+        Assertions.assertTrue(titoloConfermaPagamento.getText().contains("Hai pagato"), "Il pagamento non è stato effettuato con messaggio " + titoloConfermaPagamento.getText());
+        Assertions.assertTrue(bodyConfermaPagamento.getText().contains("Abbiamo inviato la conferma del pagamento"), "Il pagamento non è stato effettuato con messaggio " + bodyConfermaPagamento.getText());
 
         // Clicca sul bottone Continua finale
         WebElement continueButton = getWebDriverWait(200)
