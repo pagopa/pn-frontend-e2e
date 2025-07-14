@@ -522,8 +522,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
             radioButton.click();
         } catch (Exception e) {
             // Gestione delle eccezioni: stampa l'errore se il radio button non è trovato o non è cliccabile
-            logger.error("Errore durante il click sul radio button di Intesa Sanpaolo S.p.A: " + e.getMessage());
-            throw e;
+            Assertions.fail("Errore durante il click sul radio button di Intesa Sanpaolo S.p.A: " + e.getMessage());
         }
     }
 
