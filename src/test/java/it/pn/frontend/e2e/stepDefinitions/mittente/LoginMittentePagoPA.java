@@ -545,7 +545,8 @@ public class LoginMittentePagoPA extends BasePage {
         }
 //        Nuove specifiche UI
         headerPASection.selezionaSecondoEsciButtonPA();
-        headerPASection.selezionaEsciButton();
+//        logger.info("secondo esci");
+//        headerPASection.selezionaEsciButton();
         webTool.waitTime(5);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
     }

@@ -337,6 +337,11 @@ public class LoginPGPagoPATest extends BasePage {
 
     @And("Logout da portale persona giuridica")
     public void logoutDaPortalePersonaGiuridica() {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+        }
         headerPGSection.waitLoadHeaderPGPage();
         headerPGSection.clickEsciButton();
         headerPGSection.clickEsciButtonPopUp();
