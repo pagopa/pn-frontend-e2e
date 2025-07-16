@@ -2123,4 +2123,19 @@ public class PiattaformaNotifichePage extends BasePage {
         logger.info("Messaggio di alert correttamente visualizzato e coerente con quello atteso");
 
     }
+
+    public boolean attesaNotificaConIUN(String iun) {
+        int maxTentativi = 8;
+        for (int tentativo = 0; tentativo <= maxTentativi; tentativo++) {
+            List<WebElement> cellaCodiceIUN = driver.findElements(By.xpath("//table[@id='notifications-table']//tr//td[contains(text(), '" + iun + "')]"));
+            if (!cellaCodiceIUN.isEmpty()) {
+                getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), iun);
+                return true;
+            }
+            logger.info("Tentativo n.{}: notifica non trovata!", tentativo); 
+            webTool.waitTime(90);            
+            driver.navigate().refresh();
+        }
+        return false;
+    }
 }

@@ -2,7 +2,7 @@ Feature: invio notifica con sequence
 
   @Tag_PN_14806_11_FAIL-Giacenza-lte10_890
   @TestSuite
-  @Tag_CARD_ARCAD
+  @Tag_CAD_ARCAD
   @NRT
 
   Scenario: [PN-14806_11] CAD/ARCAD SEQUENCE FAIL-Giacenza-lte10_890
@@ -37,11 +37,13 @@ Feature: invio notifica con sequence
     And Nella section Allegati si carica un atto
     And Nella section Allegati cliccare sul bottone Invia
     And Si visualizza correttamente la frase La notifica è stata correttamente creata
+    And Si ottiene il codice IUN dalla notifica creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    And Si verifica che la notifica è stata creata correttamente
+    #And Si verifica che la notifica è stata creata correttamente
 
-    And Aspetta 10 secondi
+    #And Aspetta 10 secondi
+    And Aspetta la notifica con IUN salvato
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
     And Aspetta 300 secondi

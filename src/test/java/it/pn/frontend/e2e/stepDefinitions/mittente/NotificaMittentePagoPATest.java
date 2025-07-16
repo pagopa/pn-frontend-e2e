@@ -260,7 +260,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
-            case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
+            case "test" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
+            case "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoUat();
         }
         informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
         informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
@@ -1791,6 +1792,34 @@ public class NotificaMittentePagoPATest  extends BasePage {
             logger.error(esitoNotifica.accettazioneRichiestaNotifica.getResponseBody());
             Assertions.fail("La notifica " + esitoNotifica.notificationRequestId + " è stata accettata: ");
         }
+    }
+
+    @And("Si ottiene il codice IUN dalla notifica creata")
+    public void ottieniIUNdaRichiestaNotifica() {
+        piattaformaNotifichePage.setNetWorkInfos(webDriverManager.getNetworkInfosThread().get());
+        piattaformaNotifichePage.setWebDriverManager(webDriverManager);
+        piattaformaNotifichePage.setRestNotificationParam(restNotification);
+        piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
+        piattaformaNotifichePage.setHooksNew(hooksNew);
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String urlNotificationRequest = webDriverConfig.getBaseUrl() + "notifications/sent";
+        String notificationRequestId = getNotificationRequestId(urlNotificationRequest);
+        Assertions.assertNotNull(notificationRequestId, "NotificationRequestId non trovato, il codice della risposta al url " + urlNotificationRequest + " è diverso da 202");
+        logger.info("ID della notifica creata: {}", notificationRequestId);
+        Iun = WebTool.decodeNotificationRequestId(notificationRequestId);
+        logger.info("IUN della notifica creata: {}", Iun);
+    }
+
+    @And("Aspetta la notifica con IUN salvato")
+    public void aspettaNotificaConIUNSalvato() {
+        Assertions.assertFalse(Iun.isEmpty(), "IUN della notifica non presente!");
+        boolean notificaTrovata = piattaformaNotifichePage.attesaNotificaConIUN(Iun);
+        Assertions.assertTrue(notificaTrovata, "La notifica risulta ancora non visibile sulla tabella notifiche dopo 8 tentativi");
+        logger.info("La notifica è visualizzata sulla tabella notifiche");
     }
 
     private String getNotificationRequestId(String urlNotificationRequest) {
