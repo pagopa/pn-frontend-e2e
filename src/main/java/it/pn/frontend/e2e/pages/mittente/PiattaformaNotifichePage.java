@@ -1069,7 +1069,6 @@ public class PiattaformaNotifichePage extends BasePage {
                 return;
             }
         }
-
         logger.info("Le date sono visualizzate correttamente");
     }
 
@@ -2313,5 +2312,20 @@ public class PiattaformaNotifichePage extends BasePage {
             case 10, 11, 12 -> 20;
             default -> throw new IllegalStateException("Unexpected value: " + meseCorrente);
         };
+    }
+
+    public boolean attesaNotificaConIUN(String iun) {
+        int maxTentativi = 8;
+        for (int tentativo = 0; tentativo <= maxTentativi; tentativo++) {
+            List<WebElement> cellaCodiceIUN = driver.findElements(By.xpath("//table[@id='notifications-table']//tr//td[contains(text(), '" + iun + "')]"));
+            if (!cellaCodiceIUN.isEmpty()) {
+                getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), iun);
+                return true;
+            }
+            logger.info("Tentativo n.{}: notifica non trovata!", tentativo);
+            webTool.waitTime(90);
+            driver.navigate().refresh();
+        }
+        return false;
     }
 }

@@ -42,9 +42,17 @@ public class HeaderPASection extends BasePage {
 
     public void selezionaEsciButton() {
         try {
-            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Esci')]"))));
-            esciButton = driver.findElement(By.xpath("//button[contains(text(),'Esci')]"));
-            esciButton.click();
+//            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Esci')]"))));
+//            esciButton = driver.findElement(By.xpath("//button[contains(text(),'Esci')]"));
+//            esciButton.click();
+            WebElement selezionaEsciButton = getWebDriverWait(20)
+                    .withMessage("Il primo bottone 'Esci' non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(
+                            By.xpath("//button[contains(text(), 'Esci')]")
+                    ));
+
+            // Clicca sul pulsante "Esci"
+            selezionaEsciButton.click();
         } catch (TimeoutException e) {
             Assertions.fail("Il bottone esci non cliccabile con errore: " + e.getMessage());
         }
