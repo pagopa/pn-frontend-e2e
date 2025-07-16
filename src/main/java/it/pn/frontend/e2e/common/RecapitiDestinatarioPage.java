@@ -964,8 +964,13 @@ public void clearOTP() {
     }
 
     public void clickConfermaPopupOTP() {
-        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
-        WebElement confirmOtpPopup = driver.findElement(By.id("code-confirm-button"));
+//        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
+//        WebElement confirmOtpPopup = driver.findElement(By.id("code-confirm-button"));
+//        confirmOtpPopup.click();
+        WebElement confirmOtpPopup = getWebDriverWait(5)
+                .withMessage("Il bottone 'Conferma' nel popup OTP non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("code-confirm-button")));
+
         confirmOtpPopup.click();
     }
 
@@ -1500,5 +1505,38 @@ public void verificaEDisattivaEmail() {
         WebElement errorMessage = driver.findElement(By.id("default_email-helper-text"));
         return errorMessage.getText();
 
+    }
+
+    public void verificaIndirizzoEmailNonValido() {
+         getWebDriverWait(10)
+                .withMessage("Il messaggio di errore per l'indirizzo email non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
+
+    }
+
+    public void clickContinuaTabInserisciUnRecapito() {
+        WebElement bottoneContinua = getWebDriverWait(10)
+                .withMessage("Impossibile Trovare il tasto Continua nel tab Inserisci Un Recapito ")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(normalize-space(), 'Continu')]"))
+        );
+        bottoneContinua.click();
+    }
+
+    public void verificaPresenzaCampoObbligatorio() {
+        getWebDriverWait(10)
+                .withMessage("Impossibile Trovare il messaggio Campo obbligatorio").until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.id("disclaimer-helper-text")));
+    }
+
+    public void spuntareCheckboxPrivacy() {
+        WebElement checkbox = getWebDriverWait(10)
+                .withMessage("Impossibile Trovare il messaggio Campo obbligatorio")
+                .until(ExpectedConditions.elementToBeClickable(By.id("disclaimer")));
+
+// Se non è già selezionata, cliccala
+        if (!checkbox.isSelected()) {
+            checkbox.click();
+        }
     }
 }

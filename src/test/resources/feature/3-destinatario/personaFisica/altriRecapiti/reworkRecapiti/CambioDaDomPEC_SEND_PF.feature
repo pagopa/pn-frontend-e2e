@@ -49,7 +49,7 @@ Feature: Rework della pagina dei contatti
 
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-  And Click Bottone Conferma Attiva domicilio digitale
+  And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
 
 ##  REWORK_DOMICILIO_DIGITALE_PF_48

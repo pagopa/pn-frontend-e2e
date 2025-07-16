@@ -1095,9 +1095,9 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.clickCollegaSENDSuIO();
     }
 
-    @And("Click Bottone Conferma Attiva domicilio digitale")
-    public void clickBottoneConfermaAttivaDomicilioDigitale() {
-        iTuoiRecapitiPage.clickBottoneConfermaAttivaDomicilioDigitale();
+    @And("Click Attiva domicilio digitale")
+    public void clickAttivaDomicilioDigitale() {
+        iTuoiRecapitiPage.clickAttivaDomicilioDigitale();
     }
 
     @And("Verifica presenza bottone Attiva SEND su IO")

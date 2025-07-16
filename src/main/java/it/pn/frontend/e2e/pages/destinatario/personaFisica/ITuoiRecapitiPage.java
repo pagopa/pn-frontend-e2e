@@ -378,10 +378,10 @@ public void iTuoiRecapitiButtonClick() {
         buttonCollegaSENDSuIO.click();
     }
 
-    public void clickBottoneConfermaAttivaDomicilioDigitale() {
+    public void clickAttivaDomicilioDigitale() {
         WebElement buttonConferma = getWebDriverWait(10)
-                .withMessage("Impossibile cliccare sul bottone Conferma Attiva Domicilio Digitale")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Conferma']")));
+                .withMessage("Impossibile cliccare sul bottone  Attiva Domicilio Digitale")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='activateButton']")));
         buttonConferma.click();
 
     }
@@ -454,5 +454,17 @@ public void iTuoiRecapitiButtonClick() {
 
         // Clicca la seconda voce (indice 0): "I TUoi dati", indipendente dalla lingua
         menuItems.get(0).click();
+    }
+
+    public void clickContinua() {
+        WebElement continuaButton = getWebDriverWait(10)
+                .withMessage("Il pulsante 'Continua' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='continueButton']")
+                ));
+
+        // Clicca sul pulsante "Continua"
+        continuaButton.click();
+
     }
 }

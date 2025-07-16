@@ -305,4 +305,39 @@ public class RecapitiTest extends BasePage {
         piattaformaNotifichePage.buttonRighePagine();
         piattaformaNotifichePage.selezionaPage50();
     }
+
+    @And("Click Continua")
+    public void clickContinua() {
+        iTuoiRecapitiPage.clickContinua();
+    }
+
+    @And("Click Aggiungi email")
+    public void clickAggiungiEmail() {
+        recapitiDestinatarioPage.clickAvvisamiViaEmail();
+    }
+
+    @And("Verifica  Indirizzo email non valido")
+    public void verificaIndirizzoEmailNonValido() {
+        recapitiDestinatarioPage.verificaIndirizzoEmailNonValido();
+    }
+
+    @And("Click Continua Tab Inserisci un recapito")
+    public void clickContinuaTabInserisciUnRecapito() {
+        recapitiDestinatarioPage.clickContinuaTabInserisciUnRecapito();
+    }
+
+    @And("Click Ok ho capito Recapiti")
+    public void clickOkHoCapitoRecapiti() {
+        recapitiDestinatarioPage.clickLoFaroPiuTardiOrConfermaModificaRecapito();
+    }
+
+    @And("Verifica presenza Campo obbligatorio")
+    public void verificaPresenzaCampoObbligatorio() {
+        recapitiDestinatarioPage.verificaPresenzaCampoObbligatorio();
+    }
+
+    @And("Spuntare checkbox privacy")
+    public void spuntareCheckboxPrivacy() {
+        recapitiDestinatarioPage.spuntareCheckboxPrivacy();
+    }
 }
