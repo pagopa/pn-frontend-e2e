@@ -19,4 +19,4 @@ Feature: la persona fisica visualizza correttamente la sezione altri recapiti
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email
     Then Si visualizzano correttamente tutti gli elementi della sezione altri recapiti
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

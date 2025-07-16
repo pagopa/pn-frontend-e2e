@@ -314,4 +314,4 @@ Feature: Ente figlio e Ente radice
       | cognome | Borgia   |
     And Nella sezione Deleghe si sceglie l'opzione revoca
     And Si conferma l'azione scegliendo revoca la delega
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

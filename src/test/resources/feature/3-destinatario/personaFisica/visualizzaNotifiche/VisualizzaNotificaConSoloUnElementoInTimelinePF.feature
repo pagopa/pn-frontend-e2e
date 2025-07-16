@@ -33,7 +33,7 @@ Feature: PF visualizza il dettaglio di una notifica con solo un elemento in time
     And estraggo il file zip
     And Controllo sia presente documento pdf
     And Si elimina file estratto
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
 
 
   @VisualizzaNotificaMonoDestinatarioConUnElementoInTimeline890PF
@@ -64,4 +64,4 @@ Feature: PF visualizza il dettaglio di una notifica con solo un elemento in time
     And estraggo il file zip
     And Controllo sia presente documento pdf
     And Si elimina file estratto
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

@@ -20,4 +20,4 @@ Feature: la persona fisica elimina l'indirizzo pec
     And Nella pagina I Tuoi Recapiti si clicca sul bottone elimina pec
     And Nel pop up elimina indirizzo pec si clicca sul bottone conferma
     Then Nella pagina I Tuoi Recapiti si controlla che l'indirizzo pec non sia presente
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

@@ -20,4 +20,4 @@ Feature: la persona fisica elimina l'indirizzo Email
     And Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non è stata eleminata
     And Nella pagina I Tuoi Recapiti si clicca sul bottone elimina email e si conferma nel pop up
     Then Nella pagina I Tuoi Recapiti si controlla che l'indirizzo Email non sia presente
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

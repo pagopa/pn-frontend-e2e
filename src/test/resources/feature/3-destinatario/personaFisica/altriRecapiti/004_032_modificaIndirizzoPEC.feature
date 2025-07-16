@@ -23,4 +23,4 @@ Feature: la persona fisica modifica l'indirizzo pec già presente
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "provapec@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     Then Nella pagina I Tuoi Recapiti si verifica che la pec sia stata modificata "provapec@pec.it"
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

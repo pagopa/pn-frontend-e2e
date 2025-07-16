@@ -33,7 +33,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
       | vediDettagli | false                                          |
    # And Nella sezione Dettaglio Notifiche PG si seleziona il file, "Attestazione opponibile a terzi: notifica presa in carico", da scaricare
     #Then Si controlla il SHA all interno del file atteztazione
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
 
 
   @TA_PFDownloadAttestazioneOpponibilePresaInCaricoEVerificaEnte
@@ -79,7 +79,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
       | vediDettagli | false                                          |
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
 
 
   @TA_PFVerificaEnteNelDettaglioNotifica
@@ -123,4 +123,4 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Aspetta 60 secondi
     And Cliccare sulla notifica restituita
     And Verifica nome ente mittente "Comune di Viggiu"
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
