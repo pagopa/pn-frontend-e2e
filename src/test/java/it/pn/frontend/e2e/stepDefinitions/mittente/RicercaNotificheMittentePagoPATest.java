@@ -33,7 +33,7 @@ import java.util.Map;
 
 public class RicercaNotificheMittentePagoPATest extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("RicercaNotificheMittentePagoPATest");
+    private static final Logger logger = LoggerFactory.getLogger(RicercaNotificheMittentePagoPATest.class);
 
     private boolean dataFineErrata;
 

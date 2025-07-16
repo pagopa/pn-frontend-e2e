@@ -291,7 +291,7 @@ Feature: Ente figlio e Ente radice
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[@id='document-button' and .//div[contains(text(),'Avviso di avvenuta ricezione')]]  |
       | vediDettagli | false                                          |
-    And Logout da portale persona fisica
+    #And Logout da portale persona fisica
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Destinatario ricerca notifica con IUN salvato
     And Cliccare sulla notifica restituita
@@ -314,4 +314,4 @@ Feature: Ente figlio e Ente radice
       | cognome | Borgia   |
     And Nella sezione Deleghe si sceglie l'opzione revoca
     And Si conferma l'azione scegliendo revoca la delega
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

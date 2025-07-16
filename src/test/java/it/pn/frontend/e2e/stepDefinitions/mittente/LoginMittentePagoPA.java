@@ -585,6 +585,7 @@ public class LoginMittentePagoPA extends BasePage {
 
     @And("Logout e Login con Comune di {string}")
     public void logoutELoginConComuneDi(String comune) {
+        //logout
         logger.info("Si esce dal portale mittente");
         webTool.waitTime(2);
 
@@ -593,8 +594,32 @@ public class LoginMittentePagoPA extends BasePage {
         headerPASection.selezionaSecondoEsciButtonPA();
         webTool.waitTime(2);
 
+        //Login
+        acccediAreaRiservataPAPage.selezionareSpidButton();
+        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
         if(comune.equalsIgnoreCase("Viggiu")){
-            logger.info("Entro come comune di {}",comune);
+            loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
+            loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
+        }
+        else {
+            loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
+            loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
+        }
+        loginPAPage.entraConSpid();
+
+        confermaDatiSpidPFPage.selezionaConfermaButton();
+
+//        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+//                !webDriverManager.getCookieConfig().isCookieEnabled()) {
+//            logger.info("cookies start");
+//            cookiesSection.selezionaAccettaTuttiButton();
+//            if (cookiesSection.waitLoadCookiesPage()) {
+//                cookiesSection.selezionaAccettaTuttiButton();
+//            }
+//            logger.info("cookies end");
+//        }
+        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        if(comune.equalsIgnoreCase("Viggiu")){
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
         }
@@ -603,6 +628,18 @@ public class LoginMittentePagoPA extends BasePage {
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
         }
         selezionaEntePAPage.selezionaAccedi();
+
+
+//        if(comune.equalsIgnoreCase("Viggiu")){
+//            logger.info("Entro come comune di {}",comune);
+//            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
+//            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
+//        }
+//        else {
+//            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
+//            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
+//        }
+//        selezionaEntePAPage.selezionaAccedi();
     }
 
     @And("Click entra su Send Mittente")

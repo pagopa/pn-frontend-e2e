@@ -9,7 +9,7 @@ Feature: Mittente invia una notifica digitale che viene annullata e lato destina
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "PEC" e si inserisce "prova@test.it"
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | 890                |
@@ -44,4 +44,4 @@ Feature: Mittente invia una notifica digitale che viene annullata e lato destina
     And Si verifica che le attestazioni opponibili a terzi non siano scaricabili
     And Si verifica che non sia possibile scaricare le ricevute PEC
     And Si verifica la presenza del banner di avviso annullamento notifica
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

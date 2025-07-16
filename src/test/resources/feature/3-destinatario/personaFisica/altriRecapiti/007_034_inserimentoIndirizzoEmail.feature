@@ -19,4 +19,4 @@ Feature: la persona fisica inserisce una Email
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia presente
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
