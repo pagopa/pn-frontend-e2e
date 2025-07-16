@@ -717,8 +717,7 @@ public class PiattaformaNotifichePage extends BasePage {
                         .until(
                         ExpectedConditions.visibilityOf(row.findElement(By.cssSelector("div[id^='status-chip-']")))
                 );
-
-                if (statusChip.getText().trim().toLowerCase().contains(stato.toLowerCase())) {
+                if (statusChip.getText().trim().equals(stato)) {
 
                     WebElement vediDettaglioButton = getWebDriverWait(10)
                             .withMessage("Impossibile dettagli con lo stato: "+stato)
@@ -1509,7 +1508,8 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean testSuccess = false;
         for (int i = 0; i < 20; i++) {
             try {
-                WebElement chipStatus = getWebDriverWait(10)
+//                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
+                WebElement chipStatus = getWebDriverWait(5)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id(statoNotifica + "-status")));
                 if (chipStatus.isDisplayed()) {
                     logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
