@@ -261,7 +261,6 @@ public class DeleghePagoPATest extends BasePage {
             // backgroundTest = new BackgroundTest();
             backgroundTest.loginPF(PF);
             backgroundTest.aggiuntaNuovaDelegaPF();
-            backgroundTest.logoutPF();
             backgroundTest.loginPF("delegatoPF");
         }
 
@@ -274,7 +273,6 @@ public class DeleghePagoPATest extends BasePage {
             // backgroundTest = new BackgroundTest();
             backgroundTest.loginPF(PF);
             backgroundTest.aggiuntaNuovaDelegaPF();
-            backgroundTest.logoutPF();
             backgroundTest.loginPF("delegatoPF");
         }
     }
@@ -602,7 +600,6 @@ public class DeleghePagoPATest extends BasePage {
             logger.info("accettazioneDelegaPF richiamata dentro IF");
             backgroundTest.loginPF("personaFisica");
             backgroundTest.aggiuntaNuovaDelegaPF();
-            backgroundTest.logoutPF();
             backgroundTest.loginPF("delegatoPF");
             backgroundTest.accettazioneDelegaPF();
         } else if (leTueDelegheSection.controlloPresenzaBottoneAccetta()) {
