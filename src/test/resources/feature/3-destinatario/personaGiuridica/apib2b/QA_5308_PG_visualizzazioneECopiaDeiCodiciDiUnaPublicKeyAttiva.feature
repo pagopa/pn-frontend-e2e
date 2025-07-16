@@ -1,12 +1,13 @@
 Feature: Visualizzazione sezione Integrazione API
 
-  @TA_PG_VisualizzazioneCopiaCodiciPublicKeyAttiva_QA_5308
-  @integrazioneApi
-  @apiKey
-  #@bilinguismo
-  @PG
-  @TestSuite
-  @NRT_Blocco_2
+#  @TA_PG_VisualizzazioneCopiaCodiciPublicKeyAttiva_QA_5308
+#  @apiKey
+#  #@bilinguismo
+#  @PG
+#  @TestSuite
+#  @NRT_Blocco_2
+
+  #  Inclobato nella 5305
   Scenario: PN-QA-5308 [DELEGANTE PG AMMINISTRATORE] - Visualizzazione e copia dei codici per un utente Amministratore PG con Public Key attiva
     # Reset ambiente di test
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

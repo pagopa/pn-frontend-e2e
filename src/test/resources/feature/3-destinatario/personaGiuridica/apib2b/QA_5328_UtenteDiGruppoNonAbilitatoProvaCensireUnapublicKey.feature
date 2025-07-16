@@ -3,7 +3,7 @@ Feature: PG - Utente Amministratore di gruppo non abilitato prova a censire una 
   @TestSuite
   @TA_PG_UtenteAmministratoreDiGruppoNonAbilitatoProvaCensirePublicKey_QA_5328
   @integrazioneApi
-  @apiKey
+  @integrazioneApiPg2
   #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5328  PG - Utente Amministratore di gruppo non abilitato prova a censire una public key
@@ -27,18 +27,3 @@ Feature: PG - Utente Amministratore di gruppo non abilitato prova a censire una 
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     Then Nella sezione Integrazione API non si visualizza alcuna chiave "Per poter creare una chiave personale, un amministratore deve prima abilitare l’integrazione."
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

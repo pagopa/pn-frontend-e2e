@@ -1,11 +1,10 @@
 Feature: PG - Eliminazione di una public key ruotata per un utente Amministratore Persona Giuridica
 
-  @TestSuite
-  @TA_PG_EliminazionePublicKey_QA_5312
-  @integrazioneApi
-  @apiKey
-  #@bilinguismo
-  @NRT_Blocco_2
+#  @TestSuite
+#  @TA_PG_EliminazionePublicKey_QA_5312
+#  #@bilinguismo
+#  @NRT_Blocco_2
+  #  Inglobato in 5307
   Scenario:PN-QA-5312  PG - Eliminazione di una public key ruotata per un utente Amministratore Persona Giuridica
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

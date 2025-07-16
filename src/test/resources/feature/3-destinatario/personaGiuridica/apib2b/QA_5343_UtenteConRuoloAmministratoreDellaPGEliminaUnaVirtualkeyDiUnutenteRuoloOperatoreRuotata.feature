@@ -3,11 +3,24 @@ Feature: PG - Utente con ruolo Amministratore della PG elimina una virtual key r
   @TestSuite
   @TA_PG_AmministratorePG_EliminaVirtualKeyDiUnUtenteRuoloOperatoreRuotata_QA_5343
   @integrazioneApi
-  @apiKey
+  @integrazioneApiPg2
   #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5343  PG - Utente con ruolo Amministratore della PG elimina una virtual key ruotata di un utente con ruolo di operatore
     Given Login Page persona giuridica viene visualizzata
+    #    *-*-*-*-*-*-*-* Inizio -*-*-*-*-*-*-*-*-*-*
+    And Login con persona giuridica
+      | user           | n.lotti       |
+      | pwd            | test          |
+      | ragioneSociale | Vita Nova Sas |
+    And Si clicca su prodotto
+#    Cliccando sulla CTA “Genera chiave personale”
+    When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
+    And Pulisci ambiente virtual keys
+    And Logout da portale persona giuridica delegante
+
+   #    *-*-*-*-*-*-*-* Fine -*-*-*-*-*-*-*-*-*-*
+
     When Login con persona giuridica
       | user           | DanteAlighieri |
       | pwd            | test           |

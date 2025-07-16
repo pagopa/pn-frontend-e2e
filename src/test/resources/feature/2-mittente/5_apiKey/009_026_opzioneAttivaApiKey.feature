@@ -1,11 +1,11 @@
 Feature: Mittente seleziona l'opzione attiva api Key
 
   @TestSuite
-
   @TA_MittenteAttivaApiKey
   @ApikeyMittente
-  @integrazioneApi
+  @integrazioneApiPa
   @NRT_Blocco_2
+
   Scenario: PN-9234 - Mittente seleziona l'opzione attiva Api Key
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu

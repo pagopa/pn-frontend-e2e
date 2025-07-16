@@ -1,12 +1,13 @@
 Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica per la Persona Giuridica
 
-  @TA_PG_BloccoChiavePubblicaECreazioneChiavePubblicaConStessoValore_QA_5348
-  @integrazioneApi
-  @apiKey
-  #@bilinguismo
-  @PG
-  @TestSuite
-  @NRT_Blocco_2
+#  @TA_PG_BloccoChiavePubblicaECreazioneChiavePubblicaConStessoValore_QA_5348
+#  @apiKey
+#  #@bilinguismo
+#  @PG
+#  @TestSuite
+#  @NRT_Blocco_2
+
+  #  Inclobato nella 5305
   Scenario: QA-5348 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG blocca una chiave pubblica attiva e censisce una chiave pubblica con il valore della chiave bloccata
     # Reset ambiente di test
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -33,4 +34,4 @@ Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica pe
     And Cliccare su registra
     Then Si controlla la comparsa del label di stato 'Attiva' e del pop up di conferma per la creazione della chiave pubblica
     And Nella pagina Integrazione API si controlla che non sia presente il bottone Genera chiave pubblica
-    And Logout da portale persona giuridica delegante
+

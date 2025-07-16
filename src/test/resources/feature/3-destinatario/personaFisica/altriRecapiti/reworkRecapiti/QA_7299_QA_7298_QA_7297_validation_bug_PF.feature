@@ -16,11 +16,15 @@ Feature: Rework della pagina dei contatti
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Verifica e Disattiva domicilio digitale
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
+    And Refresh pagina
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
     And Click Notifiche
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 1 secondi
+    And Refresh pagina
     And Click Bottone Inizia nel Banner
     And Click Annulla Servizio Notifiche Digitali
     And Entro dentro la prima notifica con stato "Avvenuto accesso"

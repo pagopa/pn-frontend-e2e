@@ -1,12 +1,13 @@
 Feature: Visualizzazione sezione Integrazione API
 
-  @TA_PG_VisualizzazioneIntegrazioneAPIPublicKeyCensita_QA_5306
-  @integrazioneApi
-  @apiKey
-  #@bilinguismo
-  @PG
-  @TestSuite
-  @NRT_Blocco_2
+#  @TA_PG_VisualizzazioneIntegrazioneAPIPublicKeyCensita_QA_5306
+#  @apiKey
+#  #@bilinguismo
+#  @PG
+#  @TestSuite
+#  @NRT_Blocco_2
+
+#  Inclobato nella 5305
 
   Scenario: PN-QA-5306 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG visualizza sezione Integrazione con Public Key censita
     # Reset ambiente di test
