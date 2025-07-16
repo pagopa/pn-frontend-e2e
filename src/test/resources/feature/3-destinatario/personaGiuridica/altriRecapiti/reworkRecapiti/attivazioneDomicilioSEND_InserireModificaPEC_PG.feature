@@ -1,10 +1,11 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite_ON
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciModificaPEC_PG
   @addressBook2
-  @TA_ON
-  #  @NRT
+  @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_4_19] Attivazione Domicilio Digitale SEND - Inserisci PEC e Modifica PEC  PG
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -27,7 +28,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
-    And Aspetta 2 secondi
+    #And Aspetta 2 secondi
+    And Refresh pagina
 ## Modifica
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC
     And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "provaa@pec.it"

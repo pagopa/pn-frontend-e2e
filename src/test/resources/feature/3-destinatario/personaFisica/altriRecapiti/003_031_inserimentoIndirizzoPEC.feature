@@ -1,6 +1,6 @@
 Feature: la persona fisica inserisce una email pec
 
-#  @TestSuite
+#  @TestSuite_VECCHIO
 #  @TA_inserimentoPECPF
 #  @PF
 #  @recapitiPF

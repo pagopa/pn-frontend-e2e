@@ -124,6 +124,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
     private RestNotification restNotification;
     @Autowired
     private AppPortalUrlFactory urlFactory;
+
+    @Autowired
+    private RicercaNotificheMittentePagoPATest ricercaNotificheMittentePagoPATest;
  
     @PostConstruct
     public void init(){
@@ -140,6 +143,9 @@ public class NotificaMittentePagoPATest  extends BasePage {
         dettaglioNotificaMittenteSection = new DettaglioNotificaMittenteSection(driver);
         informazioniPreliminariPASection = new InformazioniPreliminariPASection(driver);
         invioNotifichePAPage = new InvioNotifichePAPage(driver);
+
+        ricercaNotificheMittentePagoPATest.setHooksNew(hooksNew);
+
         backgroundTest = new BackgroundTest();
     }
 
@@ -252,19 +258,35 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.waitLoadInformazioniPreliminariPASection();
     }
 
-    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento")
-    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento() {
-        logger.info("Inserimento dei dati della notifica senza pagamento" );
-        //datiNotifica
-//        aggiornamentoNumeroProtocollo();
+//    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento")
+//    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento() {
+//        logger.info("Inserimento dei dati della notifica senza pagamento" );
+//        String gruppo = "";
+//        switch (webDriverConfig.getEnvironment()) {
+//            case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
+//            case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
+//        }
+//        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
+//        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+////        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+//        informazioniPreliminariPASection.insertNumeroDiProtocollo(WebTool.generatePaProtocolNumber());
+//        informazioniPreliminariPASection.insertGruppo(gruppo);
+////        informazioniPreliminariPASection.insertGruppo("GruppoTest");
+//        informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
+//        informazioniPreliminariPASection.selectRaccomandataAR();
+//    }
+
+    @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento {string}")
+    public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(String numeroNotificaID) {
+                logger.info("Inserimento dei dati della notifica senza pagamento" );
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
             case "test" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
             case "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoUat();
         }
-        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
-        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
+        informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica()+" -> "+numeroNotificaID);
+        informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione()+" -> "+numeroNotificaID);
 //        informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
         informazioniPreliminariPASection.insertNumeroDiProtocollo(WebTool.generatePaProtocolNumber());
         informazioniPreliminariPASection.insertGruppo(gruppo);
@@ -272,6 +294,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         informazioniPreliminariPASection.insertCodiceTassonometrico(dataPopulationConfig.getDatiNotifica().getCodiceTassonometrico());
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
+
     @And("Nella section Informazioni preliminari inserire i dati della notifica senza pagamento senza gruppo con lingua {string}")
     public void nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamentoSenzaGruppoConLingua(String lingua) {
         logger.info("Inserimento dei dati della notifica senza pagamento" );
@@ -284,11 +307,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
                 informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaFr());
                 informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneFr());
             }
-            case "tedesca" -> {
+            case "tedesco" -> {
                 informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaDe());
                 informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneDe());
             }
-            case "slovena" -> {
+            case "sloveno" -> {
                 informazioniPreliminariPASection.insertOggettoNotificaLinguaStraniera(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotificaSl());
                 informazioniPreliminariPASection.insertDescrizioneLinguaStraniera(dataPopulationConfig.getDatiNotifica().getDescrizioneSl());
             }
@@ -602,6 +625,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("viene inserito codice IUN salvato")
     public void vieneInseritoIunSalvato() {
         dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage(Iun);
+//        dettaglioNotificaMittenteSection.insertIunSalvatoAndRicercaOnPage("XVAU-NMXQ-RKUL-202408-Y-1");
     }
 
     @And("Mittente ricerca notifica con IUN salvato")
@@ -752,6 +776,14 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.selezionaUltimaPaginaUtilizzandoUnaFrecetta();
     }
 
+    @And("Nella pagina stato della piattaforma si cambia pagina")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPagina() {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
+        int pagina = piattaformaNotifichePage.getPageMeseCorrente();
+//        piattaformaNotifichePage.selezionaFrecettaFinoaPagina(2);
+        piattaformaNotifichePage.selezionaFrecettaFinoaPagina(pagina);
+    }
+
     @And("Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina {int}")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaUtilizzandoUnaFreccettaFinoPagina(Integer pagina) {
         piattaformaNotifichePage.setHooksNew(hooksNew);
@@ -864,7 +896,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
             }
         }
         if (!notificaTrovata) {
-            logger.error("La notifica non è stata trovata dopo 1m40s");
             Assertions.fail("La notifica non è stata trovata dopo 1m40s");
         }
     }
@@ -1563,9 +1594,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.setNotificationSingletonParam(notificationSingleton);
         backgroundTest.setPiattaformaNotifichePage(piattaformaNotifichePage);
         backgroundTest.setHooksNew(hooksNew);
-       // String iun = notificationSingleton.getIun(HooksNew.scenario);
-        logger.info("IUN............."+ backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(hooksNew.getScenario()));
+       //// String iun = notificationSingleton.getIun(HooksNew.scenario);
         String iun = backgroundTest.getPiattaformaNotifichePage().getNotificationSingletonParam().getIun(hooksNew.getScenario());
+        logger.info("si Seleziona La Notifica con lo IUN............."+ iun);
+//          backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario("PYLX-KQXU-HEPY-202506-D-1");
         backgroundTest.siFiltraLaTabellaDelleNotifichePerIUNDestinatario(iun);
     }
 
@@ -1732,7 +1764,6 @@ public class NotificaMittentePagoPATest  extends BasePage {
             case "test" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyTEST();
             case "uat" -> codiceApi = dataPopulationConfig.getMittente().getCodiceApiKeyUAT();
             default -> {
-                logger.error("Ambiente non valido per siVerificaEsitoNotifica");
                 Assertions.fail("Ambiente non valido o non trovato per siVerificaEsitoNotifica!");
             }
         }
@@ -1771,6 +1802,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         EsitoNotifica esitoNotifica = siVerificaEsitoNotifica(dpFile);
         if (esitoNotifica.statusNotifica.equals("ACCEPTED")) {
             logger.info("La notifica è stata Accettata");
+            //String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
             String codiceIUN = esitoNotifica.accettazioneRichiestaNotifica.getCodiceIUN();
             if (codiceIUN != null && !codiceIUN.isEmpty()) {
 
@@ -2164,6 +2196,10 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Entro dentro la prima notifica")
     public void entroDentroLaPrimaNotifica() {
         piattaformaNotifichePage.selezionaPrimaNotifica();
+    }
+    @And("Entro dentro la prima notifica con stato {string}")
+    public void entroDentroLaPrimaNotificaConStato(String stato) {
+        piattaformaNotifichePage.selezionaPrimaNotifica(stato);
     }
 
     @When("Seleziona voce menu laterale {string}")
@@ -2569,6 +2605,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.verificaBannerAttivoEInserimentoManualeSelezionato();
     }
 
+    @And("Disabilita Pop-Up Chrome")
+    public void disabilitaPopUpChrome() {
+        driver.switchTo().alert().accept();
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
@@ -2591,11 +2632,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
         //dataPopulation.writeDataPopulation(dpFile + ".yaml", datiNotifica);
         switch (dpFile) {
             case "datiNotifica" -> {
-                dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
+                notificationSingleton.setScenarioIun(hooksNew.getScenario(),codiceIUN);
+                //dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
                 logger.info("datiNotifica codiceIUN: "+codiceIUN);
             }
             case "datiNotificaPG" -> {
-                dataPopulationConfig.getDatiNotificaPg().setCodiceIUN(codiceIUN);
+                notificationSingleton.setScenarioIun(hooksNew.getScenario(),codiceIUN);
+                //dataPopulationConfig.getDatiNotificaPg().setCodiceIUN(codiceIUN);
                 logger.info("datiNotificaPG codiceIUN: "+codiceIUN);
             }
 

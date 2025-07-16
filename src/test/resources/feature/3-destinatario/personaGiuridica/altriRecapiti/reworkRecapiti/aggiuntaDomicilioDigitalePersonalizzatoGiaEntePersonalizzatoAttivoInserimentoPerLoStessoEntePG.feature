@@ -1,16 +1,18 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite_ON
   @TA_REWORK_DOMICILIO_DIGITALE_75_72_73_76_74_PG
   @addressBook2
-  @TA_ON
-  #  @NRT
+  @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
+
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_75_72_73_76_74] Aggiunta domicilio digitale personalizzato (principale PEC) - Già ente personalizzato attivo - Inserimento per lo stesso ente PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 ##    verificare mancano pezzi inerente a SEND sull'appIO e indirizzo email
     And Verifica ed Elimina personalizzati per ente
-    And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale
@@ -32,7 +34,8 @@ Feature: Rework della pagina dei contatti
    #  FINE REWORK_DOMICILIO_DIGITALE_PG_72_73
     And Verifica Pagina "Validazione PEC in corso"
 
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
 
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
@@ -54,7 +57,8 @@ Feature: Rework della pagina dei contatti
     And Seleziona Tipologia "Domicilio Digitale SEND"
     And Verifica Pagina "possibile associare il domicilio digitale SEND"
     And Click Bottone Esci PG
-    And Aspetta 2 secondi
+    #And Aspetta 2 secondi
+    And Refresh pagina
 
 ##  REWORK_DOMICILIO_DIGITALE_PG_74
     When Click Bottone Gestisci
@@ -71,7 +75,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     When Verifica Pagina "domicilio digitale"
     And Click Torna ai tuoi recapiti
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica Pagina "prova2@pec.it"
 
 

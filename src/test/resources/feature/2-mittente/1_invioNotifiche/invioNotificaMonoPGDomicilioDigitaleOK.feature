@@ -27,4 +27,3 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
-    And Logout da portale mittente

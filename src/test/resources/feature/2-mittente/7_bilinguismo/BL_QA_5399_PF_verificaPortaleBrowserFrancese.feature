@@ -1,11 +1,11 @@
 Feature: PF Verificare portale browser Francese
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoPFVerificaPortaleBrowserFrancese_QA5399
   @TA_Francese
   @bilinguismo
 
-  Scenario: PN-QA5399 - PF - Verificare portale browser Francese
+  Scenario: PN-QA5399-BL - PF - Verificare portale browser Francese
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

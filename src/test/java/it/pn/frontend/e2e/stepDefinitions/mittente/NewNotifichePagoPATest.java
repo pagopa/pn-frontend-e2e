@@ -84,6 +84,7 @@ public class NewNotifichePagoPATest extends BasePage {
     public void siCompletaPercorsoRADD(Map<String,String> datiDestinatario) {
         String environment = environmentParam;
         String token = "";
+        logger.info("Si completa percorso RADD");
         switch (environment) {
             case "dev" -> {
                 /* TODO */

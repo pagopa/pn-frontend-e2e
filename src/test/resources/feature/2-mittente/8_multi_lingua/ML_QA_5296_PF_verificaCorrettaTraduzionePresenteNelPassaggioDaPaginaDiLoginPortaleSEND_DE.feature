@@ -3,8 +3,9 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
   @TestSuite
   @TA_multiLinguaTedesco_QA5296
   @multiLingua
-  @NRT
-  Scenario: PN-QA5296 - PF - Verifica traduzione presente nel passaggio da pagina di Login a portale SEND - DE
+  @multiLinguaPf
+  @NRT_Blocco_3
+  Scenario: PN-QA5296-ML - PF - Verifica traduzione presente nel passaggio da pagina di Login a portale SEND - DE
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica scelta lingua
       | user         | cesare                 |
@@ -14,7 +15,8 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       | lingua       | Tedesco |
     And Refresh pagina
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     When Seleziona voce menu laterale "Zustellungen"
 #   Verificole traduzioni del portale
     And Verifica traduzione testo "Zustellungen"

@@ -3,8 +3,9 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
   @TestSuite
   @TA_multiLinguaTedesco_QA5299
   @multiLingua
-  @NRT
-  Scenario: PN-QA5299 - PG - Cambio Lingua da Area Riservata a portale SEND - DE
+  @multiLinguaPg
+  @NRT_Blocco_3
+  Scenario: PN-QA5299-ML - PG - Cambio Lingua da Area Riservata a portale SEND - DE
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -13,14 +14,15 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
       | ragioneSociale | Convivio Spa   |
 #   Cambio lingua
     When Cambia lingua footer "Tedesco"
- #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
     And Verifica traduzione testo "Anschriften"
     And Verifica traduzione testo "Benutzer"
 ##  Verificare traduzione della sezione HP notifiche
+    And Attesa 1 secondi
     When Seleziona voce menu laterale "Vollmachten"
     And Verifica traduzione testo "Hier können die Bevollmächtigten des Unternehmens und deren Vollmachten verwaltet werden"
     And Verifica traduzione testo "Vollmachten des Unternehmens"
@@ -35,7 +37,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Attesa 1 secondi
     And Cambia lingua footer "Englisch"
     When Seleziona voce menu laterale "Notifications"
-    And Aspetta 1 secondi
+    And Attesa 1 secondi
     And Verifica traduzione testo "Delegations of authority"
     And Verifica traduzione testo "Contact details"
 ##  Verificare traduzione della sezione HP notifiche
@@ -75,16 +77,19 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "Ici, vous pouvez gérer les mandataires de l"
     And Verifica traduzione testo "Procurations à la charge de l"
 #    Selezionare Stato della Piattaforma
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"
 #    ------------------------------------------------
     And Cambia lingua footer "Allemand"
     And Cambia lingua footer "Slowenisch"
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 1 secondi
     And Seleziona voce menu laterale "Obvestila"
-    And Aspetta 1 secondi
+#    And Aspetta 1 secondi
+    And Attesa 1 secondi
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"
     And Verifica traduzione testo "Stanje platforme"

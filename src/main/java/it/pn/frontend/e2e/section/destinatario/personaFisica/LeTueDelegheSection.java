@@ -229,15 +229,28 @@ public class LeTueDelegheSection extends BasePage {
         }
     }
 
+//    public void clickOpzioneAccetta() {
+//        try {
+//            getWebDriverWait(40).withMessage("Il bottone clickOpzioneAccetta blocco try").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
+//            By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
+//            element(acceptDelegaButton).click();
+//        } catch (NoSuchElementException | TimeoutException e) {
+//            getWebDriverWait(40).withMessage("Il bottone clickOpzioneAccetta blocco catch").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
+//            driver.findElement(By.xpath("//*[@id='accept-button']")).click();
+//            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
+//        }
+//    }
+
     public void clickOpzioneAccetta() {
         try {
-            getWebDriverWait(40).withMessage("Il bottone clickOpzioneAccetta blocco try").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
-            By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
-            element(acceptDelegaButton).click();
-        } catch (NoSuchElementException | TimeoutException e) {
-            getWebDriverWait(40).withMessage("Il bottone clickOpzioneAccetta blocco catch").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
-            driver.findElement(By.xpath("//*[@id='accept-button']")).click();
-            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
+            WebElement acceptButton = getWebDriverWait(40)
+                    .withMessage("Il bottone 'Accetta' non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("accept-button")));
+
+            acceptButton.click();
+            logger.info("Bottone 'Accetta' cliccato con successo.");
+        } catch (TimeoutException | NoSuchElementException e) {
+            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore: " + e.getMessage());
         }
     }
 

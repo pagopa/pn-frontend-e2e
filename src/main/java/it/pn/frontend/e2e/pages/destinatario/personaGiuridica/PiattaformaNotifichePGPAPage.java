@@ -184,14 +184,24 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickSuIntegrazioneAPIButton() {
+//        try {
+//            getWebDriverWait(20).withMessage("Sezione Integrazione API nel side menu non visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Integrazione API"))));
+//            integrazioneAPIMenu = driver.findElement(By.id("side-item-Integrazione API"));
+//            js().executeScript("arguments[0].click()", integrazioneAPIMenu);
+//            logger.info("click sul bottone Integrazione API effetuato");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("il bottone Integrazione API non è stato trovato" + e.getMessage());
+//        }
         try {
-            getWebDriverWait(20).withMessage("Sezione Integrazione API nel side menu non visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Integrazione API"))));
-            integrazioneAPIMenu = driver.findElement(By.id("side-item-Integrazione API"));
-            js().executeScript("arguments[0].click()", integrazioneAPIMenu);
-            logger.info("click sul bottone Integrazione API effetuato");
+            WebElement clickSuIntegrazioneAPIButton = getWebDriverWait(25)
+                    .withMessage("Il bottone 'Integrazione API' non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("side-item-Integrazione API")));
+
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", clickSuIntegrazioneAPIButton);
+
+            logger.info("Clic sul bottone 'Integrazione API' effettuato con successo");
         } catch (TimeoutException e) {
-            logger.error("il bottone Integrazione API non è stato trovato " + e.getMessage());
-            Assertions.fail("il bottone Integrazione API non è stato trovato" + e.getMessage());
+            Assertions.fail("Il bottone 'Integrazione API' non è stato trovato: " + e.getMessage());
         }
     }
 

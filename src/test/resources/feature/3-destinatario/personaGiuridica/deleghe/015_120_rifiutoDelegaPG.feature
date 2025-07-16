@@ -6,6 +6,7 @@ Feature:Il delegato persona giuridica rifiuta la delega
   @PG
   @deleghe2
   @DeleghePFPG
+  @NRT_Blocco_1
   Scenario: PN-9172 - Il delegato persona giuridica rifiuta la delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
@@ -22,4 +23,3 @@ Feature:Il delegato persona giuridica rifiuta la delega
     And Nella sezione Deleghe si clicca sul bottone rifiuta
     And Si clicca sul bottone rifiuta delega
     And Si controlla che la delega non si più presente in elenco
-    And Logout da portale persona giuridica

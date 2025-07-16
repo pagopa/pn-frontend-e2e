@@ -2,7 +2,9 @@ package it.pn.frontend.e2e.model.enums;
 
 public enum Status {
     OK("OK"),
-    KO("KO");
+    KO("KO"),
+    INSERISCI_KO("KO-insert"),
+    RISOLVI_KO("KO-resolve");
     private final String value;
 
     Status(String value) {

@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
+import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -128,19 +129,43 @@ public class LoginMittentePagoPA extends BasePage {
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange() {
 
+//        String environment = webDriverConfig.getEnvironment();
+//        String token = "";
+//        token = webDriverConfig.getTokentestMittente();
+//
+//        // Si effettua il login con token exchange
+//        String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
+//        driver.get(urlLogin);
+//        logger.info("Login effettuato con successo");
+//        // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
+//        webTool.waitTime(10);
+//
+//        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+//        headerPASection.waitLoadHeaderSection();
+//        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+
+
         String environment = webDriverConfig.getEnvironment();
         String token = webDriverConfig.getTokentestMittente();
 
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
-        driver.get(urlLogin);
-        logger.info("Login effettuato con successo");
-        // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
-        webTool.waitTime(10);
 
-        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-        headerPASection.waitLoadHeaderSection();
-        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+        // Imposta un timeout più lungo per il caricamento della pagina
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+
+        try {
+            driver.get(urlLogin);
+            logger.info("Login effettuato con successo");
+            webTool.waitTime(10);
+            // Attendi che la dashboard sia completamente caricata
+            headerPASection.waitLoadHeaderSection();
+            piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
+        } catch (Exception e) {
+            // Gestione delle eccezioni: stampa l'errore
+            logger.info("Errore durante il login PA: " + e.getMessage());
+            throw e;
+        }
     }
 
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di {string}")
@@ -262,8 +287,8 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginConMittenteComuneDi(String comune) {
         logger.info("Si effetua la Login dal portale mittente");
 
-        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
-        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
+//        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
+//        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -278,9 +303,10 @@ public class LoginMittentePagoPA extends BasePage {
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
-        scegliSpidPAPage.selezionareTestButton();
+        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+//        scegliSpidPAPage.selezionareTestButton();
 
-        loginPAPage.waitLoadLoginPAPage();
+//        loginPAPage.waitLoadLoginPAPage();
         if(comune.equalsIgnoreCase("Viggiu")){
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
@@ -289,12 +315,27 @@ public class LoginMittentePagoPA extends BasePage {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
         }
-        loginPAPage.selezionaInviaDati();
+        loginPAPage.entraConSpid();
 
-        autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
-        autorizziInvioDatiPAPage.selezionareInvia();
+        confermaDatiSpidPFPage.selezionaConfermaButton();
 
-        webTool.waitTime(10);
+//        loginPAPage.selezionaInviaDati();
+//
+//        autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
+//        autorizziInvioDatiPAPage.selezionareInvia();
+//
+//        webTool.waitTime(10);
+//        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+
+        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+                !webDriverManager.getCookieConfig().isCookieEnabled()) {
+            logger.info("cookies start");
+            cookiesSection.selezionaAccettaTuttiButton();
+            if (cookiesSection.waitLoadCookiesPage()) {
+                cookiesSection.selezionaAccettaTuttiButton();
+            }
+            logger.info("cookies end");
+        }
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         if(comune.equalsIgnoreCase("Viggiu")){
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
@@ -549,6 +590,7 @@ public class LoginMittentePagoPA extends BasePage {
 
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
+        headerPASection.selezionaSecondoEsciButtonPA();
         webTool.waitTime(2);
 
         if(comune.equalsIgnoreCase("Viggiu")){

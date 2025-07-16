@@ -3,21 +3,19 @@ Feature: il mittente inserisce tutti i dati di una notifica
   @TA_invioNotificaConAllegati
     @TestSuite
     @invioNotifiche_07
-    @NRT
+    @NRT_Blocco_1
     @loginFE_8
   Scenario Outline: PN-9215 - il mittente inserisce tutti i dati di una notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "PN-9215"
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario selezionare il radio button persona giuridica
     And Nella section Destinatario inserire ragione sociale e partita IVA dalla persona giuridica
-    #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
-
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona giuridica
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi destinatario

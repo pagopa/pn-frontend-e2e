@@ -3,11 +3,11 @@ Feature: Avviso PagoPa - inserire un modello F24 per ogni destinatario a cui è 
   @TestSuite
   @TA_PosizioneDebitoria_12_14_16
   @TA_PosizioneDebitoria_ON
-  @NRT
+  @NRT_Blocco_1
   Scenario Outline: [Posizione_Debitoria_12_14_16] - Avviso PagoPa - inserire un modello F24 per ogni destinatario a cui è indirizzata la notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "Posizione_Debitoria_12_14_16"
     And Cliccare su continua
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Seleziona radion button Inserimento Manuale se esiste "0"
@@ -40,7 +40,8 @@ Feature: Avviso PagoPa - inserire un modello F24 per ogni destinatario a cui è 
 #    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra Notifica "filter-button"
     And Cliccare sulla notifica restituita dal filtro
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica Sezione Pagamenti
 
     Examples:

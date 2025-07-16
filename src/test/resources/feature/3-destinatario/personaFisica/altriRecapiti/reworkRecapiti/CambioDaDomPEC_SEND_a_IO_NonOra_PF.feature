@@ -1,12 +1,11 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite_UAT_ON
   @TA_REWORK_DOMICILIO_DIGITALE_PF_46
   @addressBook1
-  @TA_UAT_ON
-  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_46] CambioDaDomPEC_SEND_a_IO_NonOra_PF PF
+  @TA_REWORK_RECAPITI_UAT_ON
 
-   #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+  Scenario:[REWORK_DOMICILIO_DIGITALE_PF_46] CambioDaDomPEC_SEND_a_IO_NonOra_PF PF
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica input
       | user         | pluto-ta               |

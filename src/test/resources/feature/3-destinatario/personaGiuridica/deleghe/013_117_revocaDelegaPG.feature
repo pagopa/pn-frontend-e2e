@@ -6,7 +6,8 @@ Feature:La persona giuridica revoca una delega
     @PG
     @deleghe2
     @DeleghePFPG
-  Scenario:PN-9169 - La persona giuridica revoca una delega
+    @NRT_Blocco_1
+    Scenario:PN-9169 - La persona giuridica revoca una delega
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
@@ -18,6 +19,5 @@ Feature:La persona giuridica revoca una delega
       | companyName    | Convivio Spa  |
       | displayName    | Convivio Spa  |
       | person         | false         |
-    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Le Epistolae srl"
+    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Convivio Spa"
     And Nella sezione Deleghe sezione Deleghe dell'impresa si controlla che non sia più presente la delega
-    And Logout da portale persona giuridica

@@ -6,7 +6,7 @@ Feature: persona fisica aggiunge una delega dall'elenco degli enti radice
   @PF
   @deleghe1
   @DeleghePFPG
-
+  @NRT_Blocco_3
   Scenario:PN-10425 - La persona fisica aggiunge una delega dall'elenco enti radice
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
@@ -38,4 +38,3 @@ Feature: persona fisica aggiunge una delega dall'elenco degli enti radice
     And Nella sezione Deleghe si sceglie l'opzione revoca
     And Si conferma l'azione scegliendo revoca la delega
     Then Si controlla che non ci sia più una delega
-    And Logout da portale persona fisica

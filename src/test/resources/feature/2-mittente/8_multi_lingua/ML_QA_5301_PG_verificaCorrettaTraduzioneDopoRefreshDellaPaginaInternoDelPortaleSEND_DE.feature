@@ -3,8 +3,9 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
   @TestSuite
   @TA_multiLinguaTedesco_QA5301
   @multiLingua
-  @NRT
-  Scenario: PN-QA5301- PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- DE
+  @multiLinguaPg
+  @NRT_Blocco_3
+  Scenario: PN-QA5301-ML - PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- DE
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -13,11 +14,12 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Tedesco"
-#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
-    And Aspetta 3 secondi
+#    And Aspetta 3 secondi
+    And Attesa 3 secondi
     And Refresh pagina
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     When Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
     And Verifica traduzione testo "Anschriften"

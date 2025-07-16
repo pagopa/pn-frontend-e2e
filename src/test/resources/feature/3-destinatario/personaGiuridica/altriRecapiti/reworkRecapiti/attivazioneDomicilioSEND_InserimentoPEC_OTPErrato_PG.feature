@@ -1,10 +1,11 @@
 Feature:La persona giuridica inserisce una OTP sbagliato PEC
 
-  @TestSuite
+#  @TestSuite_ON
   @TA_inserimentoPECOTPErrato_PG
   @addressBook2
-  @TA_ON
-  #  @NRT
+  @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_69] La persona giuridica loggata inserisce un OTP sbagliato PEC
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

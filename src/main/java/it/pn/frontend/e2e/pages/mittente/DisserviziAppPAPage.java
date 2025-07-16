@@ -79,7 +79,6 @@ public class DisserviziAppPAPage extends BasePage {
 
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la sezione disservizi con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
         }
     }
@@ -149,12 +148,10 @@ public class DisserviziAppPAPage extends BasePage {
                     }
                 }
             } else {
-                logger.error("Non si visualizzano correttamente le righe della tabella dei disservizi");
                 Assertions.fail("Non si visualizzano correttamente le righe della tabella dei disservizi");
             }
             logger.info("Si visualizza correttamente la tabella dei disservizi");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la tabella dei disservizi con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente la tabella dei disservizi con errore" + e.getMessage());
         }
     }
@@ -185,21 +182,60 @@ public class DisserviziAppPAPage extends BasePage {
     }
 
     public void checkDisservizioRisolto(String tipoDisservizio) {
+//        aggiornamentoPagina();
+//        webTool.waitTime(15);
+//        WebElement disserviziTable = driver.findElement(By.id("notifications-table"));
+//        List<WebElement> disserviziTableRowsWithTypeOfDisservice = disserviziTable.findElements(By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]"));
+//        if (!disserviziTableRowsWithTypeOfDisservice.isEmpty()) {
+//            WebElement primaRiga = disserviziTableRowsWithTypeOfDisservice.get(0);
+//            WebElement dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//p[contains(text(), 'ore')]")).get(1);
+//            WebElement statoPrimaRiga = primaRiga.findElement(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//span[contains(text(), 'Risolto')]"));
+//            if (dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()) {
+//                logger.info("Disservizio risolto trovato");
+//            } else {
+//                Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
+//            }
+//        }
         aggiornamentoPagina();
         webTool.waitTime(15);
-        WebElement disserviziTable = driver.findElement(By.id("notifications-table"));
-        List<WebElement> disserviziTableRowsWithTypeOfDisservice = disserviziTable.findElements(By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]"));
+
+        // Attendi che la tabella dei disservizi sia presente
+       getWebDriverWait(20)
+                .withMessage("Impossibile trovare notifications-table in checkDisservizioRisolto")
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("notifications-table")));
+
+        // Attendi che le righe della tabella con il tipo di disservizio specificato siano presenti
+        List<WebElement> disserviziTableRowsWithTypeOfDisservice = getWebDriverWait(20)
+                .withMessage("Impossibile trovare il disservizio: "+tipoDisservizio)
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//tr[@id='tableDowntimeLog.row' and contains(., '" + tipoDisservizio + "')]")));
+
         if (!disserviziTableRowsWithTypeOfDisservice.isEmpty()) {
-            WebElement primaRiga = disserviziTableRowsWithTypeOfDisservice.get(0);
-            WebElement dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1);
-            WebElement statoPrimaRiga = primaRiga.findElement(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//span[contains(text(), 'Risolto')]"));
-            if (dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()) {
+//            WebElement primaRiga = disserviziTableRowsWithTypeOfDisservice.get(0);
+
+            // Attendi che gli elementi della data di fine siano presenti nella prima riga
+            List<WebElement> dataFineElements =  getWebDriverWait(20)
+                    .withMessage("Impossibile trovare nella tabella le ore")
+            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(".//td[@data-testid='tableDowntimeLog.row.cell']//div//p[contains(text(), 'ore')]")));
+
+            WebElement dataFinePrimaRiga = dataFineElements.size() > 1 ? dataFineElements.get(1) : null;
+
+            // Attendi che lo stato "Risolto" sia presente nella prima riga
+            WebElement statoPrimaRiga = getWebDriverWait(10)
+                    .withMessage("Impossibile trovare nella tabella le Risolto")
+                    .until(ExpectedConditions.presenceOfElementLocated( By.xpath(".//td[@data-testid='tableDowntimeLog.row.cell']//div//span[contains(text(), 'Risolto')]")));
+
+            if (dataFinePrimaRiga != null && dataFinePrimaRiga.isDisplayed() && statoPrimaRiga.isDisplayed()) {
                 logger.info("Disservizio risolto trovato");
             } else {
-                logger.error("Non si visualizza un record in elenco relativo ad un disservizio risolto");
                 Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
             }
+        } else {
+            Assertions.fail("Nessun disservizio trovato del tipo specificato: " + tipoDisservizio);
         }
+
+
+
     }
 
     public void checkDisserviziDisponibili() {
@@ -248,36 +284,61 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
     }
 
     private void performDownloadAttestazione(int indexModifier) {
-        webTool.waitTime(5);
-        WebElement disserviziTable = element(By.id("notifications-table"));
-        webTool.waitTime(3);
-        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-        if (disserviziTableRows.isEmpty()) {
-            logger.error("Non ci sono notifiche da selezionare nel arco temporale settato");
-            Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
-            return;
+
+        //if == o random
+        //if  > 0 prrendo quello selezionato
+        boolean downloadVerificato = false;
+        List<WebElement> links = getWebDriverWait(45)
+                .withMessage("Lista vuota nella pagina Stato della Piattaforma")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='download-legal-fact']")));
+        if (indexModifier == 0) {
+            for (WebElement link : links) {
+                link.click();
+                downloadVerificato = checkMessaggioScadenzaDownload();
+                if (downloadVerificato) {
+                    break;
+                }
+                else // Torna indietro alla pagina di Google
+                    driver.navigate().back();
+            }
+        } else {
+            if (!links.isEmpty()) {
+                links.get(indexModifier).click();
+                downloadVerificato = true;
+            }
+
+        }
+        if (!downloadVerificato) {
+            Assertions.fail("Nessun download ha superato la verifica.");
         }
 
-        logger.info("Tabella caricata e non vuota");
-        int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
-
-       // int randomNumber = (int) (Math.random() * (disserviziTableRows.size()-1)) + 1;
-        int randomNumber = 0;
-        if (disserviziTableRows.size()>1){
-            randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
-        }
-
-        /**
-        if (indexModifier == 0){
-            randomNumber = 0;
-        }
-         **/
-
-        logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
-      //  WebElement riga = determineRowElement(disserviziTableRows, index, indexModifier);
-        WebElement linkDownloadAttestazione = driver.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
-        linkDownloadAttestazione.click();
-        logger.info("Click effettuato con successo");
+//        webTool.waitTime(5);
+//        WebElement disserviziTable = element(By.id("notifications-table"));
+//        webTool.waitTime(3);
+//        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
+//        if (disserviziTableRows.isEmpty()) {
+//            Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
+//            return;
+//        }
+//
+//        logger.info("Tabella caricata e non vuota");
+//        int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
+//
+//        int randomNumber = 0;
+//        if (disserviziTableRows.size()>1){
+//            randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
+//        }
+//
+//        /**
+//        if (indexModifier == 0){
+//            randomNumber = 0;
+//        }
+//         **/
+//
+//        logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
+//        WebElement linkDownloadAttestazione = driver.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
+//        linkDownloadAttestazione.click();
+//        logger.info("Click effettuato con successo");
     }
 
 
@@ -413,19 +474,23 @@ public boolean confrontoFileConDisservizio() {
                 }
             }
         } else {
-            System.out.println("La cartella è vuota o non è possibile accedervi.");
+            logger.info("La cartella è vuota o non è possibile accedervi.");
         }
     } else {
-        System.out.println("Il percorso specificato non è una directory.");
+        logger.info("Il percorso specificato non è una directory.");
     }
     return false;
 }
 
-    public void checkMessaggioScadenzaDownload() {
-        //TODO Modificato il messaggio "Il documento sarà scaricabile tra pochi minuti"
-        //webTool.waitTime(2);
-       // WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
-        getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
+    public boolean checkMessaggioScadenzaDownload() {
+        try {
+            getWebDriverWait(10)
+                    .withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 
 }

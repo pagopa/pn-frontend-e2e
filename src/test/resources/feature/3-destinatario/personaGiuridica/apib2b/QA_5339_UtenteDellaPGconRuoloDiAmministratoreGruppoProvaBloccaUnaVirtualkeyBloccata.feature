@@ -1,17 +1,17 @@
 Feature: PG -Utente della PG con ruolo di amministratore di gruppo prova a bloccare una virtual key con una virtual key già bloccata
 
-  @TestSuite
-  @TA_PG_AmministratoreDiGruppoProvaBloccaVirtualKeyBloccata_QA_5339
-  @integrazioneApi
-  #@bilinguismo
-
+#  @TestSuite
+#  @TA_PG_AmministratoreDiGruppoProvaBloccaVirtualKeyBloccata_QA_5339
+#  #@bilinguismo
+#  @NRT_Blocco_2
+  #  Inglobato in 5331
   Scenario:PN-QA-5339  PG - Utente della PG con ruolo di amministratore di gruppo prova a bloccare una virtual key con una virtual key già bloccata
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #  Censire una chiave pubblica per un Operatore
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente public keys
@@ -31,7 +31,7 @@ Feature: PG -Utente della PG con ruolo di amministratore di gruppo prova a blocc
       | user           | m.montessori       |
       | pwd            | test          |
       | ragioneSociale | Vita Nova Sas |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys

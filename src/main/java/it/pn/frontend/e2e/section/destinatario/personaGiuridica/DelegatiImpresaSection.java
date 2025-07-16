@@ -78,32 +78,61 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
+//    public boolean controlloEsistenzaDelega(String ragioneSociale) {
+//        try {
+//         //   tabelleDelleDelegheDellImpresa = driver.findElement(By.id("notifications-table"));
+//         //   nomeDelegato = driver.findElements(By.id("delegatesBodyRowDesktop"));
+//            getWebDriverWait(10).withMessage("tabella deleghe non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
+//            getWebDriverWait(10).withMessage("nome delegato non trovato").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.id("delegatesBodyRowDesktop"))));
+//            nomeDelegato = driver.findElements(By.id("delegatesBodyRowDesktop"));
+//            for (WebElement delegato : nomeDelegato) {
+//                if (delegato.getText().contains(ragioneSociale)) {
+//                    logger.info("Delega trovata correttamente");
+//                    logger.info("Delega trovata correttamente" + ragioneSociale);
+//                    getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(delegato, ragioneSociale));
+//                    getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("chip-status-warning"))));
+//                    getWebDriverWait(40).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("chip-status-warning")), "In attesa di conferma"));
+//                }
+//            }
+//            logger.info("Si visualizza la delega creata");
+//            return true;
+//        } catch (TimeoutException e) {
+//            logger.error("Non si visualizza correttamente la delega creata:" + e.getMessage());
+//            Assertions.fail("Non si visualizza correttamente la delega creata:" + e.getMessage());
+//        }
+//        return false;
+//    }
+
     public boolean controlloEsistenzaDelega(String ragioneSociale) {
         try {
-         //   tabelleDelleDelegheDellImpresa = driver.findElement(By.id("notifications-table"));
-         //   nomeDelegato = driver.findElements(By.id("delegatesBodyRowDesktop"));
-            getWebDriverWait(10).withMessage("tabella deleghe non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
-            getWebDriverWait(10).withMessage("nome delegato non trovato").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.id("delegatesBodyRowDesktop"))));
-            nomeDelegato = driver.findElements(By.id("delegatesBodyRowDesktop"));
-            for (WebElement delegato : nomeDelegato) {
+            getWebDriverWait(10).withMessage("Tabella deleghe non trovata").until(
+                    ExpectedConditions.visibilityOfElementLocated(By.id("notifications-table"))
+            );
+
+            List<WebElement> nomeDelegati = getWebDriverWait(20).withMessage("Nomi delegati non trovati").until(
+                    ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("delegatesBodyRowDesktop"))
+            );
+
+            for (WebElement delegato : nomeDelegati) {
                 if (delegato.getText().contains(ragioneSociale)) {
-                    logger.info("Delega trovata correttamente");
-                    logger.info("Delega trovata correttamente" + ragioneSociale);
+                    logger.info("Delega trovata correttamente per la ragione sociale: " + ragioneSociale);
+
                     getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(delegato, ragioneSociale));
-                    getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("chip-status-warning"))));
-                    getWebDriverWait(40).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("chip-status-warning")), "In attesa di conferma"));
+
+                    WebElement chipStatus = getWebDriverWait(40).until(
+                            ExpectedConditions.visibilityOfElementLocated(By.id("chip-status-warning"))
+                    );
+                    getWebDriverWait(40).until(ExpectedConditions.textToBePresentInElement(chipStatus, "In attesa di conferma"));
+
+                    logger.info("Si visualizza la delega creata correttamente");
+                    return true;
                 }
             }
-            logger.info("Si visualizza la delega creata");
-            return true;
-        } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la delega creata:" + e.getMessage());
-            Assertions.fail("Non si visualizza correttamente la delega creata:" + e.getMessage());
+        } catch (TimeoutException | NoSuchElementException e) {
+            Assertions.fail("Non si visualizza correttamente la delega creata: " + e.getMessage());
         }
         return false;
     }
-
-
 
 
     public boolean siVisualizzaUnaDelega() {

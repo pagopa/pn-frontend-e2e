@@ -1,17 +1,17 @@
 Feature: PA Verifica contenuti Privacy e ToS in Francese
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoVerificaContenutiPrivacyToSInFrancese_QA5384
   @TA_Francese
   @bilinguismo
 
-  Scenario: PN-QA5384 - PA - Verifica contenuti Privacy e ToS in Francese
+  Scenario: PN-QA5384-BL - PA - Verifica contenuti Privacy e ToS in Francese
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
 
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

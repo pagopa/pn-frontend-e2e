@@ -1,11 +1,10 @@
 Feature: la persona giuridica inserisce una email errata
 
-  @TestSuite
+#  @TestSuite_ON
   @TA_inserimentoEmailErrataPG_ON
   @addressBook2
-  @TA_ON
-  @NRT
-
+  @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
   Scenario: ON_REWORK_DOMICILIO_DIGITALE_PG_PN-9155-B63 - La persona giuridica inserisce una email errata
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

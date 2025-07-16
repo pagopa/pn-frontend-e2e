@@ -21,7 +21,6 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Ada Lovelace     |
       | codiceFiscale           | LVLDAA85T50G702B |
-     #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | @FAIL-Irreperibile_AR |
@@ -37,7 +36,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Aspetta 600 secondi
     And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
-    And Logout da portale mittente
+#    And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
     And Login con persona fisicainput
       | user         | ada                    |
@@ -52,14 +51,13 @@ Feature: Mittente genera una notifica che non prevede pagamento
 #  @TestSuite
   @TA_InvioNotificaMonoPFNormalizzazioneKOLovelaceBis
   @DeleghePGPF
-  @deleghe1
   Scenario: PN-9294-bis - Mittente genera una notifica mono destinatario a PF - Normalizzazione KO (indirizzo non trovato)
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "RZVD-VGVL-XZLK-202410-X-1"
     And Si clicca la notifica ricercata
     And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
-    And Logout da portale mittente
+#    And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
     And Login con persona fisica input
       | user         | ada                    |

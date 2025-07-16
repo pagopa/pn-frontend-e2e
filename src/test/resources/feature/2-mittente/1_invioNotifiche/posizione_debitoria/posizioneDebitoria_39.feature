@@ -3,12 +3,12 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
   @TestSuite
   @TA_PosizioneDebitoria_39
   @TA_PosizioneDebitoria_ON
-  @NRT
+  @NRT_Blocco_1
   Scenario: [Posizione_Debitoria_39] - Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG contenente più avvisi PagoPa e più modelli F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
 
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "Posizione_Debitoria_39"
     And Cliccare su continua
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Seleziona radion button Inserimento Manuale se esiste "0"
@@ -64,7 +64,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Cliccare sulla notifica restituita dal filtro
     And Verifica Sezione Pagamenti
 
-    #When PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    When PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Aspetta 5 secondi
     And Verifica Esistenza Tabella Notifiche
 #    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
@@ -73,7 +73,7 @@ Feature: Avviso PagoPa - inviaare una notifica multi destinatario a PF e PG cont
     And Aspetta 1 secondi
     And Verifica Sezione Pagamenti
 
-    #Then PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    Then PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Verifica Esistenza Tabella Notifiche
 #    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra Notifica "filter-notifications-button"

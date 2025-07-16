@@ -1,17 +1,17 @@
 Feature: PG -Eliminazione di una virtual key bloccata per un utente della PG con ruolo di operatore
 
-  @TestSuite
-  @TA_PG_OperatoreEliminaVirtualKeyBloccata_QA_5336
-  @integrazioneApi
-  #@bilinguismo
-
+#  @TestSuite
+#  @TA_PG_OperatoreEliminaVirtualKeyBloccata_QA_5336
+#  #@bilinguismo
+#  @NRT_Blocco_2
+  #  Inglobato in 5327
   Scenario:PN-QA-5336  PG - Eliminazione di una virtual key bloccata per un utente della PG con ruolo di operatore
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #  Censire una chiave pubblica per un Operatore
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente public keys
@@ -31,7 +31,7 @@ Feature: PG -Eliminazione di una virtual key bloccata per un utente della PG con
       | user           | n.lotti       |
       | pwd            | test          |
       | ragioneSociale | Vita Nova Sas |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys

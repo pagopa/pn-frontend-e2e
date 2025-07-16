@@ -1,12 +1,12 @@
 Feature: PG - Verifica portale browser Francese
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoPGVerificaPortaleBrowserInFrancese_5409
   @TA_Francese
   @bilinguismo
   @deleghe2
 
-  Scenario: PN-5409 - PG - Verifica portale browser Francese
+  Scenario: PN-5409-BL - PG - Verifica portale browser Francese
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

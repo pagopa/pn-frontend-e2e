@@ -6,6 +6,7 @@ Feature:La persona fisica visualizza la sezione aggiungi una nuova delega
   @PF
   @deleghe1
   @DeleghePFPG
+@NRT_Blocco_3
   Scenario:PN-9399 - La persona fisica visualizza la sezione aggiungi una nuova delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
@@ -20,5 +21,4 @@ Feature:La persona fisica visualizza la sezione aggiungi una nuova delega
     And Si controlla che non sia presente una delega con stesso nome
       | nome          | Lucrezia            |
       | cognome       | Borgia              |
-    And Logout da portale persona fisica
 

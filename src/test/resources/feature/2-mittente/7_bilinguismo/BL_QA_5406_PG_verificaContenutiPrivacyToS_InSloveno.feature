@@ -1,11 +1,11 @@
 Feature: PG Verifica contenuti Privacy e ToS in Sloveno
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoPGVerificaContenutiPrivacyToSInSloveno_QA5406
   @TA_Sloveno
   @bilinguismo
 
-  Scenario: PN-QA5406 - PG - Verifica contenuti Privacy e ToS in Sloveno
+  Scenario: PN-QA5406-BL - PG - Verifica contenuti Privacy e ToS in Sloveno
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

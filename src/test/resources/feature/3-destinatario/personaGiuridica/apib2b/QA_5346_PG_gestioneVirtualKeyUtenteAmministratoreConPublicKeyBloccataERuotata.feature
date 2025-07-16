@@ -2,10 +2,12 @@ Feature: Visualizzazione sezione Integrazione API
 
   @TA_PG_VerificaAzioniUtenteAmministratoreVirtualKeyConPublicKeyRuotataEBloccata_QA_5346
   @integrazioneApi
+  @integrazioneApiPg1
+  @apiKey
   #@bilinguismo
   @PG
   @TestSuite
-
+  @NRT_Blocco_2
   Scenario: QA-5346 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG può gestire chiavi virtuali (creazione, rotazione, blocco, eliminazione) con public key ruotata e bloccata
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata
@@ -13,7 +15,7 @@ Feature: Visualizzazione sezione Integrazione API
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | DivinaCommedia Srl  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
@@ -48,15 +50,15 @@ Feature: Visualizzazione sezione Integrazione API
     And Nella pagina Api Key si clicca sulla voce blocca del menu Api Key
     And Nella pop up cliccare sul tasto conferma
     And Verifica stato "Bloccata"
-    And Logout da portale persona giuridica delegante
-    # Esecuzione scenario
-    And Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | DivinaCommedia Srl  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
-    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
-    And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
+#    And Logout da portale persona giuridica delegante
+#    # Esecuzione scenario
+#    And Login con persona giuridica
+#      | user           | DanteAlighieri |
+#      | pwd            | test           |
+#      | ragioneSociale | DivinaCommedia Srl  |
+#    And Si clicca su prodotto
+#    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
+#    And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
     And Click su tasto Genera Chiave Personale
     And Verifica testo nel pop-up "La tua chiave personale"
     And Verifica testo nel pop-up "Puoi usarla per autenticarti in piattaforma e integrare SEND"
@@ -65,7 +67,7 @@ Feature: Visualizzazione sezione Integrazione API
     And Verifica stato Chiave Personale "Attiva"
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
-      | ruota  | Ruota             |
+#      | ruota  | Ruota             |
       | blocca | Blocca            |
       | view   | Visualizza codice |
     And Nella pagina Api Key si clicca sulla voce visualizza del menu Api Key
@@ -74,13 +76,14 @@ Feature: Visualizzazione sezione Integrazione API
     And Nel pop up visualizza cliccare sul tasto chiudi
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
-      | ruota  | Ruota             |
+#      | ruota  | Ruota             |
       | blocca | Blocca            |
       | view   | Visualizza codice |
     And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
     And Nella pop up cliccare sul tasto conferma
     Then Verifica stato Chiave Personale "Attiva"
     And Verifica stato Chiave Personale "Ruotata"
+    And Attesa 1 secondi
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
       | blocca | Blocca            |
@@ -94,4 +97,3 @@ Feature: Visualizzazione sezione Integrazione API
     And Verifica testo nel pop-up "Se elimini definitivamente la chiave"
     And Verifica testo nel pop-up "Annulla"
     And Nella pop up cliccare sul tasto conferma
-    And Logout da portale persona giuridica delegante

@@ -2,15 +2,26 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   @TestSuite
   @TAG_DECEDUTO_890_QA-5364
-  @NRT
+  @NRT_Blocco_3
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_AR_QA-5364] - Il mittente invia una notifica con raccomandata semplice a un destinatario deceduto
+    # Rimozione preventiva recapiti per permettere la ricezione delle sequence
+    Given Login Page persona fisica test viene visualizzata
+    And Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
+    And Rimuovi tutti i recapiti se esistono
+    # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | AR                                              |
       | documenti       | 1                                               |
-      | oggettoNotifica | Pagamento rata IMU per immobile in via XXXXXXXX |
+      | oggettoNotifica | Pagamento rata IMU per immobile in via DECEDUTO_AR_QA-5364 |
       | costiNotifica   | false                                           |
     And Si aggiunge un destinatario alla notifica
       | nomeCognome       | Gaio Giulio Cesare    |

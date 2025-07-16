@@ -3,11 +3,11 @@ Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione rela
   @TestSuite
   @TA_PosizioneDebitoria_23_27_31_32_24_30_28_33_26_25_34_29_35
   @TA_PosizioneDebitoria_ON
-  @NRT
+  @NRT_Blocco_1
   Scenario: [Posizione_Debitoria_23_27_31_32_24_30_28_33_26_25_34_29_35] - Verificare che, a fronte di un cambio tipologia di pagamento tra la prima e la seconda volta, i campi corrispondenti al pagamento vengano correttamente svuotati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "Posizione_Debitoria_23_27_31_32_24_30_28_33_26_25_34_29_35"
     And Cliccare su continua
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Seleziona radion button Inserimento Manuale se esiste "0"
@@ -147,5 +147,6 @@ Feature: Avviso PagoPa” come tipo di pagamento, venga mostrata la sezione rela
 #    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra Notifica "filter-button"
     And Cliccare sulla notifica restituita dal filtro
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica Sezione Pagamenti

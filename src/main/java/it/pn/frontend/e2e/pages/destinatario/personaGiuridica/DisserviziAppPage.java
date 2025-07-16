@@ -74,7 +74,6 @@ public class DisserviziAppPage extends BasePage {
             this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaStatoBy));
             logger.info("Si visualizza correttamente l'elenco dei disservizi");
         } catch (Exception e) {
-            logger.error("NON si visualizza correttamente l'elenco dei disservizi con errore:" + e.getMessage());
             Assertions.fail("NON si visualizza correttamente l'elenco dei disservizi con errore:" + e.getMessage());
         }
     }

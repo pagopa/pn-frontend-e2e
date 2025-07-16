@@ -1,10 +1,11 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite_ON
   @TA_AttivazioneRecapitiVerificaCell_PG
   @addressBook2
-  @TA_ON
-  #  @NRT
+  @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_31_32] Attivazione Recapiti Verifica CEll PG
 
    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -26,7 +27,8 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "Numero di cellulare"
     And Verifica Pagina "Recapiti"
 ###  REWORK_DOMICILIO_DIGITALE_PF_32
-   And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     When Click Bottone "Aggiungi un numero di cellulare"
     When Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3409876543" e si clicca sul bottone avvisami via SMS
     And Si clicca sul bottone del pop-up ok ho capito

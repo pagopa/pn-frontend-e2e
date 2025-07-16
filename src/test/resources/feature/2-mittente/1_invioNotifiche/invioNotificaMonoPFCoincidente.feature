@@ -34,4 +34,3 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //div[@id='Destinatario irreperibile-status'] |
       | vediDettagli | false                                         |
-    And Logout da portale persona fisica

@@ -3,11 +3,11 @@ Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
   @TestSuite
   @TA_PosizioneDebitoria_13_15
   @TA_PosizioneDebitoria_ON
-  @NRT
+  @NRT_Blocco_1
   Scenario: [Posizione_Debitoria_13_15] - Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "Posizione_Debitoria_13_15"
     And Cliccare su continua
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Seleziona radion button Inserimento Manuale se esiste "0"
@@ -32,10 +32,12 @@ Feature: Avviso PagoPa - inserire più modelli F24 per uno stesso destinatario
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
-    And Aspetta 2 secondi
+    #And Aspetta 2 secondi
+    And Refresh pagina
     And Verifica Esistenza Tabella Notifiche
 #    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra Notifica "filter-button"
     And Cliccare sulla notifica restituita dal filtro
-    And Aspetta 2 secondi
+    #And Aspetta 2 secondi
+    And Refresh pagina
     And Verifica Sezione Pagamenti

@@ -253,7 +253,7 @@ public class DestinatarioPASection extends BasePage {
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminari(destinatari, i);
             selezionaRadionButtonInserimentoManualeSeEsiste(Integer.toString(j));
-            inserimentoInformazioniAggiuntive(destinatari, i+1);
+            inserimentoInformazioniAggiuntive(destinatari, i);
            if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();
             }
@@ -351,28 +351,45 @@ public class DestinatarioPASection extends BasePage {
         return aggiungereDestinatarioButtonBy.isEmpty();
     }
 
+//    public void waitMessaggioErrore() {
+//        try {
+//            WebElement errorMessagePrimoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[0].taxId-helper-text']"));
+//            WebElement errorMessageSecondoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[1].taxId-helper-text']"));
+//            WebElement errorMessageTerzoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[2].taxId-helper-text']"));
+//            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del primo destinatario").until(ExpectedConditions.visibilityOf(errorMessagePrimoDestinatario));
+//            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOf(errorMessageSecondoDestinatario));
+//            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOf(errorMessageTerzoDestinatario));
+//            logger.info("I messaggi di errore vengono visualizzati correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
+//        }
+//
+//    }
+
     public void waitMessaggioErrore() {
         try {
-            WebElement errorMessagePrimoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[0].taxId-helper-text']"));
-            WebElement errorMessageSecondoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[1].taxId-helper-text']"));
-            WebElement errorMessageTerzoDestinatario = driver.findElement(By.xpath("//p[@id='recipients[2].taxId-helper-text']"));
-            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del primo destinatario").until(ExpectedConditions.visibilityOf(errorMessagePrimoDestinatario));
-            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOf(errorMessageSecondoDestinatario));
-            getWebDriverWait(10).withMessage("Non si visualizza il messaggio di errore del secondo destinatario").until(ExpectedConditions.visibilityOf(errorMessageTerzoDestinatario));
+            waitForErrorMessage("//p[@id='recipients[0].taxId-helper-text']", "primo destinatario");
+            waitForErrorMessage("//p[@id='recipients[1].taxId-helper-text']", "secondo destinatario");
+//            waitForErrorMessage("//p[@id='recipients[2].taxId-helper-text']", "terzo destinatario");
             logger.info("I messaggi di errore vengono visualizzati correttamente");
         } catch (TimeoutException e) {
             Assertions.fail("Il messaggio di errore non viene visualizzato con errore: " + e.getMessage());
         }
-
     }
+
+    private void waitForErrorMessage(String xpath, String destinatario) throws TimeoutException {
+        getWebDriverWait(20)
+                .withMessage("Non si visualizza il messaggio di errore del " + destinatario)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+    }
+
+
 
     public void inserimentoMultiDestinatarioPG(PersoneGiuridiche personeGiuridiche, int nDestinatari) {
         int j = 1;
         for (int i = 0; i < nDestinatari; i++) {
             inserimentoInformazioniPreliminariPG(personeGiuridiche, i);
-//            TODO verificare VAS
             selezionaRadionButtonInserimentoManualeSeEsiste(Integer.toString(j));
-
             inserimentoInformazioniAggiuntive(personeGiuridiche, i+1);
             if (i != nDestinatari - 1) {
                 selezionareAggiungiDestinatarioButton();

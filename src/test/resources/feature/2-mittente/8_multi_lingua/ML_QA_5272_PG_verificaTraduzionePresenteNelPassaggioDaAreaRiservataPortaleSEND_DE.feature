@@ -3,8 +3,9 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
   @TestSuite
   @TA_multiLinguaTedesco_QA5272
   @multiLingua
-  @NRT
-  Scenario: PN-QA5272 - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - DE
+  @multiLinguaPg
+  @NRT_Blocco_3
+  Scenario: PN-QA5272-ML - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - DE
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -13,7 +14,6 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
       | ragioneSociale | Convivio Spa   |
 #   Cambio lingua
     And Cambia lingua footer "Tedesco"
-#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
 
     When Seleziona voce menu laterale "Bescheide"

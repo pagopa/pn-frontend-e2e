@@ -1,16 +1,16 @@
 Feature: Presenza del documento di attestazione opponibile a terzi relativo all'annullamento della notifica
 
-@TestSuite
-@PG
-@TA_verificaDocumentoAnnullamentoNotifica_PA_PG
-@NRT
-
+  @TestSuite
+  @PG
+  @TA_verificaDocumentoAnnullamentoNotifica_PA_PG
+  @NRT_Blocco_3
+  @VisualizzaNotifiche
   Scenario: [ATTESTATO_ANNULLAMENTO_LEGAL_FACT_PA_PG] Mittente - Verifica che sia presente il documento di attestazione opponibile a terzi relativo all'annullamento della notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | AR                 |
       | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
+      | oggettoNotifica | Pagamento rata IMU ATTESTATO_ANNULLAMENTO_LEGAL_FACT_PA_PG |
       | costiNotifica   | true               |
     And Si aggiunge un destinatario alla notifica
       | tipoDestinatario  | PG           |

@@ -28,4 +28,3 @@ Feature: invio notifica con sequence
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata stampata ed imbustata")] |
       | vediDettagli | true |
-    And Logout da portale mittente

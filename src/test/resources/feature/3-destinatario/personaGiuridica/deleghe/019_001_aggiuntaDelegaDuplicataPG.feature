@@ -7,37 +7,33 @@ Feature:Il delegato persona giuridica accede ad una delega
   @deleghe2
   @TA_PGdeleganteAggiuntaDelegaDuplicata
   @GestioneErrori
-
+  @NRT_Blocco_1
   Scenario: [PN-14926-PN_MANDATE_ALREADYEXISTS DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega duplicata PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
-    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Vita Nova Sas"
+    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Lucrezia Borgia"
     And Nella sezione Deleghe si crea una delega accettata per PG
-    And Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | Vita Nova Sas  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
-    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
+
+    And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella sezione Deleghe si accetta la delega accettata per PG
 
     And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
-    And Aspetta 5 secondi
+    #And Aspetta 5 secondi
+    And Refresh pagina
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega senza revocare quella esistente
     And Si visualizza la sezione Aggiungi Delega persona giuridica
-    And Nella sezione Aggiungi Delega persona giuridica inserire i dati
-      | accessoCome    | delegante         |
-      | ragioneSociale | Vita Nova Sas  |
-      | codiceFiscale  | 12666810299  |
-      | ente           | Comune di Palermo |
+    And Nella sezione Le Tue Deleghe inserire i dati
+      | nome          | Lucrezia            |
+      | cognome       | Borgia              |
+      | codiceFiscale | BRGLRZ80D58H501Q    |
+      | ente          | Comune di Verona    |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
     Then Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta
-    And Refresh pagina
-    And Logout da portale persona giuridica
 
 
   @TA_PGdeleganteAggiuntaDelegaPF
@@ -87,4 +83,3 @@ Feature:Il delegato persona giuridica accede ad una delega
       | cognome | Spa      |
     And Nella sezione Deleghe si sceglie l'opzione revoca
     Then Si conferma l'azione scegliendo revoca la delega
-    And Logout da portale persona giuridica

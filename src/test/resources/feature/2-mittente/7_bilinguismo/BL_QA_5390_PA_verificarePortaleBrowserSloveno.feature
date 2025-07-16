@@ -1,17 +1,17 @@
 Feature: PA - Verificare portale browser Sloveno
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoVerificaPortaleBrowserFrancese_QA5390
   @TA_Sloveno
   @bilinguismo
 
-  Scenario: PN-QA5390 - PA - Verificare portale browser Sloveno
+  Scenario: PN-QA5390-BL - PA - Verificare portale browser Sloveno
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
 
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
@@ -61,12 +61,12 @@ Feature: PA - Verificare portale browser Sloveno
     And Verifica traduzione testo "Hišna številka"
 
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-         #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
     And Cliccare su continua
-
+    And Seleziona Nessun Pagamento 1
+    And Cliccare su continua
 #    Traduzione terza pagina notifica
     And Verifica traduzione testo "Priloge"
     And Verifica traduzione testo "Priloži listino"
@@ -192,10 +192,12 @@ Feature: PA - Verificare portale browser Sloveno
     And Verifica traduzione testo "Numero civico"
 
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-      #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
+    And Cliccare su continua
+
+    And Seleziona Nessun Pagamento 1
     And Cliccare su continua
 
 #    Traduzione terza pagina notifica

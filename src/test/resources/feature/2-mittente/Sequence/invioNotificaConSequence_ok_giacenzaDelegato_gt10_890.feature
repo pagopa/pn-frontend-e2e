@@ -46,4 +46,3 @@ Feature: invio notifica con sequence
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //span[contains(text(),"Avviso di ricevimento")] |
       | vediDettagli | false                                            |
-    And Logout da portale mittente

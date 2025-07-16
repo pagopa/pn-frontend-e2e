@@ -7,10 +7,7 @@ import it.pn.frontend.e2e.common.NotificheDestinatarioPage;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.HooksNew;
-import it.pn.frontend.e2e.model.delegate.DelegatePG;
-import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
-import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
-import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
+import it.pn.frontend.e2e.model.delegate.*;
 import it.pn.frontend.e2e.model.singleton.MandateSingleton;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.NotifichePFPage;
@@ -187,8 +184,11 @@ public class DeleghePGPagoPATest extends BasePage {
 //        this.datiDelega = dataPopulation.readDataPopulation("nuovaDelegaPG.yaml");
 
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
-        delegatiImpresaSection.controlloEsistenzaDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
-        delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        //PG non disponibile per TA, si usa una PF
+        //delegatiImpresaSection.controlloEsistenzaDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        //delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getNuovaDelegaPg().getRagioneSociale());
+        delegatiImpresaSection.controlloEsistenzaDelega(dataPopulationConfig.getDelegatePF().getDisplayName());
+        delegatiImpresaSection.clickMenuDelega(dataPopulationConfig.getDelegatePF().getDisplayName());
         delegatiImpresaSection.esistenzaRevocaButton();
     }
 
@@ -282,8 +282,10 @@ public class DeleghePGPagoPATest extends BasePage {
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si clicca sul menu della delega {string}")
     public void nellaPaginaDelegheSezioneDelegheDellImpresaSiCliccaSulMenuDellaDelega(String nameConfig) {
-        logger.info("Si clicca sul menu delle delega");
-        this.delegatiImpresaSection.controlloEsistenzaDelega(getRagioneSociale(nameConfig));
+        logger.info("Si clicca sul menu delle delega {}");
+        //Seconda PG per deleghe non disponibile per testing, si usa PF
+        //this.delegatiImpresaSection.controlloEsistenzaDelega(getRagioneSociale(nameConfig));
+        this.delegatiImpresaSection.controlloEsistenzaDelega(nameConfig);
     }
 
     @And("Nella pagina Deleghe sezione Deleghe dell impresa si sceglie l'opzione mostra codice")
@@ -376,7 +378,6 @@ public class DeleghePGPagoPATest extends BasePage {
         if (!deleghePGPagoPAPage.cercaEsistenzaDelegaPG( dataPopulationConfig.getPersonaGiuridica().getRagioneSociale())) {
             logger.info("La delega è stata rifiutata correttamente");
         } else {
-            logger.error("La delega NON è stata rifiutata correttamente");
             Assertions.fail("La delega NON è stata rifiutata correttamente");
         }
     }
@@ -468,51 +469,103 @@ public class DeleghePGPagoPATest extends BasePage {
         deleghePGPagoPAPage.inserireGruppoDelegante();
     }
 
+    //Togliere il caso per la delega a PF una volta che un'altra PG diversa da Convivio è resa disponibile per i TA
     @And("Creo in background una delega per persona giuridica")
     public void creoInBackgroundUnaDelegaPerPersonaGiuridica(Map<String, String> personaGiuridica) {
 
+        if (personaGiuridica.containsKey("firstName")) {
+            creoInBackgroundUnaDelegaPFPerPersonaGiuridica(personaGiuridica);
+        }
+        else {
+            //logica elimina delega
+            logger.info("Verifico se esiste una delega");
+            logger.info("DelegheCarico: " + personaGiuridica.get("DelegheCarico"));
+            delegatiImpresaSection.verificaRemoveMenuDelega(personaGiuridica.get("displayName"), StringUtils.isEmpty(personaGiuridica.get("DelegheCarico")) ? null : personaGiuridica.get("DelegheCarico"));
+
+            logger.info("Si controlla che ci sia una delega");
+            String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+            DelegatePG delegatePG = new DelegatePG();
+            delegatePG.setCompanyName(personaGiuridica.get("companyName"));
+            delegatePG.setFiscalCode(personaGiuridica.get("fiscalCode"));
+            delegatePG.setDisplayName(personaGiuridica.get("displayName"));
+            delegatePG.setPerson(Boolean.parseBoolean(personaGiuridica.get("person")));
+
+            /**
+             DelegatePG delegatePG = DelegatePG.builder()
+             .companyName(personaGiuridica.get("companyName"))
+             .displayName(personaGiuridica.get("displayName"))
+             .fiscalCode(personaGiuridica.get("fiscalCode"))
+             .person(Boolean.parseBoolean(personaGiuridica.get("person")))
+             .build();
+
+             DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
+             .dateto(dateto)
+             .delegate(delegatePG)
+             .visibilityIds(new ArrayList<>())
+             .verificationCode("12345")
+             .build();
+             **/
+            DelegateRequestPG delegateRequestPG = dataPopulationConfig.getDelegateRequestPG();
+            delegateRequestPG.setDelegate(delegatePG);
+
+
+            String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
+            int attempt = 0;
+            int maxAttempts = 7;
+            DelegateResponsePG response = null;
+            while (attempt <= maxAttempts) {
+                response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
+
+                if (response != null && response.getVerificationCode() != null && !response.getVerificationCode().isEmpty()) {
+                    logger.info("Inizio controllo notifica fino a stato accettata");
+                    mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), response.getMandateId());
+                    mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), response.getVerificationCode());
+                    driver.navigate().refresh();
+                    return;
+                } else {
+                    logger.warn("Tentativo #{} di attesa risposta. Riprovo...", attempt);
+                    webTool.waitTime(3);
+                    attempt++;
+                }
+            }
+            logger.error("Errore nella response DelegateResponsePG per PF dopo {} tentativi", maxAttempts);
+            Assertions.fail("Errore nella response DelegateResponsePF per PF dopo " + maxAttempts + " tentativi");
+            webTool.waitTime(3);
+        }
+    }
+
+    private void creoInBackgroundUnaDelegaPFPerPersonaGiuridica(Map<String, String> personaFisica) {
+
         //logica elimina delega
         logger.info("Verifico se esiste una delega");
-        logger.info("DelegheCarico: "+  personaGiuridica.get("DelegheCarico"));
-        delegatiImpresaSection.verificaRemoveMenuDelega(personaGiuridica.get("displayName"), StringUtils.isEmpty(personaGiuridica.get("DelegheCarico")) ? null : personaGiuridica.get("DelegheCarico"));
+        delegatiImpresaSection.verificaRemoveMenuDelega(personaFisica.get("displayName"), StringUtils.isEmpty(personaFisica.get("DelegheCarico")) ? null : personaFisica.get("DelegheCarico"));
 
         logger.info("Si controlla che ci sia una delega");
-        String dateto = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-        DelegatePG delegatePG = new DelegatePG();
-        delegatePG.setCompanyName(personaGiuridica.get("companyName"));
-        delegatePG.setFiscalCode(personaGiuridica.get("fiscalCode"));
-        delegatePG.setDisplayName(personaGiuridica.get("displayName"));
-        delegatePG.setPerson(Boolean.parseBoolean(personaGiuridica.get("person")));
-
-         /**
-         DelegatePG delegatePG = DelegatePG.builder()
-                .companyName(personaGiuridica.get("companyName"))
-                .displayName(personaGiuridica.get("displayName"))
-                .fiscalCode(personaGiuridica.get("fiscalCode"))
-                .person(Boolean.parseBoolean(personaGiuridica.get("person")))
-                .build();
-
-        DelegateRequestPG delegateRequestPG = DelegateRequestPG.builder()
-                .dateto(dateto)
-                .delegate(delegatePG)
-                .visibilityIds(new ArrayList<>())
-                .verificationCode("12345")
-                .build();
-        **/
-        DelegateRequestPG delegateRequestPG = dataPopulationConfig.getDelegateRequestPG();
-        delegateRequestPG.setDelegate(delegatePG);
 
 
-        String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
+        String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        DelegatePF delegatePF = new DelegatePF();
+        delegatePF.setFiscalCode(personaFisica.get("fiscalCode"));
+        delegatePF.setDisplayName(personaFisica.get("displayName"));
+        delegatePF.setFirstName(personaFisica.get("firstName"));
+        delegatePF.setLastName(personaFisica.get("lastName"));
+        delegatePF.setPerson(Boolean.parseBoolean(personaFisica.get("person")));
+
+        DelegateRequestPF delegateRequestPF = dataPopulationConfig.getDelegateRequestPF();
+        delegateRequestPF.setDelegate(delegatePF);
+
+        String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaFisica.get("accessoCome"));
         int attempt = 0;
         int maxAttempts = 7;
-        DelegateResponsePG response = null;
+        DelegateResponsePF response = null;
         while (attempt <= maxAttempts) {
-            response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
+
+            response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
 
             if (response!= null && response.getVerificationCode()!= null && !response.getVerificationCode().isEmpty()) {
                 logger.info("Inizio controllo notifica fino a stato accettata");
+
                 mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), response.getMandateId());
                 mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), response.getVerificationCode());
                 driver.navigate().refresh();
@@ -524,10 +577,9 @@ public class DeleghePGPagoPATest extends BasePage {
                 attempt++;
             }
         }
-        logger.error("Errore nella response DelegateResponsePG per PF dopo {} tentativi", maxAttempts);
+        logger.error("Errore nella response DelegateResponsePF per PF dopo {} tentativi", maxAttempts);
         Assertions.fail("Errore nella response DelegateResponsePF per PF dopo " + maxAttempts + " tentativi");
         webTool.waitTime(3);
-
     }
 
     @And("Si clicca sul bottone accetta delega dopo aver inserito il codice di verifica")
@@ -632,7 +684,6 @@ public class DeleghePGPagoPATest extends BasePage {
         if (deleghePGPagoPAPage.controlloDelegaRestituita(codFiscale)) {
             this.logger.info("La delega restituita è corretta");
         } else {
-            this.logger.error("La delega restituita NON è corretta");
             Assertions.fail("La delega restituita NON è corretta");
         }
     }

@@ -19,7 +19,6 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
-     #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via @FAIL-IRREPERIBILE_AR |
@@ -41,4 +40,3 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     And Si clicca il bottone indietro nella descrizione della notifica
     And Aspetta 120 secondi
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
-    And Logout da portale mittente

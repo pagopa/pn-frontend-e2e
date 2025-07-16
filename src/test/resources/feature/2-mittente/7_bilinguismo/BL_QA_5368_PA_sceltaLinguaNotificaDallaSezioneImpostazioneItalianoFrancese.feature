@@ -3,13 +3,14 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
   @TestSuite
   @TA_bilinguismoItalianoFrancese_QA5368
   @bilinguismo
+  @NRT_Blocco_1
 
-  Scenario: PN-QA5368 - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Francese
+  Scenario: PN-QA5368-BL - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Francese
 #    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di "Viggiu"
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
@@ -23,10 +24,11 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-         #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
+    And Cliccare su continua
+    And Seleziona Nessun Pagamento 1
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
@@ -36,7 +38,7 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Si visualizza correttamente la pagina Piattaforma Notifiche
 ##    And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Logout e Login con Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
     And selezione impostazione lingua

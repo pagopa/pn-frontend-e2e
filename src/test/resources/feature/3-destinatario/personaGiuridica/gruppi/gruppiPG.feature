@@ -3,6 +3,7 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
   @TestSuite
   @gruppiPG
   @loginFE
+  @NRT_Blocco_3
   Scenario: [TA-FE GRUPPI PERSONA GIURIDICA] - Si crea un gruppo per la persona giuridica, lo si modifica e lo si elimina
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone Gruppi
@@ -59,4 +60,3 @@ Feature: Si eseguono e si controllano tutte le operazioni che possono essere ese
     And Si "Elimina" il gruppo "Gruppo Test" creato inizialmente
     Then Si visualizza il popup di conferma con la scritta "Gruppo eliminato correttamente"
     And Si visualizza correttamente la pagina gruppi
-    And Logout da portale persona giuridica

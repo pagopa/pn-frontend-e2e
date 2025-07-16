@@ -3,8 +3,9 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
   @TestSuite
   @TA_multiLinguaSloveno_QA5292
   @multiLingua
-  @NRT
-  Scenario: PN-QA5292 - PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine di Utenti e Gruppi - SL
+  @multiLinguaPg
+  @NRT_Blocco_3
+  Scenario: PN-QA5292-ML - PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine di Utenti e Gruppi - SL
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -13,7 +14,6 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Sloveno"
-#    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
 
     When Nella Pagina Notifiche persona giuridica si clicca su utenti "Uporabniki"

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.text.Normalizer;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 
@@ -135,8 +136,14 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean getListData() {
-        getWebDriverWait(60).withMessage("La colonna Data nella pagina notifiche non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")));
-        return !elements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]")).isEmpty();
+        try {
+            List<WebElement> elements = getWebDriverWait(60)
+                    .withMessage("La colonna Data nella pagina notifiche non è visibile")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//td[contains(@class, 'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1wrlhv9')]")));
+            return !elements.isEmpty();
+        } catch (StaleElementReferenceException e) {
+            return getListData(); // Richiama il metodo per riacquisire gli elementi
+        }
     }
 
     public void clickNotificheButton() {
@@ -194,33 +201,66 @@ public class NotifichePFPage extends BasePage {
     }
 
     public List<WebElement> getDateNotifiche() {
-        getWebDriverWait(30).withMessage("la data della notifica non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
-        return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
+//        getWebDriverWait(30).withMessage("la data della notifica non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
+//        return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
+
+        return getWebDriverWait(30)
+                .withMessage("La data della notifica non è visibile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                        By.xpath("//tr/td[2]")));
     }
+
+//    public boolean controllaNotifiche(List<WebElement> dateNotifiche) {
+//        for (int i = 0; i < dateNotifiche.size() - 1; i++) {
+//            String dataString1 = dateNotifiche.get(i).getText();
+//            String datastring2 = dateNotifiche.get(i + 1).getText();
+//            LocalDate data1;
+//            LocalDate data2;
+//            if (dataString1.equals("Oggi")) {
+//                data1 = LocalDate.now();
+//            } else {
+//                String[] date = dataString1.split("/");
+//                data1 = LocalDate.parse(date[2] + "-" + date[1] + "-" + date[0]);
+//            }
+//            if (datastring2.equals("Oggi")) {
+//                data2 = LocalDate.now();
+//            } else {
+//                String[] date = datastring2.split("/");
+//                data2 = LocalDate.parse(date[2] + "-" + date[1] + "-" + date[0]);
+//            }
+//            if (data1.isBefore(data2)) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
     public boolean controllaNotifiche(List<WebElement> dateNotifiche) {
         for (int i = 0; i < dateNotifiche.size() - 1; i++) {
-            String dataString1 = dateNotifiche.get(i).getText();
-            String datastring2 = dateNotifiche.get(i + 1).getText();
-            LocalDate data1;
-            LocalDate data2;
-            if (dataString1.equals("Oggi")) {
-                data1 = LocalDate.now();
-            } else {
-                String[] date = dataString1.split("/");
-                data1 = LocalDate.parse(date[2] + "-" + date[1] + "-" + date[0]);
-            }
-            if (datastring2.equals("Oggi")) {
-                data2 = LocalDate.now();
-            } else {
-                String[] date = datastring2.split("/");
-                data2 = LocalDate.parse(date[2] + "-" + date[1] + "-" + date[0]);
-            }
+            LocalDate data1 = parseDate(dateNotifiche.get(i).getText());
+            LocalDate data2 = parseDate(dateNotifiche.get(i + 1).getText());
+
             if (data1.isBefore(data2)) {
                 return false;
             }
         }
         return true;
+    }
+
+    private LocalDate parseDate(String dateString) {
+        if (dateString.equals("Oggi")) {
+            return LocalDate.now();
+        }
+        try {
+            String[] dateParts = dateString.split("/");
+            if (dateParts.length == 3) {
+                return LocalDate.parse(dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0]);
+            }
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            // Gestione dell'errore di parsing della data
+            Assertions.fail("Errore nel parsing della data: " + dateString);
+        }
+        throw new IllegalArgumentException("Formato della data non valido: " + dateString);
     }
 
     public void clickPaginaSuccessiva() {
@@ -246,16 +286,38 @@ public class NotifichePFPage extends BasePage {
 
     public void siSceglieUnaPaginaDiversaConNumeroESiFiltra(String iun) {
 
-        getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("page3"))));
-        numeroPaginaTreButton = driver.findElement(By.id("page3"));
+//        getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("page3"))));
+//        numeroPaginaTreButton = driver.findElement(By.id("page3"));
+//        js().executeScript("arguments[0].click()", numeroPaginaTreButton);
+//
+//        codiceIunTextField = driver.findElement(By.id("iunMatch"));
+//        codiceIunTextField.click();
+//        codiceIunTextField.sendKeys(iun);
+//        clickFiltraButton();
+//        webTool.waitTime(2);
+//        clickRimuoviFiltriButton();
+
+        WebElement numeroPaginaTreButton = getWebDriverWait(30)
+                .withMessage("La terza pagina delle notifiche non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("page3")));
+
         js().executeScript("arguments[0].click()", numeroPaginaTreButton);
 
-        codiceIunTextField = driver.findElement(By.id("iunMatch"));
+        WebElement codiceIunTextField = getWebDriverWait(30)
+                .withMessage("Inpossibile trovare iunMatch")
+                .until(ExpectedConditions.elementToBeClickable(By.id("iunMatch")));
+
         codiceIunTextField.click();
+        codiceIunTextField.clear();
         codiceIunTextField.sendKeys(iun);
+
         clickFiltraButton();
-        webTool.waitTime(2);
+
         clickRimuoviFiltriButton();
+
+
+
+
     }
 
     public void modificaNumeroNotifichePagina() {
@@ -297,8 +359,13 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickFiltraButton() {
-        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));
-        filtraButton = driver.findElement(By.id("filter-notifications-button"));
+//        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));
+//        filtraButton = driver.findElement(By.id("filter-notifications-button"));
+//        filtraButton.click();
+        WebElement filtraButton = getWebDriverWait(30)
+                .withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("filter-notifications-button")));
+
         filtraButton.click();
     }
 
@@ -316,9 +383,16 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickRimuoviFiltriButton() {
-        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.cssSelector("[data-testid='cancelButton']"))));
-        rimuoviFiltriButton = driver.findElement(By.cssSelector("[data-testid='cancelButton']"));
+//        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.cssSelector("[data-testid='cancelButton']"))));
+//        rimuoviFiltriButton = driver.findElement(By.cssSelector("[data-testid='cancelButton']"));
+//        rimuoviFiltriButton.click();
+
+        WebElement rimuoviFiltriButton = getWebDriverWait(30)
+                .withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='cancelButton']")));
+
         rimuoviFiltriButton.click();
+
     }
 
     public void firstPageDisplayed() {
@@ -378,6 +452,7 @@ public class NotifichePFPage extends BasePage {
 
     public void verificaSezionePagamenti() {
         List<WebElement> elements = getWebDriverWait(15)
+                .withMessage("Impossibile Verificare la Sezione Pagamenti")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("[data-testid='paymentInfoBox']"))
         );
 

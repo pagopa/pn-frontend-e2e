@@ -2,15 +2,26 @@ Feature: invio notifica con sequence
 
   @annullamentoNotificaConSequenceDeceduto890
   @TestSuite
-  @NRT
+  @NRT_Blocco_3
   @Sequence_Deceduto
 
   Scenario: [DECEDUTO_890_QA-5354] - Il mittente invia una notifica a destinatario con sequence e viene annullata dopo essere passata allo stato Resa al mittente
+    # Rimozione preventiva recapiti per permettere la ricezione delle sequence
+    Given Login Page persona fisica test viene visualizzata
+    And Login con persona fisica
+      | user         | cesare                 |
+      | pwd          | password123            |
+      | name         | Gaio Giulio            |
+      | familyName   | Cesare                 |
+      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
+    And Rimuovi tutti i recapiti se esistono
+    # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | 890                                                  |
       | documenti       | 1                                                    |
-      | oggettoNotifica | Pagamento rata IMU per immobile in via XXXXXXXX |
+      | oggettoNotifica | Pagamento rata IMU per immobile in via DECEDUTO_890_QA-5354 |
       | costiNotifica   | false                                                |
     And Si aggiunge un destinatario alla notifica
       | nomeCognome      | Gaio Giulio Cesare |

@@ -9,7 +9,6 @@ Feature: Login pagoPA Demo1
       | pwd    | test     |
       | comune | Verona   |
     Then Home page mittente viene visualizzata correttamente
-    And Logout da portale mittente
 
   @demo
   Scenario: Login pagoPA persona fisica
@@ -22,7 +21,6 @@ Feature: Login pagoPA Demo1
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Aspetta 10 secondi
     Then Home page persona fisica viene visualizzata correttamente
-    And Logout da portale persona fisica
 
   @demo
   Scenario: PN-9146 - Login pagoPA persona giuridica
@@ -32,7 +30,6 @@ Feature: Login pagoPA Demo1
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
-    And Logout da portale persona giuridica
 
   @demo
   Scenario: Login pagoPA mittente 1
@@ -43,7 +40,6 @@ Feature: Login pagoPA Demo1
       | pwd    | test     |
       | comune | Verona   |
     Then Home page mittente viene visualizzata correttamente
-    And Logout da portale mittente
 
   @demo
   Scenario: Login pagoPA persona fisica 1
@@ -56,7 +52,6 @@ Feature: Login pagoPA Demo1
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Aspetta 10 secondi
     Then Home page persona fisica viene visualizzata correttamente
-    And Logout da portale persona fisica
 
   @demo
   Scenario: PN-9146 - Login pagoPA persona giuridica 1
@@ -66,7 +61,6 @@ Feature: Login pagoPA Demo1
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
-    And Logout da portale persona giuridica
 
   @demo
   Scenario: Login pagoPA mittente 2
@@ -77,7 +71,6 @@ Feature: Login pagoPA Demo1
       | pwd    | test     |
       | comune | Verona   |
     Then Home page mittente viene visualizzata correttamente
-    And Logout da portale mittente
 
   @demo
   Scenario: Login pagoPA persona fisica 2
@@ -90,7 +83,6 @@ Feature: Login pagoPA Demo1
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Aspetta 10 secondi
     Then Home page persona fisica viene visualizzata correttamente
-    And Logout da portale persona fisica
 
   @demo
   Scenario: PN-9146 - Login pagoPA persona giuridica 2
@@ -100,7 +92,6 @@ Feature: Login pagoPA Demo1
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
-    And Logout da portale persona giuridica
 
 
   @demo
@@ -112,7 +103,6 @@ Feature: Login pagoPA Demo1
       | pwd    | test     |
       | comune | Verona   |
     Then Home page mittente viene visualizzata correttamente
-    And Logout da portale mittente
 
   @demo
   Scenario: Login pagoPA persona fisica 3
@@ -125,7 +115,6 @@ Feature: Login pagoPA Demo1
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Aspetta 10 secondi
     Then Home page persona fisica viene visualizzata correttamente
-    And Logout da portale persona fisica
 
   @demo
   Scenario: PN-9146 - Login pagoPA persona giuridica 3
@@ -135,7 +124,6 @@ Feature: Login pagoPA Demo1
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
-    And Logout da portale persona giuridica
 
 
 

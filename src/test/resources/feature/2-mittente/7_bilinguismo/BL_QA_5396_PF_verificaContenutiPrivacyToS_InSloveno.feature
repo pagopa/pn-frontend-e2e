@@ -1,11 +1,11 @@
 Feature: PF Verifica contenuti Privacy e ToS in Sloveno
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoPFVerificaContenutiPrivacyToSInSloveno_QA5396
   @TA_Sloveno
   @bilinguismo
 
-  Scenario: PN-QA5396 - PF - Verifica contenuti Privacy e ToS in Sloveno
+  Scenario: PN-QA5396-BL - PF - Verifica contenuti Privacy e ToS in Sloveno
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

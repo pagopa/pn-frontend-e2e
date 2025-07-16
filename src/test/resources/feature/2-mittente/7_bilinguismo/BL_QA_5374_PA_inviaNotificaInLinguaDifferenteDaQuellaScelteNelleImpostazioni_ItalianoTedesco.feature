@@ -3,19 +3,20 @@ Feature: PA invia notifica in lingua differente da quella scelte nelle impostazi
   @TestSuite
   @TA_bilinguismoLinguaDifferenteDalleImpostazioni_ItalianoTedesco_QA5374
   @bilinguismo
+  @NRT_Blocco_1
 
-  Scenario: PN-QA5372 - PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Tedesco
+  Scenario: PN-QA5374-BL - PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Tedesco
 #    Pre Condizione Aver settato nelle impostazioni Italiano
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
     And Selezionare da impostazione lingua "Italiano"
 
     And Logout e Login con Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
@@ -29,10 +30,11 @@ Feature: PA invia notifica in lingua differente da quella scelte nelle impostazi
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-         #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
+    And Cliccare su continua
+    And Seleziona Nessun Pagamento 1
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"

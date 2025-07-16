@@ -269,7 +269,6 @@ public class NotifichePGPagoPATest extends BasePage {
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneIntegrazioneAPI() {
         logger.info("Si clicca sul bottone Integrazione API");
-
         piattaformaNotifichePGPAPage.clickSuIntegrazioneAPIButton();
     }
 
@@ -374,7 +373,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed()) {
             logger.info("Avviso PagoPA è trovato");
         } else {
-            logger.error("Avviso PagoPA non è trovato");
             Assertions.fail("Avviso PagoPA non è trovato");
         }
     }
@@ -436,7 +434,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (accediAPiattaformaNotifichePage.codiceAvvisoDisplayed()) {
             logger.info("Codice avviso è visuallizato corrttamente");
         } else {
-            logger.error("Codice avviso non è visuallizato corrttamente");
             Assertions.fail("Codice avviso non è visuallizato corrttamente");
         }
     }

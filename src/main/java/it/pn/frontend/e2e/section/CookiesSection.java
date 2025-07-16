@@ -31,7 +31,9 @@ public class CookiesSection extends BasePage {
     public boolean waitLoadCookiesPage() {
         try {
            // WebElement scopriDiPiuLink = driver.findElement(By.id("onetrust-banner-sdk"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("onetrust-banner-sdk")));
+            getWebDriverWait(20)
+                    .withMessage("Problemi con il metodo waitLoadCookiesPage")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("onetrust-banner-sdk")));
             logger.info("Cookies Page caricata");
             return true;
         } catch (TimeoutException e) {
@@ -41,16 +43,28 @@ public class CookiesSection extends BasePage {
     }
 
     public void selezionaAccettaTuttiButton() {
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("onetrust-accept-btn-handler"))));
+//            logger.info("Si seleziona accetta tutti i cookies");
+//            Actions actions = new Actions(driver);
+//            accettaTuttiButton = driver.findElement(By.id("onetrust-accept-btn-handler"));
+//            actions.moveToElement(accettaTuttiButton).click().perform();
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
+//        }
+
         try {
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("onetrust-accept-btn-handler"))));
-            logger.info("Si seleziona accetta tutti i cookies");
-            Actions actions = new Actions(driver);
-            accettaTuttiButton = driver.findElement(By.id("onetrust-accept-btn-handler"));
-            actions.moveToElement(accettaTuttiButton).click().perform();
+            WebElement accettaTuttiButton = getWebDriverWait(30)
+                    .withMessage("Il bottone 'Accetta tutti i cookie' non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
+
+            logger.info("Si seleziona 'Accetta tutti i cookie'");
+            new Actions(driver).moveToElement(accettaTuttiButton).click().perform();
+
         } catch (TimeoutException e) {
-            logger.error("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
-            Assertions.fail("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
+            Assertions.fail("Non è cliccabile il bottone 'Accetta tutti i cookie': " + e.getMessage());
         }
+
     }
 
     public void chiudiPagamentoPopup() {

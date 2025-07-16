@@ -112,12 +112,12 @@ public class BackgroundTest  extends BasePage {
 
 
 
-    public void invioNotificaErrorePec() {
+    public void invioNotificaErrorePec(String numeroNotificaID ) {
 
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari();
-        notificaMittentePagoPATest.nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento();
+        notificaMittentePagoPATest.nellaSectionInformazioniPreliminariInserireIDatiDellaNotificaSenzaPagamento(numeroNotificaID);
         notificaMittentePagoPATest.cliccareSuContinua();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
         notificaMittentePagoPATest.nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(nomeFilePersonaFisica);
@@ -160,9 +160,11 @@ public class BackgroundTest  extends BasePage {
 
     public void accettazioneDelegaPG() {
         deleghePagoPATest.siSceglieOpzioneAccetta();
-        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelegaPG);
+        //Seconda PG non disponibile per PA, si usa PF
+        //deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelegaPG);
+        deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelega);
         deleghePagoPATest.siCliccaSulBottoneAccetta();
-        deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
+        //deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
 
     }
 
@@ -269,12 +271,17 @@ public class BackgroundTest  extends BasePage {
     public void aggiuntaNuovaDelegaDellImpresaPG() {
         deleghePGPagoPATest.nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa();
         deleghePGPagoPATest.nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega();
-        deleghePGPagoPATest.siVisualizzaLaSezioneLeTueDeleghePersonaGiuridica();
-        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati();
-        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile();
-        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaVerificareCheLaDataSiaCorretta();
-        deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
-        deleghePGPagoPATest.nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
+        //Seconda PG per deleghe non disponibile per testing, si usa PF
+        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati();
+        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile();
+        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaVerificareCheLaDataSiaCorretta();
+        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
+        //deleghePGPagoPATest.nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
+        deleghePagoPATest.nellaSezioneLeTueDelegheInserireIDati(datiPersonaFisica);
+        deleghePagoPATest.nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta();
+        deleghePagoPATest.nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile();
+        deleghePagoPATest.nellaSezioneLeTueDelegheClickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
+        deleghePagoPATest.nellaSezioneDelegheSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
     }
 
     public void logoutPG() {
@@ -313,6 +320,15 @@ public class BackgroundTest  extends BasePage {
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 
+    public void creazioneDisservizioNew() {
+        helpdeskTest.loginHelpdeskConUtenteTest();
+        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+        helpdeskTest.siCreaIlDisservizioNew();
+        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
+    }
+
     public void risoluzioneDisservizio() {
         helpdeskTest.loginHelpdeskConUtenteTest();
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
@@ -322,6 +338,17 @@ public class BackgroundTest  extends BasePage {
         helpdeskTest.siRisolveIlDisservizio();
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
+
+    public void risoluzioneDisservizioNew() {
+        helpdeskTest.loginHelpdeskConUtenteTest();
+        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+        helpdeskTest.siRisolveIlDisservizionew();
+//        helpdeskTest.siRisolveIlDisservizionew();
+        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
+    }
+
 
     public void aggiuntaEmailDiCortesia(String email) {
         recapitiTest.siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(email);
@@ -404,7 +431,7 @@ public class BackgroundTest  extends BasePage {
         logger.info("SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNDestinatario");
         piattaformaNotifichePage.setHooksNew(hooksNew);
         logger.info("DOPO SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNDestinatario");
-        piattaformaNotifichePage.clickSuNotifica();
+        piattaformaNotifichePage.clickSuNotifica(iun);
     }
 
     public void siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(String iun) {
@@ -419,6 +446,9 @@ public class BackgroundTest  extends BasePage {
 
 
     public void siFiltraLaTabellaDelleNotifichePerIUNMittente(String iun) {
+//        piattaformaNotifichePage.setHooksNew(hooksNew);
+//        piattaformaNotifichePage.clickBottoneFiltraNotifica("filter-button",iun);
+
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
         logger.info("SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");

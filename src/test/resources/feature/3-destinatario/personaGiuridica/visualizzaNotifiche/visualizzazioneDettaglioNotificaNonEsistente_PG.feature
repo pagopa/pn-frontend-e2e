@@ -3,6 +3,8 @@ Feature: Visualizzazione dettaglio notifica persona giuridica
   @TestSuite
   @TA_PGVisualizzaNotificaNonEsistente
   @GestioneErrori
+    @NRT_Blocco_3
+  @VisualizzaNotifiche
   Scenario: [PN-14926-PN_DELIVERY_NOTIFICATIONNOTFOUND_PG] - Errore per notifiche non accessibili all’utente
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN "XVRJ-HRGW-AQZN-202905-N-1"

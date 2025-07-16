@@ -1,10 +1,13 @@
 Feature: Visualizzazione sezione Integrazione API
 
-  @TA_PG_VisualizzazioneIntegrazioneAPIVirtualKeyCensita_QA_5319
-  @integrazioneApi
-  #@bilinguismo
-  @PG
-  @TestSuite
+#  @TA_PG_VisualizzazioneIntegrazioneAPIVirtualKeyCensita_QA_5319
+#  @apiKey
+#  #@bilinguismo
+#  @PG
+#  @TestSuite
+#  @NRT_Blocco_2
+
+  #  Inclobato nella 5317
 
   Scenario: PN-QA-5319 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG visualizza sezione Integrazione API con Virtual Key censita
     # Reset ambiente di test
@@ -13,7 +16,7 @@ Feature: Visualizzazione sezione Integrazione API
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | DivinaCommedia Srl  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
@@ -30,7 +33,7 @@ Feature: Visualizzazione sezione Integrazione API
       | user           | GiuseppeUngaretti |
       | pwd            | test           |
       | ragioneSociale | DivinaCommedia Srl   |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
     And Click su tasto Genera Chiave Personale
@@ -45,6 +48,6 @@ Feature: Visualizzazione sezione Integrazione API
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | DivinaCommedia Srl  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
-    Then Si visualizza correttamente la lista delle Api Key generate
+    Then Si visualizza correttamente la lista delle Api Key generate PG

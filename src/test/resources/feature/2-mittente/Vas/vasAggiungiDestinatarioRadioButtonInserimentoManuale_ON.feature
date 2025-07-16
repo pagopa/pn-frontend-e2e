@@ -3,12 +3,12 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
   @TestSuite
   @TA_VAS_37_38
   @NRT_PHYSICAL_ADDRESS_LOOKUP_ON
-  @NRT
+  @NRT_Blocco_3
   Scenario: [VAS_37_38_ON] - Selezionando la modalità di inserimento manuale dell'indirizzo tramite il radio button <Inserimento manuale> In Aggiungi un destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "VAS_37_38_ON"
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario

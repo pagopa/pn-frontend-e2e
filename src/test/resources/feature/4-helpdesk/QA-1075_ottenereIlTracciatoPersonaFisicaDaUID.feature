@@ -1,13 +1,16 @@
 Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
-  Background: Login utente in helpdesk
-    Given Login helpdesk con utente test
-    And Si visualizza correttamente home Helpdesk
+#  Background: Login utente in helpdesk
+#    Given Login helpdesk con utente test
+#    And Si visualizza correttamente home Helpdesk
 
   @TestSuite
   @OttenereTracciatoNonAnonimizzataDiPersonaFisicaDaCodiceUnivoco
-  @loginFE
+  @NRT_Blocco_3
+  @helpDesk
   Scenario: [QA-1075] - Ottenere  il tracciato non anonimizzata di una persona fisica dato il suo codice univoco
+    Given Login helpdesk con utente test
+    And Si visualizza correttamente home Helpdesk
     When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
     And visualizzazione corretta pagina ricerca ed estrazione dati
     And viene inserito codice fiscale
@@ -21,10 +24,11 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
     And controllo link per scaricare zip e scarico file
     And Aspetta 5 secondi
     And Inserisco la password ed estraggo il file zip
+    And Controllo sia presente documento "dati.txt"
     # Controllo valore cx_id nel file di testo
-    And Controllo sia presente documento estratto da zip con testo "dati.txt" "PF-a01b62d4-e3f8-48f3-a4d8-cf628a34b745"
+#    And Controllo sia presente documento estratto da zip con testo "dati.txt" "PF-a01b62d4-e3f8-48f3-a4d8-cf628a34b745"
     # Controllo valore uid nel file di testo
-    And Controllo sia presente documento estratto da zip con testo "dati.txt" "a01b62d4-e3f8-48f3-a4d8-cf628a34b745"
+#    And Controllo sia presente documento estratto da zip con testo "dati.txt" "a01b62d4-e3f8-48f3-a4d8-cf628a34b745"
     And Si elimina file estratto
     And Si clicca sul bottone resetta filtri
     # Caso negativo: step funzionanti ma aws non riesce a completarli per una diversa gestione

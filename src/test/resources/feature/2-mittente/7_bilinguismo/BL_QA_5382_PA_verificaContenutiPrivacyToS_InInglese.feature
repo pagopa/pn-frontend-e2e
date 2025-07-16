@@ -1,17 +1,17 @@
 Feature: PA Verifica contenuti Privacy e ToS in Inglese
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoVerificaContenutiPrivacyToSInInglese_QA5382
   @TA_English
   @bilinguismo
 
-  Scenario: PN-QA5382 - Pa Verifica contenuti Privacy e ToS in Inglese
+  Scenario: PN-QA5382-BL - Pa Verifica contenuti Privacy e ToS in Inglese
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
 
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
     And Verifica footer lingua "English"

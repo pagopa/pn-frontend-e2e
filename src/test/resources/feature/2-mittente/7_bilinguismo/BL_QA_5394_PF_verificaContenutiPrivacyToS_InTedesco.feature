@@ -1,11 +1,11 @@
 Feature: PF Verifica contenuti Privacy e ToS in Tedesco
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoPFVerificaContenutiPrivacyToSInTedesco_QA5394
   @TA_Tedesco
   @bilinguismo
 
-  Scenario: PN-QA5383 - PF - Verifica contenuti Privacy e ToS in Tedesco
+  Scenario: PN-QA5383-BL - PF - Verifica contenuti Privacy e ToS in Tedesco
 
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

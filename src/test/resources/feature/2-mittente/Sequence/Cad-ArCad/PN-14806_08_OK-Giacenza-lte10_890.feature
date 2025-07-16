@@ -2,8 +2,8 @@ Feature: invio notifica con sequence
 
   @Tag_PN_14806_08_OK-Giacenza-lte10_890
   @TestSuite
-  @Tag_CAD_ARCAD
-  @NRT
+  @Tag_CARD_ARCAD
+  @NRT_Blocco_2
 
   Scenario: [PN-14806_08] CAD/ARCAD SEQUENCE OK-Giacenza-lte10_890
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -37,16 +37,18 @@ Feature: invio notifica con sequence
     And Nella section Allegati si carica un atto
     And Nella section Allegati cliccare sul bottone Invia
     And Si visualizza correttamente la frase La notifica è stata correttamente creata
-    And Si ottiene il codice IUN dalla notifica creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-    #And Si verifica che la notifica è stata creata correttamente
+    And Si verifica che la notifica è stata creata correttamente
 
-    #And Aspetta 10 secondi
-    And Aspetta la notifica con IUN salvato
+#    And Aspetta 60 secondi
+    And Attesa 60 secondi
+    And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
-    And Aspetta 300 secondi
+#    And Aspetta 300 secondi
+    And Attesa 300 secondi
+    And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //*[contains(text(), 'della raccomandata che contiene la comunicazione di avvenuto deposito')] |
       | vediDettagli | false                                                                                          |

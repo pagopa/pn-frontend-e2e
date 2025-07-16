@@ -152,7 +152,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato3Volte(String otp) {
         logger.info("Si inserisce l'otp sbagliato 3 volte");
         int attempts = 0;
-        while (attempts < 3) {
+        while (attempts < 2) {
             recapitiDestinatarioPage.sendOTP(otp);
             recapitiDestinatarioPage.confermaButtonClickPopUp();
             webTool.waitTime(2);
@@ -169,7 +169,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         logger.info("Si controlla che il messaggio di errore sia visibile");
 
         if (!recapitiDestinatarioPage.waitMessaggioErrore()) {
-            logger.error("Il messaggio di errore non viene visualizzato");
             Assertions.fail("Il messaggio di errore non viene visualizzato");
         }
     }

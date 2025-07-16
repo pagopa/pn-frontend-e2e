@@ -1,8 +1,8 @@
 Feature: Mittente invia una notifica analogica con controllo RADD
 
-  @Parallel
-  @invioNotificaConCheckRADDPG
-  @PG
+#  @Parallel
+#  @invioNotificaConCheckRADDPG
+#  @PG
 
   Scenario: [TA-FE INVIO DI UNA NOTIFICA E CHECK RADD] - Mittente invia una notifica analogica e verifica alert RADD
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -31,4 +31,3 @@ Feature: Mittente invia una notifica analogica con controllo RADD
       | tipoDestinatario  | PG              |
     And Aspetta 30 secondi
     And Controllo alert RADD
-    And Logout da portale persona giuridica

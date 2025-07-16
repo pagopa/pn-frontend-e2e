@@ -1,11 +1,11 @@
 Feature: PG - Utente Amministratore Persona Giuridica con virtual key attiva, blocca la virtual key e registra una nuova virtual key che verrà a sua volta ruotata e ne verrà registrata una nuova.
 
-  @TestSuite
-  @TA_PG_VirtualKeyAttivaVirtualKeyBloccataNewVirtualKeyRotazioneVirtualKey_QA_5325
-  @integrazioneApi
-  #@bilinguismo
-
-  Scenario:PN-QA-5325  PG - Utente Amministratore Persona Giuridica con virtual key attiva, blocca la virtual key e registra una nuova virtual key che verrà a sua volta ruotata e ne verrà registrata una nuova.
+#  @TestSuite
+#  @TA_PG_VirtualKeyAttivaVirtualKeyBloccataNewVirtualKeyRotazioneVirtualKey_QA_5326
+#  #@bilinguismo
+#  @NRT_Blocco_2
+   #  Inglobato in 5315
+  Scenario:PN-QA-5326  PG - Utente Amministratore Persona Giuridica con virtual key attiva, blocca la virtual key e registra una nuova virtual key che verrà a sua volta ruotata e ne verrà registrata una nuova.
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente public keys
@@ -19,6 +19,7 @@ Feature: PG - Utente Amministratore Persona Giuridica con virtual key attiva, bl
     And Cliccare su registra
 
     And Pulisci ambiente virtual keys
+    And Attesa 1 secondi
 # Inserire una chiave Attiva
     When Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
     And Click su tasto Genera Chiave Personale

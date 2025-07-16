@@ -4,14 +4,14 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @InvioNotificaACaricaDocumentoPdf
   @invioNotifiche_07
   @loginFE
-  @NRT
+  @NRT_Blocco_1
   Scenario: PN-9319-Inserimento file pdf
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU |
-      | descrizione       | PAGAMENTO RATA IMU |
+      | oggettoNotifica   | Pagamento rata IMU PN-9319 |
+      | descrizione       | PAGAMENTO RATA IMU PN-9319 |
       | gruppo            | test-TA-FE-TEST    |
       | codiceTassonomico | 100105P           |
       | modalitaInvio     | A/R                |
@@ -22,8 +22,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
     And Si aggiungi un domicilio digitale "test@fail.it"
-
-    #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
 
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati

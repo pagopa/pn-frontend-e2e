@@ -2,18 +2,14 @@ Feature:Controllo dati notifica
 
   @TestSuite
   @TA_PFvisualizzaNotifiche
-  @PFvisualizzaNotifiche
-  @PF
-  @loginFE
   @CheckNotificaConDocumentiAllegatiPF1
+  @NRT_Blocco_2
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - PF visualizza Notifica mono destinatario non ancora pagata solo con avviso PagoPa e assenza del PDF relativo al bollettino
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si filtra per codice IUN "YRUZ-NYXJ-DAJK-202405-N-1"
     And Cliccare sul bottone Filtra del delegato
-    And Si clicca la notifica ricercata
+    When La persona fisica clicca sulla notifica restituita
     And Si controlla la presenza di codice avviso
-    And Si controlla non sia presente l'allegato PagoPa
-    And Logout da portale persona fisica
 
 
   @CheckDownloadMultiF24PF

@@ -1,16 +1,18 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite_ON
   @TA_REWORK_DOMICILIO_DIGITALE_63_64_PG
   @addressBook2
-  @TA_ON
-  @NRT
+  @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_63_64] Domicilio digitale SEND per ente personalizzato - Attiva Disattiva PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 ##    verificare mancano pezzi inerente a SEND sull'appIO e indirizzo email
     And Verifica ed Elimina personalizzati per ente
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica ed Elimina personalizzati per ente
     And Verifica e Disattiva domicilio digitale
     And Verifica e Disattiva email
@@ -24,7 +26,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
 
 ##  REWORK_DOMICILIO_DIGITALE_PG_63
     When Click Bottone Gestisci

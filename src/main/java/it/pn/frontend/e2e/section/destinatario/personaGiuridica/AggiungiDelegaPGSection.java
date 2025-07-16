@@ -113,15 +113,30 @@ public class AggiungiDelegaPGSection extends BasePage {
 
 
     public void clickSulBottoneInviaRichiesta() {
-        inviaLaRichiestaButton = driver.findElement(By.xpath("//button[contains(@data-testid,'createButton')]"));
-        getWebDriverWait(10).withMessage("Bottone invia la richiesta non visualizzato").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
+//        inviaLaRichiestaButton = driver.findElement(By.xpath("//button[contains(@data-testid,'createButton')]"));
+//        getWebDriverWait(10).withMessage("Bottone invia la richiesta non visualizzato").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
+//        logger.info("click invia richiesta");
+//        inviaLaRichiestaButton.click();
+//        webTool.waitTime(15);
+//        getWebDriverWait(10).withMessage("Bottone torna alle deleghe non visualizzato").until(ExpectedConditions.elementToBeClickable((By.id("courtesy-page-button"))));
+//        tornaDelegheButton = driver.findElement(By.id("courtesy-page-button"));
+//        tornaDelegheButton.click();
+//        logger.info("click torna alle deleghe");
+
+        WebElement inviaLaRichiestaButton = getWebDriverWait(20)
+                .withMessage("Bottone invia la richiesta non visualizzato")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@data-testid,'createButton')]")));
         logger.info("click invia richiesta");
         inviaLaRichiestaButton.click();
-        webTool.waitTime(15);
-        getWebDriverWait(10).withMessage("Bottone torna alle deleghe non visualizzato").until(ExpectedConditions.elementToBeClickable((By.id("courtesy-page-button"))));
-        tornaDelegheButton = driver.findElement(By.id("courtesy-page-button"));
-        tornaDelegheButton.click();
+
+        // Trova e clicca sul bottone "Torna alle deleghe"
+        WebElement tornaDelegheButton = getWebDriverWait(20)
+                .withMessage("Bottone torna alle deleghe non visualizzato")
+                .until(ExpectedConditions.elementToBeClickable(By.id("courtesy-page-button")));
         logger.info("click torna alle deleghe");
+        tornaDelegheButton.click();
+
+
     }
 
     public boolean verificareCheLaDataSiaCorretta() {

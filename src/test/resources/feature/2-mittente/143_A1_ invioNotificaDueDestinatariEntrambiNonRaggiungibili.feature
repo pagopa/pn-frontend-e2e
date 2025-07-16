@@ -20,7 +20,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
     And Si aggiungi un domicilio digitale "test@fail.it"
-     #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | @fail-irreperibile_ar |
@@ -59,5 +58,5 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     Then In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline "Invio via PEC fallito"
     And Aspetta 10 secondi
     Then In parallelo si effettua l'accesso al portale destinatario persona giuridica e si verifica la timeline "Invio via PEC riuscito"
-    And Logout da portale mittente
+#    And Logout da portale mittente
 

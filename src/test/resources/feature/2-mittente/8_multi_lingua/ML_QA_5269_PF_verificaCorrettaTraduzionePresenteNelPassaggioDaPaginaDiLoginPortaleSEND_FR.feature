@@ -3,8 +3,9 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
   @TestSuite
   @TA_multiLinguaFrancese_QA5269
   @multiLingua
-  @NRT
-  Scenario: PN-QA5269 - PF - Verifica traduzione presente nel passaggio da pagina di Login a portale SEND - FR
+  @multiLinguaPf
+  @NRT_Blocco_3
+  Scenario: PN-QA5269-ML - PF - Verifica traduzione presente nel passaggio da pagina di Login a portale SEND - FR
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica scelta lingua
       | user         | cesare                 |
@@ -13,9 +14,11 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       | lingua       | Francese |
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Refresh pagina
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Verifica traduzione testo "Vos notifications"
     And Verifica traduzione testo "Vos adresses"
     And Verifica traduzione testo "Procurations"

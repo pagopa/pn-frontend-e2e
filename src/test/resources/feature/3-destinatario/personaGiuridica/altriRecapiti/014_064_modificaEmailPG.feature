@@ -1,6 +1,6 @@
   Feature: La persona giuridica modifica l'email di cortesia
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_modificaEmailPG
 #  @PG
 #  @recapitiPG
@@ -28,4 +28,3 @@
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request dell'email "provaemail@test.it" e viene inserito
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
-    And Logout da portale persona giuridica

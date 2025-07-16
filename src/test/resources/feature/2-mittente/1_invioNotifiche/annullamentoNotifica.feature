@@ -18,7 +18,6 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
-     #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
@@ -38,7 +37,6 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     And Aspetta 120 secondi
     Then In parallelo si effettua l'accesso al portale di "persona fisica"
     And Si controlla che nel portale del destinatario la notifica sia "Annullata" e si chiude la scheda
-    And Logout da portale mittente
 
 
   @annullamentoNotificaPF
@@ -74,4 +72,3 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     Then Si controlla sia presente l'avviso PagoPa
     Then Si clicca l'avviso PagoPa
     Then Si torna alla pagina precedente
-    And Logout da portale mittente

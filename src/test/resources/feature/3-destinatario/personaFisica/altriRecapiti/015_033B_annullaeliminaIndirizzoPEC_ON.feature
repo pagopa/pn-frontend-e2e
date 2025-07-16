@@ -1,13 +1,12 @@
 Feature: la persona fisica elimina l'indirizzo pec
 
-  @TestSuite
+#  @TestSuite_ON
   @PF
   @TA_annulaEliminaPECPF_ON
   @addressBook1
-  @TA_ON
-  @NRT
-
-  Scenario: ON_REWORK_DOMICILIO_DIGITALE_PF_PN-9307-B33 - La persona fisica annlla eliminazione l'indirizzo pec
+  @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_2
+  Scenario: ON_REWORK_DOMICILIO_DIGITALE_PF_PN-9307-B33 - La persona fisica annulla eliminazione l'indirizzo pec
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
@@ -26,7 +25,9 @@ Feature: la persona fisica elimina l'indirizzo pec
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
+    And Refresh pagina
 
     Then Verifica e Disattiva domicilio digitale
     And Si annulla eliminazione email

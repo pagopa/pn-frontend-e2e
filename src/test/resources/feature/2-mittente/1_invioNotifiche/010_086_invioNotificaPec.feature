@@ -4,26 +4,22 @@ Feature: Mittente genera una notifica tramite destinatario con pec
   @TA_invioNotificaConPec
   @mittente
   @invioNotifiche_07
-  @NRT
+  @NRT_Blocco_1
   @loginFE_8
   Scenario: PN-9644 - Mittente genera una notifica tramite destinatario con pec
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "PN-9644"
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisicaPec"
-    #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
-
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisicaPec" destinatario 0
     And Cliccare su continua
-    #      Aggiungere alle notifiche
     And Seleziona Nessun Pagamento 1
     And Cliccare su continua
-#      Aggiungere alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
@@ -31,9 +27,9 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
-    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
-    And Cliccare sul bottone Filtra
+#    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
+#    And Cliccare sul bottone Filtra
+    And Cliccare sul bottone Filtra Notifica "filter-button"
     And Si verifica che la notifica sia nello stato avanzato
     And Cliccare sulla notifica restituita
     And Si verifica che l'invio della pec sia in corso
-#    And Logout da portale mittente

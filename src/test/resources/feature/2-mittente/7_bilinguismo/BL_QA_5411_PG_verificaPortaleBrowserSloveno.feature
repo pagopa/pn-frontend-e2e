@@ -1,12 +1,12 @@
 Feature: PG - Verifica portale browser Sloveno
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoPGVerificaPortaleBrowserInSloveno_5411
   @Sloveno
   @bilinguismo
   @deleghe2
 
-  Scenario: PN-5410 - PG - Verifica portale browser Sloveno
+  Scenario: PN-5410-BL - PG - Verifica portale browser Sloveno
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

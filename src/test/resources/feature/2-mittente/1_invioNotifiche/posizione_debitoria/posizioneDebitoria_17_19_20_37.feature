@@ -3,11 +3,11 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
   @TestSuite
   @TA_PosizioneDebitoria_17_19_20_37
   @TA_PosizioneDebitoria_ON
-  @NRT
+  @NRT_Blocco_1
   Scenario: [Posizione_Debitoria_17_19_20_37] - Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso destinatario PF - con n diverso da m
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
-    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento
+    And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "Posizione_Debitoria_17_19_20_37"
     And Cliccare su continua
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Seleziona radion button Inserimento Manuale se esiste "0"
@@ -47,23 +47,27 @@ Feature: Avviso PagoPa - inserire n avvisi PagoPA e m modelli F24 per uno stesso
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica Esistenza Tabella Notifiche
 #    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Cliccare sul bottone Filtra Notifica "filter-button"
     And Attendi secondi "2"
     And Cliccare sulla notifica restituita dal filtro
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica Sezione Pagamenti
 
     Then PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica Esistenza Tabella Notifiche
 #    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
     And Attendi secondi "2"
     And Cliccare sul bottone Filtra Notifica "filter-notifications-button"
     And Cliccare sulla notifica restituita dal filtro
-    And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     And Verifica Sezione Pagamenti
 
 

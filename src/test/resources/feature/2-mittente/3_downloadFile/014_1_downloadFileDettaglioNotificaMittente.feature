@@ -1,9 +1,9 @@
 Feature: Mittente scarica tutti i file all'interno di una notifica
 
-  @parallel
-  @TA_MittenteDownloadFileDettaglioNotifica
-  @mittente
-  @DownloadFileMittente
+#  @parallel
+#  @TA_MittenteDownloadFileDettaglioNotifica
+#  @mittente
+#  @DownloadFileMittente
 
   Scenario: PN-9327 - Mittente scarica attestazioni
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -43,4 +43,3 @@ Feature: Mittente scarica tutti i file all'interno di una notifica
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Ricevuta di accettazione PEC")] |
       | vediDettagli | false                                          |
-    And Logout da portale mittente

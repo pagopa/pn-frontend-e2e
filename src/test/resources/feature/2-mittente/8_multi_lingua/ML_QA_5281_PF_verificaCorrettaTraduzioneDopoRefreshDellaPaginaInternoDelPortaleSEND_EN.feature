@@ -3,8 +3,9 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
   @TestSuite
   @TA_multiLinguaInglese_QA5281
   @multiLingua
-  @NRT
-  Scenario: PN-QA5281 - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - EN
+  @multiLinguaPf
+  @NRT_Blocco_3
+  Scenario: PN-QA5281-ML - PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - EN
 
     Given Login Page persona fisica test viene visualizzata
     When Login con persona fisica scelta lingua
@@ -14,9 +15,11 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       | lingua       | Inglese |
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     Then Refresh pagina
-    And Aspetta 2 secondi
+#    And Aspetta 2 secondi
+    And Attesa 2 secondi
     And Verifica traduzione testo "Notifications"
     And Verifica traduzione testo "Your addresses"
     And Verifica traduzione testo "Delegates"

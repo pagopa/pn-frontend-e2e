@@ -11,7 +11,7 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
     And  Aspetta 10 secondi
     And Si verifica che i campi della ricerca delle date siano errate
     And Si verifica che il bottone Filtra sia disabilitato
-    And Logout da portale mittente
+#    And Logout da portale mittente
 
     Examples:
       | inizioArcoTemporale | fineArcoTemporale |
@@ -23,13 +23,13 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
     @mittente
     @ricercaNotificheMittente
     @loginFE
-    @NRT
+    @NRT_Blocco_1
   Scenario Outline: PN-9323 - Mittente loggato effettua una ricerca per periodo temporale errato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche inserire un arco temporale errato da <inizioArcoTemporale> a <fineArcoTemporale>
-    And  Aspetta 10 secondi
+    #And  Aspetta 10 secondi
+    And Refresh pagina
     And Verifica che non è possibile selezionare una data Fine antecedente alla data Inizio
-#    And Logout da portale mittente
 
     Examples:
       | inizioArcoTemporale | fineArcoTemporale |

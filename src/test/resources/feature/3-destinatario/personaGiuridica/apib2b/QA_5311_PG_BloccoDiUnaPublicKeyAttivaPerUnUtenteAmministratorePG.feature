@@ -1,10 +1,10 @@
 Feature: PG -Blocco di una public key attiva per un utente Amministratore Persona Giuridica
 
-  @TestSuite
-  @TA_PG_BloccoPublicKey_QA_5311
-  @integrazioneApi
-  #@bilinguismo
-
+#  @TestSuite
+#  @TA_PG_BloccoPublicKey_QA_5311
+#  #@bilinguismo
+#  @NRT_Blocco_2
+  #  Inglobato in 5307
   Scenario:PN-QA-5311  PG - Blocco di una public key attiva per un utente Amministratore Persona Giuridica
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

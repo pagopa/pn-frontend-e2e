@@ -1,6 +1,6 @@
 Feature: La persona giuridica inserisce l'OTP errato 3 volte per i campi PEC, email di cortesia e numero di cellulare
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_inserimentoTreOTPErratiPerTuttiIRecapiti
 #  @PG
 #  @recapitiPG
@@ -25,4 +25,3 @@ Feature: La persona giuridica inserisce l'OTP errato 3 volte per i campi PEC, em
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia un numero di cellulare di cortesia impostato
     And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3334545889" e si clicca sul bottone avvisami via SMS
     And Si inserisce il codice OTP errato "11111" per tre volte e si controlla il messaggio di errore
-    And Logout da portale persona giuridica

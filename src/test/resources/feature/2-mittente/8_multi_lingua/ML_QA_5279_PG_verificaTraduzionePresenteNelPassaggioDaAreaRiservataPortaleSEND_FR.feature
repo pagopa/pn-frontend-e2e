@@ -3,8 +3,9 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
   @TestSuite
   @TA_multiLinguaFrancese_QA5279
   @multiLingua
-  @NRT
-  Scenario: PN-QA5279 - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - FR
+  @multiLinguaPg
+  @NRT_Blocco_3
+  Scenario: PN-QA5279-ML - PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - FR
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -13,7 +14,6 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Francese"
-  #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
 
     When Seleziona voce menu laterale "Notifications"

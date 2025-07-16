@@ -3,7 +3,7 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
   @TestSuite
   @TA_MittenteDownloadAttestazioneAvvenutaSuccesso
   @DownloadFileMittente
-  @loginFE
+  @NRT_Blocco_1
   Scenario: PN-9647 - il mittente effettua il download attestazione opponibile a terzi avvenuto successo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche inserire il codice fiscale della persona fisica
@@ -14,4 +14,4 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: avvenuto accesso")] |
       | vediDettagli | false                                          |
-   And Logout da portale mittente
+#   And Logout da portale mittente

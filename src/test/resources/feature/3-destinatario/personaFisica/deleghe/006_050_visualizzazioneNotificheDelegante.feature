@@ -7,6 +7,7 @@ Feature: Il delegato visualizza la notifiche del delegante
   @PF
   @DeleghePFPG1
     @loginFE_8_x
+  @NRT_Blocco_3
   Scenario: PN-9419 - Il delegato visualizza la notifiche del delegante
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Aspetta 10 secondi
@@ -40,7 +41,7 @@ Feature: Il delegato visualizza la notifiche del delegante
     When Si inizializzano i dati per la notifica
       | modello         | A/R                |
       | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU |
+      | oggettoNotifica | Pagamento rata IMU -> PN-9419 |
       | costiNotifica   | false              |
     And Si aggiunge un destinatario alla notifica
       | indirizzo        | VIA ROMA           |
@@ -60,4 +61,3 @@ Feature: Il delegato visualizza la notifiche del delegante
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "(gaio giulio cesare)"
     And Si seleziona la notifica
-    And Logout da portale persona fisica

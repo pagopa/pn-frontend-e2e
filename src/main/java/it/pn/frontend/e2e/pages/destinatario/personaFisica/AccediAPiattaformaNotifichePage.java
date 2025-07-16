@@ -182,15 +182,25 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public boolean codiceAvvisoDisplayed() {
+//        try {
+//            webTool.waitTime(5);
+//            codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
+//            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
+//            return true;
+//        } catch (RuntimeException e) {
+//            return false;
+//        }
         try {
-            webTool.waitTime(5);
-            codiceAvviso = driver.findElement(By.xpath("//span[contains(text(),'Codice avviso')]"));
-            getWebDriverWait(5).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(codiceAvviso)).isDisplayed();
-            return true;
-        } catch (RuntimeException e) {
+            WebElement codiceAvviso = getWebDriverWait(25)
+                    .withMessage("La sezione codice avviso non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(), 'Codice avviso')]")));
+            return codiceAvviso.isDisplayed();
+        } catch (Exception e) {
             return false;
         }
     }
+
+
 
     public boolean modelloF24Displayed() {
         webTool.waitTime(5);
@@ -283,8 +293,14 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     public void cliccaPaga() {
         logger.info("Si clicca su bottone paga");
         webTool.waitTime(15);
-        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
-        pagaAvviso.click();
+//        pagaAvviso = driver.findElement(By.cssSelector("[data-testid='pay-button']"));
+//        pagaAvviso.click();
+        WebElement cliccaPaga = getWebDriverWait(15)
+                .withMessage("Il bottone 'Paga' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='pay-button']")));
+
+        // Clicca sul pulsante 'Paga'
+        cliccaPaga.click();
     }
 
     public void inserireDatiPagamento(String email) {
@@ -297,84 +313,215 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         continuaPagamento.click();
     }
 
-    public void checkoutPagamento() throws InterruptedException {
+//    public void checkoutPagamento() throws InterruptedException {
+//        logger.info("Si procede con il pagamento");
+//        webTool.waitTime(5);
+//        driver.findElement(By.cssSelector("[data-qaid='CP']")).click();
+//        webTool.waitTime(5);
+//        // frame of the card number
+//        WebElement iframeCardNumber = driver.findElement(By.xpath("//iframe[@id='frame_CARD_NUMBER']"));
+//        driver.switchTo().frame(iframeCardNumber);
+//        webTool.waitTime(15);
+//        creditCardNumber = driver.findElement(By.xpath("/html/body/div/div/div/div/input"));
+//        getWebDriverWait(15).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
+//        creditCardNumber.click();
+//        creditCardNumber.clear();
+//        logger.info("Si inserisce numero di CC");
+//        creditCardNumber.sendKeys("5255000010002856");
+//        driver.switchTo().defaultContent();
+//
+//        //frame of the expiry date
+//        WebElement iframeExpiry = driver.findElement(By.xpath("//iframe[@id='frame_EXPIRATION_DATE']"));
+//        driver.switchTo().frame(iframeExpiry);
+//        webTool.waitTime(20);
+//        WebElement scadenza = driver.findElement(By.xpath("//input[@id='EXPIRATION_DATE']"));
+//        getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOf(scadenza));
+//        scadenza.click();
+//        scadenza.clear();
+//        scadenza.sendKeys("12/30");
+//        driver.switchTo().defaultContent();
+//
+//        //frame of the security code
+//        WebElement iframeSecurityCode = driver.findElement(By.xpath("//iframe[@id='frame_SECURITY_CODE']"));
+//        driver.switchTo().frame(iframeSecurityCode);
+//        webTool.waitTime(10);
+//        WebElement codice = driver.findElement(By.xpath("//input[@id='SECURITY_CODE']"));
+//        getWebDriverWait(20).withMessage("Il textbox codice di sicurezza non è visibile").until(ExpectedConditions.visibilityOf(codice));
+//        codice.click();
+//        codice.clear();
+//        codice.sendKeys("123");
+//        driver.switchTo().defaultContent();
+//
+//        //frame of the cardholder name
+//        WebElement iframeTitolare = driver.findElement(By.xpath("//iframe[@id='frame_CARDHOLDER_NAME']"));
+//        driver.switchTo().frame(iframeTitolare);
+//        webTool.waitTime(10);
+//        WebElement titolare = driver.findElement(By.xpath("//input[@id='CARDHOLDER_NAME']"));
+//        getWebDriverWait(10).withMessage("Il textbox titolare non è visibile").until(ExpectedConditions.visibilityOf(titolare));
+//        titolare.click();
+//        titolare.clear();
+//        titolare.sendKeys("Titolare");
+//        driver.switchTo().defaultContent();
+//        WebElement continuaBottone = getWebDriverWait(55)
+//                .withMessage("Il bottone Continua non è cliccabile in Inserisci i dati della carta ")
+//                .until(ExpectedConditions.elementToBeClickable(By.id("submit"))); // mui-5
+//        continuaBottone.click();
+//        logger.info("Il bottone Continua cliccato in Inserisci i dati della carta");
+//
+//        clickIntesaSanpaoloRadioButton();
+//
+//        WebElement continuaButtonScegliPagamento = getWebDriverWait(60)
+//                .withMessage("Il bottone Continua su Scegli chi gestirà il pagamento non è cliccabile ")
+//                .until(ExpectedConditions.presenceOfElementLocated(
+//                        By.id("paymentPspListPageButtonContinue")
+//                ));
+//        continuaButtonScegliPagamento.click();
+//
+//        //Select Nexi
+//        webTool.waitTime(10);
+//        WebElement modificaButton = getWebDriverWait(120)
+//                .withMessage("Il bottone modifica non è cliccabile")
+//                .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));////for local test use //button[@aria-label='Modifica PSP']
+//        modificaButton.click();
+//        webTool.waitTime(10);
+//
+//        getWebDriverWait(80)
+//                .withMessage("Intesa Sanpaolo S.p.A non è cliccabile")
+//                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"))));
+//        driver.findElement(By.xpath("(//div[contains(text(),'Intesa Sanpaolo S.p.A')])[2]")).click();
+//
+////        WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
+////        getWebDriverWait(15).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
+////        pagaButton.click();
+//        WebElement pagaButton = getWebDriverWait(25)
+//                .withMessage("Il bottone Paga non è cliccabile")
+//                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='paymentCheckPageButtonPay']")));
+//        pagaButton.click();
+//
+//        webTool.waitTime(120);//necessaria
+////        getWebDriverWait(50)
+////                .withMessage("Il bottone Continua non è cliccabile ")
+////                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continu')]"))));
+////        driver.findElement(By.xpath("//button[contains(text(),'Continu')]")).click();//for local test use //button[@aria-label='Continua']
+//        WebElement continueButton = getWebDriverWait(170)
+//                .withMessage("Il bottone Continua non è cliccabile")
+//                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'Continu')]")));
+//
+//        // Clicca sul bottone
+//        continueButton.click();
+//    }
+
+    public void checkoutPagamento() {
         logger.info("Si procede con il pagamento");
-        webTool.waitTime(5);
-        driver.findElement(By.cssSelector("[data-qaid='CP']")).click();
-        webTool.waitTime(5);
-        // frame of the card number
-        WebElement iframeCardNumber = driver.findElement(By.xpath("//iframe[@id='frame_CARD_NUMBER']"));
-        driver.switchTo().frame(iframeCardNumber);
-        webTool.waitTime(15);
-        creditCardNumber = driver.findElement(By.xpath("/html/body/div/div/div/div/input"));
-        getWebDriverWait(15).withMessage("Il textbox numero di carta non è visibile").until(ExpectedConditions.visibilityOf(creditCardNumber));
-        creditCardNumber.click();
-        creditCardNumber.clear();
-        logger.info("Si inserisce numero di CC");
-        creditCardNumber.sendKeys("5255000010002856");
-        driver.switchTo().defaultContent();
 
-        //frame of the expiry date
-        WebElement iframeExpiry = driver.findElement(By.xpath("//iframe[@id='frame_EXPIRATION_DATE']"));
-        driver.switchTo().frame(iframeExpiry);
-        webTool.waitTime(20);
-        WebElement scadenza = driver.findElement(By.xpath("//input[@id='EXPIRATION_DATE']"));
-        getWebDriverWait(20).withMessage("Il textbox scadenza non è visibile").until(ExpectedConditions.visibilityOf(scadenza));
-        scadenza.click();
-        scadenza.clear();
-        scadenza.sendKeys("12/30");
-        driver.switchTo().defaultContent();
+        // Clicca sul pulsante con data-qaid='CP'
+        WebElement cpButton = getWebDriverWait(60)
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-qaid='CP']")));
+        cpButton.click();
 
-        //frame of the security code
-        WebElement iframeSecurityCode = driver.findElement(By.xpath("//iframe[@id='frame_SECURITY_CODE']"));
-        driver.switchTo().frame(iframeSecurityCode);
-        webTool.waitTime(10);
-        WebElement codice = driver.findElement(By.xpath("//input[@id='SECURITY_CODE']"));
-        getWebDriverWait(20).withMessage("Il textbox codice di sicurezza non è visibile").until(ExpectedConditions.visibilityOf(codice));
-        codice.click();
-        codice.clear();
-        codice.sendKeys("123");
-        driver.switchTo().defaultContent();
+        // Inserimento del numero della carta di credito
+        handleCardField("//iframe[@id='frame_CARD_NUMBER']", "//html/body/div/div/div/div/input", "5255000010002856", "numero di carta");
 
-        //frame of the cardholder name
-        WebElement iframeTitolare = driver.findElement(By.xpath("//iframe[@id='frame_CARDHOLDER_NAME']"));
-        driver.switchTo().frame(iframeTitolare);
-        webTool.waitTime(10);
-        WebElement titolare = driver.findElement(By.xpath("//input[@id='CARDHOLDER_NAME']"));
-        getWebDriverWait(10).withMessage("Il textbox titolare non è visibile").until(ExpectedConditions.visibilityOf(titolare));
-        titolare.click();
-        titolare.clear();
-        titolare.sendKeys("Titolare");
-        driver.switchTo().defaultContent();
-        WebElement continuaBottone = getWebDriverWait(55)
-                .withMessage("Il bottone Continua non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("mui-5")));
-        continuaBottone.click();
-        logger.info("Il bottone Continua cliccato");
-        //Select Nexi
-        webTool.waitTime(10);
-        WebElement modificaButton = getWebDriverWait(120)
+        // Inserimento della data di scadenza
+        handleCardField("//iframe[@id='frame_EXPIRATION_DATE']", "//input[@id='EXPIRATION_DATE']", "12/30", "scadenza");
+
+        // Inserimento del codice di sicurezza
+        handleCardField("//iframe[@id='frame_SECURITY_CODE']", "//input[@id='SECURITY_CODE']", "123", "codice di sicurezza");
+
+        // Inserimento del nome del titolare della carta
+        handleCardField("//iframe[@id='frame_CARDHOLDER_NAME']", "//input[@id='CARDHOLDER_NAME']", "Titolare", "titolare");
+
+        // Clicca sul bottone Continua
+        WebElement continuaButton = getWebDriverWait(60)
+                .withMessage("Il bottone Continua non è cliccabile in Inserisci i dati della carta")
+                .until(ExpectedConditions.elementToBeClickable(By.id("submit")));
+        continuaButton.click();
+        logger.info("Il bottone Continua cliccato in Inserisci i dati della carta");
+
+        // Clicca sul radio button di Intesa Sanpaolo
+        clickIntesaSanpaoloRadioButton();
+
+        // Clicca sul bottone Continua su Scegli chi gestirà il pagamento
+        WebElement continuaButtonScegliPagamento = getWebDriverWait(60)
+                .withMessage("Il bottone Continua su Scegli chi gestirà il pagamento non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("paymentPspListPageButtonContinue")));
+        continuaButtonScegliPagamento.click();
+
+        // Clicca sul bottone Modifica
+        WebElement modificaButton = getWebDriverWait(60)
                 .withMessage("Il bottone modifica non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));////for local test use //button[@aria-label='Modifica PSP']
+                .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));
         modificaButton.click();
-        webTool.waitTime(10);
-        getWebDriverWait(80)
-                .withMessage("Intesa Sanpaolo S.p.A non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]"))));
-        driver.findElement(By.xpath("//div[contains(text(),'Intesa Sanpaolo S.p.A')]")).click();
 
-        WebElement pagaButton = driver.findElement(By.xpath("//button[@id='paymentCheckPageButtonPay']"));
-        getWebDriverWait(15).withMessage("Il bottone Paga non è cliccabile").until(ExpectedConditions.elementToBeClickable(pagaButton));
+        // Clicca su Intesa Sanpaolo S.p.A
+        WebElement intesaSanpaolo = getWebDriverWait(60)
+                .withMessage("Intesa Sanpaolo S.p.A non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(text(),'Intesa Sanpaolo S.p.A')])[2]")));
+        intesaSanpaolo.click();
+
+        // Clicca sul bottone Paga
+        WebElement pagaButton = getWebDriverWait(60)
+                .withMessage("Il bottone Paga non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='paymentCheckPageButtonPay']")));
         pagaButton.click();
-        webTool.waitTime(120);//necessaria
-        getWebDriverWait(50).withMessage("Il bottone Continua non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continu')]"))));
-        driver.findElement(By.xpath("//button[contains(text(),'Continu')]")).click();//for local test use //button[@aria-label='Continua']
+
+        // Clicca sul bottone Continua finale
+        WebElement continueButton = getWebDriverWait(200)
+                .withMessage("Il bottone Continua non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(), 'Continu')]")));
+        continueButton.click();
+    }
+
+    private void handleCardField(String iframeXPath, String inputXPath, String inputValue, String fieldName) {
+        // Trova e passa all'iframe
+        WebElement iframe = getWebDriverWait(20)
+                .withMessage("Impossibile trovare Trova e passa all'iframe: "+iframeXPath)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(iframeXPath)));
+        driver.switchTo().frame(iframe);
+
+        // Trova e interagisci con il campo di input
+        WebElement inputField = getWebDriverWait(20)
+                .withMessage("Il textbox " + fieldName + " non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(inputXPath)));
+        inputField.click();
+        inputField.clear();
+        inputField.sendKeys(inputValue);
+
+        // Torna al contenuto principale della pagina
+        driver.switchTo().defaultContent();
+    }
+
+    public void clickIntesaSanpaoloRadioButton() {
+        try {
+            // Trova il radio button associato a "Intesa Sanpaolo S.p.A"
+            WebElement intesaSanpaoloContainer = getWebDriverWait(20)
+                    .withMessage("Impossibile trovare il radio button associato a Intesa Sanpaolo S.p.A ")
+                    .until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//div[@id='BCITITMM']")
+            ));
+
+            // Trova il radio button all'interno del container specifico
+            WebElement radioButton = intesaSanpaoloContainer.findElement(
+                    By.xpath(".//*[local-name()='svg' and @data-testid='RadioButtonUncheckedIcon']")
+            );
+
+            // Clicca sul radio button
+            radioButton.click();
+        } catch (Exception e) {
+            // Gestione delle eccezioni: stampa l'errore se il radio button non è trovato o non è cliccabile
+            logger.error("Errore durante il click sul radio button di Intesa Sanpaolo S.p.A: " + e.getMessage());
+            throw e;
+        }
     }
 
     public void siVisualizzaStatoPagato() {
-        getWebDriverWait(120)
-                .withMessage("Lo stato di pagamento non è visibile")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"))));
+//        getWebDriverWait(240)
+//                .withMessage("Lo stato di pagamento non è visibile")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@id='status-chip-Pagato']"))));
+        getWebDriverWait(240)
+                .withMessage("Lo stato di pagamento 'Pagato' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='status-chip-Pagato']")));
+
         logger.info("Lo stato di pagamento è Pagato");
     }
 }

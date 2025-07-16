@@ -1,17 +1,17 @@
 Feature: PG - Utente della PG con ruolo di operatore prova a ruotare una virtual key con una virtual key già ruotata
 
-  @TestSuite
-  @TA_PG_OperatoreRuotaVirtualKeyGiaRuotata_QA_5340
-  @integrazioneApi
-  #@bilinguismo
-
+#  @TestSuite
+#  @TA_PG_OperatoreRuotaVirtualKeyGiaRuotata_QA_5340
+#  #@bilinguismo
+#  @NRT_Blocco_2
+  #  Inglobato in 5327
   Scenario:PN-QA-5340  PG - Utente della PG con ruolo di operatore prova a ruotare una virtual key con una virtual key già ruotata
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 #  Censire una chiave pubblica per un Operatore
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente public keys
@@ -32,7 +32,7 @@ Feature: PG - Utente della PG con ruolo di operatore prova a ruotare una virtual
       | user           | n.lotti       |
       | pwd            | test          |
       | ragioneSociale | Vita Nova Sas |
-    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
+    And Si clicca su prodotto
 
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

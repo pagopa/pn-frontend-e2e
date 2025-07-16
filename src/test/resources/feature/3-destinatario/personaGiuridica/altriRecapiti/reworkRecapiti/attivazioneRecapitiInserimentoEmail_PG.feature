@@ -1,10 +1,11 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite_ON
   @TA_AttivazioneRecapitiInserimentoEmail_PG
   @addressBook2
-  @TA_ON
-  @NRT
+  @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_1
+
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_28_29_27] Attivazione Recapiti Inserimento Email PG
 
    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -21,14 +22,16 @@ Feature: Rework della pagina dei contatti
     And Si clicca sul bottone del pop-up Annulla
     And Verifica Da Attivare Email
 ###  REWORK_DOMICILIO_DIGITALE_PF_29
-   And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     When Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Si clicca sul bottone del pop-up ok ho capito
 #    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Cliccare sul bottone Annulla
     And Verifica Da Attivare Email
 #    ##  REWORK_DOMICILIO_DIGITALE_PF_27
-   And Aspetta 1 secondi
+    #And Aspetta 1 secondi
+    And Refresh pagina
     When Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP

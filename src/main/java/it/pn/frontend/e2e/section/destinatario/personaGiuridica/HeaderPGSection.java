@@ -32,8 +32,8 @@ public class HeaderPGSection extends BasePage {
 
     public void waitLoadHeaderPGPage() {
         try {
-            getWebDriverWait(60).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]"))));
-            getWebDriverWait(60).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@title = 'Esci']"))));
+            getWebDriverWait(70).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]"))));
+            getWebDriverWait(70).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@title = 'Esci']"))));
             logger.info("HeaderSectionPG caricata correttamente");
         } catch (TimeoutException e) {
             Assertions.fail("HeaderSectionPG non caricata correttamente con errore: " + e.getMessage());
@@ -41,25 +41,31 @@ public class HeaderPGSection extends BasePage {
     }
 
     public void clickEsciButton() {
+        webTool.waitTime(10);
         esciButton = getWebDriverWait(60)
                 .withMessage("Non Si Visualizza il tasto Esci sul Pop-Up")
                 .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@title = 'Esci']"))));
         esciButton.click();
+        logger.info("clickEsciButton");
+        webTool.waitTime(10);
     }
 
     public void clickEsciButtonPopUp() {
+        logger.info("clickEsciButtonPopUp");
+//        webTool.waitTime(5);
 //        WebElement esciButtonPopUp = getWebDriverWait(60)
 //                .withMessage("Non Si Visualizza il tasto Esci sul Pop-Up")
 //                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(),'Esci')]"))));
 //        esciButtonPopUp.click();
+        webTool.waitTime(5);
 
         WebElement esciButtonPopUp = getWebDriverWait(60)
-                .withMessage("Il tasto 'Esci' nel popup non è cliccabile")
+                .withMessage("Non si visualizza il tasto Esci sul Pop-Up")
                 .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Esci')]")
                 ));
-
         esciButtonPopUp.click();
+
     }
 
     public void selezionaSecondoEsciButtonPG() {

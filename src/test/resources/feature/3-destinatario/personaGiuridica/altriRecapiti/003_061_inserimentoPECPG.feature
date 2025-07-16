@@ -1,6 +1,6 @@
 Feature: La persona giuridica inserisce una PEC
 
-#  @TestSuite
+#  @TestSuite_VECCHI
 #  @TA_inserimentoPECPG
 #  @PG
 #  @recapitiPG
@@ -20,4 +20,3 @@ Feature: La persona giuridica inserisce una PEC
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
     Then Nella pagina i Tuoi Recapiti si controlla che la pec sia stata inserita correttamente
-    And Logout da portale persona giuridica

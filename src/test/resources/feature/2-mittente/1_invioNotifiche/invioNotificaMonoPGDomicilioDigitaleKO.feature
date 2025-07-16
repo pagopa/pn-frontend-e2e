@@ -21,7 +21,6 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | soggettoGiuridico       | PG          |
       | nomeCognomeDestinatario | Test SPA    |
       | codiceFiscale           | 00749900049 |
-     #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | @FAIL-Irreperibile_AR |
@@ -37,7 +36,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Aspetta 600 secondi
     And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
-    And Logout da portale mittente
+#    And Logout da portale mittente
 
 #  @TestSuite
   @TA_InvioNotificaMonoPGDomiccilioDigitaleKOBis
@@ -47,4 +46,4 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Si clicca la notifica ricercata
     And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
-    And Logout da portale mittente
+#    And Logout da portale mittente

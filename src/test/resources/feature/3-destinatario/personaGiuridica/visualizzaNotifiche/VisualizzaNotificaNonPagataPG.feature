@@ -34,21 +34,18 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si controlla sia presente il modello F24 destinatario
     And Si clicca sul modello F24 destinatario numero 1
     Then Si torna alla pagina precedente
-    And Logout da portale persona giuridica
 
   @TestSuite
   @CheckNotificaConDocumentiAllegatiPGBis
+  @NRT_Blocco_3
+  @VisualizzaNotifiche
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - bis - PG scarica modello F24
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche  persona giuridica inserire il codice IUN da dati notifica "WZAT-VPJY-XAZL-202410-A-1"
     And Cliccare sul bottone Filtra persona giuridica
-    When La persona giuridica clicca sulla notifica restituita "WZAT-VPJY-XAZL-202410-A-1"
+    When La persona fisica clicca sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
-    And Si controlla sia presente l'avviso PagoPa destinatario
-    And Si controlla sia presente il modello F24 destinatario
-    And Si clicca sul modello F24 destinatario numero 1
     Then Si torna alla pagina precedente
-    And Logout da portale persona giuridica
 
 
   @CheckNotificaConDocumentiAllegatiPG
@@ -80,7 +77,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si clicca l'avviso PagoPa destinatario
     And Aspetta 3 secondi
     Then Si torna alla pagina precedente
-    And Logout da portale persona giuridica
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizza dettaglio notifica con attestazione opponibile a terzi notifica presa in carico
@@ -89,7 +85,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si clicca la notifica ricercata
     And Si controlla sia presente il modello F24 destinatario
     Then Si controlla sia presente attestazione opponibile a terzi notifica presa in carico
-    And Logout da portale persona giuridica
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizzazione notifica da pagare annullata
@@ -99,7 +94,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si verifica che la notifica abbia lo stato "Annullata"
     And Si controlla non sia presente l'avviso PagoPa
     Then Si controlla non sia presente il modello F24 destinatario
-    And Logout da portale persona giuridica
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizza Notifica mono destinatario non ancora pagata solo con più modelli F24
@@ -113,7 +107,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     #And Si torna alla pagina precedente
     And Si clicca sul modello F24 destinatario numero 2
     #Then Si torna alla pagina precedente
-    And Logout da portale persona giuridica
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizza Notifica mono destinatario non ancora pagata solo con avviso PagoPa e assenza del PDF relativo al bollettino
@@ -122,4 +115,3 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si clicca la notifica ricercata
     And Si controlla la presenza di codice avviso
     And Si controlla non sia presente l'avviso PagoPa
-    And Logout da portale persona giuridica

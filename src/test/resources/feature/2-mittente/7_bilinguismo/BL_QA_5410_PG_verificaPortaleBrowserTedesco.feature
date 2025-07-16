@@ -1,12 +1,12 @@
 Feature: PG - Verifica portale browser Tedesco
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoPGVerificaPortaleBrowserInTedesco_5410
   @Tedesco
   @bilinguismo
   @deleghe2
 
-  Scenario: PN-5410 - PG - Verifica portale browser Tedesco
+  Scenario: PN-5410-BL - PG - Verifica portale browser Tedesco
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

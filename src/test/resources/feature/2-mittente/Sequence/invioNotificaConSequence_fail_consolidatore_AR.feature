@@ -28,4 +28,3 @@ Feature: invio notifica con sequence
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"Si è verificato un errore durante la creazione della postalizzazione")] |
       | vediDettagli | true                                                                                         |
-    And Logout da portale mittente

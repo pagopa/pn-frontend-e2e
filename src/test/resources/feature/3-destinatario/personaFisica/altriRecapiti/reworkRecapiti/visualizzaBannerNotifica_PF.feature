@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite_ON
   @TA_VisualizzaBannerNotifica_PF
   @addressBook1
-  @TA_ON
-  @NRT
+  @TA_REWORK_RECAPITI_ON
+  @NRT_Blocco_2
   Scenario: [REWORK_DOMICILIO_DIGITALE_PF_65_66_67] - Visualizza banner - Notifica/I tuoi dati
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
@@ -39,7 +39,7 @@ Feature: Rework della pagina dei contatti
     And Aspetta 5 secondi
     And Si visualizza correttamente la Pagina Notifiche persona fisica
     And Si visualizza correttamente il banner di recapito di cortesia mancante
-    And La persona fisica clicca sulla prima notifica restituita
+    And La persona fisica clicca sulla prima notifica restituita con stato "Avvenuto accesso"
     And Si visualizza correttamente il banner di recapito di cortesia mancante
     And La persona fisica seleziona la voce I tuoi dati
     And Si visualizza correttamente il banner di recapito di cortesia mancante

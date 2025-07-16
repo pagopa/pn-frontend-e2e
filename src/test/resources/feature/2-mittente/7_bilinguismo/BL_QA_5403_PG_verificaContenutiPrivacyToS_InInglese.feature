@@ -1,11 +1,11 @@
 Feature: PG Verifica contenuti Privacy e ToS in Inglese
 
-  @TestSuite
+  @TestSuite_BROWSER
   @TA_bilinguismoPGVerificaContenutiPrivacyToSInInglese_QA5403
   @TA_Inglese
   @bilinguismo
 
-  Scenario: PN-QA5403 - PG - Verifica contenuti Privacy e ToS in Italiano
+  Scenario: PN-QA5403-BL - PG - Verifica contenuti Privacy e ToS in Italiano
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

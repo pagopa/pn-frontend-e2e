@@ -7,13 +7,18 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
+import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import it.pn.frontend.e2e.utility.DataPopulation;
+import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +33,7 @@ import java.util.Map;
 
 public class RicercaNotificheMittentePagoPATest extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("NotificaMittenteTest");
+    private static final Logger logger = LoggerFactory.getLogger(RicercaNotificheMittentePagoPATest.class);
 
     private boolean dataFineErrata;
 
@@ -41,6 +46,12 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     private  HeaderPASection headerPASection;
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
+    @Autowired
+    private NotificationSingleton notificationSingleton;
+
+    @Setter
+    @Getter
+    private HooksNew hooksNew;
 
 
     @PostConstruct
@@ -70,10 +81,12 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Cliccare sul bottone Filtra Notifica {string}")
     public void cliccareSulBottoneFiltraNotifica(String xpath) {
         logger.info("Si clicca sul tasto filtra Notifica");
-        String codiceIUN =dataPopulationConfig.getDatiNotifica().getCodiceIUN();
-//        String codiceIUN ="HWEG-REZK-XPMT-202504-X-3";
-        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath,codiceIUN);
+        //String codiceIUN = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
+        String codiceIUN = notificationSingleton.getIun(hooksNew.getScenario());
+//        String codiceIUN ="DPTV-WMWK-TPNA-202506-H-1";
+//        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
+        logger.info("IUN cliccareSulBottoneFiltraNotifica: "+codiceIUN);
+        piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath, codiceIUN);
     }
 
     @And("Si verifica che non ci sono notifiche disponibili")
@@ -159,7 +172,7 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
         piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
-//        piattaformaNotifichePage.inserimentoCodiceIUN("HWEG-REZK-XPMT-202504-X-3");
+//        piattaformaNotifichePage.inserimentoCodiceIUN("DPTV-WMWK-TPNA-202506-H-1");
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")

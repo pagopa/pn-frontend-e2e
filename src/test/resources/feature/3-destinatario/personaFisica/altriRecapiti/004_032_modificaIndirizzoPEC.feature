@@ -1,6 +1,6 @@
 Feature: la persona fisica modifica l'indirizzo pec già presente
 
-#  @TestSuite
+#  @TestSuite_VECCHIO
 #  @PF
 #  @TA_modificaPECPF
 #  @recapitiPF

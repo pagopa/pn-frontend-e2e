@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.DateFormatSymbols;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
@@ -149,7 +150,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void waitLoadPiattaformaNotifichePAPage() {
         try {
-            getWebDriverWait(60).withMessage("Il bottone invia notifica non visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("new-notification-btn"))));
+            getWebDriverWait(60).withMessage("Il bottone invia notifica non visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("new-notification-btn")));
+//                    .until(ExpectedConditions.visibilityOf( driver.findElement(By.id("new-notification-btn"))));
 
             getWebDriverWait(60)
                     .withMessage("Il titolo non è visibile")
@@ -197,30 +200,36 @@ public class PiattaformaNotifichePage extends BasePage {
     public void clickBottoneFiltraNotifica(String xpath, String codiceIUN) {
 //        "filter-button"
 //        filter-notifications-button
-        final int maxTentativi = 10;
+        final int maxTentativi = 15;
         final int attesaSecondi = 10;
         boolean trovato = false;
 
         for (int i = 0; i <= maxTentativi && !trovato; i++) {
             try {
-                WebElement bottoneFiltra = getWebDriverWait(10)
+                inserimentoCodiceIUN(codiceIUN);
+
+                WebElement bottoneFiltra = getWebDriverWait(20)
                         .withMessage("Il bottone 'Filtra' non è cliccabile")
                         .until(ExpectedConditions.elementToBeClickable(By.id(xpath)));
                 webTool.waitTime(1);
                 try {
                     bottoneFiltra.click();
                 } catch (Exception e) {
+                    webTool.waitTime(1);
                     js().executeScript("arguments[0].click();", bottoneFiltra);
                 }
                 webTool.waitTime(1);
                 By selettoreIUN = By.xpath("//*[contains(@id, 'notifications-table')]//td[contains(text(), '" + codiceIUN + "')]");
-                getWebDriverWait(5)
+                getWebDriverWait(10)
                         .withMessage("Codice IUN '" + codiceIUN + "' non trovato nella tabella notifiche")
                         .until(ExpectedConditions.visibilityOfElementLocated(selettoreIUN));
 
                 trovato = true;
             } catch (Exception ex) {
                 webTool.waitTime(attesaSecondi);
+            }
+            if (!trovato) {
+                driver.navigate().refresh();
             }
         }
         if (!trovato) {
@@ -690,6 +699,43 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    public void selezionaPrimaNotifica(String stato) {
+        waitLoadPage();
+        try {
+            attesaCaricamentoPagina();
+            verificaEsistenzaTabellaNotifiche();
+            buttonRighePagine();
+            selezionaPage50();
+
+            List<WebElement> notificationsTables = getWebDriverWait(10)
+                    .withMessage("Impossibile trovare notificationsTable")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("tr[id='notificationsTable.body.row']")) );
+
+            for (WebElement row : notificationsTables) {
+                WebElement statusChip = getWebDriverWait(10)
+                        .withMessage("Impossibile la colonna con lo stato: "+stato)
+                        .until(
+                        ExpectedConditions.visibilityOf(row.findElement(By.cssSelector("div[id^='status-chip-']")))
+                );
+                if (statusChip.getText().trim().equals(stato)) {
+
+                    WebElement vediDettaglioButton = getWebDriverWait(10)
+                            .withMessage("Impossibile dettagli con lo stato: "+stato)
+                            .until( ExpectedConditions.elementToBeClickable(row.findElement(By.cssSelector("button[data-testid='goToNotificationDetail']"))));
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", vediDettaglioButton);
+
+                    // Utilizza JavaScript per fare clic
+                    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", vediDettaglioButton);
+
+                    break;
+                }
+            }
+
+        } catch (TimeoutException e) {
+            Assertions.fail("Notifica non trovata con errore: " + e.getMessage());
+        }
+    }
+
 
     private void clickRowNotificationIndex(WebElement primaNotifica) {
         try {
@@ -799,7 +845,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public List<WebElement> ricercaListaOggetti() {
         try {
-            return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1sdct2p')]"));
+            return getWebDriverWait(30)
+                    .withMessage("Impossibile trovare la Lista Oggetti")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                            By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[3]")));
+//            return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1sdct2p')]"));
         } catch (TimeoutException e) {
             logger.info("lista oggetti ancora non presenti");
             return null;
@@ -959,51 +1009,93 @@ public class PiattaformaNotifichePage extends BasePage {
         return nRigheBy.getText();
     }
 
+//    public void controlloOrdineNotifiche() {
+//        List<WebElement> listaDate = getListaDate();
+//        LocalDate dataSuccessiva;
+//        final String dataOggi = "Oggi";
+//        LocalDate dataPrecedente;
+//        if (listaDate != null) {
+//            for (int i = 0; i < listaDate.size() - 1; i++) {
+//                String dataDopo = listaDate.get(i).getText();
+//                String dataPrima = listaDate.get(i + 1).getText();
+//                if (dataOggi.equals(dataDopo)) {
+//                    dataSuccessiva = LocalDate.now();
+//                } else {
+//                    String[] dateA = dataDopo.split("/");
+//                    dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+//                    dataSuccessiva = LocalDate.parse(dataDopo);
+//                }
+//                if (dataOggi.equals(dataPrima)) {
+//                    dataPrecedente = LocalDate.now();
+//                } else {
+//                    String[] dateA = dataPrima.split("/");
+//                    dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
+//                    dataPrecedente = LocalDate.parse(dataPrima);
+//                }
+//                if (dataSuccessiva.isBefore(dataPrecedente)) {
+//                    logger.error("Le date non sono ordinate dal più recente");
+//                    Assertions.fail("Le date non sono ordinate dal più recente");
+//                    return;
+//                }
+//            }
+//        }
+//        logger.info("Le date sono visualizzate correttamente");
+//    }
+
     public void controlloOrdineNotifiche() {
         List<WebElement> listaDate = getListaDate();
-        LocalDate dataSuccessiva;
         final String dataOggi = "Oggi";
-        LocalDate dataPrecedente;
-        if (listaDate != null) {
-            for (int i = 0; i < listaDate.size() - 1; i++) {
-                String dataDopo = listaDate.get(i).getText();
-                String dataPrima = listaDate.get(i + 1).getText();
-                if (dataOggi.equals(dataDopo)) {
-                    dataSuccessiva = LocalDate.now();
-                } else {
-                    String[] dateA = dataDopo.split("/");
-                    dataDopo = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                    dataSuccessiva = LocalDate.parse(dataDopo);
-                }
-                if (dataOggi.equals(dataPrima)) {
-                    dataPrecedente = LocalDate.now();
-                } else {
-                    String[] dateA = dataPrima.split("/");
-                    dataPrima = dateA[2] + "-" + dateA[1] + "-" + dateA[0];
-                    dataPrecedente = LocalDate.parse(dataPrima);
-                }
-                if (dataSuccessiva.isBefore(dataPrecedente)) {
-                    logger.error("Le date non sono ordinate dal più recente");
-                    Assertions.fail("Le date non sono ordinate dal più recente");
-                    return;
-                }
+
+        // Gestisci caso lista vuota o nulla
+        if (listaDate == null || listaDate.isEmpty()) {
+            logger.warn("La lista delle date è vuota o nulla.");
+            return;
+        }
+
+        // Usa DateTimeFormatter per un parsing più robusto
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        for (int i = 0; i < listaDate.size() - 1; i++) {
+            String dataDopo = listaDate.get(i).getText();
+            String dataPrima = listaDate.get(i + 1).getText();
+
+            LocalDate dataSuccessiva = dataOggi.equals(dataDopo) ? LocalDate.now() : LocalDate.parse(dataDopo, formatter);
+            LocalDate dataPrecedente = dataOggi.equals(dataPrima) ? LocalDate.now() : LocalDate.parse(dataPrima, formatter);
+
+            // Verifica se le date sono ordinate
+            if (dataSuccessiva.isBefore(dataPrecedente)) {
+                logger.error("Le date non sono ordinate dal più recente");
+                Assertions.fail("Le date non sono ordinate dal più recente");
+                return;
             }
         }
+
         logger.info("Le date sono visualizzate correttamente");
     }
 
     private List<WebElement> getListaDate() {
-        try {
-            attesaCaricamentoPagina();
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
-            List<WebElement> dataListBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
-            logger.info("Date trovate correttamente");
+//        try {
+//            attesaCaricamentoPagina();
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
+//            List<WebElement> dataListBy = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
+//            logger.info("Date trovate correttamente");
+//
+//            return dataListBy;
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Date NON trovate con errore: " + e.getMessage());
+//            return null;
+//        }
+//        webTool.waitTime(5);
+        List<WebElement> dataListBy = getWebDriverWait(30)
+                .withMessage("Impossibile Estrarre la prima colonna inerente alle date")
+                .until(d -> d.findElements(By.cssSelector("#notifications-table td:nth-child(1)")));
 
-            return dataListBy;
-        } catch (TimeoutException e) {
-            Assertions.fail("Date NON trovate con errore: " + e.getMessage());
+        if (dataListBy == null || dataListBy.isEmpty()) {
+            logger.warn("Nessuna data trovata.");
             return null;
         }
+        return dataListBy;
+
     }
 
     public void siScrollaFinoAllaFineDellaPagina() {
@@ -1064,7 +1156,7 @@ public class PiattaformaNotifichePage extends BasePage {
             js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
         int i = 0;
-        while (element(By.id("next")).isEnabled()) {
+        while (element(By.id("next")).isEnabled() && i<=pagina ) {
             element(By.id("next")).click();
             webTool.waitTime(2);
             try {
@@ -1074,6 +1166,7 @@ public class PiattaformaNotifichePage extends BasePage {
             } catch (NoSuchElementException e) {
                 logger.error(paginaString +" non visualizzata");
             }
+            i++;
         }
 
     }
@@ -1415,6 +1508,7 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean testSuccess = false;
         for (int i = 0; i < 20; i++) {
             try {
+//                WebElement chipStatus = driver.findElement(By.id(statoNotifica + "-status"));
                 WebElement chipStatus = getWebDriverWait(5)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id(statoNotifica + "-status")));
                 if (chipStatus.isDisplayed()) {
@@ -1757,23 +1851,55 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezionaVoceMenuLaterale(String testo) {
-        WebElement element = getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'" + testo + "')]")));
+
+        WebElement element = getWebDriverWait(20)
+                .withMessage("Voce menu laterale non trovata: "+testo)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'" + testo + "')]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+
         element.click();
     }
 
     public void cambiaLinguaFooter(String lingua) {
-        WebElement menuLingua = getWebDriverWait(10).withMessage("Seleziona: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[@aria-label='lingua']")));
-        menuLingua.click();
-        WebElement opzioneLingua = getWebDriverWait(10).withMessage("Scelta Lingua: '" + lingua + "' non trovato").until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//li[contains(text(),'" + lingua + "')]")));
-        opzioneLingua.click();
+
+        WebElement menuLingua = getWebDriverWait(30)
+                .withMessage("Menu lingua: '" + lingua + "' non trovato")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='lingua']")));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", menuLingua);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", menuLingua);
+
+        WebElement opzioneLingua = getWebDriverWait(30)
+                .withMessage("Opzione  Lingua: '" + lingua + "' non trovato")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(text(),'" + lingua + "')]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", opzioneLingua);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", opzioneLingua);
+//        opzioneLingua.click();
     }
+
+//    public boolean isTextPresent(String testo) {
+//        try {
+//            return getWebDriverWait(30)
+//                    .withMessage("Il testo '" + testo + "' non è stato trovato sulla pagina entro il tempo previsto")
+//                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
 
     public boolean isTextPresent(String testo) {
         try {
-            return getWebDriverWait(30).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'" + testo + "')]"))) != null;
+            // Attendi che l'elemento contenente il testo sia visibile
+            return getWebDriverWait(30)
+                    .withMessage("Il testo '" + testo + "' non è stato trovato sulla pagina entro il tempo previsto")
+                    .until(ExpectedConditions.textToBePresentInElementLocated(
+                            By.xpath("//*"), testo));
+
+        } catch (TimeoutException e) {
+            logger.error("Timeout durante la ricerca del testo '" + testo + "': " + e.getMessage());
+            return false;
         } catch (Exception e) {
+            logger.error("Errore durante la ricerca del testo '" + testo + "': " + e.getMessage());
             return false;
         }
     }
@@ -1789,8 +1915,11 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaFooterLingua(String lingua) {
-        WebElement linguaElement = driver.findElement(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root"));
-        Assertions.assertEquals(linguaElement.getText(),lingua,"La Lingua presente nel footer è diversa da: "+lingua);
+//        WebElement linguaElement = driver.findElement(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root"));
+        WebElement linguaElement = getWebDriverWait(20)
+                .withMessage("Elemento della lingua nel footer non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root")));
+        Assertions.assertEquals(linguaElement.getText(), lingua, "La Lingua presente nel footer è diversa da: " + lingua);
     }
 
     public void verificaCampiVuoti() {
@@ -1823,11 +1952,9 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-
     public void verificaPopUpToastErrore(String verifica) {
         //webTool.waitTime(5);
-
-        WebElement popup = getWebDriverWait(10)
+        WebElement popup = getWebDriverWait(15)
                 .withMessage("Impossibile Trovare alert-api-status")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("alert-api-status")));
         Assertions.assertTrue(popup.getText().contains(verifica));
@@ -1869,44 +1996,91 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void selezioneImpostazioneLingua() {
-        WebElement impostazioneLingua = getWebDriverWait(10)
+        WebElement impostazioneLingua = getWebDriverWait(20)
                 .withMessage("Impossibile selezioneImpostazioneLingua")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='settingsLangBtn']")));
+//                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='settingsLangBtn']")));
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='settingsLangBtn']")));
         impostazioneLingua.click();
     }
 
     public void verificaLinguaSelezionata(String lingua) {
+//        if (lingua.equalsIgnoreCase("Italiano")) {
+//            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
+//            Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella " + lingua);
+//        } else {
+//            WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+//            Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella " + lingua);
+//            //verifica che la label ci sia scritto la lingua scelta
+//            Assertions.assertEquals(driver.findElement(By.xpath("//div[@id='additionalLang']")).getText(), lingua);
+//            webTool.waitTime(5);
+//        }
         if (lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = driver.findElement(By.xpath("//input[@value='it']"));
-            Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella " + lingua);
+            WebElement radioIt = getWebDriverWait(30)
+                    .withMessage("Impossibile trovare //input[@value='it'] con la lingua: " + lingua)
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='lang' and @value='it']")));
+            Assertions.assertTrue(radioIt.isSelected(), "La lingua selezionata non è quella attesa: " + lingua);
         } else {
-            WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
-            Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella " + lingua);
-            //verifica che la label ci sia scritto la lingua scelta
-            Assertions.assertEquals(driver.findElement(By.xpath("//div[@id='additionalLang']")).getText(), lingua);
-            webTool.waitTime(5);
+            WebElement radioOther = getWebDriverWait(30)
+                    .withMessage("Impossibile trovare //input[@value='other'] con la lingua: " + lingua)
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@name='lang' and @value='other']")));
+            Assertions.assertTrue(radioOther.isSelected(), "La lingua selezionata non è quella attesa: " + lingua);
+
+            // Verifica che la label contenga la lingua scelta
+            WebElement additionalLangDiv = getWebDriverWait(30)
+                    .withMessage("Impossibile trovare //div[@id='additionalLang'] con la lingua: " + lingua)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id='additionalLang']")));
+            Assertions.assertEquals(additionalLangDiv.getText(), lingua);
         }
     }
 
     public void selezioneItalianoAltralingua() {
-        WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+//        WebElement radioOther = driver.findElement(By.xpath("//input[@value='other']"));
+//        radioOther.click();
+
+        WebElement radioOther = getWebDriverWait(20)
+                .withMessage("Il radio button 'Altra lingua' non è selezionabile")
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[value='other']")));
         radioOther.click();
     }
 
     public void selezioneLingua(String lingua) {
-        WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
+//        WebElement selezionaLingua = driver.findElement(By.xpath("//div[@id='additionalLang']"));
+//        selezionaLingua.click();
+//
+//        WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
+//        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
+//        logger.info("gruppo " + gruppoLingua + " trovato con successo");
+//        gruppoLingua.click();
+        WebElement selezionaLingua = getWebDriverWait(10)
+                .withMessage("Impossibile trovare selezioneLingua //div[@id='additionalLang']")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='additionalLang']")));
         selezionaLingua.click();
 
-        WebElement gruppoLingua = driver.findElement(By.xpath("//li[contains(text(),'" + lingua + "')]"));
-        getWebDriverWait(40).until(ExpectedConditions.visibilityOf(gruppoLingua));
+        WebElement gruppoLingua = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la lista con la lingua: "+lingua)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + lingua + "')]")));
+
+        logger.info("Lingua '" + lingua + "' trovata con successo");
         gruppoLingua.click();
     }
 
     public void selezionareDaImpostazioneLingua(String lingua) {
         selezioneImpostazioneLingua();
+        webTool.waitTime(3);
         if (lingua.equalsIgnoreCase("Italiano")) {
-            WebElement radioIt = driver.findElement(By.cssSelector("input[name='lang'][value='it']"));
-            radioIt.click();
+//            WebElement radioIt = driver.findElement(By.cssSelector("input[name='lang'][value='it']"));
+//            radioIt.click();
+//            WebElement radioIt = getWebDriverWait(30)
+//                    .withMessage("Impossibile trovare input[name='lang'][value='it']")
+//                    .until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[name='lang'][value='it']")));
+////            radioIt.click();
+//            js().executeScript("arguments[0].click();", radioIt);
+            WebElement radioItaliano = getWebDriverWait(30)
+                    .withMessage("Impossibile trovare l'input radio per la lingua italiana")
+                    .until(ExpectedConditions.presenceOfElementLocated(
+                            By.xpath("//label[span[contains(text(), 'Italiano') and not(contains(text(), 'Italiano e altra lingua'))]]//input[@name='lang']")
+                    ));
+            radioItaliano.click();
         } else {
             logger.info("Lingua: "+lingua);
             selezioneItalianoAltralingua();
@@ -1916,7 +2090,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
         webTool.waitTime(3);
         //chiusura della schermata tramite la X
-        WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
+//        WebElement closeIcon = driver.findElement(By.xpath("//button[@aria-label='close']"));
+//        closeIcon.click();
+        WebElement closeIcon = getWebDriverWait(30)
+                .withMessage("Impossibile trovare //button[@aria-label='close']")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='close']")));
         closeIcon.click();
         webTool.waitTime(3);
     }
@@ -1926,6 +2104,8 @@ public class PiattaformaNotifichePage extends BasePage {
         if(lingua.equalsIgnoreCase("Italiano")) {
             WebElement radioIt = getWebDriverWait(20)
                     .withMessage("Impossibile impostare la lingua su Italiano")
+//                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='it']")));
+//                    .until(elementToBeClickable(By.xpath("//input[@name='lang' and @value='it']/ancestor::label")));
                     .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='lang' and @value='it']/ancestor::label")));
             radioIt.click();
         }else {
@@ -2124,6 +2304,17 @@ public class PiattaformaNotifichePage extends BasePage {
 
     }
 
+    public int getPageMeseCorrente() {
+        int meseCorrente = LocalDate.now().getMonthValue();
+        return switch (meseCorrente) {
+            case 1, 2, 3 -> 17;
+            case 4, 5, 6 -> 18;
+            case 7, 8, 9 -> 19;
+            case 10, 11, 12 -> 20;
+            default -> throw new IllegalStateException("Unexpected value: " + meseCorrente);
+        };
+    }
+
     public boolean attesaNotificaConIUN(String iun) {
         int maxTentativi = 8;
         for (int tentativo = 0; tentativo <= maxTentativi; tentativo++) {
@@ -2132,8 +2323,8 @@ public class PiattaformaNotifichePage extends BasePage {
                 getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), iun);
                 return true;
             }
-            logger.info("Tentativo n.{}: notifica non trovata!", tentativo); 
-            webTool.waitTime(90);            
+            logger.info("Tentativo n.{}: notifica non trovata!", tentativo);
+            webTool.waitTime(90);
             driver.navigate().refresh();
         }
         return false;

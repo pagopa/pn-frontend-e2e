@@ -3,8 +3,9 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
   @TestSuite
   @TA_multiLinguaFrancese_QA5285
   @multiLingua
-  @NRT
-  Scenario: PN-QA5285- PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine di Utenti e Gruppi - FR
+  @multiLinguaPg
+  @NRT_Blocco_3
+  Scenario: PN-QA5285-ML - PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine di Utenti e Gruppi - FR
 
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -13,7 +14,6 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
     And Cambia lingua footer "Francese"
-  #    And Si clicca su prodotto "//div[contains(@class, 'MuiCard-root') and .//h6[contains(text(), 'TEST')]]//button"
     And Si clicca su prodotto
 
     When Nella Pagina Notifiche persona giuridica si clicca su utenti "Utilisateurs"

@@ -3,14 +3,15 @@ Feature: PA Verifica presenza banner che ricorda all’utente della PA di allega
   @TestSuite
   @TA_bilinguismoVerificaPresenzaBannerAllegareDocumentiBilingue_QA5379
   @bilinguismo
+  @NRT_Blocco_1
 
-  Scenario: PN-QA5379 - PA Verifica presenza banner che ricorda all’utente della PA di allegare i documenti bilingue
+  Scenario: PN-QA5379-BL - PA Verifica presenza banner che ricorda all’utente della PA di allegare i documenti bilingue
 #    Pre Condizione Aver effettuato l’accesso al portale SEND e aver scelto allo step 1 di inviare una notifica bilingue
 
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
-    And Si clicca sul bottone test
+    And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
@@ -25,10 +26,11 @@ Feature: PA Verifica presenza banner che ricorda all’utente della PA di allega
 
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
-         #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
+    And Cliccare su continua
+    And Seleziona Nessun Pagamento 1
     And Cliccare su continua
     Then Verifica Banner "Hai scelto di inviare la notifica in più lingue"
 

@@ -26,4 +26,3 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata
     And Si clicca il bottone indietro nella descrizione della notifica
     And Aspetta 20 secondi
     And Nella pagina Piattaforma Notifiche la notifica presenta lo stato "Annullata"
-    And Logout da portale mittente

@@ -162,29 +162,70 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+//    public void sendOTP(String otp) {
+//        String[] otps = otp.split("");
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input')]"))));
+//            List<WebElement> otpInputby = driver.findElements(By.xpath("//input[contains(@id,'code-input')]"));
+//            for (int i = 0; i < otps.length; i++) {
+//                otpInputby.get(i).sendKeys(otps[i]);
+//            }
+//            logger.info("Il codice otp viene inserito correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
+//        }
+//    }
+
     public void sendOTP(String otp) {
-        String[] otps = otp.split("");
+        String[] otpDigits = otp.split("");
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input')]"))));
-            List<WebElement> otpInputby = driver.findElements(By.xpath("//input[contains(@id,'code-input')]"));
-            for (int i = 0; i < otps.length; i++) {
-                otpInputby.get(i).sendKeys(otps[i]);
+            // Attendi che tutti i campi di input OTP siano visibili
+            List<WebElement> otpInputs = getWebDriverWait(30)
+                    .withMessage("I campi di input OTP non sono visibili")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[contains(@id,'code-input')]")));
+
+            // Inserisci ogni cifra dell'OTP nel rispettivo campo di input
+            for (int i = 0; i < otpDigits.length; i++) {
+                otpInputs.get(i).sendKeys(otpDigits[i]);
             }
-            logger.info("Il codice otp viene inserito correttamente");
+            logger.info("Il codice OTP è stato inserito correttamente");
         } catch (TimeoutException e) {
-            Assertions.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
+            Assertions.fail("Il codice OTP NON è stato inserito correttamente con errore: " + e.getMessage());
+        } catch (Exception e) {
+            Assertions.fail("Errore durante l'inserimento del codice OTP: " + e.getMessage());
         }
     }
 
-    public void clearOTP() {
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input')]"))));
-        List<WebElement> otpInputby = driver.findElements(By.xpath("//input[contains(@id,'code-input')]"));
-        for (int i = 4; i >= 0; i--) {
-            otpInputby.get(i).sendKeys(Keys.BACK_SPACE);
+
+
+//    public void clearOTP() {
+//        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input')]"))));
+//        List<WebElement> otpInputby = driver.findElements(By.xpath("//input[contains(@id,'code-input')]"));
+//        for (int i = 4; i >= 0; i--) {
+//            otpInputby.get(i).sendKeys(Keys.BACK_SPACE);
+//        }
+//        logger.info("Il codice otp viene cancellato correttamente");
+//
+//    }
+public void clearOTP() {
+    try {
+        // Attendi che tutti i campi di input OTP siano visibili
+        List<WebElement> otpInputs = getWebDriverWait(30)
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[contains(@id,'code-input')]")));
+
+        // Cancella ogni campo di input OTP
+        for (int i = otpInputs.size() - 1; i >= 0; i--) {
+            otpInputs.get(i).sendKeys(Keys.BACK_SPACE);
         }
-        logger.info("Il codice otp viene cancellato correttamente");
+
+        logger.info("Il codice OTP è stato cancellato correttamente");
+    } catch (TimeoutException e) {
+        Assertions.fail("I campi di input OTP non sono stati trovati: " + e.getMessage());
+    } catch (Exception e) {
+        Assertions.fail("Errore durante la cancellazione del codice OTP: " + e.getMessage());
 
     }
+}
 
     public void confermaButtonClickPopUp() {
         webTool.waitTime(3);
@@ -660,12 +701,29 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+//    public void checkButtonAnnullaEliminazioneInPopUp() {
+//        try {
+//            getWebDriverWait(10).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("buttonAnnulla"))));
+//            logger.info("pulsante annulla eliminazione visibile");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("caricamento pop-up con errore:" + e.getMessage());
+//        }
+//    }
+
     public void checkButtonAnnullaEliminazioneInPopUp() {
         try {
-            getWebDriverWait(10).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("buttonAnnulla"))));
-            logger.info("pulsante annulla eliminazione visibile");
+            getWebDriverWait(10)
+                    .withMessage("Pulsante annulla eliminazione non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("buttonAnnulla")));
+
+            logger.info("Pulsante annulla eliminazione visibile");
         } catch (TimeoutException e) {
-            Assertions.fail("caricamento pop-up con errore:" + e.getMessage());
+            Assertions.fail("Caricamento pop-up con errore: " + e.getMessage());
+        } catch (StaleElementReferenceException e) {
+
+             getWebDriverWait(10)
+                     .withMessage("Pulsante annulla eliminazione non trovato eccezione StaleElementReferenceException")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("buttonAnnulla")));
         }
     }
 
@@ -963,7 +1021,8 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickLoFaroPiuTardiOrConfermaModificaRecapito() {
-        WebElement loFaroPiuTardi = getWebDriverWait(25).withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
+        WebElement loFaroPiuTardi = getWebDriverWait(25)
+                .withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
                 .until(ExpectedConditions.elementToBeClickable(
                 By.id("dialog-confirm-button")));
         loFaroPiuTardi.click();
@@ -1337,7 +1396,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaEDisattivaDomicilioDigitale() {
         try {
-            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro Domicilio Digitale il testo 'Disattiva'")
+            WebElement disattivaButton = getWebDriverWait(20).withMessage("Non è presente dentro Domicilio Digitale il testo 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
                             (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {

@@ -6,6 +6,7 @@ Feature: La persona giuridica aggiunge una nuova delga inserendo una data errata
   @PG
   @deleghe2
   @DeleghePFPG
+  @NRT_Blocco_1
   Scenario: PN-9165-A111 - La persona giuridica aggiunge una nuova delega inserendo una data errata
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
@@ -16,5 +17,3 @@ Feature: La persona giuridica aggiunge una nuova delga inserendo una data errata
     And Si visualizza la sezione Aggiungi Delega persona giuridica
     And Nella sezione Le Tue Deleghe inserire una data con formato errato e antecedente alla data
     And Verifica che non è possibile selezionare una data Fine antecedente ad oggi
-   # And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore data errata
-   # And Logout da portale persona giuridica

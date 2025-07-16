@@ -3,15 +3,15 @@ Feature: Mittente invia una notifica digitale a multidestinatario duplicato, vie
   @TestSuite
   @TA_invioNotificaMultidestinatarioDuplicato
   @invioNotifiche_07
-  @NRT
+  @NRT_Blocco_1
   @loginFE
   Scenario: PN-9254 - Mittente invia una notifica digitale a multidestinatario duplicato, viene visualizzato messaggio di errore
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU |
-      | descrizione       | PAGAMENTO RATA IMU |
+      | oggettoNotifica   | Pagamento rata IMU PN-9254 |
+      | descrizione       | PAGAMENTO RATA IMU PN-9254 |
       | gruppo            | test-TA-FE-TEST    |
       | codiceTassonomico | 100105P          |
       | modalitaInvio     | A/R                |
@@ -21,10 +21,7 @@ Feature: Mittente invia una notifica digitale a multidestinatario duplicato, vie
       | soggettoGiuridico       | PF               |
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
-
-    #      TODO verificare VAS
     And Seleziona radion button Inserimento Manuale se esiste "0"
-
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
       | indirizzo | Via Roma |
       | civico    | 20       |
@@ -39,4 +36,3 @@ Feature: Mittente invia una notifica digitale a multidestinatario duplicato, vie
       | nomeCognomeDestinatario | Gaio Giulio      |
       | codiceFiscale           | CSRGGL44L13H501E |
     Then Si visualizza correttamente l errore di stesso codice fiscale
-#    And Logout da portale mittente

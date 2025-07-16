@@ -25,7 +25,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Depositata"
-    And Logout da portale mittente
+#    And Logout da portale mittente
     And Login Page persona fisica test viene visualizzata
     And Login con persona fisica input
       | user         | franco                 |
@@ -36,5 +36,4 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Aspetta 200 secondi
     And Si seleziona la notifica destinatario
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
-    And Logout da portale persona fisica
 

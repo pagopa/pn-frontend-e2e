@@ -148,16 +148,18 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
-            logger.error("Il risultato NON é coerente con il codice IUN inserito");
             Assertions.fail("Il risultato NON é coerente con il codice IUN inserito");
         }
     }
 
     @And("Nella pagina Piattaforma Notifiche mittente inserire un arco temporale")
-    public void nellaPaginaPiattaformaNotificheMittenteInserireUnaDataDaDAAA(Map<String, Integer> date) {
+    public void nellaPaginaPiattaformaNotificheMittenteInserireUnaDataDaDAAA() {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca ");
-        LocalDate dataFine = LocalDate.of(date.get("annoA"), date.get("meseA"), date.get("giornoA"));
-        LocalDate dataInizio = LocalDate.of(date.get("annoDa"), date.get("meseDa"), date.get("giornoDa"));
+//        LocalDate dataFine = LocalDate.of(date.get("annoA"), date.get("meseA"), date.get("giornoA"));
+//        LocalDate dataInizio = LocalDate.of(date.get("annoDa"), date.get("meseDa"), date.get("giornoDa"));
+        var dateNow = LocalDate.now();
+        var dataInizio = dateNow.minusDays(30);
+        var dataFine = dateNow.minusDays(10);
         String dataDA = notifichePFPage.controlloDateInserite(dataInizio.toString());
         String dataA = notifichePFPage.controlloDateInserite(dataFine.toString());
         piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA, true);
@@ -245,13 +247,10 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     @Then("Vengono visualizzate correttamente le notifiche comprese nell'arco temporale inserito")
     public void vengonoVisualizzateCorrettamenteLeNotificheCompreseNellArcoTemporaleInserito() {
         headerPFSection.waitLoadHeaderDESection();
-
         notifichePFPage.waitLoadNotificheDEPage();
-
         if (notifichePFPage.getListData()) {
             logger.info("Il risultato è coerente con le date inserite");
         } else {
-            logger.error("Il risultato NON è coerente con le date inserite");
             Assertions.fail("Il risultato NON è coerente con le date inserite");
         }
     }
@@ -282,6 +281,10 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     @And("La persona fisica clicca sulla prima notifica restituita")
     public void laPersonaFisicaCliccaSullaPrimaNotificaRestituita() {
         piattaformaNotifichePage.selezionaPrimaNotifica();
+    }
+    @And("La persona fisica clicca sulla prima notifica restituita con stato {string}")
+    public void laPersonaFisicaCliccaSullaPrimaNotificaRestituita(String stato) {
+        piattaformaNotifichePage.selezionaPrimaNotifica(stato);
     }
 
     @And("Cliccare la notifica destinatario")
