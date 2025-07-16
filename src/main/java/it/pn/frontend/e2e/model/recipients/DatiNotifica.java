@@ -11,6 +11,7 @@ public class DatiNotifica {
     private String descrizione;
     private String gruppoTest;
     private String gruppoDev;
+    private String gruppoUat;
     private String codiceTassonometrico;
     private String nomeDocumentoNotifica;
     private String codiceIUN;
