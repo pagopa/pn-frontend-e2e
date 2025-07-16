@@ -37,8 +37,8 @@ Feature: invio notifica con sequence
     And Nella section Allegati si carica un atto
     And Nella section Allegati cliccare sul bottone Invia
     And Si visualizza correttamente la frase La notifica è stata correttamente creata
-    #Per UAT
-    And Si ottiene il codice IUN dalla notifica creata
+    #Decommentare per test in UAT
+    #And Si ottiene il codice IUN dalla notifica creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
