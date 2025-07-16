@@ -46,10 +46,14 @@ Feature: invio notifica con sequence
     #And Aspetta 10 secondi
     #Decommentare per test in UAT
     #And Aspetta la notifica con IUN salvato
-    And Aspetta 15 secondi
+#    And Aspetta 15 secondi
+    And Attesa 15 secondi
+    And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
-    And Aspetta 300 secondi
+#    And Aspetta 300 secondi
+    And Attesa 300 secondi
+    And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //*[contains(text(), 'della raccomandata che contiene la comunicazione di avvenuto deposito')] |
       | vediDettagli | false                                                                                          |

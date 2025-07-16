@@ -1,11 +1,10 @@
 Feature: PG -Eliminazione di una virtual key bloccata per un utente della PG con ruolo di amministratore di gruppo
 
-  @TestSuite
-  @TA_PG_AmministratoreDiGruppoEliminaVirtualKeyBloccata_QA_5337
-  @integrazioneApi
-  @apiKey
-  #@bilinguismo
-  @NRT_Blocco_2
+#  @TestSuite
+#  @TA_PG_AmministratoreDiGruppoEliminaVirtualKeyBloccata_QA_5337
+#  #@bilinguismo
+#  @NRT_Blocco_2
+   #  Inglobato in 5331
   Scenario:PN-QA-5337  PG - Eliminazione di una virtual key bloccata per un utente della PG con ruolo di amministratore di gruppo
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -44,6 +43,7 @@ Feature: PG -Eliminazione di una virtual key bloccata per un utente della PG con
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And Nella pagina Api Key si clicca sulla voce blocca del menu Api Key
     And Nella pop up cliccare sul tasto conferma
+
     When Verifica stato Chiave Personale "Bloccata"
     And Cliccare sui tre puntini Virtual key con stato "Bloccata"
     And verifica tre puntini mostra di piu

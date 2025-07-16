@@ -1,13 +1,13 @@
 Feature: Visualizzazione sezione Integrazione API
 
-  @TA_PG_VerificaAzioniUtenteOperatoreVirtualKeyConPublicKeyRuotataEBloccata_QA_5347
-  @integrazioneApi
-  @apiKey
-  #@bilinguismo
-  @PG
-  @TestSuite
-  @NRT_Blocco_2
-  Scenario: QA-5346 [REFERENTE OPERATIVO PG] - Operatore PG può gestire chiavi virtuali (creazione, rotazione, blocco, eliminazione) con public key ruotata e bloccata
+#  @TA_PG_VerificaAzioniUtenteOperatoreVirtualKeyConPublicKeyRuotataEBloccata_QA_5347
+#  @apiKey
+#  #@bilinguismo
+#  @PG
+#  @TestSuite
+#  @NRT_Blocco_2
+  #  Inclobato nella 5349
+  Scenario: QA-5347 [REFERENTE OPERATIVO PG] - Operatore PG può gestire chiavi virtuali (creazione, rotazione, blocco, eliminazione) con public key ruotata e bloccata
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata
     And Login con persona giuridica
@@ -18,6 +18,23 @@ Feature: Visualizzazione sezione Integrazione API
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
+
+    And Logout da portale persona giuridica delegante
+    And Login con persona giuridica
+      | user           | GiuseppeUngaretti |
+      | pwd            | test           |
+      | ragioneSociale | DivinaCommedia Srl   |
+    And Si clicca su prodotto
+    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
+    And Pulisci ambiente virtual keys
+    And Logout da portale persona giuridica
+
+    And Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | DivinaCommedia Srl  |
+    And Si clicca su prodotto
+    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     # Creazione chiave 1 per scenario
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
@@ -25,6 +42,7 @@ Feature: Visualizzazione sezione Integrazione API
     And Cliccare su registra
     And Si visualizza correttamente la sezione Ottieni Parametri
     And Cliccare su registra
+
     And Verifica stato "Attiva"
     # Rotazione chiave 1
     And Cliccare sui tre puntini con stato "Attiva"
@@ -32,7 +50,10 @@ Feature: Visualizzazione sezione Integrazione API
       | ruota  | Ruota             |
       | blocca | Blocca            |
       | view   | Visualizza codice |
+    # *-*-*-*-*-*--*-*-*  *-*-*-*-*-*--*-*-* *-*-*-*-*-*--*-*-* *-*-*-*-*-*--*-*-* *-*-*-*-*-*--*-*-*
+
     And Nella pagina Api Key si clicca sulla voce ruota del menu Api Key
+
     And Nella pop up cliccare sul tasto conferma
     # Creazione chiave 2 per scenario
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
@@ -63,6 +84,7 @@ Feature: Visualizzazione sezione Integrazione API
     And Verifica testo nel pop-up "Puoi usarla per autenticarti in piattaforma e integrare SEND"
     And Verifica testo nel pop-up "Ok, ho capito"
     And Nel pop up visualizza cliccare sul tasto chiudi
+
     And Verifica stato Chiave Personale "Attiva"
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
@@ -95,4 +117,3 @@ Feature: Visualizzazione sezione Integrazione API
     And Verifica testo nel pop-up "Se elimini definitivamente la chiave"
     And Verifica testo nel pop-up "Annulla"
     And Nella pop up cliccare sul tasto conferma
-    And Logout da portale persona giuridica delegante

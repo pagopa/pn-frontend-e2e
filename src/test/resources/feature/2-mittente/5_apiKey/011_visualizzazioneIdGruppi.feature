@@ -3,8 +3,9 @@ Feature: Mittente seleziona l'opzione visualizza ID gruppo
   @TestSuite
   @TA_MittenteVisualizzaIDGroup
   @ApikeyMittente
- @NRT_Blocco_2
-  @integrazioneApi
+  @integrazioneApiPa
+  @NRT_Blocco_2
+
   Scenario: PN-9236 - Mittente seleziona l'opzione visualizza ID gruppo
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche selezionare la voce Api Key nel menu

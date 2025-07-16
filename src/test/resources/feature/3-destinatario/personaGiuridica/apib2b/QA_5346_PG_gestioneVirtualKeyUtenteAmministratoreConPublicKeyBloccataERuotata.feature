@@ -2,6 +2,7 @@ Feature: Visualizzazione sezione Integrazione API
 
   @TA_PG_VerificaAzioniUtenteAmministratoreVirtualKeyConPublicKeyRuotataEBloccata_QA_5346
   @integrazioneApi
+  @integrazioneApiPg1
   @apiKey
   #@bilinguismo
   @PG
@@ -82,6 +83,7 @@ Feature: Visualizzazione sezione Integrazione API
     And Nella pop up cliccare sul tasto conferma
     Then Verifica stato Chiave Personale "Attiva"
     And Verifica stato Chiave Personale "Ruotata"
+    And Attesa 1 secondi
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
       | blocca | Blocca            |

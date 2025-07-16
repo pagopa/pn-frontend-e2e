@@ -3,10 +3,10 @@ Feature: PG - Utente Amministratore Persona Giuridica con public key attiva, blo
   @TestSuite
   @TA_PG_StatoAttivaRuotataBloccata_QA_5316
   @integrazioneApi
-  @apiKey
+  @integrazioneApiDelegato
   #@bilinguismo
   @NRT_Blocco_2
-  Scenario:PN-QA-5315  PG - Utente Amministratore Persona Giuridica con public key attiva, blocca la public key e registra una nuova public key che verrà a sua volta ruotata e ne verrà registrata una nuova
+  Scenario:PN-QA-5316  PG - Utente Amministratore Persona Giuridica con public key attiva, blocca la public key e registra una nuova public key che verrà a sua volta ruotata e ne verrà registrata una nuova
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente public keys

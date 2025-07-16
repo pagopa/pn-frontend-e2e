@@ -3,7 +3,6 @@ Feature: Rework della pagina dei contatti
 #  @TestSuite_ON
   @TA_AttivazioneDomicilioDigitaleSEND_Annulla_PG
   @addressBook2
-
   @TA_REWORK_RECAPITI_ON
   @NRT_Blocco_1
 
