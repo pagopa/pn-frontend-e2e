@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaGiuridicaPATest");
+    private final Logger logger = LoggerFactory.getLogger(RicercaNotifichePersonaGiuridicaPATest.class);
 
     private PiattaformaNotifichePage piattaformaNotifichePage;
 

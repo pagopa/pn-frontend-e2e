@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class IntegrazioneAPIPGPagoPaTest extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
+    private final Logger logger = LoggerFactory.getLogger(IntegrazioneAPIPGPagoPaTest.class);
     Map<String, Object> personaGiuridica = new HashMap<>();
 
     private IntegrazioneAPIPGPage integrazioneAPIPGPage;

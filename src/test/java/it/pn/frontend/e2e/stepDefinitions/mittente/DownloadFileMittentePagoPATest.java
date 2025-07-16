@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DownloadFileMittentePagoPATest extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DownloadFileMittentePagoPATest");
+    private static final Logger logger = LoggerFactory.getLogger(DownloadFileMittentePagoPATest.class);
 
 
     @Value("${environment}")

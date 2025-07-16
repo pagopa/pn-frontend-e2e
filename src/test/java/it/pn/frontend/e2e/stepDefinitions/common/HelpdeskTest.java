@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class HelpdeskTest extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("HelpdeskAppTest");
+    private final Logger logger = LoggerFactory.getLogger(HelpdeskTest.class);
 
 
     @Autowired

@@ -44,7 +44,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginPersonaFisicaPagoPA extends BasePage{
 
-    private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
+    private static final Logger logger = LoggerFactory.getLogger(LoginPersonaFisicaPagoPA.class);
     private Map<String, String> urlPersonaFisica;
 
 

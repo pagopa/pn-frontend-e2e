@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class LoginMittentePagoPA extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("LoginMittentePagoPA");
+    private static final Logger logger = LoggerFactory.getLogger(LoginMittentePagoPA.class);
 
    @Autowired
    private DataPopulation dataPopulation;

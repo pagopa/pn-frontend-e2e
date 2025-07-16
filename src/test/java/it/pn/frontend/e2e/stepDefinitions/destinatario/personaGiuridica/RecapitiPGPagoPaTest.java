@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
 public class RecapitiPGPagoPaTest extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("RecapitiPGPagoPaTest");
+    private final Logger logger = LoggerFactory.getLogger(RecapitiPGPagoPaTest.class);
 
 
     @Autowired

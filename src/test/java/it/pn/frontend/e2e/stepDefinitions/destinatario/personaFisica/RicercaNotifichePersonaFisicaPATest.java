@@ -35,7 +35,7 @@ Uso di var per Tipi Locali: Refactoring con var per variabili locali ove il tipo
 * */
 
 public class RicercaNotifichePersonaFisicaPATest extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("RicercaNotifichePersonaFisicaTest");
+    private static final Logger logger = LoggerFactory.getLogger(RicercaNotifichePersonaFisicaPATest.class);
 
     @Autowired
     private NotificationSingleton notificationSingleton;

@@ -24,7 +24,7 @@ import java.io.IOException;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class RecuperoOTPRecapiti {
 
-    private static final Logger logger = LoggerFactory.getLogger("RecuperoOTPRecapiti");
+    private static final Logger logger = LoggerFactory.getLogger(RecuperoOTPRecapiti.class);
     private String startUrl;
     private final String urlEndPoint = "external-channels/verification-code/";
     private String digitalAddress;
