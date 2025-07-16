@@ -14,12 +14,10 @@ Feature: PA invia notifica in lingua differente da quella scelte nelle impostazi
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
     And Selezionare da impostazione lingua "Tedesco"
-
     And Logout e Login con Comune di "Viggiu"
     And Click entra su Send Mittente
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
-
 
     And Selezionare da impostazione lingua "Italiano"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
