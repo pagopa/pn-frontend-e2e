@@ -1417,6 +1417,24 @@ public void clearOTP() {
         }
     }
 
+    public void disattivaDomicilioDigitaleAnnulla() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(20).withMessage("Non è presente dentro Domicilio Digitale il testo 'Disattiva'")
+                    .until(ExpectedConditions.elementToBeClickable
+                            (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                disattivaButton.click();
+                checkButtonAnnullaEliminazioneInPopUp();
+            } else {
+                logger.warn("Bottone 'Disattiva Domicilio Digitale' trovato ma non è visibile o abilitato.");
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva Domicilio Digitale' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Domicilio Digitale'.", e);
+        }
+    }
+
     public void verificaEDisattivaAppIO() {
         try {
             WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")

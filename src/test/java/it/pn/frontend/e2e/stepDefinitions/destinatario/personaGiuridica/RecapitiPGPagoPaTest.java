@@ -403,6 +403,11 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.verificaEDisattivaDomicilioDigitale();
     }
 
+    @And("Disattiva domicilio digitale e Annulla")
+    public void disattivaDomicilioDigitaleAnnulla() {
+        recapitiDestinatarioPage.disattivaDomicilioDigitaleAnnulla();
+    }
+
     @And("Verifica e Disattiva app IO")
     public void verificaEDisattivaAppIO() {
         recapitiDestinatarioPage.verificaEDisattivaAppIO();
