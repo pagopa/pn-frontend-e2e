@@ -202,12 +202,12 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     public void loginConDestinatario(Map<String, String> datiPF) {
         logger.info("user persona fisica : {}", webDriverConfig.getUserCesare());
         logger.info("cookies start");
-
-        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+//TODO solo per HOTFIX
+//        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-        }
+//        }
         logger.info("cookies end");
 
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();

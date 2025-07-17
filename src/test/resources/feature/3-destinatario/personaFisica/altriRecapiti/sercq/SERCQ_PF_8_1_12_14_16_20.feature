@@ -29,18 +29,14 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva email
-
     When Click Inizia
     And Click Continua
-
 
     #    Scenario:1
     And Click Aggiungi email
     And Verifica  Indirizzo email non valido
     And Click Continua Tab Inserisci un recapito
     And Click Ok ho capito Recapiti
-#    And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-#    And Nella sezione altri recapiti si clicca sul bottone annulla di popup
 
 #    Scenario:8
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
@@ -62,7 +58,6 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
-
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 
 
