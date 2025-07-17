@@ -3,7 +3,7 @@ Feature: Verifica_copy_notifica_con_costi_senza_costi PF
   @TestSuite
   @TA_QA_7045_QA_7494
   @TA_VerificaCopy
-  @NRT
+  @NRT_Blocco_1
   Scenario: [QA_7045_QA_7494_PF] Verifica_copy_notifica_con_costi_senza_costi
     Given  PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 ##  1 Avviso pago Pa con costi

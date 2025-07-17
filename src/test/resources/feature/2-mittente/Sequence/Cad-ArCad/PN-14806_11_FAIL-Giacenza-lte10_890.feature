@@ -1,8 +1,7 @@
 Feature: invio notifica con sequence
 
   @Tag_PN_14806_11_FAIL-Giacenza-lte10_890
-  @TestSuite
-  @Tag_CARD_ARCAD
+  @Tag_CAD_ARCAD
   @NRT_Blocco_2
 
   Scenario: [PN-14806_11] CAD/ARCAD SEQUENCE FAIL-Giacenza-lte10_890
