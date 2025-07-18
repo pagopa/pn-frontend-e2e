@@ -1560,4 +1560,13 @@ public void verificaEDisattivaEmail() {
                 .withMessage("Il messaggio di errore per l'indirizzo pec non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
     }
+
+    public void verificaScomparsaBannerInizia() {
+        boolean invisibile = getWebDriverWait(10)
+                .withMessage("Il tasto 'Inizia' nel banner è ancora visibile")
+                .until(ExpectedConditions.invisibilityOfElementLocated(
+                        By.xpath("//div[@data-testid='addDomicileBanner']//button[contains(@class, 'MuiButton-root')]")));
+
+        Assertions.assertTrue(invisibile, "Il tasto 'Inizia' è ancora presente nel banner.");
+    }
 }

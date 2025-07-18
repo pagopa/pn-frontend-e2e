@@ -345,4 +345,9 @@ public class RecapitiTest extends BasePage {
     public void verificaIndirizzoPecNonValido() {
         recapitiDestinatarioPage.verificaIndirizzoPecNonValido();
     }
+
+    @And("Verifica Scomparsa Banner Inizia")
+    public void verificaScomparsaBannerInizia() {
+        recapitiDestinatarioPage.verificaScomparsaBannerInizia();
+    }
 }
