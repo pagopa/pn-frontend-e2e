@@ -1569,4 +1569,13 @@ public void verificaEDisattivaEmail() {
 
         Assertions.assertTrue(invisibile, "Il tasto 'Inizia' è ancora presente nel banner.");
     }
+
+    public void verificaAbilitazioneCampoEmail() {
+        WebElement emailInput = getWebDriverWait(10)
+                .withMessage("L'input email non è visibile nella pagina")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email")));
+
+        Assertions.assertTrue(emailInput.isEnabled(), "Il campo email esiste ma non è abilitato per l'inserimento.");
+
+    }
 }

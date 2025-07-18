@@ -350,4 +350,9 @@ public class RecapitiTest extends BasePage {
     public void verificaScomparsaBannerInizia() {
         recapitiDestinatarioPage.verificaScomparsaBannerInizia();
     }
+
+    @And("Verifica abilitazione campo email")
+    public void verificaAbilitazioneCampoEmail() {
+        recapitiDestinatarioPage.verificaAbilitazioneCampoEmail();
+    }
 }
