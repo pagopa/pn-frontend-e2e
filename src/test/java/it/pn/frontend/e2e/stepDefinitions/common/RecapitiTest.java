@@ -340,4 +340,9 @@ public class RecapitiTest extends BasePage {
     public void spuntareCheckboxPrivacy() {
         recapitiDestinatarioPage.spuntareCheckboxPrivacy();
     }
+
+    @And("Verifica  Indirizzo pec non valido")
+    public void verificaIndirizzoPecNonValido() {
+        recapitiDestinatarioPage.verificaIndirizzoPecNonValido();
+    }
 }

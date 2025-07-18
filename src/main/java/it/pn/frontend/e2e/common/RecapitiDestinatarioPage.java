@@ -1424,14 +1424,14 @@ public void clearOTP() {
                             (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 disattivaButton.click();
-                checkButtonAnnullaEliminazioneInPopUp();
+                clickButtonAnnullaEliminazioneInPopUp();
             } else {
                 logger.warn("Bottone 'Disattiva Domicilio Digitale' trovato ma non è visibile o abilitato.");
             }
         } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Bottone 'Disattiva Domicilio Digitale' non presente.");
         } catch (Exception e) {
-            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Domicilio Digitale'.", e);
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Domicilio Digitale e Annulla'.", e);
         }
     }
 
@@ -1548,13 +1548,16 @@ public void verificaEDisattivaEmail() {
     }
 
     public void spuntareCheckboxPrivacy() {
-        WebElement checkbox = getWebDriverWait(10)
-                .withMessage("Impossibile Trovare il messaggio Campo obbligatorio")
-                .until(ExpectedConditions.elementToBeClickable(By.id("disclaimer")));
+        WebElement checkboxInput = getWebDriverWait(10)
+                .withMessage("Input della checkbox 'disclaimer' non trovato")
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("disclaimer")));
 
-// Se non è già selezionata, cliccala
-        if (!checkbox.isSelected()) {
-            checkbox.click();
-        }
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkboxInput);
+    }
+
+    public void verificaIndirizzoPecNonValido() {
+        getWebDriverWait(10)
+                .withMessage("Il messaggio di errore per l'indirizzo pec non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
     }
 }

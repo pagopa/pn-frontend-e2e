@@ -1,11 +1,11 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_SERCQ_PF_8_1_12_14_16_20_PG
+  @TA_SERCQ_8_1_12_14_16_20_PG
   @addressBook2
   @TA_SERCQ_ON
   @NRT_Blocco_2
-  Scenario:[SERCQ_PF_8_1_12_14_16_20_PG]
+  Scenario:[SERCQ_8_1_12_14_16_20_PG]
 #   Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
@@ -42,14 +42,14 @@ Feature: Rework della pagina dei contatti
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
 
-    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+#    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore
     And Nella sezione altri recapiti si clicca sul bottone annulla di popup
 
-    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+#    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email

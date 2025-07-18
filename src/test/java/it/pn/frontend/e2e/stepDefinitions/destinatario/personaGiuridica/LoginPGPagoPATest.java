@@ -455,11 +455,12 @@ public class LoginPGPagoPATest extends BasePage {
         logger.info("Dobbiamo Clicccare l'ambiente");
         clickEntraSuSendPersonaGiuridica();
         logger.info("verifico esistenza cookie");
-        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+        //TODO SOLO PE HOTFIX
+//        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-        }
+//        }
         logger.info("Terminata procedura scelta ambiente");
     }
 
