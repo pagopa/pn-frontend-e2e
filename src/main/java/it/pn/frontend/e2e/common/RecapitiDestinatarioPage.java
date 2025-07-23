@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -967,7 +968,7 @@ public void clearOTP() {
 //        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
 //        WebElement confirmOtpPopup = driver.findElement(By.id("code-confirm-button"));
 //        confirmOtpPopup.click();
-        WebElement confirmOtpPopup = getWebDriverWait(5)
+        WebElement confirmOtpPopup = getWebDriverWait(15)
                 .withMessage("Il bottone 'Conferma' nel popup OTP non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("code-confirm-button")));
 
@@ -1476,7 +1477,7 @@ public void verificaEDisattivaEmail() {
                 .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-testid='disable-email']")));
 
-        getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".MuiAlert-root")));
+//        getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".MuiAlert-root")));
 
         if (!disattivaButton.isDisplayed()) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", disattivaButton);
@@ -1548,9 +1549,21 @@ public void verificaEDisattivaEmail() {
     }
 
     public void spuntareCheckboxPrivacy() {
-        WebElement checkboxInput = getWebDriverWait(10)
-                .withMessage("Input della checkbox 'disclaimer' non trovato")
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("disclaimer")));
+        List<String> possibleIds = Arrays.asList("s_disclaimer", "disclaimer");
+        WebElement checkboxInput = null;
+        for (String id : possibleIds) {
+            try {
+                checkboxInput = getWebDriverWait(5)
+                        .withMessage("Checkbox con id '" + id + "' non trovata")
+                        .until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
+                break;
+            } catch (TimeoutException ignored) {
+            }
+        }
+
+        if (checkboxInput == null) {
+            Assertions.fail("Nessuna checkbox trovata con id tra: " + possibleIds);
+        }
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkboxInput);
     }
@@ -1577,5 +1590,20 @@ public void verificaEDisattivaEmail() {
 
         Assertions.assertTrue(emailInput.isEnabled(), "Il campo email esiste ma non è abilitato per l'inserimento.");
 
+    }
+
+    public void verificaCampoObbligatorioEnteETipologia() {
+        WebElement enteHelperText = getWebDriverWait(10)
+                .withMessage("Messaggio 'Campo obbligatorio' per il campo Ente mittente non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("sender-helper-text")));
+
+        Assertions.assertEquals("Campo obbligatorio", enteHelperText.getText().trim());
+
+        // Verifica campo "Tipologia"
+        WebElement pecHelperText = getWebDriverWait(10)
+                .withMessage("Messaggio 'Indirizzo PEC non valido' non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("channelType-helper-text")));
+
+        Assertions.assertEquals("Campo obbligatorio", pecHelperText.getText().trim());
     }
 }

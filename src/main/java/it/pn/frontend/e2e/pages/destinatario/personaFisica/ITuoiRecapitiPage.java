@@ -381,7 +381,7 @@ public void iTuoiRecapitiButtonClick() {
     public void clickAttivaDomicilioDigitale() {
         WebElement buttonConferma = getWebDriverWait(10)
                 .withMessage("Impossibile cliccare sul bottone  Attiva Domicilio Digitale")
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='next-button']")));
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='activateButton']")));
         buttonConferma.click();
 
     }

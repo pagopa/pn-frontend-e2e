@@ -347,6 +347,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
     public void clickModificaPersonalizzatiPerEnte() {
         recapitiDestinatarioPage.clickModificaPersonalizzatiPerEnte();
     }
+
     @And("Click Modifica personalizzati per ente OFF")
     public void clickModificaPersonalizzatiPerEnteOff() {
         recapitiDestinatarioPage.clickModificaPersonalizzatiPerEnteOFF();

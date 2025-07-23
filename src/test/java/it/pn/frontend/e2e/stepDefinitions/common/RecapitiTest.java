@@ -355,4 +355,9 @@ public class RecapitiTest extends BasePage {
     public void verificaAbilitazioneCampoEmail() {
         recapitiDestinatarioPage.verificaAbilitazioneCampoEmail();
     }
+
+    @And("Verifica campo obbligatorio Ente e Tipologia")
+    public void verificaCampoObbligatorioEnteETipologia() {
+        recapitiDestinatarioPage.verificaCampoObbligatorioEnteETipologia();
+    }
 }

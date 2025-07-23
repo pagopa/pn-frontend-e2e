@@ -71,6 +71,9 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
+    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
+    And Attesa 2 secondi
+    And Refresh pagina
 
     Then Verifica Pagina "prova@pec.it"
 
