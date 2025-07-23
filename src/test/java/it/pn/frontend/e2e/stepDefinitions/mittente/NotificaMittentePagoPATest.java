@@ -330,9 +330,17 @@ public class NotificaMittentePagoPATest  extends BasePage {
         logger.info("Inserimento dei dati della notifica senza pagamento" );
         //datiNotifica
         aggiornamentoNumeroProtocollo();
+        String gruppo = "";
+        switch (webDriverConfig.getEnvironment()) {
+            // case "dev" -> gruppo = datiNotifica.get("gruppoDev").toString();
+            // case "test", "uat" -> gruppo = datiNotifica.get("gruppoTest").toString();
+            case "dev" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoDev();
+            case "test", "uat" -> gruppo = dataPopulationConfig.getDatiNotifica().getGruppoTest();
+        }
         informazioniPreliminariPASection.insertOggettoNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica());
         informazioniPreliminariPASection.insertDescrizione(dataPopulationConfig.getDatiNotifica().getDescrizione());
         informazioniPreliminariPASection.insertNumeroDiProtocollo(dataPopulationConfig.getDatiNotifica().getNumeroProtocollo());
+        informazioniPreliminariPASection.insertGruppo(gruppo);
         informazioniPreliminariPASection.insertCodiceTassonometrico(codiceTassonomico);
         informazioniPreliminariPASection.selectRaccomandataAR();
     }
