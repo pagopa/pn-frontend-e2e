@@ -68,21 +68,12 @@
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v85 -->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v120 -->
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-devtools-v126 -->
-<!--        PROVE -->
-<!--        <dependency>-->
-<!--            <groupId>org.seleniumhq.selenium</groupId>-->
-<!--            <artifactId>selenium-devtools-v126</artifactId>-->
-<!--            <version>${selenium.version}</version>-->
-<!--        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-
-<!--        sostituzione-->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools</artifactId>
-            <version>4.0.0-rc-1</version>
+            <artifactId>selenium-devtools-v126</artifactId>
+            <version>${selenium.version}</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
