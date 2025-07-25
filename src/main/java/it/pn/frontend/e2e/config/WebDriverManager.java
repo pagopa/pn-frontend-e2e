@@ -12,8 +12,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.HasDevTools;
-import org.openqa.selenium.devtools.v126.network.Network;
-import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
+//import org.openqa.selenium.devtools.v126.network.Network;
+//import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
+import org.openqa.selenium.devtools.v138.network.Network;
+import org.openqa.selenium.devtools.v138.network.model.RequestWillBeSent;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -82,7 +84,8 @@ public class WebDriverManager {
         logger.info("NUOVO BEAN......." + Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
+//        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
 
         var chromeOptions = new ChromeOptions();
         try {
@@ -447,7 +450,7 @@ public class WebDriverManager {
                 try {
                     DevTools devTools = ((ChromeDriver) driver).getDevTools();
                     devTools.createSession();
-                    devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+                    devTools.send(Network.enable(Optional.empty(), Optional.empty(),Optional.empty(), Optional.empty()));
                     devToolsThread.set(devTools);
                     devToolsThread.set(devTools);
                 } catch (Exception e) {
