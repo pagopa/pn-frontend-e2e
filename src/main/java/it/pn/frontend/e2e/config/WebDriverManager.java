@@ -479,7 +479,6 @@ public class WebDriverManager {
         return  driverThreadLocal.get();
     }
 
-
     public void quitDriver() {
         logger.info("Quit WebDriverManager... {}", driverThreadLocal.get());
         logger.info("Quit DevTools... {}", devToolsThread.get());
