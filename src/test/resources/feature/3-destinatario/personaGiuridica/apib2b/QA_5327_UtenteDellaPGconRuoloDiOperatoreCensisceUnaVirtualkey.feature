@@ -28,7 +28,7 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
 
    #    *-*-*-*-*-*-*-* Fine -*-*-*-*-*-*-*-*-*-*
 
-
+    And Attesa 1 secondi
 
     When Login con persona giuridica
       | user           | DanteAlighieri |
@@ -49,7 +49,7 @@ Feature: PG - Utente della PG con ruolo di operatore censisce una virtual key
     And Aggiornamento Pagina
     And Logout da portale persona giuridica delegante
 #  Entro come operatore
-    And Aggiornamento Pagina
+    And Attesa 2 secondi
 
     And Login con persona giuridica
       | user           | n.lotti       |

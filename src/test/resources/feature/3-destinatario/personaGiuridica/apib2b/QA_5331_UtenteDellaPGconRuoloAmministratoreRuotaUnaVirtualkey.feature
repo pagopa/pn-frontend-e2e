@@ -33,7 +33,7 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo ruota una vi
     And Logout da portale persona giuridica delegante
 
 #  Entro come operatore
-    And Aggiornamento Pagina
+    And Attesa 2 secondi
 
     And Login con persona giuridica
       | user           | m.montessori  |

@@ -1980,7 +1980,8 @@ public class PiattaformaNotifichePage extends BasePage {
     public String copiaTraceIDToastErrore() {
         WebElement traceIDCopyButton = getWebDriverWait(10)
                 .until(ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//div[@id='alert-api-status']/following-sibling::div//a[@role='button']")
+//                        By.xpath("//div[@id='alert-api-status']/following-sibling::div//a[@role='button']")
+                        By.xpath("//button[normalize-space()='Copia informazioni errore']")
                 ));
         traceIDCopyButton.click();
         WebElement traceIDValue = driver.findElement(By.xpath("//div[@id='alert-api-status']/following-sibling::div/div/p[contains(text(),'')][2]"));
@@ -1990,7 +1991,8 @@ public class PiattaformaNotifichePage extends BasePage {
     public void clickChiudiToastErrore() {
         WebElement closeIcon = getWebDriverWait(10)
                 .withMessage("Impossibile chiudere il toast di errore")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='alert-api-status']/parent::div/parent::div//button[@title='Close']")));
+//                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@id='alert-api-status']/parent::div/parent::div//button[@title='Close']")));
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='snackBarCloseButton']")));
         closeIcon.click();
 
     }

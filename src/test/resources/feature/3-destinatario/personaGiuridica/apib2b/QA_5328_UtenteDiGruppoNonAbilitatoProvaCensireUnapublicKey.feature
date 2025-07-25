@@ -18,7 +18,7 @@ Feature: PG - Utente Amministratore di gruppo non abilitato prova a censire una 
     And Pulisci ambiente public keys
     And Logout da portale persona giuridica delegante
 #  Entro come operatore
-    And Aggiornamento Pagina
+    And Attesa 2 secondi
     And Login con persona giuridica
       | user           | m.montessori  |
       | pwd            | test          |
