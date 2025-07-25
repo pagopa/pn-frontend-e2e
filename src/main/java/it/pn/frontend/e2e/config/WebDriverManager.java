@@ -115,7 +115,9 @@ public class WebDriverManager {
 //        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
-            chromeOptions.addArguments("--headless", "window-size=1920,1080");
+            chromeOptions.addArguments("--headless=new"); // usa il motore moderno
+            chromeOptions.addArguments("--disable-gpu"); // consigliato su Mac/Linux
+            chromeOptions.addArguments("--window-size=1920,1080");
         }
 
         getDriver(chromeOptions, null, null);
@@ -434,17 +436,23 @@ public class WebDriverManager {
 
             if (chromeOptions != null) {
                 ChromeDriver driver = new ChromeDriver(chromeOptions);
-                driver.manage().window().maximize();
+                if (!Boolean.parseBoolean(webDriverConfig.getHeadless())) {
+                    driver.manage().window().maximize();
+                }
 
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
                 driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
                 driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30));
 
-                DevTools devTools = ((ChromeDriver) driver).getDevTools();
-                //devTools = getDevTools();
-                devTools.createSession();
-                devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
-                devToolsThread.set(devTools);
+                try {
+                    DevTools devTools = ((ChromeDriver) driver).getDevTools();
+                    devTools.createSession();
+                    devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+                    devToolsThread.set(devTools);
+                    devToolsThread.set(devTools);
+                } catch (Exception e) {
+                    logger.warn("DevTools init failed: " + e.getMessage(), e);
+                }
                 driverThreadLocal.set(driver);
 
                 logger.info("Chrome driver started");
@@ -469,10 +477,11 @@ public class WebDriverManager {
     }
 
 
-    public  void quitDriver() {
-        logger.info("Quit WebDriverManager..." +  driverThreadLocal.get());
-        logger.info("Quit DevTools..." + devToolsThread.get());
-        WebDriver driver =  driverThreadLocal.get();
+    public void quitDriver() {
+        logger.info("Quit WebDriverManager... {}", driverThreadLocal.get());
+        logger.info("Quit DevTools... {}", devToolsThread.get());
+
+        WebDriver driver = driverThreadLocal.get();
         DevTools devTools = devToolsThread.get();
         if (driver != null) {
             driver.quit();
