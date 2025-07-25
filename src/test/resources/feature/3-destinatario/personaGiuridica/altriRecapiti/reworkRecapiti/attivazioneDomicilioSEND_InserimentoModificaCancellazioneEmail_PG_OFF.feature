@@ -4,7 +4,6 @@ Feature: Rework della pagina dei contatti
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciModificaCancellaEmail_PG_OFF
   @addressBook2
   @TA_REWORK_RECAPITI_OFF
-  @NRT
   @NRT_Blocco_1_OFF_1
 
   Scenario:[OFF_REWORK_DOMICILIO_DIGITALE_PG_85_86_87_92_93] Attivazione Domicilio Digitale SEND - Inserimento, modifica, cancellazione mail PG - Feature flag spento
