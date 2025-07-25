@@ -82,21 +82,40 @@ public class WebDriverManager {
         logger.info("NUOVO BEAN......." + Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
 
         var chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
+        try {
+            java.nio.file.Path tempProfile = java.nio.file.Files.createTempDirectory("chrome-profile");
+            chromeOptions.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath().toString());
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+
+        chromeOptions.addArguments(
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--remote-allow-origins=*",
+                "--lang=it",
+                "--incognito",
+                "--enable-clipboard",
+                "--disable-geolocation"
+        );
+
+
+
+//        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
         var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         long id = Thread.currentThread().getId();
         logger.info("Thread.currentThread(): "+ id);
-        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + id);
+//        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + id);
 //        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
-            chromeOptions.addArguments("--no-sandbox", "--headless", "window-size=1920,1080");
+            chromeOptions.addArguments("--headless", "window-size=1920,1080");
         }
 
         getDriver(chromeOptions, null, null);
@@ -123,7 +142,7 @@ public class WebDriverManager {
         logger.info("NUOVO BEAN DE......." + Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
 
         var chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=de-DE", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
@@ -161,7 +180,7 @@ public class WebDriverManager {
         logger.info("NUOVO BEAN FR......." + Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
 
         var chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=fr-FR", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
@@ -199,7 +218,7 @@ public class WebDriverManager {
         logger.info("NUOVO BEAN SL......." + Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
 
         var chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=sl", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
@@ -238,7 +257,7 @@ public class WebDriverManager {
         logger.info("NUOVO BEAN EN......." + Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
+        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
 
         var chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--lang=en-US", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
@@ -271,7 +290,7 @@ public class WebDriverManager {
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         if (this.os.toLowerCase().contains("windows")) {
-            io.github.bonigarcia.wdm.WebDriverManager.edgedriver().setup();
+            io.github.bonigarcia.wdm.WebDriverManager.edgedriver().browserVersion("138.0.7204.159").setup();
         } else {
             throw new UnsupportedOperationException("Edge browser is not supported on OS: " + this.os);
         }
@@ -295,7 +314,7 @@ public class WebDriverManager {
 
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        io.github.bonigarcia.wdm.WebDriverManager.firefoxdriver().setup();
+        io.github.bonigarcia.wdm.WebDriverManager.firefoxdriver().browserVersion("138.0.7204.159").setup();
         var firefoxProfile = new FirefoxProfile();
         var firefoxOptions = new FirefoxOptions();
         firefoxOptions.setProfile(firefoxProfile);
