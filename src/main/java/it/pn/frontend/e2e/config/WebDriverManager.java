@@ -290,7 +290,7 @@ public class WebDriverManager {
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         if (this.os.toLowerCase().contains("windows")) {
-            io.github.bonigarcia.wdm.WebDriverManager.edgedriver().browserVersion("138.0.7204.159").setup();
+            io.github.bonigarcia.wdm.WebDriverManager.edgedriver().setup();
         } else {
             throw new UnsupportedOperationException("Edge browser is not supported on OS: " + this.os);
         }
@@ -314,7 +314,7 @@ public class WebDriverManager {
 
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-        io.github.bonigarcia.wdm.WebDriverManager.firefoxdriver().browserVersion("138.0.7204.159").setup();
+        io.github.bonigarcia.wdm.WebDriverManager.firefoxdriver().setup();
         var firefoxProfile = new FirefoxProfile();
         var firefoxOptions = new FirefoxOptions();
         firefoxOptions.setProfile(firefoxProfile);
