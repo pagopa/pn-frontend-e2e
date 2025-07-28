@@ -299,9 +299,15 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         WebElement cliccaPaga = getWebDriverWait(15)
                 .withMessage("Il bottone 'Paga' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='pay-button']")));
-
-        // Clicca sul pulsante 'Paga'
-        cliccaPaga.click();
+        String amount = driver.findElement(By.xpath("//h6[@data-testid='payment-amount']")).getText();
+        logger.info("Amount to pay {}", amount);
+        if (!amount.contains("6000,00")) {
+            // Clicca sul pulsante 'Paga'
+            cliccaPaga.click();
+        }
+        else {
+            Assertions.fail("La notifica ha un costo di " + amount + ", non compatibile con i limiti di pagamento permessi alla carta");
+        }
     }
 
     public void inserireDatiPagamento(String email) {
