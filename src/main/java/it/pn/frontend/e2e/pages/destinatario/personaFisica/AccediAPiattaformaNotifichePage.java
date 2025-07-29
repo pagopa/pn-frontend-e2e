@@ -299,15 +299,8 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         WebElement cliccaPaga = getWebDriverWait(15)
                 .withMessage("Il bottone 'Paga' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='pay-button']")));
-        String amount = driver.findElement(By.xpath("//h6[@data-testid='payment-amount']")).getText();
-        logger.info("Amount to pay {}", amount);
-        if (!amount.contains("6000,00")) {
-            // Clicca sul pulsante 'Paga'
-            cliccaPaga.click();
-        }
-        else {
-            Assertions.fail("La notifica ha un costo di " + amount + ", non compatibile con i limiti di pagamento permessi alla carta");
-        }
+        // Clicca sul pulsante 'Paga'
+        cliccaPaga.click();
     }
 
     public void inserireDatiPagamento(String email) {
@@ -445,26 +438,48 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         continuaButton.click();
         logger.info("Il bottone Continua cliccato in Inserisci i dati della carta");
 
-        // Clicca sul radio button di Intesa Sanpaolo
-        clickIntesaSanpaoloRadioButton();
+        //Check se amount è pagabile da Intesa Sanpaolo (radio button non c'è in caso di amount pari a 6.000,00 euro)
+        String amount = driver.findElement(By.xpath("//button[@aria-label='Apri riepilogo pagamento']")).getText();
+        logger.info("Amount to pay {}", amount);
 
-        // Clicca sul bottone Continua su Scegli chi gestirà il pagamento
-        WebElement continuaButtonScegliPagamento = getWebDriverWait(60)
-                .withMessage("Il bottone Continua su Scegli chi gestirà il pagamento non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("paymentPspListPageButtonContinue")));
-        continuaButtonScegliPagamento.click();
+        // Clicca sul radio button di Intesa Sanpaolo (esclusi gli amount non autorizzabili)
+        if (amount.contains("6.000,00")) {
 
-        // Clicca sul bottone Modifica
-        WebElement modificaButton = getWebDriverWait(60)
-                .withMessage("Il bottone modifica non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));
-        modificaButton.click();
+            // Clicca sul bottone Modifica
+            WebElement modificaButton = getWebDriverWait(60)
+                    .withMessage("Il bottone modifica non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));
+            modificaButton.click();
 
-        // Clicca su Intesa Sanpaolo S.p.A
-        WebElement intesaSanpaolo = getWebDriverWait(60)
-                .withMessage("Intesa Sanpaolo S.p.A non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(text(),'Intesa Sanpaolo S.p.A')])[2]")));
-        intesaSanpaolo.click();
+            // Clicca su Nexi
+            WebElement intesaSanpaolo = getWebDriverWait(60)
+                    .withMessage("Nexi non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(text(),'Nexi')])[2]")));
+            intesaSanpaolo.click();
+        }
+
+        else {
+
+            clickIntesaSanpaoloRadioButton();
+
+            // Clicca sul bottone Continua su Scegli chi gestirà il pagamento
+            WebElement continuaButtonScegliPagamento = getWebDriverWait(60)
+                    .withMessage("Il bottone Continua su Scegli chi gestirà il pagamento non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("paymentPspListPageButtonContinue")));
+            continuaButtonScegliPagamento.click();
+
+            // Clicca sul bottone Modifica
+            WebElement modificaButton = getWebDriverWait(60)
+                    .withMessage("Il bottone modifica non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));
+            modificaButton.click();
+
+            // Clicca su Intesa Sanpaolo S.p.A
+            WebElement intesaSanpaolo = getWebDriverWait(60)
+                    .withMessage("Intesa Sanpaolo S.p.A non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(text(),'Intesa Sanpaolo S.p.A')])[2]")));
+            intesaSanpaolo.click();
+        }
 
         // Clicca sul bottone Paga
         WebElement pagaButton = getWebDriverWait(60)
@@ -474,15 +489,15 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
         //verifica conferma pagamento
         WebElement titoloConfermaPagamento = getWebDriverWait(200)
-                .withMessage("Il titolo di conferma di pagamento avvenuto non è visibile")
+                .withMessage("Il titolo di conferma di pagamento avvenuto di " + amount + " non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("responsePageMessageTitle")));
 
         WebElement bodyConfermaPagamento = getWebDriverWait(200)
-                .withMessage("Il body di conferma di pagamento avvenuto non è visibile")
+                .withMessage("Il body di conferma di pagamento avvenuto di " + amount + " non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("responsePageMessageBody")));
 
-        Assertions.assertTrue(titoloConfermaPagamento.getText().contains("Hai pagato"), "Il pagamento non è stato effettuato con messaggio " + titoloConfermaPagamento.getText());
-        Assertions.assertTrue(bodyConfermaPagamento.getText().contains("Abbiamo inviato la conferma del pagamento"), "Il pagamento non è stato effettuato con messaggio " + bodyConfermaPagamento.getText());
+        Assertions.assertTrue(titoloConfermaPagamento.getText().contains("Hai pagato"), "Il pagamento di " + amount + " non è stato effettuato con messaggio " + titoloConfermaPagamento.getText());
+        Assertions.assertTrue(bodyConfermaPagamento.getText().contains("Abbiamo inviato la conferma del pagamento"), "Il pagamento di " + amount + " non è stato effettuato con messaggio " + bodyConfermaPagamento.getText());
 
         // Clicca sul bottone Continua finale
         WebElement continueButton = getWebDriverWait(200)
