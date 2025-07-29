@@ -442,7 +442,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         String amount = driver.findElement(By.xpath("//button[@aria-label='Apri riepilogo pagamento']")).getText();
         logger.info("Amount to pay {}", amount);
 
-        // Clicca sul radio button di Intesa Sanpaolo (esclusi gli amount non autorizzabili)
+        // Clicca sul radio button di Intesa Sanpaolo o Nexi (a seconda se amount da pagare è autorizzabile)
         if (amount.contains("6.000,00")) {
 
             // Clicca sul bottone Modifica
