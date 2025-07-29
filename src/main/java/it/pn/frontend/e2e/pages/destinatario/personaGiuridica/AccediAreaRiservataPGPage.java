@@ -70,8 +70,16 @@ public class AccediAreaRiservataPGPage extends BasePage {
 
     public void clickScegliAmbienteSendBottonePersonaGiuridica(String ambiente) {
         WebElement forwardButton = getWebDriverWait(20)
-                .withMessage("Il bottone per l Ambiente  '"+ambiente+"' non è cliccabile")
+                .withMessage("Il bottone per l Ambiente '"+ambiente+"' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[contains(@aria-label, '"+ambiente+"')]/ancestor::div[contains(@class, 'MuiCard-root')]//button")));
+        forwardButton.click();
+        webTool.waitTime(2);
+    }
+
+    public void clickScegliAmbienteSendBottonePersonaGiuridicaUAT() {
+        WebElement forwardButton = getWebDriverWait(20)
+                .withMessage("Il bottone per l Ambiente 'UAT' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[@aria-label='SEND - Notifiche Digitali UAT']/ancestor::div[contains(@class, 'MuiCard-root')]//button")));
         forwardButton.click();
         webTool.waitTime(2);
     }

@@ -593,8 +593,25 @@ public class LoginMittentePagoPA extends BasePage {
         headerPASection.selezionaSecondoEsciButtonPA();
         webTool.waitTime(2);
 
+        // fix NRT
+        acccediAreaRiservataPAPage.selezionareSpidButton();
+
+        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+
         if(comune.equalsIgnoreCase("Viggiu")){
-            logger.info("Entro come comune di {}",comune);
+            loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
+            loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
+        }
+        else {
+            loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
+            loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
+        }
+        loginPAPage.entraConSpid();
+
+        confermaDatiSpidPFPage.selezionaConfermaButton();
+
+        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
+        if(comune.equalsIgnoreCase("Viggiu")){
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
         }
@@ -603,6 +620,20 @@ public class LoginMittentePagoPA extends BasePage {
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
         }
         selezionaEntePAPage.selezionaAccedi();
+
+
+
+
+//        if(comune.equalsIgnoreCase("Viggiu")){
+//            logger.info("Entro come comune di {}",comune);
+//            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
+//            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
+//        }
+//        else {
+//            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
+//            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
+//        }
+//        selezionaEntePAPage.selezionaAccedi();
     }
 
     @And("Click entra su Send Mittente")
