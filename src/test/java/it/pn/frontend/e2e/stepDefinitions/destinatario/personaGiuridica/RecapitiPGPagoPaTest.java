@@ -399,9 +399,9 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.clickLoFaroPiuTardiOrConfermaModificaRecapito();
     }
 
-    @And("Verifica e Disattiva domicilio digitale")
-    public void verificaEDisattivaDomicilioDigitale() {
-        recapitiDestinatarioPage.verificaEDisattivaDomicilioDigitale();
+    @And("Verifica e Disattiva domicilio digitale {string}")
+    public void verificaEDisattivaDomicilioDigitale(String chooseButton) {
+        recapitiDestinatarioPage.verificaEDisattivaDomicilioDigitale(chooseButton);
     }
 
     @And("Disattiva domicilio digitale e Annulla")
@@ -420,6 +420,12 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.verificaEDisattivaEmail();
     }
 
+    @And("Disattiva Indirizzo email aziendale")
+    public void disattivaIndirizzoEmailAziendale() {
+        logger.info("Disattiva Indirizzo email aziendale");
+        recapitiDestinatarioPage.disattivaIndirizzoEmailAziendale();
+        logger.info("Fine Disattiva Indirizzo email aziendale");
+    }
 
     @And("Verifica e Disattiva cellulare")
     public void verificaEDisattivaCellulare() {

@@ -1400,16 +1400,21 @@ public void clearOTP() {
     }
 
 
-    public void verificaEDisattivaDomicilioDigitale() {
+    public void verificaEDisattivaDomicilioDigitale(String chooseButton) {
         try {
             WebElement disattivaButton = getWebDriverWait(20).withMessage("Non è presente dentro Domicilio Digitale il testo 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
                             (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
-            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled() && chooseButton.equalsIgnoreCase("Conferma")) {
                 disattivaButton.click();
                 clickSuConfermaElimina();
-            } else {
-                logger.warn("Bottone 'Disattiva Domicilio Digitale' trovato ma non è visibile o abilitato.");
+            } else if (disattivaButton.isDisplayed() && disattivaButton.isEnabled() && chooseButton.equalsIgnoreCase("Annulla")) {
+                disattivaButton.click();
+                clickAnnulla();
+            }
+
+            else {
+                logger.warn("Bottone 'Disattiva Domicilio Digitale' non è visibile o abilitato.");
             }
         } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Bottone 'Disattiva Domicilio Digitale' non presente.");
@@ -1496,6 +1501,16 @@ public void verificaEDisattivaEmail() {
         Assertions.fail("Errore inaspettato durante la disattivazione dell'email: " + e.getMessage());
     }
 }
+    public void disattivaIndirizzoEmailAziendale() {
+        WebElement disattivaButton = getWebDriverWait(20)
+                .withMessage("Pulsante 'Disattiva' non trovato per l'indirizzo email aziendale")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//h6[text()='Indirizzo email aziendale']/ancestor::div[contains(@class,'MuiCard-root')]//button[@data-testid='disable-email']")
+                ));
+
+        disattivaButton.click();
+        clickButtonAnnullaEliminazioneInPopUp();
+    }
 
     public void verificaEDisattivaCellulare() {
         // TODO DA VERICARE

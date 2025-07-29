@@ -6,14 +6,14 @@ Feature: Rework della pagina dei contatti
   @TA_SERCQ_ON
   @NRT_Blocco_2
   Scenario:[SERCQ_22_21_24_19_PF]
-#    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    Given Login Page persona fisica test viene visualizzata
-    Given Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+#    Given Login Page persona fisica test viene visualizzata
+#    Given Login con persona fisica
+#      | user         | cesare                 |
+#      | pwd          | password123            |
+#      | name         | Gaio Giulio            |
+#      | familyName   | Cesare                 |
+#      | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     ##     verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
@@ -24,7 +24,7 @@ Feature: Rework della pagina dei contatti
 #    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
 #    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
@@ -80,5 +80,5 @@ Feature: Rework della pagina dei contatti
 
 #    Scenario:19
     And Disattiva domicilio digitale e Annulla
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
 
