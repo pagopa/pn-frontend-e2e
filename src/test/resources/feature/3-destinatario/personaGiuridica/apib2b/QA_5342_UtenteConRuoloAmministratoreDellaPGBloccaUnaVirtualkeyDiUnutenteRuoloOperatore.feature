@@ -19,7 +19,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
     And Pulisci ambiente virtual keys
     And Logout da portale persona giuridica delegante
    #    *-*-*-*-*-*-*-* Fine -*-*-*-*-*-*-*-*-*-*
-
+    And Attesa 1 secondi
 
     When Login con persona giuridica
       | user           | DanteAlighieri |
@@ -42,7 +42,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
     And Aggiornamento Pagina
     And Logout da portale persona giuridica delegante
 #  Entro come operatore
-    And Aggiornamento Pagina
+    And Attesa 2 secondi
     And Login con persona giuridica
       | user           | n.lotti       |
       | pwd            | test          |
@@ -59,7 +59,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
     And Aggiornamento Pagina
     And Logout da portale persona giuridica delegante
 #  Entro come Amministratore
-    And Aggiornamento Pagina
+    And Attesa 2 secondi
     When Login con persona giuridica
       | user           | DanteAlighieri |
       | pwd            | test           |

@@ -22,6 +22,7 @@ Feature: Creazione chiave pubblica
     And Pulisci ambiente public keys
     And Logout da portale persona giuridica delegante
     # Esecuzione scenario
+    And Attesa 1 secondi
     When Login con persona giuridica
       | user           | GiuseppeUngaretti |
       | pwd            | test           |
@@ -34,7 +35,7 @@ Feature: Creazione chiave pubblica
 #    // proposta 5319
 
     And Logout da portale persona giuridica delegante
-
+    And Attesa 1 secondi
     And Login con persona giuridica
       | user           | DanteAlighieri |
       | pwd            | test           |
@@ -50,6 +51,7 @@ Feature: Creazione chiave pubblica
     And Cliccare su registra
     And Logout da portale persona giuridica delegante
     # Creazione chiave virtuale per scenario
+    And Attesa 1 secondi
     And Login con persona giuridica
       | user           | GiuseppeUngaretti |
       | pwd            | test           |
@@ -64,7 +66,7 @@ Feature: Creazione chiave pubblica
     And Nel pop up visualizza cliccare sul tasto chiudi
     And Logout da portale persona giuridica delegante
     # Esecuzione scenario
-    When Login Page persona giuridica viene visualizzata
+    And Attesa 2 secondi
     And Login con persona giuridica
       | user           | DanteAlighieri |
       | pwd            | test           |

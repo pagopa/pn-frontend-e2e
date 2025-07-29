@@ -385,12 +385,11 @@ public void clickDelegatiImpresa() {
     public void checkAlertWrongDelegationCode() {
         try {
             getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("alert-api-status"))));
-            WebElement alertCloseButtonBy = driver.findElement(By.xpath("//button[@aria-label='Close']"));
+//            WebElement alertCloseButtonBy = driver.findElement(By.xpath("//button[@aria-label='Close']"));
             logger.info("Alert visualizzato correttamente in pagina");
-            alertCloseButtonBy.click();
+//            alertCloseButtonBy.click();
             logger.info("Alert chiusa");
         } catch (TimeoutException e) {
-            logger.error("Alert non visualizzato con errore: " + e.getMessage());
             Assertions.fail("Alert non visualizzato con errore: " + e.getMessage());
         }
     }
@@ -403,7 +402,6 @@ public void clickDelegatiImpresa() {
             buttonIndietroPopUpAssegnaGruppo.click();
             logger.info("Bottone indietro cliccato");
         } catch (TimeoutException e) {
-            logger.error("Bottone non visualizzato con errore " + e.getMessage());
             Assertions.fail("Bottone non visualizzato con errore: " + e.getMessage());
         }
     }

@@ -594,9 +594,11 @@ public class LoginMittentePagoPA extends BasePage {
         headerPASection.selezionaSecondoEsciButtonPA();
         webTool.waitTime(2);
 
-        //Login
+        // fix NRT
         acccediAreaRiservataPAPage.selezionareSpidButton();
+
         acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+
         if(comune.equalsIgnoreCase("Viggiu")){
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
@@ -609,15 +611,6 @@ public class LoginMittentePagoPA extends BasePage {
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
 
-//        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-//                !webDriverManager.getCookieConfig().isCookieEnabled()) {
-//            logger.info("cookies start");
-//            cookiesSection.selezionaAccettaTuttiButton();
-//            if (cookiesSection.waitLoadCookiesPage()) {
-//                cookiesSection.selezionaAccettaTuttiButton();
-//            }
-//            logger.info("cookies end");
-//        }
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         if(comune.equalsIgnoreCase("Viggiu")){
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
@@ -630,6 +623,8 @@ public class LoginMittentePagoPA extends BasePage {
         selezionaEntePAPage.selezionaAccedi();
 
 
+
+
 //        if(comune.equalsIgnoreCase("Viggiu")){
 //            logger.info("Entro come comune di {}",comune);
 //            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
@@ -640,6 +635,7 @@ public class LoginMittentePagoPA extends BasePage {
 //            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
 //        }
 //        selezionaEntePAPage.selezionaAccedi();
+
     }
 
     @And("Click entra su Send Mittente")

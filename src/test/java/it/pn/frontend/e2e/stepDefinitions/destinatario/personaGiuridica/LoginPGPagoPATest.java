@@ -474,7 +474,7 @@ public class LoginPGPagoPATest extends BasePage {
         switch (environment) {
             case "dev" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("DEV");
             case "test" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("TEST");
-            case "uat" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("UAT");
+            case "uat" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridicaUAT();
             case "hotfix" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("HOTFIX");
             case "collaudo" -> accediAreaRiservataPGPage.clickScegliAmbienteSendBottonePersonaGiuridica("COLL");
 
