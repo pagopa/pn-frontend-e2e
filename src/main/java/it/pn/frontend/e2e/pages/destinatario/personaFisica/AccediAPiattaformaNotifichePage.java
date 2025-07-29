@@ -440,7 +440,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
         //Check se amount è pagabile da Intesa Sanpaolo (radio button non c'è in caso di amount pari a 6.000,00 euro)
         String amount = driver.findElement(By.xpath("//button[@aria-label='Apri riepilogo pagamento']")).getText();
-        logger.info("Amount to pay {}", amount);
+        logger.info("Importo da pagare per la notifica: {}", amount);
 
         // Clicca sul radio button di Intesa Sanpaolo o Nexi (a seconda se amount da pagare è autorizzabile)
         if (amount.contains("6.000,00")) {
