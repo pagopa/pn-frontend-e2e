@@ -1459,6 +1459,24 @@ public void clearOTP() {
         }
     }
 
+    public void disattivaAppIOeAnnulla() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")
+                    .until(ExpectedConditions.elementToBeClickable
+                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                disattivaButton.click();
+                clickAnnulla();
+            } else {
+                logger.warn("Bottone 'Disattiva AppIO' trovato ma non è visibile o abilitato.");
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva AppIO' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva AppIO'.", e);
+        }
+    }
+
 //    public void verificaEDisattivaEmail1() {
 //        try {
 //            WebElement disattivaButton = getWebDriverWait(15).withMessage("Non è presente dentro Email 'Disattiva'")
@@ -1642,6 +1660,10 @@ public void verificaEDisattivaEmail() {
     }
 
     public void clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante() {
+        WebElement dialogButton = getWebDriverWait(40)
+                .withMessage("Impossibile trovare il pulsante nel Pop-UP Scollega SEND Da IO In Aggiungere i tuoi recapiti è importante")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-confirm-button")));
+        dialogButton.click();
 
     }
 }

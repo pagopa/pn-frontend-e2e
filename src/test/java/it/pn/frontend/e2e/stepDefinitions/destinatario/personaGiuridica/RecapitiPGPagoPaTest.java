@@ -412,7 +412,11 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @And("Verifica e Disattiva app IO")
     public void verificaEDisattivaAppIO() {
         recapitiDestinatarioPage.verificaEDisattivaAppIO();
+    }
 
+    @And("Disattiva app IO e Annulla")
+    public void disattivaAppIOeAnnulla() {
+        recapitiDestinatarioPage.disattivaAppIOeAnnulla();
     }
 
     @And("Verifica e Disattiva email")
