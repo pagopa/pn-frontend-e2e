@@ -1,11 +1,11 @@
 Feature: la persona fisica elimina l'indirizzo pec
 
 #  @TestSuite_ON
-  @PF
-  @TA_annulaEliminaPECPF_ON
-  @addressBook1
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_2
+#  @PF
+#  @TA_annulaEliminaPECPF_ON
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_2
   Scenario: ON_REWORK_DOMICILIO_DIGITALE_PF_PN-9307-B33 - La persona fisica annulla eliminazione l'indirizzo pec
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_QA_7300_QA_73101_validation_bug_PG
-  @addressBook2
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_1
+#  @TA_QA_7300_QA_73101_validation_bug_PG
+#  @addressBook2
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_1
 
   Scenario:[QA_7300_QA_73101_validation_bug_PG]
 

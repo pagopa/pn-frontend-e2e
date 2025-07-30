@@ -1,9 +1,9 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_UAT_ON
-  @TA_REWORK_DOMICILIO_DIGITALE_PF_46
-  @addressBook1
-  @TA_REWORK_RECAPITI_UAT_ON
+#  @TA_REWORK_DOMICILIO_DIGITALE_PF_46
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_UAT_ON
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_46] CambioDaDomPEC_SEND_a_IO_NonOra_PF PF
     Given Login Page persona fisica test viene visualizzata

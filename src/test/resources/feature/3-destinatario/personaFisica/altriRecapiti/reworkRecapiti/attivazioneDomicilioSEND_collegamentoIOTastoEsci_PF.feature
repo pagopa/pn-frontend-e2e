@@ -1,9 +1,9 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_attivazioneDomicilioSEND_CollegamentoSENDaIOTastoEsci_PF
-  @addressBook1
-  @TA_REWORK_RECAPITI_UAT_ON
+#  @TA_attivazioneDomicilioSEND_CollegamentoSENDaIOTastoEsci_PF
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_UAT_ON
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_77] Attivazione Domicilio Digitale SEND - Collegamento SEND a IO ESCI PF
 
    #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

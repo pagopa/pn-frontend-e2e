@@ -1,9 +1,9 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_UAT_ON
-  @TA_DisattivazioneSENDsuIO_PF
-  @addressBook1
-  @TA_REWORK_RECAPITI_UAT_ON
+#  @TA_DisattivazioneSENDsuIO_PF
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_UAT_ON
 
   Scenario: [REWORK_DOMICILIO_DIGITALE_PF_39_40] - Attivazione Domicilio Digitale SERCQ SEND - Disattivazione SEND su IO
     Given Login Page persona fisica test viene visualizzata

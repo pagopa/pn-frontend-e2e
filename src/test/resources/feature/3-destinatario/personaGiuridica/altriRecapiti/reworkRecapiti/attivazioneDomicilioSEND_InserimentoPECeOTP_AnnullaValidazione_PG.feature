@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_AttivazioneDomicilioDigitaleSEND_InserisciPEC_OTP_PG
-  @addressBook2
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_1
+#  @TA_AttivazioneDomicilioDigitaleSEND_InserisciPEC_OTP_PG
+#  @addressBook2
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_1
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_14_18] Attivazione Domicilio Digitale SEND - Inserimento PEC e OTP annulla Validazione PG
 

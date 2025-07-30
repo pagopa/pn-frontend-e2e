@@ -360,4 +360,19 @@ public class RecapitiTest extends BasePage {
     public void verificaCampoObbligatorioEnteETipologia() {
         recapitiDestinatarioPage.verificaCampoObbligatorioEnteETipologia();
     }
+
+    @And("Click Continua senza collegare IO")
+    public void clickContinuaSenzaCollegareIO() {
+        recapitiDestinatarioPage.clickContinuaSenzaCollegareIO();
+    }
+
+    @And("Click Scollega SEND da IO in Attiva domicilio digitale su SEND")
+    public void clickScollegaSENDDaIOInAttivaDomicilioDigitaleSuSEND() {
+        recapitiDestinatarioPage.clickScollegaSENDDaIOInAttivaDomicilioDigitaleSuSEND();
+    }
+
+    @And("Click Scollega SEND da IO nel Pop-up Aggiungi i tuoi recapiti e importante")
+    public void clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante() {
+        recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
+    }
 }

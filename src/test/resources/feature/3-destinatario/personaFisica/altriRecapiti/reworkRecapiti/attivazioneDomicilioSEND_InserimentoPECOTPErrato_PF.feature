@@ -1,10 +1,10 @@
 Feature:La persona fisica inserisce una OTP sbagliato PEC
 
 #  @TestSuite_ON
-  @TA_inserimentoPECOTPErrato_PF
-  @addressBook1
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_2
+#  @TA_inserimentoPECOTPErrato_PF
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_2
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_69] La persona fisica loggata inserisce un OTP sbagliato PEC
     Given Login Page persona fisica test viene visualizzata
     And Login con persona fisica

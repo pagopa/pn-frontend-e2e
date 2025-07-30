@@ -3,7 +3,7 @@ Feature: la persona giuridica inserisce l'OTP numero di telefono  errato
 #  @TestSuite_OFF
   @addressBook2
   @TA_REWORK_RECAPITI_OFF
-  @NRT_Blocco_1_OFF_1
+  @NRT_Blocco_1_OFF
 
   Scenario: OFF_REWORK_DOMICILIO_DIGITALE_PG_PN-9158-A66 - La persona giuridica inserisce l'OTP numero di telefono errato
 
@@ -12,7 +12,7 @@ Feature: la persona giuridica inserisce l'OTP numero di telefono  errato
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 2 secondi
     And Verifica e Disattiva cellulare
     # Creazione Cellulare

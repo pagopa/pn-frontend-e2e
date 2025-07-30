@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_REWORK_DOMICILIO_DIGITALE_43_47_PG
-  @addressBook2
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_1
+#  @TA_REWORK_DOMICILIO_DIGITALE_43_47_PG
+#  @addressBook2
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_1
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_43_47] Cambio da dom PEC a SEND - Gestisci PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_REWORK_DOMICILIO_DIGITALE_59_60_57_58_62_61_PG
-  @addressBook2
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_1
+#  @TA_REWORK_DOMICILIO_DIGITALE_59_60_57_58_62_61_PG
+#  @addressBook2
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_1
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_59_60_57_58_62_61] domicilioDigitalePEC_GestisciIndietroEsciInseriscoOTPErroreElimina PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

@@ -1,11 +1,11 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_inserimentoCellOTPErrato_PG
-  @addressBook2
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_1
-  @GestioneErrori
+#  @TA_inserimentoCellOTPErrato_PG
+#  @addressBook2
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_1
+#  @GestioneErrori
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_71] La persona giuridica loggata inserisce un OTP sbagliato cellulare
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

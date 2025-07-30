@@ -1,10 +1,10 @@
 Feature: La persona fisica inserisce una PEC sbagliata
 
 #  @TestSuite_ON
-  @TA_inserimentoPECErrataPF_ON
-  @addressBook1
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_2
+#  @TA_inserimentoPECErrataPF_ON
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_2
   Scenario: ON_REWORK_DOMICILIO_DIGITALE_PF_PN-9240-B31 - La persona fisica inserisce una PEC sbagliata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
 

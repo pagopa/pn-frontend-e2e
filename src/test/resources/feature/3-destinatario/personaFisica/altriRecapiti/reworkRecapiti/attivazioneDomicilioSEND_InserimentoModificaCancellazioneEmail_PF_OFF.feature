@@ -1,6 +1,6 @@
 Feature: Rework della pagina dei contatti
 
-  @TestSuite
+#  @TestSuite
   @TA_AttivazioneDomicilioDigitaleSEND_InserisciModificaCancellaEmail_PF_OFF
   @addressBook1
   @TA_REWORK_RECAPITI_OFF

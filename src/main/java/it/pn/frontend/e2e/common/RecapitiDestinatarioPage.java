@@ -1030,7 +1030,7 @@ public void clearOTP() {
         WebElement loFaroPiuTardi = getWebDriverWait(25)
                 .withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
                 .until(ExpectedConditions.elementToBeClickable(
-                By.id("dialog-confirm-button")));
+                By.id("dialog-close-button")));
         loFaroPiuTardi.click();
     }
 
@@ -1620,5 +1620,28 @@ public void verificaEDisattivaEmail() {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("channelType-helper-text")));
 
         Assertions.assertEquals("Campo obbligatorio", pecHelperText.getText().trim());
+    }
+
+    public void clickContinuaSenzaCollegareIO() {
+        WebElement continuaButton = getWebDriverWait(20)
+                .withMessage("Pulsante 'Continua senza collegare IO' non trovato")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='skipButton']")
+                ));
+
+        continuaButton.click();
+    }
+
+    public void clickScollegaSENDDaIOInAttivaDomicilioDigitaleSuSEND() {
+        WebElement button = getWebDriverWait(20)
+                .withMessage("Impossibile trovare il pulsante Scollega SEND Da IO In Attiva Domicilio Digitale Su SEND ")
+                .until(ExpectedConditions.elementToBeClickable(
+                By.cssSelector("button[data-testid='disableIOButton']")
+        ));
+        button.click();
+    }
+
+    public void clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante() {
+
     }
 }
