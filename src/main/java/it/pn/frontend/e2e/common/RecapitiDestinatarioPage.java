@@ -1247,11 +1247,34 @@ public void clearOTP() {
         pecInput.sendKeys(emailPec);
     }
 
+//    public void clickConferma() {
+//        WebElement confermaButton = getWebDriverWait(60)
+//                .withMessage("Impossibile trovare il tasto Conferma")
+//                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='next-button']")));
+//        confermaButton.click();
+//    }
     public void clickConferma() {
-        WebElement confermaButton = getWebDriverWait(60)
-                .withMessage("Impossibile trovare il tasto Conferma")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='next-button']")));
-        confermaButton.click();
+        try {
+            WebElement confermaButton = getWebDriverWait(60)
+                    .withMessage("Impossibile trovare il tasto Conferma")
+                    .until(ExpectedConditions.elementToBeClickable(
+                            By.xpath("//button[@data-testid='next-button']")
+                    ));
+
+            // Se il bottone è visibile e abilitato, clicca direttamente
+            if (confermaButton.isDisplayed() && confermaButton.isEnabled()) {
+                confermaButton.click();
+            } else {
+                // Se visibile ma non cliccabile normalmente, usa JavaScript
+                js().executeScript("arguments[0].click();", confermaButton);
+            }
+
+            logger.info("Pulsante 'Conferma' cliccato con successo.");
+        } catch (TimeoutException e) {
+            Assertions.fail("Timeout: Il pulsante 'Conferma' non è stato trovato o non era cliccabile. Dettagli: " + e.getMessage());
+        } catch (Exception e) {
+            Assertions.fail("Errore durante il clic sul pulsante 'Conferma'. Dettagli: " + e.getMessage());
+        }
     }
 
     public void verificaDaAttivareEmail() {
