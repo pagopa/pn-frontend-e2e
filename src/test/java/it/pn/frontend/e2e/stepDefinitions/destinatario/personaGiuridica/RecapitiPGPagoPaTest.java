@@ -403,7 +403,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
 
     @And("Click Bottone Conferma Modifica Recapito")
     public void clickBottoneConfermaModificaRecapito() {
-        recapitiDestinatarioPage.clickLoFaroPiuTardiOrConfermaModificaRecapito();
+        recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
     }
 
     @And("Verifica e Disattiva domicilio digitale {string}")
