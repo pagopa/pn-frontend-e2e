@@ -92,7 +92,7 @@ Feature: Rework della pagina dei contatti
 
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "emailprova@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
+    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata "emailprova@test.it"
 
     And Click Continua Tab Inserisci un recapito
     And Spuntare checkbox privacy
