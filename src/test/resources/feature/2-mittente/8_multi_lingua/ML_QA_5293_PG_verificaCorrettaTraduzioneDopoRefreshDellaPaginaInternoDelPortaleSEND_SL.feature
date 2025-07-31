@@ -38,3 +38,4 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     Then Seleziona voce menu laterale "Stanje platforme"
     And Verifica traduzione testo "Preverite delovanje SEND, oglejte si zgodovino motenj in prenesite povezana potrdila"
     And Verifica traduzione testo "Zgodovina motenj"
+    And Chiudi pagina

@@ -13,7 +13,7 @@ public class ConfigFileReader {
 
     private static final String TEST_CONFIG_FILE = "config/test-config.properties";
     private static final Properties properties = new Properties();
-    private static final Logger logger = LoggerFactory.getLogger("ConfigFileReader");
+    private static final Logger logger = LoggerFactory.getLogger(ConfigFileReader.class);
     private static String testSuite;
 
     public static boolean loadProperties() {

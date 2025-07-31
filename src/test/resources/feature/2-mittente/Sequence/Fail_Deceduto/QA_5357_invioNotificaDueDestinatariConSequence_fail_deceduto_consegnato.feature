@@ -7,23 +7,12 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
   Scenario: [DECEDUTO_890_QA-5357] - Il mittente invia una notifica a due destinatari, solo uno raggiungibile al primo tentativo
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
-    Given Login Page persona fisica test viene visualizzata
-    And Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
-    And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
-    And Rimuovi tutti i recapiti se esistono
-    Given Login Page persona giuridica viene visualizzata
-    When Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | Convivio Spa   |
-    And Si clicca su prodotto
-    And Si visualizza correttamente la pagina Piattaforma Notifiche persona giuridica
-    And Rimuovi tutti i recapiti se esistono
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Da portale persona fisica si ottiene un token di sessione
+    And Rimuovi da API tutti i recapiti per persona fisica se esistono
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Da portale persona giuridica si ottiene un token di sessione
+    And Rimuovi da API tutti i recapiti per persona giuridica se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -73,18 +62,26 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-    And Aspetta 10 secondi
+#    And Aspetta 10 secondi
+    And Attesa 15 secondi
+    And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Invio in corso"
-    And Aspetta 400 secondi
+#    And Aspetta 400 secondi
+    And Attesa 400 secondi
+    And Refresh pagina
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | CSRGGL44L13H501E |
       | PG | 27957814470      |
-    And Aspetta 10 secondi
+#    And Aspetta 10 secondi
+    And Attesa 10 secondi
+    And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'stata consegnata perché il destinatario è deceduto')] |
       | vediDettagli | true                                                                       |
-    And Aspetta 10 secondi
+#    And Aspetta 10 secondi
+    And Attesa 10 secondi
+    And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'tramite raccomandata 890')] |
       | vediDettagli | true                                             |

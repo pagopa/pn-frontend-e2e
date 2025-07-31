@@ -23,3 +23,4 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
 
     When Seleziona voce menu laterale "Gruppen"
     And Verifica traduzione testo "Hier kannst du Unternehmensgruppen verwalten und neue erstellen"
+    And Chiudi pagina

@@ -7,15 +7,9 @@ Feature: invio notifica con sequence
 
   Scenario: [DECEDUTO_AR_QA-5352] - Il mittente invia una notifica a destinatario con sequence
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
-    Given Login Page persona fisica test viene visualizzata
-    And Login con persona fisica
-      | user         | cesare                 |
-      | pwd          | password123            |
-      | name         | Gaio Giulio            |
-      | familyName   | Cesare                 |
-      | fiscalNumber | TINIT-CSRGGL44L13H501E |
-    And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
-    And Rimuovi tutti i recapiti se esistono
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Da portale persona fisica si ottiene un token di sessione
+    And Rimuovi da API tutti i recapiti per persona fisica se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -36,7 +30,9 @@ Feature: invio notifica con sequence
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Resa al mittente"
-    And Aspetta 400 secondi
+#    And Aspetta 400 secondi
+    And Attesa 400 secondi
+    And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"La raccomandata A/R") and contains(text(),"è stata stampata ed imbustata")] |
       | vediDettagli | true                                                                                             |

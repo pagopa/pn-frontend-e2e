@@ -23,7 +23,7 @@ import java.util.Map;
 
 public class SpidAcsMittente {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidAcsMittente");
+    private static final Logger logger = LoggerFactory.getLogger(SpidAcsMittente.class);
     private String spidAcsEndPoint;
     private final String relayState;
     private final String samlResponse;

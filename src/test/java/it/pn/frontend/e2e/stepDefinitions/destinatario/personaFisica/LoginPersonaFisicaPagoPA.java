@@ -9,31 +9,42 @@ import it.pn.frontend.e2e.api.personaFisica.SpidDemoLogin;
 import it.pn.frontend.e2e.api.personaFisica.SpidDemoStart;
 import it.pn.frontend.e2e.api.personaFisica.SpidLogin;
 import it.pn.frontend.e2e.common.BasePage;
+import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
 public class LoginPersonaFisicaPagoPA extends BasePage{
 
-    private static final Logger logger = LoggerFactory.getLogger("LoginPersonaFisicaPagoPA");
+    private static final Logger logger = LoggerFactory.getLogger(LoginPersonaFisicaPagoPA.class);
     private Map<String, String> urlPersonaFisica;
 
 
@@ -70,6 +81,19 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     @Autowired
     private WebDriverManager webDriverManager;
 
+    @Getter
+    @Setter
+    private String tokenExchange;
+
+    @Getter
+    @Setter
+    private String sessionToken;
+
+    @Autowired
+    private CustomHttpClient customHttpClient;
+
+    @Autowired
+    private RestContact restContact;
 
     @PostConstruct
     public void init(){
@@ -140,6 +164,10 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
             headerPFSection.waitLoadHeaderDESection();
             notifichePFPage.waitLoadNotificheDEPage();
+
+            //Salva il token exchange che verrà riusato per ottenere il session token da usare nelle chiamate a API SEND
+            tokenExchange = token;
+
         } catch (Exception e) {
             // Gestione delle eccezioni: stampa l'errore
             logger.info("Errore durante il login PF: " + e.getMessage());
@@ -449,7 +477,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         int numProvaLogin = 0;
         String userPersonaFisica = webDriverConfig.getUserCesare();
         String pwdPersonaFisica = webDriverConfig.getPwdCesare();
-        while (numProvaLogin < 10) {
+        while (numProvaLogin < 20) {
             this.readUrlLoginPersonaFisicaWithToken(userPersonaFisica, pwdPersonaFisica);
             if (this.urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
@@ -668,7 +696,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
              passwordDelegato = webDriverConfig.getPwdCesare();
         }
 
-        while (numProvaLogin < 10) {
+        while (numProvaLogin < 20) {
             this.readUrlLoginPersonaFisicaWithToken(userDelegato, passwordDelegato);
             if (this.urlPersonaFisica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
@@ -746,7 +774,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     }
 
     @When("Login con persona fisica scelta lingua")
-    public void loginConPersonaFisicaSceltaLingua(Map<String, String> datiPF) {
+    public void loginConPersonaFisicaSceltaLingua(Map<String, String> datiPF) throws IOException {
 
         logger.info("user persona fisica {}",  webDriverConfig.getUserCesare());
         logger.info("cookies start");
@@ -770,6 +798,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
+        webTool.waitTime(60);
         scegliSpidPFPage.selezionareTestButton();
 
         loginSpidPFPage.waitLoadLoginSpidDEPage();
@@ -803,5 +832,44 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
 
+    }
+
+    @When("Da portale persona fisica si ottiene un token di sessione")
+    public void portalePFNewSessionToken() {
+        CustomHttpClient<?, String> httpClient = customHttpClient;
+        try {
+            String jwtToken = httpClient.getJwtToken(tokenExchange);
+            sessionToken = jwtToken;
+        } catch (IOException e) {
+            logger.error("Errore durante portalePFNewSessionToken", e);
+            throw new RuntimeException("Errore durante la richiesta di fetch di un session token", e);
+        }
+    }
+
+    // Si setta il token di sessione per avere risposte API valide dal server SEND
+    // (thread in parallelo usano lo stesso token di sessione, causando risposte 403)
+    @And("Rimuovi da API tutti i recapiti per persona fisica se esistono")
+    public void clearRecapitiPF() {
+        restContact.setSessionToken(sessionToken);
+        var digitalAddresses = restContact.getAllDigitalAddress();
+        if (digitalAddresses != null && !digitalAddresses.isEmpty()) {
+            digitalAddresses.forEach(address -> {
+                if ("default".equalsIgnoreCase(address.getSenderId())) {
+                    if ("LEGAL".equalsIgnoreCase(address.getAddressType())) {
+                        if ("SERCQ_SEND".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressLegalSend();
+                        }
+                        else if ("PEC".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressLegalPec();
+                        }
+                    }
+                    else {
+                        restContact.removeDigitalAddressCourtesyEmail();
+                    }
+                } else {
+                    restContact.removeSpecialContact(address);
+                }
+            });
+        }
     }
 }

@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class SpidAcs {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidAcs");
+    private static final Logger logger = LoggerFactory.getLogger(SpidAcs.class);
     private String spidAcsEndPoint;
     private Map<String, String> headerLocal;
     private final String relayStateInput;

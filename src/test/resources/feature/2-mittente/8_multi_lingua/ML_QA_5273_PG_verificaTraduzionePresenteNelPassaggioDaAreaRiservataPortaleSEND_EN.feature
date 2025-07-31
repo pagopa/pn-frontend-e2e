@@ -46,6 +46,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
     Then Seleziona voce menu laterale "Platform status"
     And Verifica traduzione testo "view service disruption history and download the attestations"
     And Verifica traduzione testo "Disruption history"
+    And Chiudi pagina
 
 
 

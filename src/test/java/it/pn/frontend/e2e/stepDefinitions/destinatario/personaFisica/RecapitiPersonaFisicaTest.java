@@ -31,7 +31,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RecapitiPersonaFisicaTest extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("RecapitiPersonaFisicaTest");
+    private static final Logger logger = LoggerFactory.getLogger(RecapitiPersonaFisicaTest.class);
 
     @Autowired
     private WebDriverConfig webDriverConfig;

@@ -53,7 +53,7 @@ import static org.apache.commons.lang3.StringUtils.substring;
 
 public class NotificaMittentePagoPATest  extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("NotificaMittentePagoPATest");
+    private static final Logger logger = LoggerFactory.getLogger(NotificaMittentePagoPATest.class);
 
     private final String PF = "persona fisica";
     private final String PG = "persona giuridica";
@@ -2164,6 +2164,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Refresh pagina")
     public void refreshPagina() {
         driver.navigate().refresh();
+    }
+
+    @And("Chiudi pagina")
+    public void chiudiPagina() {
+        driver.close();
     }
 
     @And("verifica campi vuoti")

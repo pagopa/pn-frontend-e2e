@@ -49,6 +49,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
     Then Seleziona voce menu laterale "Plattformstatus"
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND"
     And Verifica traduzione testo "Fehlerhistorie"
+    And Chiudi pagina
 
 
 
