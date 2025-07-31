@@ -6,20 +6,19 @@ Feature: Rework della pagina dei contatti
   @TA_SERCQ_ON
   @NRT_Blocco_2
   Scenario:[SERCQ_33_37_PG]
-   Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-#    Given Login Page persona giuridica viene visualizzata
-#    When Login con persona giuridica
-#      | user           | DanteAlighieri |
-#      | pwd            | test           |
-#      | ragioneSociale | Convivio Spa   |
-#    Then Home page persona giuridica viene visualizzata correttamente
-#    And Si clicca su prodotto
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
+
+
+
+
+
+
 
 
    #    Precondizione
@@ -63,18 +62,20 @@ Feature: Rework della pagina dei contatti
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Domicilio Digitale SEND"
+    And Attesa 1 secondi
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Click Bottone Conferma Modifica Recapito
+    And Attesa 1 secondi
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 
  #    Precondizione Scenario: 37
-   And Verifica e Disattiva Personalizzati per Ente
+    And Verifica e Disattiva Personalizzati per Ente
 
       #Scenario: 37
-   And Verifica e Disattiva domicilio digitale "Annulla"
-   And Attesa 2 secondi
-   And Verifica e Disattiva domicilio digitale "Conferma"
-   And Attesa 2 secondi
-   And Refresh pagina
-   Then Verifica Da Attivare Domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Annulla"
+    And Attesa 2 secondi
+    And Verifica e Disattiva domicilio digitale "Conferma"
+    And Attesa 2 secondi
+    And Refresh pagina
+    Then Verifica Da Attivare Domicilio digitale

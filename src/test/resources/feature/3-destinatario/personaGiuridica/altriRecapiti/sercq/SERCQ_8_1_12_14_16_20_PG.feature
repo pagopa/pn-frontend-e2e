@@ -4,32 +4,23 @@ Feature: Rework della pagina dei contatti
   @TA_SERCQ_8_1_12_14_16_20_PG
   @addressBook2
   @TA_SERCQ_ON
-  @NRT_Blocco_2
+  @NRT_Blocco_1
   Scenario:[SERCQ_8_1_12_14_16_20_PG]
    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-#    Given Login Page persona giuridica viene visualizzata
-#    When Login con persona giuridica
-#      | user           | DanteAlighieri |
-#      | pwd            | test           |
-#      | ragioneSociale | Convivio Spa   |
-#    Then Home page persona giuridica viene visualizzata correttamente
-#    And Si clicca su prodotto
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
-    ##     verificare mancano pezzi inerente a SEND sull'appIO
-    And Verifica ed Elimina personalizzati per ente
-#    And Aspetta 1 secondi
+
+   And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica ed Elimina personalizzati per ente
-#    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva domicilio digitale "Conferma"
-#    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva email
-    When Click Inizia
+
+   When Click Inizia
     And Click Continua
 
     #    Scenario:1
@@ -51,6 +42,10 @@ Feature: Rework della pagina dei contatti
     And Nella sezione altri recapiti si clicca sul bottone annulla di popup
 
 #    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+
+   And Click Aggiungi email
+   And Si clicca sul bottone del pop-up ok ho capito
+
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
@@ -72,11 +67,11 @@ Feature: Rework della pagina dei contatti
     And Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
     And Si inserisce la nuova Email del PG e clicca su Conferma
+
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "provaemail@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
-
+    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata "provaemail@test.it"
 
 #    Scenario:14
 
@@ -90,11 +85,15 @@ Feature: Rework della pagina dei contatti
     And Click Annulla
     And Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
-    And Si inserisce la nuova Email del PG e clicca su Conferma
-    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "provaemail@test.it" tramite chiamata request
+    And Si inserisce la nuova Email "emailprova@test.it" del PG e clicca su Conferma
+   And Si clicca sul bottone del pop-up ok ho capito
+
+   And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "emailprova@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
+
     And Click Continua Tab Inserisci un recapito
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
@@ -115,9 +114,10 @@ Feature: Rework della pagina dei contatti
 #    Scenario:20
     When Click Inizia
     And Click Continua
-    And Click Aggiungi email
+#    And Click Aggiungi email
 
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+   And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email

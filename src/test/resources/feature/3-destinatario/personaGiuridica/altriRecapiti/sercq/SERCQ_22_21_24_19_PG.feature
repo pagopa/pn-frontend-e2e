@@ -6,26 +6,16 @@ Feature: Rework della pagina dei contatti
   @TA_SERCQ_ON
   @NRT_Blocco_2
   Scenario:[SERCQ_22_21_24_19_PG]
-   Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-#    Given Login Page persona giuridica viene visualizzata
-#    When Login con persona giuridica
-#      | user           | DanteAlighieri |
-#      | pwd            | test           |
-#      | ragioneSociale | Convivio Spa   |
-#    Then Home page persona giuridica viene visualizzata correttamente
-#    And Si clicca su prodotto
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
-    ##     verificare mancano pezzi inerente a SEND sull'appIO
+
     And Verifica ed Elimina personalizzati per ente
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica ed Elimina personalizzati per ente
-#    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva domicilio digitale "Conferma"
-#    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva email
@@ -36,7 +26,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone "Inserisci PEC"
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Click Bottone "Inserisci PEC"
-    And Click Attiva domicilio digitale
+    And Click Attiva domicilio digitale PEC
     And Verifica  Indirizzo pec non valido
 
     #    Scenario:22
@@ -49,12 +39,15 @@ Feature: Rework della pagina dei contatti
     And Si visualizza correttamente il messaggio di errore
     And Cliccare sul bottone Annulla
 
-    And Click Attiva domicilio digitale
+    And Click Attiva domicilio digitale PEC
 
 ##    And Si inserisce la Pec della "personaGiuridica" e si clicca sul bottone Conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
+    And Click Torna ai tuoi recapiti
+
+    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
 
@@ -74,7 +67,6 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
-
     Then Verifica Pagina "prova@pec.it"
 
 #    Scenario:19

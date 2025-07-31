@@ -288,6 +288,13 @@ public class RecapitiPGPagoPaTest extends BasePage {
         iTuoiRecapitiPage.clickConfermaEmail();
     }
 
+    @And("Si inserisce la nuova Email {string} del PG e clicca su Conferma")
+    public void siInserisceLaNuovaEmailDelPFECliccaSuConferma(String email) {
+        iTuoiRecapitiPage.cancellaTesto();
+        iTuoiRecapitiPage.insertEmail(email);
+        iTuoiRecapitiPage.clickConfermaEmail();
+    }
+
     @And("Click Insirisci Pec")
     public void clickInsirisciPec() {
         iTuoiRecapitiPage.clickInsirisciPec();

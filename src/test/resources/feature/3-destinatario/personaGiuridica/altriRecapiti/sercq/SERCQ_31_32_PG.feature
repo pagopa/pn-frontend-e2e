@@ -6,19 +6,26 @@ Feature: Rework della pagina dei contatti
   @TA_SERCQ_ON
   @NRT_Blocco_2
   Scenario:[SERCQ_31_32_PG]
-   Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
+
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
     And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
 
+
+
+
+
+
+
    #    Precondizione
     When Click Inizia
     And Click Continua
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
-   And Si clicca sul bottone del pop-up ok ho capito
+    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
@@ -27,12 +34,12 @@ Feature: Rework della pagina dei contatti
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
-   And Attesa 3 secondi
-   And Refresh pagina
-
+    And Attesa 3 secondi
+    And Refresh pagina
     And Disattiva Indirizzo email aziendale
 
     #    Scenario: 31
+    And Attesa 2 secondi
     And Click Bottone Gestisci
     And Click Bottone "Trasferisci su una PEC"
     When Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale

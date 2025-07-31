@@ -7,13 +7,6 @@ Feature: Rework della pagina dei contatti
   @NRT_Blocco_2
   Scenario:[SERCQ_28_29_PG]
    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-#    Given Login Page persona giuridica viene visualizzata
-#    When Login con persona giuridica
-#      | user           | DanteAlighieri |
-#      | pwd            | test           |
-#      | ragioneSociale | Convivio Spa   |
-#    Then Home page persona giuridica viene visualizzata correttamente
-#    And Si clicca su prodotto
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
@@ -35,10 +28,15 @@ Feature: Rework della pagina dei contatti
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
 
+   When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
+   And Disattiva Indirizzo email aziendale
+
 
     #    Scenario: 28
+   And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
     And Attesa 1 secondi
     And Refresh pagina
+
     And Click Bottone Inizia nel Banner
     And Verifica abilitazione campo email
 

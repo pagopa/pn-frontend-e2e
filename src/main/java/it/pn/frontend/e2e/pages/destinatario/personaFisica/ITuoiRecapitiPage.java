@@ -194,6 +194,12 @@ public void iTuoiRecapitiButtonClick() {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'provaemail@test.it')]")));
     }
 
+    public void verificaEmailModificata(String email) {
+        getWebDriverWait(30)
+                .withMessage("La nuova mail non si visualizza correttamente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'"+email+"')]")));
+    }
+
 
     public void selezionaTipoEmail() {
         webTool.waitTime(2);
@@ -265,31 +271,52 @@ public void iTuoiRecapitiButtonClick() {
         confermaEmail.click();
     }
 
+//    public void siCliccaSulBottoneDelPopUpOkHoCapito() {
+//        try {
+//            webTool.waitTime(6);
+//            logger.info("metodo Ok Ho Capito");
+//            WebElement okHoCapitoButton = getWebDriverWait(30)
+//                    .withMessage("Non si visualizza il bottone 'Ok ho capito' nel pop-up")
+//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));
+//
+//            // Verifica se il bottone è visibile e cliccabile
+//            if (okHoCapitoButton.isDisplayed()) {
+//                okHoCapitoButton.click();
+//                logger.info("Bottone 'Ok ho capito' cliccato nel pop-up.");
+//            } else {
+//                // Se non è visibile, utilizza JavaScript per cliccarlo
+//                js().executeScript("arguments[0].click()", okHoCapitoButton);
+//                logger.info("Bottone 'Ok ho capito' cliccato tramite JavaScript.");
+//            }
+//
+//        } catch (TimeoutException e) {
+//            // Gestione del caso in cui il bottone non sia visibile entro il tempo limite
+//            Assertions.fail("Errore: Il bottone 'Ok ho capito' nel pop-up non è visibile entro il tempo limite. Dettagli: " + e.getMessage());
+//        } catch (Exception e) {
+//            // Gestione di eventuali altre eccezioni
+//            Assertions.fail("Si è verificato un errore imprevisto durante il clic sul bottone 'Ok ho capito'. Dettagli: " + e.getMessage());
+//        }
+//        webTool.waitTime(1);
+//    }
+
     public void siCliccaSulBottoneDelPopUpOkHoCapito() {
         try {
             webTool.waitTime(6);
-            logger.info("metodo Ok Ho Capito");
+            logger.info("Metodo: Ok Ho Capito");
+
             WebElement okHoCapitoButton = getWebDriverWait(30)
                     .withMessage("Non si visualizza il bottone 'Ok ho capito' nel pop-up")
-                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='understandButton']")));
 
-            // Verifica se il bottone è visibile e cliccabile
-            if (okHoCapitoButton.isDisplayed()) {
-                okHoCapitoButton.click();
-                logger.info("Bottone 'Ok ho capito' cliccato nel pop-up.");
-            } else {
-                // Se non è visibile, utilizza JavaScript per cliccarlo
-                js().executeScript("arguments[0].click()", okHoCapitoButton);
-                logger.info("Bottone 'Ok ho capito' cliccato tramite JavaScript.");
-            }
+            okHoCapitoButton.click();
+            logger.info("Bottone 'Ok ho capito' cliccato nel pop-up.");
 
         } catch (TimeoutException e) {
-            // Gestione del caso in cui il bottone non sia visibile entro il tempo limite
-            Assertions.fail("Errore: Il bottone 'Ok ho capito' nel pop-up non è visibile entro il tempo limite. Dettagli: " + e.getMessage());
+            Assertions.fail("Errore: Il bottone 'Ok ho capito' non è visibile o cliccabile entro il tempo limite. Dettagli: " + e.getMessage());
         } catch (Exception e) {
-            // Gestione di eventuali altre eccezioni
-            Assertions.fail("Si è verificato un errore imprevisto durante il clic sul bottone 'Ok ho capito'. Dettagli: " + e.getMessage());
+            Assertions.fail("Errore imprevisto durante il clic sul bottone 'Ok ho capito'. Dettagli: " + e.getMessage());
         }
+
         webTool.waitTime(1);
     }
 
@@ -382,6 +409,14 @@ public void iTuoiRecapitiButtonClick() {
         WebElement buttonConferma = getWebDriverWait(10)
                 .withMessage("Impossibile cliccare sul bottone  Attiva Domicilio Digitale")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='activateButton']")));
+        buttonConferma.click();
+
+    }
+
+    public void clickAttivaDomicilioDigitalePEC() {
+        WebElement buttonConferma = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare sul bottone  Attiva Domicilio Digitale")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[data-testid='next-button']")));
         buttonConferma.click();
 
     }
