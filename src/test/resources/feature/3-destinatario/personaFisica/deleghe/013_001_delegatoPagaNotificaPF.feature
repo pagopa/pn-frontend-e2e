@@ -55,7 +55,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Aspetta 10 secondi
     And Si seleziona la notifica
     And Cliccare sul bottone Paga
-    And Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
+    And Si inserisce i dati di pagamento e procede con il pagamento "provapf@test.it"
     And Si verifica che visualizzato lo stato Pagato
 
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
