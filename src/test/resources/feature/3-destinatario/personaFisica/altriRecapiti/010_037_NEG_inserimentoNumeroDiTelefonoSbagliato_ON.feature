@@ -10,7 +10,7 @@ Feature: la persona fisica inserisce un numero di telefono errato
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 2 secondi
     And Verifica e Disattiva cellulare
     When Click Inizia

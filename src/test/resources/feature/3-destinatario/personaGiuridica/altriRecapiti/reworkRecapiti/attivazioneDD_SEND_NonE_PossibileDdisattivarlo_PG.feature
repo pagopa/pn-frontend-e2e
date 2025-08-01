@@ -13,7 +13,7 @@ Feature: Rework della pagina dei contatti
 
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 1 secondi
@@ -39,6 +39,6 @@ Feature: Rework della pagina dei contatti
     And Click Torna ai tuoi recapiti
     #And Aspetta 1 secondi
     And Refresh pagina
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     Then Verifica pop-up Impossibile disattivare il Domicilio Digitale
     And Si chiude pop-up Impossibile disattivare il Domicilio Digitale

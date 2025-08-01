@@ -24,7 +24,7 @@ Feature: Rework della pagina dei contatti
 #    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
 #    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina

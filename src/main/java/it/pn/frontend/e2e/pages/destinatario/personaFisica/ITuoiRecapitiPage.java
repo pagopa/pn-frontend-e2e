@@ -189,9 +189,10 @@ public void iTuoiRecapitiButtonClick() {
     }
 
     public void verificaEmailModificata() {
+        //Questo metodo è valido solo per PF, se si vuole utilizzare un metodo generico è stato fatto overload del metodo
         getWebDriverWait(30)
                 .withMessage("La nuova mail non si visualizza correttamente")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'provaemail@test.it')]")));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'provaemailpf@test.it')]")));
     }
 
     public void verificaEmailModificata(String email) {

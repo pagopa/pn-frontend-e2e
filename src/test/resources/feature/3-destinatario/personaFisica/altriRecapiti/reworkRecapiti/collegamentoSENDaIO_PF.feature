@@ -15,7 +15,7 @@ Feature: Rework della pagina dei contatti
       | fiscalNumber | TINIT-AAAAAA00A00A000B |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Aspetta 2 secondi
     And Verifica e Disattiva app IO
     And Verifica e Disattiva email
@@ -49,6 +49,6 @@ Feature: Rework della pagina dei contatti
     And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si controlla che IO sia attivo
 ## Reset recapiti UAT
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Aspetta 2 secondi
     And Verifica e Disattiva app IO

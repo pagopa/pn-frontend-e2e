@@ -19,7 +19,7 @@ Feature: Rework della pagina dei contatti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica e Disattiva Personalizzati per Ente
     And Aspetta 1 secondi
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 1 secondi

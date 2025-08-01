@@ -569,7 +569,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
 
     @Then("Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata {string}")
     public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaStataModificata(String email) {
-        logger.info("Si controlla che la Email sia stata modificata: "+email);
+        logger.info("Si controlla che la Email sia stata modificata con: {}", email);
         iTuoiRecapitiPage.verificaEmailModificata(email);
     }
 

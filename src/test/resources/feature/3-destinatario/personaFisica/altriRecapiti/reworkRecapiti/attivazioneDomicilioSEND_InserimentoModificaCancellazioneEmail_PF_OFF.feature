@@ -19,7 +19,7 @@ Feature: Rework della pagina dei contatti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 2 secondi
@@ -53,9 +53,9 @@ Feature: Rework della pagina dei contatti
     And Si inserisce la nuova Email del PF e clicca su Conferma
     And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "provaemail@test.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "provaemailpf@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    And Verifica Pagina "provaemail@test.it"
+    And Verifica Pagina "provaemailpf@test.it"
     And Verifica Pagina "ti avvisiamo con una email all"
 # Verifica assenza banner email mancante
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche

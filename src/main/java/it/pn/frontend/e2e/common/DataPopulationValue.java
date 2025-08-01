@@ -204,7 +204,7 @@ public enum DataPopulationValue {
 
     //PERSONA FISICA
     URL_PF("url_pf","https://cittadini.dev.notifichedigitali.it/",false),
-    EMAIL_PF("email_pf","provaemail@test.it",false),
+    EMAIL_PF("email_pf","provaemailpf@test.it",false),
     USER_PF("user_pf","cesare",false),
     PWD_PF("pwd_pf","password123",false),
     EMAIL_PEC_ERR_PF("email_pec_err_pf","testpagopa2@fail.it",false),
