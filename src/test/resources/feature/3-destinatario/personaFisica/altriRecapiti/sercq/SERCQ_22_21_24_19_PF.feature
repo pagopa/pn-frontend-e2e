@@ -9,16 +9,16 @@ Feature: Rework della pagina dei contatti
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 
-#    And Verifica ed Elimina personalizzati per ente
-#    And Attesa 1 secondi
-#    And Refresh pagina
-#    And Verifica ed Elimina personalizzati per ente
-#    And Attesa 1 secondi
-#    And Refresh pagina
-#    And Verifica e Disattiva domicilio digitale "Conferma"
-#    And Attesa 1 secondi
-#    And Refresh pagina
-#    And Verifica e Disattiva email
+    And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
+    And Refresh pagina
+    And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
+    And Refresh pagina
+    And Verifica e Disattiva domicilio digitale "Conferma"
+    And Attesa 1 secondi
+    And Refresh pagina
+    And Verifica e Disattiva email
 
     When Click Inizia
 
@@ -57,17 +57,17 @@ Feature: Rework della pagina dei contatti
     And Click Annulla
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC
 
-    And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "prova@pec.it"
+    And Nella pagina I Tuoi Recapiti si inserisce una nuova PEC "provapf@pec.it"
     And Click Bottone Conferma per modifica PEC
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
 
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova@pec.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "provapf@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
-    Then Verifica Pagina "prova@pec.it"
+    Then Verifica Pagina "provapf@pec.it"
 
 #    Scenario:19
     And Disattiva domicilio digitale e Annulla

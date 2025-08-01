@@ -85,14 +85,14 @@ Feature: Rework della pagina dei contatti
     And Click Annulla
     And Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
-    And Si inserisce la nuova Email "emailprova@test.it" del PF e clicca su Conferma
+    And Si inserisce la nuova Email "emailprovapf@test.it" del PF e clicca su Conferma
     And Si clicca sul bottone del pop-up ok ho capito
 
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
 
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "emailprova@test.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "emailprovapf@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata "emailprova@test.it"
+    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata "emailprovapf@test.it"
 
     And Click Continua Tab Inserisci un recapito
     And Spuntare checkbox privacy

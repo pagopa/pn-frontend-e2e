@@ -49,9 +49,9 @@ Feature: Rework della pagina dei contatti
     And Seleziona Tipologia "Indirizzo PEC"
     And Spuntare checkbox privacy
 
-    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1@pec.it"
+    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1pf@pec.it"
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova1@pec.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova1pf@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Click Torna ai tuoi recapiti
     And Attesa 2 secondi

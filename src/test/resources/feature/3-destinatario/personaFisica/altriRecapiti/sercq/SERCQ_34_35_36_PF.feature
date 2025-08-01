@@ -8,17 +8,14 @@ Feature: Rework della pagina dei contatti
   Scenario:[SERCQ_34_35_36_PF]
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    ##     verificare mancano pezzi inerente a SEND sull'appIO
+
     And Verifica ed Elimina personalizzati per ente
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica ed Elimina personalizzati per ente
-#    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva domicilio digitale "Conferma"
-#    And Attesa 1 secondi
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva email
@@ -47,31 +44,31 @@ Feature: Rework della pagina dei contatti
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
 #    And Seleziona Tipologia "Indirizzo PEC"
     And Spuntare checkbox privacy
-    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1@pec.it"
+    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1pf@pec.it"
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova1@pec.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova1pf@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
-    Then Verifica Pagina "prova1@pec.it"
+    Then Verifica Pagina "prova1pf@pec.it"
 
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Spuntare checkbox privacy
-    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova2@pec.it"
+    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova2pf@pec.it"
     And Click Bottone conferma Pop-up
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova2@pec.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova2pf@pec.it" tramite chiamata request
 
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
-    Then Verifica Pagina "prova2@pec.it"
+    Then Verifica Pagina "prova2pf@pec.it"
 
     #    Scenario: 35
 
