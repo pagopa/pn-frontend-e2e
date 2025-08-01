@@ -13,6 +13,7 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
+   And Attesa 1 secondi
 
    #    Precondizione
    When Click Inizia

@@ -20,7 +20,7 @@ Feature: Rework della pagina dei contatti
     And Refresh pagina
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
-
+    And Attesa 1 secondi
 #    Precondizione
     When Click Inizia
     And Click Insirisci Pec

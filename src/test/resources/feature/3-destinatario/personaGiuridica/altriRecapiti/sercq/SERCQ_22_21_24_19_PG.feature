@@ -19,7 +19,7 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva email
-
+    And Attesa 1 secondi
     When Click Inizia
 
  #    Scenario:21
