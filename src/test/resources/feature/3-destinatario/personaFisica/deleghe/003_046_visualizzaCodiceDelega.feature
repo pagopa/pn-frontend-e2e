@@ -4,6 +4,7 @@ Feature:La persona fisica visualizza il codice  di una delega
   @TA_PFvisualizzaCodiceDelega
   @NRT_Blocco_3
   @deleghe1
+  @DeleghePFPG
   Scenario:PN-9402 - La persona fisica visualizza il codice  di una delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

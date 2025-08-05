@@ -5,6 +5,7 @@ Feature: Il delegato visualizza la notifiche del delegante
   @DeleghePF
   @deleghe1
   @PF
+  @DeleghePFPG
   @DeleghePFPG1
     @loginFE_8_x
   @NRT_Blocco_3

@@ -4,6 +4,7 @@ Feature: Il delegato persona giuridica modifica una delega assegnandoli un grupp
   @TA_PGmodificaDelegaConGruppo
   @DeleghePG
   @PG
+  @DeleghePFPG
   @DeleghePFPG1
   @deleghe2
   @NRT_Blocco_1
