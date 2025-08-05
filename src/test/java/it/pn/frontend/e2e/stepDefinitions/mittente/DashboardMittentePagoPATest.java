@@ -17,7 +17,7 @@ import java.awt.*;
 
 public class DashboardMittentePagoPATest extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DashboardMittentePagoPATest");
+    private static final Logger logger = LoggerFactory.getLogger(DashboardMittentePagoPATest.class);
 
 
     private  DashboardPage dashboardPage;

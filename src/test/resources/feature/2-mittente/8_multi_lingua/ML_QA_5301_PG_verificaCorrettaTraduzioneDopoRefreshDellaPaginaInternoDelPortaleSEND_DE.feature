@@ -50,3 +50,4 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
     Then Seleziona voce menu laterale "Plattformstatus"
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND"
     And Verifica traduzione testo "Fehlerhistorie"
+    And Chiudi pagina

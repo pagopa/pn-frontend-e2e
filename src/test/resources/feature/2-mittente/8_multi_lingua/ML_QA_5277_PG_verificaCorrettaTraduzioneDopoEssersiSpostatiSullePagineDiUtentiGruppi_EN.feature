@@ -23,3 +23,4 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
 
     When Seleziona voce menu laterale "Groups"
     And Verifica traduzione testo "Groups are a set of users, for example, belonging to the same office or department, who are entrusted with notification management"
+    And Chiudi pagina

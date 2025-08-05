@@ -8,18 +8,18 @@ import it.pn.frontend.e2e.api.mittente.SpidAcsMittente;
 import it.pn.frontend.e2e.api.mittente.SpidLoginMittente;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoContinueResponse;
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
-import it.pn.frontend.e2e.config.DataPopulationConfig;
+import it.pn.frontend.e2e.config.*;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.config.WebDriverManager;
-import it.pn.frontend.e2e.config.WebViewMultiLanguageConfig;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
+import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
 import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -78,6 +79,20 @@ public class LoginPGPagoPATest extends BasePage {
     @Autowired
     @Lazy
     private WebDriverManager webDriverManager;
+
+    @Getter
+    @Setter
+    private String tokenExchange;
+
+    @Getter
+    @Setter
+    private String sessionToken;
+
+    @Autowired
+    private CustomHttpClient customHttpClient;
+
+    @Autowired
+    private RestContact restContact;
 
     @PostConstruct
     public void init(){
@@ -154,6 +169,10 @@ public class LoginPGPagoPATest extends BasePage {
                 piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
                 piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getDelegatePG().getCompanyName());
             }
+
+            //Salva il token exchange che verrà riusato per ottenere il session token da usare nelle chiamate a API SEND
+            tokenExchange = token;
+
         } catch (Exception e) {
             // Gestione delle eccezioni: stampa l'errore
             logger.info("Errore durante il login PG: " + e.getMessage());
@@ -172,7 +191,7 @@ public class LoginPGPagoPATest extends BasePage {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
 
-        while (numProvaLogin < 10) {
+        while (numProvaLogin < 20) {
             this.readUrlPortaleMittente(userMittente, pwdMittente);
             if (this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
@@ -368,7 +387,7 @@ public class LoginPGPagoPATest extends BasePage {
         boolean urlWithTokenFound = false;
         int numProvaLogin = 0;
 
-        while (numProvaLogin < 10) {
+        while (numProvaLogin < 20) {
             this.readUrlPortaleMittente(userMittente, pwdMittente);
             if (this.urlPersonaGiuridica.get("responseCode").equalsIgnoreCase("301")) {
                 urlWithTokenFound = true;
@@ -481,6 +500,45 @@ public class LoginPGPagoPATest extends BasePage {
             default -> {
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
+        }
+    }
+
+    @When("Da portale persona giuridica si ottiene un token di sessione")
+    public void portalePGNewSessionToken() {
+        CustomHttpClient<?, String> httpClient = customHttpClient;
+        try {
+            String jwtToken = httpClient.getJwtToken(tokenExchange);
+            sessionToken = jwtToken;
+        } catch (IOException e) {
+            logger.error("Errore durante portalePGNewSessionToken", e);
+            throw new RuntimeException("Errore durante la richiesta di fetch di un session token", e);
+        }
+    }
+
+    // Si setta il token di sessione per avere risposte API valide dal server SEND
+    // (thread in parallelo usano lo stesso token di sessione, causando risposte 403)
+    @And("Rimuovi da API tutti i recapiti per persona giuridica se esistono")
+    public void clearRecapitiPG() {
+        restContact.setSessionToken(sessionToken);
+        var digitalAddresses = restContact.getAllDigitalAddress();
+        if (digitalAddresses != null && !digitalAddresses.isEmpty()) {
+            digitalAddresses.forEach(address -> {
+                if ("default".equalsIgnoreCase(address.getSenderId())) {
+                    if ("LEGAL".equalsIgnoreCase(address.getAddressType())) {
+                        if ("SERCQ_SEND".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressLegalSend();
+                        }
+                        else if ("PEC".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressLegalPec();
+                        }
+                    }
+                    else {
+                        restContact.removeDigitalAddressCourtesyEmail();
+                    }
+                } else {
+                    restContact.removeSpecialContact(address);
+                }
+            });
         }
     }
 }

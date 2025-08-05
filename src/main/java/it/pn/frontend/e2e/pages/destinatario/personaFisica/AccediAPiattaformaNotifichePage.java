@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -298,7 +299,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         WebElement cliccaPaga = getWebDriverWait(15)
                 .withMessage("Il bottone 'Paga' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='pay-button']")));
-
         // Clicca sul pulsante 'Paga'
         cliccaPaga.click();
     }
@@ -438,32 +438,66 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
         continuaButton.click();
         logger.info("Il bottone Continua cliccato in Inserisci i dati della carta");
 
-        // Clicca sul radio button di Intesa Sanpaolo
-        clickIntesaSanpaoloRadioButton();
+        //Check se amount è pagabile da Intesa Sanpaolo (radio button non c'è in caso di amount pari a 6.000,00 euro)
+        String amount = driver.findElement(By.xpath("//button[@aria-label='Apri riepilogo pagamento']")).getText();
+        logger.info("Importo da pagare per la notifica: {}", amount);
 
-        // Clicca sul bottone Continua su Scegli chi gestirà il pagamento
-        WebElement continuaButtonScegliPagamento = getWebDriverWait(60)
-                .withMessage("Il bottone Continua su Scegli chi gestirà il pagamento non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("paymentPspListPageButtonContinue")));
-        continuaButtonScegliPagamento.click();
+        // Clicca sul radio button di Intesa Sanpaolo o Nexi (a seconda se amount da pagare è autorizzabile)
+        if (amount.contains("6.000,00")) {
 
-        // Clicca sul bottone Modifica
-        WebElement modificaButton = getWebDriverWait(60)
-                .withMessage("Il bottone modifica non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));
-        modificaButton.click();
+            // Clicca sul bottone Modifica
+            WebElement modificaButton = getWebDriverWait(60)
+                    .withMessage("Il bottone modifica non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));
+            modificaButton.click();
 
-        // Clicca su Intesa Sanpaolo S.p.A
-        WebElement intesaSanpaolo = getWebDriverWait(60)
-                .withMessage("Intesa Sanpaolo S.p.A non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(text(),'Intesa Sanpaolo S.p.A')])[2]")));
-        intesaSanpaolo.click();
+            // Clicca su Nexi
+            WebElement intesaSanpaolo = getWebDriverWait(60)
+                    .withMessage("Nexi non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(text(),'Nexi')])[2]")));
+            intesaSanpaolo.click();
+        }
+
+        else {
+
+            clickIntesaSanpaoloRadioButton();
+
+            // Clicca sul bottone Continua su Scegli chi gestirà il pagamento
+            WebElement continuaButtonScegliPagamento = getWebDriverWait(60)
+                    .withMessage("Il bottone Continua su Scegli chi gestirà il pagamento non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("paymentPspListPageButtonContinue")));
+            continuaButtonScegliPagamento.click();
+
+            // Clicca sul bottone Modifica
+            WebElement modificaButton = getWebDriverWait(60)
+                    .withMessage("Il bottone modifica non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("pspEdit")));
+            modificaButton.click();
+
+            // Clicca su Intesa Sanpaolo S.p.A
+            WebElement intesaSanpaolo = getWebDriverWait(60)
+                    .withMessage("Intesa Sanpaolo S.p.A non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("(//div[contains(text(),'Intesa Sanpaolo S.p.A')])[2]")));
+            intesaSanpaolo.click();
+        }
 
         // Clicca sul bottone Paga
         WebElement pagaButton = getWebDriverWait(60)
                 .withMessage("Il bottone Paga non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@id='paymentCheckPageButtonPay']")));
         pagaButton.click();
+
+        //verifica conferma pagamento
+        WebElement titoloConfermaPagamento = getWebDriverWait(200)
+                .withMessage("Il titolo di conferma di pagamento avvenuto di " + amount + " non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("responsePageMessageTitle")));
+
+        WebElement bodyConfermaPagamento = getWebDriverWait(200)
+                .withMessage("Il body di conferma di pagamento avvenuto di " + amount + " non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("responsePageMessageBody")));
+
+        Assertions.assertTrue(titoloConfermaPagamento.getText().contains("Hai pagato"), "Il pagamento di " + amount + " non è stato effettuato con messaggio " + titoloConfermaPagamento.getText());
+        Assertions.assertTrue(bodyConfermaPagamento.getText().contains("Abbiamo inviato la conferma del pagamento"), "Il pagamento di " + amount + " non è stato effettuato con messaggio " + bodyConfermaPagamento.getText());
 
         // Clicca sul bottone Continua finale
         WebElement continueButton = getWebDriverWait(200)
@@ -509,8 +543,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
             radioButton.click();
         } catch (Exception e) {
             // Gestione delle eccezioni: stampa l'errore se il radio button non è trovato o non è cliccabile
-            logger.error("Errore durante il click sul radio button di Intesa Sanpaolo S.p.A: " + e.getMessage());
-            throw e;
+            Assertions.fail("Errore durante il click sul radio button di Intesa Sanpaolo S.p.A: " + e.getMessage());
         }
     }
 

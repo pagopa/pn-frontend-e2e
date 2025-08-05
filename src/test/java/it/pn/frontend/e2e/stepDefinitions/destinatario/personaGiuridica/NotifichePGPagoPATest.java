@@ -41,7 +41,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class NotifichePGPagoPATest extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("NotifichePGPagoPATest");
+    private final Logger logger = LoggerFactory.getLogger(NotifichePGPagoPATest.class);
 
     Map<String, Object> personaGiuridica = new HashMap<>();
 

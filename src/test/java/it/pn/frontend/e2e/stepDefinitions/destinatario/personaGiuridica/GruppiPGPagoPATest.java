@@ -22,7 +22,7 @@ import java.util.Map;
 @Slf4j
 public class GruppiPGPagoPATest extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("GruppiPGPagoPATest");
+    private final Logger logger = LoggerFactory.getLogger(GruppiPGPagoPATest.class);
 
     private  WebTool webTool;
 

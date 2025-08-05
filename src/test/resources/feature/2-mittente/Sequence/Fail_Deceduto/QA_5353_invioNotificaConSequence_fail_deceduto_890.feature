@@ -7,14 +7,9 @@ Feature: invio notifica con sequence
 
   Scenario: [DECEDUTO_890_QA-5353] - Il mittente invia una notifica a destinatario con sequence
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
-    Given Login Page persona giuridica viene visualizzata
-    When Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | Convivio Spa   |
-    And Si clicca su prodotto
-    And Si visualizza correttamente la pagina Piattaforma Notifiche persona giuridica
-    And Rimuovi tutti i recapiti se esistono
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Da portale persona giuridica si ottiene un token di sessione
+    And Rimuovi da API tutti i recapiti per persona giuridica se esistono
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
@@ -39,7 +34,9 @@ Feature: invio notifica con sequence
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Resa al mittente"
-    And Aspetta 400 secondi
+#    And Aspetta 400 secondi
+    And Attesa 400 secondi
+    And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"La raccomandata 890") and contains(text(),"è stata stampata ed imbustata")] |
       | vediDettagli | true                                                                                             |
