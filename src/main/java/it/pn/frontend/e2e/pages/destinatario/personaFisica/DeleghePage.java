@@ -85,7 +85,7 @@ public class DeleghePage extends BasePage {
             getWebDriverWait(30).withMessage("Il nome del Delegato non è visibile").until(ExpectedConditions.visibilityOf(nomeDelegato));
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
-            logger.error("nome del delegato non presente con errore" + e.getMessage());
+            logger.error("nome del delegato non presente con errore " + e.getMessage());
             return false;
         }
     }
@@ -159,8 +159,15 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickOpzioneRevoca() {
-        revocaButton = driver.findElement(By.id("revoke-delegation-button"));
-        revocaButton.click();
+//        revocaButton = driver.findElement(By.id("revoke-delegation-button"));
+//        revocaButton.click();
+
+        WebElement clickOpzioneRevoca = getWebDriverWait(20)
+                .withMessage("Il pulsante 'Revoca' con id 'revoke-delegation-button' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+
+        clickOpzioneRevoca.click();
+
     }
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
@@ -329,5 +336,19 @@ public class DeleghePage extends BasePage {
         String testoErrore = messaggioErrore.getText();
 
         Assertions.assertTrue(testoErrore.contains(messaggio),"Messaggio atteso non trovato. Messaggio rilevato: " + testoErrore);
+    }
+
+    public void nellaSezioneLeTueDelegheVerificaEsistenzaNomeECognomiErrati(String nomeCompletoAtteso, String persona) {
+        String xpath= "//tr[@data-testid='delegatesBodyRowDesktop']";
+        if(persona.equalsIgnoreCase("PF"))
+            xpath="//tr[@data-testid='delegatesTable.body.row']";
+        List<WebElement> righe = driver.findElements(By.xpath(xpath));
+
+        boolean trovato = righe.stream()
+                .map(r -> r.findElement(By.xpath(".//td[1]//p")).getText().trim())
+                .anyMatch(nome -> nome.equalsIgnoreCase(nomeCompletoAtteso));
+
+        Assertions.assertTrue(trovato, "Nome '" + nomeCompletoAtteso + "' NON trovato nella tabella.");
+
     }
 }

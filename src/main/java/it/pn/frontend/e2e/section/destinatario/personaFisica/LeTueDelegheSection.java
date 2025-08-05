@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,10 @@ import java.util.Map;
 public class LeTueDelegheSection extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger("LeTueDelegheSection");
+
+    private static final String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}";
+
+    private static final SecureRandom RANDOM = new SecureRandom();
 
 
     @FindBy(xpath = "//input[@value='PF']")
@@ -155,6 +160,20 @@ public class LeTueDelegheSection extends BasePage {
             codiceVerifica.append(webElement.getText());
         }
         return codiceVerifica.toString();
+    }
+
+    public String getNome() {
+        WebElement nomeInput = getWebDriverWait(10)
+                .withMessage("Errore: il campo Nome non è visibile entro 10 secondi.")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("nome")));
+        return nomeInput.getAttribute("value");
+    }
+
+    public String getCognome() {
+        WebElement cognomeInput = getWebDriverWait(10)
+                .withMessage("Errore: il campo Cognome non è visibile entro 10 secondi.")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("cognome")));
+        return cognomeInput.getAttribute("value");
     }
 
     public void inserireCF(String cf) {
@@ -432,6 +451,20 @@ public class LeTueDelegheSection extends BasePage {
         codiceFiscaleField.sendKeys(destinatario.get("codiceFiscale"));
 
     }
+
+    public static String generaCodificato(String nome, int lengthPrefix, int lengthSuffix) {
+        return randomString(lengthPrefix) + nome + randomString(lengthSuffix);
+    }
+
+    private static String randomString(int length) {
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(CHARS.charAt(RANDOM.nextInt(CHARS.length())));
+        }
+        return sb.toString();
+    }
+
+
 }
 
 
