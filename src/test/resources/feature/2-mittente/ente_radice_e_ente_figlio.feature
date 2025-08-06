@@ -99,7 +99,7 @@ Feature: Ente figlio e Ente radice
       | cognome       | Borgia              |
       | codiceFiscale | BRGLRZ80D58H501Q    |
       | ente          | Comune di Viggiu    |
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
 #    And Logout da portale persona fisica
@@ -215,7 +215,7 @@ Feature: Ente figlio e Ente radice
       | cognome       | Borgia              |
       | codiceFiscale | BRGLRZ80D58H501Q    |
       | ente          | Comune di Viggiu    |
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
 #    And Logout da portale persona fisica

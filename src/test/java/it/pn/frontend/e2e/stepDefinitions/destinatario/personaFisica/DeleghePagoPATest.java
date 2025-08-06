@@ -157,14 +157,21 @@ public class DeleghePagoPATest extends BasePage {
         }
     }
 
-    @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file")
-    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile() {
+    @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file {string}")
+    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(String persona) {
         logger.info("Si salva il codice deleghe nel file SharedSteps -> NuovaDelega");
         //NUOVA DELEGA
         String codiceVerifica = leTueDelegheSection.salvataggioCodiceVerifica();
 
         logger.info("CodiceVerifica Creazione delega: " + codiceVerifica);
-        dataPopulationConfig.getNuovaDelega().setCodiceDelega(codiceVerifica);
+        switch (persona) {
+            case "PF" ->
+                dataPopulationConfig.getNuovaDelega().setCodiceDelega(codiceVerifica);
+            case "PG" ->
+                dataPopulationConfig.getNuovaDelegaPg().setCodiceDelega(codiceVerifica);
+            default ->
+                Assertions.fail("Impossibile determinare tipo di persona, inserire come input dello step PF o PG");
+        }
 
     }
 
