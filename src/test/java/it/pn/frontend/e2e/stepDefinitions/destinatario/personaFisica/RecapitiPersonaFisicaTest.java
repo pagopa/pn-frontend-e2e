@@ -245,6 +245,42 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         recapitiDestinatarioPage.clickConferma();
     }
 
+    @And("Si inserisce la {string} con Caratteri Speciali")
+    public void inserisceLaPecConCaratteriSpeciali(String tipo) {
+        int tentativi = 0;
+        int maxTentativi = 30;
+        String indirizzoGenerato;
+
+        while (tentativi < maxTentativi) {
+            // Genera indirizzo non valido in base al tipo richiesto
+            indirizzoGenerato = tipo.equalsIgnoreCase("pec") ?
+                    recapitiDestinatarioPage.generateInvalidAddress("pec") :
+                    recapitiDestinatarioPage.generateInvalidAddress("email");
+
+            // Inserisce l’indirizzo nel campo corretto
+            if (tipo.equalsIgnoreCase("pec")) {
+                recapitiDestinatarioPage.insertPEC(indirizzoGenerato);
+            } else {
+                recapitiDestinatarioPage.insertEmail(indirizzoGenerato);
+            }
+
+            // Verifica se il sistema NON ha segnalato errore (quindi lo considera valido)
+            webTool.waitTime(2);
+
+            boolean erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoEmailPecNonValido(tipo);
+            logger.info("erroreVisibile:" +erroreVisibile);
+
+            // Se NON c’è errore → indirizzo accettato → interrompi
+            if (!erroreVisibile) {
+                Assertions.fail("Il sistema ha accettato un indirizzo non valido: " + indirizzoGenerato);
+                return;
+            }
+            tentativi++;
+        }
+        Assertions.assertTrue(true, "Tutti gli indirizzi sono stati correttamente segnalati come non validi");
+
+    }
+
 
 
 

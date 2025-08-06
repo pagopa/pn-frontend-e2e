@@ -3,18 +3,35 @@ package it.pn.frontend.e2e.common;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 
 public class RecapitiDestinatarioPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("RecapitiDestinatarioPage");
+    private final Logger logger = LoggerFactory.getLogger(RecapitiDestinatarioPage.class);
+
+    private static final Random random = new Random();
+    private static final char[] INVALID_SPECIAL_CHARS = {
+            '{', '}', '[', ']', '(', ')', '<', '>', ',', ';', ':', '\\', '\"', '\'', '`', ' ', '|', '^', '~'
+    };
+
+    private static final String[] PEC_DOMAINS = {
+            "legalmail.it", "postacert.it", "pec.it"
+    };
+
+    private static final String[] EMAIL_DOMAINS = {
+            "gmail.com", "yahoo.com", "hotmail.com", "example.com"
+    };
+
+    private static final String[] EMAIL_EXTENSIONS = {
+            "com", "net", "org", "it"
+    };
 
 
     @FindBy(id = "default_pec-button")
@@ -327,6 +344,9 @@ public void clearOTP() {
     public void insertEmail(String email) {
         getWebDriverWait(10).withMessage("l'input mail non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))));
         inserimentoMailField = driver.findElement(By.id("default_email"));
+
+        inserimentoMailField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        inserimentoMailField.sendKeys(Keys.DELETE);
 
         if (!inserimentoMailField.getAttribute("value").isEmpty()) {
             inserimentoMailField.clear();
@@ -1244,6 +1264,9 @@ public void clearOTP() {
         WebElement pecInput = getWebDriverWait(20)
                 .withMessage("Impossibile Inserisci PEC")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-testid='pec-wizard-input']//input")));
+        webTool.waitTime(1);
+        pecInput.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        pecInput.sendKeys(Keys.DELETE);
         pecInput.sendKeys(emailPec);
     }
 
@@ -1653,6 +1676,26 @@ public void verificaEDisattivaEmail() {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
     }
 
+    public boolean  verificaIndirizzoEmailPecNonValido(String emailPec) {
+        try {
+            WebElement errore = null;
+            if (emailPec.equalsIgnoreCase("pec")) {
+                errore = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
+
+            }
+            else{
+                errore = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
+            }
+
+            return errore.getText().toLowerCase().contains("non valido");
+
+        } catch (TimeoutException e) {
+            return false; // Nessun errore visibile
+        }
+    }
+
     public void verificaScomparsaBannerInizia() {
         boolean invisibile = getWebDriverWait(10)
                 .withMessage("Il tasto 'Inizia' nel banner è ancora visibile")
@@ -1712,4 +1755,30 @@ public void verificaEDisattivaEmail() {
         dialogButton.click();
 
     }
+
+    public  String generateInvalidAddress(String type) {
+        String baseName = getRandomName();
+        int insertPos = random.nextInt(baseName.length() + 1);
+        char invalidChar = INVALID_SPECIAL_CHARS[random.nextInt(INVALID_SPECIAL_CHARS.length)];
+        String localPart = baseName.substring(0, insertPos) + invalidChar + baseName.substring(insertPos);
+
+        if ("pec".equalsIgnoreCase(type)) {
+            String domain = PEC_DOMAINS[random.nextInt(PEC_DOMAINS.length)];
+            return localPart + "@" + domain;
+        } else if ("email".equalsIgnoreCase(type)) {
+            String domain = EMAIL_DOMAINS[random.nextInt(EMAIL_DOMAINS.length)];
+            String ext = EMAIL_EXTENSIONS[random.nextInt(EMAIL_EXTENSIONS.length)];
+            return localPart + "@" + domain + "." + ext;
+        } else {
+            throw new IllegalArgumentException("Tipo non supportato: " + type);
+        }
+    }
+
+    private  String getRandomName() {
+        String[] names = { "anna", "mario", "luigi", "giuseppe", "francesca", "paolo", "lucia", "roberto" };
+        return names[random.nextInt(names.length)];
+    }
+
+
+
 }

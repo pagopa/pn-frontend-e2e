@@ -3,7 +3,7 @@ Feature:La persona fisica aggiunge una nuova delega
   @TestSuite
   @TA_PF_aggiuntadelega_nome_cognome_errato
   @DeleghePF
-  @NRT_Blocco_3
+  @NRT_VALIDATION
   @deleghe1
   Scenario:PN- La persona giuridica aggiunge una nuova delega con nome e cogmome errati rispetto al CF
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
