@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class DeleghePagoPATest extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DeleghePagoPATest");
+    private static final Logger logger = LoggerFactory.getLogger(DeleghePagoPATest.class);
 
 
     @Autowired

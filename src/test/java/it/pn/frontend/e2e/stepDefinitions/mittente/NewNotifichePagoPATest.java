@@ -27,7 +27,7 @@ import java.util.UUID;
 @Slf4j
 public class NewNotifichePagoPATest extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("NewNotifichePagoPATest");
+    private static final Logger logger = LoggerFactory.getLogger(NewNotifichePagoPATest.class);
 
     private final String FILE_TOKEN_LOGIN = "tokenLogin.yaml";
 

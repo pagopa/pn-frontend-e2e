@@ -13,3 +13,4 @@ Feature: PF - Verifica corretta traduzione nella pagina di Login - FR
     And Verifica traduzione testo "Sélectionnez le mode que vous préférez"
     And Verifica traduzione testo "Connectez-vous avec SPID"
     And Verifica traduzione testo "Entrez avec CIE"
+    And Chiudi pagina

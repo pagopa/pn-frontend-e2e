@@ -1069,7 +1069,6 @@ public class PiattaformaNotifichePage extends BasePage {
                 return;
             }
         }
-
         logger.info("Le date sono visualizzate correttamente");
     }
 

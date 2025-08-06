@@ -37,7 +37,7 @@ import java.util.Map;
 
 
 public class DeleghePGPagoPATest extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPATest");
+    private final Logger logger = LoggerFactory.getLogger(DeleghePGPagoPATest.class);
 
     @Autowired
     private DeleghePagoPATest deleghePagoPATest;

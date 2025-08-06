@@ -20,6 +20,7 @@ Feature: PG - Cambio Lingua da SEND a portale Area Riservata - FR
     And Verifica traduzione testo "Consulter le résumé des données et lire les notifications de Convivio Spa"
     And Verifica traduzione testo "Notifications numériques"
     And Verifica traduzione testo "Utilisateurs"
+    And Chiudi pagina
 
 
 

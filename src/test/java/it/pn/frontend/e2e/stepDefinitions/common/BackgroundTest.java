@@ -37,7 +37,7 @@ public class BackgroundTest  extends BasePage {
     private final String nomeFileNuovaDelegaPG = "nuovaDelegaPG";
     private final String mittente = "mittente";
     private final Map<String, String> datiPersonaFisica;
-    private static final Logger logger = LoggerFactory.getLogger("BackgroundTest");
+    private static final Logger logger = LoggerFactory.getLogger(BackgroundTest.class);
 
     @Autowired
     @Lazy

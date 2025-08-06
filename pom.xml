@@ -72,7 +72,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-devtools-v138</artifactId>
-            <version>4.34.0</version> <!-- o la versione di Selenium che stai usando -->
+            <version>4.34.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
         <dependency>

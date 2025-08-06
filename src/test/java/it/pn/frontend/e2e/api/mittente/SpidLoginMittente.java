@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class SpidLoginMittente {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidLoginMittente");
+    private static final Logger logger = LoggerFactory.getLogger(SpidLoginMittente.class);
     private final String entityID;
     private final String authLevel;
     private String spidLoginMittenteEndPoint;

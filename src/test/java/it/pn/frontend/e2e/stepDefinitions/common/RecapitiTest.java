@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Lazy;
 public class RecapitiTest extends BasePage {
 
 
-    private final Logger logger = LoggerFactory.getLogger("RecapitiTest");
+    private final Logger logger = LoggerFactory.getLogger(RecapitiTest.class);
 
     private final String PEC = "PEC";
     private final String emailDiCortesia = "email di cortesia";

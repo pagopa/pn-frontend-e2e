@@ -21,7 +21,7 @@ import static io.cucumber.junit.platform.engine.Constants.*;
 })
 
 public class RunCucumberTest {
-    private static final Logger logger = LoggerFactory.getLogger("RunCucumberTest");
+    private static final Logger logger = LoggerFactory.getLogger(RunCucumberTest.class);
 
 }
 

@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit;
 
 public class NotifichePersonaFisicaPagoPATest extends BasePage{
 
-    private static final Logger logger = LoggerFactory.getLogger("NotifichePersonaFisicaTest");
+    private static final Logger logger = LoggerFactory.getLogger(NotifichePersonaFisicaPagoPATest.class);
 
     private Map<String, Object> personaFisica = new HashMap<>();
 
@@ -506,21 +506,22 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage{
     }
 
     @Then("Si inserisce i dati di pagamento e procede con il pagamento {string}")
-        public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
-            logger.info("Si inserisce i dati di pagamento");
-            accediAPiattaformaNotifichePage.inserireDatiPagamento(email);
-            accediAPiattaformaNotifichePage.checkoutPagamento();
-        }
-        @And("Si verifica che visualizzato lo stato Pagato")
-        public void siVisualizzaStatoPagato(){
+    public void siInserisceIDatiDiPagamento(String email) throws InterruptedException {
+        logger.info("Si inserisce i dati di pagamento");
+        accediAPiattaformaNotifichePage.inserireDatiPagamento(email);
+        accediAPiattaformaNotifichePage.checkoutPagamento();
+    }
+
+    @And("Si verifica che visualizzato lo stato Pagato")
+    public void siVisualizzaStatoPagato(){
             accediAPiattaformaNotifichePage.siVisualizzaStatoPagato();
         }
 
-        @And("Verifica nome ente mittente {string}")
-        public void verificaNomeEnteMittente(String nomeEnte){
-            Map<String, String> infoNotifiche = dettaglioNotificaSection.recuperoInfoNotificheDestinatario();
-            Assertions.assertTrue(infoNotifiche.get("mittente").equalsIgnoreCase(nomeEnte));
-        }
+    @And("Verifica nome ente mittente {string}")
+    public void verificaNomeEnteMittente(String nomeEnte){
+        Map<String, String> infoNotifiche = dettaglioNotificaSection.recuperoInfoNotificheDestinatario();
+        Assertions.assertTrue(infoNotifiche.get("mittente").equalsIgnoreCase(nomeEnte));
+    }
 
     @And("Verifica Presenza Codici Avviso PagoPa {int} e ModelloF24 {int}")
     public void verificaPresenzaCodiciAvvisoEF24(int numeroAttesoCodiciAvviso, int numeroAttesoF24) {

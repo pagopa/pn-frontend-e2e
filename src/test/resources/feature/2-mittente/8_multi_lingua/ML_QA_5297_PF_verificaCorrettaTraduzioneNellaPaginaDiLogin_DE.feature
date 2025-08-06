@@ -11,3 +11,4 @@ Feature: PF - Verifica corretta traduzione nella pagina di Login - DE
     And Verifica traduzione testo "Wie möchtest du dich anmelden"
     And Verifica traduzione testo "Mit SPID anmelden"
     And Verifica traduzione testo "Mit CIE anmelden"
+    And Chiudi pagina
