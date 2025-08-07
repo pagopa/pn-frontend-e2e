@@ -35,7 +35,6 @@ public class ScegliSpidPFPage extends BasePage {
             getWebDriverWait(30).withMessage("Il titolo scegli Spid PF non trovato").until(ExpectedConditions.visibilityOf(titlePage));
             logger.info("Scegli Spid DE Page caricata");
         }catch (TimeoutException e){
-            logger.error("Scegli Spid DE Page non caricata con errore : "+e.getMessage());
             Assertions.fail("Scegli Spid DE Page non caricata con errore : "+e.getMessage());
         }
     }
@@ -47,7 +46,7 @@ public class ScegliSpidPFPage extends BasePage {
 
     public void selezionareTestButton() {
         WebElement testButton = getWebDriverWait(60)
-                .withMessage("il bottone Test dello spid non è cliccabile")
+                .withMessage("il bottone TEST del metodo selezionareTestButton non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("spid-select-xx_testenv2")));
         testButton.click();
     }

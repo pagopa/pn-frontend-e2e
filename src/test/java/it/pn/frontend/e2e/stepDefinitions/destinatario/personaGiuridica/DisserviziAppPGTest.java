@@ -25,7 +25,7 @@ import java.util.Set;
 
 public class DisserviziAppPGTest extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("DisserviziAppPGTest");
+    private final Logger logger = LoggerFactory.getLogger(DisserviziAppPGTest.class);
 
     private  DisserviziAppPage disserviziAppPage;
 

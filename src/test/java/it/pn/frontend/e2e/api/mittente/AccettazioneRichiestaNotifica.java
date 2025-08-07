@@ -25,7 +25,7 @@ import java.util.List;
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class AccettazioneRichiestaNotifica {
-    private static final Logger logger = LoggerFactory.getLogger("AccettazioneRichiestaNotifica");
+    private static final Logger logger = LoggerFactory.getLogger(AccettazioneRichiestaNotifica.class);
 
     private String notificationRequestId;
 

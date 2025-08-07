@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Lazy;
 import java.util.Map;
 
 public class UtentiPGPagoPATest extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("UtentiPGPagoPATest");
+    private final Logger logger = LoggerFactory.getLogger(UtentiPGPagoPATest.class);
 
 
     private  WebTool webTool;

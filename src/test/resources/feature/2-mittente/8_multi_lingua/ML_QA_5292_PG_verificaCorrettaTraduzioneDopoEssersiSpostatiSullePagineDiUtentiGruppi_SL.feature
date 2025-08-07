@@ -24,3 +24,4 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
 
     When Seleziona voce menu laterale "Skupine"
     And Verifica traduzione testo "Tukaj lahko upravljate skupine podjetja in ustvarjate nove"
+    And Chiudi pagina

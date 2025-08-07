@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class ApiKeysTest  extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("ApiKeysTest");
+    private static final Logger logger = LoggerFactory.getLogger(ApiKeysTest.class);
 
     @Getter
     @Setter
