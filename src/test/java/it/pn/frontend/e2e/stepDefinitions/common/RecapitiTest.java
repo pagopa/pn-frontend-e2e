@@ -7,6 +7,7 @@ import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ public class RecapitiTest extends BasePage {
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
     private ITuoiRecapitiPage iTuoiRecapitiPage;
+    private WebTool webTool;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -42,6 +44,7 @@ public class RecapitiTest extends BasePage {
     @PostConstruct
     public void init(){
         logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
         recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
         iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
@@ -374,5 +377,71 @@ public class RecapitiTest extends BasePage {
     @And("Click Scollega SEND da IO nel Pop-up Aggiungi i tuoi recapiti e importante")
     public void clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante() {
         recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
+    }
+
+    @And("Nella pagina I Tuoi Recapiti si inserisce {string} con caratteri speciali per la persona {string}")
+    public void nellaPaginaITuoiRecapitiSiInserisceConCaratteriSpecialiPerLaPersona(String tipo, String persona) {
+
+        int tentativi = 0;
+        int maxTentativi = 30;
+        String indirizzoGenerato;
+
+        while (tentativi < maxTentativi) {
+            // Genera indirizzo non valido in base al tipo richiesto
+            indirizzoGenerato = tipo.equalsIgnoreCase("pec") ?
+                    recapitiDestinatarioPage.generateInvalidAddress("pec") :
+                    recapitiDestinatarioPage.generateInvalidAddress("email");
+            //Possibilita in futuro, distinguere se è per persona fisica o giuridica e per email o pec
+            recapitiDestinatarioPage.cancellaTesto();
+            recapitiDestinatarioPage.insertEmailPEC(indirizzoGenerato);
+
+
+            webTool.waitTime(2);
+
+            boolean erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoPecModificatoNonValido(tipo);
+
+            // Se NON c’è errore → indirizzo accettato → interrompi
+            if (!erroreVisibile) {
+                Assertions.fail("Il sistema ha accettato un indirizzo non valido: " + indirizzoGenerato);
+                return;
+            }
+            tentativi++;
+        }
+        Assertions.assertTrue(true, "Tutti gli indirizzi sono stati correttamente segnalati come non validi");
+
+
+    }
+
+    @And("Si inserisce {string} con Caratteri Speciali Personalizza il tuo domicilio digitale per ente mittente")
+    public void siInserisceConCaratteriSpecialiPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String tipo) {
+        int tentativi = 0;
+        int maxTentativi = 30;
+        String indirizzoGenerato;
+
+        while (tentativi < maxTentativi) {
+            // Genera indirizzo non valido in base al tipo richiesto
+            indirizzoGenerato = tipo.equalsIgnoreCase("pec") ?
+                    recapitiDestinatarioPage.generateInvalidAddress("pec") :
+                    recapitiDestinatarioPage.generateInvalidAddress("email");
+
+                recapitiDestinatarioPage.inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnteCaratteriSpeciali(indirizzoGenerato);
+
+            // Verifica se il sistema NON ha segnalato errore (quindi lo considera valido)
+            webTool.waitTime(2);
+
+            boolean erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoPecPersonalizzaIlTuoDomicilioPerEnteMittenteNonValido(tipo);
+
+            // Se NON c’è errore → indirizzo accettato → interrompi
+            if (!erroreVisibile) {
+                Assertions.fail("Il sistema ha accettato un indirizzo non valido: " + indirizzoGenerato);
+                return;
+            }
+            tentativi++;
+        }
+        Assertions.assertTrue(true, "Tutti gli indirizzi sono stati correttamente segnalati come non validi");
+
+
+
+
     }
 }

@@ -1320,6 +1320,17 @@ public void clearOTP() {
         clickConferma();
     }
 
+    public void inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnteCaratteriSpeciali(String pecOrEmail) {
+        WebElement inputPEC = getWebDriverWait(10)
+                .withMessage("Impossibile inserire Pec o Email")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("s_value")));
+        webTool.waitTime(1);
+        inputPEC.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        inputPEC.sendKeys(Keys.DELETE);
+        inputPEC.sendKeys(pecOrEmail);
+
+    }
+
     public void verificaEdEliminaPersonalizzatiPerEnte() {
         try {
             WebElement eliminaButton = getWebDriverWait(5)
@@ -1687,6 +1698,48 @@ public void verificaEDisattivaEmail() {
             else{
                 errore = getWebDriverWait(5)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
+            }
+
+            return errore.getText().toLowerCase().contains("non valido");
+
+        } catch (TimeoutException e) {
+            return false; // Nessun errore visibile
+        }
+    }
+
+    public boolean  verificaIndirizzoPecModificatoNonValido(String emailPec) {
+        try {
+            WebElement errore = null;
+            if (emailPec.equalsIgnoreCase("pec")) {
+                errore = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-helper-text")));
+
+            }
+            else{
+                //non cancellare potrenne servire dopo
+//                errore = getWebDriverWait(5)
+//                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
+            }
+
+            return errore.getText().toLowerCase().contains("non valido");
+
+        } catch (TimeoutException e) {
+            return false; // Nessun errore visibile
+        }
+    }
+
+    public boolean  verificaIndirizzoPecPersonalizzaIlTuoDomicilioPerEnteMittenteNonValido(String emailPec) {
+        try {
+            WebElement errore = null;
+            if (emailPec.equalsIgnoreCase("pec")) {
+                errore = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("s_value-helper-text")));
+
+            }
+            else{
+                //non cancellare potrenne servire dopo
+//                errore = getWebDriverWait(5)
+//                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
             }
 
             return errore.getText().toLowerCase().contains("non valido");

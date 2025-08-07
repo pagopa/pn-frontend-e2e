@@ -15,4 +15,4 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
     And Attesa 1 secondi
 
-    And Si inserisce la "email" con Caratteri Speciali
+    And Si inserisce "email" con Caratteri Speciali Home Page

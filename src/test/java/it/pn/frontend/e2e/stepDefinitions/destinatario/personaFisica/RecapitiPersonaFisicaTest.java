@@ -245,8 +245,8 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         recapitiDestinatarioPage.clickConferma();
     }
 
-    @And("Si inserisce la {string} con Caratteri Speciali")
-    public void inserisceLaPecConCaratteriSpeciali(String tipo) {
+    @And("Si inserisce {string} con Caratteri Speciali Home Page")
+    public void inserisceLaPecConCaratteriSpecialiHomePage(String tipo) {
         int tentativi = 0;
         int maxTentativi = 30;
         String indirizzoGenerato;
@@ -268,7 +268,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
             webTool.waitTime(2);
 
             boolean erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoEmailPecNonValido(tipo);
-            logger.info("erroreVisibile:" +erroreVisibile);
 
             // Se NON c’è errore → indirizzo accettato → interrompi
             if (!erroreVisibile) {

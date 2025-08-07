@@ -304,7 +304,6 @@ public class LoginPGPagoPATest extends BasePage {
     @When("Login con persona giuridica")
     public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
-//TODO solo per HOTFIX
 //        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();

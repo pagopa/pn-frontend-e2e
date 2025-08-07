@@ -18,4 +18,4 @@ Feature: Rework della pagina dei contatti
     When Click Inizia
     And Click Continua
 
-    And Si inserisce la "email" con Caratteri Speciali
+    And Si inserisce "email" con Caratteri Speciali

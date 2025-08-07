@@ -18,4 +18,4 @@ Feature: Rework della pagina dei contatti
    #    Precondizione
     When Click Inizia
     And Click Insirisci Pec
-    And Si inserisce la "pec" con Caratteri Speciali
+    And Si inserisce "pec" con Caratteri Speciali Home Page
