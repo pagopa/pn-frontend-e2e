@@ -33,7 +33,7 @@ Feature: La persona giuridica aggiunge una nuova delega
       | codiceFiscale | BRGLRZ80D58H501Q    |
       | ente          | Comune di Verona    |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Delegati dall impresa si visualizza la delega in stato di attesa di conferma
     And Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca

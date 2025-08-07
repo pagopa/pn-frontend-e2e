@@ -5,6 +5,7 @@ Feature: Il delegato visualizza la notifiche del delegante
   @DeleghePF
   @deleghe1
   @PF
+  @DeleghePFPG
   @DeleghePFPG1
     @loginFE_8_x
   @NRT_Blocco_3
@@ -25,12 +26,12 @@ Feature: Il delegato visualizza la notifiche del delegante
       | codiceFiscale | BRGLRZ80D58H501Q  |
       | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
 
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
     And Si controlla che la delega ha lo stato Attiva
