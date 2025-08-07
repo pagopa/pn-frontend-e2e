@@ -304,12 +304,11 @@ public class LoginPGPagoPATest extends BasePage {
     @When("Login con persona giuridica")
     public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
-
-        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+//        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-        }
+//        }
 
         if (StringUtils.isEmpty(datiPG.get("lingua")) || datiPG.get("lingua").equalsIgnoreCase("IT")) {
             accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
@@ -474,11 +473,12 @@ public class LoginPGPagoPATest extends BasePage {
         logger.info("Dobbiamo Clicccare l'ambiente");
         clickEntraSuSendPersonaGiuridica();
         logger.info("verifico esistenza cookie");
-        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
+        //TODO SOLO PE HOTFIX
+//        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-        }
+//        }
         logger.info("Terminata procedura scelta ambiente");
     }
 

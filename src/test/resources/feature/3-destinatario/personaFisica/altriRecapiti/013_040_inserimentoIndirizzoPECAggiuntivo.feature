@@ -21,4 +21,4 @@ Feature: la persona fisica inserisce un indirizzo pec aggiuntivo
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email 'altri recapiti' tramite request method
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP della email
     Then Nella sezione altri recapiti si controlla che la pec aggiuntiva sia stata inserita correttamente
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

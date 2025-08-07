@@ -21,5 +21,5 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
     And Nella pagina I Tuoi Recapiti clicca sul bottone conferma
     And Si visualizza correttamente il messaggio di errore
     Then Cliccare sul bottone Annulla
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
 

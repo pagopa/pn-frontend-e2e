@@ -78,7 +78,7 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata e 
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "email di cortesia" e si inserisce "prova@test.it"
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | 890                |

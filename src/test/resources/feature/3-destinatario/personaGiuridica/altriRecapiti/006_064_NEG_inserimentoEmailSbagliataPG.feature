@@ -4,14 +4,14 @@ Feature: la persona giuridica inserisce una email errata
 #  @TA_inserimentoEmailErrataPG
   @addressBook2
   @TA_REWORK_RECAPITI_OFF
-  @NRT_Blocco_1_OFF_1
+  @NRT_Blocco_1_OFF
 
   Scenario: OFF_REWORK_DOMICILIO_DIGITALE_PG_PN-9155-B63 - La persona giuridica inserisce una email errata
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 2 secondi

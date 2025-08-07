@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_AttivazioneGestisciDomicilioDigitaleSEND_PF
-  @addressBook1
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_2
+#  @TA_AttivazioneGestisciDomicilioDigitaleSEND_PF
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_2
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_1_20_21_22_23_26_24_25] Attivazione Gestisci Domicilio Digitale SEND PF -I tuoi Recapiti
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
@@ -17,7 +17,7 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Verifica e Disattiva email
     When Click Inizia
     And Click Attiva

@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -139,26 +140,72 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     //cambiati check del testo per evitare casi di element stale exception e per differenziare tra i casi per cittadini e imprese (format del testo è diverso tra i portali)
+//    public void waitLoadPopUp() {
+//        try {
+//            getWebDriverWait(30).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
+//            getWebDriverWait(30).withMessage("La descrizione non viene visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-description"))));
+//            getWebDriverWait(30).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(@class,'MuiTypography-root MuiTypography-body1') and not(@role='button')]"))));
+//            getWebDriverWait(30).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
+//            List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
+//            if (inputBoxes.size() != 5) {
+//                Assertions.fail("Il numero di input box non è corretto");
+//            }
+//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//div[@data-testid='dialog-content']//div[contains(@class,'MuiTypography-root MuiTypography-body2')]"))));
+//            confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
+//            annullaButton = driver.findElement(By.id("code-cancel-button"));
+//            boolean checkButton = confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
+//            if (!checkButton) {
+//                Assertions.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
+//            }
+//            logger.info("Il pop-up di conferma viene visualizzato correttamente");
+//        } catch (TimeoutException | StaleElementReferenceException e) {
+//            Assertions.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
+//        }
+//    }
     public void waitLoadPopUp() {
         try {
-            getWebDriverWait(30).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-            getWebDriverWait(30).withMessage("La descrizione non viene visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-description"))));
-            getWebDriverWait(30).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(@class,'MuiTypography-root MuiTypography-body1') and not(@role='button')]"))));
-            getWebDriverWait(30).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
-            List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
+            getWebDriverWait(30)
+                    .withMessage("Non viene visualizzato correttamente il titolo")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("dialog-title")));
+
+            getWebDriverWait(30)
+                    .withMessage("La descrizione non viene visualizzata")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("dialog-description")));
+
+            getWebDriverWait(30)
+                    .withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente")
+                    .until(ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//div[@data-testid='dialog-content']//p[contains(@class,'MuiTypography-root MuiTypography-body1') and not(@role='button')]")
+                    ));
+
+            List<WebElement> inputBoxes = getWebDriverWait(30)
+                    .withMessage("Le input boxes non vengono visualizzate")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                            By.xpath("//input[contains(@id,'code-input-')]")
+                    ));
+
             if (inputBoxes.size() != 5) {
-                Assertions.fail("Il numero di input box non è corretto");
+                Assertions.fail("Il numero di input box non è corretto. Attesi: 5, trovati: " + inputBoxes.size());
             }
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//div[@data-testid='dialog-content']//div[contains(@class,'MuiTypography-root MuiTypography-body2')]"))));
-            confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
-            annullaButton = driver.findElement(By.id("code-cancel-button"));
-            boolean checkButton = confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
-            if (!checkButton) {
-                Assertions.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
+
+            getWebDriverWait(30)
+                    .withMessage("La descrizione secondaria non viene visualizzata")
+                    .until(ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//div[@data-testid='dialog-content']//div[contains(@class,'MuiTypography-root MuiTypography-body2')]")
+                    ));
+
+            confermaButtonPopUp = getWebDriverWait(30)
+                    .withMessage("Pulsante 'Conferma' non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("code-confirm-button")));
+            annullaButton = getWebDriverWait(30)
+                    .withMessage("Pulsante 'Annulla' non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("code-cancel-button")));
+            if (!confermaButtonPopUp.isEnabled() || !annullaButton.isEnabled()) {
+                Assertions.fail("I pulsanti all'interno del pop-up non sono abilitati come previsto");
             }
             logger.info("Il pop-up di conferma viene visualizzato correttamente");
         } catch (TimeoutException | StaleElementReferenceException e) {
-            Assertions.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
+            Assertions.fail("Il pop-up di conferma NON viene visualizzato correttamente. Errore: " + e.getMessage());
         }
     }
 
@@ -964,8 +1011,13 @@ public void clearOTP() {
     }
 
     public void clickConfermaPopupOTP() {
-        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
-        WebElement confirmOtpPopup = driver.findElement(By.id("code-confirm-button"));
+//        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
+//        WebElement confirmOtpPopup = driver.findElement(By.id("code-confirm-button"));
+//        confirmOtpPopup.click();
+        WebElement confirmOtpPopup = getWebDriverWait(15)
+                .withMessage("Il bottone 'Conferma' nel popup OTP non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("code-confirm-button")));
+
         confirmOtpPopup.click();
     }
 
@@ -1024,12 +1076,12 @@ public void clearOTP() {
         WebElement loFaroPiuTardi = getWebDriverWait(25)
                 .withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
                 .until(ExpectedConditions.elementToBeClickable(
-                By.id("dialog-confirm-button")));
+                By.id("dialog-close-button")));
         loFaroPiuTardi.click();
     }
 
     public void clickTornaAiTuoiRecapiti() {
-        WebElement tornaAiTuoiRecapiti = getWebDriverWait(15).withMessage("Impossibile Cliccare su Vai ai tuoi recapiti")
+        WebElement tornaAiTuoiRecapiti = getWebDriverWait(25).withMessage("Impossibile Cliccare su Vai ai tuoi recapiti")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='wizard-feedback-button']")));
         tornaAiTuoiRecapiti.click();
     }
@@ -1394,21 +1446,44 @@ public void clearOTP() {
     }
 
 
-    public void verificaEDisattivaDomicilioDigitale() {
+    public void verificaEDisattivaDomicilioDigitale(String chooseButton) {
+        try {
+            WebElement disattivaButton = getWebDriverWait(20).withMessage("Non è presente dentro Domicilio Digitale il testo 'Disattiva'")
+                    .until(ExpectedConditions.elementToBeClickable
+                            (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled() && chooseButton.equalsIgnoreCase("Conferma")) {
+                disattivaButton.click();
+                clickSuConfermaElimina();
+            } else if (disattivaButton.isDisplayed() && disattivaButton.isEnabled() && chooseButton.equalsIgnoreCase("Annulla")) {
+                disattivaButton.click();
+                clickAnnulla();
+            }
+
+            else {
+                logger.warn("Bottone 'Disattiva Domicilio Digitale' non è visibile o abilitato.");
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva Domicilio Digitale' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Domicilio Digitale'.", e);
+        }
+    }
+
+    public void disattivaDomicilioDigitaleAnnulla() {
         try {
             WebElement disattivaButton = getWebDriverWait(20).withMessage("Non è presente dentro Domicilio Digitale il testo 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
                             (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 disattivaButton.click();
-                clickSuConfermaElimina();
+                clickButtonAnnullaEliminazioneInPopUp();
             } else {
                 logger.warn("Bottone 'Disattiva Domicilio Digitale' trovato ma non è visibile o abilitato.");
             }
         } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Bottone 'Disattiva Domicilio Digitale' non presente.");
         } catch (Exception e) {
-            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Domicilio Digitale'.", e);
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Domicilio Digitale e Annulla'.", e);
         }
     }
 
@@ -1420,6 +1495,24 @@ public void clearOTP() {
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 disattivaButton.click();
                 clickSuConfermaElimina();
+            } else {
+                logger.warn("Bottone 'Disattiva AppIO' trovato ma non è visibile o abilitato.");
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva AppIO' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva AppIO'.", e);
+        }
+    }
+
+    public void disattivaAppIOeAnnulla() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")
+                    .until(ExpectedConditions.elementToBeClickable
+                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                disattivaButton.click();
+                clickAnnulla();
             } else {
                 logger.warn("Bottone 'Disattiva AppIO' trovato ma non è visibile o abilitato.");
             }
@@ -1453,7 +1546,7 @@ public void verificaEDisattivaEmail() {
                 .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")
                 .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-testid='disable-email']")));
 
-        getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".MuiAlert-root")));
+//        getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".MuiAlert-root")));
 
         if (!disattivaButton.isDisplayed()) {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", disattivaButton);
@@ -1472,6 +1565,16 @@ public void verificaEDisattivaEmail() {
         Assertions.fail("Errore inaspettato durante la disattivazione dell'email: " + e.getMessage());
     }
 }
+    public void disattivaIndirizzoEmailAziendale() {
+        WebElement disattivaButton = getWebDriverWait(20)
+                .withMessage("Pulsante 'Disattiva' non trovato per l'indirizzo email aziendale")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//h6[@data-testid='emailContactTitle' and (contains(text(),'email'))]/ancestor::div[contains(@data-testid,'PnInfoCardHeader')]//button[@data-testid='disable-email']")
+                ));
+
+        disattivaButton.click();
+        clickButtonAnnullaEliminazioneInPopUp();
+    }
 
     public void verificaEDisattivaCellulare() {
         // TODO DA VERICARE
@@ -1499,6 +1602,114 @@ public void verificaEDisattivaEmail() {
         getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email-helper-text"))));
         WebElement errorMessage = driver.findElement(By.id("default_email-helper-text"));
         return errorMessage.getText();
+
+    }
+
+    public void verificaIndirizzoEmailNonValido() {
+         getWebDriverWait(10)
+                .withMessage("Il messaggio di errore per l'indirizzo email non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
+
+    }
+
+    public void clickContinuaTabInserisciUnRecapito() {
+        WebElement bottoneContinua = getWebDriverWait(10)
+                .withMessage("Impossibile Trovare il tasto Continua nel tab Inserisci Un Recapito ")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(normalize-space(), 'Continu')]"))
+        );
+        bottoneContinua.click();
+    }
+
+    public void verificaPresenzaCampoObbligatorio() {
+        getWebDriverWait(10)
+                .withMessage("Impossibile Trovare il messaggio Campo obbligatorio").until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.id("disclaimer-helper-text")));
+    }
+
+    public void spuntareCheckboxPrivacy() {
+        List<String> possibleIds = Arrays.asList("s_disclaimer", "disclaimer");
+        WebElement checkboxInput = null;
+        for (String id : possibleIds) {
+            try {
+                checkboxInput = getWebDriverWait(5)
+                        .withMessage("Checkbox con id '" + id + "' non trovata")
+                        .until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
+                break;
+            } catch (TimeoutException ignored) {
+            }
+        }
+
+        if (checkboxInput == null) {
+            Assertions.fail("Nessuna checkbox trovata con id tra: " + possibleIds);
+        }
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkboxInput);
+    }
+
+    public void verificaIndirizzoPecNonValido() {
+        getWebDriverWait(10)
+                .withMessage("Il messaggio di errore per l'indirizzo pec non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
+    }
+
+    public void verificaScomparsaBannerInizia() {
+        boolean invisibile = getWebDriverWait(10)
+                .withMessage("Il tasto 'Inizia' nel banner è ancora visibile")
+                .until(ExpectedConditions.invisibilityOfElementLocated(
+                        By.xpath("//div[@data-testid='addDomicileBanner']//button[contains(@class, 'MuiButton-root')]")));
+
+        Assertions.assertTrue(invisibile, "Il tasto 'Inizia' è ancora presente nel banner.");
+    }
+
+    public void verificaAbilitazioneCampoEmail() {
+        WebElement emailInput = getWebDriverWait(10)
+                .withMessage("L'input email non è visibile nella pagina")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email")));
+
+        Assertions.assertTrue(emailInput.isEnabled(), "Il campo email esiste ma non è abilitato per l'inserimento.");
+
+    }
+
+    public void verificaCampoObbligatorioEnteETipologia() {
+        WebElement enteHelperText = getWebDriverWait(10)
+                .withMessage("Messaggio 'Campo obbligatorio' per il campo Ente mittente non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("sender-helper-text")));
+
+        Assertions.assertEquals("Campo obbligatorio", enteHelperText.getText().trim());
+
+        // Verifica campo "Tipologia"
+        WebElement pecHelperText = getWebDriverWait(10)
+                .withMessage("Messaggio 'Indirizzo PEC non valido' non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("channelType-helper-text")));
+
+        Assertions.assertEquals("Campo obbligatorio", pecHelperText.getText().trim());
+    }
+
+    public void clickContinuaSenzaCollegareIO() {
+        WebElement continuaButton = getWebDriverWait(20)
+                .withMessage("Pulsante 'Continua senza collegare IO' non trovato")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='skipButton']")
+                ));
+
+        continuaButton.click();
+    }
+
+    public void clickScollegaSENDDaIOInAttivaDomicilioDigitaleSuSEND() {
+        WebElement button = getWebDriverWait(20)
+                .withMessage("Impossibile trovare il pulsante Scollega SEND Da IO In Attiva Domicilio Digitale Su SEND ")
+                .until(ExpectedConditions.elementToBeClickable(
+                By.cssSelector("button[data-testid='disableIOButton']")
+        ));
+        button.click();
+    }
+
+    public void clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante() {
+        WebElement dialogButton = getWebDriverWait(40)
+                .withMessage("Impossibile trovare il pulsante nel Pop-UP Scollega SEND Da IO In Aggiungere i tuoi recapiti è importante")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-confirm-button")));
+        dialogButton.click();
 
     }
 }

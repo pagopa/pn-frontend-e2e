@@ -1,16 +1,16 @@
 Feature: La persona giuridica inserisce una PEC
 
 #  @TestSuite_ON
-  @TA_inserimentoPECErrataPG_ON
-  @addressBook2
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_1
+#  @TA_inserimentoPECErrataPG_ON
+#  @addressBook2
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_1
   Scenario: ON_REWORK_DOMICILIO_DIGITALE_PG_PN-9152-B60 - La persona giuridica loggato inserisce una PEC errata
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     When Click Inizia

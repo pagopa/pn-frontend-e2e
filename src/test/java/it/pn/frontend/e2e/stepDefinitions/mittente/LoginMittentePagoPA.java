@@ -585,6 +585,7 @@ public class LoginMittentePagoPA extends BasePage {
 
     @And("Logout e Login con Comune di {string}")
     public void logoutELoginConComuneDi(String comune) {
+        //logout
         logger.info("Si esce dal portale mittente");
         webTool.waitTime(2);
 
@@ -634,6 +635,7 @@ public class LoginMittentePagoPA extends BasePage {
 //            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
 //        }
 //        selezionaEntePAPage.selezionaAccedi();
+
     }
 
     @And("Click entra su Send Mittente")

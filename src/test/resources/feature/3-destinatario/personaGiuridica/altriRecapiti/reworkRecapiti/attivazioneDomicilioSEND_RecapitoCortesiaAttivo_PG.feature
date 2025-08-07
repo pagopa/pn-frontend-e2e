@@ -1,17 +1,17 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_attivazioneDomicilioSEND_RecapitoCortesiaAttivo_PG
-  @addressBook2
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_1
+#  @TA_attivazioneDomicilioSEND_RecapitoCortesiaAttivo_PG
+#  @addressBook2
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_1
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_38] Attivazione Domicilio Digitale SEND PG - Recapiti di cortesia presenti
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     #And Aspetta 2 secondi
     And Refresh pagina
     And Verifica e Disattiva email

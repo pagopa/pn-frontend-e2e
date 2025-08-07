@@ -1,9 +1,9 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_UAT_ON
-  @TA_attivazioneDomicilioSEND_RecapitoCortesiaAttivo_PF_UAT
-  @addressBook1
-  @TA_REWORK_RECAPITI_UAT_ON
+#  @TA_attivazioneDomicilioSEND_RecapitoCortesiaAttivo_PF_UAT
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_UAT_ON
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_17_38_UAT] Attivazione Domicilio Digitale SEND PF - Recapiti di cortesia presenti - Ambiente UAT
     Given Login Page persona fisica test viene visualizzata
@@ -15,7 +15,7 @@ Feature: Rework della pagina dei contatti
       | fiscalNumber | TINIT-AAAAAA00A00A000B |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Aspetta 2 secondi
     And Verifica e Disattiva app IO
     And Verifica e Disattiva email

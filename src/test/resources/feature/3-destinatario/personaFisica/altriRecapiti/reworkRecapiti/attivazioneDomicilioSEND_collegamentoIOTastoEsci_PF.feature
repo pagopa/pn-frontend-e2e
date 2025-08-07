@@ -1,9 +1,9 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_attivazioneDomicilioSEND_CollegamentoSENDaIOTastoEsci_PF
-  @addressBook1
-  @TA_REWORK_RECAPITI_UAT_ON
+#  @TA_attivazioneDomicilioSEND_CollegamentoSENDaIOTastoEsci_PF
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_UAT_ON
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_77] Attivazione Domicilio Digitale SEND - Collegamento SEND a IO ESCI PF
 
    #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -16,7 +16,7 @@ Feature: Rework della pagina dei contatti
       | fiscalNumber | TINIT-AAAAAA00A00A000B |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Aspetta 2 secondi
     And Verifica e Disattiva app IO
     And Verifica e Disattiva email
@@ -28,7 +28,7 @@ Feature: Rework della pagina dei contatti
     And Verifica Pagina "app IO"
     And Verifica Pagina "Il tuo indirizzo email"
 # REWORK_DOMICILIO_DIGITALE_PF_77
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Click Inizia
     And Verifica Pagina "Come funziona"
     And Click Attiva
@@ -39,6 +39,6 @@ Feature: Rework della pagina dei contatti
     #And Click Lo Faro piu tardi
     And Click Torna ai tuoi recapiti
 ## Reset recapiti UAT
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Aspetta 2 secondi
     And Verifica e Disattiva app IO

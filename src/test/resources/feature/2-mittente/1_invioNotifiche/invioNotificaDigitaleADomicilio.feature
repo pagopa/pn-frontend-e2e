@@ -40,7 +40,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Nella sezione Dettaglio Notifiche si clicca su opzione Vedi Più Dettagli
     And Nella timeline della notifica si visualizza l'invio del messaggio di cortesia
 #    And Logout da portale mittente
-    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
+#    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
   @invioNotificaDigitaleADomicilioImpostato
   @addressBook1
@@ -83,7 +83,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si verifica l'invio della notifica al domicilio di piattaforma inserito "prova@test.it"
     Then Si verifica che la notifica abbia lo stato "Consegnata"
 #    And Logout da portale mittente
-    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
+#    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
   @invioNotificaDigitaleADomicilioImpostato
   @addressBook1
@@ -93,7 +93,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "PEC" e si inserisce "prova@fail.it"
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -126,7 +126,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si verifica che l'invio della notifica sia fallito 2 volte
     And Si verifica l'invio della raccomandata semplice
 #    And Logout da portale mittente
-    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
+#    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
   @invioNotificaDigitaleADomicilioImpostato
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale con domicilio speciale impostato al destinatario
@@ -211,7 +211,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "PEC" e si inserisce "prova@fail.it"
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -247,7 +247,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si verifica l'invio della notifica al domicilio speciale inserito "prova@test.it"
     Then Si verifica che la notifica abbia lo stato "Consegnata"
 #    And Logout da portale mittente
-    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
+#    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
   @invioNotificaDigitaleADomicilioImpostato
   @addressBook1
@@ -257,7 +257,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Si visualizza correttamente la pagina I Tuoi Recapiti
     And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una "PEC" e si inserisce "prova@fail.it"
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
@@ -293,7 +293,7 @@ Feature: Invio notifica digitale a destinatario con diversi tipi di domicilio im
     And Si verifica che l'invio della notifica sia fallito 4 volte
     And Si verifica l'invio della raccomandata semplice
 #    And Logout da portale mittente
-    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
+#    And Si accede nuovamente al portale "persona fisica" con token "delegante" per eliminare i recapiti inseriti
 
   @invioNotificaDigitaleADomicilioImpostato
   Scenario: [TA-FE INVIO DI UNA NOTIFICA DIGITALE A DESTINATARIO CON DOMICILIO IMPOSTATO] - Mittente invia una notifica digitale a destinatario persona fisica senza domicilio di piattaforma e speciale, solo generale

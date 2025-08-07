@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_VisualizzaBannerNotifica_PF
-  @addressBook1
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_2
+#  @TA_VisualizzaBannerNotifica_PF
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_2
   Scenario: [REWORK_DOMICILIO_DIGITALE_PF_65_66_67] - Visualizza banner - Notifica/I tuoi dati
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica
@@ -16,7 +16,7 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 1 secondi

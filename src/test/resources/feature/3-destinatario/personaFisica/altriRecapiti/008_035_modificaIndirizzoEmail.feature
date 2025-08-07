@@ -23,4 +23,4 @@ Feature: la persona fisica modifica l'indirizzo Email
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

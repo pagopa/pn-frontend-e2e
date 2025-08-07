@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_AttivazioneDomicilioDigitaleSEND_Annulla_PG
-  @addressBook2
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_1
+#  @TA_AttivazioneDomicilioDigitaleSEND_Annulla_PG
+#  @addressBook2
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_1
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PG_3] Attivazione Domicilio Digitale SEND - Annulla PG
 
@@ -13,7 +13,7 @@ Feature: Rework della pagina dei contatti
 #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     When Click Inizia

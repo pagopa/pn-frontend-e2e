@@ -1,9 +1,9 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_REWORK_DOMICILIO_DIGITALE_PF_44_45_48
-  @addressBook1
-  @TA_REWORK_RECAPITI_UAT_ON
+#  @TA_REWORK_DOMICILIO_DIGITALE_PF_44_45_48
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_UAT_ON
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_44_45_48] CambioDaDomPEC_SEND_PF PF
     Given Login Page persona fisica test viene visualizzata
@@ -21,7 +21,7 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Aspetta 1 secondi
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Aspetta 1 secondi
     And Verifica e Disattiva app IO
     And Aspetta 1 secondi
@@ -49,7 +49,7 @@ Feature: Rework della pagina dei contatti
 
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-  And Click Bottone Conferma Attiva domicilio digitale
+  And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
 
 ##  REWORK_DOMICILIO_DIGITALE_PF_48

@@ -35,4 +35,4 @@ Feature:La persona fisica visualizza le notifiche in elenco
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

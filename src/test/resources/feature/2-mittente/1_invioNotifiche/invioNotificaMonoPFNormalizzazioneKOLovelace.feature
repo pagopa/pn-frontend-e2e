@@ -46,7 +46,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | fiscalNumber | TINIT-LVLDAA85T50G702B |
     And Cliccare sulla notifica restituita
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
 
 #  @TestSuite
   @TA_InvioNotificaMonoPFNormalizzazioneKOLovelaceBis
@@ -68,5 +68,5 @@ Feature: Mittente genera una notifica che non prevede pagamento
     And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "RZVD-VGVL-XZLK-202410-X-1"
     And Si clicca la notifica ricercata
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
 

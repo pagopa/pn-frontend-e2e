@@ -41,4 +41,4 @@ Feature:Controllo dati notifica
     #click due volte sullo stesso bottone perché dopo il download elimina sempre l ultimo bottone cliccato
     And Si clicca sul modello F24 destinatario numero 1
     And Si clicca sul modello F24 destinatario numero 1
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica

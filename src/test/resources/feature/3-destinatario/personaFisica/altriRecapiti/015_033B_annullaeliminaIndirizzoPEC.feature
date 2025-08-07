@@ -12,7 +12,7 @@ Feature: la persona fisica elimina l'indirizzo pec
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     #    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 1 secondi
@@ -26,7 +26,7 @@ Feature: la persona fisica elimina l'indirizzo pec
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
     And Aspetta 2 secondi
 
-    Then Verifica e Disattiva domicilio digitale
+    Then Verifica e Disattiva domicilio digitale "Conferma"
     And Si annulla eliminazione email
 
 

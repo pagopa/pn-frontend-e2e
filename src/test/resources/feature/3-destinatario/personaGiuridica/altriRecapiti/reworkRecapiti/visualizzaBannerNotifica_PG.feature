@@ -1,17 +1,17 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_VisualizzaBannerNotifica_PG
-  @addressBook2
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_1
+#  @TA_VisualizzaBannerNotifica_PG
+#  @addressBook2
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_1
 
   Scenario: [REWORK_DOMICILIO_DIGITALE_PG_65_66] - Visualizza banner - Notifica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 1 secondi

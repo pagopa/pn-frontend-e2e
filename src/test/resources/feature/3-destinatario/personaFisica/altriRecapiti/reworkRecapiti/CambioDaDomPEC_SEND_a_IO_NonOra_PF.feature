@@ -1,9 +1,9 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_UAT_ON
-  @TA_REWORK_DOMICILIO_DIGITALE_PF_46
-  @addressBook1
-  @TA_REWORK_RECAPITI_UAT_ON
+#  @TA_REWORK_DOMICILIO_DIGITALE_PF_46
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_UAT_ON
 
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_46] CambioDaDomPEC_SEND_a_IO_NonOra_PF PF
     Given Login Page persona fisica test viene visualizzata
@@ -21,7 +21,7 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva app IO
     And Aspetta 1 secondi

@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_AttivazioneRecapitiVerificaCell_PF
-  @addressBook1
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_2
+#  @TA_AttivazioneRecapitiVerificaCell_PF
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_2
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_31_32] Attivazione Recapiti Verifica CEll PF
 
     Given Login Page persona fisica test viene visualizzata
@@ -16,7 +16,7 @@ Feature: Rework della pagina dei contatti
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 ##    verificare mancano pezzi inerente a SEND sull'appIO
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
 

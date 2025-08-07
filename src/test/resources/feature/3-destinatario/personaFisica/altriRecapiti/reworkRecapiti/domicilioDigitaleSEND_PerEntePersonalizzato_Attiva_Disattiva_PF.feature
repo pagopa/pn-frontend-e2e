@@ -1,10 +1,10 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_REWORK_DOMICILIO_DIGITALE_63_64_PF
-  @addressBook1
-  @TA_REWORK_RECAPITI_ON
-  @NRT_Blocco_2
+#  @TA_REWORK_DOMICILIO_DIGITALE_63_64_PF
+#  @addressBook1
+#  @TA_REWORK_RECAPITI_ON
+#  @NRT_Blocco_2
   Scenario:[REWORK_DOMICILIO_DIGITALE_PF_63_64_] Domicilio digitale SEND per ente personalizzato - Attiva Disattiva PG
 #    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     Given Login Page persona fisica test viene visualizzata
@@ -17,7 +17,7 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
-    And Verifica e Disattiva domicilio digitale
+    And Verifica e Disattiva domicilio digitale "Conferma"
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 1 secondi

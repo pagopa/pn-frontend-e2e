@@ -567,6 +567,12 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.verificaEmailModificata();
     }
 
+    @Then("Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata {string}")
+    public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaStataModificata(String email) {
+        logger.info("Si controlla che la Email sia stata modificata con: {}", email);
+        iTuoiRecapitiPage.verificaEmailModificata(email);
+    }
+
     @And("Nella pagina I Tuoi Recapiti si recupera l'OTP della nuova Email tramite request method")
     public void nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaNuovaEmailTramiteRequestMethod() {
         //personaFisica
@@ -1059,6 +1065,13 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.clickConfermaEmail();
     }
 
+    @And("Si inserisce la nuova Email {string} del PF e clicca su Conferma")
+    public void siInserisceLaNuovaEmailDelPFECliccaSuConferma(String email) {
+        iTuoiRecapitiPage.cancellaTesto();
+        iTuoiRecapitiPage.insertEmail(email);
+        iTuoiRecapitiPage.clickConfermaEmail();
+    }
+
     @And("Si clicca sul bottone del pop-up ok ho capito")
     public void siCliccaSulBottoneDelPopUpOkHoCapito() {
         iTuoiRecapitiPage.siCliccaSulBottoneDelPopUpOkHoCapito();
@@ -1095,9 +1108,14 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         iTuoiRecapitiPage.clickCollegaSENDSuIO();
     }
 
-    @And("Click Bottone Conferma Attiva domicilio digitale")
-    public void clickBottoneConfermaAttivaDomicilioDigitale() {
-        iTuoiRecapitiPage.clickBottoneConfermaAttivaDomicilioDigitale();
+    @And("Click Attiva domicilio digitale")
+    public void clickAttivaDomicilioDigitale() {
+        iTuoiRecapitiPage.clickAttivaDomicilioDigitale();
+    }
+
+    @And("Click Attiva domicilio digitale PEC")
+    public void clickAttivaDomicilioDigitalePEC() {
+        iTuoiRecapitiPage.clickAttivaDomicilioDigitalePEC();
     }
 
     @And("Verifica presenza bottone Attiva SEND su IO")
@@ -1121,5 +1139,7 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void clickBottoneEsciPF() {
         recapitiDestinatarioPage.clickBottoneEsciPF();
     }
+
+
 }
 

@@ -305,4 +305,74 @@ public class RecapitiTest extends BasePage {
         piattaformaNotifichePage.buttonRighePagine();
         piattaformaNotifichePage.selezionaPage50();
     }
+
+    @And("Click Continua")
+    public void clickContinua() {
+        iTuoiRecapitiPage.clickContinua();
+    }
+
+    @And("Click Aggiungi email")
+    public void clickAggiungiEmail() {
+        recapitiDestinatarioPage.clickAvvisamiViaEmail();
+    }
+
+    @And("Verifica  Indirizzo email non valido")
+    public void verificaIndirizzoEmailNonValido() {
+        recapitiDestinatarioPage.verificaIndirizzoEmailNonValido();
+    }
+
+    @And("Click Continua Tab Inserisci un recapito")
+    public void clickContinuaTabInserisciUnRecapito() {
+        recapitiDestinatarioPage.clickContinuaTabInserisciUnRecapito();
+    }
+
+    @And("Click Ok ho capito Recapiti")
+    public void clickOkHoCapitoRecapiti() {
+        recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
+    }
+
+    @And("Verifica presenza Campo obbligatorio")
+    public void verificaPresenzaCampoObbligatorio() {
+        recapitiDestinatarioPage.verificaPresenzaCampoObbligatorio();
+    }
+
+    @And("Spuntare checkbox privacy")
+    public void spuntareCheckboxPrivacy() {
+        recapitiDestinatarioPage.spuntareCheckboxPrivacy();
+    }
+
+    @And("Verifica  Indirizzo pec non valido")
+    public void verificaIndirizzoPecNonValido() {
+        recapitiDestinatarioPage.verificaIndirizzoPecNonValido();
+    }
+
+    @And("Verifica Scomparsa Banner Inizia")
+    public void verificaScomparsaBannerInizia() {
+        recapitiDestinatarioPage.verificaScomparsaBannerInizia();
+    }
+
+    @And("Verifica abilitazione campo email")
+    public void verificaAbilitazioneCampoEmail() {
+        recapitiDestinatarioPage.verificaAbilitazioneCampoEmail();
+    }
+
+    @And("Verifica campo obbligatorio Ente e Tipologia")
+    public void verificaCampoObbligatorioEnteETipologia() {
+        recapitiDestinatarioPage.verificaCampoObbligatorioEnteETipologia();
+    }
+
+    @And("Click Continua senza collegare IO")
+    public void clickContinuaSenzaCollegareIO() {
+        recapitiDestinatarioPage.clickContinuaSenzaCollegareIO();
+    }
+
+    @And("Click Scollega SEND da IO in Attiva domicilio digitale su SEND")
+    public void clickScollegaSENDDaIOInAttivaDomicilioDigitaleSuSEND() {
+        recapitiDestinatarioPage.clickScollegaSENDDaIOInAttivaDomicilioDigitaleSuSEND();
+    }
+
+    @And("Click Scollega SEND da IO nel Pop-up Aggiungi i tuoi recapiti e importante")
+    public void clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante() {
+        recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
+    }
 }

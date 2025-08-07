@@ -777,7 +777,8 @@ public void pulisciAmbientePublickeys() {
     }
 
     public void clickOkHoCapito() {
-        WebElement button = getWebDriverWait(40).withMessage("Il tasto Genera chiave personale NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("close-modal-button")));
+        WebElement button = getWebDriverWait(40).withMessage("Il tasto Genera chiave personale NON VISIBILE")
+                .until(ExpectedConditions.elementToBeClickable(By.id("close-modal-button")));
         button.click();
     }
 

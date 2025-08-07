@@ -32,7 +32,7 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
     And Si controlla che la delega ha lo stato Attiva
       | firstName | Gaio Giulio |
       | lastName  | Cesare      |
-    And Logout da portale persona fisica
+#    And Logout da portale persona fisica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
       | modello         | 890                |
