@@ -106,9 +106,9 @@ Feature: Ente figlio e Ente radice
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And  Si clicca sul bottone indietro popup
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
 #    And Logout da portale persona fisica
@@ -222,9 +222,9 @@ Feature: Ente figlio e Ente radice
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And  Si clicca sul bottone indietro popup
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
 #    And Logout da portale persona fisica

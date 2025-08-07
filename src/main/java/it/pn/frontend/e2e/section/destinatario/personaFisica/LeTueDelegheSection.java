@@ -250,7 +250,20 @@ public class LeTueDelegheSection extends BasePage {
             acceptButton.click();
             logger.info("Bottone 'Accetta' cliccato con successo.");
         } catch (TimeoutException | NoSuchElementException e) {
-            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore: " + e.getMessage());
+            Assertions.fail("Bottone 'Accetta' per delega a tuo carico non cliccato con errore: " + e.getMessage());
+        }
+    }
+
+    public void clickOpzioneAccettaDelegaATuoCaricoDa(String nome) {
+        try {
+            WebElement acceptButton = getWebDriverWait(40)
+                    .withMessage("Il bottone 'Accetta' non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//td//p[contains(text(), '" + nome + "')]//..//..//button[@id='accept-button']")));
+
+            acceptButton.click();
+            logger.info("Bottone 'Accetta' cliccato con successo.");
+        } catch (TimeoutException | NoSuchElementException e) {
+            Assertions.fail("Bottone 'Accetta' per delega a tuo carico non cliccato con errore: " + e.getMessage());
         }
     }
 

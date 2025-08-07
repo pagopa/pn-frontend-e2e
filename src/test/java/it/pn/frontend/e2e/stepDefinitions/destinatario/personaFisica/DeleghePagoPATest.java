@@ -91,7 +91,6 @@ public class DeleghePagoPATest extends BasePage {
         leTueDelegheSection = new LeTueDelegheSection(driver);
         popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(driver);
         deleghePage = new DeleghePage(driver);
-        deleghePage = new DeleghePage(driver);
         destinatarioPage = new DestinatarioPage(driver);
         notifichePFPage = new NotifichePFPage(driver);
         delegatiImpresaSection = new DelegatiImpresaSection(driver);
@@ -290,6 +289,12 @@ public class DeleghePagoPATest extends BasePage {
     public void siSceglieOpzioneAccetta() {
         logger.info("Si sceglie l'opzione accetta");
         leTueDelegheSection.clickOpzioneAccetta();
+    }
+
+    @And("Si sceglie opzione accetta delega a tuo carico da {string}")
+    public void siSceglieOpzioneAccettaDelegaATuoCaricoDa(String nome) {
+        logger.info("Si sceglie l'opzione accetta");
+        leTueDelegheSection.clickOpzioneAccettaDelegaATuoCaricoDa(nome);
     }
 
     @And("Si inserisce il codice delega nel pop-up OTP")
