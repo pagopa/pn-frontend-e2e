@@ -2623,6 +2623,16 @@ public class NotificaMittentePagoPATest  extends BasePage {
         driver.switchTo().alert().accept();
     }
 
+    @And("Inserisci Max Caratteri Input pec portale PA {int}")
+    public void inserisciMaxCaratteriInputPecPortalePA(int maxCaratteri) {
+        piattaformaNotifichePage.inserisciMaxCaratteriInputPecPortalePA(maxCaratteri);
+    }
+
+    @And("Verifica errore label pec {string}")
+    public void verificaErroreLabelPec(String erroreLabel) {
+        piattaformaNotifichePage.verificaErrore(erroreLabel);
+    }
+
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */

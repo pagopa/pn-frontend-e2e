@@ -2330,4 +2330,31 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         return false;
     }
+
+    public void inserisciMaxCaratteriInputPecPortalePA(int maxCaratteri) {
+        WebElement input = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il campo di input nell home page destinatari")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("recipients[0].digitalDomicile")
+        ));
+
+        String testoLungo = "A".repeat(maxCaratteri);
+        input.clear();
+        input.sendKeys(testoLungo);
+
+    }
+
+    public void verificaErrore(String erroreLabel) {
+        WebElement errore = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la label di errroe pec nella home page destinatari")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.id("recipients[0].digitalDomicile-helper-text")
+                ));
+
+        String testoErrore = errore.getText().trim();
+        Assertions.assertFalse(
+                testoErrore.contains(erroreLabel),
+                "Campo ha generato errore contenente '" + testoErrore );
+
+    }
 }
