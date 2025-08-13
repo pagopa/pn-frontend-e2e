@@ -2133,6 +2133,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.verificaPopUpToastErrore(verifica);
     }
 
+    @And("Verifica Pop-up toast di errore")
+    public void verificaPopUpToast() {
+        piattaformaNotifichePage.verificaPopUpToastErrore();
+    }
+
     @And("Verifica Messaggio toast di errore {string}")
     public void verificaMessaggioToastErrore(String verifica) {
         piattaformaNotifichePage.verificaMessaggioToastErrore(verifica);
