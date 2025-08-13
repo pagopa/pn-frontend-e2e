@@ -16,10 +16,6 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale  con ne
 
 
 
-
-
-
-
     Examples:
       | inizioArcoTemporale | fineArcoTemporale |
       | 20/01/2024          | 20/01/2024        |
