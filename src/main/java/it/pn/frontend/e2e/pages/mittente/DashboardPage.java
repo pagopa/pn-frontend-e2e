@@ -181,22 +181,62 @@ public class DashboardPage extends BasePage {
         webTool.waitTime(1);
         dateDa.get(1).sendKeys("01/01/1111");
     }
-    public void insertDataCorretta(){
-        dateDa = driver.findElements(By.id("startDate"));
-        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
+//    public void insertDataCorretta(){
+//        dateDa = driver.findElements(By.id("startDate"));
+//        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
+//        logger.info("Si inserisce una data corretta");
+//        dateDa.get(0).click();
+//        new Actions(driver)
+//                .keyDown(Keys.CONTROL)
+//                .sendKeys("a")
+//                .keyUp(Keys.CONTROL)
+//                .sendKeys(Keys.BACK_SPACE)
+//                .perform();
+//        LocalDate dataDaInserire = LocalDate.now().minusDays(90);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//        String formattedDate = dataDaInserire.format(formatter);
+//        webTool.waitTime(1);
+//        dateDa.get(0).sendKeys(formattedDate);
+//    }
+    public void insertDataCorrettaStartDate() {
+        WebElement dateField = getWebDriverWait(10)
+                .withMessage("Il filtro di data non visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
+
         logger.info("Si inserisce una data corretta");
-        dateDa.get(0).click();
-        new Actions(driver)
-                .keyDown(Keys.CONTROL)
-                .sendKeys("a")
-                .keyUp(Keys.CONTROL)
-                .sendKeys(Keys.BACK_SPACE)
-                .perform();
+
+        // Svuota il campo in modo robusto
+        dateField.click();
+        dateField.sendKeys(Keys.CONTROL + "a");
+        dateField.sendKeys(Keys.BACK_SPACE);
+
+        // Calcola la data di 90 giorni fa
         LocalDate dataDaInserire = LocalDate.now().minusDays(90);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = dataDaInserire.format(formatter);
-        webTool.waitTime(1);
-        dateDa.get(0).sendKeys(formattedDate);
+
+        // Inserisci la data
+        dateField.sendKeys(formattedDate);
+    }
+    public void insertDataCorrettaEndDate() {
+        WebElement dateField = getWebDriverWait(10)
+                .withMessage("Il filtro di data non visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+
+        logger.info("Si inserisce una data corretta");
+
+        // Svuota il campo in modo robusto
+        dateField.click();
+        dateField.sendKeys(Keys.CONTROL + "a");
+        dateField.sendKeys(Keys.BACK_SPACE);
+
+        // Calcola la data di 90 giorni fa
+        LocalDate dataDaInserire = LocalDate.now().minusDays(90);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = dataDaInserire.format(formatter);
+
+        // Inserisci la data
+        dateField.sendKeys(formattedDate);
     }
     public void insertDataCorrettaNotificheDigitali(){
         dateDa = driver.findElements(By.id("startDate"));

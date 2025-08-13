@@ -1,4 +1,4 @@
-Feature: La persona giuridica aggiunge una nuova delega
+Feature: La persona giuridica aggiunge una nuova delega con nome e cogmome errati rispetto al CF
 
   @TestSuite
   @TA_PG_aggiuntadelega_nome_cognome_errato
@@ -7,7 +7,7 @@ Feature: La persona giuridica aggiunge una nuova delega
   @deleghe2
   @DeleghePFPG
   @NRT_VALIDATION
-  Scenario: PN- La persona giuridica aggiunge una nuova delega con nome e cogmome errati rispetto al CF
+  Scenario: PN-16020-PG La persona giuridica aggiunge una nuova delega con nome e cogmome errati rispetto al CF
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa

@@ -127,9 +127,14 @@ public class DashboardMittentePagoPATest extends BasePage {
         dashboardPage.clickFiltraButtonNotificheDigitali();
     }
 
-    @And("Nella pagina Statistiche si inserisce una data corretta")
-    public void nellaPaginaStatisticheSiInserisceUnaDataCorretta() {
-        dashboardPage.insertDataCorretta();
+    @And("Nella pagina Statistiche si inserisce una data corretta StartDate")
+    public void nellaPaginaStatisticheSiInserisceUnaDataCorrettaStartDate() {
+        dashboardPage.insertDataCorrettaStartDate();
+    }
+
+    @And("Nella pagina Statistiche si inserisce una data corretta EndDate")
+    public void nellaPaginaStatisticheSiInserisceUnaDataCorrettaEndDate() {
+        dashboardPage.insertDataCorrettaEndDate();
     }
 
     @And("Nella pagina Statistiche Notifiche digitali si inserisce una data corretta")

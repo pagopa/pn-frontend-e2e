@@ -1,10 +1,10 @@
-Feature: Rework della pagina dei contatti
+Feature: PF Si inserisce un email con caratteri speciali e si verifica che si evidenzia l'errore - home Attiva domicilio digitale
 
 #  @TestSuite_ON
   @TA_Inserimento_email_Sbagliata_Domicilio_digitale_PF
   @addressBook1
   @NRT_VALIDATION
-  Scenario:PN - PF Si inserisce un email con caratteri speciali e si verifica che si evidenzia l'errore - home Attiva domicilio digitale
+  Scenario:PN-16043-PF - PF Si inserisce un email con caratteri speciali e si verifica che si evidenzia l'errore - home Attiva domicilio digitale
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 

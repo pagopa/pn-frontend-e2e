@@ -1,10 +1,10 @@
-Feature: Rework della pagina dei contatti
+Feature: PG Si inserisce un email con caratteri speciali e si verifica che si evidenzia l'errore - home Attiva domicilio digitale
 
 #  @TestSuite_ON
   @TA_Inserimento_Email_Sbagliata_Domicilio_digitale_PG
   @addressBook2
   @NRT_VALIDATION
-  Scenario:PN - PG Si inserisce un email con caratteri speciali e si verifica che si evidenzia l'errore - home Attiva domicilio digitale
+  Scenario:PN-16043-PG - PG Si inserisce un email con caratteri speciali e si verifica che si evidenzia l'errore - home Attiva domicilio digitale
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 

@@ -541,5 +541,19 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.clickVediTutti();
     }
 
+    @And("Nella pagina Statistiche inserire una data da (.*) a (.*)$")
+    public void nellaPaginaStatisticheInserireUnaDataDaInizioArcoTemporaleAFineArcoTemporale(String dataDA, String dataA) {
+        if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
+            Assertions.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
+        }
+        if (!piattaformaNotifichePage.controlloDateInserite(dataA)) {
+            Assertions.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
+        }
+        piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA, true);
+
+
+    }
+
+
 }
 
