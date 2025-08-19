@@ -1784,7 +1784,12 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
         accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
+        //Aggiunti massimo numero di tentativi (90) per evitare stallo in caso stato della notifica rimanga in stato WAITING
+        int maximumRetry = 0;
+
         do {
+            Assertions.assertTrue(maximumRetry <= 90, "La notifica risulta ancora in stato WAITING dopo 8 tentativi");
+
             try {
                 TimeUnit.SECONDS.sleep(10);
             } catch (InterruptedException e) {
@@ -1794,6 +1799,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
             if (result) {
                 statusNotifica = accettazioneRichiestaNotifica.getStatusNotifica();
                 logger.info("lo stato della notifica è :" + statusNotifica);
+                maximumRetry++;
             } else {
                 if (accettazioneRichiestaNotifica.getResponseCode() != 200) {
                     Assertions.fail("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
