@@ -1788,7 +1788,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
         int maximumRetry = 0;
 
         do {
-            Assertions.assertTrue(maximumRetry <= 90, "La notifica risulta ancora in stato WAITING dopo 8 tentativi");
+            Assertions.assertTrue(maximumRetry <= 90, "La notifica risulta ancora in stato WAITING dopo 15 minuti");
 
             try {
                 TimeUnit.SECONDS.sleep(10);

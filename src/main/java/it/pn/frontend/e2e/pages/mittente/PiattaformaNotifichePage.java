@@ -1853,7 +1853,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         WebElement element = getWebDriverWait(20)
                 .withMessage("Voce menu laterale non trovata: "+testo)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'" + testo + "')]")));
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@id,'menu-item("+testo.toLowerCase()+"')]//span")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
         element.click();
