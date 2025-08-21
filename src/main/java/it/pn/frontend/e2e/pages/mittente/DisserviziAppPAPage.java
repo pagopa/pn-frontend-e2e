@@ -291,15 +291,22 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
         List<WebElement> links = getWebDriverWait(45)
                 .withMessage("Lista vuota nella pagina Stato della Piattaforma")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='download-legal-fact']")));
+        int linksSize = links.size();
         if (indexModifier == 0) {
-            for (WebElement link : links) {
-                link.click();
+            for (int linkIndex = 0; linkIndex < linksSize - 1; linkIndex++) {
+                links.get(linkIndex).click();
                 downloadVerificato = checkMessaggioScadenzaDownload();
                 if (downloadVerificato) {
+                    logger.info("click a");
                     break;
                 }
-                else // Torna indietro alla pagina di Google
+                else {// Torna indietro alla pagina di Google
+                    logger.info("click c");
                     driver.navigate().back();
+                }
+                links = getWebDriverWait(45)
+                        .withMessage("Lista vuota nella pagina Stato della Piattaforma")
+                        .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='download-legal-fact']")));
             }
         } else {
             if (!links.isEmpty()) {
@@ -312,33 +319,6 @@ Logging Ottimizzato: I messaggi di log sono stati uniformati per fornire informa
             Assertions.fail("Nessun download ha superato la verifica.");
         }
 
-//        webTool.waitTime(5);
-//        WebElement disserviziTable = element(By.id("notifications-table"));
-//        webTool.waitTime(3);
-//        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-//        if (disserviziTableRows.isEmpty()) {
-//            Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
-//            return;
-//        }
-//
-//        logger.info("Tabella caricata e non vuota");
-//        int index = GregorianCalendar.getInstance().get(Calendar.HOUR_OF_DAY) + indexModifier;
-//
-//        int randomNumber = 0;
-//        if (disserviziTableRows.size()>1){
-//            randomNumber = ThreadLocalRandom.current().nextInt(0, disserviziTableRows.size() - 1);
-//        }
-//
-//        /**
-//        if (indexModifier == 0){
-//            randomNumber = 0;
-//        }
-//         **/
-//
-//        logger.info("DOCUMENTO SELEZIONATO...."+randomNumber);
-//        WebElement linkDownloadAttestazione = driver.findElements(By.xpath("//button[@data-testid='download-legal-fact']")).get(randomNumber);
-//        linkDownloadAttestazione.click();
-//        logger.info("Click effettuato con successo");
     }
 
 
