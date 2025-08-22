@@ -21,6 +21,6 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
     And Verifica traduzione testo "Suchen nach Namen"
     And Verifica traduzione testo "Verwalte die Benutzer, die die Zustellungen von Convivio Spa lesen können."
 
-    When Seleziona voce menu laterale "Gruppen"
+    When Sulla Pagina Gruppi si seleziona voce menu laterale "Gruppen"
     And Verifica traduzione testo "Hier kannst du Unternehmensgruppen verwalten und neue erstellen"
     And Chiudi pagina

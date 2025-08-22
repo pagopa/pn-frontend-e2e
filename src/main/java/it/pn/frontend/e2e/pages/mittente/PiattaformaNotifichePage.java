@@ -1859,6 +1859,16 @@ public class PiattaformaNotifichePage extends BasePage {
         element.click();
     }
 
+    public void sullaPaginaGruppiSelezionaVoceMenuLaterale(String testo) {
+
+        WebElement element = getWebDriverWait(20)
+                .withMessage("Voce menu laterale non trovata: "+testo)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='button']//span[contains(text(),'" + testo + "')]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+
+        element.click();
+    }
+
     public void cambiaLinguaFooter(String lingua) {
 
         WebElement menuLingua = getWebDriverWait(30)

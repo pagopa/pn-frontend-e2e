@@ -21,6 +21,6 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
     And Verifica traduzione testo "utilisateurs qui peuvent lire les notifications de Convivio Spa"
     And Verifica traduzione testo "Ajouter utilisateur"
 
-    When Seleziona voce menu laterale "Groupes"
+    When Sulla Pagina Gruppi si seleziona voce menu laterale "Groupes"
     And Verifica traduzione testo "utilisateurs, par exemple appartenant au même bureau ou département, auxquels est confiée la gestion des notifications"
     And Chiudi pagina

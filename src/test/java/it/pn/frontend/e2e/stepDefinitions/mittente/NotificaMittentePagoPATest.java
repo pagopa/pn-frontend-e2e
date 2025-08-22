@@ -2226,6 +2226,11 @@ public class NotificaMittentePagoPATest  extends BasePage {
         piattaformaNotifichePage.selezionaVoceMenuLaterale(testo);
     }
 
+    @When("Sulla Pagina Gruppi si seleziona voce menu laterale {string}")
+    public void sullaPaginaGruppiSelezionaVoceMenuLaterale(String testo) {
+        piattaformaNotifichePage.sullaPaginaGruppiSelezionaVoceMenuLaterale(testo);
+    }
+
     @When("Click Genera Api Key")
     public void clickGeneraApiKey() {
         piattaformaNotifichePage.clickGeneraApiKey();
