@@ -40,6 +40,7 @@ Feature: PG - Utente con ruolo amministratore della PG blocca una virtual key di
     And Si visualizza correttamente la sezione Ottieni Parametri
     And Cliccare su registra
     And Aggiornamento Pagina
+    And Attesa 5 secondi
     And Logout da portale persona giuridica delegante
 #  Entro come operatore
     And Attesa 2 secondi

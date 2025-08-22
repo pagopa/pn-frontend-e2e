@@ -1856,7 +1856,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@id,'side-item-"+testo+"')]//span")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
-        element.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
     }
 
     public void sullaPaginaGruppiSelezionaVoceMenuLaterale(String testo) {
