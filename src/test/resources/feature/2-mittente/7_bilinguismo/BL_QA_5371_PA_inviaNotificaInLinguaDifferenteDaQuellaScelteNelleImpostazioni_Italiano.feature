@@ -9,9 +9,9 @@ Feature: PA invia notifica in lingua differente da quella scelte nelle impostazi
 #    Pre Condizione Aver settato nelle impostazioni Italiano e Tedesco
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
+    And Si clicca bottone accetta cookies
     When Login con mittente Comune di "Viggiu"
     And Click entra su Send Mittente
-    And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
     And Selezionare da impostazione lingua "Tedesco"
     And Logout e Login con Comune di "Viggiu"
