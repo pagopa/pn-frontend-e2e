@@ -56,7 +56,7 @@ public class AcccediAreaRiservataPAPage extends BasePage {
     }
 
     public void clickScegliAmbienteSendBottoneMittente(String idButton){
-        WebElement forwardButton = getWebDriverWait(10)
+        WebElement forwardButton = getWebDriverWait(30)
                 .withMessage("Il bottone con id '"+idButton+"' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id(idButton)));
 

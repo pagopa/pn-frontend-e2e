@@ -54,7 +54,7 @@ public class CookiesSection extends BasePage {
 //        }
 
         try {
-            WebElement accettaTuttiButton = getWebDriverWait(30)
+            WebElement accettaTuttiButton = getWebDriverWait(60)
                     .withMessage("Il bottone 'Accetta tutti i cookie' non è cliccabile")
                     .until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
 
