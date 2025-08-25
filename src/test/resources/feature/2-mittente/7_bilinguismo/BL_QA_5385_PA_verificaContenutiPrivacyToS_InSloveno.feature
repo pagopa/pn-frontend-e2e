@@ -10,10 +10,9 @@ Feature: PA Verifica contenuti Privacy e ToS in Sloveno
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
 
-    And Si clicca bottone accetta cookies
     When Login con mittente Comune di "Viggiu"
-    And Si clicca bottone accetta cookies
     And Click entra su Send Mittente
+    And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
     And Verifica footer lingua "Slovensko"

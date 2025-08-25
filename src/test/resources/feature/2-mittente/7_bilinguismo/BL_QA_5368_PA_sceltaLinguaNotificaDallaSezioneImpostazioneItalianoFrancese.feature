@@ -9,10 +9,9 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
 #    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di "Viggiu"
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
-    And Si clicca bottone accetta cookies
     When Login con mittente Comune di "Viggiu"
-    And Si clicca bottone accetta cookies
     And Click entra su Send Mittente
+    And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
     And Selezionare da impostazione lingua "Francese"
