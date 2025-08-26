@@ -292,9 +292,11 @@ public class LoginMittentePagoPA extends BasePage {
 
         logger.info("Conditions for cookies 1: {} {}, result {}", driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()), !webDriverManager.getCookieConfig().isCookieEnabled(), driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled());
+        logger.info("For cookies 1 before check: Current URL: {}, URL selfcare {}", driver.getCurrentUrl(), webDriverConfig.getUrlSelfCare());
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start 1");
+            logger.info("For cookies 1 after check: Current URL: {}, URL selfcare {}", driver.getCurrentUrl(), webDriverConfig.getUrlSelfCare());
             cookiesSection.selezionaAccettaTuttiButton();
             logger.info("Condition for accepting cookies 1: {}", cookiesSection.waitLoadCookiesPage());
             if (cookiesSection.waitLoadCookiesPage()) {
@@ -332,9 +334,11 @@ public class LoginMittentePagoPA extends BasePage {
 
         logger.info("Conditions for cookies 2: {} {}, result {}", driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()), !webDriverManager.getCookieConfig().isCookieEnabled(), driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled());
+        logger.info("For cookies 2 before check: Current URL: {}, URL selfcare {}", driver.getCurrentUrl(), webDriverConfig.getUrlSelfCare());
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies start 2");
+            logger.info("For cookies 2 after check: Current URL: {}, URL selfcare {}", driver.getCurrentUrl(), webDriverConfig.getUrlSelfCare());
             cookiesSection.selezionaAccettaTuttiButton();
             logger.info("Condition for accepting cookies 2: {}", cookiesSection.waitLoadCookiesPage());
             if (cookiesSection.waitLoadCookiesPage()) {
