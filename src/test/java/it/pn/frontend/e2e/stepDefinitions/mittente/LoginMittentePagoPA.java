@@ -290,14 +290,17 @@ public class LoginMittentePagoPA extends BasePage {
 //        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
 //        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
+        logger.info("Conditions for cookies 1: {} {}, result {}", driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()), !webDriverManager.getCookieConfig().isCookieEnabled(), driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+                !webDriverManager.getCookieConfig().isCookieEnabled());
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
-            logger.info("cookies start");
+            logger.info("cookies start 1");
             cookiesSection.selezionaAccettaTuttiButton();
+            logger.info("Condition for accepting cookies 1: {}", cookiesSection.waitLoadCookiesPage());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-            logger.info("cookies end");
+            logger.info("cookies end 1");
         }
 
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
@@ -327,14 +330,17 @@ public class LoginMittentePagoPA extends BasePage {
 //        webTool.waitTime(10);
 //        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
 
+        logger.info("Conditions for cookies 2: {} {}, result {}", driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()), !webDriverManager.getCookieConfig().isCookieEnabled(), driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+                !webDriverManager.getCookieConfig().isCookieEnabled());
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
-            logger.info("cookies start");
+            logger.info("cookies start 2");
             cookiesSection.selezionaAccettaTuttiButton();
+            logger.info("Condition for accepting cookies 2: {}", cookiesSection.waitLoadCookiesPage());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-            logger.info("cookies end");
+            logger.info("cookies end 2");
         }
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         if(comune.equalsIgnoreCase("Viggiu")){
