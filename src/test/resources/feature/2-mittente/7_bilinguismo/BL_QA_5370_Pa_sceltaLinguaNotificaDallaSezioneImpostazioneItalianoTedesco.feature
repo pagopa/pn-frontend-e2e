@@ -10,9 +10,7 @@ Feature: PN-QA5370 - PA sceglie la lingua delle sue notifiche dalla sezione Impo
     Given Login Page mittente viene visualizzata
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
-    And Si clicca bottone accetta cookies
     And Click entra su Send Mittente
-    And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 
     And Selezionare da impostazione lingua "Tedesco"
