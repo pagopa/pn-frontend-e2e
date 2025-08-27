@@ -2633,6 +2633,7 @@ public class NotificaMittentePagoPATest  extends BasePage {
     @And("Disabilita Pop-Up Chrome")
     public void disabilitaPopUpChrome() {
         try {
+            logger.info("Pop-up Chrome presente");
             driver.switchTo().alert().accept();
         }
         //In caso il pop-up non sia presente, si intercetta l'eccezione e si continua con il test
