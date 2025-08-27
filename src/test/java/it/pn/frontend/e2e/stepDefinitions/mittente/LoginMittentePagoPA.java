@@ -329,7 +329,7 @@ public class LoginMittentePagoPA extends BasePage {
 //        autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
 //        autorizziInvioDatiPAPage.selezionareInvia();
 //
-//        webTool.waitTime(10);
+        webTool.waitTime(3);
 //        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
 
         logger.info("Conditions for cookies 2: {} {}, result {}", driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()), !webDriverManager.getCookieConfig().isCookieEnabled(), driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
