@@ -2631,7 +2631,8 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Disabilita Pop-Up Chrome")
     public void disabilitaPopUpChrome() {
-        driver.switchTo().alert().accept();
+        if (ExpectedConditions.alertIsPresent() != null)
+            driver.switchTo().alert().accept();
     }
 
     /**
