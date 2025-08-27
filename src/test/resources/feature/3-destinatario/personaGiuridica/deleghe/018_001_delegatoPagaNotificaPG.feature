@@ -2,6 +2,7 @@ Feature:Il delegato persona giuridica accede ad una delega
 
   @TestSuite
   @TA_PGdelegatoPagaNotifica
+  @TA_PagamentoNotifica
   @DeleghePG
   @PG
   @deleghe2
