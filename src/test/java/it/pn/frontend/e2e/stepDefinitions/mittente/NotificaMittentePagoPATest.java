@@ -34,6 +34,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -2631,8 +2632,13 @@ public class NotificaMittentePagoPATest  extends BasePage {
 
     @And("Disabilita Pop-Up Chrome")
     public void disabilitaPopUpChrome() {
-        if (ExpectedConditions.alertIsPresent() != null)
+        try {
             driver.switchTo().alert().accept();
+        }
+        //In caso il pop-up non sia presente, si intercetta l'eccezione e si continua con il test
+        catch (NoAlertPresentException e) {
+            logger.info("Pop-up Chrome non presente");
+        }
     }
 
     /**

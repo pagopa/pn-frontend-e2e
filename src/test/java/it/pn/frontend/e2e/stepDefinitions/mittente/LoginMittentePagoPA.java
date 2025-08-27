@@ -290,19 +290,14 @@ public class LoginMittentePagoPA extends BasePage {
 //        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
 //        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
-        logger.info("Conditions for cookies 1: {} {}, result {}", driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()), !webDriverManager.getCookieConfig().isCookieEnabled(), driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriverManager.getCookieConfig().isCookieEnabled());
-        logger.info("For cookies 1 before check: Current URL: {}, URL selfcare {}", driver.getCurrentUrl(), webDriverConfig.getUrlSelfCare());
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
-            logger.info("cookies start 1");
-            logger.info("For cookies 1 after check: Current URL: {}, URL selfcare {}", driver.getCurrentUrl(), webDriverConfig.getUrlSelfCare());
+            logger.info("cookies section start, before login");
             cookiesSection.selezionaAccettaTuttiButton();
-            logger.info("Condition for accepting cookies 1: {}", cookiesSection.waitLoadCookiesPage());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-            logger.info("cookies end 1");
+            logger.info("cookies section end, before login");
         }
 
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
@@ -324,27 +319,18 @@ public class LoginMittentePagoPA extends BasePage {
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
 
-//        loginPAPage.selezionaInviaDati();
-//
-//        autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
-//        autorizziInvioDatiPAPage.selezionareInvia();
-//
+        /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
+            condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
         webTool.waitTime(3);
-//        selezionaEntePAPage.waitLoadSelezionaEntePAPage();
 
-        logger.info("Conditions for cookies 2: {} {}, result {}", driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()), !webDriverManager.getCookieConfig().isCookieEnabled(), driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriverManager.getCookieConfig().isCookieEnabled());
-        logger.info("For cookies 2 before check: Current URL: {}, URL selfcare {}", driver.getCurrentUrl(), webDriverConfig.getUrlSelfCare());
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
-            logger.info("cookies start 2");
-            logger.info("For cookies 2 after check: Current URL: {}, URL selfcare {}", driver.getCurrentUrl(), webDriverConfig.getUrlSelfCare());
+            logger.info("cookies section start, after login");
             cookiesSection.selezionaAccettaTuttiButton();
-            logger.info("Condition for accepting cookies 2: {}", cookiesSection.waitLoadCookiesPage());
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-            logger.info("cookies end 2");
+            logger.info("cookies section end, after login");
         }
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         if(comune.equalsIgnoreCase("Viggiu")){
