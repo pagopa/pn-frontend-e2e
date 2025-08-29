@@ -9,6 +9,7 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TA_PGdeleganteAggiuntaDelegaDuplicata
   @GestioneErrori
   @NRT_Blocco_1
+  @NRT_PN13213
   Scenario: [PN-14926-PN_MANDATE_ALREADYEXISTS DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega duplicata PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
