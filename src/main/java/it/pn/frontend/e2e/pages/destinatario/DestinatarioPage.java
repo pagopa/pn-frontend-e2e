@@ -402,6 +402,7 @@ public class DestinatarioPage extends BasePage {
 
         for (WebElement input : inputCodiciAvviso) {
             String prefisso = prefissi[random.nextInt(prefissi.length)];
+            //Si aggiungono 5 cifre casuali ai prefissi sopra per includere nella notifica una somma da pagare
             String parteRandomStr = String.format("%05d", random.nextInt(100000));
             String codiceAvviso = prefisso + parteRandomStr;
             logger.info("Codice Avviso Generato dal metodo inserireTuttiCodiceAvviso: {}",codiceAvviso);

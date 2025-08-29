@@ -2642,6 +2642,17 @@ public class NotificaMittentePagoPATest  extends BasePage {
         }
     }
 
+    @And("Si clicca sui radio button del pagamento")
+    public void cliccaSuiRadioButtonDelPagamento() {
+        List<WebElement> radioButtonList = getWebDriverWait(10)
+                .withMessage("Impossibile trovare input con aria-labelledby='label-radio'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[contains(@aria-labelledby,'label-radio')]")));
+        if (radioButtonList.isEmpty())
+            Assertions.fail("Non ci sono radio button nella sezione del pagamento della notifica.");
+        for (WebElement radioButton : radioButtonList) {
+            radioButton.click();
+        }
+    }
     /**
      * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
      */
