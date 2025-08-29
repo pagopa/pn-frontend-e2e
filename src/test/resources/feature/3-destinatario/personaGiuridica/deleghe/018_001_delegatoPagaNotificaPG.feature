@@ -9,8 +9,12 @@ Feature:Il delegato persona giuridica accede ad una delega
   @NRT_Blocco_1
   @NRT_PN13213
   Scenario: PN-10389 - Il delegato persona giuridica paga una notifica
-    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-#    And Si verifica che visualizzato lo stato Pagato
+    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
+    #    And Si verifica che visualizzato lo stato Pagato
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
@@ -22,7 +26,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | nome          | Lucrezia            |
       | cognome       | Borgia              |
     And Nella sezione Deleghe si crea una delega accettata per PG
-
+    And Logout da portale persona giuridica
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella sezione Deleghe si accetta la delega accettata per PG
