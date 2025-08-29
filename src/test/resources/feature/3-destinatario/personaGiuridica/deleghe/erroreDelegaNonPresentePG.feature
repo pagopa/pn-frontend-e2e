@@ -4,7 +4,6 @@ Feature: Il delegato visualizza la notifiche del delegante
   @TA_PGErroreDelegaNonPresente
   @DeleghePG
   @PG
-  @deleghe2
   @DeleghePFPG
   @GestioneErrori
   @NRT_Blocco_1

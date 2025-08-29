@@ -5,23 +5,40 @@ Feature:Il delegato persona giuridica accede ad una delega
   @PG
   @DeleghePFPG
   @DeleghePFPG1
-  @deleghe2
   @TA_PGdeleganteAggiuntaDelegaDuplicata
   @GestioneErrori
   @NRT_Blocco_1
+  @NRT_PN13213
+  @deleghe2
   Scenario: [PN-14926-PN_MANDATE_ALREADYEXISTS DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega duplicata PG
-    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
+    And Si clicca su prodotto
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Lucrezia Borgia"
+    And Logout da portale persona giuridica delegante
     And Nella sezione Deleghe si crea una delega accettata per PG
-
-    And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
+    Given Login Page persona fisica test viene visualizzata
+    Given Login con persona fisica input
+      | user         | lucrezia                 |
+      | pwd          | password123            |
+      | name         | Lucrezia            |
+      | familyName   | Borgia                 |
+      | fiscalNumber | TINIT-BRGLRZ80D58H501Q |
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella sezione Deleghe si accetta la delega accettata per PG
-
-    And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Logout da portale persona fisica
+    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
+    And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     #And Aspetta 5 secondi

@@ -4,7 +4,6 @@ Feature: persona fisica aggiunge una delega dall'elenco degli enti radice
   @TA_PFaggiuntaDelegaEnteRadice
   @DeleghePF
   @PF
-  @deleghe1
   @DeleghePFPG
   @NRT_Blocco_3
   Scenario:PN-10425 - La persona fisica aggiunge una delega dall'elenco enti radice

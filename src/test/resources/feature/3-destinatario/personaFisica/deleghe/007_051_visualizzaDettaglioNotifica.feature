@@ -4,7 +4,6 @@ Feature: Il delegato visualizza il dettaglio di una notifica
   @TA_PFdelegatovisualizzaDettaglioNotifica
   @DeleghePF
   @PF
-  @deleghe1
   @DeleghePFPG
   @NRT_Blocco_3
   Scenario:PN-9417 - Accesso alla sezione notifiche da parte delegato
