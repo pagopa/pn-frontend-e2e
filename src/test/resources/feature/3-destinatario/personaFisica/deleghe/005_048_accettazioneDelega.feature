@@ -26,8 +26,15 @@ Feature: il delegato accetta la delega
     And Nella sezione Deleghe si sceglie l'opzione revoca
     And Si conferma l'azione scegliendo revoca la delega
     And Si controlla che non ci sia più una delega
+    And Logout da portale persona fisica
 
-    And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
+    Given Login Page persona fisica test viene visualizzata
+    Given Login con persona fisica input
+      | user         | lucrezia                 |
+      | pwd          | password123            |
+      | name         | Lucrezia            |
+      | familyName   | Borgia                 |
+      | fiscalNumber | TINIT-BRGLRZ80D58H501Q |
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
     When Creo in background una delega per persona fisica
