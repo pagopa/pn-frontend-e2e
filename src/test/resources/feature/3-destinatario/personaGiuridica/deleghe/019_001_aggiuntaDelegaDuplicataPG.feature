@@ -16,6 +16,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
+    And Si clicca su prodotto
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa

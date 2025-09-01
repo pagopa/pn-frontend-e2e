@@ -24,7 +24,7 @@ Feature: Il delegato visualizza la notifiche del delegante
       | nome    | Lucrezia |
       | cognome | Borgia   |
     And Aspetta 10 secondi
-    And Nella sezione Deleghe click sul bottone aggiungi nuova delega
+    And Nella sezione Deleghe click sul bottone aggiungi nuova delega PF
     And Si visualizza correttamente la pagina nuova delega
     And Nella sezione Le Tue Deleghe inserire i dati
       | nome          | Lucrezia          |
