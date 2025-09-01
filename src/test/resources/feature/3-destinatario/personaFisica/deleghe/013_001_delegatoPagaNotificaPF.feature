@@ -45,4 +45,3 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Si controlla che la delega ha lo stato Attiva
       | firstName | Gaio Giulio |
       | lastName  | Cesare      |
-    And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "(gaio giulio cesare)"

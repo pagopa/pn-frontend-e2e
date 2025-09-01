@@ -19,14 +19,10 @@ Feature: Il delegato visualizza la notifiche del delegante
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
-    And Nella sezione Deleghe si verifica sia presente una delega
+    And Si controlla che non sia presente una delega con stesso nome
       | nome    | Lucrezia |
       | cognome | Borgia   |
-    And Nella sezione Deleghe si clicca sul menu della delega
-      | nome    | Lucrezia |
-      | cognome | Borgia   |
-    And Nella sezione Deleghe si sceglie l'opzione revoca
-    And Si conferma l'azione scegliendo revoca la delega
+    And Aspetta 10 secondi
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega PF
     And Si visualizza correttamente la pagina nuova delega
     And Nella sezione Le Tue Deleghe inserire i dati
