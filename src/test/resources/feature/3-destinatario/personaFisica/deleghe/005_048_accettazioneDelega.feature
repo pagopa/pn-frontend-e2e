@@ -26,6 +26,16 @@ Feature: il delegato accetta la delega
     And Nella sezione Deleghe si sceglie l'opzione revoca
     And Si conferma l'azione scegliendo revoca la delega
     And Si controlla che non ci sia più una delega
+    And Nella sezione Deleghe click sul bottone aggiungi nuova delega PF
+    And Nella sezione Le Tue Deleghe inserire i dati
+      | nome          | Lucrezia          |
+      | cognome       | Borgia            |
+      | codiceFiscale | BRGLRZ80D58H501Q  |
+      | ente          | Comune di Verona |
+    And Nella sezione Le Tue Deleghe verificare che la data sia corretta
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
+    And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
+
     And Logout da portale persona fisica
 
     Given Login Page persona fisica test viene visualizzata
@@ -37,13 +47,6 @@ Feature: il delegato accetta la delega
       | fiscalNumber | TINIT-BRGLRZ80D58H501Q |
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
-    When Creo in background una delega per persona fisica
-      | accessoCome | delegante        |
-      | fiscalCode  | BRGLRZ80D58H501Q |
-      | person      | true             |
-      | displayName | Lucrezia Borgia  |
-      | firstName   | Lucrezia         |
-      | lastName    | Borgia           |
     And Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe
     And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And  Si clicca sul bottone indietro popup
