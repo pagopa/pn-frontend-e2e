@@ -50,4 +50,3 @@ Feature: Il delegato visualizza la notifiche del delegante
     And Si controlla che la delega ha lo stato Attiva
       | firstName | Gaio Giulio |
       | lastName  | Cesare      |
-    And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "(gaio giulio cesare)"

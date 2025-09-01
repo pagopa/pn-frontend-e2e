@@ -4,7 +4,6 @@ Feature: persona giuridica scarica attestazione opponibile
   @TA_PG_DownloadFileAOTPresaInCarico
   @DownloadFilePG
   @PG
-  @deleghe1
   @NRT_Blocco_3
   @DownloadFile
   Scenario: PN-10432 - Persona giuridica scarica Attestazione opponibile a terzi: notifica presa in carico

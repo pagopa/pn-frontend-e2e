@@ -4,7 +4,6 @@ Feature:La persona fisica aggiunge una nuova delega
   @TA_PF_QA_441
   @NRT_Blocco_3
   @DeleghePF
-  @deleghe1
   Scenario: [QA_441] ValidationBug Visualizzato messaggio di errore portale PF
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe

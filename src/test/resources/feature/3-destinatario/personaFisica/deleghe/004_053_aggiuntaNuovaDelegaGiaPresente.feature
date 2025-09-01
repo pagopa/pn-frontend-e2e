@@ -4,7 +4,6 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
   @TA_PFaggiuntaDelegaGiaPresente
   @DeleghePF
   @PF
-  @deleghe1
   @DeleghePFPG
   @GestioneErrori
   @NRT_Blocco_3

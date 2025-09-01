@@ -6,7 +6,6 @@ Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
   @PF
   @DeleghePFPG1
   @DeleghePFPG
-  @deleghe1
   @NRT_Blocco_3
   Scenario: PN-9414 - Il delegato persona fisica rifiuta la delega che gli è stata inviata
 

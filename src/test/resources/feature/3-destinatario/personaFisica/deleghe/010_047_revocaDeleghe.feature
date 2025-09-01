@@ -4,7 +4,6 @@ Feature:La persona fisica revoca una delega
   @TA_PFrevocaDelega
   @DeleghePF
   @PF
-  @deleghe1
   @DeleghePFPG
   @NRT_Blocco_3
   Scenario:PN-9403 - La persona fisica revoca una delega

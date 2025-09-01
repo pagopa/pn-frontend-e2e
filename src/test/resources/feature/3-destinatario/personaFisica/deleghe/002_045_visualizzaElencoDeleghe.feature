@@ -4,7 +4,6 @@ Feature:La persona fisica visualizza la sezione aggiungi una nuova delega
   @TA_PFvisualizzaElencoCampiAggiungiDelega
   @DeleghePF
   @PF
-  @deleghe1
   @DeleghePFPG
   @NRT_Blocco_3
   Scenario:PN-9399 - La persona fisica visualizza la sezione aggiungi una nuova delega
