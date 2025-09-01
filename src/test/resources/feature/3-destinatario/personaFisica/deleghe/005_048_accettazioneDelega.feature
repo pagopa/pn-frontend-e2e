@@ -17,9 +17,6 @@ Feature: il delegato accetta la delega
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
-    And Nella sezione Deleghe si verifica sia presente una delega
-      | nome    | Lucrezia |
-      | cognome | Borgia   |
     And Nella sezione Deleghe si clicca sul menu della delega
       | nome    | Lucrezia |
       | cognome | Borgia   |
