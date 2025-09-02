@@ -22,7 +22,7 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Lucrezia Borgia"
     And Nella sezione Deleghe si crea una delega accettata per PG
-    And Logout da portale persona giuridica
+    And Logout da portale persona giuridica delegante
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica input
       | user         | lucrezia                 |

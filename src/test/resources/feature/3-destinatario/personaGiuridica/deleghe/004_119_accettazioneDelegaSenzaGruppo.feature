@@ -20,6 +20,7 @@ Feature:Il delegato persona giuridica accetta la delega non assegnandoli un grup
       | codiceFiscale  | 27957814470  |
       | ente           | Comune di Palermo |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
+    And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Si controlla la tabella deleghe a carico dell impresa
     And Si inserisce un codice della delega a carico dell impresa errato nella modale
     Then Le textbox che contengono le cifre del codice delega diventano rosse
