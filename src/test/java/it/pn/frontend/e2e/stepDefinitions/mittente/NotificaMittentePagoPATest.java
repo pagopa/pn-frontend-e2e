@@ -2629,13 +2629,16 @@ public class NotificaMittentePagoPATest  extends BasePage {
         String env = this.webDriverConfig.getEnvironment();
         switch (portal) {
             case PF:
-                this.driver.get("https://cittadini." + env + ".notifichedigitali.it/prova");
+                driver.get(webDriverConfig.getBaseUrlPfTest()+"prova");
+//                this.driver.get("https://cittadini." + env + ".notifichedigitali.it/prova");
                 break;
             case PG:
-                this.driver.get("https://imprese." + env + ".notifichedigitali.it/prova");
+                driver.get(webDriverConfig.getBaseUrlPgTest()+"prova");
+//                this.driver.get("https://imprese." + env + ".notifichedigitali.it/prova");
                 break;
             case PA:
-                this.driver.get("https://selfcare." + env + ".notifichedigitali.it/prova");
+                driver.get(webDriverConfig.getUrlMittente()+"/prova");
+//                this.driver.get("https://selfcare." + env + ".notifichedigitali.it/prova");
                 break;
             default:
                 Assertions.fail("Tipologia di portale non specificato o errato!");
