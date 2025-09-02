@@ -7,6 +7,9 @@ Feature: Rework della pagina dei contatti
   @NRT_Blocco_2
   Scenario:[SERCQ_34_35_36_PF]
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+
+
+
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 
     And Verifica ed Elimina personalizzati per ente
@@ -53,6 +56,19 @@ Feature: Rework della pagina dei contatti
     And Attesa 2 secondi
     And Refresh pagina
     Then Verifica Pagina "prova1pf@pec.it"
+
+     #Validation bug PF QA-8729
+    And Click Bottone Gestisci
+    And Click Bottone "Personalizza per ente"
+    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
+    And Verifica Banner Personalizza il tuo domicilio digitale per ente mittente "associato al recapito prova1pf@pec.it"
+    And Spuntare checkbox privacy
+    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1pf@pec.it"
+    And Click Torna ai tuoi recapiti
+    # FINE Validation bug PF QA-8729
+
+
+
 
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"

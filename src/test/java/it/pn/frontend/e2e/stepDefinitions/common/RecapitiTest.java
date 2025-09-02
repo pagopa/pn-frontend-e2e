@@ -375,4 +375,9 @@ public class RecapitiTest extends BasePage {
     public void clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante() {
         recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
     }
+
+    @And("Verifica Banner Personalizza il tuo domicilio digitale per ente mittente {string}")
+    public void verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String testBanner) {
+        recapitiDestinatarioPage.verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(testBanner);
+    }
 }

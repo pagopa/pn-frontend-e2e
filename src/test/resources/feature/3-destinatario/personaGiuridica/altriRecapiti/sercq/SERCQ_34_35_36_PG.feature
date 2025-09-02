@@ -46,6 +46,16 @@ Feature: Rework della pagina dei contatti
     And Refresh pagina
     Then Verifica Pagina "prova1@pec.it"
 
+     #Validation bug PF QA-8730
+   And Click Bottone Gestisci
+   And Click Bottone "Personalizza per ente"
+   And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
+    And Verifica Banner Personalizza il tuo domicilio digitale per ente mittente "associato al recapito prova1@pec.it"
+   And Spuntare checkbox privacy
+    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1@pec.it"
+   And Click Torna ai tuoi recapiti
+    # FINE Validation bug PF QA-8730
+
    And Click Bottone Gestisci
    And Click Bottone "Personalizza per ente"
    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
