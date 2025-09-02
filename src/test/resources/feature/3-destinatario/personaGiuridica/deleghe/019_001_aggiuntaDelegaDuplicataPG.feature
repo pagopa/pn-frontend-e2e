@@ -5,7 +5,6 @@ Feature:Il delegato persona giuridica accede ad una delega
   @PG
   @DeleghePFPG
   @DeleghePFPG1
-  @deleghe2
   @TA_PGdeleganteAggiuntaDelegaDuplicata
   @GestioneErrori
   @NRT_Blocco_1

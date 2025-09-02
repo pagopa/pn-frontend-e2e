@@ -4,7 +4,6 @@ Feature:Il delegato persona giuridica rifiuta la delega
   @TA_PGrifiutoDelega
   @DeleghePG
   @PG
-  @deleghe2
   @DeleghePFPG
   @NRT_Blocco_1
   Scenario: PN-9172 - Il delegato persona giuridica rifiuta la delega

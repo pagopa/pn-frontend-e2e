@@ -17,12 +17,10 @@ Feature: il delegato accetta la delega
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
-    And Nella sezione Deleghe si clicca sul menu della delega
-      | nome    | Lucrezia |
-      | cognome | Borgia   |
-    And Nella sezione Deleghe si sceglie l'opzione revoca
-    And Si conferma l'azione scegliendo revoca la delega
-    And Si controlla che non ci sia più una delega
+    And Revoca deleghe PF se esistono
+    And Si controlla che non sia presente una delega con stesso nome
+      | nome          | Lucrezia            |
+      | cognome       | Borgia              |
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega PF
     And Nella sezione Le Tue Deleghe inserire i dati
       | nome          | Lucrezia          |
@@ -53,7 +51,7 @@ Feature: il delegato accetta la delega
     And Si vefifica il messaggio di codice sbagliato
     And  Si clicca sul bottone indietro popup
     And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
-    And Si inserisce il codice delega nel pop-up OTP "corretto"
+    And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
     And Si controlla che la delega ha lo stato Attiva
       | firstName   | Gaio Giulio       |

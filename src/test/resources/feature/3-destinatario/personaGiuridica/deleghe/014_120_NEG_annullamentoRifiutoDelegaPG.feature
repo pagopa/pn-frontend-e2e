@@ -5,7 +5,6 @@ Feature:Il delegato persona giuridica annulLa l'operazione di rifiuto delega
   @DeleghePG
   @PG
   @DeleghePGPF
-  @deleghe2
   @DeleghePFPG
   @NRT_Blocco_1
   Scenario: PN-9172-A118 - Il delegato persona giuridica annulla l'operazione di rifiuto delega

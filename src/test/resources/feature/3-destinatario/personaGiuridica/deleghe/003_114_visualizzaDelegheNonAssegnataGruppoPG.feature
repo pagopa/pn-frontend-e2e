@@ -5,7 +5,6 @@ Feature: La persona giuridica visualizza le deleghe
   @DeleghePG
   @PG
   @DeleghePFPG
-  @deleghe2
   @NRT_Blocco_1
   Scenario: PN-9166-A112 - La persona giuridica visualizza le deleghe
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
