@@ -17,7 +17,7 @@ Feature: il delegato accetta la delega
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
-    And Revoca deleghe PF se esistono
+    And Rimuovi tutti i delegati da i Tuoi Delegati se esistono
     And Si controlla che non sia presente una delega con stesso nome
       | nome          | Lucrezia            |
       | cognome       | Borgia              |

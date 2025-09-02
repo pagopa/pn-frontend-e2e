@@ -28,6 +28,7 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
     And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Convivio Spa"
+    And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
     And Nella sezione Aggiungi Delega persona giuridica inserire i dati
       | accessoCome    | delegante         |
