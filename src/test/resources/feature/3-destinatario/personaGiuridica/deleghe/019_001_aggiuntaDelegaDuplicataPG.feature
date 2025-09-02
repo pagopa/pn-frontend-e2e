@@ -21,8 +21,8 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Lucrezia Borgia"
-    And Nella sezione Deleghe si crea una delega accettata per PG
     And Logout da portale persona giuridica delegante
+    And Nella sezione Deleghe si crea una delega accettata per PG
     Given Login Page persona fisica test viene visualizzata
     Given Login con persona fisica input
       | user         | lucrezia                 |
@@ -38,6 +38,7 @@ Feature:Il delegato persona giuridica accede ad una delega
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
+    And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     #And Aspetta 5 secondi
