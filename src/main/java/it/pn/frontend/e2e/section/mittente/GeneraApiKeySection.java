@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 public class GeneraApiKeySection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("GeneraApiKeySection");
+    private static final Logger logger = LoggerFactory.getLogger(GeneraApiKeySection.class);
 
     public GeneraApiKeySection(WebDriver driver) {
         this.driver = driver;

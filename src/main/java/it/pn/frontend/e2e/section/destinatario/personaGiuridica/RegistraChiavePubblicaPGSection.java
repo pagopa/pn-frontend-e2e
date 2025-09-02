@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class RegistraChiavePubblicaPGSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("RegistraChiavePubblicaPG");
+    private static final Logger logger = LoggerFactory.getLogger(RegistraChiavePubblicaPGSection.class);
 
     @FindBy(id = "name")
     private WebElement inputNome;

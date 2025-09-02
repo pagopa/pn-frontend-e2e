@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AppPortalUrlFactory  {
-    private static final Logger logger = LoggerFactory.getLogger("AppPortalUrlFactory");
+    private static final Logger logger = LoggerFactory.getLogger(AppPortalUrlFactory.class);
 
     @Autowired
     private WebDriverConfig webDriverConfig;

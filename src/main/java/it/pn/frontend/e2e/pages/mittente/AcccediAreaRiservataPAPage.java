@@ -20,7 +20,7 @@ Logging migliorato: La sintassi dei log logger.error  è stata modificata per sf
 
 
 public class AcccediAreaRiservataPAPage extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("AccediAreaRiservataPAPage");
+    private static final Logger logger = LoggerFactory.getLogger(AcccediAreaRiservataPAPage.class);
     @FindBy(id = "spidButton")
     WebElement spidButton;
 

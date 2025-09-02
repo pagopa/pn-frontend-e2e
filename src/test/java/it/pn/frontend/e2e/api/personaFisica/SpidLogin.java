@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 public class SpidLogin {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidLogin");
+    private static final Logger logger = LoggerFactory.getLogger(SpidLogin.class);
     private String spidLoginEndPoint;
     private String responseBody;
     private final String authLevel;

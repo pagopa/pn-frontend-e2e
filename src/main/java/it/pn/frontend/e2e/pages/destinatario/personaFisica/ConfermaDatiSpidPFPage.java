@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 public class ConfermaDatiSpidPFPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("ConfermaDatiSpidPFPage");
+    private static final Logger logger = LoggerFactory.getLogger(ConfermaDatiSpidPFPage.class);
 
 
     @FindBy(xpath = "//li[contains(text(),'name')]/strong")

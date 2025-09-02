@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class RecapitiPGPage extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("RecapitiPGPage");
+    private final Logger logger = LoggerFactory.getLogger(RecapitiPGPage.class);
 
 
     public RecapitiPGPage(WebDriver driver) {

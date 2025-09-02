@@ -26,7 +26,7 @@ import java.util.List;
 // Rende la classe un bean Spring per l'iniezione in altre classi
 public class DashboardPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DashboardMittentePagoPA");
+    private static final Logger logger = LoggerFactory.getLogger(DashboardPage.class);
 
     @Autowired
     private NotificationSingleton notificationSingleton;

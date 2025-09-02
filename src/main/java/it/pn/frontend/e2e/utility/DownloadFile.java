@@ -37,7 +37,7 @@ Gestione delle eccezioni: Ho migliorato il tracciamento delle eccezioni, fornend
 
 public class DownloadFile extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DownloadFile");
+    private static final Logger logger = LoggerFactory.getLogger(DownloadFile.class);
 
     @Autowired
     private WebDriverConfig webDriverConfig;

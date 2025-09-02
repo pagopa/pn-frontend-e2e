@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 
 public class NotificheDestinatarioPage extends BasePage{
-    private static final Logger logger = LoggerFactory.getLogger("NotificheDestinatarioPage");
+    private static final Logger logger = LoggerFactory.getLogger(NotificheDestinatarioPage.class);
 
     @FindBy(id = "iunMatch")
     WebElement codiceIunTextField;

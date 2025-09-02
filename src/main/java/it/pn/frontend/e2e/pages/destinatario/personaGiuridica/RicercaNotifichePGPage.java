@@ -16,7 +16,7 @@ import java.util.List;
 
 public class RicercaNotifichePGPage extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePGPage");
+    private final Logger logger = LoggerFactory.getLogger(RicercaNotifichePGPage.class);
 
 
 

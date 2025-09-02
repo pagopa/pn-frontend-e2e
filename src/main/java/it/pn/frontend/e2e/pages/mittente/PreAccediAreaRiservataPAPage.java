@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 public class PreAccediAreaRiservataPAPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("PreAccediAreaRiservataPAPage");
+    private static final Logger logger = LoggerFactory.getLogger(PreAccediAreaRiservataPAPage.class);
 
     @FindBy(id = "login-button")
     WebElement procediAlLoginButton;

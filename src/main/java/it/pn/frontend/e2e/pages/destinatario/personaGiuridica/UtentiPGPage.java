@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class UtentiPGPage extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("UtentiPGPage");
+    private final Logger logger = LoggerFactory.getLogger(UtentiPGPage.class);
 
     @FindBy(xpath = "//button[contains(text(),'Aggiungi utente')]")
     WebElement addUserButton;

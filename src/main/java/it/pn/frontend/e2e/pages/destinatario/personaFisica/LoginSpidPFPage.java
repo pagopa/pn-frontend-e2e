@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 public class LoginSpidPFPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("LoginSpidPFPage");
+    private static final Logger logger = LoggerFactory.getLogger(LoginSpidPFPage.class);
 
 
     @FindBy(id = "username")
