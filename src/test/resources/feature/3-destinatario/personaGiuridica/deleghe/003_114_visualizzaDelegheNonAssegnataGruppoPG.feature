@@ -21,23 +21,29 @@ Feature: La persona giuridica visualizza le deleghe
     #  | displayName    | Le Epistolae srl  |
     #  | person         | false             |
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Lucrezia Borgia"
-    When Creo in background una delega per persona giuridica
-      | accessoCome | delegante        |
-      | fiscalCode  | BRGLRZ80D58H501Q |
-      | person      | true             |
-      | displayName | Lucrezia Borgia  |
-      | firstName   | Lucrezia         |
-      | lastName    | Borgia           |
+    And Nella pagina Deleghe si clicca su Delegati dall impresa
+    And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
+    And Nella sezione Aggiungi Delega persona giuridica inserire i dati
+      | accessoCome    | delegante         |
+      | ragioneSociale | Convivio Spa  |
+      | codiceFiscale  | 27957814470  |
+      | ente           | Comune di Palermo |
+    And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
+    And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Si controlla la tabella delegati dall impresa
     And Nella sezione Delegati dall impresa si visualizza la delega in stato di attesa di conferma
-    And Si revoca delega come delegante con api
+    And Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca
+    And Si conferma l'azione scegliendo revoca la delega
     And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
-    And Creo in background una delega per persona giuridica
-      | accessoCome    | delegante     |
-      | fiscalCode     | 27957814470   |
-      | companyName    | Convivio Spa  |
-      | displayName    | Convivio Spa  |
-      | person         | false         |
+    And Nella pagina Deleghe si clicca su Delegati dall impresa
+    And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
+    And Nella sezione Aggiungi Delega persona giuridica inserire i dati
+      | accessoCome    | delegante         |
+      | ragioneSociale | Convivio Spa  |
+      | codiceFiscale  | 27957814470  |
+      | ente           | Comune di Palermo |
+    And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
+    And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Si controlla la tabella deleghe a carico dell impresa
     And Si accetta la delega senza gruppo
