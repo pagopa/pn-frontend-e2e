@@ -19,6 +19,8 @@ Feature:Deleghe lato ruolo operatore
       | ragioneSociale | DivinaCommedia Srl   |
 
   @TA_PGRuoloOperatoreControlloAnnullamentoNotifica
+  @NRT_PN13213
+  @deleghe2
   Scenario: [TA-FE CONTROLLO DELGHE LAYOUT RUOLO OPERATORE]- Si controlla lato ruolo operatore che non sia possibile annullare la notifica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe

@@ -8,6 +8,8 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TA_PGdeleganteAggiuntaDelegaDuplicata
   @GestioneErrori
   @NRT_Blocco_1
+  @NRT_PN13213
+  @deleghe2
   Scenario: [PN-14926-PN_MANDATE_ALREADYEXISTS DELEGANTE PG AMMINISTRATORE] - Il delegante aggiunta delega duplicata PG
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

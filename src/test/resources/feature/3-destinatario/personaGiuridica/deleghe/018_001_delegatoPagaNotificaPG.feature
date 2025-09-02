@@ -6,6 +6,8 @@ Feature:Il delegato persona giuridica accede ad una delega
   @PG
   @DeleghePFPG1
   @NRT_Blocco_1
+  @NRT_PN13213
+  @deleghe2
   Scenario: PN-10389 - Il delegato persona giuridica paga una notifica
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica

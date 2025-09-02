@@ -5,7 +5,8 @@ Feature:Il delegato persona giuridica accede ad una delega
   @DeleghePG_1
   @PG
   @DeleghePFPG
-
+  @NRT_PN13213
+  @deleghe2
   Scenario: PN-9177 - Il delegato persona giuridica accede ad una notifica
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
