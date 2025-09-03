@@ -23,11 +23,11 @@ Feature: La persona giuridica visualizza le deleghe
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Lucrezia Borgia"
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
-    And Nella sezione Aggiungi Delega persona giuridica inserire i dati
-      | accessoCome    | delegante         |
-      | ragioneSociale | Convivio Spa  |
-      | codiceFiscale  | 27957814470  |
-      | ente           | Comune di Palermo |
+    And Nella sezione Le Tue Deleghe inserire i dati
+      | nome          | Lucrezia            |
+      | cognome       | Borgia              |
+      | codiceFiscale | BRGLRZ80D58H501Q    |
+      | ente          | Comune di Verona    |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Nella pagina Deleghe si clicca su Delegati dall impresa
