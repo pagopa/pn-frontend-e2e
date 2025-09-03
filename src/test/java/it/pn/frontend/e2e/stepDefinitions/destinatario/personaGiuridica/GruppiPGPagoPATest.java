@@ -4,18 +4,12 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.listeners.Hooks;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.DisserviziAppPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.GruppiPGPage;
-import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
@@ -24,12 +18,12 @@ public class GruppiPGPagoPATest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger(GruppiPGPagoPATest.class);
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
-    private  GruppiPGPage gruppiPGPage;
+    private GruppiPGPage gruppiPGPage;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         gruppiPGPage = new GruppiPGPage(driver);

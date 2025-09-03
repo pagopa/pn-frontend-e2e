@@ -30,7 +30,7 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
     private WebTool webTool;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         registraChiavePubblicaPGSection = new RegistraChiavePubblicaPGSection(driver);
@@ -75,7 +75,8 @@ public class RegistraChiavePubblicaPGPagoPATest extends BasePage {
         registraChiavePubblicaPGSection.insertNome(generateRandomString(260));
         registraChiavePubblicaPGSection.insertPublicKey(generateRandomString(501));
     }
-    public  String generateRandomString(int length) {
+
+    public String generateRandomString(int length) {
         final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         final RandomGenerator randomGenerator = RandomGenerator.getDefault();
         return randomGenerator.ints(length, 0, CHARACTERS.length())
