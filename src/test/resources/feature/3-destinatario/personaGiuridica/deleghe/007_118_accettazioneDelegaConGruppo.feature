@@ -13,8 +13,8 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Refresh pagina
-    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Convivio Spa"
     And Nella pagina Deleghe si clicca su Delegati dall impresa
+    And Si controlla che non sia presente una delega con stesso nome persona giuridica "Convivio Spa"
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
     And Nella sezione Aggiungi Delega persona giuridica inserire i dati
       | accessoCome    | delegante         |
