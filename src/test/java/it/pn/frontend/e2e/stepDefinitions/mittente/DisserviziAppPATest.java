@@ -20,12 +20,7 @@ import org.springframework.context.annotation.Lazy;
 
 import java.io.File;
 import java.io.IOException;
-/*
 
-*Iniezione delle Dipendenze con @Autowired: Abbiamo rimosso la creazione manuale delle istanze e invece abbiamo iniettato le dipendenze WebDriver, WebDriverConfig, AccediAPiattaformaNotifichePage, e DisserviziAppPAPage tramite @Autowired.
-* Integrazione DownloadFile e WebTool: Poiché DownloadFile e WebTool vengono utilizzati internamente senza dipendenze da Spring, non è necessario modificarli; il loro uso rimane invariato.
-* Annotazione @Component: La classe DisserviziAppPATest è stata annotata come componente Spring per consentire l'iniezione automatica delle dipendenze. */
-//@Component
 public class DisserviziAppPATest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(DisserviziAppPATest.class);
@@ -48,10 +43,10 @@ public class DisserviziAppPATest extends BasePage {
 
     private DownloadFile downloadFile;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         downloadFile = new DownloadFile(driver);
@@ -110,17 +105,9 @@ public class DisserviziAppPATest extends BasePage {
         }
         disserviziAppPAPage.clickLinkAttestazioniOpponibileDisservizi(0);
         webTool.waitTime(5);
-        //TODO rivedere...
-        //String legalFactId = downloadFile.getLegalFactId();
-       // String urlFileAttestazioneOpponibile = baseUrl + "downtime/legal-facts/" + legalFactId;
-
-        //File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + 0 + ".pdf");
-       // downloadFile.downloadAttestazioneDisservizi(urlFileAttestazioneOpponibile, file, headless);
         if (!headless) {
             disserviziAppPAPage.goBack();
         }
-
-       // downloadFile.controlloDownload(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario", 1);
     }
 
     @And("Si visualizzano tutti i record in elenco relativi a disservizi risolti")
