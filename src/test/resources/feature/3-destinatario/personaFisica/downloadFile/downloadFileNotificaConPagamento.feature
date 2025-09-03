@@ -1,4 +1,3 @@
-@TestSuite
 @NRT_Blocco_2
 Feature: Il destinatario accede ad una notifica non ancora pagata e scarica i file
 

@@ -1,19 +1,17 @@
 Feature: PG - Rotazione di una public key per un utente Amministratore Persona Giuridica con già una public key ruotata
 
-  @TestSuite
   @TA_PG_RuotaPublicKeyRuotata_QA_5315
   @integrazioneApi
   @integrazioneApiDelegato
-  #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5315_5318_5320_5321_5322_5323_5324_5325_5326  PG - Rotazione di una public key per un utente Amministratore Persona Giuridica con già una public key ruotata,
-                                      Utente Amministratore Persona Giuridica censisce una virtual key,
-                                      Rotazione di una virtual key attiva per un utente Amministratore Persona Giuridica,
-                                      Blocco di una virtual key attiva per un utente Amministratore Persona Giuridica,
-                                      Eliminazione di una virtual key ruotata per un utente Amministratore Persona Giuridica,
-                                      Eliminazione di una virtual key bloccata per un utente Amministratore Persona Giuridica,
-                                      Rotazione di una virtual key per un utente Amministratore Persona Giuridica con già una virtual key ruotata.
-                                      Virtual key attiva, blocca la virtual key e registra una nuova virtual key che verrà a sua volta ruotata e ne verrà registrata una nuova.
+  Utente Amministratore Persona Giuridica censisce una virtual key,
+  Rotazione di una virtual key attiva per un utente Amministratore Persona Giuridica,
+  Blocco di una virtual key attiva per un utente Amministratore Persona Giuridica,
+  Eliminazione di una virtual key ruotata per un utente Amministratore Persona Giuridica,
+  Eliminazione di una virtual key bloccata per un utente Amministratore Persona Giuridica,
+  Rotazione di una virtual key per un utente Amministratore Persona Giuridica con già una virtual key ruotata.
+  Virtual key attiva, blocca la virtual key e registra una nuova virtual key che verrà a sua volta ruotata e ne verrà registrata una nuova.
 
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

@@ -1,18 +1,17 @@
 Feature: Mittente visualizza il dettaglio di una notifica con documenti allegati
 
-  @TestSuite
   @TA_MittenteDettaglioNotificheConDocumenti
   @NRT_Blocco_2
   @NRT_Blocco_2_visualizzazioneNotifiche
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - Mittente visualizza box allegati modelli F24
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
-      | modello         | A/R                |
-      | documenti       | 1                  |
+      | modello         | A/R                                                           |
+      | documenti       | 1                                                             |
       | oggettoNotifica | Pagamento rata IMU TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA |
-      | costiNotifica   | false              |
+      | costiNotifica   | false                                                         |
     And Si aggiunge un destinatario alla notifica
-      | at        | Presso     |
+      | at               | Presso       |
       | indirizzo        | VIA ROMA     |
       | codicePostale    | 20147        |
       | comune           | Milano       |

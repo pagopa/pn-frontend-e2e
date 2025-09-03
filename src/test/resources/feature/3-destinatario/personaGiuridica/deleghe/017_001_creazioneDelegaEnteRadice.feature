@@ -1,6 +1,5 @@
 Feature: persona giuridica aggiunge una delega dall'elenco degli enti radice
 
-  @TestSuite
   @TA_PGaggiuntaDelegaEnteRadice
   @DeleghePG
   @PG
@@ -17,8 +16,8 @@ Feature: persona giuridica aggiunge una delega dall'elenco degli enti radice
     # Non c'è seconda PG disponibile per creazione delega TA, si usa un'altra PG e si cancella subito dopo
     And Nella sezione Aggiungi Delega persona giuridica inserire i dati
       | accessoCome    | delegante         |
-      | ragioneSociale | Vita Nova Sas  |
-      | codiceFiscale  | 12666810299  |
+      | ragioneSociale | Vita Nova Sas     |
+      | codiceFiscale  | 12666810299       |
       | ente           | Comune di Palermo |
     Then Nella sezione della nuova delega si sceglie la visualizzazione delle notifiche da parte di: "solo enti selezionati"
     And Si verifica che nell'elenco degli enti sono presenti solamente enti radice

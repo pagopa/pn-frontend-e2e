@@ -1,10 +1,8 @@
 Feature: il mittente inserisce tutti i dati di una notifica
 
   @TA_invioNotificaConAllegati
-    @TestSuite
     @invioNotifiche_07
     @NRT_Blocco_1
-    @loginFE_8
   Scenario Outline: PN-9215 - il mittente inserisce tutti i dati di una notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
@@ -20,7 +18,6 @@ Feature: il mittente inserisce tutti i dati di una notifica
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 0
     And Nella section Destinatario cliccare su Aggiungi destinatario
     And Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per <numero destinatari>
-    #And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona giuridica "personaGiuridica" destinatario 1
     And Cliccare su continua
     #      Aggiungere alle notifiche
     And Seleziona Nessun Pagamento 1

@@ -1,6 +1,5 @@
 Feature: La persona giuridica visualizza i disservizi della applicazione
 
-  @TestSuite
   @TA_PG_VisualizzaDisservizioRisolto
   @bilinguismo
   @helpDesk

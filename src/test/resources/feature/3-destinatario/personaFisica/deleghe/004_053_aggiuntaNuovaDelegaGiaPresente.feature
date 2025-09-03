@@ -1,6 +1,5 @@
 Feature: persona fisica aggiunge una delega allo stesso delegato
 
-  @TestSuite
   @TA_PFaggiuntaDelegaGiaPresente
   @DeleghePF
   @PF
@@ -18,10 +17,10 @@ Feature: persona fisica aggiunge una delega allo stesso delegato
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega PF
     And Si visualizza correttamente la pagina nuova delega
     And Nella sezione Le Tue Deleghe inserire i dati
-      | nome          | Lucrezia            |
-      | cognome       | Borgia              |
-      | codiceFiscale | BRGLRZ80D58H501Q    |
-      | ente          | Comune di Verona    |
+      | nome          | Lucrezia         |
+      | cognome       | Borgia           |
+      | codiceFiscale | BRGLRZ80D58H501Q |
+      | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
     And Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta
     And Refresh pagina

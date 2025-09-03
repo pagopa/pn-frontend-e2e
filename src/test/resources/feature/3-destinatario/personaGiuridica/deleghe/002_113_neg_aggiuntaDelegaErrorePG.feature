@@ -1,6 +1,5 @@
 Feature: La persona giuridica aggiunge una nuova delga inserendo una data errata
 
-  @TestSuite
   @TA_PGNuovaDelegaDataErrata
   @DeleghePG
   @PG

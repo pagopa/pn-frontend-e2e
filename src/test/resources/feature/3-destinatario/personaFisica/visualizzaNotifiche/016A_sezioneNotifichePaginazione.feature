@@ -1,10 +1,8 @@
 Feature:La persona fisica visualizza le notifiche in elenco
 
-  @TestSuite
   @TA_PFPaginazioneConFrecce
   @PFvisualizzaNotifiche
   @PF
-  @loginFE
   @NRT_Blocco_2
   Scenario:PN-9209-A27 - La persona fisica cambia la pagina utilizzando le frecce
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

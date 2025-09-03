@@ -1,6 +1,5 @@
 Feature: Mittente genera Api Key senza inserire il nome dell api key
 
-  @TestSuite
   @TA_MittenteGeneraApiKeySenzaNome
   @ApikeyMittente1
   @integrazioneApiPa

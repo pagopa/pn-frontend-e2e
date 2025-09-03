@@ -1,6 +1,5 @@
 Feature: Mittente prova ad effettuare download AOT scaduti da 120gg
 
-  @TestSuite
   @TA_PA_DownloadDisserviziScadutiDa120gg
   @NRT_Blocco_1
 

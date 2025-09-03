@@ -1,6 +1,5 @@
 Feature:Il delegato persona giuridica annulLa l'operazione di rifiuto delega
 
-  @TestSuite
   @TA_PGannullaRifiutoDelega
   @DeleghePG
   @PG
@@ -13,11 +12,11 @@ Feature:Il delegato persona giuridica annulLa l'operazione di rifiuto delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Creo in background una delega per persona giuridica
-      | accessoCome    | delegante     |
-      | fiscalCode     | 27957814470   |
-      | companyName    | Convivio Spa  |
-      | displayName    | Convivio Spa  |
-      | person         | false         |
+      | accessoCome | delegante    |
+      | fiscalCode  | 27957814470  |
+      | companyName | Convivio Spa |
+      | displayName | Convivio Spa |
+      | person      | false        |
     And Si sceglie opzione accetta
     And Si inserisce il codice della delega a carico dell impresa nella modale
     And Si clicca sul bottone accetta delega dopo aver inserito il codice di verifica

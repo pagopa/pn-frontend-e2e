@@ -1,6 +1,5 @@
 Feature: persona fisica scarica attestazioni all'interno di una notifica scaduta da oltre 120gg
 
-  @TestSuite
   @TA_PGDownloadAttestazioniOltre120gg
   @NRT_Blocco_3
   @DownloadFile

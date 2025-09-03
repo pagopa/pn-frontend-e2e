@@ -1,9 +1,7 @@
 Feature: Mittente visualizza il dettaglio di una notifica
 
-  @TestSuite
   @TA_MittenteDettaglioNotifiche
   @visualizzazioneNotificheMittente
-  @loginFE
   @NRT_Blocco_2
   @NRT_Blocco_2_visualizzazioneNotifiche
   Scenario: PN-9225 - Mittente visualizza dettaglio notifica

@@ -1,6 +1,5 @@
 Feature: Visualizzazione dettaglio notifica persona fisica
 
-  @TestSuite
   @TA_PFVisualizzaNotificaDaUtenteNonAutorizzato
   @GestioneErrori
   @NRT_Blocco_2

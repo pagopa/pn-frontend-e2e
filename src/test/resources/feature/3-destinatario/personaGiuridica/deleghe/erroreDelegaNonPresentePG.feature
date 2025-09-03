@@ -1,6 +1,5 @@
 Feature: Il delegato visualizza la notifiche del delegante
-  
-  @TestSuite
+
   @TA_PGErroreDelegaNonPresente
   @DeleghePG
   @PG
@@ -16,8 +15,8 @@ Feature: Il delegato visualizza la notifiche del delegante
     And Si visualizza la sezione Aggiungi Delega persona giuridica
     And Nella sezione Aggiungi Delega persona giuridica inserire i dati
       | accessoCome    | delegante         |
-      | ragioneSociale | Vita Nova Sas  |
-      | codiceFiscale  | 27957814470  |
+      | ragioneSociale | Vita Nova Sas     |
+      | codiceFiscale  | 27957814470       |
       | ente           | Comune di Palermo |
     And Nella sezione Aggiungi Delega persona giuridica verificare che la data sia corretta
     And Nella sezione Aggiungi Delega persona giuridica salvare il codice verifica all'interno del file

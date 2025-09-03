@@ -35,7 +35,6 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si clicca sul modello F24 destinatario numero 1
     Then Si torna alla pagina precedente
 
-  @TestSuite
   @CheckNotificaConDocumentiAllegatiPGBis
   @NRT_Blocco_3
   @VisualizzaNotifiche
@@ -103,10 +102,7 @@ Feature: PG visualizza il dettaglio di una notifica con documenti allegati
     And Si controlla sia visualizza box allegati modelli F24 PG
     And Si clicca sul modello F24 destinatario numero 1
     And Aspetta 3 secondi
-    #Questi step sono commentati perche su aws quando clicca su link, il file viene scaricato, ma in locale si apre in nuova scheda
-    #And Si torna alla pagina precedente
     And Si clicca sul modello F24 destinatario numero 2
-    #Then Si torna alla pagina precedente
 
   @CheckNotificaConDocumentiAllegatiPG
   Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA PG NON PAGATA] - PG visualizza Notifica mono destinatario non ancora pagata solo con avviso PagoPa e assenza del PDF relativo al bollettino

@@ -1,6 +1,5 @@
 Feature: Mittente visualizza i disservizi della applicazione in corso
 
-  @TestSuite
   @TA_PA_VisualizzaDisservizioInCorso
   @bilinguismo
   @helpDesk

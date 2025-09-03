@@ -8,4 +8,3 @@ Feature: Ricerca notifica persona fisica inserimento formato data errato
     When Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
     And Nella pagina Piattaforma Notifiche destinatario si inserisce una data con formato errato
     Then Il rettangolo del campo errato diventa rosso
-#    And Logout da portale persona fisica
