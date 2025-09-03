@@ -37,7 +37,7 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
       | ente           | Comune di Palermo |
     Then Nella sezione della nuova delega si sceglie la visualizzazione delle notifiche da parte di: "tutti gli enti"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
-    And Attesa 30 secondi
+    And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Si controlla la tabella deleghe a carico dell impresa
     And Si accetta la delega con gruppo "Test gruppi"
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il gruppo del delegante

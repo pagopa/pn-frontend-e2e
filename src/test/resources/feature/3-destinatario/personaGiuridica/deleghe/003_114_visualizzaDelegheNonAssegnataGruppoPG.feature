@@ -30,6 +30,7 @@ Feature: La persona giuridica visualizza le deleghe
       | ente           | Comune di Palermo |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
+    And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si controlla la tabella delegati dall impresa
     And Nella sezione Delegati dall impresa si visualizza la delega in stato di attesa di conferma
     And Nella sezione Deleghe persona giuridica si sceglie l'opzione revoca

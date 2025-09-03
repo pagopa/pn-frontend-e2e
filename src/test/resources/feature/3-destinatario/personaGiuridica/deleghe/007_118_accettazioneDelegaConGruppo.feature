@@ -12,7 +12,7 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
-    And Attesa 30 secondi
+    And Refresh pagina
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Convivio Spa"
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
