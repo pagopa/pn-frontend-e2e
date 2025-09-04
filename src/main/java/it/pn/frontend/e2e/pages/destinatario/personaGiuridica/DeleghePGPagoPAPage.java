@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DeleghePGPagoPAPage extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("DeleghePGPagoPAPage");
+    private final Logger logger = LoggerFactory.getLogger(DeleghePGPagoPAPage.class);
 
 
     @FindBy(id = "tab-1")

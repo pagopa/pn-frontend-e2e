@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Component
 public class DataPopulation {
-    private static final Logger logger = LoggerFactory.getLogger("DataPopulation");
+    private static final Logger logger = LoggerFactory.getLogger(DataPopulation.class);
 
     private ObjectMapper objectMapper;
 

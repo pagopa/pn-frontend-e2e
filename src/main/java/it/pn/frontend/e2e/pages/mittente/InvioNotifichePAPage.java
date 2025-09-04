@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 
 public class InvioNotifichePAPage extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("InvioNotifichePAPage");
+    private static final Logger logger = LoggerFactory.getLogger(InvioNotifichePAPage.class);
     @FindBy(id = "step-submit")
     WebElement continuaButton;
 

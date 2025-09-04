@@ -18,7 +18,7 @@ Gestione WebElement: Gli elementi WebElement definiti con @FindBy vengono iniett
 
 public class AreaRiservataPAPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("AreaRiservataPAPage");
+    private static final Logger logger = LoggerFactory.getLogger(AreaRiservataPAPage.class);
 
     @FindBy(xpath = "//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]")
     private List<WebElement> infoLabel;

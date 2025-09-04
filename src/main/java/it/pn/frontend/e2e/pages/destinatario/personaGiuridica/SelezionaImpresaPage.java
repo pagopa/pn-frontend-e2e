@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class SelezionaImpresaPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("SelezionaImpresaPage");
+    private static final Logger logger = LoggerFactory.getLogger(SelezionaImpresaPage.class);
 
     @FindBy(xpath = "//button[contains(text(),'Accedi')]")
     WebElement accediButton;

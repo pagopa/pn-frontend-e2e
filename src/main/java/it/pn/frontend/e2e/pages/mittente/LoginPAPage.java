@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class LoginPAPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("LoginPAPage");
+    private static final Logger logger = LoggerFactory.getLogger(LoginPAPage.class);
 
     @FindBy(id = "username")
     WebElement userTextEdit;

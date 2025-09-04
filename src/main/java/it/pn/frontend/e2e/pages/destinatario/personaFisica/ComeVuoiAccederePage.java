@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class ComeVuoiAccederePage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("ComeVuoiAccederePage");
+    private static final Logger logger = LoggerFactory.getLogger(ComeVuoiAccederePage.class);
 
     @FindBy(id = "spidButton")
     WebElement spidButton;

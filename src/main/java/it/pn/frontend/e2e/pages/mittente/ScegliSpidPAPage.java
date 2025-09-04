@@ -19,7 +19,7 @@ Logging migliorato: Utilizza il logger.error con {} per un’output più leggibi
 
 public class ScegliSpidPAPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("ScegliSpidPAPage");
+    private static final Logger logger = LoggerFactory.getLogger(ScegliSpidPAPage.class);
 
     @FindBy(id = "xx_testenv2")
     WebElement testButton;

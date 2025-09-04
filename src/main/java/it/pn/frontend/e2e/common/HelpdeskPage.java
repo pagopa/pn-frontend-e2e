@@ -36,7 +36,7 @@ import java.util.stream.Stream;
 
 public class HelpdeskPage extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
+    private final Logger logger = LoggerFactory.getLogger(HelpdeskPage.class);
 
 
     @FindBy(id = "buttonLogin")

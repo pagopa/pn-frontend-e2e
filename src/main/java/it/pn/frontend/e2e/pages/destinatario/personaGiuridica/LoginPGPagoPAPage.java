@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 public class LoginPGPagoPAPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("LoginPGPagoPAPage");
+    private static final Logger logger = LoggerFactory.getLogger(LoginPGPagoPAPage.class);
 
     @FindBy(id = "username")
     WebElement usernameField;

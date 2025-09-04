@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 
 public class ScegliSpidPGPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("ScegliSpidPGPage");
+    private final Logger logger = LoggerFactory.getLogger(ScegliSpidPGPage.class);
 
     @FindBy(id = "xx_testenv2")
     WebElement testButton;

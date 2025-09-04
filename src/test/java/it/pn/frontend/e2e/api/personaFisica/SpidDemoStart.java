@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class SpidDemoStart {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidDemoStart");
+    private static final Logger logger = LoggerFactory.getLogger(SpidDemoStart.class);
     private String spidDemoStartEndPoint;
     private String responseBody;
     private final String samlRequestInput;

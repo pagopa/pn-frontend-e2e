@@ -13,7 +13,7 @@ import java.text.MessageFormat;
 import java.util.List;
 
 public class IntegrazioneAPIPGPage extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("IntegrazioneAPIPG");
+    private static final Logger logger = LoggerFactory.getLogger(IntegrazioneAPIPGPage.class);
 
     private WebTool webTool;
 

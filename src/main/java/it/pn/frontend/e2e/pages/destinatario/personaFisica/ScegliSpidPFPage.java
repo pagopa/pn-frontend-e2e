@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 public class ScegliSpidPFPage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("ScegliSpidPFPage");
+    private static final Logger logger = LoggerFactory.getLogger(ScegliSpidPFPage.class);
 
 
     @FindBy(id = "spid-select-xx_testenv2")

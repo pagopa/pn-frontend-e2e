@@ -2,7 +2,6 @@ package it.pn.frontend.e2e.model.enums;
 
 
 public enum TokenLogin {
-    //TODO DA ELIMINARE la classe
     PF_DELEGATE_TOKEN("555","11"),
     PF_DELEGATOR_TOKEN("555","11"),
     PG_DELEGATE_TOKEN("555","11"),

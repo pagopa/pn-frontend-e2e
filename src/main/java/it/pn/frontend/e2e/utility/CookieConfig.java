@@ -18,7 +18,7 @@ import java.util.*;
 
 @Component
 public class CookieConfig {
-    private static final Logger logger = LoggerFactory.getLogger("CookieConfig");
+    private static final Logger logger = LoggerFactory.getLogger(CookieConfig.class);
 
     private final Map<String, Set<Cookie>> cookieMap;
     @Value("${environment}")

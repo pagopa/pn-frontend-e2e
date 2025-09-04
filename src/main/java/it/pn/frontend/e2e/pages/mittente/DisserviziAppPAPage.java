@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 public class DisserviziAppPAPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("Disservizi PA Page");
+    private final Logger logger = LoggerFactory.getLogger(DisserviziAppPAPage.class);
 
 
     @Autowired
