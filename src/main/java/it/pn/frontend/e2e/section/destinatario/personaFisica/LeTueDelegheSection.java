@@ -280,10 +280,7 @@ public class LeTueDelegheSection extends BasePage {
     public void inserireCodiceDelega(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
         for (int i = 0; i < 5; i++) {
-            String xpathBy = "code-input-" + i;
-            By codiceDelegaInputBy = By.id(xpathBy);
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
-            WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
+            WebElement codiceDelegaInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input"));
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
 

@@ -360,10 +360,7 @@ public void clickDelegatiImpresa() {
     public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
         for (int i = 0; i < 5; i++) {
-            String xpathBy = "code-input-" + i;
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id(xpathBy)));
-            By codiceDelegaInputBy = By.id(xpathBy);
-            WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
+            WebElement codiceDelegaInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input"));
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
 

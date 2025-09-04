@@ -139,29 +139,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         logger.info("clickConfermaButtonEliminaPopUp");
     }
 
-    //cambiati check del testo per evitare casi di element stale exception e per differenziare tra i casi per cittadini e imprese (format del testo è diverso tra i portali)
-//    public void waitLoadPopUp() {
-//        try {
-//            getWebDriverWait(30).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-//            getWebDriverWait(30).withMessage("La descrizione non viene visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-description"))));
-//            getWebDriverWait(30).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(@class,'MuiTypography-root MuiTypography-body1') and not(@role='button')]"))));
-//            getWebDriverWait(30).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
-//            List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
-//            if (inputBoxes.size() != 5) {
-//                Assertions.fail("Il numero di input box non è corretto");
-//            }
-//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//div[@data-testid='dialog-content']//div[contains(@class,'MuiTypography-root MuiTypography-body2')]"))));
-//            confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
-//            annullaButton = driver.findElement(By.id("code-cancel-button"));
-//            boolean checkButton = confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
-//            if (!checkButton) {
-//                Assertions.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
-//            }
-//            logger.info("Il pop-up di conferma viene visualizzato correttamente");
-//        } catch (TimeoutException | StaleElementReferenceException e) {
-//            Assertions.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
-//        }
-//    }
     public void waitLoadPopUp() {
         try {
             getWebDriverWait(30)
@@ -181,7 +158,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             List<WebElement> inputBoxes = getWebDriverWait(30)
                     .withMessage("Le input boxes non vengono visualizzate")
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                            By.xpath("//input[contains(@id,'code-input-')]")
+                            By.xpath("//div[@data-testid='dialog-content']//input//..//span")
                     ));
 
             if (inputBoxes.size() != 5) {
@@ -209,27 +186,13 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-//    public void sendOTP(String otp) {
-//        String[] otps = otp.split("");
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input')]"))));
-//            List<WebElement> otpInputby = driver.findElements(By.xpath("//input[contains(@id,'code-input')]"));
-//            for (int i = 0; i < otps.length; i++) {
-//                otpInputby.get(i).sendKeys(otps[i]);
-//            }
-//            logger.info("Il codice otp viene inserito correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
-//        }
-//    }
-
     public void sendOTP(String otp) {
         String[] otpDigits = otp.split("");
         try {
             // Attendi che tutti i campi di input OTP siano visibili
             List<WebElement> otpInputs = getWebDriverWait(30)
                     .withMessage("I campi di input OTP non sono visibili")
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[contains(@id,'code-input')]")));
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-testid='dialog-content']//input//..//span")));
 
             // Inserisci ogni cifra dell'OTP nel rispettivo campo di input
             for (int i = 0; i < otpDigits.length; i++) {
@@ -243,22 +206,11 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-
-
-//    public void clearOTP() {
-//        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input')]"))));
-//        List<WebElement> otpInputby = driver.findElements(By.xpath("//input[contains(@id,'code-input')]"));
-//        for (int i = 4; i >= 0; i--) {
-//            otpInputby.get(i).sendKeys(Keys.BACK_SPACE);
-//        }
-//        logger.info("Il codice otp viene cancellato correttamente");
-//
-//    }
 public void clearOTP() {
     try {
         // Attendi che tutti i campi di input OTP siano visibili
         List<WebElement> otpInputs = getWebDriverWait(30)
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[contains(@id,'code-input')]")));
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-testid='dialog-content']//input//..//span")));
 
         // Cancella ogni campo di input OTP
         for (int i = otpInputs.size() - 1; i >= 0; i--) {

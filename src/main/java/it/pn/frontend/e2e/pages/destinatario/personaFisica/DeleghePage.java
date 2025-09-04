@@ -269,12 +269,12 @@ public class DeleghePage extends BasePage {
         try {
             WebElement titoloModale = driver.findElement(By.id("dialog-title"));
             WebElement sottotitoloModale = driver.findElement(By.id("dialog-description"));
-            int i = 4;
+            int i = 5;
 
             getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOf(titoloModale));
             getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOf(sottotitoloModale));
-            while (i >= 0) {
-                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("code-input-" + i))));
+            while (i >= 1) {
+                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//div[@data-testid='dialog-content']//input//..//span)["+i+"]"))));
                 i--;
             }
         } catch (TimeoutException e) {
