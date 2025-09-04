@@ -11,13 +11,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 public class AutorizzaInvioDatiPGPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(AutorizzaInvioDatiPGPage.class);
-
 
 
     @FindBy(xpath = "//button[@name = 'confirm']")
@@ -32,14 +29,12 @@ public class AutorizzaInvioDatiPGPage extends BasePage {
 
     public void waitLoadAutorizzaInvioDatiPGPage() {
         try {
-            //inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
             WebElement titlePageBy = driver.findElement(By.xpath("//h1[contains(text(),'Autorizzi')]"));
             getWebDriverWait(30).withMessage("Il titolo della pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
             getWebDriverWait(30).withMessage("Il bottone invia nella pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@name = 'confirm']"))));
             logger.info("AutorizzaInviaDatiPGPage caricata correttamente");
-        } catch (TimeoutException e){
-            logger.error("AutorizzaInviaDatiPGPage non caricata correttamente con errore: "+e.getMessage());
-            Assertions.fail("AutorizzaInviaDatiPGPage non caricata correttamente con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            Assertions.fail("AutorizzaInviaDatiPGPage non caricata correttamente con errore: " + e.getMessage());
         }
     }
 

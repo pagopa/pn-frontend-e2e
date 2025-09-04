@@ -3,7 +3,6 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.utility.WebTool;
-import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
@@ -15,9 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Set;
 
 public class UtentiPGPage extends BasePage {
@@ -94,7 +91,6 @@ public class UtentiPGPage extends BasePage {
     private String environment;
 
 
-
     public UtentiPGPage(WebDriver driver) {
         this.driver = driver;
         webTool = new WebTool(driver);
@@ -107,12 +103,12 @@ public class UtentiPGPage extends BasePage {
 
     public void clickSezioneUtenti(String testo) {
         webTool.waitTime(10);
-        sezioneUtenti = driver.findElement(By.xpath("//span[contains(text(),'"+testo+"')]"));
+        sezioneUtenti = driver.findElement(By.xpath("//span[contains(text(),'" + testo + "')]"));
         getWebDriverWait(10).withMessage("La sezione Utenti non è cliccabile").until(ExpectedConditions.elementToBeClickable(sezioneUtenti));
         sezioneUtenti.click();
         //build url
         String companyId = "d0f52c7d-76d5-4520-8971-edffeb5b46d5";
-        if (webDriverConfig != null){
+        if (webDriverConfig != null) {
             environment = webDriverConfig.getEnvironment();
         }
 
@@ -165,7 +161,6 @@ public class UtentiPGPage extends BasePage {
             getWebDriverWait(10).withMessage("la tabella della pagina utenti non è visibile").until(ExpectedConditions.visibilityOf(utentiTable));
             logger.info("Si visualizza correttamente utenti page");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente utenti page con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente utenti page con errore:" + e.getMessage());
         }
     }
@@ -228,7 +223,7 @@ public class UtentiPGPage extends BasePage {
         WebElement productButton = driver.findElement(By.xpath("//li[contains(text(),'" + product + "')]"));
         getWebDriverWait(10).withMessage("il prodotto" + product + "non è cliccabile").until(ExpectedConditions.elementToBeClickable(productButton));
         productButton.click();
-        logger.info("Ruolo :" + product);
+        logger.info("Ruolo: {}", product);
         adminRadioButton = driver.findElement(By.xpath("//p[contains(text(),'Amministratore')]"));
         getWebDriverWait(10).withMessage("il radioBottone Amministratore della pagina aggiungi nuovo utente non è visibile").until(ExpectedConditions.visibilityOf(adminRadioButton));
     }
@@ -271,12 +266,11 @@ public class UtentiPGPage extends BasePage {
     public void waitSuccessMessage() {
         try {
             webTool.waitTime(10);
-//            successMessage = driver.findElement(By.xpath("//p[contains(text(),'Utente aggiunto correttamente')]"));
             if (driver.findElement(By.xpath("//p[contains(text(),'Utente aggiunto correttamente')]")).isDisplayed()) {
                 logger.info("Si visualizza correttamente messaggio di successo");
             }
         } catch (NoSuchElementException e) {
-            logger.warn("Hai già aggiunto questo utente." + e);
+            logger.warn("Hai già aggiunto questo utente. {}", e);
         }
     }
 
@@ -287,44 +281,41 @@ public class UtentiPGPage extends BasePage {
             getWebDriverWait(15).withMessage("il bottone modifica della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//button[contains(text(),'Modifica')]")))));
             getWebDriverWait(15).withMessage("il bottone rimuovi della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//span[contains(text(),'Rimuovi')]")))));
             getWebDriverWait(15).withMessage("la sezione nome della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Nome')]")))));
-            getWebDriverWait(15).withMessage("la sezione cognome della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf( (driver.findElement(By.xpath("//p[contains(text(),'Cognome')]")))));
+            getWebDriverWait(15).withMessage("la sezione cognome della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Cognome')]")))));
             getWebDriverWait(15).withMessage("la sezione codice fiscale della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Codice Fiscale')]")))));
             getWebDriverWait(15).withMessage("la sezione email della pagina riepilogativa non è visibile").until(ExpectedConditions.visibilityOf((driver.findElement(By.xpath("//p[contains(text(),'Email')]")))));
             logger.info("Si visualizza correttamente pagina riepilogativa");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente pagina riepilogativa con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente pagina riepilogativa con errore:" + e.getMessage());
         }
     }
 
     public void clickModifyButton() {
 
-        getWebDriverWait(15).withMessage("il bottone modifica non è cliccabile clickModifyButton").until(ExpectedConditions.elementToBeClickable(driver.findElement( By.xpath("//button[contains(text(),'Modifica')]"))));
-//        modificaButton = driver.findElement( By.xpath("//button[contains(text(),'Modifica')]"));
+        getWebDriverWait(15).withMessage("il bottone modifica non è cliccabile clickModifyButton").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Modifica')]"))));
         logger.info("Si clicca sul bottone modifica");
-        driver.findElement( By.xpath("//button[contains(text(),'Modifica')]")).click();
+        driver.findElement(By.xpath("//button[contains(text(),'Modifica')]")).click();
     }
 
     public void checkEmailBoxActive() {
-        emailBox = driver.findElement( By.id("email"));
-        confirmEmailBox = driver.findElement( By.id("confirmEmail"));
+        emailBox = driver.findElement(By.id("email"));
+        confirmEmailBox = driver.findElement(By.id("confirmEmail"));
         String checkEmail = emailBox.getAttribute("disabled");
         String checkConfirmEmail = confirmEmailBox.getAttribute("disabled");
         if (checkEmail == null && checkConfirmEmail == null) {
             logger.info("il campo email e il campo conferma email sono attivi");
         } else {
-            logger.error("il campo email e il campo conferma email sono disattivi");
             Assertions.fail("il campo email e il campo conferma email sono disattivi");
         }
     }
 
     public void inserisciNuovoEmail(String newMail) {
-        emailBox = driver.findElement( By.id("email"));
-        confirmEmailBox = driver.findElement( By.id("confirmEmail"));
+        emailBox = driver.findElement(By.id("email"));
+        confirmEmailBox = driver.findElement(By.id("confirmEmail"));
 
         emailBox.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
         emailBox.sendKeys(newMail);
-        wrongMailErrorMessage  = driver.findElement( By.id( "confirmEmail-helper-text"));
+        wrongMailErrorMessage = driver.findElement(By.id("confirmEmail-helper-text"));
         getWebDriverWait(10).withMessage("il messaggio errore email non è visibile").until(ExpectedConditions.visibilityOf(wrongMailErrorMessage));
         confirmEmailBox.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
         confirmEmailBox.sendKeys(newMail);
@@ -334,38 +325,37 @@ public class UtentiPGPage extends BasePage {
 
         getWebDriverWait(10).withMessage("il bottone conferma non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Continua')]"))));
         driver.findElement(By.xpath("//button[contains(text(),'Continua')]")).click();
-       // successModifyMessage  = driver.findElement(By.xpath("//p[contains(text(),'Profilo modificato correttamente')]"));
         getWebDriverWait(10).withMessage("il messaggio successo non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//p[contains(text(),'Profilo modificato correttamente')]"))));
     }
 
     public void checkNewEmail(String newEmail) {
         WebElement newEmailField = driver.findElement(By.xpath("//p[contains(text(),'" + newEmail + "')]"));
-        getWebDriverWait(10).withMessage("il nuovo email non è visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//p[contains(text(),'" + newEmail + "')]"))));
+        getWebDriverWait(10).withMessage("il nuovo email non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(),'" + newEmail + "')]"))));
         logger.info("il nuovo email è visibile");
     }
 
     public void clickRemoveButton() {
-        removeButton  = driver.findElement(By.xpath( "//span[contains(text(),'Rimuovi')]"));
-        getWebDriverWait(10).withMessage("il bottone rimuovi non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath( "//span[contains(text(),'Rimuovi')]")));
+        removeButton = driver.findElement(By.xpath("//span[contains(text(),'Rimuovi')]"));
+        getWebDriverWait(10).withMessage("il bottone rimuovi non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'Rimuovi')]")));
         logger.info("Si clicca sul bottone rimuovi");
-        element(By.xpath( "//span[contains(text(),'Rimuovi')]")).click();
+        element(By.xpath("//span[contains(text(),'Rimuovi')]")).click();
     }
 
     public void checkRemoveUserPopup() {
-        removeUserPopup  = driver.findElement(By.xpath( "//p[contains(text(),'Elimina Utente')]"));
-        getWebDriverWait(10).withMessage("il popup elimina utente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath( "//p[contains(text(),'Elimina Utente')]"))));
+        removeUserPopup = driver.findElement(By.xpath("//p[contains(text(),'Elimina Utente')]"));
+        getWebDriverWait(10).withMessage("il popup elimina utente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(),'Elimina Utente')]"))));
         logger.info("il popup elimina utente è visualizzata correttamente");
     }
 
     public void clickRemoveRoleButton() {
-        removeRuoloButton  = driver.findElement(By.xpath( "//button[contains(text(),'Rimuovi')]"));
+        removeRuoloButton = driver.findElement(By.xpath("//button[contains(text(),'Rimuovi')]"));
         getWebDriverWait(10).withMessage("il bottone rimuovi ruolo non è cliccabile").until(ExpectedConditions.elementToBeClickable(removeRuoloButton));
         logger.info("Si clicca sul bottone rimuovi ruolo");
         removeRuoloButton.click();
     }
 
     public void checkUserDeletedMEssage() {
-        roleDeletedMessage  = driver.findElement(By.xpath(  "//p[contains(text(),'Utente rimosso correttamente')]"));
+        roleDeletedMessage = driver.findElement(By.xpath("//p[contains(text(),'Utente rimosso correttamente')]"));
         getWebDriverWait(10).withMessage("il messaggio utente rimosso non è visibile").until(ExpectedConditions.elementToBeClickable(roleDeletedMessage));
         logger.info("Si visualizza correttamente il messaggio utente rimosso");
     }

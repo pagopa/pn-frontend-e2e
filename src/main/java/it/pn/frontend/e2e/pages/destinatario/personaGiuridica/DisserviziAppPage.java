@@ -11,8 +11,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -38,7 +36,6 @@ public class DisserviziAppPage extends BasePage {
             getWebDriverWait(10).withMessage("Titolo della pagina non presente").until(ExpectedConditions.visibilityOf(titlePage));
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la sezione disservizi con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
         }
     }
@@ -53,7 +50,6 @@ public class DisserviziAppPage extends BasePage {
             this.getWebDriverWait(10).withMessage("stato dell'applicazione non presente").until(ExpectedConditions.visibilityOf(boxStatus));
             this.getWebDriverWait(10).withMessage("ultimo aggiornamento stato piattaforma non presente").until(ExpectedConditions.visibilityOf(dateLastCheck));
         } catch (TimeoutException e) {
-            logger.error("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());
             Assertions.fail("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());
         }
     }

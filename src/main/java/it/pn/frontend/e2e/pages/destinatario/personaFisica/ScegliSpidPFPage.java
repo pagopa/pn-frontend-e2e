@@ -11,8 +11,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 public class ScegliSpidPFPage extends BasePage {
@@ -29,20 +27,16 @@ public class ScegliSpidPFPage extends BasePage {
         this.driver = driver;
         webTool = new WebTool(driver);
     }
-    public void waitLoadScegliSpidDEPage(){
-        try{
+
+    public void waitLoadScegliSpidDEPage() {
+        try {
             WebElement titlePage = driver.findElement(By.id("spid-select"));
             getWebDriverWait(30).withMessage("Il titolo scegli Spid PF non trovato").until(ExpectedConditions.visibilityOf(titlePage));
             logger.info("Scegli Spid DE Page caricata");
-        }catch (TimeoutException e){
-            Assertions.fail("Scegli Spid DE Page non caricata con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            Assertions.fail("Scegli Spid DE Page non caricata con errore : " + e.getMessage());
         }
     }
-
-//    public void selezionareTestButton(){
-//        getWebDriverWait(60).withMessage("il bottone Test dello spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spid-select-xx_testenv2"))));
-//        driver.findElement(By.id("spid-select-xx_testenv2")).click();
-//    }
 
     public void selezionareTestButton() {
         WebElement testButton = getWebDriverWait(60)

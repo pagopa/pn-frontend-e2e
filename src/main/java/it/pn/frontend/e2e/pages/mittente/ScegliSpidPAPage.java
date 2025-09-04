@@ -10,12 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-/*
-*Modifiche e Spiegazioni
-Annotazione @Component: Marca la classe come un componente gestito da Spring, permettendo l’iniezione nei contesti necessari.
-Costruttore con @Autowired: Permette a Spring di iniettare automaticamente WebDriver.
-Logging migliorato: Utilizza il logger.error con {} per un’output più leggibile e facile da mantenere.
-* */
 
 public class ScegliSpidPAPage extends BasePage {
 
@@ -31,14 +25,11 @@ public class ScegliSpidPAPage extends BasePage {
 
     public void waitLoadScegliSpidPAPage() {
         try {
-           // WebElement titlePage = driver.findElement(By.cssSelector("div.MuiTypography-root.MuiTypography-h4"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf( driver.findElement(By.cssSelector("div.MuiTypography-root.MuiTypography-h4"))));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("div.MuiTypography-root.MuiTypography-h4"))));
             logger.info("Il titolo della pagina Scegli Spid PA è stato caricato");
         } catch (TimeoutException e) {
-            logger.error("Il titolo della pagina Scegli Spid PA non è stato caricato con errore: {}", e.getMessage());
             Assertions.fail("Il titolo della pagina Scegli Spid PA non è stato caricato con errore: " + e.getMessage());
         } catch (Exception e) {
-            logger.error("Errore generico durante la scelta del provider SPID: {}", e.getMessage());
             Assertions.fail("Errore generico durante la scelta del provider SPID: " + e.getMessage());
         }
     }
@@ -51,7 +42,6 @@ public class ScegliSpidPAPage extends BasePage {
             testButton.click();
             logger.info("Click sul bottone TEST effettuato con successo");
         } catch (TimeoutException e) {
-            logger.error("Il bottone TEST non è cliccabile, errore: {}", e.getMessage());
             Assertions.fail("Il bottone TEST non è cliccabile, errore: " + e.getMessage());
         }
     }

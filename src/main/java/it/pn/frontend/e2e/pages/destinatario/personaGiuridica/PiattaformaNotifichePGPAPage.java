@@ -16,18 +16,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -120,18 +117,12 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void waitLoadPiattaformaNotificaPage(String ragioneSociale) {
         try {
-           // WebElement titlePageBy = driver.findElement(By.id("Notifiche di " + ragioneSociale + "-page"));
-           // WebElement codiceIunTextFieldBy = driver.findElement(By.id("iunMatch"));
-           // WebElement dataInizioFieldBy = driver.findElement(By.id("startDate"));
-           // WebElement dataFineFieldBy = driver.findElement(By.id("endDate"));
-//            getWebDriverWait(50).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche di " + ragioneSociale + "-page"))));
-            getWebDriverWait(50).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath( "//h4[@role='heading' and contains(text(), '" + ragioneSociale + "')]" ))));
+            getWebDriverWait(50).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h4[@role='heading' and contains(text(), '" + ragioneSociale + "')]"))));
             getWebDriverWait(40).withMessage("Il campo codice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("iunMatch"))));
             getWebDriverWait(40).withMessage("Il campo data inizio della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("startDate"))));
             getWebDriverWait(40).withMessage("Il campo data fine della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("endDate"))));
             logger.info("La  pagina Piattaforma Notifiche si carica correttamente");
         } catch (TimeoutException e) {
-            logger.error("La pagina Piattaforma Notifiche non si carica correttamente con errore: " + e.getMessage());
             Assertions.fail("La pagina Piattaforma Notifiche non si carica correttamente con errore: " + e.getMessage());
         }
     }
@@ -143,7 +134,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             js().executeScript("arguments[0].click()", delegheSideMenu);
             logger.info("click sul bottone Deleghe effetuato");
         } catch (TimeoutException e) {
-            logger.error("il bottone deleghe non è stato trovato " + e.getMessage());
             Assertions.fail("il bottone deleghe non è stato trovato" + e.getMessage());
         }
     }
@@ -168,11 +158,9 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public void waitLoadSezioneNotificheDelegate(String ragioneSociale) {
         try {
-           // WebElement notificheDelegatePageTitle = driver.findElement(By.id("Notifiche delegate a " + ragioneSociale + "-page"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche delegate a " + ragioneSociale + "-page"))));
             logger.info("Si visualizza correttamente la sezione notifiche delegate");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la sezione notifiche delegate con errore:" + e.getMessage());
             Assertions.fail("Non si visualizza correttamente la sezione notifiche delegate con errore" + e.getMessage());
         }
     }
@@ -184,14 +172,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public void clickSuIntegrazioneAPIButton() {
-//        try {
-//            getWebDriverWait(20).withMessage("Sezione Integrazione API nel side menu non visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Integrazione API"))));
-//            integrazioneAPIMenu = driver.findElement(By.id("side-item-Integrazione API"));
-//            js().executeScript("arguments[0].click()", integrazioneAPIMenu);
-//            logger.info("click sul bottone Integrazione API effetuato");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("il bottone Integrazione API non è stato trovato" + e.getMessage());
-//        }
         try {
             WebElement clickSuIntegrazioneAPIButton = getWebDriverWait(25)
                     .withMessage("Il bottone 'Integrazione API' non è visibile")
@@ -213,7 +193,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public boolean sezionePagamentoDisplayed() {
         try {
-           // sezionePagamento = driver.findElement(By.cssSelector("[data-testid='paymentInfoBox']"));
             return getWebDriverWait(5).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='paymentInfoBox']")))).isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             logger.warn("Il sezione pagamento non è visibile");
@@ -223,7 +202,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public boolean messaggioNotificaAnnullataDisplayed() {
         try {
-            //notificaAnnullata = driver.findElement(By.xpath("//div[@data-testId ='alert']"));
             return getWebDriverWait(5).withMessage("Il messaggio notifica annullata non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testId ='alert']")))).isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             logger.warn("Il messaggio notifica annullata non è visibile");
@@ -233,7 +211,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     public boolean isRadioBoxPresent() {
         try {
-            //radioBox = driver.findElement(By.cssSelector("[role='radiogroup']"));
             return getWebDriverWait(30).withMessage("Il radio box non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[role='radiogroup']")))).isDisplayed();
         } catch (NoSuchElementException | TimeoutException e) {
             logger.warn("Il radio box non è visibile");
@@ -248,12 +225,10 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     }
 
     public boolean titoloDiPagamentoDisplayed() {
-       // titoloPagamento = driver.findElements(By.xpath("//span[contains(text(), 'Pagamento di Test')]"));
         return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(driver.findElements(By.xpath("//span[contains(text(), 'Pagamento di Test')]")).get(0))).isDisplayed();
     }
 
     public boolean codiceAvvisoDisplayed() {
-       // codiceAvviso = driver.findElements(By.xpath("//span[contains(text(), 'Codice avviso')]"));
         return getWebDriverWait(30).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElements(By.xpath("//span[contains(text(), 'Codice avviso')]")).get(0))).isDisplayed();
     }
 
@@ -271,16 +246,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
     public void clickModelloF24Numero(int numOfF24) {
         getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[@data-testid='download-f24-button']")).get(numOfF24 - 1)));
         List<WebElement> f24 = driver.findElements(By.xpath("//button[@data-testid='download-f24-button']"));
-        logger.info("F24 trovato:" + f24.size());
+        logger.info("F24 trovato: {}", f24.size());
         f24.get(numOfF24 - 1).click();
     }
 
     public void checkBoxModelloF24PG() {
         try {
-           // WebElement boxModelloF24 = driver.findElement(By.xpath("//div[@data-testid='f24only-box']"));
             getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='f24only-box']"))));
         } catch (TimeoutException e) {
-            logger.error("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
             Assertions.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
         }
     }
@@ -418,14 +391,12 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {
                 logger.info("Il testo all'interno del file è corretto");
             } else {
-                logger.error("Il testo all'interno del file  NON è corretto");
                 Assertions.fail("Il testo  all'interno del file  NON è corretto");
             }
         } else if (nomeFile.contains("Avviso di avvenuta ricezione")) {
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {
                 logger.info("Il testo all'interno del file è corretto");
             } else {
-                logger.error("Il testo all'interno del file  NON è corretto");
                 Assertions.fail("Il testo  all'interno del file  NON è corretto");
             }
         } else {
@@ -433,7 +404,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
                 if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("mittente"))) {
                     logger.info("Il nome del mittente all'interno del file è corretto");
                 } else {
-                    logger.error("Il nome del mittente  all'interno del file  NON è corretto");
                     Assertions.fail("Il nome del mittente  all'interno del file  NON è corretto");
                 }
             }
@@ -441,23 +411,12 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("destinatario"))) {
                 logger.info("Il nome del destinatario all'interno del file è corretto");
             } else {
-                logger.error("Il nome del destinatario  all'interno del file  NON è corretto");
                 Assertions.fail("Il nome del destinatario  all'interno del file  NON è corretto");
             }
         }
     }
 
     public void clickNotificheENotificheImpresa() {
-//        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Notifiche"))));
-//        sideItemNotificheButton = driver.findElement(By.id("side-item-Notifiche"));
-//        sideItemNotificheButton.click();
-//
-//        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("menu-item(notifiche dell'impresa)"))));
-//        WebElement notificheImpresaButton = driver.findElement(By.id("menu-item(notifiche dell'impresa)"));
-//        js().executeScript("arguments[0].click()", notificheImpresaButton);
-//        logger.info("Si clicca correttamente sulla voce notifiche notifiche dell'impresa");
-        // Aspetta che il menu "Notifiche" sia visibile e cliccaci sopra
-
 
         WebElement notificheButton = getWebDriverWait(10)
                 .withMessage("Impossibile cliccare su Notifiche")

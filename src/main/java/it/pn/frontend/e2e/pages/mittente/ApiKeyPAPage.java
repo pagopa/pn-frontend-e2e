@@ -13,16 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.Map;
-/*
-* Principali Modifiche
-Spring Boot Integration: La classe è annotata con @Component per essere riconosciuta come bean.
-Iniezione del WebDriver: Il driver viene iniettato tramite @Autowired nel costruttore.
-Logging Ottimizzato: Utilizzo di placeholder {} con SLF4J nei metodi di logging per migliore leggibilità e prestazioni.
-* dubbio su Action per capire come iniettarlo in Spring
-*
-* */
+import java.util.UUID;
+
 
 public class ApiKeyPAPage extends BasePage {
 
@@ -72,7 +65,7 @@ public class ApiKeyPAPage extends BasePage {
 
 
     private WebTool webTool;
-   private RegistraChiavePubblicaPGSection registraChiavePubblicaPGSection;
+    private RegistraChiavePubblicaPGSection registraChiavePubblicaPGSection;
 
     public ApiKeyPAPage(WebDriver driver) {
         this.driver = driver;
@@ -119,7 +112,6 @@ public class ApiKeyPAPage extends BasePage {
                     .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("go-to-api-keys"))));
             logger.info("Api Key Confirmation Page caricata");
         } catch (TimeoutException e) {
-            logger.error("Il titolo della Api Key ConfirmationPage NON caricata con errore: {}", e.getMessage());
             Assertions.fail("Il titolo della Api Key ConfirmationPage NON caricata con errore: " + e.getMessage());
         }
     }
@@ -134,10 +126,9 @@ public class ApiKeyPAPage extends BasePage {
             getWebDriverWait(30).withMessage("lo stato dell'ApiKey non è Attiva")
                     .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='statusChip-Attiva']"))));
             getWebDriverWait(30).withMessage("Il nome del ApiKey attiva non è: " + nomeApiKey)
-                    .until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//p[contains(text(),'" + nomeApiKey + "')]"))));
+                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(),'" + nomeApiKey + "')]"))));
             logger.info("Api Key Confirmation Page caricata");
         } catch (TimeoutException e) {
-            logger.error("Api Key Confirmation Page NON caricata con errore: {}", e.getMessage());
             Assertions.fail("Api Key Confirmation Page NON caricata con errore: " + e.getMessage());
         }
     }
@@ -156,7 +147,7 @@ public class ApiKeyPAPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(@id,'status-chip-')]")));
 
         for (int i = 0; i < statiApiKeyBy.size(); i++) {
-            if (("status-chip-"+stato).equalsIgnoreCase(statiApiKeyBy.get(i).getAttribute("id"))) {
+            if (("status-chip-" + stato).equalsIgnoreCase(statiApiKeyBy.get(i).getAttribute("id"))) {
                 return i;
             }
         }
@@ -191,7 +182,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickSuAnnulla() {
-        getWebDriverWait(40).withMessage("il Bottone Annulla nel pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("close-modal-button"))));
+        getWebDriverWait(40).withMessage("il Bottone Annulla nel pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("close-modal-button"))));
         annullaButtonNelPopUp = driver.findElement(By.id("close-modal-button"));
         annullaButtonNelPopUp.click();
     }
@@ -212,16 +203,10 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickAttivaSulMenu() {
-//        getWebDriverWait(30).withMessage("il bottone attiva seul menu non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//li[contains(@data-testid,'buttonEnable')]"))));
-//        attivaButtonNelMenu = driver.findElement(By.xpath("//li[contains(@data-testid,'buttonEnable')]"));
-//        attivaButtonNelMenu.click();
-
         WebElement attivaButtonNelMenu = getWebDriverWait(30).
                 withMessage("Il bottone Attiva nel menu non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[contains(@data-testid,'buttonEnable')]")));
         attivaButtonNelMenu.click();
-
-
     }
 
     public void siVisualizzaPoPUpAttiva() {
@@ -282,8 +267,8 @@ public class ApiKeyPAPage extends BasePage {
                 List<WebElement> menuItems = getWebDriverWait(30)
                         .withMessage("Impossibile trovare il menu a tendina ")
                         .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                        By.cssSelector("ul[class*='MuiMenu-list'] li")
-                ));
+                                By.cssSelector("ul[class*='MuiMenu-list'] li")
+                        ));
                 // Itera attraverso gli elementi della lista per trovare la voce "Attiva"
                 for (WebElement item : menuItems) {
                     if ("Attiva".equals(item.getText())) {
@@ -306,7 +291,7 @@ public class ApiKeyPAPage extends BasePage {
         currentButton.click();
         WebElement attivaItem = getWebDriverWait(30)
                 .withMessage("Impossibile trovare la lista degli stati ")
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("button-enable") ));
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("button-enable")));
 
         // Verifica che il testo dell'elemento sia "Attiva"
         if ("Attiva".equals(attivaItem.getText())) {
@@ -318,7 +303,7 @@ public class ApiKeyPAPage extends BasePage {
 
     public void clickMenuButtonBlocca() {
         int posizione = verificaBottoni("Bloccata");
-        logger.info("Posizione: "+ posizione);
+        logger.info("Posizione: {}" , posizione);
 
         if (posizione < 0) {
             logger.info("Nessuna Api Key bloccata da attivare, procedo a bloccare una attivata");
@@ -463,7 +448,7 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void clickSuVisualizza() {
-        getWebDriverWait(10).withMessage("Il Bottone visualizza non è cliccabile").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("button-view"))));
+        getWebDriverWait(10).withMessage("Il Bottone visualizza non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button-view"))));
         visualizzaApiButton = driver.findElement(By.id("button-view"));
         visualizzaApiButton.click();
     }
@@ -515,7 +500,6 @@ public class ApiKeyPAPage extends BasePage {
 
     public boolean generaChiavePubblicaDisplayed() {
         try {
-//            return getWebDriverWait(5).withMessage("Il bottone Genera chiave pubblica non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("generate-public-key")))).isDisplayed();
             return getWebDriverWait(25)
                     .withMessage("Il bottone Genera chiave pubblica non è visibile")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("generate-public-key")))
@@ -565,87 +549,86 @@ public class ApiKeyPAPage extends BasePage {
         return apiKeyDaElenco.getAttribute("value");
     }
 
-public void pulisciAmbientePublickeys() {
-    try {
-        WebElement table = getWebDriverWait(20).withMessage("Prima Accesso alla Tabella Integrazione Api Publickeys  NON VISIBILE")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop)));
-        int b = 0;
-        List<WebElement> righeBloccate = table.findElements(By.xpath(".//tr//td//div[@id='status-chip-Bloccata']"));
-        //Si cancellano prima le righe bloccate per far proseguire i test automatici
-        logger.info("Si cancellano prima le {} righe bloccate", righeBloccate.size());
-        while (b < righeBloccate.size()) {
+    public void pulisciAmbientePublickeys() {
+        try {
+            WebElement table = getWebDriverWait(20).withMessage("Prima Accesso alla Tabella Integrazione Api Publickeys  NON VISIBILE")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop)));
+            int b = 0;
+            List<WebElement> righeBloccate = table.findElements(By.xpath(".//tr//td//div[@id='status-chip-Bloccata']"));
+            //Si cancellano prima le righe bloccate per far proseguire i test automatici
+            logger.info("Si cancellano prima le {} righe bloccate", righeBloccate.size());
+            while (b < righeBloccate.size()) {
 
-            WebElement row = righeBloccate.get(b);
-            //si cliccano i tre puntini sulla riga con stato Bloccata
-            row.findElement(By.xpath("./parent::td//..//button[@data-testid='contextMenuButton']")).click();
-            clickEliminaIntegrazioneApi();
-            clickSuConfermaNelPopUp();
-            logger.info("Tasto Elimina cliccato su stato Bloccata.");
-            aggiornaPaginaWaitTime(3);
-
-            //Si aggiorna il conto delle righe dopo la cancellazione della riga
-            if (getWebDriverWait(10).withMessage("Accessi succesivi alla Tabella Integrazione Api Publickeys  NON VISIBILE")
-                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop))).isDisplayed()) {
-                table = getWebDriverWait(10).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE")
-                        .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop)));
-                righeBloccate = table.findElements(By.xpath(".//tr//td//div[@id='status-chip-Bloccata']"));
-                logger.info("righe bloccate mancanti {}", righeBloccate.size());
-                b = 0;
-            }
-            b++;
-        }
-        //Si refresha l'element table e si cancellano ora le righe attive e ruotate.
-        table = getWebDriverWait(10).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop)));
-        List<WebElement> rows = table.findElements(By.xpath(".//tr"));
-        int i = 0;
-        logger.info("si cancellano chiavi attive e ruotate");
-        while (i < rows.size()) {
-
-            WebElement row = rows.get(i);
-            /**si individua la colonna dove è presente lo status chip (si è usato un xpath invece del numero della colonna nella tabella,
-             * che può cambiare in base al tipo di persona che entra nella pagina
-             */
-            List<WebElement> cells = row.findElements(By.xpath(".//td//div[contains(@data-testid,'statusChip')]"));
-
-            if (!cells.isEmpty()) {
-                String statoValue = cells.get(0).getText();
-
-                if (statoValue.equalsIgnoreCase("Attiva")) {
-
-                    clickTrePuntiniPublicKeys();
-                    clickSuBlocca();
-                    clickSuConfermaNelPopUp();
-                    aggiornaPaginaWaitTime(5);
-
-                } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
-
-                    clickTrePuntiniPublicKeys();
-                    clickEliminaIntegrazioneApi();
-                    clickSuConfermaNelPopUp();
-                    logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
-                    aggiornaPaginaWaitTime(3);
-
-                }
+                WebElement row = righeBloccate.get(b);
+                //si cliccano i tre puntini sulla riga con stato Bloccata
+                row.findElement(By.xpath("./parent::td//..//button[@data-testid='contextMenuButton']")).click();
+                clickEliminaIntegrazioneApi();
+                clickSuConfermaNelPopUp();
+                logger.info("Tasto Elimina cliccato su stato Bloccata.");
+                aggiornaPaginaWaitTime(3);
 
                 //Si aggiorna il conto delle righe dopo la cancellazione della riga
                 if (getWebDriverWait(10).withMessage("Accessi succesivi alla Tabella Integrazione Api Publickeys  NON VISIBILE")
                         .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop))).isDisplayed()) {
                     table = getWebDriverWait(10).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE")
                             .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop)));
-                    rows = table.findElements(By.xpath(".//tr"));
-                    i = 0;
+                    righeBloccate = table.findElements(By.xpath(".//tr//td//div[@id='status-chip-Bloccata']"));
+                    logger.info("righe bloccate mancanti {}", righeBloccate.size());
+                    b = 0;
                 }
+                b++;
             }
+            //Si refresha l'element table e si cancellano ora le righe attive e ruotate.
+            table = getWebDriverWait(10).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop)));
+            List<WebElement> rows = table.findElements(By.xpath(".//tr"));
+            int i = 0;
+            logger.info("si cancellano chiavi attive e ruotate");
+            while (i < rows.size()) {
 
-            i++;
+                WebElement row = rows.get(i);
+                /**si individua la colonna dove è presente lo status chip (si è usato un xpath invece del numero della colonna nella tabella,
+                 * che può cambiare in base al tipo di persona che entra nella pagina
+                 */
+                List<WebElement> cells = row.findElements(By.xpath(".//td//div[contains(@data-testid,'statusChip')]"));
+
+                if (!cells.isEmpty()) {
+                    String statoValue = cells.get(0).getText();
+
+                    if (statoValue.equalsIgnoreCase("Attiva")) {
+
+                        clickTrePuntiniPublicKeys();
+                        clickSuBlocca();
+                        clickSuConfermaNelPopUp();
+                        aggiornaPaginaWaitTime(5);
+
+                    } else if (statoValue.equalsIgnoreCase("Ruotata") || statoValue.equalsIgnoreCase("Bloccata")) {
+
+                        clickTrePuntiniPublicKeys();
+                        clickEliminaIntegrazioneApi();
+                        clickSuConfermaNelPopUp();
+                        logger.info("Tasto Elimina cliccato su stato Ruotata o Bloccata.");
+                        aggiornaPaginaWaitTime(3);
+
+                    }
+
+                    //Si aggiorna il conto delle righe dopo la cancellazione della riga
+                    if (getWebDriverWait(10).withMessage("Accessi succesivi alla Tabella Integrazione Api Publickeys  NON VISIBILE")
+                            .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop))).isDisplayed()) {
+                        table = getWebDriverWait(10).withMessage("Il Tabella Integrazione Api VirtualKeys  NON VISIBILE")
+                                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathPublicKeysTableDesktop)));
+                        rows = table.findElements(By.xpath(".//tr"));
+                        i = 0;
+                    }
+                }
+
+                i++;
+            }
+        } catch (TimeoutException e) {
+            // Se la tabella NON è visibile, proseguo comunque l'esecuzione
+            logger.info("Tabella NON visibile. Proseguo comunque.");
         }
-    } catch (TimeoutException e) {
-        // Se la tabella NON è visibile, proseguo comunque l'esecuzione
-        logger.info("Tabella NON visibile. Proseguo comunque.");
     }
-}
-
 
 
     //N.B.: Metodo funziona solo se è presente una riga individuabile sulla tabella. In caso di righe multiple si deve dichiarare manualmente quale xpath specifico deve essere cliccato
@@ -670,44 +653,21 @@ public void pulisciAmbientePublickeys() {
     }
 
     public void nellaSezioneIntegrazioneAPINonSiVisualizzaAlcunaChiave(String testo) {
-        getWebDriverWait(40).withMessage("Il testo '"+testo+"' NON VISIBILE").until(
+        getWebDriverWait(40).withMessage("Il testo '" + testo + "' NON VISIBILE").until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//div[@data-testid='emptyState']//p[contains(text(), '"+testo+"')]")
+                        By.xpath("//div[@data-testid='emptyState']//p[contains(text(), '" + testo + "')]")
                 )
         );
     }
 
     public void nellaSezioneIntegrazioneAPISiVisualizzaAlert(String testo) {
-        getWebDriverWait(40).withMessage("Il testo '"+testo+"' NON VISIBILE").until(
+        getWebDriverWait(40).withMessage("Il testo '" + testo + "' NON VISIBILE").until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//div[@role='alert']//p[contains(text(), '"+testo+"')]")
+                        By.xpath("//div[@role='alert']//p[contains(text(), '" + testo + "')]")
                 )
         );
     }
 
-//    public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
-//        if(StringUtils.isNotBlank(chiave.get("ruota"))){
-//            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("ruota")+"' NON VISIBILE").until(
-//                    ExpectedConditions.visibilityOfElementLocated(By.id("button-rotate"))
-//            );
-//        }
-//
-//        if(StringUtils.isNotBlank(chiave.get("blocca"))){
-//            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("blocca")+"' NON VISIBILE").until(
-//                    ExpectedConditions.visibilityOfElementLocated(By.id("button-block"))
-//            );
-//        }
-//        if(StringUtils.isNotBlank(chiave.get("view"))){
-//            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("view")+"' NON VISIBILE").until(
-//                    ExpectedConditions.visibilityOfElementLocated(By.id("button-view"))
-//            );
-//        }
-//        if(StringUtils.isNotBlank(chiave.get("delete"))){
-//            getWebDriverWait(40).withMessage("Il tasto: '"+chiave.get("view")+"' NON VISIBILE").until(
-//                    ExpectedConditions.visibilityOfElementLocated(By.id("button-delete"))
-//            );
-//        }
-//    }
     public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
         webTool.waitTime(1);
         verificaVisibilitaPulsante(chiave, "ruota", "button-rotate");
@@ -751,7 +711,7 @@ public void pulisciAmbientePublickeys() {
     public void inserisciValoreDellaChiave(String stato) {
         String uniqueKey = UUID.randomUUID().toString();
         WebElement publicKeyField = getWebDriverWait(40).withMessage("Il campo di input publicKey NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("publicKey")));
-        publicKeyField.sendKeys(stato+"-"+uniqueKey);
+        publicKeyField.sendKeys(stato + "-" + uniqueKey);
     }
 
     public void clickRegistraOrFine() {
@@ -764,7 +724,7 @@ public void pulisciAmbientePublickeys() {
         webTool.waitTime(5);
         Assertions.assertTrue(
                 driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText().toLowerCase().contains(test.toLowerCase()),
-                "Il testo dell'alert non contiene la stringa attesa: " + test.toLowerCase() + ", ma visualizza: "+driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText().toLowerCase()
+                "Il testo dell'alert non contiene la stringa attesa: " + test.toLowerCase() + ", ma visualizza: " + driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText().toLowerCase()
         );
 
         webTool.waitTime(5);
@@ -809,7 +769,7 @@ public void pulisciAmbientePublickeys() {
             WebElement table = getWebDriverWait(20).withMessage("Prima Accesso alla Tabella Integrazione Api VirtualKeys  NON VISIBILE")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathVirtualKeysTableDesktop)));
             int b = 0;
-            logger.info("Tabella pulisciAmbienteVirtualKeys size:"+table.getSize());
+            logger.info("Tabella pulisciAmbienteVirtualKeys size: {}" , table.getSize());
             List<WebElement> righeBloccate = table.findElements(By.xpath(".//tr//td//div[@id='status-chip-Bloccata']"));
             //Si cancellano prima le righe bloccate per far proseguire i test automatici
             logger.info("Numero di righe bloccate da cancellare: {} ", righeBloccate.size());
@@ -850,14 +810,14 @@ public void pulisciAmbientePublickeys() {
                 if (!cells.isEmpty()) {
                     String statoValue = cells.get(0).getText();
 
-                    if(!registraChiavePubblicaPGSection.verificaStatoChiavePersonale("Attiva")){
+                    if (!registraChiavePubblicaPGSection.verificaStatoChiavePersonale("Attiva")) {
                         registraChiavePubblicaPGSection.cliccareSuiTrePuntiniVirtualKeyConStato("Bloccata");
                         clickEliminaIntegrazioneApi();
                         clickSuConfermaNelPopUp();
                         aggiornaPaginaWaitTime(5);
                     }
 
-                    if (statoValue.equalsIgnoreCase("Attiva") ) {
+                    if (statoValue.equalsIgnoreCase("Attiva")) {
                         clickTrePuntiniVirtualKeys();
                         clickSuBlocca();
                         clickSuConfermaNelPopUp();
@@ -889,16 +849,16 @@ public void pulisciAmbientePublickeys() {
         return getWebDriverWait(30)
                 .withMessage("Impossibile accedere table.MuiTable-root tbody tr.MuiTableRow-root")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.cssSelector("table.MuiTable-root tbody tr.MuiTableRow-root")));
+                        By.cssSelector("table.MuiTable-root tbody tr.MuiTableRow-root")));
     }
 
     // 1. Verifica la colonna "Nome API Key"
     public void verificaColonnaNomeApiKey() {
-       logger.info("verificaColonnaNomeApiKey");
+        logger.info("verificaColonnaNomeApiKey");
         List<WebElement> celle = getWebDriverWait(20)
                 .withMessage("Impossibile accedere verifica Colonna Nome ApiKey")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.cssSelector("table.MuiTable-root td:nth-child(1) p.MuiTypography-body1")));
+                        By.cssSelector("table.MuiTable-root td:nth-child(1) p.MuiTypography-body1")));
 
         logger.info("Verifico che la colonna 'Nome API Key' non abbia valori nulli...");
         for (WebElement cella : celle) {
@@ -913,7 +873,7 @@ public void pulisciAmbientePublickeys() {
         List<WebElement> celle = getWebDriverWait(20)
                 .withMessage("Impossibile accedere verifica Colonna  ApiKey")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.cssSelector("table.MuiTable-root td:nth-child(2) .MuiTypography-body2")));
+                        By.cssSelector("table.MuiTable-root td:nth-child(2) .MuiTypography-body2")));
 
         logger.info("Verifico che la colonna 'Chiave API' non abbia valori nulli...");
         for (WebElement cella : celle) {
@@ -929,7 +889,7 @@ public void pulisciAmbientePublickeys() {
         List<WebElement> celle = getWebDriverWait(20)
                 .withMessage("Impossibile accedere verifica Colonna  Data Creazione")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.cssSelector("table.MuiTable-root td:nth-child(3) p[aria-current='date']")));
+                        By.cssSelector("table.MuiTable-root td:nth-child(3) p[aria-current='date']")));
 
         logger.info("Verifico che la colonna 'Data creazione' non abbia valori nulli...");
         for (WebElement cella : celle) {
@@ -945,7 +905,7 @@ public void pulisciAmbientePublickeys() {
         List<WebElement> celle = getWebDriverWait(20)
                 .withMessage("Impossibile accedere verifica Colonna  Gruppi")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.cssSelector("table.MuiTable-root td:nth-child(4) span.css-l24ofh")));
+                        By.cssSelector("table.MuiTable-root td:nth-child(4) span.css-l24ofh")));
 
         logger.info("Verifico che la colonna 'Gruppi' non abbia valori nulli...");
         for (WebElement cella : celle) {
@@ -961,7 +921,7 @@ public void pulisciAmbientePublickeys() {
         List<WebElement> celle = getWebDriverWait(20)
                 .withMessage("Impossibile accedere verifica Colonna  Stato")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.cssSelector("table.MuiTable-root td:nth-child(5) .MuiChip-label")));
+                        By.cssSelector("table.MuiTable-root td:nth-child(5) .MuiChip-label")));
 
         logger.info("Verifico che la colonna 'Stato' non abbia valori nulli...");
         for (WebElement cella : celle) {
@@ -985,14 +945,12 @@ public void pulisciAmbientePublickeys() {
         return celle;
     }
 
-
-
     public void verificaColonnaNomeChiave() {
         List<WebElement> nomeChiaveCells = getWebDriverWait(10)
                 .withMessage("Impossibile trovare la colonna Nome ")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.xpath("//td[1]//p[contains(@class, 'MuiTypography-body1')]")
-        ));
+                        By.xpath("//td[1]//p[contains(@class, 'MuiTypography-body1')]")
+                ));
         nomeChiaveCells.forEach(cell ->
                 Assertions.assertFalse(cell.getText().isEmpty(), "Una cella nella colonna Nome Chiave è vuota.")
         );
@@ -1002,8 +960,8 @@ public void pulisciAmbientePublickeys() {
         List<WebElement> valoreChiaveCells = getWebDriverWait(10)
                 .withMessage("Impossibile trovare la colonna Valore ")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.xpath("//td[2]//p[contains(@class, 'MuiTypography-body2')]")
-        ));
+                        By.xpath("//td[2]//p[contains(@class, 'MuiTypography-body2')]")
+                ));
         valoreChiaveCells.forEach(cell ->
                 Assertions.assertFalse(cell.getText().isEmpty(), "Una cella nella colonna Valore Chiave è vuota.")
         );
@@ -1013,8 +971,8 @@ public void pulisciAmbientePublickeys() {
         List<WebElement> dataScadenzaCells = getWebDriverWait(10)
                 .withMessage("Impossibile trovare la colonna Scadenza ")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.xpath("//td[3]//p[contains(@class, 'MuiTypography-body1')]")
-        ));
+                        By.xpath("//td[3]//p[contains(@class, 'MuiTypography-body1')]")
+                ));
         dataScadenzaCells.forEach(cell ->
                 Assertions.assertFalse(cell.getText().isEmpty(), "Una cella nella colonna Data Scadenza è vuota.")
         );
@@ -1024,8 +982,8 @@ public void pulisciAmbientePublickeys() {
         List<WebElement> statoCells = getWebDriverWait(10)
                 .withMessage("Impossibile trovare la colonna Stato ")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.xpath("//td[4]//div[contains(@class, 'MuiChip-root')]//span[contains(@class, 'MuiChip-label')]")
-        ));
+                        By.xpath("//td[4]//div[contains(@class, 'MuiChip-root')]//span[contains(@class, 'MuiChip-label')]")
+                ));
         statoCells.forEach(cell ->
                 Assertions.assertFalse(cell.getText().isEmpty(), "Una cella nella colonna Stato è vuota.")
         );
@@ -1035,8 +993,8 @@ public void pulisciAmbientePublickeys() {
         List<WebElement> opzioniButtons = getWebDriverWait(10)
                 .withMessage("Impossibile trovare la colonna Opzioni (3 puntini) ")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.xpath("//td[5]//button[contains(@data-testid, 'contextMenuButton')]")
-        ));
+                        By.xpath("//td[5]//button[contains(@data-testid, 'contextMenuButton')]")
+                ));
         opzioniButtons.forEach(button ->
                 Assertions.assertTrue(button.isDisplayed(), "Un pulsante nella colonna Opzioni non è visibile.")
         );
