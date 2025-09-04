@@ -30,28 +30,18 @@ public class CookiesSection extends BasePage {
 
     public boolean waitLoadCookiesPage() {
         try {
-           // WebElement scopriDiPiuLink = driver.findElement(By.id("onetrust-banner-sdk"));
             getWebDriverWait(20)
                     .withMessage("Problemi con il metodo waitLoadCookiesPage")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("onetrust-banner-sdk")));
             logger.info("Cookies Page caricata");
             return true;
         } catch (TimeoutException e) {
-            logger.warn("Il banner del cookie non è caricato con errore : " + e.getMessage());
+            logger.warn("Il banner del cookie non è caricato con errore: {}", e.getMessage());
             return false;
         }
     }
 
     public void selezionaAccettaTuttiButton() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("onetrust-accept-btn-handler"))));
-//            logger.info("Si seleziona accetta tutti i cookies");
-//            Actions actions = new Actions(driver);
-//            accettaTuttiButton = driver.findElement(By.id("onetrust-accept-btn-handler"));
-//            actions.moveToElement(accettaTuttiButton).click().perform();
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non è cliccabile il bottone accetta tutti i cookies" + e.getMessage());
-//        }
 
         try {
             WebElement accettaTuttiButton = getWebDriverWait(30)

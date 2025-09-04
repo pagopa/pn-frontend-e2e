@@ -13,8 +13,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -47,7 +45,7 @@ public class InformazioniPreliminariPASection extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public InformazioniPreliminariPASection(WebDriver driver) {
         this.driver = driver;
@@ -74,7 +72,6 @@ public class InformazioniPreliminariPASection extends BasePage {
 
             logger.info("Informazioni preliminari PA Section caricata");
         } catch (TimeoutException e) {
-            logger.error("Informazioni preliminari PA Section non caricata. L'elemento NumProtocollo, Ogetto, descrizione o codicetassonometrico non caricato con errore : " + e.getMessage());
             Assertions.fail("Informazioni preliminari PA Section non caricata con errore : " + e.getMessage());
         }
     }
@@ -86,15 +83,15 @@ public class InformazioniPreliminariPASection extends BasePage {
         scrollToElementClickAndInsertText(numeroProtocolloTextBy, numeroProtocollo);
     }
 
-    public boolean checkFormInfoPreliminari(){
+    public boolean checkFormInfoPreliminari() {
         oggettoNotificaTextField = driver.findElement(By.id("subject"));
         descrizioneTextField = driver.findElement(By.id("abstract"));
         if (oggettoNotificaTextField.getAttribute("value").isEmpty() && descrizioneTextField.getAttribute("value").isEmpty()) {
-         logger.info("Il form di inserimento manuale della notifica è vuoto");
-         return true;
-        }else {
-           logger.info("Il form di inserimento manuale della notifica non è vuoto");
-        return false;
+            logger.info("Il form di inserimento manuale della notifica è vuoto");
+            return true;
+        } else {
+            logger.info("Il form di inserimento manuale della notifica non è vuoto");
+            return false;
         }
     }
 
@@ -158,7 +155,8 @@ public class InformazioniPreliminariPASection extends BasePage {
         registeredLetter890Button = driver.findElement(By.xpath("//input[@value='REGISTERED_LETTER_890']"));
         registeredLetter890Button.click();
     }
-    public void compilazioneInformazioniPreliminari(Map<String,String> datiNotificaMap) {
+
+    public void compilazioneInformazioniPreliminari(Map<String, String> datiNotificaMap) {
         String gruppo = "";
         switch (webDriverConfig.getEnvironment()) {
             case "dev" -> gruppo = datiNotificaMap.get("gruppoDev");
@@ -170,9 +168,9 @@ public class InformazioniPreliminariPASection extends BasePage {
         webTool.waitTime(2);
         insertGruppo(gruppo);
         insertCodiceTassonometrico(datiNotificaMap.get("codiceTassonometrico"));
-        if (datiNotificaMap.get("modello").equals("AR")){
+        if (datiNotificaMap.get("modello").equals("AR")) {
             selectRaccomandataAR();
-        }else{
+        } else {
             selectRegisteredLetter890();
         }
     }
