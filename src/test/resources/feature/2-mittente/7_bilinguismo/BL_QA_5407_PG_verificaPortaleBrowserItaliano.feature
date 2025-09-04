@@ -4,6 +4,7 @@ Feature: PG - Verifica portale browser Italiano
   @TA_bilinguismoPGVerificaPortaleBrowserInItaliano_5407
   @TA_Italiano
   @bilinguismo
+  @deleghe2
 
   Scenario: PN-5407-BL - PG - Verifica portale browser Italiano
 

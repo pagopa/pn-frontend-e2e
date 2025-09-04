@@ -765,9 +765,4 @@ public class DeleghePagoPATest extends BasePage {
     public void verificaMessaggioErroreDeleghe(String messaggio) {
         deleghePage.verificaMessaggioErroreDeleghe(messaggio);
     }
-
-    @And("Rimuovi tutti i delegati da i Tuoi Delegati se esistono")
-    public void rimuoviDelegatiPF() {
-        deleghePage.rimuoviDelegatiPF();
-    }
 }

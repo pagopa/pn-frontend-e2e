@@ -4,6 +4,7 @@ Feature:La persona fisica aggiunge una delega a se stessi
   @TA_PFaggiuntaDelegaSeStesso
   @DeleghePF
   @PF
+  @deleghe1
   @DeleghePFPG
   @GestioneErrori
    @NRT_Blocco_3

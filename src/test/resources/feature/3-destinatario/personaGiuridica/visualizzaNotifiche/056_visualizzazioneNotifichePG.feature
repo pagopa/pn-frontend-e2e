@@ -3,6 +3,7 @@ Feature: La persona fisica visualizza la sezione notifiche
   @TestSuite
   @TA_PGVisualizzaNotifiche
   @DeleghePG
+  @deleghe2
   @NRT_Blocco_3
   @VisualizzaNotifiche
   Scenario: PN-9147 - La persona giuridica visualizza la sezione notifiche

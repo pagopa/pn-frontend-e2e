@@ -4,6 +4,7 @@ Feature: PG - Verifica portale browser Tedesco
   @TA_bilinguismoPGVerificaPortaleBrowserInTedesco_5410
   @Tedesco
   @bilinguismo
+  @deleghe2
 
   Scenario: PN-5410-BL - PG - Verifica portale browser Tedesco
 

@@ -4,6 +4,7 @@ Feature:La persona giuridica revoca una delega
     @TA_PGrevocaNuovaDelega
     @DeleghePG
     @PG
+    @deleghe2
     @DeleghePFPG
     @NRT_Blocco_1
     Scenario:PN-9169 - La persona giuridica revoca una delega

@@ -4,6 +4,7 @@ Feature: PG - Verifica portale browser Francese
   @TA_bilinguismoPGVerificaPortaleBrowserInFrancese_5409
   @TA_Francese
   @bilinguismo
+  @deleghe2
 
   Scenario: PN-5409-BL - PG - Verifica portale browser Francese
 

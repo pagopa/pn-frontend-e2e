@@ -4,6 +4,7 @@ Feature: La persona giuridica aggiunge una nuova delega
   @TA_PG_QA_464
   @NRT_Blocco_1
   @DeleghePG
+  @deleghe2
   Scenario: [QA_464] ValidationBug Visualizzato messaggio di errore portale PG
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
