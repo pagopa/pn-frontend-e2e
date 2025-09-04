@@ -6,7 +6,6 @@ import it.pn.frontend.e2e.model.delegate.DelegatePG;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
 import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
 import it.pn.frontend.e2e.model.recipients.*;
-import it.pn.frontend.e2e.model.recipients.PersonaFisicaPec;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 
 @Getter
 @Configuration
-@PropertySource( value = "file:config/data-population.properties", ignoreResourceNotFound = true )
+@PropertySource(value = "file:config/data-population.properties", ignoreResourceNotFound = true)
 public class DataPopulationConfig {
 
     //DATI DELEGATO PF
@@ -266,7 +265,7 @@ public class DataPopulationConfig {
 
     //BEAN DATI NOTIFICA PG
     @Bean
-    public PersonaFisicaPec personaFisicaPec(){
+    public PersonaFisicaPec personaFisicaPec() {
         personaFisicaPec = new PersonaFisicaPec();
         personaFisicaPec.setName(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_PF_PEC.key));
         personaFisicaPec.setFamilyName(DataPopulationValue.getDefaultValue(DataPopulationValue.FAMILYNAME_PF_PEC.key));
@@ -284,9 +283,10 @@ public class DataPopulationConfig {
         return personaFisicaPec;
 
     }
+
     //BEAN DATI NOTIFICA PG
     @Bean
-    public DatiNotificaPg datiNotificaPg(){
+    public DatiNotificaPg datiNotificaPg() {
         datiNotificaPg = new DatiNotificaPg();
         datiNotificaPg.setOggettoDellaNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.OGGETTO_DELLA_NOTIFICA.key));
         datiNotificaPg.setCodiceIUN(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_IUN.key));
@@ -393,7 +393,7 @@ public class DataPopulationConfig {
     }
 
     @Bean
-    public NuovaDelegaPg nuovaDelegaPg(){
+    public NuovaDelegaPg nuovaDelegaPg() {
 
         nuovaDelegaPg = new NuovaDelegaPg();
         nuovaDelegaPg.setRagioneSociale(DataPopulationValue.getDefaultValue(DataPopulationValue.RAGIONE_SOC_NUOVA_DELEGA_PG.key));
@@ -405,7 +405,7 @@ public class DataPopulationConfig {
     }
 
     @Bean
-    public PersonaGiuridica personaGiuridica(){
+    public PersonaGiuridica personaGiuridica() {
 
         personaGiuridica = new PersonaGiuridica();
         personaGiuridica.setEmail(emailPg);
@@ -434,7 +434,7 @@ public class DataPopulationConfig {
     }
 
     @Bean
-    public PersonaGiuridica1 personaGiuridica1(){
+    public PersonaGiuridica1 personaGiuridica1() {
 
         personaGiuridica1 = new PersonaGiuridica1();
         personaGiuridica1.setEmailPec(emailPecPg1);
@@ -454,7 +454,7 @@ public class DataPopulationConfig {
     }
 
     @Bean
-    public PersonaGiuridicaErrore personaGiuridicaErrore(){
+    public PersonaGiuridicaErrore personaGiuridicaErrore() {
 
         personaGiuridicaErrore = new PersonaGiuridicaErrore();
         personaGiuridicaErrore.setEmailPecErrore(DataPopulationValue.getDefaultValue(DataPopulationValue.EMAIL_PEC_PG_ERRORE.key));
@@ -464,7 +464,7 @@ public class DataPopulationConfig {
     }
 
     @Bean
-    public NuovaDelega nuovaDelega(){
+    public NuovaDelega nuovaDelega() {
 
         nuovaDelega = new NuovaDelega();
         nuovaDelega.setNome(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_DELEGA.key));
@@ -478,7 +478,7 @@ public class DataPopulationConfig {
     }
 
     @Bean
-    public NuovaDelegaErrore nuovaDelegaErrore(){
+    public NuovaDelegaErrore nuovaDelegaErrore() {
 
         nuovaDelegaErrore = new NuovaDelegaErrore();
         nuovaDelegaErrore.setNome(DataPopulationValue.getDefaultValue(DataPopulationValue.NAME_DELEGA_ERR.key));
@@ -491,7 +491,7 @@ public class DataPopulationConfig {
     }
 
     @Bean
-    public DatiNotifica datiNotifica(){
+    public DatiNotifica datiNotifica() {
         datiNotifica = new DatiNotifica();
         datiNotifica.setNumeroProtocollo(DataPopulationValue.getDefaultValue(DataPopulationValue.NUMERO_PROTOCOLLO_DN.key));
         datiNotifica.setOggettoDellaNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.OGGETTO_DELLA_NOTIFICA_DN.key));
@@ -515,7 +515,7 @@ public class DataPopulationConfig {
     }
 
     @Bean
-    public DatiNotificaErrore datiNotificaErrore(){
+    public DatiNotificaErrore datiNotificaErrore() {
         datiNotificaErrore = new DatiNotificaErrore();
         datiNotificaErrore.setOggettoDellaNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.OGGETTO_DELLA_NOTIFICA_ERRORE.key));
         datiNotificaErrore.setOggettoDellaNotifica(DataPopulationValue.getDefaultValue(DataPopulationValue.CODICE_TASSONOMETRICO_ERRORE.key));
@@ -525,7 +525,7 @@ public class DataPopulationConfig {
 
 
     @Bean
-    public Helpdesk testHelpdesk(){
+    public Helpdesk testHelpdesk() {
         helpdesk = new Helpdesk();
         helpdesk.setUrl(DataPopulationValue.getDefaultValue(DataPopulationValue.URL_HELP_DESK.key));
         helpdesk.setUserDev(DataPopulationValue.getDefaultValue(DataPopulationValue.USER_DEV_HELP_DESK.key));
@@ -537,7 +537,6 @@ public class DataPopulationConfig {
         helpdesk.setCfPf(DataPopulationValue.getDefaultValue(DataPopulationValue.CFPF_TEST_HELP_DESK.key));
         return helpdesk;
     }
-
 
 
 }

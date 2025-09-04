@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class DatiNotificaPg {
 
-    private String  oggettoDellaNotifica;
-    private String  codiceIUN;
+    private String oggettoDellaNotifica;
+    private String codiceIUN;
 
 
 }

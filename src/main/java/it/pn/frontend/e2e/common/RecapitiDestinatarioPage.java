@@ -139,29 +139,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         logger.info("clickConfermaButtonEliminaPopUp");
     }
 
-    //cambiati check del testo per evitare casi di element stale exception e per differenziare tra i casi per cittadini e imprese (format del testo è diverso tra i portali)
-//    public void waitLoadPopUp() {
-//        try {
-//            getWebDriverWait(30).withMessage("Non viene visualizzato correttamente il titolo").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-//            getWebDriverWait(30).withMessage("La descrizione non viene visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-description"))));
-//            getWebDriverWait(30).withMessage("La scritta 'Inserisci codice' non viene visualizzata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-content']//p[contains(@class,'MuiTypography-root MuiTypography-body1') and not(@role='button')]"))));
-//            getWebDriverWait(30).withMessage("Le input boxes non vengono visualizzate").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"))));
-//            List<WebElement> inputBoxes = driver.findElements(By.xpath("//input[contains(@id,'code-input-')]"));
-//            if (inputBoxes.size() != 5) {
-//                Assertions.fail("Il numero di input box non è corretto");
-//            }
-//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//div[@data-testid='dialog-content']//div[contains(@class,'MuiTypography-root MuiTypography-body2')]"))));
-//            confermaButtonPopUp = driver.findElement(By.id("code-confirm-button"));
-//            annullaButton = driver.findElement(By.id("code-cancel-button"));
-//            boolean checkButton = confermaButtonPopUp.isEnabled() && annullaButton.isEnabled();
-//            if (!checkButton) {
-//                Assertions.fail("i pulsanti all'interno del pop-up non rispettano le condizioni");
-//            }
-//            logger.info("Il pop-up di conferma viene visualizzato correttamente");
-//        } catch (TimeoutException | StaleElementReferenceException e) {
-//            Assertions.fail("Il pop-up di conferma NON viene visualizzato correttamente con errori:" + e.getMessage());
-//        }
-//    }
+
     public void waitLoadPopUp() {
         try {
             getWebDriverWait(30)
@@ -209,19 +187,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-//    public void sendOTP(String otp) {
-//        String[] otps = otp.split("");
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input')]"))));
-//            List<WebElement> otpInputby = driver.findElements(By.xpath("//input[contains(@id,'code-input')]"));
-//            for (int i = 0; i < otps.length; i++) {
-//                otpInputby.get(i).sendKeys(otps[i]);
-//            }
-//            logger.info("Il codice otp viene inserito correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
-//        }
-//    }
 
     public void sendOTP(String otp) {
         String[] otpDigits = otp.split("");
@@ -244,35 +209,25 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
 
+    public void clearOTP() {
+        try {
+            // Attendi che tutti i campi di input OTP siano visibili
+            List<WebElement> otpInputs = getWebDriverWait(30)
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[contains(@id,'code-input')]")));
 
-//    public void clearOTP() {
-//        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input')]"))));
-//        List<WebElement> otpInputby = driver.findElements(By.xpath("//input[contains(@id,'code-input')]"));
-//        for (int i = 4; i >= 0; i--) {
-//            otpInputby.get(i).sendKeys(Keys.BACK_SPACE);
-//        }
-//        logger.info("Il codice otp viene cancellato correttamente");
-//
-//    }
-public void clearOTP() {
-    try {
-        // Attendi che tutti i campi di input OTP siano visibili
-        List<WebElement> otpInputs = getWebDriverWait(30)
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[contains(@id,'code-input')]")));
+            // Cancella ogni campo di input OTP
+            for (int i = otpInputs.size() - 1; i >= 0; i--) {
+                otpInputs.get(i).sendKeys(Keys.BACK_SPACE);
+            }
 
-        // Cancella ogni campo di input OTP
-        for (int i = otpInputs.size() - 1; i >= 0; i--) {
-            otpInputs.get(i).sendKeys(Keys.BACK_SPACE);
+            logger.info("Il codice OTP è stato cancellato correttamente");
+        } catch (TimeoutException e) {
+            Assertions.fail("I campi di input OTP non sono stati trovati: " + e.getMessage());
+        } catch (Exception e) {
+            Assertions.fail("Errore durante la cancellazione del codice OTP: " + e.getMessage());
+
         }
-
-        logger.info("Il codice OTP è stato cancellato correttamente");
-    } catch (TimeoutException e) {
-        Assertions.fail("I campi di input OTP non sono stati trovati: " + e.getMessage());
-    } catch (Exception e) {
-        Assertions.fail("Errore durante la cancellazione del codice OTP: " + e.getMessage());
-
     }
-}
 
     public void confermaButtonClickPopUp() {
         webTool.waitTime(3);
@@ -525,7 +480,7 @@ public void clearOTP() {
 
     public void clickSuConfermaElimina() {
         logger.info("PRIMA DI clickSuConfermaElimina");
-        getWebDriverWait(20).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("buttonConferma"))));
+        getWebDriverWait(20).withMessage("Non è stato possibile cliccare sul bottone conferma").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("buttonConferma"))));
         WebElement confermaRimuoviPECBy = driver.findElement(By.id("buttonConferma"));
         confermaRimuoviPECBy.click();
         logger.info("DOPO DI clickSuConfermaElimina");
@@ -640,7 +595,7 @@ public void clearOTP() {
     }
 
     public void eliminaNuovaPec() {
-        getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone elimina email").until(ExpectedConditions.elementToBeClickable( driver.findElements(By.xpath("//form[@data-testid = 'default_pecContact']//button[contains(text(),'Elimina')]")).get(0)));
+        getWebDriverWait(30).withMessage("Non è stato possibile cliccare sul bottone elimina email").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//form[@data-testid = 'default_pecContact']//button[contains(text(),'Elimina')]")).get(0)));
         eliminaButtonList = driver.findElements(By.xpath("//form[@data-testid = 'default_pecContact']//button[contains(text(),'Elimina')]"));
         js().executeScript("arguments[0].click()", eliminaButtonList.get(0));
         WebElement confermaPopUpBy = driver.findElement(By.xpath("//div[@aria-labelledby='dialog-title']//div/button[contains(text(),'Conferma')]"));
@@ -722,8 +677,8 @@ public void clearOTP() {
 
     public void visualizzazioneCampiSezioneAltriRecapiti() {
         vaiInFondoAllaPagina();
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//h5[contains(@id, 'specialContact')]"))));
-        getWebDriverWait(10).withMessage("Non si visualizza il titolo della tabella").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//p[contains(text(), 'Già associati')]"))));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente  il titolo della sezione altri recapiti").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h5[contains(@id, 'specialContact')]"))));
+        getWebDriverWait(10).withMessage("Non si visualizza il titolo della tabella").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Già associati')]"))));
         getWebDriverWait(10).withMessage("Non si visualizza la tabella dei recapiti già associati").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//*[@id='root']/div[1]/div/main/div/div[2]/div[2]/div/div/table"))));
         WebElement tableGiaAssociati = driver.findElement(By.xpath("//table[@aria-label='Già associati']"));
         List<WebElement> tableRows = tableGiaAssociati.findElements(By.xpath(".//tbody/tr"));
@@ -748,14 +703,6 @@ public void clearOTP() {
         }
     }
 
-//    public void checkButtonAnnullaEliminazioneInPopUp() {
-//        try {
-//            getWebDriverWait(10).withMessage("pulsante annulla eliminazione non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("buttonAnnulla"))));
-//            logger.info("pulsante annulla eliminazione visibile");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("caricamento pop-up con errore:" + e.getMessage());
-//        }
-//    }
 
     public void checkButtonAnnullaEliminazioneInPopUp() {
         try {
@@ -768,14 +715,13 @@ public void clearOTP() {
             Assertions.fail("Caricamento pop-up con errore: " + e.getMessage());
         } catch (StaleElementReferenceException e) {
 
-             getWebDriverWait(10)
-                     .withMessage("Pulsante annulla eliminazione non trovato eccezione StaleElementReferenceException")
+            getWebDriverWait(10)
+                    .withMessage("Pulsante annulla eliminazione non trovato eccezione StaleElementReferenceException")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("buttonAnnulla")));
         }
     }
 
     public void clickButtonAnnullaEliminazioneInPopUp() {
-       // webTool.waitTime(5);
         getWebDriverWait(10).withMessage("Non è stato possibile cliccare sul bottone annulla").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("buttonAnnulla"))));
         buttonAnnullaEliminazioneInPopUp = driver.findElement(By.id("buttonAnnulla"));
         buttonAnnullaEliminazioneInPopUp.click();
@@ -1011,9 +957,6 @@ public void clearOTP() {
     }
 
     public void clickConfermaPopupOTP() {
-//        getWebDriverWait(5).withMessage("il bottone Confirm non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
-//        WebElement confirmOtpPopup = driver.findElement(By.id("code-confirm-button"));
-//        confirmOtpPopup.click();
         WebElement confirmOtpPopup = getWebDriverWait(15)
                 .withMessage("Il bottone 'Conferma' nel popup OTP non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("code-confirm-button")));
@@ -1042,15 +985,15 @@ public void clearOTP() {
     public void clickInizia() {
         WebElement button = getWebDriverWait(5).withMessage("Impossibile Cliccare su Inizia").
                 until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//div[@data-testid='legalContacts']//button[contains(@class,'MuiButton-containedPrimary')]")
-        ));
+                        By.xpath("//div[@data-testid='legalContacts']//button[contains(@class,'MuiButton-containedPrimary')]")
+                ));
         button.click();
     }
 
     public void clickAttiva() {
         WebElement button = getWebDriverWait(5).withMessage("Impossibile Cliccare su Attiva")
                 .until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[@data-testid='activateButton']")));
+                        By.xpath("//button[@data-testid='activateButton']")));
         button.click();
     }
 
@@ -1063,6 +1006,7 @@ public void clearOTP() {
         js.executeScript("arguments[0].click();", nonOraButton);
 
     }
+
     public void clickNonOraUat() {
         WebElement nonOraButton = getWebDriverWait(15)
                 .withMessage("Impossibile cliccare su 'Non ora Uat'")
@@ -1076,7 +1020,7 @@ public void clearOTP() {
         WebElement loFaroPiuTardi = getWebDriverWait(25)
                 .withMessage("Impossibile Cliccare su Lo faro piu tardi o su Conferma Modifica Recapito")
                 .until(ExpectedConditions.elementToBeClickable(
-                By.id("dialog-close-button")));
+                        By.id("dialog-close-button")));
         loFaroPiuTardi.click();
     }
 
@@ -1097,12 +1041,10 @@ public void clearOTP() {
 
         verificaPresenza("Impossibile trovare Gestisci ", ExpectedConditions.elementToBeClickable(
                 By.cssSelector("button svg[data-testid='ConstructionIcon']")
-//                By.xpath("//div[@data-testid='legalContacts']//div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Gestisci')]")
         ));
 
         verificaPresenza("Impossibile trovare Disattiva ", ExpectedConditions.elementToBeClickable(
                 By.cssSelector("button svg[data-testid='PowerSettingsNewIcon']")
-//                By.xpath("//h6[contains(text(), 'domicilio digitale')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")
         ));
     }
 
@@ -1140,7 +1082,7 @@ public void clearOTP() {
         ));
     }
 
-    public void verificaDaAttivareIO () {
+    public void verificaDaAttivareIO() {
         verificaPresenza("Impossibile trovare sezione integrazione IO ", ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//div[@id='ioContactSection']//h6[@data-testid='ioContactTitle']")
         ));
@@ -1176,8 +1118,7 @@ public void clearOTP() {
                     By.xpath("//div[@data-testid='addDomicileBanner']")));
             verificaPresenza("Il banner di email mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Aggiungi un indirizzo email per ricevere un avviso quando hai una nuova notifica su SEND.')]")));
-        }
-        catch (TimeoutException e) {
+        } catch (TimeoutException e) {
             Assertions.fail("Il banner di email mancante non è presente");
         }
     }
@@ -1189,8 +1130,7 @@ public void clearOTP() {
             verificaPresenza("Il banner di email mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[@data-testid='addDomicileBanner']//..//p[contains(text(),'Aggiungi un indirizzo email per ricevere un avviso quando hai una nuova notifica su SEND.')]")));
             Assertions.fail("Il banner di email mancante è presente.");
-        }
-        catch (TimeoutException e) {
+        } catch (TimeoutException e) {
             Assertions.assertTrue(true, "Il banner di email mancante non è presente");
         }
     }
@@ -1201,8 +1141,7 @@ public void clearOTP() {
         if (ente.isEmpty()) {
             verificaPresenza("Il banner di PEC in validazione non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[@data-testid='PecVerificationAlert']//..//p[contains(text(),'Fino al termine del processo non sarà possibile modificare i recapiti a valore legale.')]")));
-        }
-        else {
+        } else {
             verificaPresenza("Il banner di PEC in validazione non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[@data-testid='PecVerificationAlert']//..//p[contains(text(),'La piattaforma SEND resterà il tuo domicilio digitale per " + ente + " fino al completamento della validazione.')]")));
         }
@@ -1223,7 +1162,6 @@ public void clearOTP() {
                         By.xpath("(//div[contains(@class, 'MuiBox-root')]//button[contains(@class, 'MuiButton-sizeMedium')])[1]")));
         button.click();
     }
-
 
 
     public void verificaPagina(String testo) {
@@ -1255,7 +1193,7 @@ public void clearOTP() {
     }
 
     public void verificaDaAttivareEmail() {
-         getWebDriverWait(20)
+        getWebDriverWait(20)
                 .withMessage("Impossibile trovare lo stato Da attivare in Email")
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'MuiChip-root')]/span[normalize-space(text())='Da attivare']")));
 
@@ -1341,7 +1279,7 @@ public void clearOTP() {
 
     public void modificaPecPersonalizzatiPerEnteEConferma(String pec) {
 
-        WebElement pecInput =  getWebDriverWait(5)
+        WebElement pecInput = getWebDriverWait(5)
                 .withMessage("Impossibile modificare il testo per la Pec ")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[contains(@class, 'MuiInputBase-input')]")));
 
@@ -1369,8 +1307,8 @@ public void clearOTP() {
 
         WebElement pecOption = getWebDriverWait(10)
                 .withMessage("Impossibile visualizzare mene a discesa di tipologia ")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[.='"+tipologia+"']"))
-        );
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//li[.='" + tipologia + "']"))
+                );
         pecOption.click();
     }
 
@@ -1386,11 +1324,11 @@ public void clearOTP() {
             getWebDriverWait(10)
                     .withMessage("Impossibile trovare messaggio associato ")
                     .until(ExpectedConditions.presenceOfElementLocated(
-                    By.xpath("//div[@data-testid='specialContacts']")
-            ));
+                            By.xpath("//div[@data-testid='specialContacts']")
+                    ));
             Assertions.fail("La sezione 'PERSONALIZZATI PER ENTE' è presente.");
 
-        } catch (TimeoutException  e) {
+        } catch (TimeoutException e) {
             Assertions.assertTrue(true, "La sezione 'PERSONALIZZATI PER ENTE' non è presente, come previsto.");
         }
     }
@@ -1399,18 +1337,17 @@ public void clearOTP() {
         WebElement disattivaButton = getWebDriverWait(10).withMessage("Disattiva Non è presente dentro '" + testo + "'")
                 .until(ExpectedConditions.elementToBeClickable
                         (By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
-            disattivaButton.click();
+        disattivaButton.click();
     }
 
     public void verificaEDisattivaPersonalizzatiPerEnte() {
         try {
             WebElement disattivaButton = getWebDriverWait(5)
                     .withMessage("Impossibile trovare il tasto 'Disattiva ' PERSONALIZZATI PER ENTE").until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//button[@data-testid='cancelContact-special_SERCQ_SEND']")
-            ));
+                            By.xpath("//button[@data-testid='cancelContact-special_SERCQ_SEND']")
+                    ));
 
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
-//                js().executeScript("arguments[0].scrollIntoView(true);", disattivaButton);
                 disattivaButton.click();
                 clickSuConfermaElimina();
 
@@ -1457,9 +1394,7 @@ public void clearOTP() {
             } else if (disattivaButton.isDisplayed() && disattivaButton.isEnabled() && chooseButton.equalsIgnoreCase("Annulla")) {
                 disattivaButton.click();
                 clickAnnulla();
-            }
-
-            else {
+            } else {
                 logger.warn("Bottone 'Disattiva Domicilio Digitale' non è visibile o abilitato.");
             }
         } catch (NoSuchElementException | TimeoutException e) {
@@ -1523,48 +1458,31 @@ public void clearOTP() {
         }
     }
 
-//    public void verificaEDisattivaEmail1() {
-//        try {
-//            WebElement disattivaButton = getWebDriverWait(15).withMessage("Non è presente dentro Email 'Disattiva'")
-//                    .until(ExpectedConditions.elementToBeClickable
-//                            (By.cssSelector("button[data-testid='disable-email']")));
-//            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
-//                disattivaButton.click();
-//                clickSuConfermaElimina();
-//            } else {
-//                logger.warn("Bottone 'Disattiva Email' trovato ma non è visibile o abilitato.");
-//            }
-//        } catch (NoSuchElementException | TimeoutException e) {
-//            logger.info("Bottone 'Disattiva Email' non presente.");
-//        } catch (Exception e) {
-//            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Email'.", e);
-//        }
-//    }
-public void verificaEDisattivaEmail() {
-    try {
-        WebElement disattivaButton = getWebDriverWait(15)
-                .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")
-                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-testid='disable-email']")));
-
-//        getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".MuiAlert-root")));
-
-        if (!disattivaButton.isDisplayed()) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", disattivaButton);
-            webTool.waitTime(1);
-        }
-
+    public void verificaEDisattivaEmail() {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(disattivaButton)).click();
-        } catch (ElementClickInterceptedException e) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", disattivaButton);
+            WebElement disattivaButton = getWebDriverWait(15)
+                    .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")
+                    .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-testid='disable-email']")));
+
+
+            if (!disattivaButton.isDisplayed()) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", disattivaButton);
+                webTool.waitTime(1);
+            }
+
+            try {
+                getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(disattivaButton)).click();
+            } catch (ElementClickInterceptedException e) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", disattivaButton);
+            }
+            clickSuConfermaElimina();
+        } catch (TimeoutException e) {
+            logger.warn("Bottone 'Disattiva Email' non trovato entro il tempo limite.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la disattivazione dell'email: " + e.getMessage());
         }
-        clickSuConfermaElimina();
-    } catch (TimeoutException e) {
-        logger.warn("Bottone 'Disattiva Email' non trovato entro il tempo limite.");
-    } catch (Exception e) {
-        Assertions.fail("Errore inaspettato durante la disattivazione dell'email: " + e.getMessage());
     }
-}
+
     public void disattivaIndirizzoEmailAziendale() {
         WebElement disattivaButton = getWebDriverWait(20)
                 .withMessage("Pulsante 'Disattiva' non trovato per l'indirizzo email aziendale")
@@ -1577,7 +1495,6 @@ public void verificaEDisattivaEmail() {
     }
 
     public void verificaEDisattivaCellulare() {
-        // TODO DA VERICARE
     }
 
     public void clickBottoneIndietroTrasferisciPersonalizzaIlDomicilioDigitale() {
@@ -1594,7 +1511,7 @@ public void verificaEDisattivaEmail() {
         WebElement esciButton = getWebDriverWait(10)
                 .withMessage("Impossibile Trovare il tasto Esci del metodo clickBottoneEsciPF")
                 .until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//button//*[@data-testid='ArrowBackIcon']")));
+                        By.xpath("//button//*[@data-testid='ArrowBackIcon']")));
         esciButton.click();
     }
 
@@ -1606,7 +1523,7 @@ public void verificaEDisattivaEmail() {
     }
 
     public void verificaIndirizzoEmailNonValido() {
-         getWebDriverWait(10)
+        getWebDriverWait(10)
                 .withMessage("Il messaggio di errore per l'indirizzo email non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
 
@@ -1616,15 +1533,15 @@ public void verificaEDisattivaEmail() {
         WebElement bottoneContinua = getWebDriverWait(10)
                 .withMessage("Impossibile Trovare il tasto Continua nel tab Inserisci Un Recapito ")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(normalize-space(), 'Continu')]"))
-        );
+                );
         bottoneContinua.click();
     }
 
     public void verificaPresenzaCampoObbligatorio() {
         getWebDriverWait(10)
                 .withMessage("Impossibile Trovare il messaggio Campo obbligatorio").until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.id("disclaimer-helper-text")));
+                        ExpectedConditions.visibilityOfElementLocated(
+                                By.id("disclaimer-helper-text")));
     }
 
     public void spuntareCheckboxPrivacy() {
@@ -1700,8 +1617,8 @@ public void verificaEDisattivaEmail() {
         WebElement button = getWebDriverWait(20)
                 .withMessage("Impossibile trovare il pulsante Scollega SEND Da IO In Attiva Domicilio Digitale Su SEND ")
                 .until(ExpectedConditions.elementToBeClickable(
-                By.cssSelector("button[data-testid='disableIOButton']")
-        ));
+                        By.cssSelector("button[data-testid='disableIOButton']")
+                ));
         button.click();
     }
 

@@ -22,7 +22,7 @@ public class WebViewMultiLanguageConfig {
     private WaitLoadAccediAreaRiservataPgLanguage waitLoadAccediAreaRiservataPgLanguage;
 
     @Bean
-    public ButtonLanguage buttonLanguage(){
+    public ButtonLanguage buttonLanguage() {
         buttonLanguage = new ButtonLanguage();
         buttonLanguage.setClickAccediButtonIt(WebViewMultiLanguageValue.getDefaultValue(WebViewMultiLanguageValue.CLICK_ACCEDI_BUTTON_IT.key));
         buttonLanguage.setClickAccediButtonEn(WebViewMultiLanguageValue.getDefaultValue(WebViewMultiLanguageValue.CLICK_ACCEDI_BUTTON_EN.key));
@@ -34,7 +34,7 @@ public class WebViewMultiLanguageConfig {
     }
 
     @Bean
-    public WaitLoadSelezionaImpresaLanguage waitLoadSelezionaImpresaLanguage(){
+    public WaitLoadSelezionaImpresaLanguage waitLoadSelezionaImpresaLanguage() {
         waitLoadSelezionaImpresaLanguage = new WaitLoadSelezionaImpresaLanguage();
         waitLoadSelezionaImpresaLanguage.setWaitLoadSelezionaImpresaPageIt(WebViewMultiLanguageValue.getDefaultValue(WebViewMultiLanguageValue.WAIT_LOAD_SELEZIONA_IMPRESA_PAGE_IT.key));
         waitLoadSelezionaImpresaLanguage.setWaitLoadSelezionaImpresaPageEn(WebViewMultiLanguageValue.getDefaultValue(WebViewMultiLanguageValue.WAIT_LOAD_SELEZIONA_IMPRESA_PAGE_EN.key));
@@ -55,12 +55,6 @@ public class WebViewMultiLanguageConfig {
         waitLoadAccediAreaRiservataPgLanguage.setWaitLoadAccediAreaRiservataPGPageSl(WebViewMultiLanguageValue.getDefaultValue(WebViewMultiLanguageValue.WAIT_LOAD_ACCEDI_AREA_RISERVATA_PG_PAGE_SL.key));
         return waitLoadAccediAreaRiservataPgLanguage;
     }
-
-
-
-
-
-
 
 
 }
