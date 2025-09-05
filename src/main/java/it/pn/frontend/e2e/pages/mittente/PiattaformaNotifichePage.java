@@ -2330,4 +2330,25 @@ public class PiattaformaNotifichePage extends BasePage {
         }
         return false;
     }
+
+    public void verificaEsistenzaPaginaNonTrovata() {
+
+        getWebDriverWait(10)
+                .withMessage("Impossibile trovare il 'not-found-title'")
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-testid='not-found-title']")));
+        getWebDriverWait(10)
+                .withMessage("Impossibile trovare il 'not-found-back-button'")
+                .until(ExpectedConditions
+                .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
+
+
+    }
+
+    public void clickTornaAllaHome() {
+        WebElement buttonTornaAllaHome = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il buttone 'TornaAllaHome'")
+                .until(ExpectedConditions
+                        .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
+        buttonTornaAllaHome.click();
+    }
 }
