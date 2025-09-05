@@ -224,7 +224,7 @@ public class DelegatiImpresaSection extends BasePage {
                     // Attesa e click su "Revoca delega"
                     WebElement revokeButton = getWebDriverWait(40)
                             .withMessage("Bottone Revoca Delega non cliccabile")
-                            .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                            .until(ExpectedConditions.elementToBeClickable(By.id("reject-delegation-button")));
                     revokeButton.click();
 
                     // Attesa e click sul pulsante di conferma nel pop-up
