@@ -37,11 +37,11 @@ public class SpidLogin {
                     .addParameter("authLevel", this.authLevel)
                     .build();
             this.responseBody = httpclient.execute(httpGet, response -> {
-                logger.info(response.getCode() + " " + response.getReasonPhrase());
+                logger.info("{} - {}",response.getCode(), response.getReasonPhrase());
                 Assertions.assertEquals(response.getCode(),200);
                 final HttpEntity entity = response.getEntity();
                 String resultContent = EntityUtils.toString(entity);
-                logger.info(resultContent);
+                logger.info("runSpidLogin resultContent {}",resultContent);
                 return resultContent;
             });
         } catch (IOException e) {

@@ -120,7 +120,7 @@ public class HelpdeskPage extends BasePage {
         try {
             logger.info("In attesa che la pagina home venga caricata...");
 
-          getWebDriverWait(10)
+            getWebDriverWait(10)
                     .withMessage("La pagina home non è stata caricata correttamente: elemento 'Monitoraggio Piattaforma Notifiche' non trovato")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("cardTitle-Monitoraggio Piattaforma Notifiche")));
 
@@ -188,7 +188,7 @@ public class HelpdeskPage extends BasePage {
         getWebDriverWait(10).withMessage("Non sono visibili i pulsanti per il disservizio").until(ExpectedConditions.visibilityOfAllElements(serviceStatusButtons));
         for (int i = 0; i < services.size(); i++) {
             if (services.get(i).getText().equals(disservizio.getValue())) {
-                logger.info("Clicco sul menu del disservizio: " + disservizio.getValue());
+                logger.info("Clicco sul menu del disservizio: {}", disservizio.getValue());
                 serviceStatusButtons.get(i).click();
                 break;
             }
@@ -214,22 +214,23 @@ public class HelpdeskPage extends BasePage {
         //ok va sistemato il codice
         WebElement alertSuccess = element(By.xpath(".//div[@role='alert']"));
         getWebDriverWait(10).withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile").until(ExpectedConditions.visibilityOf(alertSuccess));
-        logger.info(disservizio.getValue() + " è stato cambiato con successo in " + status.getValue());
+        logger.info("{} è stato cambiato con successo in {}", disservizio.getValue(), status.getValue());
     }
 
     public void handleDisservizioNew(Disservice disservice, Status status) {
         waitLoadServiceTable();
-        logger.info ("*-*-*-*-*-*-*-*- handleDisservizioNew *-*-*-*-*-*-*-*-*-**-");
-        clickInserisciRisolviKOCreazioneNotifiche(disservice,status);
+        logger.info("*-*-*-*-*-*-*-*- handleDisservizioNew *-*-*-*-*-*-*-*-*-**-");
+        clickInserisciRisolviKOCreazioneNotifiche(disservice, status);
         selezionaCheckBoxPopUpCreazioneNotifiche();
         clickInserisciRisolviKOPopUpInserisciEvento();
         verificaAlert();
     }
+
     public void handleRisolviDisservizionew(Disservice disservice, Status status) {
         driver.navigate().refresh();
         waitLoadServiceTable();
-        logger.info ("*-*-*-*-*-*-*-*- handleRisolviDisservizionew *-*-*-*-*-*-*-*-*-**-");
-        clickInserisciRisolviKOCreazioneNotifiche(disservice,status);
+        logger.info("*-*-*-*-*-*-*-*- handleRisolviDisservizionew *-*-*-*-*-*-*-*-*-**-");
+        clickInserisciRisolviKOCreazioneNotifiche(disservice, status);
         scriviTesto();
         clickInserisciRisolviKOPopUpInserisciEvento();
         selezionaCheckBoxPopUpCreazioneNotifiche();
@@ -249,14 +250,14 @@ public class HelpdeskPage extends BasePage {
 
     private void verificaAlert() {
         getWebDriverWait(10)
-               .withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile")
-               .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@role='alert']")));
+                .withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@role='alert']")));
     }
 
     private void clickInserisciRisolviKOPopUpInserisciEvento() {
         WebElement bottoneInserisciKO = getWebDriverWait(30)
                 .withMessage("Impossibile trovare checkbox nel pop-up Inseriscvi Evento | Creazine Notifiche")
-                .until(ExpectedConditions.elementToBeClickable( By.id("createEvent")));
+                .until(ExpectedConditions.elementToBeClickable(By.id("createEvent")));
         bottoneInserisciKO.click();
     }
 
@@ -268,15 +269,15 @@ public class HelpdeskPage extends BasePage {
     }
 
     private void clickInserisciRisolviKOCreazioneNotifiche(Disservice disservice, Status status) {
-            logger.info("Cerco la riga 'Creazione Notifiche' e clicco su 'Inserisci KO'...");
+        logger.info("Cerco la riga 'Creazione Notifiche' e clicco su 'Inserisci KO'...");
 
-            WebElement bottoneInserisciKO = getWebDriverWait(30)
-                    .withMessage("Bottone 'Inserisci KO' non trovato nella riga '"+disservice.getValue()+"'")
-                    .until(driver -> driver.findElement(By.xpath(
-                            "//div[@role='row' and .//p[text()='"+disservice.getValue()+"']]//button[@id='"+status.getValue()+"']"
-                    )));
+        WebElement bottoneInserisciKO = getWebDriverWait(30)
+                .withMessage("Bottone 'Inserisci KO' non trovato nella riga '" + disservice.getValue() + "'")
+                .until(driver -> driver.findElement(By.xpath(
+                        "//div[@role='row' and .//p[text()='" + disservice.getValue() + "']]//button[@id='" + status.getValue() + "']"
+                )));
 
-            bottoneInserisciKO.click();
+        bottoneInserisciKO.click();
     }
 
     public boolean checkServiceStatus(Disservice disservizio) {
@@ -353,7 +354,7 @@ public class HelpdeskPage extends BasePage {
             buttonLogout.click();
             logger.info("apertura dialog di conferma logout");
             logger.info("controllo esistenza pulsante conferma logout");
-            getWebDriverWait(30).withMessage("bottone conferma logout non trovato").until(ExpectedConditions.visibilityOfElementLocated( By.xpath("//button[contains(text(),'Esci')]")));
+            getWebDriverWait(30).withMessage("bottone conferma logout non trovato").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'Esci')]")));
             By buttonConfermaLogout = By.xpath("//button[contains(text(),'Esci')]");
             logger.info("click conferma logout");
             elements(buttonConfermaLogout).get(0).click();
@@ -382,7 +383,7 @@ public class HelpdeskPage extends BasePage {
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
+            logger.error("pausa con errore: {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -530,26 +531,26 @@ public class HelpdeskPage extends BasePage {
 
     public void checkZipLink() throws IOException, AWTException {
 
-            By zipLinkLocator = By.xpath("//a[contains(text(),'Download')]");
+        By zipLinkLocator = By.xpath("//a[contains(text(),'Download')]");
 
-            // Aspetta il link e prendi l'URL del file ZIP
-            WebElement zipLink = getWebDriverWait(10)
-                    .withMessage("Link 'Download' non trovato")
-                    .until(ExpectedConditions.elementToBeClickable(zipLinkLocator));
+        // Aspetta il link e prendi l'URL del file ZIP
+        WebElement zipLink = getWebDriverWait(10)
+                .withMessage("Link 'Download' non trovato")
+                .until(ExpectedConditions.elementToBeClickable(zipLinkLocator));
 
-            String url = zipLink.getAttribute("href");
-            String workingDirectory = System.getProperty("user.dir");
-            File downloadDir = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
+        String url = zipLink.getAttribute("href");
+        String workingDirectory = System.getProperty("user.dir");
+        File downloadDir = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
 
-            // Crea la cartella se non esiste
-            if (!downloadDir.exists()) {
-                downloadDir.mkdirs();
-            }
+        // Crea la cartella se non esiste
+        if (!downloadDir.exists()) {
+            downloadDir.mkdirs();
+        }
 
-            // Scarica il file
-            String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
-            File destFile = new File(downloadDir, fileName);
-            FileUtils.copyURLToFile(new URL(url), destFile, 5000, 5000);
+        // Scarica il file
+        String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
+        File destFile = new File(downloadDir, fileName);
+        FileUtils.copyURLToFile(new URL(url), destFile, 5000, 5000);
 
 
     }
@@ -611,7 +612,7 @@ public class HelpdeskPage extends BasePage {
         // Log extracted files
         Files.walk(Paths.get(extractDirectoryPath)).forEach(path -> {
             if (Files.isRegularFile(path)) {
-                System.out.println("Found file: " + path.toString());
+                logger.info("Found file: {}", path.toString());
             }
         });
     }
@@ -644,8 +645,7 @@ public class HelpdeskPage extends BasePage {
         deleteAllZipFiles(zipDirectoryPath);
 
         deleteFilesInDirectory(extractDirectoryPath, null);
-
-        System.out.println("Cleanup completed successfully.");
+        logger.info("Cleanup completed successfully.");
     }
 
     private void deleteAllZipFiles(String directoryPath) throws IOException {
@@ -654,9 +654,9 @@ public class HelpdeskPage extends BasePage {
                     .forEach(file -> {
                         try {
                             Files.deleteIfExists(file);
-                            System.out.println("Deleted ZIP file: " + file.getFileName());
+                            logger.info("Deleted ZIP file: {}", file.getFileName());
                         } catch (IOException e) {
-                            System.err.println("Failed to delete ZIP file: " + file.getFileName());
+                            logger.error("Failed to delete ZIP file: {}", file.getFileName());
                             e.printStackTrace();
                         }
                     });
@@ -708,9 +708,9 @@ public class HelpdeskPage extends BasePage {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
             for (Path entry : stream) {
                 if (Files.isRegularFile(entry) && (extension == null || entry.toString().endsWith(extension))) {
-                        Files.delete(entry);
-                        System.out.println("Deleted file: " + entry.toString());
-                    }
+                    Files.delete(entry);
+                    logger.info("Deleted file: {}", entry.toString());
+                }
 
             }
         } catch (IOException e) {
@@ -739,7 +739,7 @@ public class HelpdeskPage extends BasePage {
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
+            logger.error("pausa con errore: {}", e.getMessage());
             throw new RuntimeException(e);
         }
         CfPersonaFisica = driver.findElement(By.xpath("//p[contains(text(),'Codice Fiscale')]"));

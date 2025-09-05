@@ -37,7 +37,7 @@ public class NotificheDestinatarioPage extends BasePage {
         try {
             By codiceIUNBy = By.xpath("//td[contains(text(),'" + codiceIUNInserito + "')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
-            logger.info("il codice IUN " + codiceIUNInserito + " è stato trovato");
+            logger.info("il codice IUN {} è stato trovato",codiceIUNInserito);
             return true;
         } catch (TimeoutException e) {
             Assertions.fail("Il codice IUN" + codiceIUNInserito + " non è stato trovato con errore:" + e.getMessage());

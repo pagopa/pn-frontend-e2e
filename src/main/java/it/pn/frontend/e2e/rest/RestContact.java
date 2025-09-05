@@ -75,7 +75,7 @@ public class RestContact {
         try {
             headers.put("Authorization", setAuthorizationToken());
             String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
-            logger.info("Risposta ricevuta: " + response);
+            logger.info("Risposta ricevuta: {}", response);
             logger.info("Indirizzo PEC legale rimosso con successo");
         } catch (IOException e) {
             logger.error("Error during removeDigitalAdressLegalPec: {}", e.getMessage());

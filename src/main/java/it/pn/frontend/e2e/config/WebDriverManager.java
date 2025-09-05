@@ -72,10 +72,9 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN......." + Math.random());
+        logger.info("NUOVO BEAN....... {}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-//        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
 
         var chromeOptions = new ChromeOptions();
@@ -100,7 +99,7 @@ public class WebDriverManager {
         var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT");
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         long id = Thread.currentThread().getId();
-        logger.info("Thread.currentThread(): " + id);
+        logger.info("Thread.currentThread(): {}", id);
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--headless=new"); // usa il motore moderno
@@ -129,7 +128,7 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN DE......." + Math.random());
+        logger.info("NUOVO BEAN DE.......{}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
@@ -167,7 +166,7 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN FR......." + Math.random());
+        logger.info("NUOVO BEAN FR....... {}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
@@ -205,7 +204,7 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN SL......." + Math.random());
+        logger.info("NUOVO BEAN SL.......{}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
@@ -244,7 +243,7 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN EN......." + Math.random());
+        logger.info("NUOVO BEAN EN.......{}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
@@ -340,7 +339,7 @@ public class WebDriverManager {
                     var url = request.getRequest().getUrl();
                     cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
                     requests.put(request.getRequestId().toString(), request);
-                    logger.info("Request URL: " + request.getRequest().getUrl());
+                    logger.info("Request URL: {}", request.getRequest().getUrl());
                     // Safely access the request properties
                     String threadId = Thread.currentThread().getName();
                     logger.info("Thread: " + threadId + " - URL: " + request.getRequest().getUrl());
@@ -349,7 +348,7 @@ public class WebDriverManager {
                     logger.info("Received a null event or request object.");
                 }
             } catch (Exception e) {
-                logger.error("Error processing the request: " + e.getMessage());
+                logger.error("Error processing the request: {}", e.getMessage());
             }
         });
 
@@ -396,7 +395,7 @@ public class WebDriverManager {
                     } catch (Exception ignored) {
                         // Ignorato perché non sempre è disponibile il body della risposta
                     }
-                    logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
+                    logger.info("NET_INFO: {}", netWorkInfo.getRequestUrl());
 
                     netWorkInfos.add(netWorkInfo);
 
@@ -459,7 +458,7 @@ public class WebDriverManager {
                 driverThreadLocal.set(driver);
             }
         }
-        logger.info("Start WebDriverManager..." + driverThreadLocal.get());
+        logger.info("Start WebDriverManager...{}", driverThreadLocal.get());
         return driverThreadLocal.get();
     }
 

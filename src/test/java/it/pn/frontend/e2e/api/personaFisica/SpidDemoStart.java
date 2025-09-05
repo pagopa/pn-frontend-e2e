@@ -52,11 +52,11 @@ public class SpidDemoStart {
                     .addParameter("binding", this.bindingInput)
                     .build();
             this.responseBody = httpclient.execute(httpPost, classicHttpResponse -> {
-                logger.info(classicHttpResponse.getCode() + " " + classicHttpResponse.getReasonPhrase());
+                logger.info("runSpidDemoStart {} - {} ",classicHttpResponse.getCode(), classicHttpResponse.getReasonPhrase());
                 Assertions.assertEquals(classicHttpResponse.getCode(),200);
                 final HttpEntity entity = classicHttpResponse.getEntity();
                 String resultContent = EntityUtils.toString(entity);
-                logger.info(resultContent);
+                logger.info("runSpidDemoStart_resultContent {}",resultContent);
                 return resultContent;
             });
         } catch (IOException e){

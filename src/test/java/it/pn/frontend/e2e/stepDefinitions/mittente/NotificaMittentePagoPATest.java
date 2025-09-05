@@ -338,20 +338,20 @@ public class NotificaMittentePagoPATest extends BasePage {
 
     @And("Aspetta {int} secondi")
     public void aspettaSecondi(int quantiSecondi) {
-        logger.info("Aspetta " + quantiSecondi + " secondi");
+        logger.info("Aspetta {} secondi", quantiSecondi);
 
         try {
             TimeUnit.SECONDS.sleep(quantiSecondi);
             driver.navigate().refresh();
         } catch (Exception exc) {
-            logger.error(exc.toString());
+            logger.error("aspettaSecondi: {}", exc.toString());
             throw new RuntimeException(exc);
         }
     }
 
     @And("Attesa {int} secondi")
     public void attesaSecondi(int quantiSecondi) {
-        logger.info("Attesa " + quantiSecondi + " secondi");
+        logger.info("Attesa {} secondi", quantiSecondi);
         webTool.waitTime(quantiSecondi);
     }
 
@@ -762,7 +762,7 @@ public class NotificaMittentePagoPATest extends BasePage {
 
     @And("^Nella section Destinatario inserire i dati delle persone fisiche aggiuntive per (.*)$")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariAggiuntiviPerNumeroDestinatari(String npersoneFisiche) {
-        logger.info("Si cerca di aggiungere" + npersoneFisiche + " persone Fisiche");
+        logger.info("Si cerca di aggiungere {} persone Fisiche", npersoneFisiche);
         PersoneFisiche personeFisiche = dataPopulationConfig.getPersoneFisiche();
         int nPersoneFisicheInt = 1;
         if (isNumeric(npersoneFisiche)) {
@@ -843,8 +843,8 @@ public class NotificaMittentePagoPATest extends BasePage {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
                 if (!webDriverManager.getCookieConfig().isCookieEnabled() && cookiesSection.waitLoadCookiesPage()) {
-                        cookiesSection.selezionaAccettaTuttiButton();
-                    }
+                    cookiesSection.selezionaAccettaTuttiButton();
+                }
 
                 piattaformaNotifichePage.insertCodiceFiscale(dataPopulationConfig.personaFisicaPec().getComune());
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica, true);
@@ -854,10 +854,10 @@ public class NotificaMittentePagoPATest extends BasePage {
             piattaformaNotifichePage.waitLoadRefreshPage();
             String codiceIUN = piattaformaNotifichePage.ricercaNotifica(dataPopulationConfig.getDatiNotifica().getOggettoDellaNotifica(), statoNotifica);
             if (!codiceIUN.isEmpty() && !codiceIUN.equals(codiceIUNOld)) {
-                    dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
-                    logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
-                    return;
-                }
+                dataPopulationConfig.getDatiNotifica().setCodiceIUN(codiceIUN);
+                logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
+                return;
+            }
 
         }
         Assertions.fail("Il server ha impiegato troppo tempo nel generare la notifica");
@@ -984,7 +984,7 @@ public class NotificaMittentePagoPATest extends BasePage {
 
     @And("^Nella section Destinatario inserire i dati del destinatari persone giuridiche aggiuntivi per (.*)$")
     public void nellaSectionDestinatarioInserireIDatiDelDestinatariPersoneGiuridicheAggiuntiviPerNumeroDestinatari(String nDestinatari) {
-        logger.info("Si cerca di aggiungere " + nDestinatari + " personeGiuridiche");
+        logger.info("Si cerca di aggiungere {} personeGiuridiche", nDestinatari);
 
         PersoneGiuridiche personeGiuridiche = dataPopulationConfig.personeGiuridiche();
         int nDestinatariInt = 1;
@@ -1039,8 +1039,8 @@ public class NotificaMittentePagoPATest extends BasePage {
             if (i >= 1) {
                 piattaformaNotifichePage.aggiornamentoPagina();
                 if (!webDriverManager.getCookieConfig().isCookieEnabled() && cookiesSection.waitLoadCookiesPage()) {
-                        cookiesSection.selezionaAccettaTuttiButton();
-                    }
+                    cookiesSection.selezionaAccettaTuttiButton();
+                }
 
                 piattaformaNotifichePage.insertCodiceFiscale(codiceFiscale);
                 piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica, true);
@@ -1050,10 +1050,10 @@ public class NotificaMittentePagoPATest extends BasePage {
             piattaformaNotifichePage.waitLoadRefreshPage();
             codiceIUN = piattaformaNotifichePage.ricercaNotifica(dataPopulationConfig.getDatiNotificaPg().getOggettoDellaNotifica(), statoNotifica);
             if (!codiceIUN.isEmpty() && !codiceIUN.equals(codiceIUNOld)) {
-                    dataPopulationConfig.getDatiNotificaPg().setCodiceIUN(codiceIUN);
-                    logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
-                    break;
-                }
+                dataPopulationConfig.getDatiNotificaPg().setCodiceIUN(codiceIUN);
+                logger.info("Stato notifica uguale a Depositata e codice IUN aggiornato correttamente");
+                break;
+            }
 
         }
         if (codiceIUN.equals("")) {
@@ -1201,7 +1201,7 @@ public class NotificaMittentePagoPATest extends BasePage {
 
     @And("Nella section Destinitario si clicca su {string} e si inseriscono i dati")
     public void nellaSectionDestinitarioSiCliccaSuESiInserisconoIDati(String tipoIndirizzo, Map<String, String> indirizzo) {
-        logger.info("Si clicca su " + tipoIndirizzo + " e si inseriscono i dati");
+        logger.info("Si clicca su {} e si inseriscono i dati", tipoIndirizzo);
         if (tipoIndirizzo.contains("Aggiungi un indirizzo fisico")) {
             //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         } else {
@@ -1219,9 +1219,8 @@ public class NotificaMittentePagoPATest extends BasePage {
 
     @And("Nella section Aggiungi Destinitario si clicca su {string} e si inseriscono i dati")
     public void nellaSectionAggiungiDestinitarioSiCliccaSuESiInserisconoIDati(String tipoIndirizzo, Map<String, String> indirizzo) {
-        logger.info("Aggiungi Si clicca su " + tipoIndirizzo + " e si inseriscono i dati");
+        logger.info("Aggiungi Si clicca su {} e si inseriscono i dati", tipoIndirizzo);
         if (tipoIndirizzo.contains("Aggiungi un indirizzo fisico")) {
-            //destinatarioPASection.selezionaAggiungiUnIndirizzoFisico();
         } else {
             destinatarioPASection.checkBoxAggiungiDomicilio();
             destinatarioPASection.insertDomicilioDigitale(indirizzo.get("digitalAddress"));
@@ -1501,7 +1500,7 @@ public class NotificaMittentePagoPATest extends BasePage {
 
     @And("Si verifica il tentato invio della notifica al domicilio speciale inserito {string}")
     public void siVerificaIlTentatoInvioDellaNotificaAlDomicilioSpecialeInserito(String domicilioSpeciale) {
-        logger.info("Si verifica il tentato invio al domicilio speciale " + domicilioSpeciale + " inserito nella notifica");
+        logger.info("Si verifica il tentato invio al domicilio speciale {} inserito nella notifica", domicilioSpeciale);
         dettaglioNotificaMittenteSection.checkTentatoInvioADomicilioSpeciale(domicilioSpeciale);
     }
 
@@ -1520,7 +1519,7 @@ public class NotificaMittentePagoPATest extends BasePage {
 
     @And("Si accede nuovamente al portale {string} con token {string} per eliminare i recapiti inseriti")
     public void siAccedeNuovamenteAlPortaleConTokenPerEliminareIRecapitiInseriti(String tipoPersona, String tipoToken) {
-        logger.info("Si accede nuovamente al portale " + tipoPersona + " per eliminare i recapiti inseriti");
+        logger.info("Si accede nuovamente al portale {} per eliminare i recapiti inseriti", tipoPersona);
         if (PF.equalsIgnoreCase(tipoPersona)) {
             loginPersonaFisicaPagoPA.loginMittenteConTokenExchange(tipoToken);
             loginPersonaFisicaPagoPA.logoutDaPortaleDestinatario();
@@ -1736,7 +1735,7 @@ public class NotificaMittentePagoPATest extends BasePage {
             }
         }
         if (foundRequestWithUndesiredStatus) {
-            logger.error("NotificationRequestId non trovato, il codice della risposta al POST sull'url " + urlNotificationRequest + " è diverso di 202 ");
+            logger.error("NotificationRequestId non trovato, il codice della risposta al POST sull'url {} è diverso di 202 ", urlNotificationRequest);
         } else {
             logger.error("NotificationRequestId non trovato, non sono state trovate chiamate POST per la url : {} ", urlNotificationRequest);
         }

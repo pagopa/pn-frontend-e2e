@@ -20,7 +20,7 @@ public class ConfigFileReader {
         try (InputStream input = ConfigFileReader.class.getClassLoader().getResourceAsStream(TEST_CONFIG_FILE)) {
             if (input != null) {
                 properties.load(input);
-                logger.info(properties.getProperty("browser"));
+                logger.info("load properties {}",properties.getProperty("browser"));
                 return true;
             } else {
                 System.err.println("Unable to find " + TEST_CONFIG_FILE);

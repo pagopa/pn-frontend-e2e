@@ -459,7 +459,7 @@ public class PiattaformaNotifichePage extends BasePage {
         dateToSelect = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect));
         dateToSelect.click();
 
-        logger.info("DATA INIZIO FIELD: " + dataInizioField.getAttribute("value"));
+        logger.info("DATA INIZIO FIELD: {}", dataInizioField.getAttribute("value"));
 
         String[] arraySplitDateA = a.split("/");
 
@@ -497,7 +497,7 @@ public class PiattaformaNotifichePage extends BasePage {
             dateToSelect1 = getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(dateToSelect1));
             dateToSelect1.click();
 
-            logger.info("DATA FINE FIELD: {}" , dataFineField.getAttribute("value"));
+            logger.info("DATA FINE FIELD: {}", dataFineField.getAttribute("value"));
 
             getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", a));
         } catch (ElementClickInterceptedException e) {
@@ -566,11 +566,11 @@ public class PiattaformaNotifichePage extends BasePage {
 
 
             Calendar calendar = GregorianCalendar.getInstance();
-            logger.info("CALENDAR: {}" , calendar);
+            logger.info("CALENDAR: {}", calendar);
             int index = calendar.get(Calendar.HOUR_OF_DAY);
-            logger.info("index NOTIFICHE: {}" , index);
+            logger.info("index NOTIFICHE: {}", index);
 
-            logger.info("Scenario : {}" , hooksNew.getScenario());
+            logger.info("Scenario : {}", hooksNew.getScenario());
 
             if (notifiche != null) {
                 int randomNumber = 0;
@@ -578,8 +578,8 @@ public class PiattaformaNotifichePage extends BasePage {
                     randomNumber = ThreadLocalRandom.current().nextInt(0, notifiche.size() - 1);
                 }
 
-                logger.info("ELENCO NOTIFICHE : {}" , notifiche.size());
-                logger.info("NOTIFICA SELEZIONATA: {}" , randomNumber);
+                logger.info("ELENCO NOTIFICHE : {}", notifiche.size());
+                logger.info("NOTIFICA SELEZIONATA: {}", randomNumber);
                 clickRowNotificationIndex(notifiche.get(randomNumber));
             } else {
                 Assertions.fail("Non ci sono notifiche da selezionare nel arco temporale settato");
@@ -604,7 +604,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
 
 
-            logger.info("Scenario: {}" , hooksNew.getScenario());
+            logger.info("Scenario: {}", hooksNew.getScenario());
 
             if (notifiche != null) {
 
@@ -1066,7 +1066,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     break;
                 }
             } catch (NoSuchElementException e) {
-                logger.error(paginaString + " non visualizzata");
+                logger.error("{} non visualizzata", paginaString);
             }
             i++;
         }
@@ -1273,7 +1273,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     return false;
                 }
                 if (!testiStati.add(testo)) {
-                    logger.error("Stato duplicato trovato: {}" , testo);
+                    logger.error("Stato duplicato trovato: {}", testo);
                     return false;
                 }
             }
@@ -1295,7 +1295,7 @@ public class PiattaformaNotifichePage extends BasePage {
         WebElement paginaBy = driver.findElement(By.id(paginaString));
         js().executeScript("arguments[0].scrollIntoView(true);", paginaBy);
         paginaBy.click();
-        logger.info("Bottone pagina " + pagina + " cliccato correttamente");
+        logger.info("Bottone pagina {} cliccato correttamente", pagina);
     }
 
     public void checkPaginaNotificheDelegante(String nomeDelegante) {
@@ -1389,12 +1389,12 @@ public class PiattaformaNotifichePage extends BasePage {
                 WebElement notificationLine = notificationsTableLines.get(0);
                 WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + statoNotifica));
                 if (chipStatus != null) {
-                    logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
+                    logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
                     testSuccess = true;
                     break;
                 }
             } catch (NoSuchElementException e) {
-                logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
+                logger.info("Dopo {} tentativi la notifica non è ancora passata allo stato: {}", i, statoNotifica);
             }
             webTool.waitTime(15);
             driver.navigate().refresh();
@@ -1411,13 +1411,13 @@ public class PiattaformaNotifichePage extends BasePage {
                 WebElement chipStatus = getWebDriverWait(5)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id(statoNotifica + "-status")));
                 if (chipStatus.isDisplayed()) {
-                    logger.info("La notifica è passata allo stato " + statoNotifica + " e si procede con il test");
+                    logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
                     driver.navigate().refresh();
                     testSuccess = true;
                     break;
                 }
             } catch (TimeoutException | NoSuchElementException e) {
-                logger.info("Dopo " + i + " tentativi la notifica non è ancora passata allo stato: " + statoNotifica);
+                logger.info("Dopo {} tentativi la notifica non è ancora passata allo stato: {}", i, statoNotifica);
             }
             webTool.waitTime(15);
             driver.navigate().refresh();
@@ -1511,8 +1511,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void verificaTentativoSuccessivo(String check) {
         List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
-        logger.info("//span[contains(text(),'" + check + "')]");
-        logger.info("findkey : {}" , findKeyWord.size());
+        logger.info("findkey : {}", findKeyWord.size());
         if (findKeyWord.get(0).isDisplayed()) {
             logger.info("Si visualizza la timeline correttamente");
         } else {
@@ -1551,7 +1550,7 @@ public class PiattaformaNotifichePage extends BasePage {
             logger.error("Non è corretto che il bottone per il download dell'allegato sia visibile");
             Assertions.fail("Non è corretto che il bottone per il download dell'allegato sia visibile");
         } catch (TimeoutException e) {
-            logger.info("Non è visibile il bottone per il download dell'allegato: {}" , e.getMessage());
+            logger.info("Non è visibile il bottone per il download dell'allegato: {}", e.getMessage());
         }
     }
 
@@ -1797,7 +1796,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaFooterLingua(String lingua) {
-//        WebElement linguaElement = driver.findElement(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root"));
         WebElement linguaElement = getWebDriverWait(20)
                 .withMessage("Elemento della lingua nel footer non visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[aria-label='lingua'] span.MuiTypography-root")));
@@ -1936,7 +1934,7 @@ public class PiattaformaNotifichePage extends BasePage {
                     ));
             radioItaliano.click();
         } else {
-            logger.info("Lingua: {}" , lingua);
+            logger.info("Lingua: {}", lingua);
             selezioneItalianoAltralingua();
             webTool.waitTime(3);
             selezioneLingua(lingua);

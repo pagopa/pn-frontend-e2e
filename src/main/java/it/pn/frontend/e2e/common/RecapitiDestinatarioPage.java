@@ -325,7 +325,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='dialog-actions']//button[contains(text(), 'Conferma')]"))));
             return true;
         } catch (TimeoutException e) {
-            logger.error("pop up conferma non trovato: \n" + e.getMessage());
+            logger.error("pop up conferma non trovato: {}" , e.getMessage());
             return false;
         }
     }
@@ -575,7 +575,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(" //div[@data-testid = 'DigitalContactsCardBody']//p[contains(text(),'" + nuovaEmail + "')]"))));
             return true;
         } catch (TimeoutException e) {
-            logger.error("email non presente con errore \n" + e.getMessage());
+            logger.error("email non presente con errore: {}" , e.getMessage());
             return false;
         }
     }

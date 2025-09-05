@@ -154,7 +154,7 @@ public class HelpdeskTest extends BasePage {
         if (helpdeskPage.checkServiceStatus(Disservice.CREAZIONE_NOTIFICHE)) {
             helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE, Status.OK);
         } else {
-            logger.info("Lo stato del servizio: " + Disservice.CREAZIONE_NOTIFICHE + " è già in OK");
+            logger.info("Lo stato del servizio: {} è già in OK",Disservice.CREAZIONE_NOTIFICHE);
         }
         try {
             TimeUnit.SECONDS.sleep(5);

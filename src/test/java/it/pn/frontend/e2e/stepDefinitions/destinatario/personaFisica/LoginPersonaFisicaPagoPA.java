@@ -143,7 +143,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         } catch (Exception e) {
             // Gestione delle eccezioni: stampa l'errore
-            logger.info("Errore durante il login PF: " + e.getMessage());
+            logger.info("Errore durante il login PF: {}", e.getMessage());
             throw e;
         }
     }
@@ -641,7 +641,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         this.urlPersonaFisica = spidAcs.getHeaderLocal();
 
         if (urlPersonaFisica.get("urlPortale") != null) {
-            logger.info("url persona fisica : " + urlPersonaFisica.get("urlPortale"));
+            logger.info("url persona fisica : {}", urlPersonaFisica.get("urlPortale"));
         } else {
             Assertions.fail("url persona fisica è null ");
         }
@@ -701,7 +701,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     }
 
     public String getTokenExchangePFFromFile(String personaFisica) {
-        String environment = webDriverConfig.getEnvironment();
         String token = "";
         token = personaFisica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPFDelegante() : webDriverConfig.getTokentestPFDelegato();
         return token;
