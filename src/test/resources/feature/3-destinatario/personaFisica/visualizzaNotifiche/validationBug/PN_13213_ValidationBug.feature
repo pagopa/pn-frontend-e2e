@@ -1,6 +1,6 @@
 Feature: La persona giuridica aggiunge una nuova delega
 
-  @TA_PN_13213_PG
+  @TA_PN_13213_PF
   @NRT_Blocco_3
   Scenario: [PN_13213_PF] ValidationBug [FE - a11y] Label per le radio button e checkbox
     Given Login Page persona fisica test viene visualizzata
