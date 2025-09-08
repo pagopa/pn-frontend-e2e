@@ -16,10 +16,10 @@ Feature: La persona giuridica aggiunge una nuova delega con nome e cogmome errat
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega
 
     And Inserire dati errati Nella sezione Le Tue Deleghe
-      | nome          | Lucrezia            |
-      | cognome       | Borgia              |
-      | codiceFiscale | BRGLRZ80D58H501Q    |
-      | ente          | Comune di Verona    |
+      | nome          | Lucrezia         |
+      | cognome       | Borgia           |
+      | codiceFiscale | BRGLRZ80D58H501Q |
+      | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
     And Nella sezione Le Tue Deleghe salvare Nome e Cognome
 #    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file

@@ -271,7 +271,7 @@ public class HelpdeskPage extends BasePage {
         campoEditabile.sendKeys(testoCasuale);
     }
 
-    private void verificaAlert() {
+    public void verificaAlert() {
         getWebDriverWait(10)
                .withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile")
                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@role='alert']")));
@@ -317,18 +317,6 @@ public class HelpdeskPage extends BasePage {
     }
 
     public boolean checkIsCreatedDisservizio() {
-//        try {
-//            WebElement dateDisservizio = elements(By.xpath("//div[@data-field='data']")).get(1);
-//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(dateDisservizio));
-//            if (dateDisservizio.getText() != null && !dateDisservizio.getText().isEmpty()) {
-//                logger.info("disservizio già in corso");
-//                return true;
-//            }
-//            return false;
-//        } catch (TimeoutException e) {
-//            Assertions.fail("disservizio non creato: " + e.getMessage());
-//            return false;
-//        }
         try {
             List<WebElement> dateElements = getWebDriverWait(10)
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-field='data']")));
@@ -336,6 +324,7 @@ public class HelpdeskPage extends BasePage {
             if (!dateElements.isEmpty() && dateElements.size() > 1) {
                 WebElement secondDateElement = dateElements.get(1);
                 String text = secondDateElement.getText();
+                logger.info("TEXT: {}",text);
                 if (text != null && !text.trim().isEmpty()) {
                     logger.info("Disservizio già in corso rilevato.");
                     return true;

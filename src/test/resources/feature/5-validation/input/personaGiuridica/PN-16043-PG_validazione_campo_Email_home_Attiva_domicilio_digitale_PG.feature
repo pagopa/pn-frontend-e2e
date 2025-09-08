@@ -18,4 +18,4 @@ Feature: PG Si inserisce un email con caratteri speciali e si verifica che si ev
     When Click Inizia
     And Click Continua
 
-    And Si inserisce "email" con Caratteri Speciali
+    And Si inserisce "email" con Caratteri Speciali Home Page
