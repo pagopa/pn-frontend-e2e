@@ -825,6 +825,7 @@ public class DestinatarioPASection extends BasePage {
                 .withMessage("Tabella Notifiche Non Trovata")
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("notifications-table")));
     }
+
     public void selezionaRadionButtonInserimentoManualeSeEsiste(String posizione) {
 
         //posizione 1 ...n  si vuole aggiungere un destinatario
