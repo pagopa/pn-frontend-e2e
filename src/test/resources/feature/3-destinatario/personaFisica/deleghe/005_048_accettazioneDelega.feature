@@ -32,14 +32,14 @@ Feature: il delegato accetta la delega
       | firstName   | Lucrezia         |
       | lastName    | Borgia           |
     And Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And  Si clicca sul bottone indietro popup
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And Si inserisce il codice delega nel pop-up OTP "errato"
     And Si clicca sul bottone Accetta
     And Si vefifica il messaggio di codice sbagliato
     And  Si clicca sul bottone indietro popup
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And Si inserisce il codice delega nel pop-up OTP "corretto"
     And Si clicca sul bottone Accetta
     And Si controlla che la delega ha lo stato Attiva

@@ -99,16 +99,16 @@ Feature: Ente figlio e Ente radice
       | cognome       | Borgia              |
       | codiceFiscale | BRGLRZ80D58H501Q    |
       | ente          | Comune di Viggiu    |
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
 #    And Logout da portale persona fisica
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And  Si clicca sul bottone indietro popup
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
 #    And Logout da portale persona fisica
@@ -215,16 +215,16 @@ Feature: Ente figlio e Ente radice
       | cognome       | Borgia              |
       | codiceFiscale | BRGLRZ80D58H501Q    |
       | ente          | Comune di Viggiu    |
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
 #    And Logout da portale persona fisica
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Si verifica che presente un indicatore numerico in corrispondenza della voce di menù Deleghe
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And  Si clicca sul bottone indietro popup
-    And Si sceglie opzione accetta
+    And Si sceglie opzione accetta delega a tuo carico da "Gaio Giulio Cesare"
     And Si inserisce il codice delega nel pop-up "nuova_delega"
     And Si clicca sul bottone Accetta
 #    And Logout da portale persona fisica

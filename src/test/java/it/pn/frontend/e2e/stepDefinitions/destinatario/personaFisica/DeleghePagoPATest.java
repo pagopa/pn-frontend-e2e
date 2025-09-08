@@ -91,7 +91,6 @@ public class DeleghePagoPATest extends BasePage {
         leTueDelegheSection = new LeTueDelegheSection(driver);
         popUpRevocaDelegaSection = new PopUpRevocaDelegaSection(driver);
         deleghePage = new DeleghePage(driver);
-        deleghePage = new DeleghePage(driver);
         destinatarioPage = new DestinatarioPage(driver);
         notifichePFPage = new NotifichePFPage(driver);
         delegatiImpresaSection = new DelegatiImpresaSection(driver);
@@ -116,6 +115,11 @@ public class DeleghePagoPATest extends BasePage {
         logger.info("Click sul bottone aggiungi nuova delega");
         delegatiImpresaSection.verificaRemoveMenuDelega();
         deleghePage.clickAggiungiDelegaButton();
+    }
+
+    @And("Nella sezione Deleghe Rifiuta Deleghe Esistenti")
+    public void nellaSezioneDelegheRimuoviDelegheEsistenti() {
+        delegatiImpresaSection.verificaRemoveMenuDelega();
     }
 
     @And("Nella sezione Deleghe click sul bottone aggiungi nuova delega PF")
@@ -179,14 +183,21 @@ public class DeleghePagoPATest extends BasePage {
         }
     }
 
-    @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file")
-    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile() {
+    @And("Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file {string}")
+    public void nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile(String persona) {
         logger.info("Si salva il codice deleghe nel file SharedSteps -> NuovaDelega");
         //NUOVA DELEGA
         String codiceVerifica = leTueDelegheSection.salvataggioCodiceVerifica();
 
         logger.info("CodiceVerifica Creazione delega: " + codiceVerifica);
-        dataPopulationConfig.getNuovaDelega().setCodiceDelega(codiceVerifica);
+        switch (persona) {
+            case "PF" ->
+                dataPopulationConfig.getNuovaDelega().setCodiceDelega(codiceVerifica);
+            case "PG" ->
+                dataPopulationConfig.getNuovaDelegaPg().setCodiceDelega(codiceVerifica);
+            default ->
+                Assertions.fail("Impossibile determinare tipo di persona, inserire come input dello step PF o PG");
+        }
 
     }
 
@@ -317,6 +328,12 @@ public class DeleghePagoPATest extends BasePage {
     public void siSceglieOpzioneAccetta() {
         logger.info("Si sceglie l'opzione accetta");
         leTueDelegheSection.clickOpzioneAccetta();
+    }
+
+    @And("Si sceglie opzione accetta delega a tuo carico da {string}")
+    public void siSceglieOpzioneAccettaDelegaATuoCaricoDa(String nome) {
+        logger.info("Si sceglie l'opzione accetta");
+        leTueDelegheSection.clickOpzioneAccettaDelegaATuoCaricoDa(nome);
     }
 
     @And("Si inserisce il codice delega nel pop-up OTP")

@@ -5,6 +5,7 @@ Feature:La persona fisica aggiunge una nuova delega
   @DeleghePF
   @NRT_Blocco_3
   @deleghe1
+  @DeleghePFPG
   Scenario:PN-9401 - La persona fisica aggiunge una nuova delega
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
@@ -20,7 +21,7 @@ Feature:La persona fisica aggiunge una nuova delega
       | codiceFiscale | BRGLRZ80D58H501Q    |
       | ente          | Comune di Verona    |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
-    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file
+    And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta e sul bottone torna alle deleghe
     And Nella sezione Deleghe si visualizza la delega in stato di attesa di conferma
 
