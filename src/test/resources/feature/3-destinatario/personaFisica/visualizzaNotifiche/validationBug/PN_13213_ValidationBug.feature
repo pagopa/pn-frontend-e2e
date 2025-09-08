@@ -12,7 +12,7 @@ Feature: La persona giuridica aggiunge una nuova delega
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Nella pagina Piattaforma Notifiche persona fisica si accede alla notifica con codice IUN specifico
       | dev  | KZTL-KLPK-DRZU-202508-N-1 |
-      | test | KZTL-KLPK-DRZU-202508-N-1 |
+      | test | PUGW-RUDZ-VQZR-202508-V-1 |
       | uat  | KZTL-KLPK-DRZU-202508-N-1 |
     And Si clicca sui radio button del pagamento
     And Cliccare sul bottone Paga
