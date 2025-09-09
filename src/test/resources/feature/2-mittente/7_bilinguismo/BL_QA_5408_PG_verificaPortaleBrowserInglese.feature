@@ -4,7 +4,6 @@ Feature: PG - Verifica portale browser Inglese
   @TA_bilinguismoPGVerificaPortaleBrowserInInglese_5408
   @TA_Inglese
   @bilinguismo
-  @deleghe2
 
   Scenario: PN-5408-BL - PG - Verifica portale browser Inglese
 

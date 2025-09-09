@@ -4,7 +4,6 @@ Feature: PG - Verifica portale browser Sloveno
   @TA_bilinguismoPGVerificaPortaleBrowserInSloveno_5411
   @Sloveno
   @bilinguismo
-  @deleghe2
 
   Scenario: PN-5410-BL - PG - Verifica portale browser Sloveno
 
