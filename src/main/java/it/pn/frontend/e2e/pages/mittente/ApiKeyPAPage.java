@@ -74,45 +74,112 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void waitLoadApikeyPage() {
+//        try {
+//            getWebDriverWait(30).withMessage("Il titolo della pagina ApiKey non è visibile")
+//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("API Key-page"))));
+//            getWebDriverWait(40).withMessage("Il bottone genera ApiKey non è cliccabile")
+//                    .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("generate-api-key"))));
+//            logger.info("Api Key Page caricata");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Api Key Page NON caricata con errore: " + e.getMessage());
+//        }
         try {
-            getWebDriverWait(30).withMessage("Il titolo della pagina ApiKey non è visibile")
-                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("API Key-page"))));
-            getWebDriverWait(40).withMessage("Il bottone genera ApiKey non è cliccabile")
-                    .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("generate-api-key"))));
+            getWebDriverWait(30)
+                    .withMessage("Il titolo della pagina ApiKey non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("API Key-page")));
+
+            getWebDriverWait(40)
+                    .withMessage("Il bottone genera ApiKey non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("generate-api-key")));
+
             logger.info("Api Key Page caricata");
         } catch (TimeoutException e) {
             Assertions.fail("Api Key Page NON caricata con errore: " + e.getMessage());
         }
     }
 
+    //    public void clickSulBottoneGeneraApiKey() {
+//        webTool.waitTime(5);
+//        generateApiKeyButton = driver.findElement(By.id("generate-api-key"));
+//        js().executeScript("arguments[0].click()", generateApiKeyButton);
+//    }
     public void clickSulBottoneGeneraApiKey() {
-        webTool.waitTime(5);
-        generateApiKeyButton = driver.findElement(By.id("generate-api-key"));
-        js().executeScript("arguments[0].click()", generateApiKeyButton);
+        try {
+            WebElement generateApiKeyButton = getWebDriverWait(20)
+                    .withMessage("Il bottone genera ApiKey non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("generate-api-key")));
+
+            // Prova il click "normale"
+            try {
+                generateApiKeyButton.click();
+                logger.info("Click sul bottone 'Genera ApiKey' eseguito normalmente");
+            } catch (Exception e) {
+                // Fallback con JS se il click normale fallisce
+                js().executeScript("arguments[0].click()", generateApiKeyButton);
+                logger.warn("Click eseguito con JavaScript perché il normale click è fallito: {}", e.getMessage());
+            }
+
+        } catch (TimeoutException e) {
+            Assertions.fail("Il bottone 'Genera ApiKey' NON è stato trovato/cliccabile entro il tempo limite: " + e.getMessage());
+        }
     }
 
+    //    public void inserireUnNomePerApiKey(String nomeApiKey) {
+//
+//        getWebDriverWait(30).withMessage("Il campo Nome Apikey non è visibile")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("name"))));
+//        apiKeyNameInput = driver.findElement(By.id("name"));
+//        apiKeyNameInput.sendKeys(nomeApiKey);
+//    }
     public void inserireUnNomePerApiKey(String nomeApiKey) {
+        try {
+            WebElement apiKeyNameInput = getWebDriverWait(30)
+                    .withMessage("Il campo Nome ApiKey non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
 
-        getWebDriverWait(30).withMessage("Il campo Nome Apikey non è visibile")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("name"))));
-        apiKeyNameInput = driver.findElement(By.id("name"));
-        apiKeyNameInput.sendKeys(nomeApiKey);
+            apiKeyNameInput.clear(); // buona pratica: pulisci il campo prima di scrivere
+            apiKeyNameInput.sendKeys(nomeApiKey);
+
+            logger.info("Inserito nome ApiKey: {}", nomeApiKey);
+        } catch (TimeoutException e) {
+            Assertions.fail("Il campo Nome ApiKey NON è stato trovato/visibile entro il tempo limite: " + e.getMessage());
+        }
     }
+
+//    public void clickSulBottoneContinua() {
+//        getWebDriverWait(40).withMessage("Il bottone Continua non è cliccabile")
+//                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("continue-button"))));
+//        apiContinuaButton = driver.findElement(By.id("continue-button"));
+//        apiContinuaButton.click();
+//    }
 
     public void clickSulBottoneContinua() {
-        getWebDriverWait(40).withMessage("Il bottone Continua non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("continue-button"))));
-        apiContinuaButton = driver.findElement(By.id("continue-button"));
-        apiContinuaButton.click();
+        WebElement continuaButton = getWebDriverWait(40)
+                .withMessage("Il bottone Continua non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("continue-button")));
+        continuaButton.click();
     }
+
+
+//    public void siVisualizzaCorrettamenteConfermaPage() {
+//        try {
+//            getWebDriverWait(30).withMessage("Il titolo della pagina conferma Apikey non è visibile")
+//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("go-to-api-keys"))));
+//            logger.info("Api Key Confirmation Page caricata");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il titolo della Api Key ConfirmationPage NON caricata con errore: " + e.getMessage());
+//        }
+//    }
 
     public void siVisualizzaCorrettamenteConfermaPage() {
         try {
-            getWebDriverWait(30).withMessage("Il titolo della pagina conferma Apikey non è visibile")
-                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("go-to-api-keys"))));
+            getWebDriverWait(30)
+                    .withMessage("Il titolo della pagina conferma Apikey non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("go-to-api-keys")));
+
             logger.info("Api Key Confirmation Page caricata");
         } catch (TimeoutException e) {
-            Assertions.fail("Il titolo della Api Key ConfirmationPage NON caricata con errore: " + e.getMessage());
+            Assertions.fail("La Api Key Confirmation Page NON è stata caricata: " + e.getMessage());
         }
     }
 
@@ -303,7 +370,7 @@ public class ApiKeyPAPage extends BasePage {
 
     public void clickMenuButtonBlocca() {
         int posizione = verificaBottoni("Bloccata");
-        logger.info("Posizione: {}" , posizione);
+        logger.info("Posizione: {}", posizione);
 
         if (posizione < 0) {
             logger.info("Nessuna Api Key bloccata da attivare, procedo a bloccare una attivata");
@@ -769,7 +836,7 @@ public class ApiKeyPAPage extends BasePage {
             WebElement table = getWebDriverWait(20).withMessage("Prima Accesso alla Tabella Integrazione Api VirtualKeys  NON VISIBILE")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathVirtualKeysTableDesktop)));
             int b = 0;
-            logger.info("Tabella pulisciAmbienteVirtualKeys size: {}" , table.getSize());
+            logger.info("Tabella pulisciAmbienteVirtualKeys size: {}", table.getSize());
             List<WebElement> righeBloccate = table.findElements(By.xpath(".//tr//td//div[@id='status-chip-Bloccata']"));
             //Si cancellano prima le righe bloccate per far proseguire i test automatici
             logger.info("Numero di righe bloccate da cancellare: {} ", righeBloccate.size());

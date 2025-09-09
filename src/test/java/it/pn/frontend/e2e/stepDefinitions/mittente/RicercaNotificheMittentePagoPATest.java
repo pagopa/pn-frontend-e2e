@@ -122,22 +122,17 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Cliccare sul bottone Filtra del delegato")
     public void cliccareSulBottoneFiltraDelDelegato() {
         logger.info("Si clicca sul tasto filtra del delegante sotto notifiche");
-
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String codiceFiscale) {
         logger.info("Si verifica i risultati restituiti");
-
         headerPASection.waitLoadHeaderSection();
-
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         int listaCF = piattaformaNotifichePage.getListaCf(codiceFiscale);
-
         if (listaCF >= 1) {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
-
         } else {
             Assertions.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
         }

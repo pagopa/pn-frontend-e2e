@@ -163,19 +163,40 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-    public void insertCodiceFiscale(String codiceFiscale) {
-        try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipientId"))));
-            cfTextField = driver.findElement(By.id("recipientId"));
-            cfTextField.click();
-            cfTextField.sendKeys(codiceFiscale);
-            getWebDriverWait(3).until(ExpectedConditions.attributeToBe(cfTextField, "value", codiceFiscale));
-            logger.info("Codice Fiscale inserito correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("Codice Fiscale Non inserito con errore: " + e.getMessage());
-        }
+//    public void insertCodiceFiscale(String codiceFiscale) {
+//        try {
+//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipientId"))));
+//            cfTextField = driver.findElement(By.id("recipientId"));
+//            cfTextField.click();
+//            cfTextField.sendKeys(codiceFiscale);
+//            getWebDriverWait(3).until(ExpectedConditions.attributeToBe(cfTextField, "value", codiceFiscale));
+//            logger.info("Codice Fiscale inserito correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Codice Fiscale Non inserito con errore: " + e.getMessage());
+//        }
+//
+//    }
+public void insertCodiceFiscale(String codiceFiscale) {
+    try {
+        WebElement cfTextField = getWebDriverWait(10)
+                .withMessage("Il campo Codice Fiscale non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("recipientId")));
 
+        cfTextField.click();
+        cfTextField.clear(); // buona pratica: svuota sempre il campo prima
+        cfTextField.sendKeys(codiceFiscale);
+
+        // Attendi che il valore sia effettivamente inserito
+        getWebDriverWait(3)
+                .withMessage("Il valore del Codice Fiscale non corrisponde")
+                .until(ExpectedConditions.attributeToBe(cfTextField, "value", codiceFiscale));
+
+        logger.info("Codice Fiscale inserito correttamente: {}", codiceFiscale);
+
+    } catch (TimeoutException e) {
+        Assertions.fail("Codice Fiscale NON inserito entro il tempo limite: " + e.getMessage());
     }
+}
 
     public void selectFiltraNotificaButtonMittente() {
         webTool.waitTime(2);
@@ -230,25 +251,49 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+//    public void selectFiltraNotificaButtonDestinatario() {
+//        getWebDriverWait(20).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));
+//        filtraNotificaButton = driver.findElement(By.id("filter-notifications-button"));
+//        filtraNotificaButton.click();
+//        logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
+//    }
+
     public void selectFiltraNotificaButtonDestinatario() {
-        getWebDriverWait(20).withMessage("Il filtro non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));
-        filtraNotificaButton = driver.findElement(By.id("filter-notifications-button"));
-        filtraNotificaButton.click();
-        logger.info("Bottone filtra, nella pagina notifiche del delegato, cliccato correttamente");
+            WebElement filtraNotificaButton = getWebDriverWait(20)
+                    .withMessage("Il filtro non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("filter-notifications-button")));
+            filtraNotificaButton.click();
     }
+
+//    public int getListaCf(String cfInserito) {
+//        try {
+//            attesaCaricamentoPagina();
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'" + cfInserito + "')]"))));
+//            List<WebElement> cfListBy = driver.findElements(By.xpath("//p[contains(text(),'" + cfInserito + "')]"));
+//            logger.info("Codici fiscali trovati correttamente");
+//            return cfListBy.size();
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            Assertions.fail("Codici fiscali non trovati " + e.getMessage());
+//            return 0;
+//        }
+//
+//    }
 
     public int getListaCf(String cfInserito) {
         try {
             attesaCaricamentoPagina();
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//p[contains(text(),'" + cfInserito + "')]"))));
-            List<WebElement> cfListBy = driver.findElements(By.xpath("//p[contains(text(),'" + cfInserito + "')]"));
-            logger.info("Codici fiscali trovati correttamente");
+
+            By locator = By.xpath("//p[contains(text(),'" + cfInserito + "')]");
+            List<WebElement> cfListBy = getWebDriverWait(30)
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+
+            logger.info("Codici fiscali trovati correttamente: " + cfListBy.size());
             return cfListBy.size();
+
         } catch (TimeoutException | NoSuchElementException e) {
-            Assertions.fail("Codici fiscali non trovati " + e.getMessage());
+            Assertions.fail("Codici fiscali non trovati: " + e.getMessage());
             return 0;
         }
-
     }
 
     public void attesaCaricamentoPagina() {
