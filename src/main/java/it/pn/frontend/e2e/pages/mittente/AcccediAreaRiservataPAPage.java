@@ -3,17 +3,13 @@ package it.pn.frontend.e2e.pages.mittente;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.text.MessageFormat;
 
 public class AcccediAreaRiservataPAPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(AcccediAreaRiservataPAPage.class);
@@ -30,25 +26,43 @@ public class AcccediAreaRiservataPAPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
+    //    public void waitLoadLoginPageMittente() {
+//        try {
+//            getWebDriverWait(45).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']"))));
+//            logger.info("Accedi Area Riservata Page caricata");
+//        } catch (TimeoutException e) {
+//            Assertions.fail(MessageFormat.format("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : {0}", e.getMessage()));
+//        }
+//    }
     public void waitLoadLoginPageMittente() {
-        try {
-            getWebDriverWait(45).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']"))));
-            logger.info("Accedi Area Riservata Page caricata");
-        } catch (TimeoutException e) {
-            Assertions.fail(MessageFormat.format("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : {0}", e.getMessage()));
-        }
+        getWebDriverWait(45)
+                .withMessage("Titolo 'Accedi Area Riservata' non visualizzato")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//h3[@class='MuiTypography-root MuiTypography-h3 css-ktw4ma']")));
+
+        logger.info("Accedi Area Riservata Page caricata");
     }
 
+    //    public void selezionareSpidButton() {
+//        logger.info("Si seleziona il bottone Spid");
+//        try {
+//            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
+//            spidButton = driver.findElement(By.id("spidButton"));
+//            spidButton.click();
+//            logger.info("click sul bottone SPID effettuato");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il bottone SPID non è cliccabile con errore : " + e.getMessage());
+//        }
+//    }
     public void selezionareSpidButton() {
-        logger.info("Si seleziona il bottone Spid");
-        try {
-            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
-            spidButton = driver.findElement(By.id("spidButton"));
-            spidButton.click();
-            logger.info("click sul bottone SPID effettuato");
-        } catch (TimeoutException e) {
-            Assertions.fail("Il bottone SPID non è cliccabile con errore : " + e.getMessage());
-        }
+        logger.info("Selezione del bottone SPID");
+
+        spidButton = getWebDriverWait(60)
+                .withMessage("Bottone SPID non cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("spidButton")));
+
+        spidButton.click();
+        logger.info("Click sul bottone SPID effettuato");
     }
 
     public void clickScegliAmbienteSendBottoneMittente(String idButton) {
