@@ -330,6 +330,10 @@ public class RecapitiTest extends BasePage {
     public void clickOkHoCapitoRecapiti() {
         recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
     }
+    @And("Click Ok ho capito Recapiti Pop-up")
+    public void clickOkHoCapitoRecapitiPopUp() {
+        recapitiDestinatarioPage.clickOkHoCapitoRecapitiPopUp();
+    }
 
     @And("Verifica presenza Campo obbligatorio")
     public void verificaPresenzaCampoObbligatorio() {
