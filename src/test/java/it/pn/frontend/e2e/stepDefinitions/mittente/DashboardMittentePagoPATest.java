@@ -20,12 +20,12 @@ public class DashboardMittentePagoPATest extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(DashboardMittentePagoPATest.class);
 
 
-    private  DashboardPage dashboardPage;
+    private DashboardPage dashboardPage;
 
-    private  PiattaformaNotifichePage piattaformaNotifichePage;
+    private PiattaformaNotifichePage piattaformaNotifichePage;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         dashboardPage = new DashboardPage(driver);
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
@@ -104,7 +104,7 @@ public class DashboardMittentePagoPATest extends BasePage {
 
     @And("Nella pagina Statistiche il bottone Filtra disabilitata")
     public void nellaPaginaStatisticheIlBottoneFiltraDisabilitata() {
-        Assertions.assertTrue(piattaformaNotifichePage.verificaBottoneFiltraDisabilitato(),"il bottone Filtra è disabilitato");
+        Assertions.assertTrue(piattaformaNotifichePage.verificaBottoneFiltraDisabilitato(), "il bottone Filtra è disabilitato");
     }
 
     @And("Nella pagina Statistiche si clicca sul bottone Annulla filtri")

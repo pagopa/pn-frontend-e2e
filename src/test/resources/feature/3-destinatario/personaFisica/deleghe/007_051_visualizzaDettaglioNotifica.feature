@@ -1,6 +1,5 @@
 Feature: Il delegato visualizza il dettaglio di una notifica
 
-  @TestSuite
   @TA_PFdelegatovisualizzaDettaglioNotifica
   @DeleghePF
   @PF

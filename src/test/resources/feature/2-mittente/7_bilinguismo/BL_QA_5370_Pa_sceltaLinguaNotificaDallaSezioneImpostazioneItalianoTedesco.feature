@@ -1,6 +1,5 @@
 Feature: PN-QA5370 - PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano Tedesco
 
-  @TestSuite
   @TA_bilinguismoItalianoFrancese_QA5370
   @bilinguismo
   @NRT_Blocco_1
@@ -37,7 +36,6 @@ Feature: PN-QA5370 - PA sceglie la lingua delle sue notifiche dalla sezione Impo
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-##    And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Logout e Login con Comune di "Viggiu"
     And Click entra su Send Mittente
     And Si clicca bottone accetta cookies

@@ -1,6 +1,5 @@
 Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
 
-  @TestSuite
   @TA_PFrifiutoDelega
   @DeleghePF
   @PF
@@ -33,11 +32,11 @@ Feature: Il delgato persona fisica rifiuta la delega che gli è stata inviata
       | firstName   | Lucrezia         |
       | lastName    | Borgia           |
     And Si verifica sia presente una delega da rifiutare nella sezione Deleghe a Tuo Carico
-      | nome          | Gaio Giulio |
-      | cognome       | Cesare      |
+      | nome    | Gaio Giulio |
+      | cognome | Cesare      |
     And Nella pagina Deleghe si clicca sul menu della delega a tuo carico
-      | nome          | Gaio Giulio |
-      | cognome       | Cesare      |
+      | nome    | Gaio Giulio |
+      | cognome | Cesare      |
     And Nella pagina Deleghe si sceglie opzione rifiuta
     And Si clicca sul bottone rifiuta all'interno del pop-up
     And Si controlla che la delega non sia più presente nella lista "personaFisica"

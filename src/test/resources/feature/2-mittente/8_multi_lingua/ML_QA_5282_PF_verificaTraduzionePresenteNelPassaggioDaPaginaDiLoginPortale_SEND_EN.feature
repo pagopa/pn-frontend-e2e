@@ -1,6 +1,5 @@
 Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a portale SEND - EN
 
-  @TestSuite
   @TA_multiLinguaInglese_QA5282
   @multiLingua
   @multiLinguaPf
@@ -16,7 +15,6 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-      #| lingua       | Inglese |
 #   Verificole traduzioni del portale
     And Verifica traduzione testo "Notifications"
     And Verifica traduzione testo "Your addresses"

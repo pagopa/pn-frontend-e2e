@@ -15,7 +15,7 @@ import java.util.List;
 
 public class HomePagePG extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("HomePagePG");
+    private static final Logger logger = LoggerFactory.getLogger(HomePagePG.class);
 
 
     @FindBy(xpath = "//button[@class = 'MuiButtonBase-root MuiFab-root MuiFab-circular MuiFab-sizeSmall MuiFab-primary css-ngdrb8']")

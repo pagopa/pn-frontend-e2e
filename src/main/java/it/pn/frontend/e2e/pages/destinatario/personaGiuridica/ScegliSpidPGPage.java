@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
@@ -11,12 +10,10 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 public class ScegliSpidPGPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("ScegliSpidPGPage");
+    private final Logger logger = LoggerFactory.getLogger(ScegliSpidPGPage.class);
 
     @FindBy(id = "xx_testenv2")
     WebElement testButton;
@@ -32,9 +29,8 @@ public class ScegliSpidPGPage extends BasePage {
             getWebDriverWait(30).withMessage("Il titolo della pagina Scegli il tuo SPID non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
             getWebDriverWait(30).withMessage("Il bottone test della pagina Scegli il tuo SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(testButton));
             logger.info("ScegliSpidPGPage caricata correttamente");
-        } catch (TimeoutException e){
-            logger.error("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
-            Assertions.fail("ScegliSpidPGPage non caricata correttamente con errore: " +e.getMessage());
+        } catch (TimeoutException e) {
+            Assertions.fail("ScegliSpidPGPage non caricata correttamente con errore: " + e.getMessage());
         }
     }
 

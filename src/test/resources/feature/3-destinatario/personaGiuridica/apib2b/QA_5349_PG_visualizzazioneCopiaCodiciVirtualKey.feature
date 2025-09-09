@@ -4,46 +4,35 @@ Feature: Visualizzazione sezione Integrazione API
   @integrazioneApi
   @integrazioneApiPg1
   @apiKey
-  #@bilinguismo
   @PG
   @TestSuite
   @NRT_Blocco_2
   Scenario: QA-5349_5347 [DELEGANTE PG AMMINISTRATORE O REFERENTE OPERATIVO] - Visualizzazione e copia dei codici di una virtual key per un utente Amministratore PG o Operatore,
-                                                          Operatore PG può gestire chiavi virtuali (creazione, rotazione, blocco, eliminazione) con public key ruotata e bloccata
+  Operatore PG può gestire chiavi virtuali (creazione, rotazione, blocco, eliminazione) con public key ruotata e bloccata
     # Reset ambiente di test
     Given Login Page persona giuridica viene visualizzata
 
     And Login con persona giuridica
-      | user           | GiuseppeUngaretti |
-      | pwd            | test           |
-      | ragioneSociale | DivinaCommedia Srl   |
+      | user           | GiuseppeUngaretti  |
+      | pwd            | test               |
+      | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys
     And Logout da portale persona giuridica
 
     And Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | DivinaCommedia Srl  |
+      | user           | DanteAlighieri     |
+      | pwd            | test               |
+      | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
-#    And Logout da portale persona giuridica delegante
 
-
-
-    # Creazione chiave pubblica per scenario
-#    And Login con persona giuridica
-#      | user           | DanteAlighieri |
-#      | pwd            | test           |
-#      | ragioneSociale | DivinaCommedia Srl  |
-#    And Si clicca su prodotto
-#    And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
-      | nome        | Chiave- |
+      | nome | Chiave- |
     And Cliccare su registra
     And Si visualizza correttamente la sezione Ottieni Parametri
     And Cliccare su registra
@@ -60,7 +49,6 @@ Feature: Visualizzazione sezione Integrazione API
     And verifica tre puntini mostra di piu
       | blocca | Blocca            |
       | view   | Visualizza codice |
-    # *-*-*-*-*-*--*-*-*  *-*-*-*-*-*--*-*-* *-*-*-*-*-*--*-*-* *-*-*-*-*-*--*-*-* *-*-*-*-*-*--*-*-*
 
     And Nella pagina Api Key si clicca sulla voce visualizza del menu Api Key
 
@@ -71,9 +59,9 @@ Feature: Visualizzazione sezione Integrazione API
     And Attesa 5 secondi
     # Creazione chiave virtuale per operatore
     And Login con persona giuridica
-      | user           | GiuseppeUngaretti |
-      | pwd            | test           |
-      | ragioneSociale | DivinaCommedia Srl   |
+      | user           | GiuseppeUngaretti  |
+      | pwd            | test               |
+      | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
@@ -97,9 +85,9 @@ Feature: Visualizzazione sezione Integrazione API
     And Logout da portale persona giuridica
 
     And Login con persona giuridica
-      | user           | DanteAlighieri |
-      | pwd            | test           |
-      | ragioneSociale | DivinaCommedia Srl  |
+      | user           | DanteAlighieri     |
+      | pwd            | test               |
+      | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Verifica stato "Attiva"
@@ -130,9 +118,9 @@ Feature: Visualizzazione sezione Integrazione API
     And Logout da portale persona giuridica delegante
     # Esecuzione scenario
     And Login con persona giuridica
-      | user           | GiuseppeUngaretti |
-      | pwd            | test           |
-      | ragioneSociale | DivinaCommedia Srl   |
+      | user           | GiuseppeUngaretti  |
+      | pwd            | test               |
+      | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale

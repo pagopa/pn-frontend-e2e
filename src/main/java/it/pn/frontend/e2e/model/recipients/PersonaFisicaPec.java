@@ -10,14 +10,13 @@ public class PersonaFisicaPec {
     private String familyName;
     private String codiceFiscale;
     private String fiscalNumber;
-    private String  indirizzo;
+    private String indirizzo;
     private String numeroCivico;
     private String localita;
     private String comune;
     private String provincia;
     private String codicePostale;
     private String stato;
-
 
 
 }

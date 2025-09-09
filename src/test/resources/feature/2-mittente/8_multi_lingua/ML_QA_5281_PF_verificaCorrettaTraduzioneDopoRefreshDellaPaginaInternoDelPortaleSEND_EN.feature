@@ -1,6 +1,5 @@
 Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - EN
 
-  @TestSuite
   @TA_multiLinguaInglese_QA5281
   @multiLingua
   @multiLinguaPf
@@ -17,11 +16,8 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-      #| lingua       | Inglese |
-#    And Aspetta 2 secondi
     And Attesa 2 secondi
     Then Refresh pagina
-#    And Aspetta 2 secondi
     And Attesa 2 secondi
     And Verifica traduzione testo "Notifications"
     And Verifica traduzione testo "Your addresses"

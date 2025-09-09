@@ -1,6 +1,5 @@
 Feature:La persona giuridica visualizza il codice di una delega
 
-  @TestSuite
   @TA_PGvisualizzaCodiceDelega
   @DeleghePG
   @PG

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DelegatiImpresaSection extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("DelegatiImpresaSection");
+    private final Logger logger = LoggerFactory.getLogger(DelegatiImpresaSection.class);
 
 
     @FindBy(id = "show-code-button")
@@ -61,7 +61,6 @@ public class DelegatiImpresaSection extends BasePage {
             getWebDriverWait(10).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(addDelegheButton));
             logger.info("Delegati dall'impresa caricata correttamente");
         } catch (TimeoutException e) {
-            logger.error("Delegati dall'impresa non caricata correttamente con errore: " + e.getMessage());
             Assertions.fail("Delegati dall'impresa non caricata correttamente con errore: " + e.getMessage());
         }
     }
@@ -73,35 +72,9 @@ public class DelegatiImpresaSection extends BasePage {
             logger.info("click sul bottone aggiunta delega");
             addDelegheButton.click();
         } catch (TimeoutException e) {
-            logger.error("bottone non trovato: " + e.getMessage());
             Assertions.fail("bottone non trovato: " + e.getMessage());
         }
     }
-
-//    public boolean controlloEsistenzaDelega(String ragioneSociale) {
-//        try {
-//         //   tabelleDelleDelegheDellImpresa = driver.findElement(By.id("notifications-table"));
-//         //   nomeDelegato = driver.findElements(By.id("delegatesBodyRowDesktop"));
-//            getWebDriverWait(10).withMessage("tabella deleghe non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
-//            getWebDriverWait(10).withMessage("nome delegato non trovato").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.id("delegatesBodyRowDesktop"))));
-//            nomeDelegato = driver.findElements(By.id("delegatesBodyRowDesktop"));
-//            for (WebElement delegato : nomeDelegato) {
-//                if (delegato.getText().contains(ragioneSociale)) {
-//                    logger.info("Delega trovata correttamente");
-//                    logger.info("Delega trovata correttamente" + ragioneSociale);
-//                    getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(delegato, ragioneSociale));
-//                    getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("chip-status-warning"))));
-//                    getWebDriverWait(40).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("chip-status-warning")), "In attesa di conferma"));
-//                }
-//            }
-//            logger.info("Si visualizza la delega creata");
-//            return true;
-//        } catch (TimeoutException e) {
-//            logger.error("Non si visualizza correttamente la delega creata:" + e.getMessage());
-//            Assertions.fail("Non si visualizza correttamente la delega creata:" + e.getMessage());
-//        }
-//        return false;
-//    }
 
     public boolean controlloEsistenzaDelega(String ragioneSociale) {
         try {
@@ -115,7 +88,7 @@ public class DelegatiImpresaSection extends BasePage {
 
             for (WebElement delegato : nomeDelegati) {
                 if (delegato.getText().contains(ragioneSociale)) {
-                    logger.info("Delega trovata correttamente per la ragione sociale: " + ragioneSociale);
+                    logger.info("Delega trovata correttamente per la ragione sociale: {}", ragioneSociale);
 
                     getWebDriverWait(30).until(ExpectedConditions.textToBePresentInElement(delegato, ragioneSociale));
 
@@ -137,7 +110,6 @@ public class DelegatiImpresaSection extends BasePage {
 
     public boolean siVisualizzaUnaDelega() {
         try {
-            // WebElement menuDelega = driver.findElement(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]")));
             logger.info("Trovato correttamente almeno una delega");
             return true;
@@ -158,32 +130,29 @@ public class DelegatiImpresaSection extends BasePage {
             }
             logger.info("cliccato correttamente su menu delega button");
         } catch (TimeoutException e) {
-            logger.error("Menu delega button NON trovata con errore: " + e.getMessage());
             Assertions.fail("Menu delega button NON trovata con errore: " + e.getMessage());
         }
     }
 
     public void verificaRemoveMenuDelega(String displayName, String delegheCarico) {
-        logger.info("DisplayName: " + displayName);
+        logger.info("DisplayName: {}", displayName);
         try {
 
             if (driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
-                logger.info("Esiste il duplicato: " + displayName);
+                logger.info("Esiste il duplicato: {}", displayName);
                 js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
 
                 if (StringUtils.isEmpty(delegheCarico)) {
                     logger.info("Deleghe Carico e null");
 
                     boolean isVisible = isVisibleAttesa();
-                    if(isVisible){
+                    if (isVisible) {
                         //bottone remove
                         getWebDriverWait(30).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
                         driver.findElement(By.id("revoke-delegation-button")).click();
                         getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
                         driver.findElement(By.id("dialog-action-button")).click();
-                    }
-
-                    else {
+                    } else {
                         getWebDriverWait(35).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("reject-delegation-button"))));
                         driver.findElement(By.id("reject-delegation-button")).click();
                         //Rifiuta la Delega pop-up
@@ -198,7 +167,7 @@ public class DelegatiImpresaSection extends BasePage {
                     driver.navigate().refresh();
                 }
 
-                logger.info("Rimosso il duplicato: " + displayName);
+                logger.info("Rimosso il duplicato: {}", displayName);
             }
         } catch (NoSuchElementException e) {
             logger.info("L'elemento non esiste. Continuo l'esecuzione.");
@@ -277,12 +246,10 @@ public class DelegatiImpresaSection extends BasePage {
 
     public void waitPopUpRevoca(String ragionSociale) {
         try {
-           // WebElement titlePopUpBy = driver.findElement(By.id("dialog-title"));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("confirmation-dialog-title"))));
             getWebDriverWait(10).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("confirmation-dialog-title")), "Vuoi revocare la delega a " + ragionSociale + "?"));
             logger.info("Il pop-up revoca si visualizza correttamente");
         } catch (TimeoutException e) {
-            logger.error("Il pop-up revoca NON si visualizza correttamente con errore: " + e.getMessage());
             Assertions.fail("Il pop-up revoca NON si visualizza correttamente con errore: " + e.getMessage());
         }
     }
@@ -295,7 +262,6 @@ public class DelegatiImpresaSection extends BasePage {
             revocaMenuButton.click();
             driver.navigate().refresh();
         } catch (TimeoutException e) {
-            logger.error("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
             Assertions.fail("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
         }
     }
@@ -312,14 +278,7 @@ public class DelegatiImpresaSection extends BasePage {
     }
 
     public void checkTabellaDelegheDellImpresa() {
-        WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']"));
-        WebElement colonnaNome = driver.findElement(By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Nome')]]"));
-        WebElement colonnaInizioDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Inizio delega')]"));
-        WebElement colonnaFineDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Fine delega')]]"));
-        WebElement colonnaPermessi = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Permessi')]"));
-        WebElement colonnaStato = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Stato')]"));
         try {
-            //tabelleDelleDelegheDellImpresa = driver.findElement(By.id("notifications-table"));
             getWebDriverWait(10).withMessage("tabella deleghe dell impresa non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
             getWebDriverWait(10).withMessage("colonna nome non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Nome')]]"))));
             getWebDriverWait(10).withMessage("colonna inizio delega non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Inizio delega')]"))));
@@ -328,7 +287,6 @@ public class DelegatiImpresaSection extends BasePage {
             getWebDriverWait(10).withMessage("colonna stato non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Stato')]"))));
             getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']"))));
         } catch (TimeoutException e) {
-            logger.error("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
             Assertions.fail("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
         }
     }

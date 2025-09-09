@@ -1,6 +1,5 @@
 Feature: Mittente seleziona l'opzione ruota api Key
 
-  @TestSuite
   @TA_MittenteRuotaApiKey
   @ApikeyMittente
   @integrazioneApiPa

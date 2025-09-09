@@ -9,13 +9,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 
 public class GeneraApiKeySection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("GeneraApiKeySection");
+    private static final Logger logger = LoggerFactory.getLogger(GeneraApiKeySection.class);
 
     public GeneraApiKeySection(WebDriver driver) {
         this.driver = driver;
@@ -23,13 +21,12 @@ public class GeneraApiKeySection extends BasePage {
 
 
     public void waitLoadGeneraApiKey() {
-        try{
+        try {
             WebElement generaApiPageTitle = driver.findElement(By.id("Genera una API Key-page"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOf(generaApiPageTitle));
             logger.info("Api Key caricata");
-        }catch (TimeoutException e){
-            logger.error("Genera Api Key NON caricata con errore : "+e.getMessage());
-            Assertions.fail("Genera Api Key NON caricata con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            Assertions.fail("Genera Api Key NON caricata con errore : " + e.getMessage());
         }
     }
 }

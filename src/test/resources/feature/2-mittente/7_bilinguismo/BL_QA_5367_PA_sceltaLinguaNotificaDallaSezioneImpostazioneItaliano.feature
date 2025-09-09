@@ -1,6 +1,5 @@
 Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - Italiano
 
-  @TestSuite
   @TA_bilinguismoItaliano_QA5367
   @bilinguismo
   @NRT_Blocco_1
@@ -15,7 +14,6 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     And Home page mittente viene visualizzata correttamente
 
     And Selezionare da impostazione lingua "Italiano"
-#    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     And verifica lingua selezionata "Italiano"
@@ -35,7 +33,6 @@ Feature: PA sceglie la lingua delle sue notifiche dalla sezione Impostazioni - I
     Then Si visualizza correttamente la frase La notifica è stata correttamente creata
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
-#    And Si verifica che la notifica viene creata correttamente "datiNotifica"
     And Logout e Login con Comune di "Viggiu"
     And Click entra su Send Mittente
     And Si clicca bottone accetta cookies

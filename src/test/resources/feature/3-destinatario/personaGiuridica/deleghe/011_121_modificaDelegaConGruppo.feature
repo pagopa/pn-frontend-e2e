@@ -1,6 +1,5 @@
 Feature: Il delegato persona giuridica modifica una delega assegnandoli un gruppo
 
-  @TestSuite
   @TA_PGmodificaDelegaConGruppo
   @DeleghePG
   @PG

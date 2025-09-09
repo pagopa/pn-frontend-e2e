@@ -1,6 +1,5 @@
 Feature: Mittente seleziona CTA annulla in ruota api Key
 
-  @TestSuite
   @TA_MittenteAnnullaRuotazioneApiKey
   @ApikeyMittente
   @integrazioneApiPa

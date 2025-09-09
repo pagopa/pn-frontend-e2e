@@ -1,10 +1,8 @@
 Feature: il mittente fa una ricerca combinata tra stato e arco temporale  con nessun risultato
 
-  @TestSuite
-    @mittente
+  @mittente
     @ricercaNotificheMittente
     @TA_MittenteRicercaSenaRisultatoPerStatoPeriodo
-    @loginFE
     @NRT_Blocco_1
   Scenario Outline: PN-9325 - il mittente fa una ricerca sia per arco temporale che per stato con nessun risultato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

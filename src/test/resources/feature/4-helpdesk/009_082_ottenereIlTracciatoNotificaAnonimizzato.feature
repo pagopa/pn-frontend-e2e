@@ -1,10 +1,5 @@
 Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
 
-#  Background: Login utente in helpdesk
-#    Given Login helpdesk con utente test
-#    And Si visualizza correttamente home Helpdesk
-
-  @TestSuite
   @OttenereTracciatoAnonimizzataDiNotifica
   @NRT_Blocco_3
   @helpDesk

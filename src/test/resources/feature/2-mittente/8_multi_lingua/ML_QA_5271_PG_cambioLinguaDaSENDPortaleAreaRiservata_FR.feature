@@ -1,6 +1,5 @@
 Feature: PG - Cambio Lingua da SEND a portale Area Riservata - FR
 
-  @TestSuite
   @TA_multiLinguaFrancese_QA5271
   @multiLingua
   @multiLinguaPg

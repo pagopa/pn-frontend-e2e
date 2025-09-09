@@ -13,7 +13,7 @@ import java.text.MessageFormat;
 import java.util.List;
 
 public class IntegrazioneAPIPGPage extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("IntegrazioneAPIPG");
+    private static final Logger logger = LoggerFactory.getLogger(IntegrazioneAPIPGPage.class);
 
     private WebTool webTool;
 
@@ -37,8 +37,6 @@ public class IntegrazioneAPIPGPage extends BasePage {
     public void checkConfermaCreazioneChiavePubblica() {
         getWebDriverWait(10).withMessage("Il label Stato per la chiave pubblica non è su 'Attiva' o non è visibile")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@data-testid,'statusChip-Attiva')]"))));
-        //TO DO: Attiva se si conferma che il pop up deve essere nella pagina Integrazione API (ora è su Registra Chiave Pubblica -> Controlla i parametri)
-        //getWebDriverWait(30).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@role='alert']/div[text()='Chiave pubblica registrata con successo.']"))));
     }
 
     public void verificaPresenzaChiavePubblicheCensite() {
@@ -46,7 +44,7 @@ public class IntegrazioneAPIPGPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath("//table[@data-testid='publicKeysTableDesktop']"))));
     }
 
-    public void verificaTabellaChiaviPubbliche () {
+    public void verificaTabellaChiaviPubbliche() {
         try {
             getWebDriverWait(10).withMessage("Non si visualizza correttamente la tabella delle chiavi pubbliche censite sulla pagina Integrazione API")
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath("//table[@data-testid='publicKeysTableDesktop']"))));

@@ -2,318 +2,52 @@ package it.pn.frontend.e2e.utility;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-//import it.pagopa.pn.client.b2b.pa.service.utils.InteropTokenSingleton;
-//import it.pagopa.pn.client.b2b.pa.service.utils.SettableApiKey;
-//import it.pagopa.pn.client.b2b.pa.service.utils.SettableBearerToken;
-//import it.pn.frontend.e2e.model.singleton.InteropTokenSingleton;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
 import java.time.OffsetDateTime;
 import java.util.*;
 
-//import static it.pagopa.pn.client.b2b.pa.service.utils.InteropTokenSingleton.ENEBLED_INTEROP;
 
 @Slf4j
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class PnExternalServiceClientImpl {
-    private static final Logger logger = LoggerFactory.getLogger("PnExternalServiceClientImpl");
+    private static final Logger logger = LoggerFactory.getLogger(PnExternalServiceClientImpl.class);
     private final RestTemplate restTemplate;
-
-//    private final String apiKeyMvp1;
-//    private final String apiKeyMvp2;
-//    private final String apiKeyGa;
-//    private final String apiKeySON;
-//    private final String apiKeyROOT;
-//
-//    private final String safeStorageBasePath;
-//    private final String gruopInfoBasePath;
-//    private final String extChannelsBasePath;
-//
-//    private final String deliveryBasePath;
-//    private final String dataVaultBasePath;
-//
-//
-//    private final String enableInterop;
-//    private final String gherkinSrlBearerToken;
-//    private final String cucumberSpaBearerToken;
-//
-//    private final String openSearchBaseUrl;
-//    private final String openSearchUsername;
-//    private final String openSearchPassword;
-//
-//    private final String basePathWebApi;
-//
-////    private final InteropTokenSingleton interopTokenSingleton;
-//
-//    private final String consolidatoreApiKey;
 
     public PnExternalServiceClientImpl(
             RestTemplate restTemplate
-//            InteropTokenSingleton interopTokenSingleton,
-//            @Value("${pn.safeStorage.base-url}") String safeStorageBasePath,
-//            @Value("${pn.external.base-url}") String gruopInfoBasePath,
-//            @Value("${pn.external.api-key}") String apiKeyMvp1,
-//            @Value("${pn.external.api-key-2}") String apiKeyMvp2,
-//            @Value("${pn.external.api-key-GA}") String apiKeyGa,
-//            @Value("${pn.external.api-key-SON}") String apiKeySON,
-//            @Value("${pn.external.api-key-ROOT}") String apiKeyROOT,
-//            @Value("${pn.interop.enable}") String enableInterop,
-//            @Value("${pn.bearer-token.pg1}") String gherkinSrlBearerToken,
-//            @Value("${pn.bearer-token.pg2}") String cucumberSpaBearerToken,
-//            @Value("${pn.webapi.external.base-url}") String basePathWebApi,
-//            @Value("${pn.externalChannels.base-url}") String extChannelsBasePath,
-//            @Value("${pn.delivery.base-url}") String deliveryBasePath,
-//            @Value("${pn.dataVault.base-url}") String dataVaultBasePath,
-//            @Value("${pn.OpenSearch.base-url}") String openSearchBaseUrl,
-//            @Value("${pn.OpenSearch.username}") String openSearchUsername,
-//            @Value("${pn.OpenSearch.password}") String openSearchPassword,
-//            @Value("${pn.consolidatore.api.key}") String consolidatoreApiKey
     ) {
         this.restTemplate = restTemplate;
-//        this.safeStorageBasePath = safeStorageBasePath;
-//        this.extChannelsBasePath = extChannelsBasePath;
-//        this.deliveryBasePath = deliveryBasePath;
-//        this.dataVaultBasePath = dataVaultBasePath;
-//        this.gruopInfoBasePath = gruopInfoBasePath;
-//        this.basePathWebApi = basePathWebApi;
-//        this.apiKeyMvp1 = apiKeyMvp1;
-//        this.apiKeyMvp2 = apiKeyMvp2;
-//        this.apiKeyGa = apiKeyGa;
-//        this.apiKeySON = apiKeySON;
-//        this.apiKeyROOT = apiKeyROOT;
-//
-//        this.enableInterop = enableInterop;
-//
-////        this.interopTokenSingleton = interopTokenSingleton;
-//
-//        this.gherkinSrlBearerToken = gherkinSrlBearerToken;
-//        this.cucumberSpaBearerToken = cucumberSpaBearerToken;
-//
-//        this.openSearchBaseUrl = openSearchBaseUrl;
-//        this.openSearchUsername = openSearchUsername;
-//        this.openSearchPassword = openSearchPassword;
-//        this.consolidatoreApiKey = consolidatoreApiKey;
 
     }
-
-
-//    public SafeStorageResponse safeStorageInfo(String fileKey) throws RestClientException {
-//        return safeStorageInfoWithHttpInfo(fileKey).getBody();
-//    }
-//
-//    public SafeStorageResponse safeStorageInfoPnServiceDesk(String fileKey) throws RestClientException {
-//        return safeStoragePnServiceDeskInfoWithHttpInfo(fileKey).getBody();
-//    }
-//
-//
-//    private void restTemplateAvoidSSlCertificate() throws NoSuchAlgorithmException, KeyManagementException {
-//        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
-//            public X509Certificate[] getAcceptedIssuers() {
-//                return null;
-//            }
-//
-//            public void checkClientTrusted(X509Certificate[] certs, String authType) {
-//            }
-//
-//            public void checkServerTrusted(X509Certificate[] certs, String authType) {
-//            }
-//        }};
-//
-//        SSLContext sslContext = SSLContext.getInstance("TLS");
-//        sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-//
-//        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
-//        HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
-//
-//        SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
-//
-//        this.restTemplate.setRequestFactory(requestFactory);
-//    }
-
-//    public OpenSearchResponse openSearchGetAudit(String audRetentionType,String auditLogType, int numberOfResult){
-//        return openSearchGetAuditWithHttpInfo(audRetentionType, auditLogType, numberOfResult).getBody();
-//    }
-//    private ResponseEntity<OpenSearchResponse> openSearchGetAuditWithHttpInfo(String audRetentionType,String auditLogType, int numberOfResult) throws RestClientException {
-//
-//        try {
-//            restTemplateAvoidSSlCertificate();
-//        } catch (NoSuchAlgorithmException | KeyManagementException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        String postBody = "{\"query\":{\"bool\":{\"must\":{\"match\":{\"aud_type\":\""+auditLogType+"\"}}}},\"size\":"+numberOfResult+",\"sort\":[{\"@timestamp\": \"desc\"}]}";
-//
-//        final Map<String, Object> uriVariables = new HashMap<>();
-//
-//        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-//        //queryParams.add("format", "json");
-//
-//        final HttpHeaders headerParams = new HttpHeaders();
-//
-//        String usernamePassword = openSearchUsername+":"+openSearchPassword;
-//        headerParams.add("Authorization","Basic "+Base64.getEncoder().encodeToString(usernamePassword.getBytes()));
-//
-//        final String[] localVarAccepts = {
-//                "application/json", "application/problem+json"
-//        };
-//        final List<MediaType> localVarAccept = MediaType.parseMediaTypes(StringUtils.arrayToCommaDelimitedString(localVarAccepts));
-//        final MediaType localVarContentType = MediaType.APPLICATION_JSON;
-//
-//        ParameterizedTypeReference<OpenSearchResponse> returnType = new ParameterizedTypeReference<>() {};
-//        return invokeAPI(openSearchBaseUrl, "/pn-logs"+audRetentionType+"/_search", HttpMethod.POST, uriVariables, queryParams, postBody, headerParams, localVarAccept, localVarContentType, returnType);
-//    }
-
-
-//    public HashMap<String, String> getQuickAccessLink(String iun) {
-//        return getQuickAccessLinkWithHttpInfo(iun).getBody();
-//    }
-
-//    private ResponseEntity<HashMap<String, String>> getQuickAccessLinkWithHttpInfo(String iun) {
-//        Object postBody = null;
-//
-//        final Map<String, Object> uriVariables = new HashMap<>();
-//        uriVariables.put("iun", iun);
-//
-//        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-//        queryParams.add("metadataOnly", "true");
-//
-//        final HttpHeaders headerParams = new HttpHeaders();
-//
-//        final String[] localVarAccepts = {
-//                "application/json", "application/problem+json"
-//        };
-//        final List<MediaType> localVarAccept = MediaType.parseMediaTypes(StringUtils.arrayToCommaDelimitedString(localVarAccepts));
-//        final MediaType localVarContentType = MediaType.APPLICATION_JSON;
-//
-//        ParameterizedTypeReference<HashMap<String, String>> returnType = new ParameterizedTypeReference<>() {
-//        };
-//        return invokeAPI(deliveryBasePath, "/delivery-private/notifications/{iun}/quick-access-link-tokens", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, localVarAccept, localVarContentType, returnType);
-//    }
-
-//    public List<HashMap<String, String>> paGroupInfo(SettableApiKey.ApiKeyType apiKeyType) throws RestClientException {
-//        switch (apiKeyType) {
-//            case MVP_1:
-//                return paGroupInfoWithHttpInfo(apiKeyMvp1).getBody();
-//            case MVP_2:
-//                return paGroupInfoWithHttpInfo(apiKeyMvp2).getBody();
-//            case GA:
-//                return paGroupInfoWithHttpInfo(apiKeyGa).getBody();
-//            case SON:
-//                return paGroupInfoWithHttpInfo(apiKeySON).getBody();
-//            case ROOT:
-//                return paGroupInfoWithHttpInfo(apiKeyROOT).getBody();
-//            default:
-//                throw new IllegalArgumentException();
-//        }
-//    }
-
-//    public List<HashMap<String, String>> pgGroupInfo(SettableBearerToken.BearerTokenType settableBearerToken) throws RestClientException {
-//        switch (settableBearerToken) {
-//            case PG_1:
-//                return pgGroupInfoWithHttpInfo(gherkinSrlBearerToken).getBody();
-//            case PG_2:
-//                return pgGroupInfoWithHttpInfo(cucumberSpaBearerToken).getBody();
-//            default:
-//                throw new IllegalArgumentException();
-//        }
-//    }
 
     public String getVerificationCode(String digitalAddress) {
         logger.info("getVerificationCode");
         return getVerificationCodeWithHttpInfo(digitalAddress).getBody();
     }
-
-//    public String getInternalIdFromTaxId(String recipientType, String taxId) {
-//        return getInternalIdFromTaxIdWithHttpInfo(recipientType, taxId).getBody();
-//    }
-
-//    private ResponseEntity<List<HashMap<String, String>>> pgGroupInfoWithHttpInfo(String bearerToken) throws RestClientException {
-//        Object postBody = null;
-//
-//        final Map<String, Object> uriVariables = new HashMap<>();
-//
-//        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-//        queryParams.add("metadataOnly", "true");
-//
-//        final HttpHeaders headerParams = new HttpHeaders();
-//
-//        headerParams.add("Authorization","Bearer "+bearerToken);
-//
-//        final String[] localVarAccepts = {
-//                "application/json", "application/problem+json"
-//        };
-//        final List<MediaType> localVarAccept = MediaType.parseMediaTypes(StringUtils.arrayToCommaDelimitedString(localVarAccepts));
-//        final MediaType localVarContentType = MediaType.APPLICATION_JSON;
-//
-//
-//        ParameterizedTypeReference<List<HashMap<String, String>>> returnType = new ParameterizedTypeReference<>() {
-//        };
-//        return invokeAPI(basePathWebApi, "/ext-registry/pg/v1/groups", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, localVarAccept, localVarContentType, returnType);
-//    }
-    ///ext-registry-private/pg/v1/groups-all
-
-
-//    private ResponseEntity<List<HashMap<String, String>>> paGroupInfoWithHttpInfo(String apiKey) throws RestClientException {
-//        Object postBody = null;
-//
-//
-//        final Map<String, Object> uriVariables = new HashMap<>();
-//
-//        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-//        queryParams.add("metadataOnly", "true");
-//
-//        final HttpHeaders headerParams = new HttpHeaders();
-//        headerParams.add("x-api-key", apiKey);
-//
-//        if (ENEBLED_INTEROP.equalsIgnoreCase(enableInterop)) {
-//            headerParams.add("Authorization","Bearer "+ interopTokenSingleton.getTokenInterop());
-//        }
-//
-//        final String[] localVarAccepts = {
-//                "application/json", "application/problem+json"
-//        };
-//        final List<MediaType> localVarAccept = MediaType.parseMediaTypes(StringUtils.arrayToCommaDelimitedString(localVarAccepts));
-//        final MediaType localVarContentType = MediaType.APPLICATION_JSON;
-//
-//        ParameterizedTypeReference<List<HashMap<String, String>>> returnType = new ParameterizedTypeReference<>() {
-//        };
-//        return invokeAPI(gruopInfoBasePath, "/ext-registry-b2b/pa/v1/groups", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, localVarAccept, localVarContentType, returnType);
-//    }
 
     private ResponseEntity<String> getVerificationCodeWithHttpInfo(String digitalAddress) {
         Object postBody = null;
@@ -334,46 +68,23 @@ public class PnExternalServiceClientImpl {
 
         ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<>() {
         };
-//        return invokeAPI(extChannelsBasePath, "/external-channels/verification-code/{digitalAddress}", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, localVarAccept, localVarContentType, returnType);
         return invokeAPI("http://localhost:8887", "/external-channels/verification-code/{digitalAddress}", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, localVarAccept, localVarContentType, returnType);
     }
 
-//    private ResponseEntity<String> getInternalIdFromTaxIdWithHttpInfo(String recipientType, String taxId) {
-//        String postBody = taxId;
-//
-//        final Map<String, Object> uriVariables = new HashMap<>();
-//        uriVariables.put("recipientType", recipientType);
-//
-//        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-//        queryParams.add("metadataOnly", "true");
-//
-//        final HttpHeaders headerParams = new HttpHeaders();
-//
-//        final String[] localVarAccepts = {
-//                "application/json", "application/problem+json", "text/plain"
-//        };
-//        final List<MediaType> localVarAccept = MediaType.parseMediaTypes(StringUtils.arrayToCommaDelimitedString(localVarAccepts));
-//        final MediaType localVarContentType = MediaType.TEXT_PLAIN;
-//
-//        ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<>() {
-//        };
-//
-//        return invokeAPI(dataVaultBasePath, "/datavault-private/v1/recipients/external/{recipientType}", HttpMethod.POST, uriVariables, queryParams, postBody, headerParams, localVarAccept, localVarContentType, returnType);
-//    }
+    public static class SafeStorageResponse {
 
-    public static class SafeStorageResponse{
+        String key;
+        String versionId;
+        String documentType;
+        String documentStatus;
+        String contentType;
+        Integer contentLength;
+        String checksum;
+        String retentionUntil;
+        Download download;
 
-            String key;
-            String versionId;
-            String documentType;
-            String documentStatus;
-            String contentType;
-            Integer contentLength;
-            String checksum;
-           String retentionUntil;
-           Download download;
-
-           public SafeStorageResponse(){}
+        public SafeStorageResponse() {
+        }
 
         public String getKey() {
             return key;
@@ -462,9 +173,9 @@ public class PnExternalServiceClientImpl {
                     '}';
         }
 
-        public static class Download{
-               String url;
-               String retryAfter;
+        public static class Download {
+            String url;
+            String retryAfter;
 
             @Override
             public String toString() {
@@ -474,7 +185,8 @@ public class PnExternalServiceClientImpl {
                         '}';
             }
 
-            public Download(){}
+            public Download() {
+            }
 
             public String getUrl() {
                 return url;
@@ -494,64 +206,6 @@ public class PnExternalServiceClientImpl {
         }
 
     }
-
-//    private ResponseEntity<SafeStorageResponse> safeStorageInfoWithHttpInfo(String fileKey) throws RestClientException {
-//        Object postBody = null;
-//
-//        if (fileKey == null) {
-//            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'fileKey' when calling consumeEventStream");
-//        }
-//
-//        final Map<String, Object> uriVariables = new HashMap<>();
-//        uriVariables.put("fileKey", fileKey);
-//
-//        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-//        queryParams.add("metadataOnly", "true");
-//
-//        final HttpHeaders headerParams = new HttpHeaders();
-//        headerParams.add("x-pagopa-safestorage-cx-id", "pn-delivery-push");
-//
-//
-//        final String[] localVarAccepts = {
-//                "application/json", "application/problem+json","*/*"
-//        };
-//        final List<MediaType> localVarAccept = MediaType.parseMediaTypes(StringUtils.arrayToCommaDelimitedString(localVarAccepts));
-//        final MediaType localVarContentType = MediaType.APPLICATION_JSON;
-//
-//
-//        ParameterizedTypeReference<SafeStorageResponse> returnType = new ParameterizedTypeReference<>() {
-//        };
-//        return invokeAPI(safeStorageBasePath, "/safe-storage/v1/files/{fileKey}", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, localVarAccept, localVarContentType, returnType);
-//    }
-
-//    private ResponseEntity<SafeStorageResponse> safeStoragePnServiceDeskInfoWithHttpInfo(String fileKey) throws RestClientException {
-//        Object postBody = null;
-//
-//        if (fileKey == null) {
-//            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'fileKey' when calling consumeEventStream");
-//        }
-//
-//        final Map<String, Object> uriVariables = new HashMap<>();
-//        uriVariables.put("fileKey", fileKey);
-//
-//        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-//        queryParams.add("metadataOnly", "true");
-//
-//        final HttpHeaders headerParams = new HttpHeaders();
-//        headerParams.add("x-pagopa-safestorage-cx-id", "pn-service-desk");
-//
-//
-//        final String[] localVarAccepts = {
-//                "application/json", "application/problem+json","*/*"
-//        };
-//        final List<MediaType> localVarAccept = MediaType.parseMediaTypes(StringUtils.arrayToCommaDelimitedString(localVarAccepts));
-//        final MediaType localVarContentType = MediaType.APPLICATION_JSON;
-//
-//
-//        ParameterizedTypeReference<SafeStorageResponse> returnType = new ParameterizedTypeReference<>() {
-//        };
-//        return invokeAPI(safeStorageBasePath, "/safe-storage/v1/files/{fileKey}", HttpMethod.GET, uriVariables, queryParams, postBody, headerParams, localVarAccept, localVarContentType, returnType);
-//    }
 
     private <T> ResponseEntity<T> invokeAPI(String basePath, String path, HttpMethod method, Map<String, Object> pathParams, MultiValueMap<String, String> queryParams, Object body, HttpHeaders headerParams, List<MediaType> accept, MediaType contentType, ParameterizedTypeReference<T> returnType) throws RestClientException {
 
@@ -639,44 +293,6 @@ public class PnExternalServiceClientImpl {
 
     }
 
-//    private ResponseEntity<String> pushConsolidatoreNotificationWithHttpInfo(
-//            Map<String, String> mapInfo) {
-//        Object postBody = null;
-//        List<Map<String, String>> requestList = new ArrayList<>();
-//        try {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            requestList.add(mapInfo);
-//            postBody = objectMapper.writeValueAsString(requestList);
-//        } catch (JsonProcessingException exception) {
-//            log.error("Error during parse Json", exception.getMessage());
-//        }
-//
-//        final Map<String, Object> uriVariables = new HashMap<>();
-//
-//        final HttpHeaders headerParams = new HttpHeaders();
-//        headerParams.add("x-pagopa-extch-service-id", "pn-cons-000");
-//        headerParams.add("x-api-key", consolidatoreApiKey);
-//
-//        final String[] localVarAccepts = {
-//                "application/json", "application/problem+json"
-//        };
-//        final List<MediaType> localVarAccept = MediaType.parseMediaTypes(
-//                StringUtils.arrayToCommaDelimitedString(localVarAccepts));
-//        final MediaType localVarContentType = MediaType.APPLICATION_JSON;
-//
-//        ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<>() {
-//        };
-//
-//        return invokeAPI(dataVaultBasePath,
-//                "/consolidatore-ingress/v1/push-progress-events/",
-//                HttpMethod.PUT, uriVariables, null, postBody,
-//                headerParams, localVarAccept, localVarContentType, returnType);
-//    }
-
-//    public String pushConsolidatoreNotification(Map<String, String> mapInfo) {
-//        return pushConsolidatoreNotificationWithHttpInfo(mapInfo).getBody();
-//    }
-
     //OPEN SEARCH RESPONSE
     @Getter
     @Setter
@@ -692,8 +308,10 @@ public class PnExternalServiceClientImpl {
     @Getter
     @Setter
     @ToString
-    public static class Shards{
-        public Shards() {}
+    public static class Shards {
+        public Shards() {
+        }
+
         private Integer total;
         private Integer successful;
         private Integer skipped;
@@ -705,7 +323,7 @@ public class PnExternalServiceClientImpl {
     @Getter
     @Setter
     @ToString
-    public static class OuterHits{
+    public static class OuterHits {
         public OuterHits() {
         }
 
@@ -718,7 +336,7 @@ public class PnExternalServiceClientImpl {
     @Getter
     @Setter
     @ToString
-    public static class InnerHits{
+    public static class InnerHits {
         public InnerHits() {
         }
 
@@ -729,8 +347,7 @@ public class PnExternalServiceClientImpl {
         private Source _source;
 
 
-
-        public class Source{
+        public class Source {
             @Override
             public String toString() {
                 return "Source{" +
@@ -941,9 +558,10 @@ public class PnExternalServiceClientImpl {
     @Getter
     @Setter
     @ToString
-    public static class Total{
+    public static class Total {
         public Total() {
         }
+
         private Integer value;
         private String relation;
 

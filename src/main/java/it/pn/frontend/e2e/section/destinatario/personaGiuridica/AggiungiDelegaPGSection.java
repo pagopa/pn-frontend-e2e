@@ -9,9 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,9 +17,7 @@ import java.util.List;
 
 public class AggiungiDelegaPGSection extends BasePage {
 
-
-
-    private final Logger logger = LoggerFactory.getLogger("AggiungiDelegaPGSection");
+    private final Logger logger = LoggerFactory.getLogger(AggiungiDelegaPGSection.class);
 
     @FindBy(id = "select-pg")
     WebElement personaGiuridicaButton;
@@ -67,7 +62,7 @@ public class AggiungiDelegaPGSection extends BasePage {
     WebElement messaggioErroreData;
 
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     private boolean dataFineErrata;
 
@@ -80,14 +75,11 @@ public class AggiungiDelegaPGSection extends BasePage {
         try {
             WebElement titlePageBy = driver.findElement(By.id("Aggiungi una delega-page"));
             personaGiuridicaButton = driver.findElement(By.id("select-pg"));
-//            nomeInput = driver.findElement(By.id("nome"));
-//            cognomeInput = driver.findElement(By.id("cognome"));
             codiceFiscaleInput = driver.findElement(By.id("codiceFiscale"));
 
             getWebDriverWait(10).withMessage("Il titolo della pagina aggiungi delegha non è caricato").until(ExpectedConditions.visibilityOf(titlePageBy));
             getWebDriverWait(10).withMessage("Il bottone persona giuridica non è visibile").until(ExpectedConditions.visibilityOf(personaGiuridicaButton));
-//            getWebDriverWait(10).withMessage("Il campo nome persona fisica non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOfAllElements(driver.findElement(By.id("nome")), driver.findElement(By.id("cognome"))), ExpectedConditions.visibilityOf(ragioneSocialeInput)));
-            getWebDriverWait(10).withMessage("Il campo nome persona fisica non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.id("nome"))),ExpectedConditions.visibilityOfElementLocated(By.id("ragioneSociale"))));
+            getWebDriverWait(10).withMessage("Il campo nome persona fisica non è visibile").until(ExpectedConditions.or(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.id("nome"))), ExpectedConditions.visibilityOfElementLocated(By.id("ragioneSociale"))));
             getWebDriverWait(10).withMessage("il campo codice fiscale non è visibile").until(ExpectedConditions.visibilityOf(codiceFiscaleInput));
             WebElement radioButtonTuttiEnti = driver.findElement(By.id("tutti-gli-enti-selezionati"));
             getWebDriverWait(10).withMessage("Il radio button tutti gli enti non è visibile").until(ExpectedConditions.visibilityOf(radioButtonTuttiEnti));
@@ -106,23 +98,12 @@ public class AggiungiDelegaPGSection extends BasePage {
             getWebDriverWait(10).withMessage("Il codice ci verifica della delega non è visibile").until(ExpectedConditions.visibilityOf(verificationCode));
             logger.info("Si visualizza correttamente la sezione Aggiungi una delega");
         } catch (TimeoutException e) {
-            logger.error("Non si visualizza correttamente la sezione Aggiungi una delega con errore: " + e.getMessage());
             Assertions.fail("Non si visualizza correttamente la sezione Aggiungi una delega con errore: " + e.getMessage());
         }
     }
 
 
     public void clickSulBottoneInviaRichiesta() {
-//        inviaLaRichiestaButton = driver.findElement(By.xpath("//button[contains(@data-testid,'createButton')]"));
-//        getWebDriverWait(10).withMessage("Bottone invia la richiesta non visualizzato").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
-//        logger.info("click invia richiesta");
-//        inviaLaRichiestaButton.click();
-//        webTool.waitTime(15);
-//        getWebDriverWait(10).withMessage("Bottone torna alle deleghe non visualizzato").until(ExpectedConditions.elementToBeClickable((By.id("courtesy-page-button"))));
-//        tornaDelegheButton = driver.findElement(By.id("courtesy-page-button"));
-//        tornaDelegheButton.click();
-//        logger.info("click torna alle deleghe");
-
         WebElement inviaLaRichiestaButton = getWebDriverWait(20)
                 .withMessage("Bottone invia la richiesta non visualizzato")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(@data-testid,'createButton')]")));
@@ -180,7 +161,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
         enteElementInput.click();
         enteElementInput.sendKeys(ente);
-        logger.info("Inserito ente: "+ente);
+        logger.info("Inserito ente: {}", ente);
 
         // select menu;
         WebElement menuEntiOptionBy = driver.findElement(By.xpath("//div[@role='presentation']"));
@@ -190,7 +171,7 @@ public class AggiungiDelegaPGSection extends BasePage {
 
         //click on option 0
         WebElement comuneOptionBy = driver.findElement(By.id("enti-option-0"));
-       getWebDriverWait(30).withMessage("Non si visualizza l opzione").until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
+        getWebDriverWait(30).withMessage("Non si visualizza l opzione").until(ExpectedConditions.elementToBeClickable(comuneOptionBy));
         js().executeScript("arguments[0].click()", comuneOptionBy);
         logger.info("Ente cliccato");
     }
@@ -204,13 +185,11 @@ public class AggiungiDelegaPGSection extends BasePage {
     }
 
 
-
     public void insertDataCorretta() {
         LocalDate dataDaInserire = LocalDate.now().plusDays(1);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = dataDaInserire.format(formatter);
         insertData(formattedDate);
-        // dataTermineDelegaInput.sendKeys(formattedDate);
     }
 
 
@@ -238,8 +217,7 @@ public class AggiungiDelegaPGSection extends BasePage {
              */
             if (dataFieldList.isEmpty()) {
                 dataField = driver.findElement(By.id("expirationDate"));
-            }
-            else {
+            } else {
                 dataField = dataFieldList.get(0);
             }
 
@@ -259,8 +237,8 @@ public class AggiungiDelegaPGSection extends BasePage {
             getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataTermineDelegaInput, "value", dataInserita));
         } catch (ElementClickInterceptedException e) {
             logger.error("Non è possibile settare una data Fine precedente rispetto alla data Inizio: {}", e.getMessage());
-            if (calendar!= null) {
-                dayDa = dayDa+2;
+            if (calendar != null) {
+                dayDa = dayDa + 2;
                 WebElement dateToSelect = calendar.findElement(By.xpath("//div[contains(@class, 'MuiDateCalendar-root')]//div[contains(@class,'MuiDayCalendar-monthContainer')]//*[text()='" + dayDa + "']"));
                 dateToSelect.click();
             }

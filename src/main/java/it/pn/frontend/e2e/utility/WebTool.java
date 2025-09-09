@@ -17,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +35,7 @@ public class WebTool {
     private WebDriverConfig webDriverConfig;
     @Autowired
     @Lazy
-    private  HooksNew hooks;
+    private HooksNew hooks;
 
     private HeaderPASection headerPASection;
 
@@ -53,10 +54,10 @@ public class WebTool {
     private WebDriver driver;
 
     public WebTool(WebDriver driver) {
-       this.driver = driver;
+        this.driver = driver;
     }
 
-    public  String switchToPortal(AppPortal portal) {
+    public String switchToPortal(AppPortal portal) {
         log.info("Si accede al portale");
         openNewTab();
         switch (portal) {
@@ -85,7 +86,6 @@ public class WebTool {
                 driver.get(portal.url);
             }
             default -> {
-                log.error("Tipologia di portale non specificato o errato!");
                 Assertions.fail("Tipologia di portale non specificato o errato!");
             }
         }
@@ -96,7 +96,7 @@ public class WebTool {
         return driver.getWindowHandle();
     }
 
-    public String switchToPortalUrl(AppPortalUrlFactory urlFactory,AppPortalUrl portal) {
+    public String switchToPortalUrl(AppPortalUrlFactory urlFactory, AppPortalUrl portal) {
         log.info("Si accede al portale");
         openNewTab();
 
@@ -129,16 +129,16 @@ public class WebTool {
         driver.switchTo().window(newTab);
     }
 
-    public  void closeTab() {
+    public void closeTab() {
         log.info("Si chiude la scheda corrente");
         driver.close();
         String newTab = driver.getWindowHandles().stream().reduce((first, second) -> second).orElse(null);
         driver.switchTo().window(newTab);
     }
 
-    public  void switchToOtherTab(){
-        String parentWindowHandle =  driver.getWindowHandle();
-        Set<String> windowHandles =  driver.getWindowHandles();
+    public void switchToOtherTab() {
+        String parentWindowHandle = driver.getWindowHandle();
+        Set<String> windowHandles = driver.getWindowHandles();
         for (String handle : windowHandles) {
             if (!handle.equals(parentWindowHandle)) {
                 driver.switchTo().window(handle);
@@ -157,9 +157,6 @@ public class WebTool {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         String currentDate = dateFormat.format(new Date());
 
-        // Generate a random number between 0 and 100
-        Random random = new Random();
-//        String randomNumber = String.valueOf(random.nextInt(10000));
         String randomNumber = generateRandomNumber();
 
         // Concatenate the current date and the random number
@@ -169,26 +166,23 @@ public class WebTool {
         return protocolNumber;
     }
 
-    public static String  generateRandomNumber(){
-        String threadNumber = (Thread.currentThread().getId()+"");
-        String numberOfThread = threadNumber.length() < 2 ? "0"+threadNumber: threadNumber.substring(0, 2);
-        String timeNano = System.nanoTime()+"";
-        String randomClassePagamento = new Random().nextInt(14)+"";
-        randomClassePagamento = randomClassePagamento.length() < 2 ? "0"+randomClassePagamento : randomClassePagamento;
+    public static String generateRandomNumber() {
+        String threadNumber = (Thread.currentThread().getId() + "");
+        String numberOfThread = threadNumber.length() < 2 ? "0" + threadNumber : threadNumber.substring(0, 2);
+        String timeNano = System.nanoTime() + "";
+        String randomClassePagamento = new Random().nextInt(14) + "";
+        randomClassePagamento = randomClassePagamento.length() < 2 ? "0" + randomClassePagamento : randomClassePagamento;
         String finalNumber = "" + String.format("302%s%s%s", randomClassePagamento, numberOfThread, timeNano.substring(0, timeNano.length() - 4));
 
-        if(finalNumber.length() > NOTICE_CODE_LENGTH){
-            finalNumber = finalNumber.substring(0,NOTICE_CODE_LENGTH);
-        }else{
+        if (finalNumber.length() > NOTICE_CODE_LENGTH) {
+            finalNumber = finalNumber.substring(0, NOTICE_CODE_LENGTH);
+        } else {
             int remainingLength = NOTICE_CODE_LENGTH - finalNumber.length();
             String paddingString = String.valueOf(new Random().nextInt(9)).repeat(remainingLength);
             finalNumber = finalNumber + paddingString;
         }
         return finalNumber;
     }
-
-
-
 
 
     /**
@@ -209,7 +203,7 @@ public class WebTool {
      *
      * @param seconds the number of seconds to wait
      */
-    public  void waitTime(int seconds) {
+    public void waitTime(int seconds) {
         try {
             int minutes;
             int remainingSeconds;

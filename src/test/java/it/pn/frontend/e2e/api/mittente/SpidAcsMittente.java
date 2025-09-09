@@ -1,13 +1,8 @@
 package it.pn.frontend.e2e.api.mittente;
 
-import org.apache.hc.client5.http.classic.HttpClient;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.cookie.BasicCookieStore;
-import org.apache.hc.client5.http.cookie.Cookie;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.client5.http.impl.cookie.BasicClientCookie;
-import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.http.ClassicHttpRequest;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpHeaders;
@@ -18,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class SpidAcsMittente {
@@ -31,37 +25,36 @@ public class SpidAcsMittente {
     private final BasicCookieStore cookieStore;
     private final Map<String, String> spidAcsMittenteResponse = new HashMap<>();
 
-    public SpidAcsMittente( String samlResponse, String relayState,BasicCookieStore cookieStore){
+    public SpidAcsMittente(String samlResponse, String relayState, BasicCookieStore cookieStore) {
         this.samlResponse = samlResponse;
         this.relayState = relayState;
         this.cookieStore = cookieStore;
     }
 
-    public void runSpidAcs(){
-        try{
+    public void runSpidAcs() {
+        try {
             CloseableHttpClient httpclient = HttpClients.custom().setDefaultCookieStore(this.cookieStore).disableRedirectHandling().build();
             ClassicHttpRequest httpPost = ClassicRequestBuilder
                     .post(this.spidAcsEndPoint)
-                    .addHeader(HttpHeaders.CONTENT_TYPE,"application/x-www-form-urlencoded")
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded")
                     .addParameter("RelayState", "")
                     .addParameter("SAMLResponse", this.samlResponse)
                     .build();
 
             httpclient.execute(httpPost, classicHttpResponse -> {
-                logger.info(classicHttpResponse.getCode() + " " + classicHttpResponse.getReasonPhrase());
+                logger.info("{} - {}", classicHttpResponse.getCode(), classicHttpResponse.getReasonPhrase());
                 Header[] headers = classicHttpResponse.getHeaders();
                 for (Header header : headers) {
-                    logger.info("Key : " + header.getName()
-                            + " ,Value : " + header.getValue());
+                    logger.info("Key : {} {} ,Value : ", header.getName(), header.getValue());
                 }
                 spidAcsMittenteResponse.put("responseCode", String.valueOf(classicHttpResponse.getCode()));
-                spidAcsMittenteResponse.put("urlPortale",classicHttpResponse.getHeader("Location").getValue());
-                logger.info(classicHttpResponse.getHeader("Location").getValue());
-                logger.info(spidAcsMittenteResponse.get("urlPortale"));
+                spidAcsMittenteResponse.put("urlPortale", classicHttpResponse.getHeader("Location").getValue());
+                logger.info("runSpidAcs Location {}", classicHttpResponse.getHeader("Location").getValue());
+                logger.info("runSpidAcs urlPortale {}", spidAcsMittenteResponse.get("urlPortale"));
                 return null;
             });
 
-        }catch (IOException e){
+        } catch (IOException e) {
             Assertions.fail(e.getMessage());
         }
     }

@@ -25,4 +25,3 @@ Feature: il mittente effettua il download attestazione opponibile a terzi mancat
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: mancato recapito digitale")] |
       | vediDettagli | false                                          |
-#    And Logout da portale mittente

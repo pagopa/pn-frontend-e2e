@@ -10,20 +10,17 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 
-public class NotificheDestinatarioPage extends BasePage{
-    private static final Logger logger = LoggerFactory.getLogger("NotificheDestinatarioPage");
+public class NotificheDestinatarioPage extends BasePage {
+    private static final Logger logger = LoggerFactory.getLogger(NotificheDestinatarioPage.class);
 
     @FindBy(id = "iunMatch")
     WebElement codiceIunTextField;
     @FindBy(xpath = "//button[contains(text(),'Ricevuta di consegna PEC')]")
     WebElement ricevutaDiConsegnaButton;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public NotificheDestinatarioPage(WebDriver driver) {
         this.driver = driver;
@@ -35,20 +32,20 @@ public class NotificheDestinatarioPage extends BasePage{
         webTool.waitTime(1);
         driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
     }
+
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
         try {
-            By codiceIUNBy = By.xpath("//td[contains(text(),'"+codiceIUNInserito+"')]");
+            By codiceIUNBy = By.xpath("//td[contains(text(),'" + codiceIUNInserito + "')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
-            logger.info("il codice IUN "+codiceIUNInserito+" è stato trovato");
+            logger.info("il codice IUN {} è stato trovato",codiceIUNInserito);
             return true;
-        }catch (TimeoutException e){
-            logger.error("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
-            Assertions.fail("Il codice IUN"+codiceIUNInserito+" non è stato trovato con errore:"+e.getMessage());
+        } catch (TimeoutException e) {
+            Assertions.fail("Il codice IUN" + codiceIUNInserito + " non è stato trovato con errore:" + e.getMessage());
         }
         return false;
     }
 
-    public boolean isTextBoxInvalid(){
+    public boolean isTextBoxInvalid() {
         getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
 
         String ariaInvalid = driver.findElement(By.id("iunMatch")).getAttribute("aria-invalid");

@@ -10,32 +10,20 @@ import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-/*
-*Modifiche principali:
-Iniezione delle dipendenze: Utilizza @Autowired per l’iniezione automatica di CustomHttpClient e WebDriverConfig, eliminando l'uso di un getInstance() statico.
-Costruttore: Il costruttore viene utilizzato per impostare l'URL base e l'intestazione Authorization per tutte le richieste.
-Miglioramento gestione errori: Log di errore e gestione delle eccezioni tramite RestDelegationException per comunicare i fallimenti specifici nei metodi.
-Metodi ottimizzati: Tutti i metodi sono stati aggiornati per seguire la configurazione dell’intestazione e l’uso di CustomHttpClient.
-*
-* */
+
 @Component
 public class RestDelegation {
 
     private static final Logger logger = LoggerFactory.getLogger(RestDelegation.class);
 
 
-
-   private WebDriverConfig webDriverConfig;
+    private WebDriverConfig webDriverConfig;
 
     private final Map<String, String> headers = new HashMap<>();
 
@@ -43,9 +31,8 @@ public class RestDelegation {
     private final CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG;
 
 
-
     @Autowired
-    public RestDelegation( WebDriverConfig webDriverConfig, CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF, CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG) {
+    public RestDelegation(WebDriverConfig webDriverConfig, CustomHttpClient<DelegateRequestPF, DelegateResponsePF> httpClientPF, CustomHttpClient<DelegateRequestPG, DelegateResponsePG> httpClientPG) {
         this.httpClientPF = httpClientPF;
         this.httpClientPG = httpClientPG;
         this.webDriverConfig = webDriverConfig;
@@ -86,7 +73,6 @@ public class RestDelegation {
                 return response;
             }
         } catch (IOException e) {
-            logger.error("Errore durante addDelegationPF", e);
             throw new RestDelegationException("Errore durante la richiesta di delega PF", e);
         }
         return null;
@@ -110,7 +96,6 @@ public class RestDelegation {
                 return response;
             }
         } catch (IOException e) {
-            logger.error("Errore durante addDelegationPG", e);
             throw new RestDelegationException("Errore durante la richiesta di delega PG", e);
         }
         return null;
@@ -127,7 +112,6 @@ public class RestDelegation {
             httpClientPF.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/revoke", headers);
             logger.info("Delega {} revocata con successo", mandateId);
         } catch (IOException e) {
-            logger.error("Errore durante revokeDelegation", e);
             throw new RestDelegationException("Errore durante la revoca della delega", e);
         }
     }
@@ -143,7 +127,6 @@ public class RestDelegation {
             httpClientPG.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/reject", headers);
             logger.info("Delega {} rifiutata con successo", mandateId);
         } catch (IOException e) {
-            logger.error("Errore durante rejectDelegation", e);
             throw new RestDelegationException("Errore durante il rifiuto della delega", e);
         }
     }

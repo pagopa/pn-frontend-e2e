@@ -1,6 +1,5 @@
 Feature: PA invia notifica manuale bilingue: Italiano e Francese
 
-  @TestSuite
   @TA_bilinguismoRefreshPaginaItalianoFrancese_QA5376
   @bilinguismo
   @NRT_Blocco_1
@@ -15,7 +14,6 @@ Feature: PA invia notifica manuale bilingue: Italiano e Francese
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
     And Selezionare da impostazione lingua "Francese"
-#    And Selezionare da impostazione lingua "Italiano"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari

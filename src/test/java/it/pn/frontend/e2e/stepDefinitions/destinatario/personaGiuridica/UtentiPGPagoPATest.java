@@ -10,11 +10,8 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.HomePagePG;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.UtentiPGPage;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +23,9 @@ public class UtentiPGPagoPATest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger(UtentiPGPagoPATest.class);
 
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
-    private  HomePagePG homePagePG;
+    private HomePagePG homePagePG;
 
     private UtentiPGPage utentiPGPage;
 
@@ -37,12 +34,11 @@ public class UtentiPGPagoPATest extends BasePage {
     private WebDriverConfig webDriverConfig;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         homePagePG = new HomePagePG(driver);
         utentiPGPage = new UtentiPGPage(driver);
-
 
     }
 
@@ -144,15 +140,15 @@ public class UtentiPGPagoPATest extends BasePage {
 
     @And("Si rimuove utente se esiste {string}")
     public void siRimuoveUtenteAppenaCreato(String nameUtente) {
-        try{
+        try {
             String name = nameUtente.toLowerCase();
             utentiPGPage.getUserDetailsPage(name);
             utentiPGPage.clickRemoveButton();
             utentiPGPage.checkRemoveUserPopup();
             siCliccaSulBottoneRimuoviDellPopup();
             logger.info("Utente Presente e quindi rimosso");
-        }catch (NoSuchElementException | TimeoutException e){
-            logger.error("Utente non Presente : "+e.getMessage());
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.error("Utente non Presente : " + e.getMessage());
         }
     }
 
@@ -176,7 +172,7 @@ public class UtentiPGPagoPATest extends BasePage {
     }
 
     @Then("Home page persona giuridica ruolo operatore viene visualizzata correttamente")
-    public void homePagePersonaGiuridicaRuoloOperatoreVieneVisualizzataCorrettamente(Map<String, String > datiLogin) {
+    public void homePagePersonaGiuridicaRuoloOperatoreVieneVisualizzataCorrettamente(Map<String, String> datiLogin) {
         homePagePG.waitLoadHomePagePGRuoloOperatorePage(datiLogin.get("ragioneSociale"));
     }
 

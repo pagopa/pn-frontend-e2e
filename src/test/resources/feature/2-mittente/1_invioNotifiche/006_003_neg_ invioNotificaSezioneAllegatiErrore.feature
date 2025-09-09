@@ -1,11 +1,9 @@
 Feature: il mittente inserisce tutti i dati di una notifica senza allegati
 
   @TA_invioNotificaSenzaAllegati
-  @TestSuite
   @mittente
   @invioNotifiche_07
   @NRT_Blocco_1
-  @loginFE
   Scenario: PN-9642 - il mittente inserisce tutti i dati di una notifica senza allegati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -26,4 +24,3 @@ Feature: il mittente inserisce tutti i dati di una notifica senza allegati
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto con estenzione non valida
     Then Si visualizza correttamente il messaggio di errore estensione file non supportata. Riprovare con un altro file.
-#    And Logout da portale mittente

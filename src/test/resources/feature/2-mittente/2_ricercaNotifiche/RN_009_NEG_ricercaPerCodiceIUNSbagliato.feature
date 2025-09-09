@@ -3,8 +3,6 @@ Feature: Mittente effetua una ricerca notifiche per codice IUN sbagliato
   @TA_MittenteRicercaCodiceIUNSbagliato
   @mittente
   @ricercaNotificheMittente
-  @TestSuite
-  @loginFE
   @NRT_Blocco_1
   Scenario: PN-9322 - Mittente loggato effettua una ricerca per codice IUN sbagliato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

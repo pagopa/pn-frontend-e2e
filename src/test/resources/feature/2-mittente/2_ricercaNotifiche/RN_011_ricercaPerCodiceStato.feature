@@ -1,10 +1,8 @@
 Feature: Mittente effetua una ricerca notifiche per Stato
 
-  @TestSuite
-    @TA_MittenteRicercaPerStato
+  @TA_MittenteRicercaPerStato
     @mittente
     @ricercaNotificheMittente
-    @loginFE
     @NRT_Blocco_1
   Scenario Outline: PN-9324 - Mittente logato effettua una ricerca per stato notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
