@@ -4,7 +4,6 @@ Feature: La persona giuridica annulla l'operazione di revoca una delega
   @TA_PGAnnullaRevocaDelega
   @DeleghePG
   @PG
-  @deleghe2
   @DeleghePFPG
   @NRT_Blocco_1
   Scenario: PN-9169-A115 - La persona giuridica annulla l'operazione di revoca una delega

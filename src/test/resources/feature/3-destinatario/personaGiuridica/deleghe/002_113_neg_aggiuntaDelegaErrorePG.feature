@@ -4,7 +4,6 @@ Feature: La persona giuridica aggiunge una nuova delga inserendo una data errata
   @TA_PGNuovaDelegaDataErrata
   @DeleghePG
   @PG
-  @deleghe2
   @DeleghePFPG
   @NRT_Blocco_1
   Scenario: PN-9165-A111 - La persona giuridica aggiunge una nuova delega inserendo una data errata

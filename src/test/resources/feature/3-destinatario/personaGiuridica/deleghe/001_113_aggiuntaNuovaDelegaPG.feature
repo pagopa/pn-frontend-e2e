@@ -4,7 +4,6 @@ Feature: La persona giuridica aggiunge una nuova delega
   @TA_PGaggiungiNuovaDelega
   @DeleghePG
   @PG
-  @deleghe2
   @DeleghePFPG
   @NRT_Blocco_1
   Scenario: PN-9165 - La persona giuridica aggiunge una nuova delega
