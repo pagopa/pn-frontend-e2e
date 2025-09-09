@@ -1,5 +1,7 @@
 package it.pn.frontend.e2e.model.singleton;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -15,6 +17,8 @@ Costruttore privato rimosso: Non è necessario bloccare il costruttore dato che 
 
 @Component
 public class MandateSingleton {
+
+    private static final Logger logger = LoggerFactory.getLogger(MandateSingleton.class);
 
     private final Map<String, String> scenarioMandateId = new ConcurrentHashMap<>();
     private final Map<String, String> verificationCodeMandateId = new ConcurrentHashMap<>();
@@ -33,6 +37,7 @@ public class MandateSingleton {
     }
 
     public String getVerificationCode(String mandateId) {
+        logger.info("verificationCodeMandateId {}", verificationCodeMandateId.values());
         return verificationCodeMandateId.get(mandateId);
     }
 }
