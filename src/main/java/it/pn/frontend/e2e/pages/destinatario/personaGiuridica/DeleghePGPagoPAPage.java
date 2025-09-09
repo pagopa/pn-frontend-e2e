@@ -415,13 +415,9 @@ public void clickDelegatiImpresa() {
     public void checkTextboxCodiceSonoRosse() {
         final String textboxIsInvalid = "true";
         boolean isInvalid = true;
-        for (int i = 0; i < 5; i++) {
-            String xpathBy = "code-input-" + i;
-            getWebDriverWait(15).withMessage("Textbox di input codice delega non visualizzata").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(xpathBy)));
-            String stateInput = element(By.id(xpathBy)).getAttribute("aria-invalid");
-            if (!(textboxIsInvalid.equals(stateInput))) {
-                isInvalid = false;
-            }
+        String stateInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input")).getAttribute("aria-invalid");
+        if (!(textboxIsInvalid.equals(stateInput))) {
+            isInvalid = false;
         }
         if (isInvalid) {
             logger.info("Textbox di input codice delega invalido");
