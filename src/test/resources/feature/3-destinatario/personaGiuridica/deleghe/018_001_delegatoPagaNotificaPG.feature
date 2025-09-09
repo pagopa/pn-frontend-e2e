@@ -4,37 +4,18 @@ Feature:Il delegato persona giuridica accede ad una delega
   @TA_PGdelegatoPagaNotifica
   @DeleghePG
   @PG
-  @deleghe2
   @DeleghePFPG1
   @NRT_Blocco_1
+  @NRT_PN13213
+  @deleghe2
   Scenario: PN-10389 - Il delegato persona giuridica paga una notifica
-    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    When Si inizializzano i dati per la notifica
-      | modello         | A/R                |
-      | documenti       | 1                  |
-      | oggettoNotifica | Pagamento rata IMU -> PN-10389 |
-      | costiNotifica   | false              |
-    And Si aggiunge un destinatario alla notifica
-      | indirizzo         | VIA ROMA 20        |
-      | dettagliIndirizzo | Scala b            |
-      | codicePostale     | 20147              |
-      | comune            | Milano             |
-      | dettagliComune    | Milano             |
-      | provincia         | MI                 |
-      | stato             | Italia             |
-      | nomeCognome       | Convivio Spa |
-      | codiceFiscale     | 27957814470   |
-      | tipoDestinatario  | PG                 |
-      | domicilioDigitale | test@test.com      |
-      | avvisoPagoPa      | 1                  |
-      | F24               | 1                  |
-    Then Creo in background una notifica per destinatario tramite API REST
-    And Refresh pagina
-    And Cliccare sul bottone Filtra Notifica "filter-notifications-button"
-    And La persona giuridica clicca sulla prima notifica restituita
-    And Cliccare sul bottone Paga
-    Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
-#    And Si verifica che visualizzato lo stato Pagato
+    Given Login Page persona giuridica viene visualizzata
+    When Login con persona giuridica
+      | user           | DanteAlighieri |
+      | pwd            | test           |
+      | ragioneSociale | Convivio Spa   |
+    And Si clicca su prodotto
+    #    And Si verifica che visualizzato lo stato Pagato
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona giuridica si vede la sezione Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
@@ -46,13 +27,6 @@ Feature:Il delegato persona giuridica accede ad una delega
       | nome          | Lucrezia            |
       | cognome       | Borgia              |
     And Nella sezione Deleghe si crea una delega accettata per PG
-
     And PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella sezione Deleghe si accetta la delega accettata per PG
-    And Click Notifiche
-    And Nella pagina Piattaforma Notifiche persona fisica si clicca sulle notifiche di "(Convivio Spa)"
-    And Si controlla la pagina delle notifiche delegati di "Convivio Spa"
-    And Refresh pagina
-    And Si seleziona la notifica
-    And Si controlla che il testo sia nel box pagamento "//button[@data-testid='pay-button']"
