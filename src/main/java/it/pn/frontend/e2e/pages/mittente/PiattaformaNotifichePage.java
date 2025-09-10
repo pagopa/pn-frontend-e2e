@@ -28,8 +28,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-
 
 public class PiattaformaNotifichePage extends BasePage {
 
@@ -163,7 +161,7 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-//    public void insertCodiceFiscale(String codiceFiscale) {
+    //    public void insertCodiceFiscale(String codiceFiscale) {
 //        try {
 //            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipientId"))));
 //            cfTextField = driver.findElement(By.id("recipientId"));
@@ -176,27 +174,27 @@ public class PiattaformaNotifichePage extends BasePage {
 //        }
 //
 //    }
-public void insertCodiceFiscale(String codiceFiscale) {
-    try {
-        WebElement cfTextField = getWebDriverWait(10)
-                .withMessage("Il campo Codice Fiscale non è visibile")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.id("recipientId")));
+    public void insertCodiceFiscale(String codiceFiscale) {
+        try {
+            WebElement cfTextField = getWebDriverWait(10)
+                    .withMessage("Il campo Codice Fiscale non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("recipientId")));
 
-        cfTextField.click();
-        cfTextField.clear(); // buona pratica: svuota sempre il campo prima
-        cfTextField.sendKeys(codiceFiscale);
+            cfTextField.click();
+            cfTextField.clear(); // buona pratica: svuota sempre il campo prima
+            cfTextField.sendKeys(codiceFiscale);
 
-        // Attendi che il valore sia effettivamente inserito
-        getWebDriverWait(3)
-                .withMessage("Il valore del Codice Fiscale non corrisponde")
-                .until(ExpectedConditions.attributeToBe(cfTextField, "value", codiceFiscale));
+            // Attendi che il valore sia effettivamente inserito
+            getWebDriverWait(3)
+                    .withMessage("Il valore del Codice Fiscale non corrisponde")
+                    .until(ExpectedConditions.attributeToBe(cfTextField, "value", codiceFiscale));
 
-        logger.info("Codice Fiscale inserito correttamente: {}", codiceFiscale);
+            logger.info("Codice Fiscale inserito correttamente: {}", codiceFiscale);
 
-    } catch (TimeoutException e) {
-        Assertions.fail("Codice Fiscale NON inserito entro il tempo limite: " + e.getMessage());
+        } catch (TimeoutException e) {
+            Assertions.fail("Codice Fiscale NON inserito entro il tempo limite: " + e.getMessage());
+        }
     }
-}
 
     public void selectFiltraNotificaButtonMittente() {
         webTool.waitTime(2);
@@ -259,10 +257,10 @@ public void insertCodiceFiscale(String codiceFiscale) {
 //    }
 
     public void selectFiltraNotificaButtonDestinatario() {
-            WebElement filtraNotificaButton = getWebDriverWait(20)
-                    .withMessage("Il filtro non è cliccabile")
-                    .until(ExpectedConditions.elementToBeClickable(By.id("filter-notifications-button")));
-            filtraNotificaButton.click();
+        WebElement filtraNotificaButton = getWebDriverWait(20)
+                .withMessage("Il filtro non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("filter-notifications-button")));
+        filtraNotificaButton.click();
     }
 
 //    public int getListaCf(String cfInserito) {
@@ -304,29 +302,43 @@ public void insertCodiceFiscale(String codiceFiscale) {
         }
     }
 
+    //    public boolean verificaEsistenzaEPassaggioPagina() {
+//        js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
+//        try {
+//            getWebDriverWait(10).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("page2"))));
+//            logger.info("Bottone pagina 2 trovato");
+//            driver.findElement(By.id("page2")).click();
+//            return true;
+//        } catch (TimeoutException e) {
+//            logger.error("bottone pagina 2 non trovata con errore: {}", e.getMessage());
+//            return false;
+//        }
+//    }
     public boolean verificaEsistenzaEPassaggioPagina() {
-        js().executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        js().executeScript("window.scrollBy(0, document.body.scrollHeight)");
+        By page2ButtonLocator = By.id("page2");
         try {
-            getWebDriverWait(10).withMessage("Il bottone pagina 2 non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("page2"))));
+            WebElement page2Button = getWebDriverWait(10)
+                    .withMessage("Il bottone pagina 2 non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(page2ButtonLocator));
+
             logger.info("Bottone pagina 2 trovato");
-            driver.findElement(By.id("page2")).click();
+            page2Button.click();
             return true;
+
         } catch (TimeoutException e) {
-            logger.error("bottone pagina 2 non trovata con errore: {}", e.getMessage());
+            logger.error("Bottone pagina 2 non trovato: {}", e.getMessage());
             return false;
         }
     }
 
+
     public void inserimentoCodiceIUN(String codiceIUN) {
-        // Attendi che il campo per l'inserimento del codice IUN sia visibile
         WebElement iunField = getWebDriverWait(100)
                 .withMessage("Il campo per l'inserimento del codice IUN non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("iunMatch")));
-        // Clicca sul campo
         iunField.click();
-        // Cancella il contenuto del campo
         iunField.clear();
-        // Inserisci il nuovo codice IUN
         iunField.sendKeys(codiceIUN);
 
     }
@@ -336,16 +348,28 @@ public void insertCodiceFiscale(String codiceFiscale) {
         return codiceIUN != null;
     }
 
+    //    private WebElement getCodiceIUN(String codiceIUNInserito) {
+//        try {
+//            getWebDriverWait(30).withMessage("Il codice IUN: " + codiceIUNInserito + " non è presente")
+//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]"))));
+//            WebElement codiceIUNBy = driver.findElement(By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]"));
+//            return codiceIUNBy;
+//        } catch (TimeoutException e) {
+//            return null;
+//        }
+//    }
     private WebElement getCodiceIUN(String codiceIUNInserito) {
+        By codiceIUNLocator = By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]");
         try {
-            getWebDriverWait(30).withMessage("Il codice IUN: " + codiceIUNInserito + " non è presente")
-                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]"))));
-            WebElement codiceIUNBy = driver.findElement(By.xpath("//button[contains(text(),'" + codiceIUNInserito + "')]"));
-            return codiceIUNBy;
+            return getWebDriverWait(30)
+                    .withMessage("Il codice IUN: " + codiceIUNInserito + " non è presente")
+                    .until(ExpectedConditions.visibilityOfElementLocated(codiceIUNLocator));
         } catch (TimeoutException e) {
+            logger.warn("Codice IUN non trovato entro 30s: {}", codiceIUNInserito);
             return null;
         }
     }
+
 
     public boolean controlloDateInserite(String dataInerita) {
         String[] date = dataInerita.split("/");
@@ -552,32 +576,64 @@ public void insertCodiceFiscale(String codiceFiscale) {
         return result;
     }
 
+    //    public int getListDate() {
+//        attesaCaricamentoPagina();
+//        getWebDriverWait(30).withMessage("Nessuna data trovata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"))));
+//        List<WebElement> dataListBy = driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"));
+//        logger.info("Date trovate correttamente");
+//
+//        return dataListBy.size();
+//    }
     public int getListDate() {
         attesaCaricamentoPagina();
-        getWebDriverWait(30).withMessage("Nessuna data trovata").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"))));
-        List<WebElement> dataListBy = driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"));
-        logger.info("Date trovate correttamente");
+        By dateLocator = By.xpath("//tr[@id='notificationsTable.body.row']");
+        List<WebElement> dataListBy = getWebDriverWait(30)
+                .withMessage("Nessuna data trovata")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dateLocator));
 
+        logger.info("Date trovate correttamente: {}", dataListBy.size());
         return dataListBy.size();
     }
 
+
+    //    public void selezionareStatoNotifica(String statoInserito) {
+//        statoNotificaField = driver.findElement(By.id("status"));
+//        statoNotificaField.click();
+//        try {
+//            WebElement statoNotificaBy = driver.findElement(By.xpath("//li[contains(@data-value,'" + statoInserito + "')]"));
+//            getWebDriverWait(30).until(elementToBeClickable(statoNotificaBy));
+//            if (statoNotificaBy.isDisplayed()) {
+//                js().executeScript("arguments[0].click()", statoNotificaBy);
+//            } else {
+//                js().executeScript("arguments[0].scrollIntoView(true);", statoNotificaBy);
+//                js().executeScript("arguments[0].click()", statoNotificaBy);
+//            }
+//            logger.info("Stato notifica selezionato correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
+//        }
+//    }
     public void selezionareStatoNotifica(String statoInserito) {
-        statoNotificaField = driver.findElement(By.id("status"));
+        // Apro il menu a tendina
+        WebElement statoNotificaField = getWebDriverWait(10)
+                .until(ExpectedConditions.elementToBeClickable(By.id("status")));
         statoNotificaField.click();
+
+        By statoNotificaLocator = By.xpath("//li[contains(@data-value,'" + statoInserito + "')]");
         try {
-            WebElement statoNotificaBy = driver.findElement(By.xpath("//li[contains(@data-value,'" + statoInserito + "')]"));
-            getWebDriverWait(30).until(elementToBeClickable(statoNotificaBy));
-            if (statoNotificaBy.isDisplayed()) {
-                js().executeScript("arguments[0].click()", statoNotificaBy);
-            } else {
-                js().executeScript("arguments[0].scrollIntoView(true);", statoNotificaBy);
-                js().executeScript("arguments[0].click()", statoNotificaBy);
-            }
-            logger.info("Stato notifica selezionato correttamente");
+            WebElement statoNotificaBy = getWebDriverWait(30)
+                    .withMessage("Stato notifica '" + statoInserito + "' non disponibile")
+                    .until(ExpectedConditions.elementToBeClickable(statoNotificaLocator));
+
+            js().executeScript("arguments[0].scrollIntoView(true);", statoNotificaBy);
+            js().executeScript("arguments[0].click();", statoNotificaBy);
+
+            logger.info("Stato notifica '{}' selezionato correttamente", statoInserito);
         } catch (TimeoutException e) {
             Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
         }
     }
+
 
     public int getListStato(String statoNotifica) {
         try {
@@ -802,19 +858,43 @@ public void insertCodiceFiscale(String codiceFiscale) {
         webTool.waitTime(5);
     }
 
+    //    public String ricercaNotifica(String oggettoDellaNotifica, String statoNotifica) {
+//
+//        String codiceIUN = "";
+//
+//        int posizioneNotifica = verificaEsistenzaNotifica(oggettoDellaNotifica, statoNotifica);
+//        logger.info("la posizione della notifica è uguale: {}", posizioneNotifica);
+//        if (posizioneNotifica != -1) {
+//
+//            List<WebElement> codiciIUNList = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]"));
+//            codiceIUN = codiciIUNList.get(posizioneNotifica).getText();
+//        }
+//        return codiceIUN;
+//    }
     public String ricercaNotifica(String oggettoDellaNotifica, String statoNotifica) {
-
         String codiceIUN = "";
 
         int posizioneNotifica = verificaEsistenzaNotifica(oggettoDellaNotifica, statoNotifica);
-        logger.info("la posizione della notifica è uguale: {}", posizioneNotifica);
-        if (posizioneNotifica != -1) {
+        logger.info("La posizione della notifica è: {}", posizioneNotifica);
 
-            List<WebElement> codiciIUNList = driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]"));
-            codiceIUN = codiciIUNList.get(posizioneNotifica).getText();
+        if (posizioneNotifica != -1) {
+            By codiciIUNLocator = By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1cpwezh')]");
+
+            List<WebElement> codiciIUNList = getWebDriverWait(20)
+                    .withMessage("Nessun codice IUN trovato in tabella")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(codiciIUNLocator));
+
+            if (posizioneNotifica < codiciIUNList.size()) {
+                codiceIUN = codiciIUNList.get(posizioneNotifica).getText();
+                logger.info("Codice IUN trovato: {}", codiceIUN);
+            } else {
+                logger.warn("Posizione notifica {} fuori dai limiti, lista disponibile: {}", posizioneNotifica, codiciIUNList.size());
+            }
         }
+
         return codiceIUN;
     }
+
 
     public int verificaEsistenzaNotifica(String oggettoDellaNotifica, String statoNotifica) {
 
@@ -825,8 +905,8 @@ public void insertCodiceFiscale(String codiceFiscale) {
 
             for (int i = 0; i < listaOggetti.size(); i++) {
                 logger.info("ciclo for di verifica esistenza");
-                logger.info(listaOggetti.get(i).getText() + " " + oggettoDellaNotifica);
-                logger.info(listaStati.get(i).getText() + " " + statoNotifica);
+                logger.info("{} - {} ", listaOggetti.get(i).getText(), oggettoDellaNotifica);
+                logger.info("{} - {} ", listaStati.get(i).getText(), statoNotifica);
                 if (listaOggetti.get(i).getText().equals(oggettoDellaNotifica) &&
                         listaStati.get(i).getText().equals(statoNotifica)) {
                     return i;
@@ -849,19 +929,45 @@ public void insertCodiceFiscale(String codiceFiscale) {
         }
     }
 
+    //    public List<WebElement> ricercaListaStati() {
+//        try {
+//            return driver.findElements(By.xpath("//span[contains(@class,'MuiChip-label MuiChip-labelMedium css-11cvqrr')]"));
+//        } catch (TimeoutException e) {
+//            logger.info("lista stati ancora non presenti");
+//            return null;
+//        }
+//    }
     public List<WebElement> ricercaListaStati() {
+        By statiLocator = By.xpath("//span[contains(@class,'MuiChip-label MuiChip-labelMedium css-11cvqrr')]");
         try {
-            return driver.findElements(By.xpath("//span[contains(@class,'MuiChip-label MuiChip-labelMedium css-11cvqrr')]"));
+            List<WebElement> listaStati = getWebDriverWait(10)
+                    .withMessage("La lista stati non è visibile entro il timeout")
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(statiLocator));
+            logger.info("Lista stati trovata, elementi: {}", listaStati.size());
+            return listaStati;
         } catch (TimeoutException e) {
-            logger.info("lista stati ancora non presenti");
-            return null;
+            logger.warn("Lista stati non trovata entro il timeout");
+            return Collections.emptyList();
         }
     }
 
+
+    //    public void selezionareLaVoceApiKey() {
+//        getWebDriverWait(30).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("side-item-API Key"))));
+//        apiKeyButton = driver.findElement(By.id("side-item-API Key"));
+//        js().executeScript("arguments[0].click()", apiKeyButton);
+//    }
     public void selezionareLaVoceApiKey() {
-        getWebDriverWait(30).withMessage("la voce api key non è cliccabile").until(elementToBeClickable(driver.findElement(By.id("side-item-API Key"))));
-        apiKeyButton = driver.findElement(By.id("side-item-API Key"));
-        js().executeScript("arguments[0].click()", apiKeyButton);
+        By apiKeyLocator = By.id("side-item-API Key");
+        try {
+            WebElement apiKeyButton = getWebDriverWait(30)
+                    .withMessage("La voce API Key non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(apiKeyLocator));
+            js().executeScript("arguments[0].click()", apiKeyButton);
+            logger.info("Voce API Key cliccata correttamente");
+        } catch (TimeoutException e) {
+            Assertions.fail("Voce API Key NON cliccata con errore: " + e.getMessage());
+        }
     }
 
 
@@ -870,14 +976,24 @@ public void insertCodiceFiscale(String codiceFiscale) {
         return dateInserita[2] + "/" + dateInserita[1] + "/" + dateInserita[0];
     }
 
+    //    public int controlloNumeroRisultatiDate() {
+//        attesaCaricamentoPagina();
+//        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[1]"))));
+//        List<WebElement> dataListBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[1]"));
+//        logger.info("Date trovate correttamente");
+//
+//        return dataListBy.size();
+//    }
     public int controlloNumeroRisultatiDate() {
         attesaCaricamentoPagina();
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[1]"))));
-        List<WebElement> dataListBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[1]"));
-        logger.info("Date trovate correttamente");
-
+        By dateLocator = By.xpath("//*[@id='notificationsTable.body.row']/td[1]");
+        List<WebElement> dataListBy = getWebDriverWait(30)
+                .withMessage("Nessuna data trovata nella tabella notifiche")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(dateLocator));
+        logger.info("Date trovate correttamente: {}", dataListBy.size());
         return dataListBy.size();
     }
+
 
     public void inserimentoData(String dataInserita) {
 
@@ -910,97 +1026,201 @@ public void insertCodiceFiscale(String codiceFiscale) {
         getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", dataInserita));
     }
 
+    //    public boolean verificaEsistenzaRisultati() {
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("call-to-action-first"))));
+//            logger.info("Messaggio visualizzato correttamente");
+//            return true;
+//        } catch (TimeoutException e) {
+//            return false;
+//        }
+//    }
     public boolean verificaEsistenzaRisultati() {
+        By locator = By.id("call-to-action-first");
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("call-to-action-first"))));
+            getWebDriverWait(30)
+                    .withMessage("Elemento con id='call-to-action-first' non visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(locator));
             logger.info("Messaggio visualizzato correttamente");
             return true;
         } catch (TimeoutException e) {
+            logger.warn("Messaggio NON visualizzato entro il timeout");
             return false;
         }
     }
 
+
+    //    public void siVisualizzaCorrettamenteIlCFField() {
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipientId"))));
+//            logger.info("Il campo di codice fiscale si visualizza correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il campo di codice fiscale NON si visualizza correttamente : " + e.getMessage());
+//        }
+//    }
     public void siVisualizzaCorrettamenteIlCFField() {
+        By locator = By.id("recipientId");
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipientId"))));
+            getWebDriverWait(30)
+                    .withMessage("Il campo di codice fiscale non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(locator));
             logger.info("Il campo di codice fiscale si visualizza correttamente");
         } catch (TimeoutException e) {
-            Assertions.fail("Il campo di codice fiscale NON si visualizza correttamente : " + e.getMessage());
+            Assertions.fail("Il campo di codice fiscale NON si visualizza correttamente: " + e.getMessage());
         }
     }
 
+
+    //    public void siVisualizzaCorrettamenteIlCodiceIUNField() {
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+//            logger.info("Il campo di codice iun si visualizza correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il campo di codice iun NON si visualizza correttamente : " + e.getMessage());
+//        }
+//    }
     public void siVisualizzaCorrettamenteIlCodiceIUNField() {
-        try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
-            logger.info("Il campo di codice iun si visualizza correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("Il campo di codice iun NON si visualizza correttamente : " + e.getMessage());
-        }
+        WebElement iunField = getWebDriverWait(30)
+                .withMessage("Il campo codice IUN non è visibile dopo 30 secondi")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("iunMatch")));
+
+        // Verifiche aggiuntive per assicurarsi che il campo sia correttamente visualizzato
+        getWebDriverWait(5)
+                .withMessage("Il campo IUN non è interagibile")
+                .until(ExpectedConditions.elementToBeClickable(iunField));
     }
 
+    //    public void siVisualizzaCorrettamenteLoStatoField() {
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("status"))));
+//            logger.info("Il campo dello stato si visualizza correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il campo dello stato NON si visualizza correttamente : " + e.getMessage());
+//        }
+//    }
     public void siVisualizzaCorrettamenteLoStatoField() {
-        try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("status"))));
-            logger.info("Il campo dello stato si visualizza correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("Il campo dello stato NON si visualizza correttamente : " + e.getMessage());
-        }
+        By statusLocator = By.id("status");
+        WebElement statusField = getWebDriverWait(30)
+                .withMessage("Il campo 'status' non è visibile dopo 30 secondi")
+                .until(ExpectedConditions.visibilityOfElementLocated(statusLocator));
+        Assertions.assertNotNull(statusField, "Il campo dello stato NON si visualizza correttamente");
+        logger.info("Il campo dello stato si visualizza correttamente");
     }
+
+
+//    public void siVisualizzaCorrettamenteLaDataInzioField() {
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("startDate"))));
+//            logger.info("Il campo della data di inizio si visualizza correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il campo della data di inizio NON si visualizza correttamente : " + e.getMessage());
+//        }
+//    }
 
     public void siVisualizzaCorrettamenteLaDataInzioField() {
-        try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("startDate"))));
-            logger.info("Il campo della data di inizio si visualizza correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("Il campo della data di inizio NON si visualizza correttamente : " + e.getMessage());
-        }
+        WebElement startDateField = getWebDriverWait(30)
+                .withMessage("Il campo 'data di inizio' non è visibile dopo 30 secondi")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("startDate")));
+
+        logger.info("Il campo della data di inizio si visualizza correttamente");
     }
 
+
+    //    public void siVisualizzaCorrettamenteLaDataFineField() {
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("endDate"))));
+//            logger.info("Il campo della data di fine si visualizza correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il campo della data di fine NON si visualizza correttamente : " + e.getMessage());
+//        }
+//    }
     public void siVisualizzaCorrettamenteLaDataFineField() {
-        try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("endDate"))));
-            logger.info("Il campo della data di fine si visualizza correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("Il campo della data di fine NON si visualizza correttamente : " + e.getMessage());
-        }
+        WebElement endDateField = getWebDriverWait(30)
+                .withMessage("Il campo 'data di fine' non è visibile dopo 30 secondi")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("endDate")));
+
+        Assertions.assertNotNull(endDateField, "Il campo della data di fine NON si visualizza correttamente");
+        logger.info("Il campo della data di fine si visualizza correttamente");
     }
 
+
+    //    public boolean verificaEsistenzaCFNotifiche() {
+//        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[2]"))));
+//        List<WebElement> cfFiealdBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[2]"));
+//        return !cfFiealdBy.isEmpty();
+//    }
     public boolean verificaEsistenzaCFNotifiche() {
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[2]"))));
-        List<WebElement> cfFiealdBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[2]"));
-        return !cfFiealdBy.isEmpty();
+        List<WebElement> cfFields = getWebDriverWait(30)
+                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[2]")));
+
+        return !cfFields.isEmpty();
     }
 
+
+    //    public boolean verificaEsistenzaCodiceIUNNotifiche() {
+//        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"))));
+//        List<WebElement> codiciIUNBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
+//        return !codiciIUNBy.isEmpty();
+//    }
     public boolean verificaEsistenzaCodiceIUNNotifiche() {
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"))));
-        List<WebElement> codiciIUNBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
-        return !codiciIUNBy.isEmpty();
+        List<WebElement> codiciIUN = getWebDriverWait(30)
+                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]")));
+
+        return !codiciIUN.isEmpty();
     }
 
+
+    //    public boolean verificaEsistenzaGruppoNotifiche() {
+//        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[5]"))));
+//        List<WebElement> gruppiBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[5]"));
+//        return !gruppiBy.isEmpty();
+//    }
     public boolean verificaEsistenzaGruppoNotifiche() {
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[5]"))));
-        List<WebElement> gruppiBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[5]"));
-        return !gruppiBy.isEmpty();
+        List<WebElement> gruppi = getWebDriverWait(30)
+                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[5]")));
+
+        return !gruppi.isEmpty();
     }
 
+
+    //    public boolean verificaEsistenzaStatoNotifiche() {
+//        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[6]"))));
+//        List<WebElement> statiBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[6]"));
+//        return !statiBy.isEmpty();
+//    }
     public boolean verificaEsistenzaStatoNotifiche() {
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[6]"))));
-        List<WebElement> statiBy = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[6]"));
-        return !statiBy.isEmpty();
+        List<WebElement> stati = getWebDriverWait(30)
+                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[6]")));
+
+        return !stati.isEmpty();
     }
 
 
+    //    public int getNRighe() {
+//        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"))));
+//        List<WebElement> nRigheBy = driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"));
+//        return nRigheBy.size();
+//    }
     public int getNRighe() {
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"))));
-        List<WebElement> nRigheBy = driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"));
-        return nRigheBy.size();
+        List<WebElement> righe = getWebDriverWait(30)
+                .until(driver -> driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']")));
+
+        return righe.size();
     }
 
+    //
+//    public String numeroNotifiche() {
+//        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("rows-per-page"))));
+//        WebElement nRigheBy = driver.findElement(By.id("rows-per-page"));
+//        return nRigheBy.getText();
+//    }
     public String numeroNotifiche() {
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("rows-per-page"))));
-        WebElement nRigheBy = driver.findElement(By.id("rows-per-page"));
+        WebElement nRigheBy = getWebDriverWait(30)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("rows-per-page")));
+
         return nRigheBy.getText();
     }
+
 
     public void controlloOrdineNotifiche() {
         List<WebElement> listaDate = getListaDate();
@@ -1045,14 +1265,24 @@ public void insertCodiceFiscale(String codiceFiscale) {
 
     }
 
+    //    public void siScrollaFinoAllaFineDellaPagina() {
+//        getWebDriverWait(30).withMessage("il bottone che indica il numero delle notifiche non è visibile")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("rows-per-page"))));
+//        numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+//        if (!numeroNotificheButton.isDisplayed()) {
+//            js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
+//        }
+//    }
     public void siScrollaFinoAllaFineDellaPagina() {
-        getWebDriverWait(30).withMessage("il bottone che indica il numero delle notifiche non è visibile")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("rows-per-page"))));
-        numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+        numeroNotificheButton = getWebDriverWait(30)
+                .withMessage("Il bottone che indica il numero delle notifiche non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("rows-per-page")));
+
         if (!numeroNotificheButton.isDisplayed()) {
             js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
     }
+
 
     public void siCambiaPaginaUtilizzandoUnaFrecetta(Integer numPage) {
         Integer index = 1;
@@ -1127,125 +1357,279 @@ public void insertCodiceFiscale(String codiceFiscale) {
         js().executeScript("arguments[0].click()", pageNumberButton);
     }
 
+    //    public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
+//
+//        getWebDriverWait(10)
+//                .withMessage("Il pulsante 'righe per pagina' non è presente")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("rows-per-page"))));
+//        numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+//        vaiInFondoAllaPagina();
+//        webTool.waitTime(1);
+//        numeroNotificheButton.click();
+//
+//        getWebDriverWait(10)
+//                .withMessage("Il pulsante '50' per assegnare il numero di notifiche per pagina non è presente")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("pageSize-50"))));
+//        numberElement = driver.findElement(By.id("pageSize-50"));
+//        webTool.waitTime(1);
+//        numberElement.click();
+//    }
     public void siCambiaIlNumeroElementiVisualizzatiAttraversoIlFiltro() {
-
-        getWebDriverWait(10)
+        numeroNotificheButton = getWebDriverWait(10)
                 .withMessage("Il pulsante 'righe per pagina' non è presente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("rows-per-page"))));
-        numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("rows-per-page")));
+
         vaiInFondoAllaPagina();
         webTool.waitTime(1);
         numeroNotificheButton.click();
 
-        getWebDriverWait(10)
+        numberElement = getWebDriverWait(10)
                 .withMessage("Il pulsante '50' per assegnare il numero di notifiche per pagina non è presente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("pageSize-50"))));
-        numberElement = driver.findElement(By.id("pageSize-50"));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("pageSize-50")));
+
         webTool.waitTime(1);
         numberElement.click();
     }
 
+
+    //    public void clickContinuaDisabled() {
+//        continuaButtonDisabled = driver.findElement(By.id("step-submit"));
+//        continuaButtonDisabled.isDisplayed();
+//    }
     public void clickContinuaDisabled() {
-        continuaButtonDisabled = driver.findElement(By.id("step-submit"));
-        continuaButtonDisabled.isDisplayed();
+        continuaButtonDisabled = getWebDriverWait(10)
+                .withMessage("Il pulsante 'Continua' non è presente o non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("step-submit")));
+
+        Assertions.assertFalse(continuaButtonDisabled.isEnabled(), "Il pulsante 'Continua' non dovrebbe essere abilitato");
     }
 
+
+    //    public void inserimentoOggettoNotificaErrato(String oggettoDellaNotifica) {
+//        oggettoDellaNotificaTextField = driver.findElement(By.id("subject"));
+//        scrollToElementClickAndInsertText(oggettoDellaNotificaTextField, oggettoDellaNotifica);
+//    }
     public void inserimentoOggettoNotificaErrato(String oggettoDellaNotifica) {
-        oggettoDellaNotificaTextField = driver.findElement(By.id("subject"));
+        oggettoDellaNotificaTextField = getWebDriverWait(10)
+                .withMessage("Il campo 'Oggetto della notifica' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("subject")));
+
         scrollToElementClickAndInsertText(oggettoDellaNotificaTextField, oggettoDellaNotifica);
     }
 
+
+    //    public boolean errorMessage() {
+//        errorMessage = driver.findElement(By.id("subject-helper-text"));
+//        return errorMessage.isDisplayed();
+//    }
     public boolean errorMessage() {
-        errorMessage = driver.findElement(By.id("subject-helper-text"));
-        return errorMessage.isDisplayed();
-    }
-
-    public void clickIndietroButton() {
-        indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
-        getWebDriverWait(30).withMessage("Il bottone indietro non è  cliccabile")
-                .until(elementToBeClickable(indietroButton));
-        indietroButton.click();
-    }
-
-    public void vuoiUscirePopUp() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[contains(text(),'Vuoi uscire?')]"))));
-            logger.info("Si visualizza il pop up vuoi uscire");
-        } catch (TimeoutException e) {
-            Assertions.fail("Non si visualizza il pop up vuoi uscire con errore:" + e.getMessage());
-        }
-    }
-
-    public void clickSuEsci() {
-        getWebDriverWait(30).withMessage("Il bottone esci non è  cliccabile")
-                .until(elementToBeClickable(driver.findElement(By.id("button-exit"))));
-        esciButton = driver.findElement(By.id("button-exit"));
-        esciButton.click();
-    }
-
-    public boolean estensioneSbagliataErrore() {
-        estenzioneSbagliataMessage = driver.findElement(By.id("file-upload-error"));
-        return estenzioneSbagliataMessage.isDisplayed();
-    }
-
-
-    public List<String> getCodiceIunPresenti() {
-        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
-        List<String> listaCodici = new ArrayList<>();
-        for (WebElement rigaTabella : righeTabella) {
-            String codiceIun = rigaTabella.getText();
-            listaCodici.add(codiceIun);
-        }
-        return listaCodici;
-    }
-
-    public List<String> getCodiceIunPresentiPF() {
-        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
-        List<String> listaCodici = new ArrayList<>();
-        for (WebElement rigaTabella : righeTabella) {
-            String codiceIun = rigaTabella.getText();
-            listaCodici.add(codiceIun);
-        }
-        return listaCodici;
-    }
-
-    public String getCodiceIunInserito() {
-        codiceIUNTextField = driver.findElement(By.id("iunMatch"));
-        return codiceIUNTextField.getText();
-    }
-
-    public List<String> getCodiceIunPersonaGiuridica() {
-        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
-        List<String> listaCodici = new ArrayList<>();
-        for (WebElement rigaTabella : righeTabella) {
-            String codiceIun = rigaTabella.getText();
-            listaCodici.add(codiceIun);
-        }
-        return listaCodici;
-    }
-
-    public boolean controlloEsistenzaMessagioErroreCF() {
-        getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci il codice per intero' non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipientId-helper-text"))));
-        WebElement errorMessageBy = driver.findElement(By.id("recipientId-helper-text"));
-        return errorMessageBy.isDisplayed();
-    }
-
-
-    public boolean verificaBottoneFiltraDisabilitato() {
-        try {
-            getWebDriverWait(30).withMessage("buttone Filtra non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("filter-button"))));
-            filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
-            return Boolean.parseBoolean(filtraNotificaButtonMittente.getAttribute("disabled"));
+            errorMessage = getWebDriverWait(10)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("subject-helper-text")));
+            return errorMessage.isDisplayed();
         } catch (TimeoutException e) {
             return false;
         }
     }
 
-    public boolean controlloEsistenzaMessagioErroreIUN() {
-        getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci un codice IUN valido' non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch-helper-text"))));
-        WebElement errorMessageBy = driver.findElement(By.id("iunMatch-helper-text"));
-        return errorMessageBy.isDisplayed();
+
+    //    public void clickIndietroButton() {
+//        indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
+//        getWebDriverWait(30).withMessage("Il bottone indietro non è  cliccabile")
+//                .until(elementToBeClickable(indietroButton));
+//        indietroButton.click();
+//    }
+    public void clickIndietroButton() {
+        indietroButton = getWebDriverWait(30)
+                .withMessage("Il bottone indietro non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("breadcrumb-indietro-button")));
+
+        indietroButton.click();
     }
+
+
+    //    public void vuoiUscirePopUp() {
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[contains(text(),'Vuoi uscire?')]"))));
+//            logger.info("Si visualizza il pop up vuoi uscire");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Non si visualizza il pop up vuoi uscire con errore:" + e.getMessage());
+//        }
+//    }
+    public void vuoiUscirePopUp() {
+        try {
+            getWebDriverWait(30)
+                    .until(ExpectedConditions.visibilityOfElementLocated(
+                            By.xpath("//h2[contains(text(),'Vuoi uscire?')]")
+                    ));
+            logger.info("Si visualizza il pop up 'Vuoi uscire'");
+        } catch (TimeoutException e) {
+            Assertions.fail("Non si visualizza il pop up 'Vuoi uscire' con errore: " + e.getMessage());
+        }
+    }
+
+
+    //    public void clickSuEsci() {
+//        getWebDriverWait(30).withMessage("Il bottone esci non è  cliccabile")
+//                .until(elementToBeClickable(driver.findElement(By.id("button-exit"))));
+//        esciButton = driver.findElement(By.id("button-exit"));
+//        esciButton.click();
+//    }
+    public void clickSuEsci() {
+        esciButton = getWebDriverWait(30)
+                .withMessage("Il bottone 'Esci' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("button-exit")));
+
+        esciButton.click();
+    }
+
+
+    //    public boolean estensioneSbagliataErrore() {
+//        estenzioneSbagliataMessage = driver.findElement(By.id("file-upload-error"));
+//        return estenzioneSbagliataMessage.isDisplayed();
+//    }
+    public boolean estensioneSbagliataErrore() {
+        try {
+            estenzioneSbagliataMessage = getWebDriverWait(10)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("file-upload-error")));
+            return estenzioneSbagliataMessage.isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+
+    //    public List<String> getCodiceIunPresenti() {
+//        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
+//        List<String> listaCodici = new ArrayList<>();
+//        for (WebElement rigaTabella : righeTabella) {
+//            String codiceIun = rigaTabella.getText();
+//            listaCodici.add(codiceIun);
+//        }
+//        return listaCodici;
+//    }
+    public List<String> getCodiceIunPresenti() {
+        List<WebElement> righeTabella = getWebDriverWait(10)
+                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]")));
+
+        List<String> listaCodici = new ArrayList<>();
+        for (WebElement riga : righeTabella) {
+            listaCodici.add(riga.getText());
+        }
+        return listaCodici;
+    }
+
+
+    //    public List<String> getCodiceIunPresentiPF() {
+//        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
+//        List<String> listaCodici = new ArrayList<>();
+//        for (WebElement rigaTabella : righeTabella) {
+//            String codiceIun = rigaTabella.getText();
+//            listaCodici.add(codiceIun);
+//        }
+//        return listaCodici;
+//    }
+    public List<String> getCodiceIunPresentiPF() {
+        List<WebElement> righeTabella = getWebDriverWait(10)
+                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]")));
+
+        List<String> listaCodici = new ArrayList<>();
+        for (WebElement riga : righeTabella) {
+            listaCodici.add(riga.getText());
+        }
+        return listaCodici;
+    }
+
+
+    //    public String getCodiceIunInserito() {
+//        codiceIUNTextField = driver.findElement(By.id("iunMatch"));
+//        return codiceIUNTextField.getText();
+//    }
+    public String getCodiceIunInserito() {
+        codiceIUNTextField = getWebDriverWait(10)
+                .withMessage("Impossibile trovare iunMatch nel metodo getCodiceIunInserito")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("iunMatch")));
+
+        return codiceIUNTextField.getText();
+    }
+
+
+    //    public List<String> getCodiceIunPersonaGiuridica() {
+//        List<WebElement> righeTabella = driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]"));
+//        List<String> listaCodici = new ArrayList<>();
+//        for (WebElement rigaTabella : righeTabella) {
+//            String codiceIun = rigaTabella.getText();
+//            listaCodici.add(codiceIun);
+//        }
+//        return listaCodici;
+//    }
+    public List<String> getCodiceIunPersonaGiuridica() {
+        List<WebElement> righeTabella = getWebDriverWait(10)
+                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]")));
+
+        List<String> listaCodici = new ArrayList<>();
+        for (WebElement riga : righeTabella) {
+            listaCodici.add(riga.getText());
+        }
+        return listaCodici;
+    }
+
+
+    //    public boolean controlloEsistenzaMessagioErroreCF() {
+//        getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci il codice per intero' non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("recipientId-helper-text"))));
+//        WebElement errorMessageBy = driver.findElement(By.id("recipientId-helper-text"));
+//        return errorMessageBy.isDisplayed();
+//    }
+    public boolean controlloEsistenzaMessagioErroreCF() {
+        try {
+            WebElement errorMessageBy = getWebDriverWait(30)
+                    .withMessage("Messaggio di errore 'Inserisci il codice per intero' non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("recipientId-helper-text")));
+            return errorMessageBy.isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+
+    //    public boolean verificaBottoneFiltraDisabilitato() {
+//        try {
+//            getWebDriverWait(30).withMessage("buttone Filtra non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("filter-button"))));
+//            filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
+//            return Boolean.parseBoolean(filtraNotificaButtonMittente.getAttribute("disabled"));
+//        } catch (TimeoutException e) {
+//            return false;
+//        }
+//    }
+    public boolean verificaBottoneFiltraDisabilitato() {
+        try {
+            filtraNotificaButtonMittente = getWebDriverWait(30)
+                    .withMessage("Bottone 'Filtra' non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-button")));
+
+            return filtraNotificaButtonMittente.getAttribute("disabled") != null;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
+
+    //    public boolean controlloEsistenzaMessagioErroreIUN() {
+//        getWebDriverWait(30).withMessage("Messagio di errore 'Inserisci un codice IUN valido' non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch-helper-text"))));
+//        WebElement errorMessageBy = driver.findElement(By.id("iunMatch-helper-text"));
+//        return errorMessageBy.isDisplayed();
+//    }
+    public boolean controlloEsistenzaMessagioErroreIUN() {
+        try {
+            WebElement errorMessageBy = getWebDriverWait(30)
+                    .withMessage("Messaggio di errore 'Inserisci un codice IUN valido' non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("iunMatch-helper-text")));
+            return errorMessageBy.isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
 
     public boolean verificaCampiPreliminariNotificaVuoti() {
         webTool.waitTime(10);
@@ -1266,34 +1650,71 @@ public void insertCodiceFiscale(String codiceFiscale) {
         return true;
     }
 
+    //    public void checkDefaultPagination() {
+//        final String defaultNumberOfPage = "10";
+//        numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+//        if (numeroNotificheButton.getText().equals(defaultNumberOfPage)) {
+//            logger.info("numero di default delle notifiche visualizzate corretto");
+//        } else {
+//            logger.error("numero di default delle notifiche visualizzate non corretto");
+//            Assertions.fail("numero di default delle notifiche visualizzate non corretto");
+//        }
+//    }
     public void checkDefaultPagination() {
         final String defaultNumberOfPage = "10";
-        numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+        numeroNotificheButton = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("rows-per-page")));
+
         if (numeroNotificheButton.getText().equals(defaultNumberOfPage)) {
-            logger.info("numero di default delle notifiche visualizzate corretto");
+            logger.info("Numero di default delle notifiche visualizzate corretto");
         } else {
-            logger.error("numero di default delle notifiche visualizzate non corretto");
-            Assertions.fail("numero di default delle notifiche visualizzate non corretto");
+            logger.error("Numero di default delle notifiche visualizzate non corretto");
+            Assertions.fail("Numero di default delle notifiche visualizzate non corretto");
         }
     }
 
+
+    //    public boolean isFiltraButtonDisabled() {
+//        inputsError = driver.findElements(By.xpath("//input[@aria-invalid='true']"));
+//        filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
+//        return !inputsError.isEmpty() || filtraNotificaButtonMittente.getAttribute("disabled") != null;
+//    }
     public boolean isFiltraButtonDisabled() {
-        inputsError = driver.findElements(By.xpath("//input[@aria-invalid='true']"));
-        filtraNotificaButtonMittente = driver.findElement(By.id("filter-button"));
+        List<WebElement> inputsError = getWebDriverWait(10)
+                .until(driver -> driver.findElements(By.xpath("//input[@aria-invalid='true']")));
+
+        filtraNotificaButtonMittente = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-button")));
+
         return !inputsError.isEmpty() || filtraNotificaButtonMittente.getAttribute("disabled") != null;
     }
 
+
+//    public boolean controlloDateErrate() {
+//        boolean isDateErrate = false;
+//        inputsError = driver.findElements(By.xpath("//input[@aria-invalid='true']"));
+//        for (WebElement input : inputsError) {
+//            if (input.getAttribute("id").equals("startDate") || input.getAttribute("id").equals("endDate")) {
+//                isDateErrate = true;
+//                break;
+//            }
+//        }
+//        return isDateErrate;
+//    }
+
     public boolean controlloDateErrate() {
-        boolean isDateErrate = false;
-        inputsError = driver.findElements(By.xpath("//input[@aria-invalid='true']"));
+        List<WebElement> inputsError = getWebDriverWait(10)
+                .until(driver -> driver.findElements(By.xpath("//input[@aria-invalid='true']")));
+
         for (WebElement input : inputsError) {
-            if (input.getAttribute("id").equals("startDate") || input.getAttribute("id").equals("endDate")) {
-                isDateErrate = true;
-                break;
+            String id = input.getAttribute("id");
+            if ("startDate".equals(id) || "endDate".equals(id)) {
+                return true;
             }
         }
-        return isDateErrate;
+        return false;
     }
+
 
     public boolean controlloEsistenzaStato() {
         statoNotificaField = getWebDriverWait(10)
@@ -1333,21 +1754,50 @@ public void insertCodiceFiscale(String codiceFiscale) {
         }
     }
 
+    //    public void clickPagina(int pagina) {
+//        String paginaString = "page" + pagina;
+//        getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
+//                .until(elementToBeClickable(driver.findElement(By.id(paginaString))));
+//        WebElement paginaBy = driver.findElement(By.id(paginaString));
+//        js().executeScript("arguments[0].scrollIntoView(true);", paginaBy);
+//        paginaBy.click();
+//        logger.info("Bottone pagina {} cliccato correttamente", pagina);
+//    }
     public void clickPagina(int pagina) {
         String paginaString = "page" + pagina;
-        getWebDriverWait(30).withMessage("Il bottone pagina " + pagina + " non è cliccabile")
-                .until(elementToBeClickable(driver.findElement(By.id(paginaString))));
-        WebElement paginaBy = driver.findElement(By.id(paginaString));
+
+        WebElement paginaBy = getWebDriverWait(30)
+                .withMessage("Il bottone pagina " + pagina + " non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id(paginaString)));
+
         js().executeScript("arguments[0].scrollIntoView(true);", paginaBy);
         paginaBy.click();
         logger.info("Bottone pagina {} cliccato correttamente", pagina);
     }
 
+
+    //    public void checkPaginaNotificheDelegante(String nomeDelegante) {
+//        String idNotificationTitlePage = "Le notifiche di " + nomeDelegante + "-page";
+//        try {
+//            getWebDriverWait(20).withMessage("il titolo della pagina non é caricato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id(idNotificationTitlePage))));
+//            getWebDriverWait(25).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
+//
+//            logger.info("Pagina notifiche delegante caricata correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Pagina notifiche delegante non caricata con errore: " + e.getMessage());
+//        }
+//    }
     public void checkPaginaNotificheDelegante(String nomeDelegante) {
         String idNotificationTitlePage = "Le notifiche di " + nomeDelegante + "-page";
+
         try {
-            getWebDriverWait(20).withMessage("il titolo della pagina non é caricato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id(idNotificationTitlePage))));
-            getWebDriverWait(25).withMessage("tabella notifiche non caricata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
+            getWebDriverWait(20)
+                    .withMessage("Il titolo della pagina non è caricato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id(idNotificationTitlePage)));
+
+            getWebDriverWait(25)
+                    .withMessage("Tabella notifiche non caricata")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("notifications-table")));
 
             logger.info("Pagina notifiche delegante caricata correttamente");
         } catch (TimeoutException e) {
@@ -1356,11 +1806,21 @@ public void insertCodiceFiscale(String codiceFiscale) {
     }
 
 
+    //    public void verificaPresenzaStato(String stato) {
+//        getWebDriverWait(32).withMessage("Lo stato " + stato + " non è presente")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]"))));
+//        logger.info("Stato {} presente", stato);
+//    }
     public void verificaPresenzaStato(String stato) {
-        getWebDriverWait(32).withMessage("Lo stato " + stato + " non è presente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]"))));
+        String xpathStato = "//div[@data-testid='itemStatus']//span[contains(text(),'" + stato + "')]";
+
+        getWebDriverWait(32)
+                .withMessage("Lo stato " + stato + " non è presente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathStato)));
+
         logger.info("Stato {} presente", stato);
     }
+
 
     public void verificaNotificaCreata() {
         String notificationRequestId = "";
@@ -1398,56 +1858,111 @@ public void insertCodiceFiscale(String codiceFiscale) {
     }
 
 
+//    public void clickSuNotifica() {
+//
+//        String iun = getNotificationSingletonParam().getIun(hooksNew.scenario);
+//        logger.info("iun notifica {}", iun);
+//        WebElement notification = getWebDriverWait(35)
+//                .withMessage("notifica non esistente")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
+//        clickRowNotificationIndex(notification);
+//    }
+
     public void clickSuNotifica() {
-
         String iun = getNotificationSingletonParam().getIun(hooksNew.scenario);
-        logger.info("iun notifica {}", iun);
+        logger.info("IUN notifica {}", iun);
+        String xpathNotifica = "//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]";
         WebElement notification = getWebDriverWait(35)
-                .withMessage("notifica non esistente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
+                .withMessage("Notifica non esistente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathNotifica)));
         clickRowNotificationIndex(notification);
     }
 
+
+//    public void clickSuNotifica(String iun) {
+//
+//        logger.info("iun notifica {}", iun);
+//        WebElement notification = getWebDriverWait(60)
+//                .withMessage("notifica non esistente")
+//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
+//        clickRowNotificationIndex(notification);
+//    }
+
+    //    public void checkStatoNotifica(String stato) {
+//        driver.navigate().refresh();
+//        webTool.waitTime(10);
+//        notificationsTableLines = driver.findElements(By.id("notificationsTable.body.row"));
+//        WebElement notificationLine = notificationsTableLines.get(0);
+//        WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
+//        getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
+//    }
     public void clickSuNotifica(String iun) {
+        logger.info("IUN notifica {}", iun);
 
-        logger.info("iun notifica {}", iun);
+        String xpathNotifica = "//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]";
+
         WebElement notification = getWebDriverWait(60)
-                .withMessage("notifica non esistente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//tr[.//button[contains(@aria-label,'" + iun + "')]]"))));
+                .withMessage("Notifica non esistente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathNotifica)));
+
         clickRowNotificationIndex(notification);
     }
 
-    public void checkStatoNotifica(String stato) {
-        driver.navigate().refresh();
-        webTool.waitTime(10);
-        notificationsTableLines = driver.findElements(By.id("notificationsTable.body.row"));
-        WebElement notificationLine = notificationsTableLines.get(0);
-        WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
-        getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
-    }
+
+//    public void selezionaNotificaConStato(String statoNotifica) {
+//        boolean testSuccess = false;
+//        notificationsTableLines = driver.findElements(By.id("notificationsTable.body.row"));
+//        for (int i = 0; i < 8; i++) {
+//            try {
+//                WebElement notificationLine = notificationsTableLines.get(0);
+//                WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + statoNotifica));
+//                if (chipStatus != null) {
+//                    logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
+//                    testSuccess = true;
+//                    break;
+//                }
+//            } catch (NoSuchElementException e) {
+//                logger.info("Dopo {} tentativi la notifica non è ancora passata allo stato: {}", i, statoNotifica);
+//            }
+//            webTool.waitTime(15);
+//            driver.navigate().refresh();
+//        }
+//        if (!testSuccess) {
+//            Assertions.fail("La notifica non è passata allo stato " + statoNotifica);
+//        }
+//    }
 
     public void selezionaNotificaConStato(String statoNotifica) {
         boolean testSuccess = false;
-        notificationsTableLines = driver.findElements(By.id("notificationsTable.body.row"));
-        for (int i = 0; i < 8; i++) {
+        int maxTentativi = 8;
+
+        for (int i = 0; i < maxTentativi; i++) {
             try {
-                WebElement notificationLine = notificationsTableLines.get(0);
-                WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + statoNotifica));
-                if (chipStatus != null) {
-                    logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
-                    testSuccess = true;
-                    break;
+                notificationsTableLines = getWebDriverWait(10)
+                        .until(driver -> driver.findElements(By.id("notificationsTable.body.row")));
+
+                if (!notificationsTableLines.isEmpty()) {
+                    WebElement notificationLine = notificationsTableLines.get(0);
+                    WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + statoNotifica));
+                    if (chipStatus.isDisplayed()) {
+                        logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
+                        testSuccess = true;
+                        break;
+                    }
                 }
-            } catch (NoSuchElementException e) {
-                logger.info("Dopo {} tentativi la notifica non è ancora passata allo stato: {}", i, statoNotifica);
+            } catch (NoSuchElementException | TimeoutException e) {
+                logger.info("Tentativo {}: la notifica non è ancora passata allo stato: {}", i + 1, statoNotifica);
             }
+
             webTool.waitTime(15);
             driver.navigate().refresh();
         }
+
         if (!testSuccess) {
             Assertions.fail("La notifica non è passata allo stato " + statoNotifica);
         }
     }
+
 
     public void pollingSuStatoNotificaPerCompletamento(String statoNotifica) {
         boolean testSuccess = false;
@@ -1472,126 +1987,299 @@ public void insertCodiceFiscale(String codiceFiscale) {
         }
     }
 
+    //    public void clickAnnullaNotificaModale() {
+//        getWebDriverWait(20).until(ExpectedConditions.and(
+//                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']"))),
+//                ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']")))));
+//        WebElement bottoneAnnullaNotificaModale = driver.findElement(By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']"));
+//        bottoneAnnullaNotificaModale.click();
+//    }
     public void clickAnnullaNotificaModale() {
-        getWebDriverWait(20).until(ExpectedConditions.and(
-                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']"))),
-                ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']")))));
-        WebElement bottoneAnnullaNotificaModale = driver.findElement(By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']"));
+        By locator = By.xpath("//button[@data-testid='modalCloseAndProceedBtnId']");
+
+        WebElement bottoneAnnullaNotificaModale = getWebDriverWait(20)
+                .until(ExpectedConditions.elementToBeClickable(locator));
+
         bottoneAnnullaNotificaModale.click();
     }
 
 
+    //    public void checkPopUpConfermaAnnullamentoNotifica() {
+//        getWebDriverWait(10).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']"))));
+//
+//    }
     public void checkPopUpConfermaAnnullamentoNotifica() {
-        getWebDriverWait(10).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']"))));
+        By locator = By.xpath("//div[@role='alert']/div[text()='La richiesta di annullamento è stata accettata.']");
 
+        getWebDriverWait(10)
+                .withMessage("Pop up NON visualizzato")
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+
+    //    public void verificaInvioNotificaDiCortesia() {
+//        getWebDriverWait(10).withMessage("Voce nel dettaglio della notifica non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(), 'Invio del messaggio di cortesia')]"))));
+//    }
     public void verificaInvioNotificaDiCortesia() {
-        getWebDriverWait(10).withMessage("Voce nel dettaglio della notifica non trovata").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(), 'Invio del messaggio di cortesia')]"))));
+        By locator = By.xpath("//span[contains(text(), 'Invio del messaggio di cortesia')]");
+
+        getWebDriverWait(10)
+                .withMessage("Voce nel dettaglio della notifica non trovata")
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+
+    //    public void clickBottoneAnnullaNotifica() {
+//        getWebDriverWait(30).withMessage("Bottone annulla notifica non visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']")))));
+//        WebElement bottoneAnnullaNotifica = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"));
+//        scrollToElementAndClick(bottoneAnnullaNotifica);
+//    }
     public void clickBottoneAnnullaNotifica() {
-        getWebDriverWait(30).withMessage("Bottone annulla notifica non visibile e cliccabile").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']")))));
-        WebElement bottoneAnnullaNotifica = driver.findElement(By.xpath("//button[@data-testid='cancelNotificationBtn']"));
+        By locator = By.xpath("//button[@data-testid='cancelNotificationBtn']");
+
+        WebElement bottoneAnnullaNotifica = getWebDriverWait(30)
+                .withMessage("Bottone annulla notifica non visibile e cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(locator));
+
         scrollToElementAndClick(bottoneAnnullaNotifica);
     }
 
 
+    //    public void visualizzaTimelineTuttiDestinatari(Map<String, String> destinatari) {
+//        logger.info("Si clicca vedi piu dettagli");
+//        webTool.waitTime(10);
+//        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+//        //Equals() method utilizzato per String. Per confrontare int variabile dobbiamo usare ==
+//        String size = Integer.toString(viewMore.size());
+//        if (size.equals("2")) {
+//            viewMore.get(1).click();
+//        } else {
+//            viewMore.get(0).click();
+//        }
+//        List<WebElement> destinatarioPF = getWebDriverWait(30)
+//                .withMessage("Impossibile trovare PF:  " + destinatari.get("PF"))
+//                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+//                        By.xpath(String.format("//p[contains(text(),'(%s)')]", destinatari.get("PF")))
+//                ));
+//        logger.info("Lista PF: {}", destinatarioPF.toArray());
+//
+//        List<WebElement> destinatarioPG = getWebDriverWait(30)
+//                .withMessage("Impossibile trovare PG:  " + destinatari.get("PG"))
+//                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+//                        By.xpath(String.format("//p[contains(text(),'(%s)')]", destinatari.get("PG")))
+//                ));
+//        logger.info("Lista PG: {}", destinatarioPG.toArray());
+//
+//
+//        if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
+//            logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
+//        } else {
+//            Assertions.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
+//        }
+//
+//        logger.info("Si visualizza correttamente la timeline relativi a tutti i destinatari");
+//    }
     public void visualizzaTimelineTuttiDestinatari(Map<String, String> destinatari) {
-        logger.info("Si clicca vedi piu dettagli");
+        logger.info("Si clicca 'vedi più dettagli'");
         webTool.waitTime(10);
-        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        //Equals() method utilizzato per String. Per confrontare int variabile dobbiamo usare ==
-        String size = Integer.toString(viewMore.size());
-        if (size.equals("2")) {
+
+        List<WebElement> viewMore = getWebDriverWait(10)
+                .until(driver -> driver.findElements(By.xpath("//*[@id='more-less-timeline-step']")));
+
+        if (viewMore.size() > 1) {
             viewMore.get(1).click();
-        } else {
+        } else if (!viewMore.isEmpty()) {
             viewMore.get(0).click();
+        } else {
+            Assertions.fail("'Vedi più dettagli' non trovato");
         }
+
         List<WebElement> destinatarioPF = getWebDriverWait(30)
-                .withMessage("Impossibile trovare PF:  " + destinatari.get("PF"))
+                .withMessage("Impossibile trovare PF: " + destinatari.get("PF"))
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                         By.xpath(String.format("//p[contains(text(),'(%s)')]", destinatari.get("PF")))
                 ));
         logger.info("Lista PF: {}", destinatarioPF.toArray());
 
         List<WebElement> destinatarioPG = getWebDriverWait(30)
-                .withMessage("Impossibile trovare PG:  " + destinatari.get("PG"))
+                .withMessage("Impossibile trovare PG: " + destinatari.get("PG"))
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                         By.xpath(String.format("//p[contains(text(),'(%s)')]", destinatari.get("PG")))
                 ));
         logger.info("Lista PG: {}", destinatarioPG.toArray());
 
-
-        if (destinatarioPF.get(0).isDisplayed() && destinatarioPG.get(0).isDisplayed()) {
-            logger.info("Si visualizza  gli eventi relativi a tutti i destinatari");
+        if (!destinatarioPF.isEmpty() && destinatarioPF.get(0).isDisplayed() &&
+                !destinatarioPG.isEmpty() && destinatarioPG.get(0).isDisplayed()) {
+            logger.info("Si visualizzano gli eventi relativi a tutti i destinatari");
         } else {
-            Assertions.fail("Non si visualizza  gli eventi relativi a tutti i destinatari");
+            Assertions.fail("Non si visualizzano gli eventi relativi a tutti i destinatari");
         }
 
-        logger.info("Si visualizza correttamente la timeline relativi a tutti i destinatari");
+        logger.info("Timeline visualizzata correttamente per tutti i destinatari");
     }
 
+
+    //    public void visualizzaTimeline(String check) {
+//        webTool.waitTime(10);
+//        if (StringUtils.isNotEmpty(check)) {
+//            List<WebElement> viewMore = getWebDriverWait(30).withMessage("Non trovato la scritta Vedi poiu dettagli")
+//                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"))));
+//            viewMore.get(0).click();
+//            String size = Integer.toString(viewMore.size());
+//            if (size.equals("2")) {
+//                viewMore.get(1).click();
+//            }
+//
+//            List<WebElement> findKeyWord = getWebDriverWait(30).withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
+//                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"))));
+//
+//            if (findKeyWord.get(0).isDisplayed()) {
+//                logger.info("Si visualizza la timeline correttamente");
+//            } else {
+//                Assertions.fail("Non si visualizza  la timeline correttamente");
+//            }
+//        }
+//    }
     public void visualizzaTimeline(String check) {
         webTool.waitTime(10);
+
         if (StringUtils.isNotEmpty(check)) {
-            List<WebElement> viewMore = getWebDriverWait(30).withMessage("Non trovato la scritta Vedi poiu dettagli")
-                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"))));
-            viewMore.get(0).click();
-            String size = Integer.toString(viewMore.size());
-            if (size.equals("2")) {
-                viewMore.get(1).click();
+            List<WebElement> viewMore = getWebDriverWait(30)
+                    .withMessage("Non trovato il pulsante 'Vedi più dettagli'")
+                    .until(driver -> driver.findElements(By.xpath("//*[@id='more-less-timeline-step']")));
+
+            if (!viewMore.isEmpty()) {
+                viewMore.get(0).click();
+                if (viewMore.size() > 1) {
+                    viewMore.get(1).click();
+                }
+            } else {
+                Assertions.fail("'Vedi più dettagli' non trovato");
             }
 
-            List<WebElement> findKeyWord = getWebDriverWait(30).withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
-                    .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"))));
+            List<WebElement> findKeyWord = getWebDriverWait(30)
+                    .withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
+                    .until(driver -> driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]")));
 
-            if (findKeyWord.get(0).isDisplayed()) {
+            if (!findKeyWord.isEmpty() && findKeyWord.get(0).isDisplayed()) {
                 logger.info("Si visualizza la timeline correttamente");
             } else {
-                Assertions.fail("Non si visualizza  la timeline correttamente");
+                Assertions.fail("Non si visualizza la timeline correttamente");
             }
         }
     }
 
+
+    //    public void verificaTentativoSuccessivo(String check) {
+//        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+//        logger.info("findkey : {}", findKeyWord.size());
+//        if (findKeyWord.get(0).isDisplayed()) {
+//            logger.info("Si visualizza la timeline correttamente");
+//        } else {
+//            Assertions.fail("Non si visualizza  la timeline correttamente");
+//        }
+//    }
     public void verificaTentativoSuccessivo(String check) {
-        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
-        logger.info("findkey : {}", findKeyWord.size());
-        if (findKeyWord.get(0).isDisplayed()) {
+        List<WebElement> findKeyWord = getWebDriverWait(30)
+                .withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
+                .until(driver -> driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]")));
+
+        logger.info("findKeyWord: {}", findKeyWord.size());
+
+        if (!findKeyWord.isEmpty() && findKeyWord.get(0).isDisplayed()) {
             logger.info("Si visualizza la timeline correttamente");
         } else {
-            Assertions.fail("Non si visualizza  la timeline correttamente");
+            Assertions.fail("Non si visualizza la timeline correttamente");
         }
     }
 
-    public void verificaDestinatariNonRaggiungibili(Map<String, String> destinatari) {
-        logger.info("Si clicca vedi piu dettagli");
-        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
-        viewMore.get(0).click();
-        String size = Integer.toString(viewMore.size());
-        if (size.equals("2")) {
-            viewMore.get(1).click();
-        }
-        webTool.waitTime(2);
-        WebElement destPF = driver.findElement(By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]"));
-        webTool.waitTime(2);
-        WebElement destPG = driver.findElement(By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]"));
 
-        if (destPG.isDisplayed() && destPF.isDisplayed()) {
-            logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
+//    public void verificaDestinatariNonRaggiungibili(Map<String, String> destinatari) {
+//        logger.info("Si clicca vedi piu dettagli");
+//        List<WebElement> viewMore = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+//        viewMore.get(0).click();
+//        String size = Integer.toString(viewMore.size());
+//        if (size.equals("2")) {
+//            viewMore.get(1).click();
+//        }
+//        webTool.waitTime(2);
+//        WebElement destPF = driver.findElement(By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]"));
+//        webTool.waitTime(2);
+//        WebElement destPG = driver.findElement(By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]"));
+//
+//        if (destPG.isDisplayed() && destPF.isDisplayed()) {
+//            logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
+//        } else {
+//            logger.error("Uno dei destinatari viene raggiunto al primo tentativo");
+//            Assertions.fail("Uno dei destinatari viene raggiunto al primo tentativo");
+//        }
+//    }
+
+    public void verificaDestinatariNonRaggiungibili(Map<String, String> destinatari) {
+        logger.info("Si clicca 'vedi più dettagli'");
+
+        List<WebElement> viewMore = getWebDriverWait(10)
+                .until(driver -> driver.findElements(By.xpath("//*[@id='more-less-timeline-step']")));
+
+        if (!viewMore.isEmpty()) {
+            viewMore.get(0).click();
+            if (viewMore.size() > 1) {
+                viewMore.get(1).click();
+            }
+        } else {
+            Assertions.fail("'Vedi più dettagli' non trovato");
+        }
+
+        webTool.waitTime(2);
+
+        WebElement destPF = getWebDriverWait(10)
+                .withMessage("Destinatario PF non trovato o non fallito")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]")));
+
+        WebElement destPG = getWebDriverWait(10)
+                .withMessage("Destinatario PG non trovato o non fallito")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]")));
+
+        if (destPF.isDisplayed() && destPG.isDisplayed()) {
+            logger.info("Entrambi i destinatari non raggiungibili al primo tentativo");
         } else {
             logger.error("Uno dei destinatari viene raggiunto al primo tentativo");
             Assertions.fail("Uno dei destinatari viene raggiunto al primo tentativo");
         }
     }
 
+
+    //    public void verificaNotificheNonDisponibili() {
+//        getWebDriverWait(5).withMessage("Ci sono risultati disponibili per il filtro di ricerca").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='emptyState']"))));
+//    }
     public void verificaNotificheNonDisponibili() {
-        getWebDriverWait(5).withMessage("Ci sono risultati disponibili per il filtro di ricerca").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='emptyState']"))));
+        By locator = By.xpath("//div[@data-testid='emptyState']");
+
+        getWebDriverWait(5)
+                .withMessage("Ci sono risultati disponibili per il filtro di ricerca")
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+
+    //    public void checkAllegatoScaricabile(String descrizioneAllegato) {
+//        try {
+//            getWebDriverWait(10).withMessage("Non esiste il bottone per il download degli allegati, si procede con il test").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., '" + descrizioneAllegato + "') and @id='document-button']"))));
+//            logger.error("Non è corretto che il bottone per il download dell'allegato sia visibile");
+//            Assertions.fail("Non è corretto che il bottone per il download dell'allegato sia visibile");
+//        } catch (TimeoutException e) {
+//            logger.info("Non è visibile il bottone per il download dell'allegato: {}", e.getMessage());
+//        }
+//    }
     public void checkAllegatoScaricabile(String descrizioneAllegato) {
+        By locator = By.xpath("//button[contains(., '" + descrizioneAllegato + "') and @id='document-button']");
+
         try {
-            getWebDriverWait(10).withMessage("Non esiste il bottone per il download degli allegati, si procede con il test").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., '" + descrizioneAllegato + "') and @id='document-button']"))));
+            getWebDriverWait(10)
+                    .withMessage("Non esiste il bottone per il download degli allegati, si procede con il test")
+                    .until(ExpectedConditions.visibilityOfElementLocated(locator));
+
             logger.error("Non è corretto che il bottone per il download dell'allegato sia visibile");
             Assertions.fail("Non è corretto che il bottone per il download dell'allegato sia visibile");
         } catch (TimeoutException e) {
@@ -1599,34 +2287,75 @@ public void insertCodiceFiscale(String codiceFiscale) {
         }
     }
 
+
+    //    public void checkAARScaricabili() {
+//        getWebDriverWait(10).withMessage("Il bottone per il download degli AAR non è visibile e non è disattivato").until(ExpectedConditions.and(
+//                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']")), "disabled", "true"),
+//                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']")))
+//        ));
+//    }
     public void checkAARScaricabili() {
-        getWebDriverWait(10).withMessage("Il bottone per il download degli AAR non è visibile e non è disattivato").until(ExpectedConditions.and(
-                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']")), "disabled", "true"),
-                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']")))
-        ));
+        By locator = By.xpath("//button[contains(., 'Avviso di avvenuta ricezione') and @id='document-button']");
+
+        getWebDriverWait(10).withMessage("Il bottone per il download degli AAR non è visibile o non è disattivato")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(locator),
+                        ExpectedConditions.attributeToBe(locator, "disabled", "true")
+                ));
     }
 
+
+    //    public void checkAttestazioniOpponibiliATerziScaricabili() {
+//
+//        getWebDriverWait(10).withMessage("Il bottone per il download delle attestazioni opponibili a terzi non è visibile e non è disattivato").until(ExpectedConditions.and(
+//                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']")), "disabled", "true"),
+//                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']")))
+//        ));
+//
+//    }
     public void checkAttestazioniOpponibiliATerziScaricabili() {
+        By locator = By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']");
 
-        getWebDriverWait(10).withMessage("Il bottone per il download delle attestazioni opponibili a terzi non è visibile e non è disattivato").until(ExpectedConditions.and(
-                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']")), "disabled", "true"),
-                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(text(), 'Attestazione opponibile a terzi') and @data-testid='download-legalfact']")))
-        ));
-
+        getWebDriverWait(10)
+                .withMessage("Il bottone per il download delle attestazioni opponibili a terzi non è visibile o non è disattivato")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(locator),
+                        ExpectedConditions.attributeToBe(locator, "disabled", "true")
+                ));
     }
 
+
+    //    public void checkRicevutePECScaricabili() {
+//
+//        getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di accettazione PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
+//                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']")), "disabled", "true"),
+//                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']")))
+//        ));
+//        getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di consegna PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
+//                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di consegna PEC') and @data-testid='download-legalfact']")), "disabled", "true"),
+//                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di consegna PEC') and @data-testid='download-legalfact']")))
+//        ));
+//
+//    }
     public void checkRicevutePECScaricabili() {
+        By ricevutaAccettazioneLocator = By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']");
+        By ricevutaConsegnaLocator = By.xpath("//button[contains(., 'Ricevuta di consegna PEC') and @data-testid='download-legalfact']");
 
-        getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di accettazione PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
-                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']")), "disabled", "true"),
-                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di accettazione PEC') and @data-testid='download-legalfact']")))
-        ));
-        getWebDriverWait(10).withMessage("Il bottone per scaricare la ricevuta di consegna PEC non è visibile e non è disattivato").until(ExpectedConditions.and(
-                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di consegna PEC') and @data-testid='download-legalfact']")), "disabled", "true"),
-                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[contains(., 'Ricevuta di consegna PEC') and @data-testid='download-legalfact']")))
-        ));
+        getWebDriverWait(10)
+                .withMessage("Il bottone per scaricare la ricevuta di accettazione PEC non è visibile o non è disattivato")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(ricevutaAccettazioneLocator),
+                        ExpectedConditions.attributeToBe(ricevutaAccettazioneLocator, "disabled", "true")
+                ));
 
+        getWebDriverWait(10)
+                .withMessage("Il bottone per scaricare la ricevuta di consegna PEC non è visibile o non è disattivato")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(ricevutaConsegnaLocator),
+                        ExpectedConditions.attributeToBe(ricevutaConsegnaLocator, "disabled", "true")
+                ));
     }
+
 
     public void checkMessaggioErroreConCodice(int code) {
         webTool.waitTime(3);
@@ -1691,22 +2420,62 @@ public void insertCodiceFiscale(String codiceFiscale) {
         }
     }
 
+    //    public void clickVediTutti() {
+//        getWebDriverWait(4).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='show-all-attachments']"))));
+//        WebElement vediTutti = driver.findElement(By.xpath("//button[@data-testid='show-all-attachments']"));
+//        vediTutti.click();
+//    }
     public void clickVediTutti() {
-        getWebDriverWait(4).withMessage("Il bottone vedi tutti non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='show-all-attachments']"))));
-        WebElement vediTutti = driver.findElement(By.xpath("//button[@data-testid='show-all-attachments']"));
+        By locator = By.xpath("//button[@data-testid='show-all-attachments']");
+
+        WebElement vediTutti = getWebDriverWait(4)
+                .withMessage("Il bottone 'vedi tutti' non cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(locator));
+
         vediTutti.click();
     }
 
+
+    //    public void checkClickDownloadRicevutePEC() {
+//        getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]"))), ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")).get(0)), ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")).get(1))));
+//
+//    }
     public void checkClickDownloadRicevutePEC() {
-        getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]"))), ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")).get(0)), ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")).get(1))));
 
+        List<WebElement> ricevutePEC = getWebDriverWait(10)
+                .withMessage("Le ricevute PEC non sono visibili")
+                .until(driver -> driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")));
+
+        if (ricevutePEC.size() < 2) {
+            Assertions.fail("Non ci sono abbastanza ricevute PEC visualizzate per il download");
+        }
+
+        getWebDriverWait(10)
+                .withMessage("I bottoni delle ricevute PEC non sono cliccabili")
+                .until(ExpectedConditions.elementToBeClickable(ricevutePEC.get(0)));
+
+        getWebDriverWait(10)
+                .withMessage("I bottoni delle ricevute PEC non sono cliccabili")
+                .until(ExpectedConditions.elementToBeClickable(ricevutePEC.get(1)));
     }
 
+
+    //    public void verificaMittente(String ente) {
+//        getWebDriverWait(10).withMessage("Mittente non trovato").until(ExpectedConditions.and(
+//                ExpectedConditions.visibilityOf(driver.findElement(By.id("row-value-1"))),
+//                ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("row-value-1")), ente)));
+//    }
     public void verificaMittente(String ente) {
-        getWebDriverWait(10).withMessage("Mittente non trovato").until(ExpectedConditions.and(
-                ExpectedConditions.visibilityOf(driver.findElement(By.id("row-value-1"))),
-                ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("row-value-1")), ente)));
+        By locator = By.id("row-value-1");
+
+        getWebDriverWait(10)
+                .withMessage("Mittente non trovato")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(locator),
+                        ExpectedConditions.textToBePresentInElementLocated(locator, ente)
+                ));
     }
+
 
     public void checkBottoneAnnullaNotifica() {
         boolean isDisplayed = false;
@@ -1761,11 +2530,20 @@ public void insertCodiceFiscale(String codiceFiscale) {
         buttontornaApiKey.click();
     }
 
+    //    public void premereTrePuntini() {
+//        WebElement moreVertIconButton = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(
+//                "//tr[@aria-rowindex='1']//button[@data-testid='contextMenuButton']"))));
+//        moreVertIconButton.click();
+//    }
     public void premereTrePuntini() {
-        WebElement moreVertIconButton = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(
-                "//tr[@aria-rowindex='1']//button[@data-testid='contextMenuButton']"))));
+        By locator = By.xpath("//tr[@aria-rowindex='1']//button[@data-testid='contextMenuButton']");
+
+        WebElement moreVertIconButton = getWebDriverWait(60)
+                .until(ExpectedConditions.elementToBeClickable(locator));
+
         moreVertIconButton.click();
     }
+
 
     public void tornaApiKey() {
         WebElement buttontornaApiKey = getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(By.id("go-to-api-keys")));
@@ -1847,34 +2625,70 @@ public void insertCodiceFiscale(String codiceFiscale) {
         Assertions.assertEquals(linguaElement.getText(), lingua, "La Lingua presente nel footer è diversa da: " + lingua);
     }
 
+    //    public void verificaCampiVuoti() {
+//        String oggettoNotifica = driver.findElement(By.id("subject")).getAttribute("value");
+//        String descrizione = driver.findElement(By.id("abstract")).getAttribute("value");
+//        String numeroProtocollo = driver.findElement(By.id("paProtocolNumber")).getAttribute("value");
+//        String codiceTassonomico = driver.findElement(By.id("taxonomyCode")).getAttribute("value");
+//        WebElement raccomandata = driver.findElement(By.xpath("//input[@value='AR_REGISTERED_LETTER']"));
+//
+//        // Asserzioni
+//        Assertions.assertTrue(oggettoNotifica.isEmpty(), "Il campo Oggetto Notifica non è vuoto");
+//        Assertions.assertTrue(descrizione.isEmpty(), "Il campo Descrizione non è vuoto");
+//        Assertions.assertTrue(numeroProtocollo.isEmpty(), "Il campo Numero Protocollo non è vuoto");
+//        Assertions.assertTrue(codiceTassonomico.isEmpty(), "Il campo Codice Tassonomico non è vuoto");
+//        Assertions.assertFalse(raccomandata.isSelected(), "Il campo Raccomandata non è vuoto");
+//    }
     public void verificaCampiVuoti() {
-        String oggettoNotifica = driver.findElement(By.id("subject")).getAttribute("value");
-        String descrizione = driver.findElement(By.id("abstract")).getAttribute("value");
-        String numeroProtocollo = driver.findElement(By.id("paProtocolNumber")).getAttribute("value");
-        String codiceTassonomico = driver.findElement(By.id("taxonomyCode")).getAttribute("value");
-        WebElement raccomandata = driver.findElement(By.xpath("//input[@value='AR_REGISTERED_LETTER']"));
 
-        // Asserzioni
-        Assertions.assertTrue(oggettoNotifica.isEmpty(), "Il campo Oggetto Notifica non è vuoto");
-        Assertions.assertTrue(descrizione.isEmpty(), "Il campo Descrizione non è vuoto");
-        Assertions.assertTrue(numeroProtocollo.isEmpty(), "Il campo Numero Protocollo non è vuoto");
-        Assertions.assertTrue(codiceTassonomico.isEmpty(), "Il campo Codice Tassonomico non è vuoto");
+        Map<String, String> campi = Map.of(
+                "Oggetto Notifica", getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("subject"))).getAttribute("value"),
+                "Descrizione", getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("abstract"))).getAttribute("value"),
+                "Numero Protocollo", getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("paProtocolNumber"))).getAttribute("value"),
+                "Codice Tassonomico", getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("taxonomyCode"))).getAttribute("value")
+        );
+        // Verifica che tutti i campi di testo siano vuoti
+        campi.forEach((nomeCampo, valore) ->
+                Assertions.assertTrue(valore.isEmpty(), "Il campo " + nomeCampo + " non è vuoto")
+        );
+        // Verifica checkbox Raccomandata
+        WebElement raccomandata = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//input[@value='AR_REGISTERED_LETTER']")));
         Assertions.assertFalse(raccomandata.isSelected(), "Il campo Raccomandata non è vuoto");
     }
 
+
+    //    public void verificaBanner(String banner) {
+//        String xPathBanner = "//div[@data-testid='bannerAdditionalLanguages']//div[@class='MuiAlert-message css-cysxvc']";
+//
+//        if (StringUtils.isEmpty(banner)) {
+//            //assenza di banner
+//            boolean nonPresente = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xPathBanner)));
+//            Assertions.assertTrue(nonPresente, "Banner Bilinguismo presente");
+//        } else {
+//            WebElement messaggioBanner = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xPathBanner))));
+//            String testoMessaggioBanner = messaggioBanner.getText();
+//            Assertions.assertTrue(testoMessaggioBanner.contains(banner), "Banner bilinguismo non contiene il testo atteso!");
+//        }
+//    }
     public void verificaBanner(String banner) {
-        String xPathBanner = "//div[@data-testid='bannerAdditionalLanguages']//div[@class='MuiAlert-message css-cysxvc']";
+        By locator = By.xpath("//div[@data-testid='bannerAdditionalLanguages']//div[@class='MuiAlert-message css-cysxvc']");
 
         if (StringUtils.isEmpty(banner)) {
-            //assenza di banner
-            boolean nonPresente = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(xPathBanner)));
+            // assenza di banner
+            boolean nonPresente = getWebDriverWait(10)
+                    .withMessage("Non si visualizza correttamente il Banner di linguismo")
+                    .until(ExpectedConditions.invisibilityOfElementLocated(locator));
             Assertions.assertTrue(nonPresente, "Banner Bilinguismo presente");
         } else {
-            WebElement messaggioBanner = getWebDriverWait(10).withMessage("Non si visualizza correttamente il Banner dilinguismo").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xPathBanner))));
+            WebElement messaggioBanner = getWebDriverWait(10)
+                    .withMessage("Non si visualizza correttamente il Banner di linguismo")
+                    .until(ExpectedConditions.visibilityOfElementLocated(locator));
             String testoMessaggioBanner = messaggioBanner.getText();
             Assertions.assertTrue(testoMessaggioBanner.contains(banner), "Banner bilinguismo non contiene il testo atteso!");
         }
     }
+
 
     public void verificaPopUpToastErrore(String verifica) {
         WebElement popup = getWebDriverWait(15)
@@ -1900,16 +2714,33 @@ public void insertCodiceFiscale(String codiceFiscale) {
         Assertions.assertTrue(toastErrorCode.getText().contains(verifica));
     }
 
+    //    public String copiaTraceIDToastErrore() {
+//        WebElement traceIDCopyButton = getWebDriverWait(10)
+//                .until(ExpectedConditions.visibilityOfElementLocated(
+//                        By.xpath("//button[normalize-space()='Copia informazioni errore']")
+//                ));
+//        traceIDCopyButton.click();
+//        WebElement traceIDValue = driver.findElement(By.xpath("//div[@id='alert-api-status']/following-sibling::div/div/p[contains(text(),'')][2]"));
+//        return traceIDValue.getAttribute("value");
+//    }
     public String copiaTraceIDToastErrore() {
+        // Attende che il bottone per copiare il trace ID sia visibile e cliccabile
         WebElement traceIDCopyButton = getWebDriverWait(10)
-                .until(ExpectedConditions.visibilityOfElementLocated(
-//                        By.xpath("//div[@id='alert-api-status']/following-sibling::div//a[@role='button']")
+                .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("//button[normalize-space()='Copia informazioni errore']")
                 ));
         traceIDCopyButton.click();
-        WebElement traceIDValue = driver.findElement(By.xpath("//div[@id='alert-api-status']/following-sibling::div/div/p[contains(text(),'')][2]"));
-        return traceIDValue.getAttribute("value");
+
+        // Attende che il testo del TraceID sia visibile
+        WebElement traceIDValue = getWebDriverWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//div[@id='alert-api-status']/following-sibling::div/div/p[2]")
+                ));
+
+        // Usa getText() invece di getAttribute("value")
+        return traceIDValue.getText();
     }
+
 
     public void clickChiudiToastErrore() {
         WebElement closeIcon = getWebDriverWait(10)
@@ -1964,7 +2795,7 @@ public void insertCodiceFiscale(String codiceFiscale) {
                 .withMessage("Impossibile trovare la lista con la lingua: " + lingua)
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[contains(text(),'" + lingua + "')]")));
 
-        logger.info("Lingua '" + lingua + "' trovata con successo");
+        logger.info("Lingua '{}' trovata con successo", lingua);
         gruppoLingua.click();
     }
 
@@ -2231,7 +3062,7 @@ public void insertCodiceFiscale(String codiceFiscale) {
         getWebDriverWait(10)
                 .withMessage("Impossibile trovare il 'not-found-back-button'")
                 .until(ExpectedConditions
-                .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
+                        .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
 
 
     }
