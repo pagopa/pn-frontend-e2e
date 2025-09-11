@@ -415,9 +415,20 @@ public void clickDelegatiImpresa() {
     public void checkTextboxCodiceSonoRosse() {
         final String textboxIsInvalid = "true";
         boolean isInvalid = true;
+        int attempt = 1;
+        int maxAttempts = 7;
         String stateInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input")).getAttribute("aria-invalid");
-        if (!(textboxIsInvalid.equals(stateInput))) {
-            isInvalid = false;
+        while (attempt < maxAttempts) {
+
+            if (!(textboxIsInvalid.equals(stateInput))) {
+                isInvalid = false;
+                webTool.waitTime(5);
+                logger.info("Tentativo n° {} per l'attesa della formattazione...", attempt);
+                attempt++;
+            }
+            else {
+                break;
+            }
         }
         if (isInvalid) {
             logger.info("Textbox di input codice delega invalido");
@@ -446,12 +457,6 @@ public void clickDelegatiImpresa() {
         getWebDriverWait(10).withMessage("bottone indietro in inserimento codice non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("code-cancel-button"))));
         buttonIndietroCodiceDiVerifica = driver.findElement(By.id("code-cancel-button"));
         buttonIndietroCodiceDiVerifica.click();
-    }
-
-    public void clickButtonIndietroInAssegnazioneGruppo() {
-        getWebDriverWait(10).withMessage("bottone indietro in assegnazione gruppo non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='groupCancelButton']"))));
-        buttonIndietroInAssegnazioneGruppo = driver.findElement(By.xpath("//button[@data-testid='groupCancelButton']"));
-        buttonIndietroInAssegnazioneGruppo.click();
     }
 
     public void checkTabellaDelegheACaricoDellImpresa() {

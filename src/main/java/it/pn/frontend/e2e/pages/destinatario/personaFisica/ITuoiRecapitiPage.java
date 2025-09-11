@@ -114,10 +114,10 @@ public void iTuoiRecapitiButtonClick() {
     public void sendOTP(String otp) {
         String[] otps = otp.split("");
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//input[contains(@id,'code-input')]"))));
-            List<WebElement> otpInputs = driver.findElements(By.xpath("//input[contains(@id,'code-input')]"));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//div[@aria-hidden='true']//div"))));
+            WebElement codiceDelegaInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input"));
             for (int i = 0; i < otps.length; i++) {
-                otpInputs.get(i).sendKeys(otps[i]);
+                codiceDelegaInput.sendKeys(otps[i]);
             }
             logger.info("Il codice otp viene inserito correttamente");
         } catch (TimeoutException e) {
