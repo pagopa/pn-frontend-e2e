@@ -818,7 +818,7 @@ public class UtentiPGPage extends BasePage {
 //        getWebDriverWait(10).withMessage("il messaggio utente rimosso non è visibile").until(ExpectedConditions.elementToBeClickable(roleDeletedMessage));
 //        logger.info("Si visualizza correttamente il messaggio utente rimosso");
 //    }
-    public void checkUserDeletedMessage() {
+    public void checkUserDeletedMEssage() {
         By roleDeletedMessageLocator = By.xpath("//p[contains(text(),'Utente rimosso correttamente')]");
 
         getWebDriverWait(10)

@@ -436,7 +436,7 @@ public class NotifichePFPage extends BasePage {
         logger.info("Si visualizza una pagina differente dalla precedente");
     }
 
-    //    public void waitLoadSecondaPagina() {
+    //        public void waitLoadSecondaPagina() {
 //        paginaSeconda = driver.findElement(By.id("page2"));
 //        String isPageSelected = paginaSeconda.getAttribute("aria-current");
 //        if (isPageSelected.equalsIgnoreCase("true")) {
@@ -446,6 +446,22 @@ public class NotifichePFPage extends BasePage {
 //        }
 //
 //    }
+    public void waitLoadSecondaPagina() {
+        By paginaSecondaLocator = By.id("page2");
+
+        WebElement paginaSeconda = getWebDriverWait(10)
+                .withMessage("La seconda pagina non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(paginaSecondaLocator));
+
+        String isPageSelected = paginaSeconda.getAttribute("aria-current");
+
+        if ("true".equalsIgnoreCase(isPageSelected)) {
+            logger.info("Si visualizza una pagina differente dalla precedente");
+        } else {
+            Assertions.fail("Non si visualizza una pagina differente dalla precedente");
+        }
+    }
+
     public void waitLoadPagina(int pageNumber) {
         By paginaLocator = By.id("page" + pageNumber);
         getWebDriverWait(30)

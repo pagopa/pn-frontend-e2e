@@ -1888,7 +1888,7 @@ public class PiattaformaNotifichePage extends BasePage {
 //        clickRowNotificationIndex(notification);
 //    }
 
-    //    public void checkStatoNotifica(String stato) {
+//        public void checkStatoNotifica(String stato) {
 //        driver.navigate().refresh();
 //        webTool.waitTime(10);
 //        notificationsTableLines = driver.findElements(By.id("notificationsTable.body.row"));
@@ -1896,6 +1896,27 @@ public class PiattaformaNotifichePage extends BasePage {
 //        WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + stato));
 //        getWebDriverWait(10).withMessage("La notifica non ha lo stato " + stato).until(ExpectedConditions.visibilityOf(chipStatus));
 //    }
+
+    public void checkStatoNotifica(String stato) {
+        driver.navigate().refresh();
+        webTool.waitTime(10);
+
+        By firstRowLocator = By.cssSelector("#notificationsTable.body.row:first-child");
+        WebElement notificationLine = getWebDriverWait(10)
+                .withMessage("La tabella notifiche non contiene righe")
+                .until(ExpectedConditions.visibilityOfElementLocated(firstRowLocator));
+
+        By chipStatusLocator = By.id("status-chip-" + stato);
+        WebElement chipStatus = getWebDriverWait(10)
+                .withMessage("La notifica non ha lo stato '" + stato + "'")
+                .until(ExpectedConditions.visibilityOf(notificationLine.findElement(chipStatusLocator)));
+
+        logger.info("La notifica ha correttamente lo stato '{}'", stato);
+    }
+
+
+
+
     public void clickSuNotifica(String iun) {
         logger.info("IUN notifica {}", iun);
 

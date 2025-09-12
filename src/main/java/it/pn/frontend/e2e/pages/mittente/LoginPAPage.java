@@ -48,7 +48,7 @@ public class LoginPAPage extends BasePage {
 //        userTextEdit = driver.findElement(By.id("username"));
 //        userTextEdit.sendKeys(user);
 //    }
-    public void inserisciUtente(String user) {
+    public void inserisciUtenete(String user) {
         logger.info("Si inserisce il nome utente: {}", user);
         WebElement userTextEdit = getWebDriverWait(40)
                 .withMessage("Il campo username non è visibile dopo 40 secondi")
