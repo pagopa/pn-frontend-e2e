@@ -246,21 +246,18 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
             if (titoloPagamentoIsDisplayed) {
                 logger.info("Sezione titolo di pagamento è visualizzato");
             } else {
-                logger.error("Sezione titolo di pagamento non è visualizzato");
                 Assertions.fail("Sezione titolo di pagamento non è visualizzato");
             }
             boolean codiceAvvisoIsDisplayed = accediAPiattaformaNotifichePage.codiceAvvisoDisplayed();
             if (codiceAvvisoIsDisplayed) {
                 logger.info("Sezione codice avviso è visualizzato");
             } else {
-                logger.error("Sezione codice avviso non è visualizzato");
                 Assertions.fail("Sezione codice avviso non è visualizzato");
             }
             boolean modelloF24IsDisplayed = accediAPiattaformaNotifichePage.modelloF24Displayed();
             if (modelloF24IsDisplayed) {
                 logger.info("Sezione scarica modello F24 è visualizzato");
             } else {
-                logger.error("Sezione scarica modello F24 non è visualizzato");
                 Assertions.fail("Sezione scarica modello F24 non è visualizzato");
             }
             boolean scaricaAvvisoDisplayed = accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
@@ -274,7 +271,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
             if (pagaAvvisoDisplayed) {
                 logger.info("Sezione paga avviso è visualizzato");
             } else {
-                logger.error("Sezione paga avviso non è visualizzato");
                 Assertions.fail("Sezione paga avviso non è visualizzato");
             }
         }

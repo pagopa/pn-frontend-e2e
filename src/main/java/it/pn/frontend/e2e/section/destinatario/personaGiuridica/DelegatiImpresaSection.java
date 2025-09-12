@@ -53,28 +53,48 @@ public class DelegatiImpresaSection extends BasePage {
         webTool = new WebTool(driver);
     }
 
+    //    public void waitLoadDelegatiImpresaPage() {
+//        try {
+//            titlePageBy = driver.findElement(By.id("tab-1"));
+//            addDelegheButton = driver.findElement(By.id("add-deleghe"));
+//            getWebDriverWait(10).withMessage("il titolo della sezione delegati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
+//            getWebDriverWait(10).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(addDelegheButton));
+//            logger.info("Delegati dall'impresa caricata correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Delegati dall'impresa non caricata correttamente con errore: " + e.getMessage());
+//        }
+//    }
     public void waitLoadDelegatiImpresaPage() {
-        try {
-            titlePageBy = driver.findElement(By.id("tab-1"));
-            addDelegheButton = driver.findElement(By.id("add-deleghe"));
-            getWebDriverWait(10).withMessage("il titolo della sezione delegati dall'impresa non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
-            getWebDriverWait(10).withMessage("il bottone aggiungi delega non è visibile").until(ExpectedConditions.visibilityOf(addDelegheButton));
-            logger.info("Delegati dall'impresa caricata correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("Delegati dall'impresa non caricata correttamente con errore: " + e.getMessage());
-        }
+        titlePageBy = getWebDriverWait(10)
+                .withMessage("Il titolo della sezione delegati dall'impresa non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("tab-1")));
+        addDelegheButton = getWebDriverWait(10)
+                .withMessage("Il bottone aggiungi delega non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("add-deleghe")));
+        logger.info("Delegati dall'impresa caricata correttamente");
     }
 
+
+    //    public void clickAggiungiDelegaButton() {
+//        try {
+//            getWebDriverWait(10).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("add-deleghe"))));
+//            addDelegheButton = driver.findElement(By.id("add-deleghe"));
+//            logger.info("click sul bottone aggiunta delega");
+//            addDelegheButton.click();
+//        } catch (TimeoutException e) {
+//            Assertions.fail("bottone non trovato: " + e.getMessage());
+//        }
+//    }
     public void clickAggiungiDelegaButton() {
-        try {
-            getWebDriverWait(10).withMessage("bottone aggiunta deleghe non caricato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("add-deleghe"))));
-            addDelegheButton = driver.findElement(By.id("add-deleghe"));
-            logger.info("click sul bottone aggiunta delega");
-            addDelegheButton.click();
-        } catch (TimeoutException e) {
-            Assertions.fail("bottone non trovato: " + e.getMessage());
-        }
+        // Attende che il bottone sia cliccabile
+        addDelegheButton = getWebDriverWait(10)
+                .withMessage("Il bottone aggiungi delega non è caricato")
+                .until(ExpectedConditions.elementToBeClickable(By.id("add-deleghe")));
+
+        logger.info("Click sul bottone aggiungi delega");
+        addDelegheButton.click();
     }
+
 
     public boolean controlloEsistenzaDelega(String ragioneSociale) {
         try {
@@ -134,45 +154,100 @@ public class DelegatiImpresaSection extends BasePage {
         }
     }
 
+//    public void verificaRemoveMenuDelega(String displayName, String delegheCarico) {
+//        logger.info("DisplayName: {}", displayName);
+//        try {
+//
+//            if (driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
+//                logger.info("Esiste il duplicato: {}", displayName);
+//                js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+//
+//                if (StringUtils.isEmpty(delegheCarico)) {
+//                    logger.info("Deleghe Carico e null");
+//
+//                    boolean isVisible = isVisibleAttesa();
+//                    if (isVisible) {
+//                        //bottone remove
+//                        getWebDriverWait(30).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
+//                        driver.findElement(By.id("revoke-delegation-button")).click();
+//                        getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+//                        driver.findElement(By.id("dialog-action-button")).click();
+//                    } else {
+//                        getWebDriverWait(35).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("reject-delegation-button"))));
+//                        driver.findElement(By.id("reject-delegation-button")).click();
+//                        //Rifiuta la Delega pop-up
+//                        getWebDriverWait(35).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+//                        driver.findElement(By.id("dialog-action-button")).click();
+//                    }
+//
+//                } else {
+//                    logger.info("DelegheCarico != null");
+//                    getWebDriverWait(40).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
+//                    driver.findElement(By.id("revoke-delegation-button")).click();
+//                    driver.navigate().refresh();
+//                }
+//
+//                logger.info("Rimosso il duplicato: {}", displayName);
+//            }
+//        } catch (NoSuchElementException e) {
+//            logger.info("L'elemento non esiste. Continuo l'esecuzione.");
+//        }
+//    }
+
     public void verificaRemoveMenuDelega(String displayName, String delegheCarico) {
         logger.info("DisplayName: {}", displayName);
+        By menuButtonBy = By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'"
+                + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
         try {
-
-            if (driver.findElement(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")).isDisplayed()) {
+            WebElement menuButton = getWebDriverWait(10)
+                    .withMessage("Il menu delega per " + displayName + " non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(menuButtonBy));
+            if (menuButton.isDisplayed()) {
                 logger.info("Esiste il duplicato: {}", displayName);
-                js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + displayName + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
-
+                js().executeScript("arguments[0].click()", menuButton);
                 if (StringUtils.isEmpty(delegheCarico)) {
-                    logger.info("Deleghe Carico e null");
+                    logger.info("Deleghe Carico è null o vuoto");
+                    if (isVisibleAttesa()) {
+                        // Bottone revoke delega
+                        WebElement revokeButton = getWebDriverWait(30)
+                                .withMessage("Bottone revoca delega non cliccabile")
+                                .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                        revokeButton.click();
 
-                    boolean isVisible = isVisibleAttesa();
-                    if (isVisible) {
-                        //bottone remove
-                        getWebDriverWait(30).withMessage("bottone revoca delega  con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
-                        driver.findElement(By.id("revoke-delegation-button")).click();
-                        getWebDriverWait(30).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
-                        driver.findElement(By.id("dialog-action-button")).click();
+                        WebElement dialogButton = getWebDriverWait(30)
+                                .withMessage("Bottone conferma revoca delega non cliccabile")
+                                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                        dialogButton.click();
                     } else {
-                        getWebDriverWait(35).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("reject-delegation-button"))));
-                        driver.findElement(By.id("reject-delegation-button")).click();
-                        //Rifiuta la Delega pop-up
-                        getWebDriverWait(35).withMessage("bottone rifiuta delega con Deleghe Carico = null non cliccabile pop-up").until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
-                        driver.findElement(By.id("dialog-action-button")).click();
-                    }
+                        WebElement rejectButton = getWebDriverWait(35)
+                                .withMessage("Bottone rifiuta delega non cliccabile")
+                                .until(ExpectedConditions.elementToBeClickable(By.id("reject-delegation-button")));
+                        rejectButton.click();
 
+                        WebElement dialogButton = getWebDriverWait(35)
+                                .withMessage("Bottone conferma rifiuto delega non cliccabile")
+                                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
+                        dialogButton.click();
+                    }
                 } else {
                     logger.info("DelegheCarico != null");
-                    getWebDriverWait(40).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
-                    driver.findElement(By.id("revoke-delegation-button")).click();
+
+                    WebElement revokeButton = getWebDriverWait(40)
+                            .withMessage("Bottone revoca delega non cliccabile")
+                            .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                    revokeButton.click();
+
                     driver.navigate().refresh();
                 }
 
                 logger.info("Rimosso il duplicato: {}", displayName);
             }
-        } catch (NoSuchElementException e) {
-            logger.info("L'elemento non esiste. Continuo l'esecuzione.");
+
+        } catch (TimeoutException e) {
+            logger.info("L'elemento per {} non esiste o non è cliccabile. Continuo l'esecuzione.", displayName);
         }
     }
+
 
     public void verificaRemoveMenuDelega() {
         try {
@@ -220,86 +295,195 @@ public class DelegatiImpresaSection extends BasePage {
     }
 
 
+    //    public void clickMostraCodice() {
+//        menuDelegaButton = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
+//        menuDelegaButton.click();
+//        mostraCodiceOption = driver.findElement(By.id("show-code-button"));
+//        mostraCodiceOption.click();
+//    }
     public void clickMostraCodice() {
-        menuDelegaButton = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
+        menuDelegaButton = getWebDriverWait(10)
+                .withMessage("Il menu delega non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='delegationMenuIcon']")));
         menuDelegaButton.click();
-        mostraCodiceOption = driver.findElement(By.id("show-code-button"));
+        mostraCodiceOption = getWebDriverWait(10)
+                .withMessage("L'opzione 'Mostra codice' non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("show-code-button")));
         mostraCodiceOption.click();
     }
 
+
+//    public void clickRevocaMenuButtonPG() {
+//        try {
+//
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"))));
+//            menuDelegaButton = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
+//            menuDelegaButton.click();
+//            logger.info("verifica esistenza bottone revoca");
+//            getWebDriverWait(30).withMessage("bottone non trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
+//            revocaMenuButton = driver.findElement(By.id("revoke-delegation-button"));
+//            logger.info("click sul bottone revoca");
+//            revocaMenuButton.click();
+//        } catch (TimeoutException e) {
+//            Assertions.fail("click sul bottone revoca non riuscito");
+//        }
+//
+//    }
+
     public void clickRevocaMenuButtonPG() {
-        try {
+        menuDelegaButton = getWebDriverWait(30)
+                .withMessage("Il menu delega non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='delegationMenuIcon']")));
+        menuDelegaButton.click();
 
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"))));
-            menuDelegaButton = driver.findElement(By.xpath("//button[@data-testid='delegationMenuIcon']"));
-            menuDelegaButton.click();
-            logger.info("verifica esistenza bottone revoca");
-            getWebDriverWait(30).withMessage("bottone non trovato").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button"))));
-            revocaMenuButton = driver.findElement(By.id("revoke-delegation-button"));
-            logger.info("click sul bottone revoca");
-            revocaMenuButton.click();
-        } catch (TimeoutException e) {
-            Assertions.fail("click sul bottone revoca non riuscito");
-        }
+        revocaMenuButton = getWebDriverWait(30)
+                .withMessage("Bottone Revoca delega non trovato o non cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+        revocaMenuButton.click();
 
+        logger.info("Click sul bottone Revoca effettuato con successo");
     }
 
+
+    //    public void waitPopUpRevoca(String ragionSociale) {
+//        try {
+//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("confirmation-dialog-title"))));
+//            getWebDriverWait(10).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("confirmation-dialog-title")), "Vuoi revocare la delega a " + ragionSociale + "?"));
+//            logger.info("Il pop-up revoca si visualizza correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il pop-up revoca NON si visualizza correttamente con errore: " + e.getMessage());
+//        }
+//    }
     public void waitPopUpRevoca(String ragionSociale) {
-        try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("confirmation-dialog-title"))));
-            getWebDriverWait(10).until(ExpectedConditions.textToBePresentInElement(driver.findElement(By.id("confirmation-dialog-title")), "Vuoi revocare la delega a " + ragionSociale + "?"));
-            logger.info("Il pop-up revoca si visualizza correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("Il pop-up revoca NON si visualizza correttamente con errore: " + e.getMessage());
-        }
+        WebElement confirmationTitle = getWebDriverWait(10)
+                .withMessage("Il titolo del pop-up revoca non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmation-dialog-title")));
+
+        getWebDriverWait(10)
+                .withMessage("Il testo del pop-up revoca non corrisponde a: Vuoi revocare la delega a " + ragionSociale + "?")
+                .until(ExpectedConditions.textToBePresentInElement(confirmationTitle, "Vuoi revocare la delega a " + ragionSociale + "?"));
+
+        logger.info("Il pop-up revoca si visualizza correttamente");
     }
 
+
+    //    public void esistenzaRevocaButton() {
+//        try {
+//            getWebDriverWait(10).withMessage("Bottone di revoca non visualizzato").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.id("revoke-delegation-button"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button")))));
+//            revocaMenuButton = driver.findElement(By.id("revoke-delegation-button"));
+//            logger.info("Bottone revoca visualizzabile e cliccabile");
+//            revocaMenuButton.click();
+//            driver.navigate().refresh();
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
+//        }
+//    }
     public void esistenzaRevocaButton() {
-        try {
-            getWebDriverWait(10).withMessage("Bottone di revoca non visualizzato").until(ExpectedConditions.and(ExpectedConditions.visibilityOf(driver.findElement(By.id("revoke-delegation-button"))), ExpectedConditions.elementToBeClickable(driver.findElement(By.id("revoke-delegation-button")))));
-            revocaMenuButton = driver.findElement(By.id("revoke-delegation-button"));
-            logger.info("Bottone revoca visualizzabile e cliccabile");
-            revocaMenuButton.click();
-            driver.navigate().refresh();
-        } catch (TimeoutException e) {
-            Assertions.fail("Bottone revoca non visualizzabile e non cliccabile con errore: " + e.getMessage());
-        }
+        revocaMenuButton = getWebDriverWait(10)
+                .withMessage("Bottone di revoca non visualizzato o non cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+
+        logger.info("Bottone revoca visualizzabile e cliccabile");
+        revocaMenuButton.click();
+        driver.navigate().refresh();
     }
 
+
+    //    public void clickRevocaButton() {
+//        logger.info("Click su revoca delega");
+//        revocaButton = driver.findElement(By.id("dialog-confirm-button"));
+//        revocaButton.click();
+//    }
     public void clickRevocaButton() {
         logger.info("Click su revoca delega");
-        revocaButton = driver.findElement(By.id("dialog-confirm-button"));
+
+        revocaButton = getWebDriverWait(10)
+                .withMessage("Il bottone 'Revoca' nel pop-up non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-confirm-button")));
+
         revocaButton.click();
     }
 
+
+    //    public void clickAnnulla() {
+//        annullaButton = driver.findElement(By.id("dialog-close-button"));
+//        annullaButton.click();
+//    }
     public void clickAnnulla() {
-        annullaButton = driver.findElement(By.id("dialog-close-button"));
+        annullaButton = getWebDriverWait(10)
+                .withMessage("Il bottone 'Annulla' nel pop-up non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-close-button")));
+
         annullaButton.click();
     }
 
+
+//    public void checkTabellaDelegheDellImpresa() {
+//        try {
+//            getWebDriverWait(10).withMessage("tabella deleghe dell impresa non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
+//            getWebDriverWait(10).withMessage("colonna nome non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Nome')]]"))));
+//            getWebDriverWait(10).withMessage("colonna inizio delega non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Inizio delega')]"))));
+//            getWebDriverWait(10).withMessage("colonna fine delega non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Fine delega')]]"))));
+//            getWebDriverWait(10).withMessage("colonna permessi non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Permessi')]"))));
+//            getWebDriverWait(10).withMessage("colonna stato non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Stato')]"))));
+//            getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']"))));
+//        } catch (TimeoutException e) {
+//            Assertions.fail("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
+//        }
+//    }
+
     public void checkTabellaDelegheDellImpresa() {
-        try {
-            getWebDriverWait(10).withMessage("tabella deleghe dell impresa non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("notifications-table"))));
-            getWebDriverWait(10).withMessage("colonna nome non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Nome')]]"))));
-            getWebDriverWait(10).withMessage("colonna inizio delega non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Inizio delega')]"))));
-            getWebDriverWait(10).withMessage("colonna fine delega non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Fine delega')]]"))));
-            getWebDriverWait(10).withMessage("colonna permessi non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Permessi')]"))));
-            getWebDriverWait(10).withMessage("colonna stato non caricata correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Stato')]"))));
-            getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']"))));
-        } catch (TimeoutException e) {
-            Assertions.fail("tabella delegati dall imprese non caricata correttamente" + e.getMessage());
-        }
+        getWebDriverWait(10)
+                .withMessage("Tabella deleghe dell'impresa non caricata correttamente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("notifications-table")));
+
+        getWebDriverWait(10)
+                .withMessage("Colonna 'Nome' non caricata correttamente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Nome')]]")));
+
+        getWebDriverWait(10)
+                .withMessage("Colonna 'Inizio delega' non caricata correttamente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Inizio delega')]")));
+
+        getWebDriverWait(10)
+                .withMessage("Colonna 'Fine delega' non caricata correttamente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//th[span[contains(text(),'Fine delega')]]")));
+
+        getWebDriverWait(10)
+                .withMessage("Colonna 'Permessi' non caricata correttamente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Permessi')]")));
+
+        getWebDriverWait(10)
+                .withMessage("Colonna 'Stato' non caricata correttamente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Stato')]")));
+
+        getWebDriverWait(10)
+                .withMessage("Menu non caricato correttamente")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+
+        logger.info("Tabella deleghe dell'impresa caricata correttamente");
     }
 
 
+    //    private boolean isVisibleAttesa() {
+//        boolean isVisible;
+//        try {
+//            isVisible = driver.findElement(By.xpath("//span[contains(text(), 'attesa')]")).isDisplayed();
+//        } catch (NoSuchElementException e) {
+//            isVisible = false; // L'elemento non esiste
+//        }
+//        return isVisible;
+//    }
     private boolean isVisibleAttesa() {
-        boolean isVisible;
         try {
-            isVisible = driver.findElement(By.xpath("//span[contains(text(), 'attesa')]")).isDisplayed();
-        } catch (NoSuchElementException e) {
-            isVisible = false; // L'elemento non esiste
+            getWebDriverWait(5)
+                    .withMessage("L'elemento 'attesa' non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(), 'attesa')]")));
+            return true;
+        } catch (TimeoutException e) {
+            return false; // L'elemento non è visibile entro il timeout
         }
-        return isVisible;
     }
+
 
 }

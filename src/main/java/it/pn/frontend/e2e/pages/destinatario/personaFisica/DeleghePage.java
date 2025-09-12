@@ -42,15 +42,23 @@ public class DeleghePage extends BasePage {
         webTool = new WebTool(driver);
     }
 
+    //    public void waitDeleghePage() {
+//        try {
+//            WebElement deleghePageTitle = driver.findElement(By.id("Deleghe-page"));
+//            getWebDriverWait(10).withMessage("Il titolo  della pagina deleghe non è visibile").until(ExpectedConditions.visibilityOf(deleghePageTitle));
+//            logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiungiDeleghe");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiungiDeleghe con errore : " + e.getMessage());
+//        }
+//    }
     public void waitDeleghePage() {
-        try {
-            WebElement deleghePageTitle = driver.findElement(By.id("Deleghe-page"));
-            getWebDriverWait(10).withMessage("Il titolo  della pagina deleghe non è visibile").until(ExpectedConditions.visibilityOf(deleghePageTitle));
-            logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiungiDeleghe");
-        } catch (TimeoutException e) {
-            Assertions.fail("Il titolo o il bottone aggiungi delega non è visibile nella pagina aggiungiDeleghe con errore : " + e.getMessage());
-        }
+        getWebDriverWait(10)
+                .withMessage("Il titolo della pagina deleghe non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("Deleghe-page")));
+
+        logger.info("Il titolo o il bottone aggiungi delega è visibile nella pagina aggiungiDeleghe");
     }
+
 
     public void clickAggiungiDelegaButton() {
         WebElement aggiungiDelegaButton = getWebDriverWait(30)
@@ -61,37 +69,86 @@ public class DeleghePage extends BasePage {
 
     }
 
+    //    public void controlloCreazioneDelega() {
+//        try {
+//            webTool.waitTime(30);
+//            WebElement delegaCreata = driver.findElement(By.xpath("//span[contains(text(),'In attesa di conferma')]"));
+//            getWebDriverWait(30).withMessage("Il test In attesa di conferma non è visibile").until(ExpectedConditions.visibilityOf(delegaCreata));
+//            logger.info("Si visualizza la delega creata");
+//        } catch (TimeoutException e) {
+//            logger.error("Non si visualizza la delega creata");
+//            Assertions.fail("Non si visualizza la delega creata");
+//        }
+//    }
     public void controlloCreazioneDelega() {
-        try {
-            webTool.waitTime(30);
-            WebElement delegaCreata = driver.findElement(By.xpath("//span[contains(text(),'In attesa di conferma')]"));
-            getWebDriverWait(30).withMessage("Il test In attesa di conferma non è visibile").until(ExpectedConditions.visibilityOf(delegaCreata));
-            logger.info("Si visualizza la delega creata");
-        } catch (TimeoutException e) {
-            logger.error("Non si visualizza la delega creata");
-            Assertions.fail("Non si visualizza la delega creata");
-        }
+        webTool.waitTime(30);
+
+        getWebDriverWait(30)
+                .withMessage("Il test 'In attesa di conferma' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'In attesa di conferma')]")));
+
+        logger.info("Si visualizza la delega creata");
     }
 
+
+    //    public boolean cercaEsistenzaDelega(String nome, String cognome) {
+//        try {
+//            WebElement nomeDelegato = driver.findElement(By.xpath("//div[@data-testid='delegates-wrapper']//div/p[contains(text(),'" + nome + " " + cognome + "')]"));
+//            getWebDriverWait(30).withMessage("Il nome del Delegato non è visibile").until(ExpectedConditions.visibilityOf(nomeDelegato));
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            logger.error("nome del delegato non presente con errore: {}" , e.getMessage());
+//            return false;
+//        }
+//    }
     public boolean cercaEsistenzaDelega(String nome, String cognome) {
-        try {
-            WebElement nomeDelegato = driver.findElement(By.xpath("//div[@data-testid='delegates-wrapper']//div/p[contains(text(),'" + nome + " " + cognome + "')]"));
-            getWebDriverWait(30).withMessage("Il nome del Delegato non è visibile").until(ExpectedConditions.visibilityOf(nomeDelegato));
-            return true;
-        } catch (TimeoutException | NoSuchElementException e) {
-            logger.error("nome del delegato non presente con errore: {}" , e.getMessage());
+        List<WebElement> delegati = driver.findElements(
+                By.xpath("//div[@data-testid='delegates-wrapper']//div/p[contains(text(),'" + nome + " " + cognome + "')]")
+        );
+
+        if (delegati.isEmpty()) {
+            logger.info("Nome del delegato non presente: {} {}", nome, cognome);
             return false;
         }
+
+        getWebDriverWait(30)
+                .withMessage("Il nome del delegato non è visibile")
+                .until(ExpectedConditions.visibilityOf(delegati.get(0)));
+
+        return true;
     }
 
+
+    //    public void clickRevocaButtonOnMenu(String nome, String cognome) {
+//        getWebDriverWait(10).withMessage("Menù opzioni delega non visualizzato").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+//        js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
+//        webTool.waitTime(20);
+//        getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+//        revocaButton = driver.findElement(By.id("revoke-delegation-button"));
+//        revocaButton.click();
+//    }
     public void clickRevocaButtonOnMenu(String nome, String cognome) {
-        getWebDriverWait(10).withMessage("Menù opzioni delega non visualizzato").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
-        js().executeScript("arguments[0].click()", element(By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
-        webTool.waitTime(20);
-        getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
-        revocaButton = driver.findElement(By.id("revoke-delegation-button"));
+        // Trova il pulsante del menu delega per il delegato specificato
+        By menuButtonBy = By.xpath(
+                "//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]" +
+                        "/following-sibling::td//button[@data-testid='delegationMenuIcon']"
+        );
+
+        WebElement menuButton = getWebDriverWait(10)
+                .withMessage("Menù opzioni delega non visualizzato")
+                .until(ExpectedConditions.visibilityOfElementLocated(menuButtonBy));
+
+        js().executeScript("arguments[0].click()", menuButton);
+
+        // Attende che il pulsante revoca sia cliccabile e cliccalo
+        By revokeButtonBy = By.id("revoke-delegation-button");
+        revocaButton = getWebDriverWait(10)
+                .withMessage("Bottone revoca delega non cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(revokeButtonBy));
+
         revocaButton.click();
     }
+
 
     public boolean siVisualizzaUnaDelega() {
         try {
@@ -100,62 +157,142 @@ public class DeleghePage extends BasePage {
             logger.info("Trovato correttamente almeno una delega");
             return true;
         } catch (TimeoutException e) {
-            logger.warn("Deleghe NON trovate con errore: {}" , e.getMessage());
+            logger.warn("Deleghe NON trovate con errore: {}", e.getMessage());
             return false;
         }
     }
 
+    //    public void clickMenuDelegante(String fullName) {
+//        List<WebElement> tableRows = driver.findElements(By.id("notifications-table")); // Take all the rows of the table
+//        if (!tableRows.isEmpty()) {
+//            for (WebElement row : tableRows) {
+//                WebElement cellName = row.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
+//                getWebDriverWait(10).withMessage("Non è stato trovato la riga corrispondente della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(cellName));
+//                WebElement menuButton = row.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']")); // take the menu button from the row
+//                getWebDriverWait(10).withMessage("Non è stato trovato il menu della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(menuButton));
+//                menuButton.click();
+//                logger.info("Cliccato correttamente su menu delega button");
+//                return;
+//            }
+//        } else {
+//            Assertions.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
+//        }
+//    }
     public void clickMenuDelegante(String fullName) {
-        List<WebElement> tableRows = driver.findElements(By.id("notifications-table")); // Take all the rows of the table
-        if (!tableRows.isEmpty()) {
-            for (WebElement row : tableRows) {
-                WebElement cellName = row.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
-                getWebDriverWait(10).withMessage("Non è stato trovato la riga corrispondente della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(cellName));
-                WebElement menuButton = row.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']")); // take the menu button from the row
-                getWebDriverWait(10).withMessage("Non è stato trovato il menu della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(menuButton));
-                menuButton.click();
-                logger.info("Cliccato correttamente su menu delega button");
-                return;
-            }
-        } else {
-            Assertions.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
-        }
-    }
-
-    public void clickMenuDelegato(String fullName) {
-        WebElement tableRows = driver.findElement(By.id("notifications-table")); // Take all the rows of the table
-        if (tableRows.isDisplayed()) {
-            WebElement cellName = tableRows.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
-            getWebDriverWait(10).withMessage("Non è stato trovato la riga corrispondente della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(cellName));
-            WebElement menuButton = tableRows.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']")); // take the menu button from the row
-            getWebDriverWait(10).withMessage("Non è stato trovato il menu della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(menuButton));
-            menuButton.click();
-            logger.info("Cliccato correttamente su menu delega button");
-        } else {
-            Assertions.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
-        }
-    }
-
-    public void siSceglieOpzioneMostraCodice() {
-        mostraCodiceOption = driver.findElement(By.id("show-code-button"));
-        mostraCodiceOption.click();
-    }
-
-    public void siCliccaSulBottoneChiudi() {
         try {
-            WebElement closeCodiceButtonBy = driver.findElement(By.id("code-cancel-button"));
-            getWebDriverWait(40).until(ExpectedConditions.visibilityOf(closeCodiceButtonBy));
-            logger.info("Il bottone chiudi viene visualizzato correttamente");
-            closeCodiceButtonBy.click();
-        } catch (TimeoutException e) {
-            Assertions.fail("Il bottone chiudi viene visualizzato NON correttamente con errore:" + e.getMessage());
+            // Trova la riga della tabella corrispondente al delegato
+            By rowBy = By.xpath("//table[@id='notifications-table']//td//p[contains(text(), '" + fullName + "')]/ancestor::tr");
+            WebElement row = getWebDriverWait(10)
+                    .withMessage("Non è stata trovata la riga della delega con il nome: " + fullName)
+                    .until(ExpectedConditions.visibilityOfElementLocated(rowBy));
+
+            // Trova il pulsante del menu nella riga trovata
+            WebElement menuButton = row.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']"));
+            getWebDriverWait(10)
+                    .withMessage("Non è stato trovato il menu della delega con il nome: " + fullName)
+                    .until(ExpectedConditions.elementToBeClickable(menuButton));
+
+            // Click sul pulsante
+            js().executeScript("arguments[0].click()", menuButton);
+            logger.info("Cliccato correttamente su menu delega button per: {}", fullName);
+
+        } catch (TimeoutException | NoSuchElementException e) {
+            Assertions.fail("Errore nel cliccare sul menu delega per " + fullName + ": " + e.getMessage());
         }
     }
 
-    public void clickOpzioneRevoca() {
-        revocaButton = driver.findElement(By.id("revoke-delegation-button"));
-        revocaButton.click();
+
+    //    public void clickMenuDelegato(String fullName) {
+//        WebElement tableRows = driver.findElement(By.id("notifications-table")); // Take all the rows of the table
+//        if (tableRows.isDisplayed()) {
+//            WebElement cellName = tableRows.findElement(By.xpath(".//td//p[contains(text(), '" + fullName + "')]")); // Take the cell with the name of the delegate from the row
+//            getWebDriverWait(10).withMessage("Non è stato trovato la riga corrispondente della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(cellName));
+//            WebElement menuButton = tableRows.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']")); // take the menu button from the row
+//            getWebDriverWait(10).withMessage("Non è stato trovato il menu della delega con il nome: " + fullName).until(ExpectedConditions.visibilityOf(menuButton));
+//            menuButton.click();
+//            logger.info("Cliccato correttamente su menu delega button");
+//        } else {
+//            Assertions.fail("Non è stato trovato nessun delegato con il nome: " + fullName);
+//        }
+//    }
+    public void clickMenuDelegato(String fullName) {
+        try {
+            // Trova la riga della tabella corrispondente al delegato
+            By rowBy = By.xpath("//table[@id='notifications-table']//td//p[contains(text(), '" + fullName + "')]/ancestor::tr");
+            WebElement row = getWebDriverWait(10)
+                    .withMessage("Non è stata trovata la riga della delega con il nome: " + fullName)
+                    .until(ExpectedConditions.visibilityOfElementLocated(rowBy));
+
+            // Trova il pulsante del menu nella riga trovata
+            WebElement menuButton = row.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']"));
+            getWebDriverWait(10)
+                    .withMessage("Non è stato trovato il menu della delega con il nome: " + fullName)
+                    .until(ExpectedConditions.elementToBeClickable(menuButton));
+
+            // Click sicuro tramite JS
+            js().executeScript("arguments[0].click()", menuButton);
+            logger.info("Cliccato correttamente su menu delega button per: {}", fullName);
+
+        } catch (TimeoutException | NoSuchElementException e) {
+            Assertions.fail("Errore nel cliccare sul menu delega per " + fullName + ": " + e.getMessage());
+        }
     }
+
+
+    //    public void siSceglieOpzioneMostraCodice() {
+//        mostraCodiceOption = driver.findElement(By.id("show-code-button"));
+//        mostraCodiceOption.click();
+//    }
+    public void siSceglieOpzioneMostraCodice() {
+        // Attesa che il pulsante sia visibile e cliccabile
+        mostraCodiceOption = getWebDriverWait(10)
+                .withMessage("Il pulsante 'Mostra codice' non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("show-code-button")));
+
+        try {
+            // Click "normale"
+            mostraCodiceOption.click();
+        } catch (ElementClickInterceptedException e) {
+            // Se il click normale fallisce (ad esempio overlay o scroll), usiamo JavaScript
+            js().executeScript("arguments[0].click();", mostraCodiceOption);
+        }
+
+        logger.info("Opzione 'Mostra codice' selezionata correttamente");
+    }
+
+    //
+//    public void siCliccaSulBottoneChiudi() {
+//        try {
+//            WebElement closeCodiceButtonBy = driver.findElement(By.id("code-cancel-button"));
+//            getWebDriverWait(40).until(ExpectedConditions.visibilityOf(closeCodiceButtonBy));
+//            logger.info("Il bottone chiudi viene visualizzato correttamente");
+//            closeCodiceButtonBy.click();
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il bottone chiudi viene visualizzato NON correttamente con errore:" + e.getMessage());
+//        }
+//    }
+    public void siCliccaSulBottoneChiudi() {
+        WebElement closeCodiceButtonBy = getWebDriverWait(40)
+                .withMessage("Il bottone 'Chiudi' non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("code-cancel-button")));
+
+        closeCodiceButtonBy.click();
+        logger.info("Il bottone 'Chiudi' è stato cliccato correttamente");
+    }
+
+    //    public void clickOpzioneRevoca() {
+//        revocaButton = driver.findElement(By.id("revoke-delegation-button"));
+//        revocaButton.click();
+//    }
+    public void clickOpzioneRevoca() {
+        revocaButton = getWebDriverWait(30)
+                .withMessage("Il bottone 'Revoca' non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+
+        revocaButton.click();
+        logger.info("Il bottone 'Revoca' è stato cliccato correttamente");
+    }
+
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
         WebElement menuButton = getWebDriverWait(200)
@@ -174,32 +311,63 @@ public class DeleghePage extends BasePage {
         rifiutaButtonBy.click();
     }
 
+    //    public void clickRifiutaPopUp() {
+//        try {
+//            WebElement rifiutaButtonPopUpBy = driver.findElement(By.xpath("//button[contains(text(),'Rifiuta la delega')]"));
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(rifiutaButtonPopUpBy));
+//            rifiutaButtonPopUpBy.click();
+//            logger.info("Si visualizza il bottone rifiuta nel pop-up");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Non si visualizza correttamente il bottone rifiuta pop-up errore: " + e.getMessage());
+//        }
+//    }
     public void clickRifiutaPopUp() {
-        try {
-            WebElement rifiutaButtonPopUpBy = driver.findElement(By.xpath("//button[contains(text(),'Rifiuta la delega')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(rifiutaButtonPopUpBy));
-            rifiutaButtonPopUpBy.click();
-            logger.info("Si visualizza il bottone rifiuta nel pop-up");
-        } catch (TimeoutException e) {
-            Assertions.fail("Non si visualizza correttamente il bottone rifiuta pop-up errore: " + e.getMessage());
-        }
+        WebElement rifiutaButtonPopUp = getWebDriverWait(30)
+                .withMessage("Il bottone 'Rifiuta la delega' nel pop-up non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Rifiuta la delega')]")));
+
+        rifiutaButtonPopUp.click();
+        logger.info("Si visualizza correttamente il bottone 'Rifiuta' nel pop-up");
     }
 
+
+    //    public void clickAnnullaPopUp() {
+//        try {
+//            WebElement annullaButtonPopUpBy = driver.findElement(By.xpath("//button[contains(text(),'Annulla')]"));
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(annullaButtonPopUpBy));
+//            annullaButtonPopUpBy.click();
+//            logger.info("Si visualizza il bottone Annulla nel pop-up");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Non si clicca correttamente sul bottone Annulla pop-up errore: " + e.getMessage());
+//        }
+//    }
     public void clickAnnullaPopUp() {
-        try {
-            WebElement annullaButtonPopUpBy = driver.findElement(By.xpath("//button[contains(text(),'Annulla')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(annullaButtonPopUpBy));
-            annullaButtonPopUpBy.click();
-            logger.info("Si visualizza il bottone Annulla nel pop-up");
-        } catch (TimeoutException e) {
-            Assertions.fail("Non si clicca correttamente sul bottone Annulla pop-up errore: " + e.getMessage());
-        }
+        WebElement annullaButtonPopUp = getWebDriverWait(30)
+                .withMessage("Il bottone 'Annulla' nel pop-up non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Annulla')]")));
+
+        annullaButtonPopUp.click();
+        logger.info("Si visualizza correttamente il bottone 'Annulla' nel pop-up");
     }
 
+
+    //    public boolean verificaEsistenzaDelega(String nome, String cognome) {
+//        try {
+//            WebElement nomeDelegato = driver.findElement(By.xpath("//div[@data-testid='delegators-wrapper']//div/p[contains(text(),'" + nome + " " + cognome + "')]"));
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeDelegato));
+//            logger.info("La delega è stata trovata correttamente");
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            logger.info("La delega sta per essere creata");
+//            return false;
+//        }
+//    }
     public boolean verificaEsistenzaDelega(String nome, String cognome) {
         try {
-            WebElement nomeDelegato = driver.findElement(By.xpath("//div[@data-testid='delegators-wrapper']//div/p[contains(text(),'" + nome + " " + cognome + "')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeDelegato));
+            By delegaLocator = By.xpath("//div[@data-testid='delegators-wrapper']//div/p[contains(text(),'" + nome + " " + cognome + "')]");
+            getWebDriverWait(30) // attende fino a 10 secondi
+                    .withMessage("La delega per " + nome + " " + cognome + " non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(delegaLocator));
             logger.info("La delega è stata trovata correttamente");
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
@@ -208,12 +376,27 @@ public class DeleghePage extends BasePage {
         }
     }
 
+
+    //    public boolean siVisualizzaUnaDelegaConNome(String nome, String cognome) {
+//        try {
+//            webTool.waitTime(5);
+//            WebElement delegaBy = driver.findElement(By.xpath("//tr[@id = 'delegatesTable.body.row']//p[contains(text(),'" + nome + " " + cognome + "')]"));
+//
+//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(delegaBy));
+//            logger.info("Si trova una delega");
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            logger.warn("Non si trova una delega con il nome " + nome + " " + cognome);
+//            return false;
+//        }
+//    }
     public boolean siVisualizzaUnaDelegaConNome(String nome, String cognome) {
         try {
             webTool.waitTime(5);
-            WebElement delegaBy = driver.findElement(By.xpath("//tr[@id = 'delegatesTable.body.row']//p[contains(text(),'" + nome + " " + cognome + "')]"));
-
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(delegaBy));
+            By delegaLocator = By.xpath("//tr[@id='delegatesTable.body.row']//p[contains(text(),'" + nome + " " + cognome + "')]");
+            getWebDriverWait(10)
+                    .withMessage("Non si trova una delega con il nome " + nome + " " + cognome)
+                    .until(ExpectedConditions.visibilityOfElementLocated(delegaLocator));
             logger.info("Si trova una delega");
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
@@ -221,6 +404,7 @@ public class DeleghePage extends BasePage {
             return false;
         }
     }
+
 
     public boolean siVisualizzaUnaDelegaConNomeDelegato(String nome, String cognome) {
         try {
@@ -233,35 +417,67 @@ public class DeleghePage extends BasePage {
         }
     }
 
+    //    public String vericaStatoDelega() {
+//        WebElement statoDelega = driver.findElement(By.id("chip-status-success"));
+//        getWebDriverWait(10).withMessage("Non si trova nessuno stato delega").until(ExpectedConditions.visibilityOf(statoDelega));
+//        return statoDelega.getText();
+//    }
     public String vericaStatoDelega() {
-        WebElement statoDelega = driver.findElement(By.id("chip-status-success"));
-        getWebDriverWait(10).withMessage("Non si trova nessuno stato delega").until(ExpectedConditions.visibilityOf(statoDelega));
+        By statoDelegaLocator = By.id("chip-status-success");
+        WebElement statoDelega = getWebDriverWait(10)
+                .withMessage("Non si trova nessuno stato delega")
+                .until(ExpectedConditions.visibilityOfElementLocated(statoDelegaLocator));
         return statoDelega.getText();
     }
 
 
+    //    public void checkModaleMostraCodice() {
+//        try {
+//            WebElement titoloModale = driver.findElement(By.id("dialog-title"));
+//            WebElement sottotitoloModale = driver.findElement(By.id("dialog-description"));
+//            int i = 4;
+//
+//            getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOf(titoloModale));
+//            getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOf(sottotitoloModale));
+//            while (i >= 0) {
+//                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("code-input-" + i))));
+//                i--;
+//            }
+//        } catch (TimeoutException e) {
+//            Assertions.fail("modale mostra codice non caricata con errore: " + e.getMessage());
+//        }
+//    }
     public void checkModaleMostraCodice() {
         try {
-            WebElement titoloModale = driver.findElement(By.id("dialog-title"));
-            WebElement sottotitoloModale = driver.findElement(By.id("dialog-description"));
-            int i = 4;
+            By titoloModaleLocator = By.id("dialog-title");
+            By sottotitoloModaleLocator = By.id("dialog-description");
 
-            getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOf(titoloModale));
-            getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOf(sottotitoloModale));
-            while (i >= 0) {
-                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("code-input-" + i))));
-                i--;
+            getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOfElementLocated(titoloModaleLocator));
+            getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOfElementLocated(sottotitoloModaleLocator));
+
+            for (int i = 4; i >= 0; i--) {
+                By codiceInputLocator = By.id("code-input-" + i);
+                getWebDriverWait(10).withMessage("Non si trova codice verifica " + i).until(ExpectedConditions.visibilityOfElementLocated(codiceInputLocator));
             }
         } catch (TimeoutException e) {
             Assertions.fail("modale mostra codice non caricata con errore: " + e.getMessage());
         }
     }
 
-    public void clickAnnullaRevoca() {
-        annullaButton = driver.findElement(By.id("dialog-close-button"));
-        getWebDriverWait(10).withMessage("bottone annulla delega non trovato").until(ExpectedConditions.visibilityOf(annullaButton));
-        logger.info("click sul pulsante annulla revoca");
 
+    //    public void clickAnnullaRevoca() {
+//        annullaButton = driver.findElement(By.id("dialog-close-button"));
+//        getWebDriverWait(10).withMessage("bottone annulla delega non trovato").until(ExpectedConditions.visibilityOf(annullaButton));
+//        logger.info("click sul pulsante annulla revoca");
+//
+//        annullaButton.click();
+//    }
+    public void clickAnnullaRevoca() {
+        By annullaButtonLocator = By.id("dialog-close-button");
+        WebElement annullaButton = getWebDriverWait(10)
+                .withMessage("bottone annulla delega non trovato")
+                .until(ExpectedConditions.visibilityOfElementLocated(annullaButtonLocator));
+        logger.info("click sul pulsante annulla revoca");
         annullaButton.click();
     }
 

@@ -34,9 +34,16 @@ public class ScegliSpidPGPage extends BasePage {
         }
     }
 
+    //    public void clickTestButton() {
+//        testButton = driver.findElement(By.id("xx_testenv2"));
+//        getWebDriverWait(60).withMessage("Il bottone TEST non è cliccabile nella login").until(ExpectedConditions.elementToBeClickable(testButton));
+//        testButton.click();
+//    }
     public void clickTestButton() {
-        testButton = driver.findElement(By.id("xx_testenv2"));
-        getWebDriverWait(60).withMessage("Il bottone TEST non è cliccabile nella login").until(ExpectedConditions.elementToBeClickable(testButton));
+        WebElement testButton = getWebDriverWait(60)
+                .withMessage("Il bottone TEST non è cliccabile nella login")
+                .until(ExpectedConditions.elementToBeClickable(By.id("xx_testenv2")));
         testButton.click();
     }
+
 }

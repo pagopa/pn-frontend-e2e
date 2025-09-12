@@ -82,7 +82,7 @@ public class DisserviziAppPAPage extends BasePage {
         }
     }
 
-//    public void getDateDisservice() {
+    //    public void getDateDisservice() {
 //        driver.navigate().back();
 //        webTool.waitTime(5);
 //        disserviziTable = driver.findElement(By.id("notifications-table"));
@@ -104,10 +104,10 @@ public class DisserviziAppPAPage extends BasePage {
 //
 //        }
 //    }
-public void getDateDisservice() {
+    public void getDateDisservice() {
         driver.navigate().back();
         webTool.waitTime(5);
-         getWebDriverWait(10)
+        getWebDriverWait(10)
                 .withMessage("Tabella disservizi non trovata")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("notifications-table")));
 
@@ -143,9 +143,9 @@ public void getDateDisservice() {
             logger.error("Non è stato possibile recuperare i dati dalla tabella dei disservizi - tabella vuota");
             Assertions.fail("Non è stato possibile recuperare i dati dalla tabella dei disservizi - tabella vuota");
         }
-}
+    }
 
-//    public void waitLoadDisserviziTable() {
+    //    public void waitLoadDisserviziTable() {
 //        try {
 //            webTool.waitTime(20);
 //
@@ -194,59 +194,59 @@ public void getDateDisservice() {
 //            Assertions.fail("Non si visualizza correttamente la tabella dei disservizi con errore" + e.getMessage());
 //        }
 //    }
-public void waitLoadDisserviziTable() {
-    try {
-        webTool.waitTime(20);
+    public void waitLoadDisserviziTable() {
+        try {
+            webTool.waitTime(20);
 
-        // 1. Verifica tabella principale
-        WebElement disserviziTable = getWebDriverWait(60)
-                .withMessage("Tabella disservizi non visibile")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.id("notifications-table")));
+            // 1. Verifica tabella principale
+            WebElement disserviziTable = getWebDriverWait(60)
+                    .withMessage("Tabella disservizi non visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("notifications-table")));
 
-        // 2. Verifica header
-        WebElement tableHeader = disserviziTable.findElement(By.xpath(".//thead[@role='rowgroup']"));
-        getWebDriverWait(10).withMessage("Header non visibile").until(ExpectedConditions.visibilityOf(tableHeader));
+            // 2. Verifica header
+            WebElement tableHeader = disserviziTable.findElement(By.xpath(".//thead[@role='rowgroup']"));
+            getWebDriverWait(10).withMessage("Header non visibile").until(ExpectedConditions.visibilityOf(tableHeader));
 
-        // 3. Verifica titoli colonne
-        List<WebElement> headerTitles = tableHeader.findElements(By.xpath(".//th[@data-testid='tableDowntimeLog.header.cell']"));
-        getWebDriverWait(10).withMessage("Titoli colonne non visibili").until(ExpectedConditions.visibilityOfAllElements(headerTitles));
+            // 3. Verifica titoli colonne
+            List<WebElement> headerTitles = tableHeader.findElements(By.xpath(".//th[@data-testid='tableDowntimeLog.header.cell']"));
+            getWebDriverWait(10).withMessage("Titoli colonne non visibili").until(ExpectedConditions.visibilityOfAllElements(headerTitles));
 
-        if (headerTitles.size() != 5) {
-            Assertions.fail("Numero colonne errato. Atteso: 5, Trovato: " + headerTitles.size());
-        }
-
-        // 4. Verifica testo titoli
-        String[] expectedHeaders = {"Data di inizio", "Data di fine", "Servizio coinvolto", "Attestazioni opponibili a terzi", "Stato"};
-        for (int i = 0; i < expectedHeaders.length; i++) {
-            getWebDriverWait(5)
-                    .withMessage("Titolo colonna " + expectedHeaders[i] + " non corretto")
-                    .until(ExpectedConditions.textToBePresentInElement(headerTitles.get(i), expectedHeaders[i]));
-        }
-
-        // 5. Verifica righe dati
-        List<WebElement> rows = disserviziTable.findElements(By.xpath(".//tr[contains(@id, 'tableDowntimeLog.row')]"));
-        if (rows.isEmpty()) {
-            Assertions.fail("Nessuna riga di dati trovata");
-        }
-
-        // 6. Verifica contenuto prime righe
-        for (int i = 0; i < Math.min(rows.size(), 3); i++) {
-            List<WebElement> cells = rows.get(i).findElements(By.xpath(".//td[@data-testid='tableDowntimeLog.row.cell']"));
-            for (WebElement cell : cells) {
-                getWebDriverWait(3)
-                        .withMessage("Cella vuota nella riga " + (i + 1))
-                        .until(driver -> !cell.getText().trim().isEmpty());
+            if (headerTitles.size() != 5) {
+                Assertions.fail("Numero colonne errato. Atteso: 5, Trovato: " + headerTitles.size());
             }
+
+            // 4. Verifica testo titoli
+            String[] expectedHeaders = {"Data di inizio", "Data di fine", "Servizio coinvolto", "Attestazioni opponibili a terzi", "Stato"};
+            for (int i = 0; i < expectedHeaders.length; i++) {
+                getWebDriverWait(5)
+                        .withMessage("Titolo colonna " + expectedHeaders[i] + " non corretto")
+                        .until(ExpectedConditions.textToBePresentInElement(headerTitles.get(i), expectedHeaders[i]));
+            }
+
+            // 5. Verifica righe dati
+            List<WebElement> rows = disserviziTable.findElements(By.xpath(".//tr[contains(@id, 'tableDowntimeLog.row')]"));
+            if (rows.isEmpty()) {
+                Assertions.fail("Nessuna riga di dati trovata");
+            }
+
+            // 6. Verifica contenuto prime righe
+            for (int i = 0; i < Math.min(rows.size(), 3); i++) {
+                List<WebElement> cells = rows.get(i).findElements(By.xpath(".//td[@data-testid='tableDowntimeLog.row.cell']"));
+                for (WebElement cell : cells) {
+                    getWebDriverWait(3)
+                            .withMessage("Cella vuota nella riga " + (i + 1))
+                            .until(driver -> !cell.getText().trim().isEmpty());
+                }
+            }
+
+            logger.info("Tabella disservizi visualizzata correttamente");
+
+        } catch (TimeoutException e) {
+            Assertions.fail("Tabella disservizi non visualizzata: " + e.getMessage());
         }
-
-        logger.info("Tabella disservizi visualizzata correttamente");
-
-    } catch (TimeoutException e) {
-        Assertions.fail("Tabella disservizi non visualizzata: " + e.getMessage());
     }
-}
 
-//    public void checkDisserviziInCorso() {
+    //    public void checkDisserviziInCorso() {
 //        aggiornamentoPagina();
 //        webTool.waitTime(15);
 //        statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
@@ -270,74 +270,74 @@ public void waitLoadDisserviziTable() {
 //            Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
 //        }
 //    }
-public void checkDisserviziInCorso() {
-    try {
-        aggiornamentoPagina();
-        webTool.waitTime(15);
+    public void checkDisserviziInCorso() {
+        try {
+            aggiornamentoPagina();
+            webTool.waitTime(15);
 
-        // Aspetto che gli elementi di status siano presenti
-        List<WebElement> statusList = getWebDriverWait(15)
-                .withMessage("Nessun elemento di status trovato nella tabella")
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                        By.xpath("//tr[contains(@id, 'tableDowntimeLog.row')]//td//div[@data-testid='downtime-status']")));
+            // Aspetto che gli elementi di status siano presenti
+            List<WebElement> statusList = getWebDriverWait(15)
+                    .withMessage("Nessun elemento di status trovato nella tabella")
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                            By.xpath("//tr[contains(@id, 'tableDowntimeLog.row')]//td//div[@data-testid='downtime-status']")));
 
-        boolean foundInCorso = false;
-        boolean foundDataFineDash = false;
-        boolean foundFraseAttestazione = false;
+            boolean foundInCorso = false;
+            boolean foundDataFineDash = false;
+            boolean foundFraseAttestazione = false;
 
-        if (!statusList.isEmpty()) {
-            logger.info("Trovati {} record nella tabella disservizi", statusList.size());
+            if (!statusList.isEmpty()) {
+                logger.info("Trovati {} record nella tabella disservizi", statusList.size());
 
-            for (WebElement status : statusList) {
-                String statusText = status.getText().trim();
-                logger.debug("Controllo status: {}", statusText);
+                for (WebElement status : statusList) {
+                    String statusText = status.getText().trim();
+                    logger.debug("Controllo status: {}", statusText);
 
-                if (statusText.contains("In corso")) {
-                    logger.info("Trovato record con disservizio ancora in corso");
-                    foundInCorso = true;
+                    if (statusText.contains("In corso")) {
+                        logger.info("Trovato record con disservizio ancora in corso");
+                        foundInCorso = true;
+                    }
+
+                    if (statusText.contains("-")) {
+                        logger.info("Trovato record con data di fine come: -");
+                        foundDataFineDash = true;
+                    }
+
+                    if (statusText.contains("L'attestazione sarà disponibile al termine del disservizio")) {
+                        logger.info("Trovato record con frase corretta nelle attestazioni");
+                        foundFraseAttestazione = true;
+                    }
+
+                    // Se abbiamo trovato tutto quello che cerchiamo, possiamo uscire prima
+                    if (foundInCorso && foundDataFineDash && foundFraseAttestazione) {
+                        break;
+                    }
                 }
 
-                if (statusText.contains("-")) {
-                    logger.info("Trovato record con data di fine come: -");
-                    foundDataFineDash = true;
+                // Verifica finale di ciò che è stato trovato
+                if (!foundInCorso) {
+                    Assertions.fail("Non si visualizza un record relativo ad un disservizio ancora in corso");
                 }
 
-                if (statusText.contains("L'attestazione sarà disponibile al termine del disservizio")) {
-                    logger.info("Trovato record con frase corretta nelle attestazioni");
-                    foundFraseAttestazione = true;
+                if (!foundDataFineDash) {
+                    logger.warn("Non trovato record con data di fine come '-'");
                 }
 
-                // Se abbiamo trovato tutto quello che cerchiamo, possiamo uscire prima
-                if (foundInCorso && foundDataFineDash && foundFraseAttestazione) {
-                    break;
+                if (!foundFraseAttestazione) {
+                    logger.warn("Non trovato record con la frase completa delle attestazioni");
                 }
+
+            } else {
+                Assertions.fail("Non si visualizza alcun record nella tabella dei disservizi");
             }
 
-            // Verifica finale di ciò che è stato trovato
-            if (!foundInCorso) {
-                Assertions.fail("Non si visualizza un record relativo ad un disservizio ancora in corso");
-            }
-
-            if (!foundDataFineDash) {
-                logger.warn("Non trovato record con data di fine come '-'");
-            }
-
-            if (!foundFraseAttestazione) {
-                logger.warn("Non trovato record con la frase completa delle attestazioni");
-            }
-
-        } else {
-            Assertions.fail("Non si visualizza alcun record nella tabella dei disservizi");
+        } catch (TimeoutException e) {
+            logger.error("Timeout durante la verifica dei disservizi in corso", e);
+            Assertions.fail("Timeout durante la verifica dei disservizi in corso: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Errore durante la verifica dei disservizi in corso", e);
+            Assertions.fail("Errore durante la verifica dei disservizi: " + e.getMessage());
         }
-
-    } catch (TimeoutException e) {
-        logger.error("Timeout durante la verifica dei disservizi in corso", e);
-        Assertions.fail("Timeout durante la verifica dei disservizi in corso: " + e.getMessage());
-    } catch (Exception e) {
-        logger.error("Errore durante la verifica dei disservizi in corso", e);
-        Assertions.fail("Errore durante la verifica dei disservizi: " + e.getMessage());
     }
-}
 
     public void checkDisservizioRisolto(String tipoDisservizio) {
         aggiornamentoPagina();
@@ -377,7 +377,7 @@ public void checkDisserviziInCorso() {
 
     }
 
-//    public void checkDisserviziDisponibili() {
+    //    public void checkDisserviziDisponibili() {
 //        webTool.waitTime(20);
 //        aggiornamentoPagina();
 //        List<WebElement> statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
@@ -401,91 +401,91 @@ public void checkDisserviziInCorso() {
 //            Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
 //        }
 //    }
-public void checkDisserviziDisponibili() {
-    try {
-        aggiornamentoPagina();
-        webTool.waitTime(20);
+    public void checkDisserviziDisponibili() {
+        try {
+            aggiornamentoPagina();
+            webTool.waitTime(20);
 
-        // Aspetto che gli elementi di status siano presenti
-        List<WebElement> statusList = getWebDriverWait(20)
-                .withMessage("Nessun elemento di status trovato nella tabella")
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                        By.xpath("//tr[contains(@id, 'tableDowntimeLog.row')]//td//div[@data-testid='downtime-status']")));
+            // Aspetto che gli elementi di status siano presenti
+            List<WebElement> statusList = getWebDriverWait(20)
+                    .withMessage("Nessun elemento di status trovato nella tabella")
+                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                            By.xpath("//tr[contains(@id, 'tableDowntimeLog.row')]//td//div[@data-testid='downtime-status']")));
 
-        boolean foundRisolto = false;
-        boolean foundDataFine = false;
-        boolean foundScaricaAttestazione = false;
+            boolean foundRisolto = false;
+            boolean foundDataFine = false;
+            boolean foundScaricaAttestazione = false;
 
-        if (!statusList.isEmpty()) {
-            logger.info("Trovati {} record nella tabella disservizi", statusList.size());
+            if (!statusList.isEmpty()) {
+                logger.info("Trovati {} record nella tabella disservizi", statusList.size());
 
-            for (WebElement status : statusList) {
-                String statusText = status.getText().trim();
-                logger.debug("Controllo status: {}", statusText);
+                for (WebElement status : statusList) {
+                    String statusText = status.getText().trim();
+                    logger.debug("Controllo status: {}", statusText);
 
-                if (statusText.contains("Risolto")) {
-                    logger.info("Trovato record con disservizio risolto");
-                    foundRisolto = true;
+                    if (statusText.contains("Risolto")) {
+                        logger.info("Trovato record con disservizio risolto");
+                        foundRisolto = true;
 
-                    // Cerco gli altri elementi nella stessa riga
-                    WebElement row = status.findElement(By.xpath("./ancestor::tr[contains(@id, 'tableDowntimeLog.row')]"));
+                        // Cerco gli altri elementi nella stessa riga
+                        WebElement row = status.findElement(By.xpath("./ancestor::tr[contains(@id, 'tableDowntimeLog.row')]"));
 
-                    // Verifica data di fine
-                    try {
-                        WebElement dataFineCell = row.findElement(By.xpath(".//td[contains(@data-testid, 'tableDowntimeLog.row.cell')][2]"));
-                        String dataFineText = dataFineCell.getText().trim();
+                        // Verifica data di fine
+                        try {
+                            WebElement dataFineCell = row.findElement(By.xpath(".//td[contains(@data-testid, 'tableDowntimeLog.row.cell')][2]"));
+                            String dataFineText = dataFineCell.getText().trim();
 
-                        if (dataFineText.contains("/") || (dataFineText.contains("Oggi") && dataFineText.contains(":"))) {
-                            logger.info("Data di fine servizio corretta: {}", dataFineText);
-                            foundDataFine = true;
+                            if (dataFineText.contains("/") || (dataFineText.contains("Oggi") && dataFineText.contains(":"))) {
+                                logger.info("Data di fine servizio corretta: {}", dataFineText);
+                                foundDataFine = true;
+                            }
+                        } catch (Exception e) {
+                            logger.warn("Impossibile verificare la data di fine: {}", e.getMessage());
                         }
-                    } catch (Exception e) {
-                        logger.warn("Impossibile verificare la data di fine: {}", e.getMessage());
-                    }
 
-                    // Verifica attestazione
-                    try {
-                        WebElement attestazioneCell = row.findElement(By.xpath(".//td[contains(@data-testid, 'tableDowntimeLog.row.cell')][4]"));
-                        String attestazioneText = attestazioneCell.getText().trim();
+                        // Verifica attestazione
+                        try {
+                            WebElement attestazioneCell = row.findElement(By.xpath(".//td[contains(@data-testid, 'tableDowntimeLog.row.cell')][4]"));
+                            String attestazioneText = attestazioneCell.getText().trim();
 
-                        if (attestazioneText.contains("Scarica l'attestazione")) {
-                            logger.info("Frase 'Scarica l'attestazione' trovata");
-                            foundScaricaAttestazione = true;
+                            if (attestazioneText.contains("Scarica l'attestazione")) {
+                                logger.info("Frase 'Scarica l'attestazione' trovata");
+                                foundScaricaAttestazione = true;
+                            }
+                        } catch (Exception e) {
+                            logger.warn("Impossibile verificare l'attestazione: {}", e.getMessage());
                         }
-                    } catch (Exception e) {
-                        logger.warn("Impossibile verificare l'attestazione: {}", e.getMessage());
-                    }
 
-                    // Se ho trovato tutto in questo record, esco dal loop
-                    if (foundRisolto && foundDataFine && foundScaricaAttestazione) {
-                        break;
+                        // Se ho trovato tutto in questo record, esco dal loop
+                        if (foundRisolto && foundDataFine && foundScaricaAttestazione) {
+                            break;
+                        }
                     }
                 }
+
+                // Verifiche finali
+                if (!foundRisolto) {
+                    Assertions.fail("Non si visualizza un record relativo ad un disservizio risolto");
+                }
+
+                if (!foundDataFine) {
+                    logger.warn("Non trovata data di fine nel formato atteso");
+                }
+
+                if (!foundScaricaAttestazione) {
+                    logger.warn("Non trovata la frase 'Scarica l'attestazione'");
+                }
+
+            } else {
+                Assertions.fail("Non si visualizza alcun record nella tabella dei disservizi");
             }
 
-            // Verifiche finali
-            if (!foundRisolto) {
-                Assertions.fail("Non si visualizza un record relativo ad un disservizio risolto");
-            }
-
-            if (!foundDataFine) {
-                logger.warn("Non trovata data di fine nel formato atteso");
-            }
-
-            if (!foundScaricaAttestazione) {
-                logger.warn("Non trovata la frase 'Scarica l'attestazione'");
-            }
-
-        } else {
-            Assertions.fail("Non si visualizza alcun record nella tabella dei disservizi");
+        } catch (TimeoutException e) {
+            Assertions.fail("Timeout durante la verifica dei disservizi disponibili: " + e.getMessage());
+        } catch (Exception e) {
+            Assertions.fail("Errore durante la verifica dei disservizi: " + e.getMessage());
         }
-
-    } catch (TimeoutException e) {
-        Assertions.fail("Timeout durante la verifica dei disservizi disponibili: " + e.getMessage());
-    } catch (Exception e) {
-        Assertions.fail("Errore durante la verifica dei disservizi: " + e.getMessage());
     }
-}
 
     public void downloadAttestazione() {
         performDownloadAttestazione(0);
@@ -539,7 +539,7 @@ public void checkDisserviziDisponibili() {
         return selectedRow;
     }
 
-//    public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
+    //    public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
 //        attestazioniFile = driver.findElements(By.cssSelector("[data-testid='download-legal-fact']"));
 //        if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
 //            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
@@ -548,7 +548,7 @@ public void checkDisserviziDisponibili() {
 //            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
 //        }
 //    }
-public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
+    public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
         // Trovo TUTTI i link delle attestazioni e aspetto che siano presenti
         List<WebElement> attestazioniFile = getWebDriverWait(10)
                 .withMessage("Nessun link attestazioni trovato")
@@ -580,7 +580,7 @@ public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioni
             js().executeScript("arguments[0].click();", link);
         }
 
-}
+    }
 
     public boolean confrontoFileConDisservizio() {
         getDateDisservice();
@@ -589,7 +589,7 @@ public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioni
         if (webDriverConfig != null) {
             folderPath = webDriverConfig.getDownloadFilePath();
         }
-        logger.info("DOWNLOAD FOLDER : {}" , folderPath);
+        logger.info("DOWNLOAD FOLDER : {}", folderPath);
         // Stringa da cercare nel nome del file
         String searchString = "PN_DOWNTIME_LEGAL_FACTS";
         // Creazione di un oggetto File che rappresenta la cartella
@@ -600,17 +600,17 @@ public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioni
             File[] files = folder.listFiles();
             // Verifica che la cartella non sia vuota
             if (files != null && files.length > 0) {
-                logger.info("Verifica cartella non vuota: {}" , files.length);
+                logger.info("Verifica cartella non vuota: {}", files.length);
                 // Cerca i file che contengono la stringa specificata nel nome
                 for (File file : files) {
-                    logger.info("Verifica cartella non vuota: {}" , file.getName());
+                    logger.info("Verifica cartella non vuota: {}", file.getName());
                     if (file.isFile() && file.getName().contains(searchString)) {
                         // Puoi eseguire altre operazioni sul file qui
                         try {
                             PDFTextStripper pdfTextStripper = new PDFTextStripper();
                             String text = pdfTextStripper.getText(PDDocument.load(file));
-                            logger.info("DATA_POPULATION_A: {}" , dataPopulation.getDataA());
-                            logger.info("DATA_POPULATION_DA: {}" , dataPopulation.getDataDa());
+                            logger.info("DATA_POPULATION_A: {}", dataPopulation.getDataA());
+                            logger.info("DATA_POPULATION_DA: {}", dataPopulation.getDataDa());
                             if (text.contains(dataPopulation.getDataA()) && text.contains(dataPopulation.getDataDa())) {
                                 return true;
                             }
