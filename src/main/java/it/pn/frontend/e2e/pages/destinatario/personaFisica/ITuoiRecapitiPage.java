@@ -293,7 +293,7 @@ public class ITuoiRecapitiPage extends BasePage {
     public void insertEmail(String emailPEC) {
         WebElement emailField = getWebDriverWait(20)
                 .withMessage("Input email field non trovato")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email")));
         emailField.sendKeys(emailPEC);
     }
 
@@ -307,7 +307,7 @@ public class ITuoiRecapitiPage extends BasePage {
     public void insertTelephoneNumber(String phoneNumber) {
         WebElement phoneField = getWebDriverWait(30)
                 .withMessage("Input numero di telefono non trovato")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_sms"))));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_sms")));
 
         phoneField.sendKeys(phoneNumber);
     }
@@ -321,7 +321,8 @@ public class ITuoiRecapitiPage extends BasePage {
     public void clickAvvisamiViaSMS() {
         WebElement smsButton = getWebDriverWait(10)
                 .withMessage("Il pulsante avvisami via SMS non è presente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_sms-button"))));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_sms-button")));
+
         js().executeScript("arguments[0].click()", smsButton);
     }
 
@@ -334,7 +335,7 @@ public class ITuoiRecapitiPage extends BasePage {
     public String getPhoneErrorMessage() {
         WebElement errorMessage = getWebDriverWait(30)
                 .withMessage("Il messaggio di errore per il numero di telefono non è visibile")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("default_sms-helper-text"))));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_sms-helper-text")));
         return errorMessage.getText();
     }
 

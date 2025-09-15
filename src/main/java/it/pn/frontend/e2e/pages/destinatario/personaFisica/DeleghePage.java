@@ -150,17 +150,17 @@ public class DeleghePage extends BasePage {
     }
 
 
-    public boolean siVisualizzaUnaDelega() {
-        try {
-            WebElement menuDelega = driver.findElement(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]"));
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(menuDelega));
-            logger.info("Trovato correttamente almeno una delega");
-            return true;
-        } catch (TimeoutException e) {
-            logger.warn("Deleghe NON trovate con errore: {}", e.getMessage());
-            return false;
-        }
-    }
+//    public boolean siVisualizzaUnaDelega() {
+//        try {
+//            WebElement menuDelega = driver.findElement(By.xpath("//tr[contains(@class,'MuiTableRow-root css-g76qb5')]"));
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(menuDelega));
+//            logger.info("Trovato correttamente almeno una delega");
+//            return true;
+//        } catch (TimeoutException e) {
+//            logger.warn("Deleghe NON trovate con errore: {}", e.getMessage());
+//            return false;
+//        }
+//    }
 
     //    public void clickMenuDelegante(String fullName) {
 //        List<WebElement> tableRows = driver.findElements(By.id("notifications-table")); // Take all the rows of the table

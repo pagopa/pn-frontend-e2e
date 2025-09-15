@@ -27,17 +27,27 @@ public class NotificheDestinatarioPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
+    //    public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
+//        getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+//        webTool.waitTime(1);
+//        driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
+//    }
     public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
-        getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+        By iunInputLocator = By.id("iunMatch");
+        WebElement iunInput = getWebDriverWait(10)
+                .withMessage("L'input codice IUN non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(iunInputLocator));
+
         webTool.waitTime(1);
-        driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
+        iunInput.sendKeys(codiceIUN);
     }
+
 
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
         try {
             By codiceIUNBy = By.xpath("//td[contains(text(),'" + codiceIUNInserito + "')]");
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(codiceIUNBy));
-            logger.info("il codice IUN {} è stato trovato",codiceIUNInserito);
+            logger.info("il codice IUN {} è stato trovato", codiceIUNInserito);
             return true;
         } catch (TimeoutException e) {
             Assertions.fail("Il codice IUN" + codiceIUNInserito + " non è stato trovato con errore:" + e.getMessage());
@@ -45,20 +55,43 @@ public class NotificheDestinatarioPage extends BasePage {
         return false;
     }
 
+    //    public boolean isTextBoxInvalid() {
+//        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+//
+//        String ariaInvalid = driver.findElement(By.id("iunMatch")).getAttribute("aria-invalid");
+//        final String isTextboxInvalid = "true";
+//        return isTextboxInvalid.equals(ariaInvalid);
+//    }
     public boolean isTextBoxInvalid() {
-        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
+        By iunInputLocator = By.id("iunMatch");
+        WebElement iunInput = getWebDriverWait(30)
+                .withMessage("L'input codice IUN non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(iunInputLocator));
 
-        String ariaInvalid = driver.findElement(By.id("iunMatch")).getAttribute("aria-invalid");
-        final String isTextboxInvalid = "true";
-        return isTextboxInvalid.equals(ariaInvalid);
+        String ariaInvalid = iunInput.getAttribute("aria-invalid");
+        return "true".equals(ariaInvalid);
     }
 
+
+    //    public void checkRicevutaConsegnaCliccabile() {
+//        logger.info("controllo esistenza bottone per scaricare zip");
+//        webTool.waitTime(10);
+//        ricevutaDiConsegnaButton = driver.findElement(By.xpath("//button[contains(text(),'Ricevuta di consegna PEC')]"));
+//        getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
+//        logger.info("Il bottone Ricevuta di consegna non cliccabile");
+//    }
     public void checkRicevutaConsegnaCliccabile() {
-        logger.info("controllo esistenza bottone per scaricare zip");
+        logger.info("Controllo esistenza bottone per scaricare zip");
+
+        By ricevutaButtonLocator = By.xpath("//button[contains(text(),'Ricevuta di consegna PEC')]");
         webTool.waitTime(10);
-        ricevutaDiConsegnaButton = driver.findElement(By.xpath("//button[contains(text(),'Ricevuta di consegna PEC')]"));
-        getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
-        logger.info("Il bottone Ricevuta di consegna non cliccabile");
+
+        getWebDriverWait(10)
+                .withMessage("Il bottone Ricevuta di consegna non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(ricevutaButtonLocator));
+
+        logger.info("Il bottone Ricevuta di consegna è cliccabile");
     }
+
 
 }

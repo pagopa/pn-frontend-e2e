@@ -57,20 +57,11 @@ public class CookiesSection extends BasePage {
 
     }
 
-    //    public void chiudiPagamentoPopup() {
-//            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Chiudi']")));
-//            logger.info("Si seleziona chiudi i cookies");
-//             chiudiPagamentoPopupButton = driver.findElement(By.xpath("//button[@aria-label='Chiudi']"));
-//
-//            Actions actions = new Actions(driver);
-//            actions.moveToElement(chiudiPagamentoPopupButton).click().perform();
+//    public void chiudiPagamentoPopup() {
+//        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Chiudi']")));
+//        logger.info("Si seleziona chiudi i cookies");
+//        chiudiPagamentoPopupButton = driver.findElement(By.xpath("//button[@aria-label='Chiudi']"));
+//        Actions actions = new Actions(driver);
+//        actions.moveToElement(chiudiPagamentoPopupButton).click().perform();
 //    }
-    public void chiudiPagamentoPopup() {
-        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Chiudi']")));
-        logger.info("Si seleziona chiudi i cookies");
-        chiudiPagamentoPopupButton = driver.findElement(By.xpath("//button[@aria-label='Chiudi']"));
-
-        Actions actions = new Actions(driver);
-        actions.moveToElement(chiudiPagamentoPopupButton).click().perform();
-    }
 }

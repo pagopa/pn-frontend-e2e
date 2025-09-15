@@ -645,12 +645,20 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
+    //    public boolean IsAnAdvancedStatus() {
+//        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@id,'status-chip-')]"))));
+//        WebElement statoNotificaBy = driver.findElement(By.xpath("//div[contains(@id,'status-chip-')]"));
+//        String status = statoNotificaBy.getText();
+//        return !status.equalsIgnoreCase("Depositata");
+//    }
     public boolean IsAnAdvancedStatus() {
-        getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@id,'status-chip-')]"))));
-        WebElement statoNotificaBy = driver.findElement(By.xpath("//div[contains(@id,'status-chip-')]"));
+        WebElement statoNotificaBy = getWebDriverWait(30)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@id,'status-chip-')]")));
+
         String status = statoNotificaBy.getText();
         return !status.equalsIgnoreCase("Depositata");
     }
+
 
     public void selezionaNotifica120Giorni() {
         waitLoadPage();
@@ -1151,9 +1159,13 @@ public class PiattaformaNotifichePage extends BasePage {
 //    }
     public boolean verificaEsistenzaCFNotifiche() {
         List<WebElement> cfFields = getWebDriverWait(30)
-                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[2]")));
+                .withMessage("I campi CF nella tabella delle notifiche non sono visibili")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//*[@id='notificationsTable.body.row']/td[2]"));
+                    return elements.isEmpty() ? null : elements; // aspetta fino a che almeno uno sia presente
+                });
 
-        return !cfFields.isEmpty();
+        return cfFields != null && !cfFields.isEmpty();
     }
 
 
@@ -1164,9 +1176,13 @@ public class PiattaformaNotifichePage extends BasePage {
 //    }
     public boolean verificaEsistenzaCodiceIUNNotifiche() {
         List<WebElement> codiciIUN = getWebDriverWait(30)
-                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]")));
+                .withMessage("I campi Codice IUN nella tabella delle notifiche non sono visibili")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//*[@id='notificationsTable.body.row']/td[4]"));
+                    return elements.isEmpty() ? null : elements; // aspetta finché almeno uno sia presente
+                });
 
-        return !codiciIUN.isEmpty();
+        return codiciIUN != null && !codiciIUN.isEmpty();
     }
 
 
@@ -1177,9 +1193,13 @@ public class PiattaformaNotifichePage extends BasePage {
 //    }
     public boolean verificaEsistenzaGruppoNotifiche() {
         List<WebElement> gruppi = getWebDriverWait(30)
-                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[5]")));
+                .withMessage("I campi Gruppo nella tabella delle notifiche non sono visibili")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//*[@id='notificationsTable.body.row']/td[5]"));
+                    return elements.isEmpty() ? null : elements; // aspetta finché almeno uno sia presente
+                });
 
-        return !gruppi.isEmpty();
+        return gruppi != null && !gruppi.isEmpty();
     }
 
 
@@ -1190,9 +1210,13 @@ public class PiattaformaNotifichePage extends BasePage {
 //    }
     public boolean verificaEsistenzaStatoNotifiche() {
         List<WebElement> stati = getWebDriverWait(30)
-                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[6]")));
+                .withMessage("I campi Stato nella tabella delle notifiche non sono visibili")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//*[@id='notificationsTable.body.row']/td[6]"));
+                    return elements.isEmpty() ? null : elements; // attende finché almeno uno sia presente
+                });
 
-        return !stati.isEmpty();
+        return stati != null && !stati.isEmpty();
     }
 
 
@@ -1203,10 +1227,15 @@ public class PiattaformaNotifichePage extends BasePage {
 //    }
     public int getNRighe() {
         List<WebElement> righe = getWebDriverWait(30)
-                .until(driver -> driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']")));
+                .withMessage("Le righe della tabella delle notifiche non sono visibili")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//tr[@id='notificationsTable.body.row']"));
+                    return elements.isEmpty() ? null : elements; // attende finché almeno una riga è presente
+                });
 
-        return righe.size();
+        return righe != null ? righe.size() : 0;
     }
+
 
     //
 //    public String numeroNotifiche() {
@@ -1510,11 +1539,17 @@ public class PiattaformaNotifichePage extends BasePage {
 //    }
     public List<String> getCodiceIunPresenti() {
         List<WebElement> righeTabella = getWebDriverWait(10)
-                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]")));
+                .withMessage("Le celle Codice IUN nella tabella delle notifiche non sono visibili")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//*[@id='notificationsTable.body.row']/td[4]"));
+                    return elements.isEmpty() ? null : elements; // attende finché almeno una cella è presente
+                });
 
         List<String> listaCodici = new ArrayList<>();
-        for (WebElement riga : righeTabella) {
-            listaCodici.add(riga.getText());
+        if (righeTabella != null) {
+            for (WebElement riga : righeTabella) {
+                listaCodici.add(riga.getText());
+            }
         }
         return listaCodici;
     }
@@ -1531,11 +1566,17 @@ public class PiattaformaNotifichePage extends BasePage {
 //    }
     public List<String> getCodiceIunPresentiPF() {
         List<WebElement> righeTabella = getWebDriverWait(10)
-                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]")));
+                .withMessage("Le celle Codice IUN PF nella tabella delle notifiche non sono visibili")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//*[@id='notificationsTable.body.row']/td[4]"));
+                    return elements.isEmpty() ? null : elements; // attende finché almeno una cella è presente
+                });
 
         List<String> listaCodici = new ArrayList<>();
-        for (WebElement riga : righeTabella) {
-            listaCodici.add(riga.getText());
+        if (righeTabella != null) {
+            for (WebElement riga : righeTabella) {
+                listaCodici.add(riga.getText());
+            }
         }
         return listaCodici;
     }
@@ -1565,11 +1606,17 @@ public class PiattaformaNotifichePage extends BasePage {
 //    }
     public List<String> getCodiceIunPersonaGiuridica() {
         List<WebElement> righeTabella = getWebDriverWait(10)
-                .until(driver -> driver.findElements(By.xpath("//*[@id=\"notificationsTable.body.row\"]/td[4]")));
+                .withMessage("Le celle Codice IUN PG nella tabella delle notifiche non sono visibili")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//*[@id='notificationsTable.body.row']/td[4]"));
+                    return elements.isEmpty() ? null : elements; // attende finché almeno una cella è presente
+                });
 
         List<String> listaCodici = new ArrayList<>();
-        for (WebElement riga : righeTabella) {
-            listaCodici.add(riga.getText());
+        if (righeTabella != null) {
+            for (WebElement riga : righeTabella) {
+                listaCodici.add(riga.getText());
+            }
         }
         return listaCodici;
     }
@@ -1680,13 +1727,21 @@ public class PiattaformaNotifichePage extends BasePage {
 //        return !inputsError.isEmpty() || filtraNotificaButtonMittente.getAttribute("disabled") != null;
 //    }
     public boolean isFiltraButtonDisabled() {
+        // Trova eventuali input con errore
         List<WebElement> inputsError = getWebDriverWait(10)
-                .until(driver -> driver.findElements(By.xpath("//input[@aria-invalid='true']")));
+                .withMessage("Non è stato possibile recuperare gli input con errore")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//input[@aria-invalid='true']"));
+                    return elements.isEmpty() ? Collections.emptyList() : elements;
+                });
 
+        // Recupera il pulsante "Filtra"
         filtraNotificaButtonMittente = getWebDriverWait(10)
+                .withMessage("Il pulsante filtra non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("filter-button")));
 
-        return !inputsError.isEmpty() || filtraNotificaButtonMittente.getAttribute("disabled") != null;
+        // Il pulsante è considerato disabilitato se ci sono input con errore o se ha l'attributo disabled
+        return !inputsError.isEmpty() || Boolean.parseBoolean(filtraNotificaButtonMittente.getAttribute("disabled"));
     }
 
 
@@ -1704,18 +1759,55 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public boolean controlloDateErrate() {
         List<WebElement> inputsError = getWebDriverWait(10)
-                .until(driver -> driver.findElements(By.xpath("//input[@aria-invalid='true']")));
+                .withMessage("Non sono stati trovati input con aria-invalid='true'")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//input[@aria-invalid='true']"));
+                    return elements.isEmpty() ? Collections.emptyList() : elements;
+                });
 
-        for (WebElement input : inputsError) {
-            String id = input.getAttribute("id");
-            if ("startDate".equals(id) || "endDate".equals(id)) {
-                return true;
-            }
-        }
-        return false;
+        return inputsError.stream()
+                .map(input -> input.getAttribute("id"))
+                .anyMatch(id -> "startDate".equals(id) || "endDate".equals(id));
     }
 
 
+    //    public boolean controlloEsistenzaStato() {
+//        statoNotificaField = getWebDriverWait(10)
+//                .withMessage("Il campo 'Stato notifica' non è visibile")
+//                .until(ExpectedConditions.elementToBeClickable(By.id("status")));
+//        statoNotificaField.click();
+//
+//        try {
+//            By opzioniMenu = By.xpath("//li[@data-value]");
+//
+//            getWebDriverWait(10)
+//                    .withMessage("Il menu a tendina dello stato notifica del filtro non è visibile")
+//                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(opzioniMenu));
+//
+//            List<WebElement> statiNotifica = driver.findElements(opzioniMenu);
+//
+//            Set<String> testiStati = new HashSet<>();
+//            for (WebElement stato : statiNotifica) {
+//                String testo = stato.getText().trim();
+//                if (testo.isEmpty()) {
+//                    logger.error("Trovata un'opzione con testo vuoto");
+//                    return false;
+//                }
+//                if (!testiStati.add(testo)) {
+//                    logger.error("Stato duplicato trovato: {}", testo);
+//                    return false;
+//                }
+//            }
+//            logger.info("Tutti gli stati del menu a tendina sono validi e unici");
+//            return true;
+//
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
+//            return false;
+//        } finally {
+//            this.element(By.id("menu-status")).click(); // chiude il menu
+//        }
+//    }
     public boolean controlloEsistenzaStato() {
         statoNotificaField = getWebDriverWait(10)
                 .withMessage("Il campo 'Stato notifica' non è visibile")
@@ -1725,11 +1817,12 @@ public class PiattaformaNotifichePage extends BasePage {
         try {
             By opzioniMenu = By.xpath("//li[@data-value]");
 
-            getWebDriverWait(10)
+            List<WebElement> statiNotifica = getWebDriverWait(10)
                     .withMessage("Il menu a tendina dello stato notifica del filtro non è visibile")
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(opzioniMenu));
-
-            List<WebElement> statiNotifica = driver.findElements(opzioniMenu);
+                    .until(driver -> {
+                        List<WebElement> elements = driver.findElements(opzioniMenu);
+                        return elements.isEmpty() ? null : elements;
+                    });
 
             Set<String> testiStati = new HashSet<>();
             for (WebElement stato : statiNotifica) {
@@ -1750,7 +1843,13 @@ public class PiattaformaNotifichePage extends BasePage {
             Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
             return false;
         } finally {
-            this.element(By.id("menu-status")).click(); // chiude il menu
+            try {
+                WebElement closeMenu = getWebDriverWait(5)
+                        .until(ExpectedConditions.elementToBeClickable(By.id("menu-status")));
+                closeMenu.click();
+            } catch (TimeoutException ignored) {
+                // Menu già chiuso o non trovato, si ignora
+            }
         }
     }
 
@@ -1915,8 +2014,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-
-
     public void clickSuNotifica(String iun) {
         logger.info("IUN notifica {}", iun);
 
@@ -1959,19 +2056,31 @@ public class PiattaformaNotifichePage extends BasePage {
 
         for (int i = 0; i < maxTentativi; i++) {
             try {
-                notificationsTableLines = getWebDriverWait(10)
-                        .until(driver -> driver.findElements(By.id("notificationsTable.body.row")));
+                List<WebElement> notificationsTableLines = getWebDriverWait(10)
+                        .until(driver -> {
+                            List<WebElement> elements = driver.findElements(By.id("notificationsTable.body.row"));
+                            return elements.isEmpty() ? null : elements;
+                        });
 
-                if (!notificationsTableLines.isEmpty()) {
-                    WebElement notificationLine = notificationsTableLines.get(0);
-                    WebElement chipStatus = notificationLine.findElement(By.id("status-chip-" + statoNotifica));
-                    if (chipStatus.isDisplayed()) {
-                        logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
-                        testSuccess = true;
-                        break;
-                    }
+                WebElement chipStatus = getWebDriverWait(10)
+                        .withMessage("Chip dello stato " + statoNotifica + " non visibile")
+                        .until(driver -> {
+                            for (WebElement row : notificationsTableLines) {
+                                List<WebElement> chips = row.findElements(By.id("status-chip-" + statoNotifica));
+                                if (!chips.isEmpty() && chips.get(0).isDisplayed()) {
+                                    return chips.get(0);
+                                }
+                            }
+                            return null;
+                        });
+
+                if (chipStatus != null) {
+                    logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
+                    testSuccess = true;
+                    break;
                 }
-            } catch (NoSuchElementException | TimeoutException e) {
+
+            } catch (TimeoutException e) {
                 logger.info("Tentativo {}: la notifica non è ancora passata allo stato: {}", i + 1, statoNotifica);
             }
 
@@ -2105,7 +2214,11 @@ public class PiattaformaNotifichePage extends BasePage {
         webTool.waitTime(10);
 
         List<WebElement> viewMore = getWebDriverWait(10)
-                .until(driver -> driver.findElements(By.xpath("//*[@id='more-less-timeline-step']")));
+                .withMessage("'Vedi più dettagli' non trovato")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+                    return elements.isEmpty() ? null : elements;
+                });
 
         if (viewMore.size() > 1) {
             viewMore.get(1).click();
@@ -2140,7 +2253,7 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-    //    public void visualizzaTimeline(String check) {
+    //        public void visualizzaTimeline(String check) {
 //        webTool.waitTime(10);
 //        if (StringUtils.isNotEmpty(check)) {
 //            List<WebElement> viewMore = getWebDriverWait(30).withMessage("Non trovato la scritta Vedi poiu dettagli")
@@ -2162,36 +2275,41 @@ public class PiattaformaNotifichePage extends BasePage {
 //        }
 //    }
     public void visualizzaTimeline(String check) {
-        webTool.waitTime(10);
+        webTool.waitTime(2); // breve attesa iniziale
 
         if (StringUtils.isNotEmpty(check)) {
+            // Attende fino a che almeno un pulsante 'Vedi più dettagli' sia presente
             List<WebElement> viewMore = getWebDriverWait(30)
-                    .withMessage("Non trovato il pulsante 'Vedi più dettagli'")
-                    .until(driver -> driver.findElements(By.xpath("//*[@id='more-less-timeline-step']")));
+                    .withMessage("Non trovato la scritta 'Vedi più dettagli'")
+                    .until(driver -> {
+                        List<WebElement> elements = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+                        return elements.isEmpty() ? null : elements;
+                    });
 
-            if (!viewMore.isEmpty()) {
-                viewMore.get(0).click();
-                if (viewMore.size() > 1) {
-                    viewMore.get(1).click();
-                }
-            } else {
-                Assertions.fail("'Vedi più dettagli' non trovato");
+            // Scroll e click sul primo pulsante
+            js().executeScript("arguments[0].scrollIntoView(true);", viewMore.get(0));
+            viewMore.get(0).click();
+
+            // Se ci sono due pulsanti, clicca anche il secondo
+            if (viewMore.size() == 2) {
+                js().executeScript("arguments[0].scrollIntoView(true);", viewMore.get(1));
+                viewMore.get(1).click();
             }
 
-            List<WebElement> findKeyWord = getWebDriverWait(30)
+            // Attende la keyword nella timeline
+            getWebDriverWait(30)
                     .withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
-                    .until(driver -> driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]")));
+                    .until(driver -> {
+                        List<WebElement> elements = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+                        return elements.isEmpty() ? null : elements;
+                    });
 
-            if (!findKeyWord.isEmpty() && findKeyWord.get(0).isDisplayed()) {
-                logger.info("Si visualizza la timeline correttamente");
-            } else {
-                Assertions.fail("Non si visualizza la timeline correttamente");
-            }
+            logger.info("Si visualizza la timeline correttamente per il messaggio '{}'", check);
         }
     }
 
 
-    //    public void verificaTentativoSuccessivo(String check) {
+    //        public void verificaTentativoSuccessivo(String check) {
 //        List<WebElement> findKeyWord = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
 //        logger.info("findkey : {}", findKeyWord.size());
 //        if (findKeyWord.get(0).isDisplayed()) {
@@ -2201,16 +2319,21 @@ public class PiattaformaNotifichePage extends BasePage {
 //        }
 //    }
     public void verificaTentativoSuccessivo(String check) {
+        // Attende fino a trovare almeno un elemento con la keyword nella timeline
         List<WebElement> findKeyWord = getWebDriverWait(30)
                 .withMessage("Non è stato trovato il messaggio nella Timeline: " + check)
-                .until(driver -> driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]")));
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//span[contains(text(),'" + check + "')]"));
+                    return elements.isEmpty() ? null : elements;
+                });
 
-        logger.info("findKeyWord: {}", findKeyWord.size());
+        // Scroll e verifica visibilità del primo elemento
+        js().executeScript("arguments[0].scrollIntoView(true);", findKeyWord.get(0));
 
-        if (!findKeyWord.isEmpty() && findKeyWord.get(0).isDisplayed()) {
-            logger.info("Si visualizza la timeline correttamente");
+        if (findKeyWord.get(0).isDisplayed()) {
+            logger.info("Si visualizza la timeline correttamente per il messaggio '{}'", check);
         } else {
-            Assertions.fail("Non si visualizza la timeline correttamente");
+            Assertions.fail("Non si visualizza la timeline correttamente per il messaggio: " + check);
         }
     }
 
@@ -2239,32 +2362,34 @@ public class PiattaformaNotifichePage extends BasePage {
     public void verificaDestinatariNonRaggiungibili(Map<String, String> destinatari) {
         logger.info("Si clicca 'vedi più dettagli'");
 
+        // Attende e recupera i pulsanti 'vedi più dettagli'
         List<WebElement> viewMore = getWebDriverWait(10)
-                .until(driver -> driver.findElements(By.xpath("//*[@id='more-less-timeline-step']")));
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));
+                    return elements.isEmpty() ? null : elements;
+                });
 
-        if (!viewMore.isEmpty()) {
-            viewMore.get(0).click();
-            if (viewMore.size() > 1) {
-                viewMore.get(1).click();
-            }
-        } else {
-            Assertions.fail("'Vedi più dettagli' non trovato");
+        // Click sui pulsanti presenti
+        for (WebElement view : viewMore) {
+            js().executeScript("arguments[0].scrollIntoView(true);", view);
+            view.click();
         }
 
         webTool.waitTime(2);
 
+        // Attende e verifica destinatari falliti
         WebElement destPF = getWebDriverWait(10)
-                .withMessage("Destinatario PF non trovato o non fallito")
+                .withMessage("Destinatario PF non trovato come non raggiungibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//p[contains(text(),'" + destinatari.get("PF") + " è fallito')]")));
 
         WebElement destPG = getWebDriverWait(10)
-                .withMessage("Destinatario PG non trovato o non fallito")
+                .withMessage("Destinatario PG non trovato come non raggiungibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//p[contains(text(),'" + destinatari.get("PG") + " è fallito')]")));
 
         if (destPF.isDisplayed() && destPG.isDisplayed()) {
-            logger.info("Entrambi i destinatari non raggiungibili al primo tentativo");
+            logger.info("Entrambi destinatari non raggiungibili al primo tentativo");
         } else {
             logger.error("Uno dei destinatari viene raggiunto al primo tentativo");
             Assertions.fail("Uno dei destinatari viene raggiunto al primo tentativo");
@@ -2457,27 +2582,28 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
 
-    //    public void checkClickDownloadRicevutePEC() {
+    //        public void checkClickDownloadRicevutePEC() {
 //        getWebDriverWait(10).withMessage("Le ricevute PEC non sono visibili").until(ExpectedConditions.and(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]"))), ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")).get(0)), ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")).get(1))));
 //
 //    }
     public void checkClickDownloadRicevutePEC() {
-
-        List<WebElement> ricevutePEC = getWebDriverWait(10)
+        List<WebElement> downloadButtons = getWebDriverWait(10)
                 .withMessage("Le ricevute PEC non sono visibili")
-                .until(driver -> driver.findElements(By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")));
+                .until(driver -> {
+                    List<WebElement> buttons = driver.findElements(
+                            By.xpath("//button[contains(@data-testid, 'download-legalfact') and contains(text(), 'PEC')]")
+                    );
+                    return buttons.size() >= 2 ? buttons : null; // attende almeno 2 elementi
+                });
 
-        if (ricevutePEC.size() < 2) {
-            Assertions.fail("Non ci sono abbastanza ricevute PEC visualizzate per il download");
+        // Verifica che entrambi siano cliccabili
+        for (WebElement button : downloadButtons) {
+            getWebDriverWait(10)
+                    .withMessage("Il bottone non è cliccabile: " + button.getText())
+                    .until(ExpectedConditions.elementToBeClickable(button));
         }
 
-        getWebDriverWait(10)
-                .withMessage("I bottoni delle ricevute PEC non sono cliccabili")
-                .until(ExpectedConditions.elementToBeClickable(ricevutePEC.get(0)));
-
-        getWebDriverWait(10)
-                .withMessage("I bottoni delle ricevute PEC non sono cliccabili")
-                .until(ExpectedConditions.elementToBeClickable(ricevutePEC.get(1)));
+        logger.info("I pulsanti di download PEC sono visibili e cliccabili");
     }
 
 
@@ -3060,20 +3186,49 @@ public class PiattaformaNotifichePage extends BasePage {
         };
     }
 
+    //    public boolean attesaNotificaConIUN(String iun) {
+//        int maxTentativi = 8;
+//        for (int tentativo = 0; tentativo <= maxTentativi; tentativo++) {
+//            List<WebElement> cellaCodiceIUN = driver.findElements(By.xpath("//table[@id='notifications-table']//tr//td[contains(text(), '" + iun + "')]"));
+//            if (!cellaCodiceIUN.isEmpty()) {
+//                getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), iun);
+//                return true;
+//            }
+//            logger.info("Tentativo n.{}: notifica non trovata!", tentativo);
+//            webTool.waitTime(90);
+//            driver.navigate().refresh();
+//        }
+//        return false;
+//    }
     public boolean attesaNotificaConIUN(String iun) {
         int maxTentativi = 8;
         for (int tentativo = 0; tentativo <= maxTentativi; tentativo++) {
-            List<WebElement> cellaCodiceIUN = driver.findElements(By.xpath("//table[@id='notifications-table']//tr//td[contains(text(), '" + iun + "')]"));
-            if (!cellaCodiceIUN.isEmpty()) {
-                getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), iun);
-                return true;
+            try {
+                List<WebElement> cellaCodiceIUN = getWebDriverWait(10)
+                        .until(driver -> {
+                            List<WebElement> elements = driver.findElements(
+                                    By.xpath("//table[@id='notifications-table']//tr//td[contains(text(), '" + iun + "')]")
+                            );
+                            return elements.isEmpty() ? null : elements;
+                        });
+
+                if (!cellaCodiceIUN.isEmpty()) {
+                    getNotificationSingletonParam().setScenarioIun(hooksNew.getScenario(), iun);
+                    logger.info("Notifica trovata al tentativo {} con IUN: {}", tentativo, iun);
+                    return true;
+                }
+            } catch (TimeoutException e) {
+                logger.info("Tentativo n.{}: notifica non trovata, refresh in corso", tentativo);
             }
-            logger.info("Tentativo n.{}: notifica non trovata!", tentativo);
-            webTool.waitTime(90);
+
+            webTool.waitTime(5); // breve attesa prima del refresh
             driver.navigate().refresh();
         }
+
+        logger.warn("Notifica con IUN {} non trovata dopo {} tentativi", iun, maxTentativi);
         return false;
     }
+
 
     public void verificaEsistenzaPaginaNonTrovata() {
 

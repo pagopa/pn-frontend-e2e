@@ -228,12 +228,12 @@ public class ApiKeyPAPage extends BasePage {
         }
     }
 
-    public String getNomi(int i) {
-        getWebDriverWait(30).withMessage("la lista dei nomi ApiKey non è visibile")
-                .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1kqk1ww')]/div/p"))));
-        List<WebElement> nomiApiKeyBy = driver.findElements(By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1kqk1ww')]/div/p"));
-        return nomiApiKeyBy.get(i).getText();
-    }
+//    public String getNomi(int i) {
+//        getWebDriverWait(30).withMessage("la lista dei nomi ApiKey non è visibile")
+//                .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1kqk1ww')]/div/p"))));
+//        List<WebElement> nomiApiKeyBy = driver.findElements(By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1kqk1ww')]/div/p"));
+//        return nomiApiKeyBy.get(i).getText();
+//    }
 
     public int getPosizioneMenuButton(String stato) {
 
@@ -267,14 +267,24 @@ public class ApiKeyPAPage extends BasePage {
         blockButton.click();
     }
 
+    //    public void siVisualizzaPopUp() {
+//        try {
+//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[contains(text(),'Blocca API Key')]"))));
+//            logger.info("Il popup si visualizza correttamente");
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Il popup NON si visualizza correttamente con errore:" + e.getMessage());
+//        }
+//    }
     public void siVisualizzaPopUp() {
-        try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[contains(text(),'Blocca API Key')]"))));
-            logger.info("Il popup si visualizza correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("Il popup NON si visualizza correttamente con errore:" + e.getMessage());
-        }
+        getWebDriverWait(30)
+                .withMessage("Il popup 'Blocca API Key' NON si visualizza correttamente")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//h2[contains(text(),'Blocca API Key')]")
+                ));
+
+        logger.info("Il popup si visualizza correttamente");
     }
+
 
     //    public void clickSuAnnulla() {
 //        getWebDriverWait(40).withMessage("il Bottone Annulla nel pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("close-modal-button"))));
@@ -469,75 +479,75 @@ public class ApiKeyPAPage extends BasePage {
 
     }
 
-    public boolean siVisualizzaApiKeyConTesto() {
-        try {
-            webTool.waitTime(5);
-            List<WebElement> apiKeyBy = driver.findElements(By.xpath("//td[div/div[contains(@class,'MuiBox-root css-4l7hgf')]]"));
-            for (WebElement webElement : apiKeyBy) {
-                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
-                if (webElement.getText() == null) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (TimeoutException | NoSuchElementException e) {
-            return false;
-        }
-    }
+//    public boolean siVisualizzaApiKeyConTesto() {
+//        try {
+//            webTool.waitTime(5);
+//            List<WebElement> apiKeyBy = driver.findElements(By.xpath("//td[div/div[contains(@class,'MuiBox-root css-4l7hgf')]]"));
+//            for (WebElement webElement : apiKeyBy) {
+//                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
+//                if (webElement.getText() == null) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            return false;
+//        }
+//    }
 
-    public boolean siVisualizzaNomeEDataConTesto() {
-        try {
-            webTool.waitTime(5);
-            List<WebElement> dataCellBy = driver.findElements(By.xpath("//td[div/p[contains(@class,'MuiTypography-root MuiTypography-body1')]]"));
-            for (WebElement webElement : dataCellBy) {
-                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
-                if (webElement.getText() == null) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (TimeoutException | NoSuchElementException e) {
-            return false;
-        }
-    }
+//    public boolean siVisualizzaNomeEDataConTesto() {
+//        try {
+//            webTool.waitTime(5);
+//            List<WebElement> dataCellBy = driver.findElements(By.xpath("//td[div/p[contains(@class,'MuiTypography-root MuiTypography-body1')]]"));
+//            for (WebElement webElement : dataCellBy) {
+//                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
+//                if (webElement.getText() == null) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            return false;
+//        }
+//    }
 
-    public boolean siVisualizzaGruppoConTesto() {
-        try {
-            webTool.waitTime(5);
-            List<WebElement> gruppoCellList = driver.findElements(By.xpath("//td[div/div/div/div/div/span[contains(@class,'css-t63gu0')]]"));
-            for (WebElement webElement : gruppoCellList) {
-                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
-                if (webElement.getText() == null) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (TimeoutException | NoSuchElementException e) {
-            return false;
-        }
-    }
+//    public boolean siVisualizzaGruppoConTesto() {
+//        try {
+//            webTool.waitTime(5);
+//            List<WebElement> gruppoCellList = driver.findElements(By.xpath("//td[div/div/div/div/div/span[contains(@class,'css-t63gu0')]]"));
+//            for (WebElement webElement : gruppoCellList) {
+//                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
+//                if (webElement.getText() == null) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            return false;
+//        }
+//    }
 
-    public boolean siVisualizzaStatoConTesto() {
-        try {
-            webTool.waitTime(5);
-            List<WebElement> statoCells = driver.findElements(By.xpath("//td[div/div/div/div[@role='button']]"));
-            for (WebElement statoCell : statoCells) {
-                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statoCell));
-                if (statoCell.getText() == null) {
-                    return false;
-                }
-            }
-            return true;
-        } catch (TimeoutException | NoSuchElementException e) {
-            return false;
-        }
-    }
+//    public boolean siVisualizzaStatoConTesto() {
+//        try {
+//            webTool.waitTime(5);
+//            List<WebElement> statoCells = driver.findElements(By.xpath("//td[div/div/div/div[@role='button']]"));
+//            for (WebElement statoCell : statoCells) {
+//                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statoCell));
+//                if (statoCell.getText() == null) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            return false;
+//        }
+//    }
 
-    public boolean siVisualizzaMenuApiKey() {
-        getWebDriverWait(30).withMessage("il bottone menu del apikey non trovato").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"))));
-        List<WebElement> menuButtonBy = driver.findElements(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"));
-        return !menuButtonBy.isEmpty();
-    }
+//    public boolean siVisualizzaMenuApiKey() {
+//        getWebDriverWait(30).withMessage("il bottone menu del apikey non trovato").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"))));
+//        List<WebElement> menuButtonBy = driver.findElements(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"));
+//        return !menuButtonBy.isEmpty();
+//    }
 
     //    public void mouseHover() {
 //        getWebDriverWait(30).withMessage("stato attiva non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("status-chip-Attiva"))));

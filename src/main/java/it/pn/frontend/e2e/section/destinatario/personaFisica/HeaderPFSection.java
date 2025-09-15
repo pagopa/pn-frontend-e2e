@@ -76,17 +76,35 @@ public class HeaderPFSection extends BasePage {
 //        logger.info("click su voce I tuoi Dati");
 //        iTuoiDatiVoce.click();
 //    }
+//    public void selezionaVoceITuoiDati() {
+//        menuProfileItems = getWebDriverWait(35)
+//                .withMessage("Il titolo del header non è visibile")
+//                .until(ExpectedConditions.visibilityOfAllElements(
+//                        driver.findElements(By.xpath("//ul[@role='menu']//li"))
+//                ));
+//        WebElement iTuoiDatiVoce = menuProfileItems.get(0);
+//        getWebDriverWait(30)
+//                .withMessage("La voce I tuoi Dati non è visibile")
+//                .until(ExpectedConditions.visibilityOf(iTuoiDatiVoce));
+//        logger.info("Click su voce I tuoi Dati");
+//        iTuoiDatiVoce.click();
+//    }
     public void selezionaVoceITuoiDati() {
+        // Attende che le voci del menu siano visibili
         menuProfileItems = getWebDriverWait(35)
-                .withMessage("Il titolo del header non è visibile")
-                .until(ExpectedConditions.visibilityOfAllElements(
-                        driver.findElements(By.xpath("//ul[@role='menu']//li"))
+                .withMessage("Le voci del menu non sono visibili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                        By.xpath("//ul[@role='menu']//li")
                 ));
+
         WebElement iTuoiDatiVoce = menuProfileItems.get(0);
+
+        // Attende che la voce specifica sia visibile prima del click
         getWebDriverWait(30)
-                .withMessage("La voce I tuoi Dati non è visibile")
+                .withMessage("La voce 'I tuoi Dati' non è visibile")
                 .until(ExpectedConditions.visibilityOf(iTuoiDatiVoce));
-        logger.info("Click su voce I tuoi Dati");
+
+        logger.info("Click su voce 'I tuoi Dati'");
         iTuoiDatiVoce.click();
     }
 
@@ -99,19 +117,38 @@ public class HeaderPFSection extends BasePage {
 //        logger.info("click su voce esci");
 //        esciVoce.click();
 //    }
+//    public void selezionaVoceEsci() {
+//        menuProfileItems = getWebDriverWait(35)
+//                .withMessage("Il titolo del header non è visibile")
+//                .until(ExpectedConditions.visibilityOfAllElements(
+//                        driver.findElements(By.xpath("//ul[@role='menu']//li"))
+//                ));
+//        WebElement esciVoce = menuProfileItems.get(1);
+//        getWebDriverWait(30)
+//                .withMessage("La voce Esci non è visibile")
+//                .until(ExpectedConditions.visibilityOf(esciVoce));
+//        logger.info("Click su voce Esci");
+//        esciVoce.click();
+//    }
     public void selezionaVoceEsci() {
+        // Attende che le voci del menu siano visibili
         menuProfileItems = getWebDriverWait(35)
-                .withMessage("Il titolo del header non è visibile")
-                .until(ExpectedConditions.visibilityOfAllElements(
-                        driver.findElements(By.xpath("//ul[@role='menu']//li"))
+                .withMessage("Le voci del menu non sono visibili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                        By.xpath("//ul[@role='menu']//li")
                 ));
+
         WebElement esciVoce = menuProfileItems.get(1);
+
+        // Attende che la voce specifica sia visibile prima del click
         getWebDriverWait(30)
-                .withMessage("La voce Esci non è visibile")
+                .withMessage("La voce 'Esci' non è visibile")
                 .until(ExpectedConditions.visibilityOf(esciVoce));
-        logger.info("Click su voce Esci");
+
+        logger.info("Click su voce 'Esci'");
         esciVoce.click();
     }
+
 
     public void confermaDiVolerUscire() {
         WebElement exitButton = getWebDriverWait(35).withMessage("il titolo del header non è visibile")

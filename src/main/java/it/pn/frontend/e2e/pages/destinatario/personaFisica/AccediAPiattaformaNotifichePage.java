@@ -135,39 +135,39 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
 
-    public void clickRecapitiButton() {
-        recapitiButton = driver.findElement(By.id("side-item-Recapiti"));
-        getWebDriverWait(30).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
-        js().executeScript("arguments[0].click()", recapitiButton);
-    }
-
-    public void clickNotificheButton() {
-        notificheButton = driver.findElement(By.cssSelector("[id='notificationsTable.body.row']"));
-        getWebDriverWait(30).withMessage("Il bottone notifiche non è visibile").until(ExpectedConditions.visibilityOf(notificheButton));
-        notificheButton.click();
-    }
-
-    public void clickAttestazionePersalvare() {
-        attestazione = driver.findElement(By.cssSelector("[data-testid='download-legalfact']"));
-        getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
-        js().executeScript("arguments[0].click()", attestazione);
-    }
-
-    public boolean isBackButtonDisplayed() {
-        indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
-        return getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton)).isDisplayed();
-    }
-
-    public void clickIndietroButton() {
-        indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
-        getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
-        js().executeScript("arguments[0].click()", indietroButton);
-    }
-
-    public boolean sezioneDeiDatiDisplayed() {
-        sezioneDeiDati = driver.findElement(By.cssSelector("[class='MuiTableBody-root css-1xnox0e']"));
-        return getWebDriverWait(30).withMessage("Il sezione dei dati non è visibile").until(ExpectedConditions.visibilityOf(sezioneDeiDati)).isDisplayed();
-    }
+//    public void clickRecapitiButton() {
+//        recapitiButton = driver.findElement(By.id("side-item-Recapiti"));
+//        getWebDriverWait(30).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(recapitiButton));
+//        js().executeScript("arguments[0].click()", recapitiButton);
+//    }
+//
+//    public void clickNotificheButton() {
+//        notificheButton = driver.findElement(By.cssSelector("[id='notificationsTable.body.row']"));
+//        getWebDriverWait(30).withMessage("Il bottone notifiche non è visibile").until(ExpectedConditions.visibilityOf(notificheButton));
+//        notificheButton.click();
+//    }
+//
+//    public void clickAttestazionePersalvare() {
+//        attestazione = driver.findElement(By.cssSelector("[data-testid='download-legalfact']"));
+//        getWebDriverWait(30).withMessage("L'attestazione non è visibile").until(ExpectedConditions.visibilityOf(attestazione));
+//        js().executeScript("arguments[0].click()", attestazione);
+//    }
+//
+//    public boolean isBackButtonDisplayed() {
+//        indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
+//        return getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton)).isDisplayed();
+//    }
+//
+//    public void clickIndietroButton() {
+//        indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
+//        getWebDriverWait(30).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(indietroButton));
+//        js().executeScript("arguments[0].click()", indietroButton);
+//    }
+//
+//    public boolean sezioneDeiDatiDisplayed() {
+//        sezioneDeiDati = driver.findElement(By.cssSelector("[class='MuiTableBody-root css-1xnox0e']"));
+//        return getWebDriverWait(30).withMessage("Il sezione dei dati non è visibile").until(ExpectedConditions.visibilityOf(sezioneDeiDati)).isDisplayed();
+//    }
 
     //    public boolean sezionePagamentoDisplayed() {
 //        try {

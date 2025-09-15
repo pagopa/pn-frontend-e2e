@@ -72,68 +72,142 @@ public class DestinatarioPage extends BasePage {
     }
 
 
+    //    public void inserimentoDataErrato() {
+//        dataInizioField = driver.findElement(By.id("startDate"));
+//        String data = "01/01/1111";
+//        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField));
+//        dataInizioField.click();
+//        dataInizioField.sendKeys(data);
+//        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", data));
+//        dataFineField = driver.findElement(By.id("endDate"));
+//        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataFineField));
+//        dataFineField.click();
+//        dataFineField.sendKeys(data);
+//        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", data));
+//    }
     public void inserimentoDataErrato() {
-        dataInizioField = driver.findElement(By.id("startDate"));
         String data = "01/01/1111";
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField));
+
+        By dataInizioLocator = By.id("startDate");
+        By dataFineLocator = By.id("endDate");
+
+        // Campo data inizio
+        WebElement dataInizioField = getWebDriverWait(10)
+                .withMessage("Il campo 'Data Inizio' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(dataInizioLocator));
         dataInizioField.click();
         dataInizioField.sendKeys(data);
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataInizioField, "value", data));
-        dataFineField = driver.findElement(By.id("endDate"));
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataFineField));
+        getWebDriverWait(3)
+                .withMessage("Il campo 'Data Inizio' non contiene la data inserita")
+                .until(ExpectedConditions.attributeToBe(dataInizioField, "value", data));
+
+        // Campo data fine
+        WebElement dataFineField = getWebDriverWait(10)
+                .withMessage("Il campo 'Data Fine' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(dataFineLocator));
         dataFineField.click();
         dataFineField.sendKeys(data);
-        getWebDriverWait(3).until(ExpectedConditions.attributeToBe(dataFineField, "value", data));
+        getWebDriverWait(3)
+                .withMessage("Il campo 'Data Fine' non contiene la data inserita")
+                .until(ExpectedConditions.attributeToBe(dataFineField, "value", data));
+
+        logger.info("Dati inseriti nei campi Data Inizio e Data Fine con valori errati '{}'", data);
     }
 
+
+    //    public boolean isDateBoxInvalid() {
+//        String isTextboxInvalid = "true";
+//        boolean invalidBoxDate = true;
+//        try {
+//            webTool.waitTime(10);
+//            dataInizioField = driver.findElement(By.id("startDate"));
+//            dataFineField = driver.findElement(By.id("endDate"));
+//            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
+//            String ariaInvalidInizio = dataInizioField.getAttribute("aria-invalid");
+//            String ariaInvalidFine = dataFineField.getAttribute("aria-invalid");
+//            if (isTextboxInvalid.equals(ariaInvalidInizio) || isTextboxInvalid.equals(ariaInvalidFine)) {
+//                log.info("Almeno un campo data è in stato invalido");
+//            } else {
+//                Assertions.fail("Nessuno dei campi data è passato allo stato invalido");
+//            }
+//        } catch (TimeoutException e) {
+//            Assertions.fail("Campi data non visualizzati correttamente con errore: " + e.getMessage());
+//        }
+//        return invalidBoxDate;
+//    }
     public boolean isDateBoxInvalid() {
         String isTextboxInvalid = "true";
-        boolean invalidBoxDate = true;
+        boolean invalidBoxDate = false;
+
+        By dataInizioLocator = By.id("startDate");
+        By dataFineLocator = By.id("endDate");
+
         try {
             webTool.waitTime(10);
-            dataInizioField = driver.findElement(By.id("startDate"));
-            dataFineField = driver.findElement(By.id("endDate"));
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(dataInizioField, dataFineField));
+
+            WebElement dataInizioField = getWebDriverWait(10)
+                    .withMessage("Il campo 'Data Inizio' non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(dataInizioLocator));
+
+            WebElement dataFineField = getWebDriverWait(10)
+                    .withMessage("Il campo 'Data Fine' non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(dataFineLocator));
+
             String ariaInvalidInizio = dataInizioField.getAttribute("aria-invalid");
             String ariaInvalidFine = dataFineField.getAttribute("aria-invalid");
+
             if (isTextboxInvalid.equals(ariaInvalidInizio) || isTextboxInvalid.equals(ariaInvalidFine)) {
                 log.info("Almeno un campo data è in stato invalido");
+                invalidBoxDate = true;
             } else {
                 Assertions.fail("Nessuno dei campi data è passato allo stato invalido");
             }
         } catch (TimeoutException e) {
             Assertions.fail("Campi data non visualizzati correttamente con errore: " + e.getMessage());
         }
+
         return invalidBoxDate;
     }
 
-    public void clickButtonNotificheDelegateOnSideMenu(String nomeDelegante) {
-        log.info("verifica bottone notifiche nel layout");
-        webTool.waitTime(10);
-        sideItemNotificheButton = driver.findElement(By.id("side-item-Notifiche"));
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(sideItemNotificheButton));
-        sideItemNotificheButton.click();
 
-        String id = "side-item-" + nomeDelegante;
+//    public void clickButtonNotificheDelegateOnSideMenu(String nomeDelegante) {
+//        log.info("verifica bottone notifiche nel layout");
+//        webTool.waitTime(10);
+//        sideItemNotificheButton = driver.findElement(By.id("side-item-Notifiche"));
+//        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(sideItemNotificheButton));
+//        sideItemNotificheButton.click();
+//
+//        String id = "side-item-" + nomeDelegante;
+//
+//        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id(id))));
+//        WebElement buttonNotificheOnSideMenu = driver.findElement(By.id(id));
+//        js().executeScript("arguments[0].click()", buttonNotificheOnSideMenu);
+//    }
 
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id(id))));
-        WebElement buttonNotificheOnSideMenu = driver.findElement(By.id(id));
-        js().executeScript("arguments[0].click()", buttonNotificheOnSideMenu);
-    }
+//    public void clickSulDettaglioNotificaDelegante() {
+//        //NON Utilizzata
+//        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElements(By.id("notificationsTable.body.row")).get(0)));
+//        WebElement singolaNotificaDelegante = driver.findElements(By.id("notificationsTable.body.row")).get(0);
+//        log.info("Si clicca sulla prima notifica del delegante");
+//        singolaNotificaDelegante.click();
+//    }
 
-    public void clickSulDettaglioNotificaDelegante() {
-        //NON Utilizzata
-        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElements(By.id("notificationsTable.body.row")).get(0)));
-        WebElement singolaNotificaDelegante = driver.findElements(By.id("notificationsTable.body.row")).get(0);
-        log.info("Si clicca sulla prima notifica del delegante");
-        singolaNotificaDelegante.click();
-    }
-
+    //    public void clickProdotto(String xpath) {
+//        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
+//        WebElement prodottoDestinatario = driver.findElement(By.xpath(xpath));
+//        prodottoDestinatario.click();
+//    }
     public void clickProdotto(String xpath) {
-        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
-        WebElement prodottoDestinatario = driver.findElement(By.xpath(xpath));
+        By prodottoLocator = By.xpath(xpath);
+
+        WebElement prodottoDestinatario = getWebDriverWait(20)
+                .withMessage("Il prodotto con xpath '" + xpath + "' non è visibile")
+                .until(ExpectedConditions.elementToBeClickable(prodottoLocator));
+
         prodottoDestinatario.click();
+        logger.info("Click sul prodotto con xpath '{}' effettuato", xpath);
     }
+
 
     public void checkCreateNewNotification() throws RestNotificationException {
         int maxAttempts = 9;
@@ -208,37 +282,96 @@ public class DestinatarioPage extends BasePage {
 
     }
 
+    //    public void clickTuttiGliEnti() {
+//
+//        getWebDriverWait(10).withMessage("Il radio button 'tutti gli enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("tutti-gli-enti-selezionati"))));
+//        WebElement tuttiGliEnti = driver.findElement(By.id("tutti-gli-enti-selezionati"));
+//        tuttiGliEnti.click();
+//    }
     public void clickTuttiGliEnti() {
+        By tuttiGliEntiLocator = By.id("tutti-gli-enti-selezionati");
 
-        getWebDriverWait(10).withMessage("Il radio button 'tutti gli enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("tutti-gli-enti-selezionati"))));
-        WebElement tuttiGliEnti = driver.findElement(By.id("tutti-gli-enti-selezionati"));
+        WebElement tuttiGliEnti = getWebDriverWait(10)
+                .withMessage("Il radio button 'Tutti gli enti selezionati' non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(tuttiGliEntiLocator));
+
         tuttiGliEnti.click();
+        logger.info("Click sul radio button 'Tutti gli enti selezionati' effettuato");
     }
 
+
+    //    public void clickSoloEntiSelezionati() {
+//
+//        getWebDriverWait(15).withMessage("Il radio button 'solo enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("enti-selezionati"))));
+//        WebElement soloEntiSelezionati = driver.findElement(By.id("enti-selezionati"));
+//        soloEntiSelezionati.click();
+//    }
     public void clickSoloEntiSelezionati() {
+        By soloEntiLocator = By.id("enti-selezionati");
 
-        getWebDriverWait(15).withMessage("Il radio button 'solo enti selezionati' non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("enti-selezionati"))));
-        WebElement soloEntiSelezionati = driver.findElement(By.id("enti-selezionati"));
+        WebElement soloEntiSelezionati = getWebDriverWait(15)
+                .withMessage("Il radio button 'Solo enti selezionati' non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(soloEntiLocator));
+
         soloEntiSelezionati.click();
+        logger.info("Click sul radio button 'Solo enti selezionati' effettuato");
     }
 
+    //    public void clickListaEnti() {
+//        getWebDriverWait(15).withMessage("Il menù a tendina degli enti non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("enti"))));
+//        WebElement listaEnti = driver.findElement(By.id("enti"));
+//        listaEnti.click();
+//    }
     public void clickListaEnti() {
-        getWebDriverWait(15).withMessage("Il menù a tendina degli enti non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("enti"))));
-        WebElement listaEnti = driver.findElement(By.id("enti"));
+        By listaEntiLocator = By.id("enti");
+
+        WebElement listaEnti = getWebDriverWait(15)
+                .withMessage("Il menù a tendina degli enti non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(listaEntiLocator));
+
         listaEnti.click();
+        logger.info("Click sul menù a tendina degli enti effettuato");
     }
 
+
+    //    public void controlloEntiRadice(List<String> enti) {
+//        for (String ente : enti) {
+//            getWebDriverWait(15).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"))));
+//        }
+//    }
     public void controlloEntiRadice(List<String> enti) {
         for (String ente : enti) {
-            getWebDriverWait(15).withMessage("Ente: " + ente + " non visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//li//p[contains(text(),'" + ente + "')]"))));
+            By enteLocator = By.xpath("//li//p[contains(text(),'" + ente + "')]");
+
+            getWebDriverWait(15)
+                    .withMessage("Ente '" + ente + "' non visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(enteLocator));
+
+            logger.info("Ente '{}' visualizzato correttamente", ente);
         }
     }
 
+
+    //    public void checkBannerAnnullamentoNotifica() {
+//        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"))));
+//        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
+//                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
+//    }
     public void checkBannerAnnullamentoNotifica() {
-        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']"))));
-        getWebDriverWait(10).withMessage("Il banner di annullamento della notifica presenta la corretta descrizione").until(
-                ExpectedConditions.attributeToBe(driver.findElement(By.xpath("//div[@data-testid='cancelledAlertText']")), "textContent", "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
+        By bannerLocator = By.xpath("//div[@data-testid='cancelledAlertText']");
+
+        WebElement banner = getWebDriverWait(10)
+                .withMessage("Il banner di annullamento della notifica non è presente")
+                .until(ExpectedConditions.visibilityOfElementLocated(bannerLocator));
+
+        getWebDriverWait(10)
+                .withMessage("Il banner di annullamento della notifica non presenta la corretta descrizione")
+                .until(ExpectedConditions.attributeToBe(banner, "textContent",
+                        "Questa notifica è stata annullata dall’ente mittente. Puoi ignorarne il contenuto."));
+
+        logger.info("Il banner di annullamento della notifica è visualizzato correttamente con la descrizione attesa");
     }
+
 
     public void selezionaAvvisoPagoPA(int numeroPosizioneDebitoria) {
         selezionaRadioButtonPerValore("PAGO_PA", numeroPosizioneDebitoria);
@@ -283,34 +416,98 @@ public class DestinatarioPage extends BasePage {
         }
     }
 
+    //    public boolean verificaPresenzaSezioneSpecificheAvvisoPagoPAPerValore(int numeroPosizioneDebitoria) {
+//        try {
+//            getWebDriverWait(10).withMessage("Sezione Specifiche Avviso PagoPA non è visibile").until(ExpectedConditions.and(
+//                    ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]")),
+//                    ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']"))),
+//                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//label[@id='noticeCode-label'])[" + numeroPosizioneDebitoria + "]")), "innerText"),
+//                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//input[@name='creditorTaxId'])[" + numeroPosizioneDebitoria + "]")), "value")));
+//            log.info("Sezione Specifiche Avviso PagoPA presente");
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            log.info("Sezione Specifiche Avviso PagoPA non è visibile: {}", e.getMessage());
+//            return false;
+//        }
+//    }
     public boolean verificaPresenzaSezioneSpecificheAvvisoPagoPAPerValore(int numeroPosizioneDebitoria) {
         try {
-            getWebDriverWait(10).withMessage("Sezione Specifiche Avviso PagoPA non è visibile").until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]")),
-                    ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']"))),
-                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//label[@id='noticeCode-label'])[" + numeroPosizioneDebitoria + "]")), "innerText"),
-                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//input[@name='creditorTaxId'])[" + numeroPosizioneDebitoria + "]")), "value")));
-            log.info("Sezione Specifiche Avviso PagoPA presente");
+            By pagoPaBoxLocator = By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]");
+            By loadFromPcButtonLocator = By.xpath("(//p[@data-testid='pagoPaPaymentBox'])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']");
+            By noticeCodeLocator = By.xpath("(//label[@id='noticeCode-label'])[" + numeroPosizioneDebitoria + "]");
+            By creditorTaxIdLocator = By.xpath("(//input[@name='creditorTaxId'])[" + numeroPosizioneDebitoria + "]");
+
+            // Controlla visibilità sezione principale
+            getWebDriverWait(10)
+                    .withMessage("Sezione Specifiche Avviso PagoPA non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(pagoPaBoxLocator));
+
+            // Controlla che il bottone loadFromPc NON sia visibile
+            getWebDriverWait(10)
+                    .withMessage("Bottone 'loadFromPc' è presente quando non dovrebbe")
+                    .until(ExpectedConditions.invisibilityOfElementLocated(loadFromPcButtonLocator));
+
+            // Controlla che il label noticeCode abbia testo
+            getWebDriverWait(10)
+                    .withMessage("Il label noticeCode non ha testo")
+                    .until(driver -> !driver.findElement(noticeCodeLocator).getAttribute("innerText").isEmpty());
+
+            // Controlla che il campo creditorTaxId abbia valore
+            getWebDriverWait(10)
+                    .withMessage("Il campo creditorTaxId è vuoto")
+                    .until(driver -> !driver.findElement(creditorTaxIdLocator).getAttribute("value").isEmpty());
+
+            log.info("Sezione Specifiche Avviso PagoPA presente e correttamente popolata");
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
-            log.info("Sezione Specifiche Avviso PagoPA non è visibile: {}", e.getMessage());
+            log.info("Sezione Specifiche Avviso PagoPA non è visibile o incompleta: {}", e.getMessage());
             return false;
         }
     }
 
+
+    //    public boolean verificaPresenzaSezioneSpecificheModelloF24PerValore(int numeroPosizioneDebitoria) {
+//        try {
+//            getWebDriverWait(10).withMessage("Sezione Specifiche Modello F24 non è visibile").until(ExpectedConditions.and(
+//                    ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]")),
+//                    ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']"))),
+//                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//input")), "value")));
+//            log.info("Sezione Specifiche Modello F24 presente");
+//            return true;
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            log.info("Sezione Specifiche Modello F24 non è visibile: {}", e.getMessage());
+//            return false;
+//        }
+//    }
     public boolean verificaPresenzaSezioneSpecificheModelloF24PerValore(int numeroPosizioneDebitoria) {
         try {
-            getWebDriverWait(10).withMessage("Sezione Specifiche Modello F24 non è visibile").until(ExpectedConditions.and(
-                    ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]")),
-                    ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']"))),
-                    ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//input")), "value")));
-            log.info("Sezione Specifiche Modello F24 presente");
+            By f24BoxLocator = By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]");
+            By loadFromPcButtonLocator = By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//button[@data-testid='loadFromPc']");
+            By inputLocator = By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//input");
+
+            // Controlla visibilità box principale
+            getWebDriverWait(10)
+                    .withMessage("Sezione Specifiche Modello F24 non è visibile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(f24BoxLocator));
+
+            // Controlla che il bottone loadFromPc NON sia visibile
+            getWebDriverWait(10)
+                    .withMessage("Bottone 'loadFromPc' è presente quando non dovrebbe")
+                    .until(ExpectedConditions.invisibilityOfElementLocated(loadFromPcButtonLocator));
+
+            // Controlla che l'input abbia valore
+            getWebDriverWait(10)
+                    .withMessage("Il campo input della sezione F24 è vuoto")
+                    .until(driver -> !driver.findElement(inputLocator).getAttribute("value").isEmpty());
+
+            log.info("Sezione Specifiche Modello F24 presente e correttamente popolata");
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
-            log.info("Sezione Specifiche Modello F24 non è visibile: {}", e.getMessage());
+            log.info("Sezione Specifiche Modello F24 non è visibile o incompleta: {}", e.getMessage());
             return false;
         }
     }
+
 
     public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
         selezionaRadioButtonPerValore("FLAT_RATE", numeroPosizioneDebitoria);
