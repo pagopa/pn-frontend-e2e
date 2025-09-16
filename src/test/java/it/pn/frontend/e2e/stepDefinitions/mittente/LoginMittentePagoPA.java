@@ -252,12 +252,12 @@ public class LoginMittentePagoPA extends BasePage {
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
-            logger.info("cookies start");
+            logger.info("cookies section start, before login");
             cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-            logger.info("cookies end");
+            logger.info("cookies section end, before login");
         }
 
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
@@ -275,14 +275,18 @@ public class LoginMittentePagoPA extends BasePage {
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
 
+        /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
+            condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
+        webTool.waitTime(3);
+
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
-            logger.info("cookies start");
+            logger.info("cookies section start, after login");
             cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-            logger.info("cookies end");
+            logger.info("cookies section end, after login");
         }
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         if (comune.equalsIgnoreCase("Viggiu")) {

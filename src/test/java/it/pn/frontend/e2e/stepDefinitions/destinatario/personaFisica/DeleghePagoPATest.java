@@ -73,6 +73,7 @@ public class DeleghePagoPATest extends BasePage {
 
     private WebTool webTool;
 
+    private Map<String, Object> deleghe = new HashMap<>();
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
 
@@ -692,4 +693,8 @@ public class DeleghePagoPATest extends BasePage {
         deleghePage.verificaMessaggioErroreDeleghe(messaggio);
     }
 
+    @And("Rimuovi tutti i delegati da i Tuoi Delegati se esistono")
+    public void rimuoviDelegatiPF() {
+        deleghePage.rimuoviDelegatiPF();
+    }
 }

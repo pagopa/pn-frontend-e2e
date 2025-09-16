@@ -496,8 +496,19 @@ public class NotifichePGPagoPATest extends BasePage {
     }
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN {string}")
-    public void portalePFVaiANotifica(String codiceIUN) {
+    public void portalePGVaiANotifica(String codiceIUN) {
         String env = webDriverConfig.getEnvironment();
         this.driver.get("https://imprese." + env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
+    }
+
+    @When("Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN specifico")
+    public void portalePGVaiANotifica(Map<String, String> codiciIUN) {
+        String env = webDriverConfig.getEnvironment();
+        if (codiciIUN.containsKey("dev") || codiciIUN.containsKey("test") || codiciIUN.containsKey("uat")) {
+            this.driver.get("https://imprese." + env + ".notifichedigitali.it/notifiche/" + codiciIUN.get(env) + "/dettaglio");
+            webTool.waitTime(5);
+        }
+        else
+            Assertions.fail("Nessuna chiave valida per gli ambienti di esecuzione!");
     }
 }

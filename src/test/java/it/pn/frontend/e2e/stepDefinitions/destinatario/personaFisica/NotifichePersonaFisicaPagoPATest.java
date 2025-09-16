@@ -520,6 +520,17 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
         String env = webDriverConfig.getEnvironment();
         this.driver.get("https://cittadini." + env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
     }
+
+    @When("Nella pagina Piattaforma Notifiche persona fisica si accede alla notifica con codice IUN specifico")
+    public void portalePFVaiANotifica(Map<String, String> codiciIUN) {
+        String env = webDriverConfig.getEnvironment();
+        if (codiciIUN.containsKey("dev") || codiciIUN.containsKey("test") || codiciIUN.containsKey("uat")) {
+            this.driver.get("https://cittadini." + env + ".notifichedigitali.it/notifiche/" + codiciIUN.get(env) + "/dettaglio");
+            webTool.waitTime(5);
+        }
+        else
+            Assertions.fail("Nessuna chiave valida per gli ambienti di esecuzione!");
+    }
 }
 
 

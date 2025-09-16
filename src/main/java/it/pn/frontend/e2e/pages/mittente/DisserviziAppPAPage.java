@@ -140,7 +140,6 @@ public class DisserviziAppPAPage extends BasePage {
                 Assertions.fail("Numero insufficiente di celle data trovate: " + dateCells.size());
             }
         } else {
-            logger.error("Non è stato possibile recuperare i dati dalla tabella dei disservizi - tabella vuota");
             Assertions.fail("Non è stato possibile recuperare i dati dalla tabella dei disservizi - tabella vuota");
         }
     }
@@ -503,14 +502,22 @@ public class DisserviziAppPAPage extends BasePage {
         List<WebElement> links = getWebDriverWait(45)
                 .withMessage("Lista vuota nella pagina Stato della Piattaforma")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='download-legal-fact']")));
+        int linksSize = links.size();
         if (indexModifier == 0) {
-            for (WebElement link : links) {
-                link.click();
+            for (int linkIndex = 0; linkIndex < linksSize - 1; linkIndex++) {
+                links.get(linkIndex).click();
                 downloadVerificato = checkMessaggioScadenzaDownload();
                 if (downloadVerificato) {
+                    logger.info("click a");
                     break;
-                } else // Torna indietro alla pagina di Google
+                }
+                else {// Torna indietro alla pagina di Google
+                    logger.info("click c");
                     driver.navigate().back();
+                }
+                links = getWebDriverWait(45)
+                        .withMessage("Lista vuota nella pagina Stato della Piattaforma")
+                        .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[@data-testid='download-legal-fact']")));
             }
         } else {
             if (!links.isEmpty()) {

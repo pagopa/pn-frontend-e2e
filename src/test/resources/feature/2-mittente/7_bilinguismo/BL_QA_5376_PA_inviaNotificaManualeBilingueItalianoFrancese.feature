@@ -11,7 +11,6 @@ Feature: PA invia notifica manuale bilingue: Italiano e Francese
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
     And Click entra su Send Mittente
-    And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
     And Selezionare da impostazione lingua "Francese"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo

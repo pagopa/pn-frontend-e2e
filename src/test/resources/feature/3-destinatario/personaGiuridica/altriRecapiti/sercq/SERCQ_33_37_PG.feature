@@ -64,7 +64,6 @@ Feature: Rework della pagina dei contatti
     And Seleziona Tipologia "Domicilio Digitale SEND"
     And Attesa 1 secondi
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
-    And Click Bottone Conferma Modifica Recapito
     And Attesa 1 secondi
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

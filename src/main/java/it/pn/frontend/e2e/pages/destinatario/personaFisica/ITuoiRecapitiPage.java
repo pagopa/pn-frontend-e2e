@@ -233,21 +233,15 @@ public class ITuoiRecapitiPage extends BasePage {
 //    }
     public void sendOTP(String otp) {
         String[] otps = otp.split("");
-        By otpInputsLocator = By.xpath("//input[contains(@id,'code-input')]");
-
         try {
-            // Attesa che tutti i campi OTP siano visibili
-            List<WebElement> otpInputs = getWebDriverWait(10)
-                    .withMessage("I campi OTP non sono visibili")
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(otpInputsLocator));
-
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//div[@aria-hidden='true']//div"))));
+            WebElement codiceDelegaInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input"));
             for (int i = 0; i < otps.length; i++) {
-                otpInputs.get(i).sendKeys(otps[i]);
+                codiceDelegaInput.sendKeys(otps[i]);
             }
-
-            logger.info("Il codice OTP è stato inserito correttamente");
+            logger.info("Il codice otp viene inserito correttamente");
         } catch (TimeoutException e) {
-            Assertions.fail("Il codice OTP NON è stato inserito correttamente con errore: " + e.getMessage());
+            Assertions.fail("Il codice otp NON viene inserito correttamente con errore:" + e.getMessage());
         }
     }
 

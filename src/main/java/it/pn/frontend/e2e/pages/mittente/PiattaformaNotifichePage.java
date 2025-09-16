@@ -28,6 +28,8 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElements;
 
 public class PiattaformaNotifichePage extends BasePage {
 
@@ -2715,8 +2717,18 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaVoceMenuLaterale(String testo) {
 
         WebElement element = getWebDriverWait(20)
-                .withMessage("Voce menu laterale non trovata: " + testo)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'" + testo + "')]")));
+                .withMessage("Voce menu laterale non trovata: "+testo)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@id,'side-item-"+testo+"')]//span")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+    }
+
+    public void sullaPaginaGruppiSelezionaVoceMenuLaterale(String testo) {
+
+        WebElement element = getWebDriverWait(20)
+                .withMessage("Voce menu laterale non trovata: "+testo)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='button']//span[contains(text(),'" + testo + "')]")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
         element.click();

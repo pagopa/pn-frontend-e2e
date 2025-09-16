@@ -435,11 +435,11 @@ public class DeleghePage extends BasePage {
 //        try {
 //            WebElement titoloModale = driver.findElement(By.id("dialog-title"));
 //            WebElement sottotitoloModale = driver.findElement(By.id("dialog-description"));
-//            int i = 4;
+//            int i = 5;
 //
 //            getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOf(titoloModale));
 //            getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOf(sottotitoloModale));
-//            while (i >= 0) {
+//            while (i >= 1) {
 //                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("code-input-" + i))));
 //                i--;
 //            }
@@ -514,5 +514,25 @@ public class DeleghePage extends BasePage {
         String testoErrore = messaggioErrore.getText();
 
         Assertions.assertTrue(testoErrore.contains(messaggio), "Messaggio atteso non trovato. Messaggio rilevato: " + testoErrore);
+    }
+
+    public void rimuoviDelegatiPF() {
+        List<WebElement> delegati = driver.findElements(By.id("delegatesTable.body.row")); // Take all the rows of the table
+        if (!delegati.isEmpty()) {
+            for (WebElement row : delegati) {
+                WebElement menuButton = row.findElement(By.xpath(".//button[@data-testid='delegationMenuIcon']")); // take the menu button from the row
+                menuButton.click();
+                logger.info("Cliccato correttamente su menu delega button");
+                getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
+                revocaButton = driver.findElement(By.id("revoke-delegation-button"));
+                revocaButton.click();
+                WebElement revocaDialogAction = driver.findElement(By.id("dialog-confirm-button"));
+                getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone").until(ExpectedConditions.elementToBeClickable(revocaDialogAction));
+                logger.info("click revoca delega");
+                revocaDialogAction.click();
+            }
+        } else {
+            logger.info("Non è stato trovato nessun delegato");
+        }
     }
 }

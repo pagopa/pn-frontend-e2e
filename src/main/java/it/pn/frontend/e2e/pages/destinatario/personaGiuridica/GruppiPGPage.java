@@ -240,36 +240,25 @@ public class GruppiPGPage extends BasePage {
 //        actions.moveToElement(selectSelezioneMembri).click().perform();
 //    }
     public void creazioneNuovoGruppo(Map<String, String> datiGruppo) {
+        log.info("Inserimento nome del gruppo");
         String timestamp = datiGruppo.get("nome") + Instant.now().toString();
-        log.info("Inserimento nome del gruppo: {}", timestamp);
-
-        By inputNomeGruppoBy = By.id("name");
-        By inputDescrizioneGruppoBy = By.id("description");
-        By selectSelezioneMembriBy = By.id("members-select");
-        By checkBoxDanteAlighieriBy = By.xpath("//li[@data-value='Dante']/span");
-        inputNomeGruppo = getWebDriverWait(10)
-                .withMessage("Campo Nome Gruppo non visibile")
-                .until(ExpectedConditions.elementToBeClickable(inputNomeGruppoBy));
+        inputNomeGruppo = driver.findElement(By.id("name"));
         inputNomeGruppo.click();
         inputNomeGruppo.sendKeys(timestamp);
         log.info("Inserimento descrizione del gruppo");
-        inputDescrizioneGruppo = getWebDriverWait(10)
-                .withMessage("Campo Descrizione Gruppo non visibile")
-                .until(ExpectedConditions.elementToBeClickable(inputDescrizioneGruppoBy));
+        inputDescrizioneGruppo = driver.findElement(By.id("description"));
         inputDescrizioneGruppo.click();
         inputDescrizioneGruppo.sendKeys(timestamp);
         vaiInFondoAllaPagina();
         log.info("Click sulla select per la selezione dei membri");
-        selectSelezioneMembri = getWebDriverWait(10)
-                .withMessage("Select Membri non visibile")
-                .until(ExpectedConditions.elementToBeClickable(selectSelezioneMembriBy));
+        selectSelezioneMembri = driver.findElement(By.id("members-select"));
         selectSelezioneMembri.click();
         log.info("Click sul membro Dante Alighieri");
-        WebElement checkBoxDanteAlighieri = getWebDriverWait(10)
-                .withMessage("Checkbox Dante Alighieri non trovata")
-                .until(ExpectedConditions.elementToBeClickable(checkBoxDanteAlighieriBy));
+        webTool.waitTime(10);
+        WebElement checkBoxDanteAlighieri = driver.findElement(By.xpath("//li//p[contains(text(),'Dante')]"));
         checkBoxDanteAlighieri.click();
-        new Actions(driver).moveToElement(selectSelezioneMembri).click().perform();
+        actions = new Actions(driver);
+        actions.moveToElement(selectSelezioneMembri).click().perform();
     }
 
 
@@ -565,19 +554,14 @@ public class GruppiPGPage extends BasePage {
 //        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone sospendi del pop up").until(ExpectedConditions.visibilityOf(buttonSospendi));
 //    }
     public void checkPopUpSospensioneGruppo() {
-        By popUpTitleLocator = By.xpath("//p[contains(text(), 'Sospendi gruppo')]");
-        By popUpSubtitleLocator = By.xpath("//p[contains(text(), 'Vuoi sospendere il gruppo')]");
-        By buttonAnnullaLocator = By.xpath("//button[contains(text(), 'Annulla')]");
-        By buttonSospendiLocator = By.xpath("//button[contains(text(), 'Sospendi')]");
-
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(popUpTitleLocator));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(popUpSubtitleLocator));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone annulla del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(buttonAnnullaLocator));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone sospendi del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(buttonSospendiLocator));
+        WebElement popUpTitle = driver.findElement(By.xpath("//h6[contains(text(), 'Sospendi gruppo')]"));
+        WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi sospendere il gruppo')]"));
+        WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
+        WebElement buttonSospendi = driver.findElement(By.xpath("//button[contains(text(), 'Sospendi')]"));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOf(popUpTitle));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo del pop up").until(ExpectedConditions.visibilityOf(popUpSubtitle));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone annulla del pop up").until(ExpectedConditions.visibilityOf(buttonAnnulla));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone sospendi del pop up").until(ExpectedConditions.visibilityOf(buttonSospendi));
     }
 
 
@@ -604,49 +588,25 @@ public class GruppiPGPage extends BasePage {
 //        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone riattiva del pop up").until(ExpectedConditions.visibilityOf(buttonRiattiva));
 //    }
     public void checkPopUpRiattivazioneGruppo() {
-        By popUpTitleLocator = By.xpath("//p[contains(text(), 'Riattiva gruppo')]");
-        By popUpSubtitleLocator = By.xpath("//p[contains(text(), 'Vuoi riattivare il gruppo')]");
-        By buttonAnnullaLocator = By.xpath("//button[contains(text(), 'Annulla')]");
-        By buttonRiattivaLocator = By.xpath("//button[contains(text(), 'Riattiva')]");
-
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(popUpTitleLocator));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(popUpSubtitleLocator));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone annulla del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(buttonAnnullaLocator));
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone riattiva del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(buttonRiattivaLocator));
+        WebElement popUpTitle = driver.findElement(By.xpath("//h6[contains(text(), 'Riattiva gruppo')]"));
+        WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi riattivare il gruppo')]"));
+        WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
+        WebElement buttonRiattiva = driver.findElement(By.xpath("//button[contains(text(), 'Riattiva')]"));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOf(popUpTitle));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo del pop up").until(ExpectedConditions.visibilityOf(popUpSubtitle));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone annulla del pop up").until(ExpectedConditions.visibilityOf(buttonAnnulla));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone riattiva del pop up").until(ExpectedConditions.visibilityOf(buttonRiattiva));
     }
 
-
-    //    public void checkPopUpDuplicazioneGruppo() {
-//        WebElement popUpTitle = driver.findElement(By.xpath("//p[contains(text(), 'Duplica gruppo')]"));
-//        WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi duplicare il gruppo')]"));
-//        WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
-//        WebElement buttonDuplica = driver.findElement(By.xpath("//button[contains(text(), 'Duplica')]"));
-//        getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOf(popUpTitle));
-//        getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo del pop up").until(ExpectedConditions.visibilityOf(popUpSubtitle));
-//        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone annulla del pop up").until(ExpectedConditions.visibilityOf(buttonAnnulla));
-//        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone duplica del pop up").until(ExpectedConditions.visibilityOf(buttonDuplica));
-//    }
     public void checkPopUpDuplicazioneGruppo() {
-        By popUpTitleLocator = By.xpath("//p[contains(text(), 'Duplica gruppo')]");
-        By popUpSubtitleLocator = By.xpath("//p[contains(text(), 'Vuoi duplicare il gruppo')]");
-        By buttonAnnullaLocator = By.xpath("//button[contains(text(), 'Annulla')]");
-        By buttonDuplicaLocator = By.xpath("//button[contains(text(), 'Duplica')]");
-
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(popUpTitleLocator));
-
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(popUpSubtitleLocator));
-
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone annulla del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(buttonAnnullaLocator));
-
-        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone duplica del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(buttonDuplicaLocator));
+        WebElement popUpTitle = driver.findElement(By.xpath("//h6[contains(text(), 'Duplica gruppo')]"));
+        WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi duplicare il gruppo')]"));
+        WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
+        WebElement buttonDuplica = driver.findElement(By.xpath("//button[contains(text(), 'Duplica')]"));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOf(popUpTitle));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo del pop up").until(ExpectedConditions.visibilityOf(popUpSubtitle));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone annulla del pop up").until(ExpectedConditions.visibilityOf(buttonAnnulla));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone duplica del pop up").until(ExpectedConditions.visibilityOf(buttonDuplica));
     }
 
 
@@ -739,21 +699,14 @@ public class GruppiPGPage extends BasePage {
 //        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone elimina del pop up").until(ExpectedConditions.visibilityOf(buttonElimina));
 //    }
     public void checkPopUpEliminazioneGruppo() {
-        By popUpTitleLocator = By.xpath("//p[contains(text(), 'Elimina gruppo')]");
-        By buttonAnnullaLocator = By.xpath("//button[contains(text(), 'Annulla')]");
-        By buttonEliminaLocator = By.xpath("//button[contains(text(), 'Elimina')]");
-
-        getWebDriverWait(10)
-                .withMessage("Non si visualizza correttamente il titolo del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(popUpTitleLocator));
-
-        getWebDriverWait(10)
-                .withMessage("Non si visualizza correttamente il bottone annulla del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(buttonAnnullaLocator));
-
-        getWebDriverWait(10)
-                .withMessage("Non si visualizza correttamente il bottone elimina del pop up")
-                .until(ExpectedConditions.visibilityOfElementLocated(buttonEliminaLocator));
+        WebElement popUpTitle = driver.findElement(By.xpath("//h6[contains(text(), 'Elimina gruppo')]"));
+//        WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi eliminare il gruppo')]"));
+        WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
+        WebElement buttonElimina = driver.findElement(By.xpath("//button[contains(text(), 'Elimina')]"));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOf(popUpTitle));
+//        getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo del pop up").until(ExpectedConditions.visibilityOf(popUpSubtitle));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone annulla del pop up").until(ExpectedConditions.visibilityOf(buttonAnnulla));
+        getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone elimina del pop up").until(ExpectedConditions.visibilityOf(buttonElimina));
     }
 
 

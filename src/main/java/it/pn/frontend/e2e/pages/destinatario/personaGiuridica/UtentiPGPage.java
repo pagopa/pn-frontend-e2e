@@ -63,7 +63,7 @@ public class UtentiPGPage extends BasePage {
     WebElement successModifyMessage;
     @FindBy(xpath = "//span[contains(text(),'Rimuovi')]")
     WebElement removeButton;
-    @FindBy(xpath = "//p[contains(text(),'Elimina Utente')]")
+    @FindBy(xpath = "//h6[contains(text(),'Elimina Utente')]")
     WebElement removeUserPopup;
     @FindBy(xpath = "//button[contains(text(),'Rimuovi')]")
     WebElement removeRuoloButton;
@@ -785,13 +785,9 @@ public class UtentiPGPage extends BasePage {
 //        logger.info("il popup elimina utente è visualizzata correttamente");
 //    }
     public void checkRemoveUserPopup() {
-        By removeUserPopupLocator = By.xpath("//p[contains(text(),'Elimina Utente')]");
-
-        WebElement removeUserPopup = getWebDriverWait(10)
-                .withMessage("Il popup 'Elimina Utente' non è visibile")
-                .until(ExpectedConditions.visibilityOfElementLocated(removeUserPopupLocator));
-
-        logger.info("Il popup 'Elimina Utente' è visualizzato correttamente");
+        removeUserPopup  = driver.findElement(By.xpath( "//h6[contains(text(),'Elimina Utente')]"));
+        getWebDriverWait(10).withMessage("il popup elimina utente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath( "//h6[contains(text(),'Elimina Utente')]"))));
+        logger.info("il popup elimina utente è visualizzata correttamente");
     }
 
 

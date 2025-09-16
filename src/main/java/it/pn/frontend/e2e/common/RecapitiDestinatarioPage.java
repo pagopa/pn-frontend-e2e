@@ -173,7 +173,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         logger.info("clickConfermaButtonEliminaPopUp eseguito con successo");
     }
 
-
     public void waitLoadPopUp() {
         try {
             getWebDriverWait(30)
@@ -193,7 +192,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             List<WebElement> inputBoxes = getWebDriverWait(30)
                     .withMessage("Le input boxes non vengono visualizzate")
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                            By.xpath("//input[contains(@id,'code-input-')]")
+                            By.xpath("//div[@data-testid='dialog-content']//div[@aria-hidden='true']//div")
                     ));
 
             if (inputBoxes.size() != 5) {
@@ -221,18 +220,18 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-
     public void sendOTP(String otp) {
         String[] otpDigits = otp.split("");
         try {
             // Attendi che tutti i campi di input OTP siano visibili
-            List<WebElement> otpInputs = getWebDriverWait(30)
+            getWebDriverWait(30)
                     .withMessage("I campi di input OTP non sono visibili")
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[contains(@id,'code-input')]")));
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-testid='dialog-content']//div[@aria-hidden='true']//div")));
 
             // Inserisci ogni cifra dell'OTP nel rispettivo campo di input
             for (int i = 0; i < otpDigits.length; i++) {
-                otpInputs.get(i).sendKeys(otpDigits[i]);
+                WebElement codiceDelegaInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input"));
+                codiceDelegaInput.sendKeys(otpDigits[i]);
             }
             logger.info("Il codice OTP è stato inserito correttamente");
         } catch (TimeoutException e) {
@@ -242,17 +241,17 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+public void clearOTP() {
+    try {
+        // Attendi che tutti i campi di input OTP siano visibili
+        List<WebElement> otpInputs = getWebDriverWait(30)
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-testid='dialog-content']//div[@aria-hidden='true']//div")));
 
-    public void clearOTP() {
-        try {
-            // Attendi che tutti i campi di input OTP siano visibili
-            List<WebElement> otpInputs = getWebDriverWait(30)
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[contains(@id,'code-input')]")));
-
-            // Cancella ogni campo di input OTP
-            for (int i = otpInputs.size() - 1; i >= 0; i--) {
-                otpInputs.get(i).sendKeys(Keys.BACK_SPACE);
-            }
+        // Cancella ogni campo di input OTP
+        for (int i = otpInputs.size() - 1; i >= 0; i--) {
+            WebElement codiceDelegaInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input"));
+            codiceDelegaInput.sendKeys(Keys.BACK_SPACE);
+        }
 
             logger.info("Il codice OTP è stato cancellato correttamente");
         } catch (TimeoutException e) {

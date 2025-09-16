@@ -376,30 +376,11 @@ public class LeTueDelegheSection extends BasePage {
         logger.info("Il pop-up per accettare la delega visualizzato correttamente");
     }
 
-    //    public void inserireCodiceDelega(String codiceDelega) {
-//        String[] codiciDelega = codiceDelega.split("");
-//        for (int i = 0; i < 5; i++) {
-//            String xpathBy = "code-input-" + i;
-//            By codiceDelegaInputBy = By.id(xpathBy);
-//            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
-//            WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
-//            codiceDelegaInput.sendKeys(codiciDelega[i]);
-//        }
-//
-//    }
+
     public void inserireCodiceDelega(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
-
-        for (int i = 0; i < codiciDelega.length; i++) {
-            String xpathBy = "code-input-" + i;
-            By codiceDelegaInputBy = By.id(xpathBy);
-
-            // Aspetta che l'input sia visibile
-            WebElement codiceDelegaInput = getWebDriverWait(10)
-                    .withMessage("L'input del codice delega con id '" + xpathBy + "' non è visibile")
-                    .until(ExpectedConditions.visibilityOfElementLocated(codiceDelegaInputBy));
-
-            // Inserisce il carattere corrispondente
+        for (int i = 0; i < 5; i++) {
+            WebElement codiceDelegaInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input"));
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
     }

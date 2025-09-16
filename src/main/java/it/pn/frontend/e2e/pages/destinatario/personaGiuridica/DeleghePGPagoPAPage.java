@@ -536,16 +536,11 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
         for (int i = 0; i < 5; i++) {
-            String inputId = "code-input-" + i;
-            By inputLocator = By.id(inputId);
-            WebElement codiceDelegaInput = getWebDriverWait(10)
-                    .withMessage("Il campo di input '" + inputId + "' non è visibile")
-                    .until(ExpectedConditions.visibilityOfElementLocated(inputLocator));
+            WebElement codiceDelegaInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input"));
             codiceDelegaInput.sendKeys(codiciDelega[i]);
         }
         logger.info("Inserimento del codice delega completato");
     }
-
 
     public boolean siVisualizzaUnaDelegaPG() {
         try {
@@ -622,12 +617,19 @@ public class DeleghePGPagoPAPage extends BasePage {
     public void checkTextboxCodiceSonoRosse() {
         final String textboxIsInvalid = "true";
         boolean isInvalid = true;
-        for (int i = 0; i < 5; i++) {
-            String xpathBy = "code-input-" + i;
-            getWebDriverWait(15).withMessage("Textbox di input codice delega non visualizzata").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id(xpathBy)));
-            String stateInput = element(By.id(xpathBy)).getAttribute("aria-invalid");
+        int attempt = 1;
+        int maxAttempts = 7;
+        String stateInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input")).getAttribute("aria-invalid");
+        while (attempt < maxAttempts) {
+
             if (!(textboxIsInvalid.equals(stateInput))) {
                 isInvalid = false;
+                webTool.waitTime(5);
+                logger.info("Tentativo n° {} per l'attesa della formattazione...", attempt);
+                attempt++;
+            }
+            else {
+                break;
             }
         }
         if (isInvalid) {
@@ -677,21 +679,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         buttonIndietroCodiceDiVerifica.click();
         logger.info("Click sul bottone 'Indietro' in inserimento codice verifica eseguito correttamente");
     }
-
-
-    //    public void clickButtonIndietroInAssegnazioneGruppo() {
-//        getWebDriverWait(10).withMessage("bottone indietro in assegnazione gruppo non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='groupCancelButton']"))));
-//        buttonIndietroInAssegnazioneGruppo = driver.findElement(By.xpath("//button[@data-testid='groupCancelButton']"));
-//        buttonIndietroInAssegnazioneGruppo.click();
-//    }
-    public void clickButtonIndietroInAssegnazioneGruppo() {
-        By backButtonLocator = By.xpath("//button[@data-testid='groupCancelButton']");
-        buttonIndietroInAssegnazioneGruppo = getWebDriverWait(10)
-                .withMessage("Il bottone 'Indietro' in assegnazione gruppo non è visibile o cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(backButtonLocator));
-        buttonIndietroInAssegnazioneGruppo.click();
-    }
-
 
     //    public void checkTabellaDelegheACaricoDellImpresa() {
 //        webTool.waitTime(10);
