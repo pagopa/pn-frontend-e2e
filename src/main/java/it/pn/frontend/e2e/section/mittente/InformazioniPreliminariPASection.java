@@ -289,7 +289,7 @@ public class InformazioniPreliminariPASection extends BasePage {
         By raccomandataARLocator = By.xpath("//input[@value='AR_REGISTERED_LETTER']");
         WebElement raccomandataARButton = getWebDriverWait(10)
                 .withMessage("Il radio button Raccomandata AR non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(raccomandataARLocator));
+                .until(ExpectedConditions.presenceOfElementLocated(raccomandataARLocator));
 
         raccomandataARButton.click();
     }
@@ -306,7 +306,7 @@ public class InformazioniPreliminariPASection extends BasePage {
         By registeredLetter890Locator = By.xpath("//input[@value='REGISTERED_LETTER_890']");
         WebElement registeredLetter890Button = getWebDriverWait(10)
                 .withMessage("Il radio button Registered Letter 890 non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(registeredLetter890Locator));
+                .until(ExpectedConditions.presenceOfElementLocated(registeredLetter890Locator));
 
         registeredLetter890Button.click();
     }

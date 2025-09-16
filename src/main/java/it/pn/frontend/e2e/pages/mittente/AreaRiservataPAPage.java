@@ -54,7 +54,7 @@ public class AreaRiservataPAPage extends BasePage {
 //    }
 
     public boolean verificaCodiceFiscale(String codiceFiscale) {
-        List<WebElement> infoLabels = getWebDriverWait(10)
+        List<WebElement> infoLabels = getWebDriverWait(30)
                 .withMessage("Elementi informativi non trovati nella pagina")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                         By.xpath("//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]")));

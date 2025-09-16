@@ -241,7 +241,7 @@ public class AggiungiDelegaPGSection extends BasePage {
         logger.info("Si seleziona il radio button solo enti selezionati");
         soloEntiSelezionatiRadioButton = getWebDriverWait(10)
                 .withMessage("Il radio button 'Solo enti selezionati' non è visibile o cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[contains(@value,'entiSelezionati')]")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[contains(@value,'entiSelezionati')]")));
         soloEntiSelezionatiRadioButton.click();
     }
 

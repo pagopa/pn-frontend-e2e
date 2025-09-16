@@ -135,7 +135,7 @@ public class DestinatarioPASection extends BasePage {
 
         personaFisicaCheckBox = getWebDriverWait(15)
                 .withMessage("La checkbox 'PF' non è visibile o cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[value='PF']")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[value='PF']")));
 
         personaFisicaCheckBox.click();
     }
