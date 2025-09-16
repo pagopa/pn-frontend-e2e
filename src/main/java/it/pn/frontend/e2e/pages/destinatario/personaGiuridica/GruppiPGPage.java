@@ -282,7 +282,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkPopUpSospensioneGruppo() {
-        WebElement popUpTitle = driver.findElement(By.xpath("//p[contains(text(), 'Sospendi gruppo')]"));
+        WebElement popUpTitle = driver.findElement(By.xpath("//h6[contains(text(), 'Sospendi gruppo')]"));
         WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi sospendere il gruppo')]"));
         WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
         WebElement buttonSospendi = driver.findElement(By.xpath("//button[contains(text(), 'Sospendi')]"));
@@ -298,7 +298,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkPopUpRiattivazioneGruppo() {
-        WebElement popUpTitle = driver.findElement(By.xpath("//p[contains(text(), 'Riattiva gruppo')]"));
+        WebElement popUpTitle = driver.findElement(By.xpath("//h6[contains(text(), 'Riattiva gruppo')]"));
         WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi riattivare il gruppo')]"));
         WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
         WebElement buttonRiattiva = driver.findElement(By.xpath("//button[contains(text(), 'Riattiva')]"));
@@ -309,7 +309,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkPopUpDuplicazioneGruppo() {
-        WebElement popUpTitle = driver.findElement(By.xpath("//p[contains(text(), 'Duplica gruppo')]"));
+        WebElement popUpTitle = driver.findElement(By.xpath("//h6[contains(text(), 'Duplica gruppo')]"));
         WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi duplicare il gruppo')]"));
         WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
         WebElement buttonDuplica = driver.findElement(By.xpath("//button[contains(text(), 'Duplica')]"));
@@ -346,7 +346,7 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkPopUpEliminazioneGruppo() {
-        WebElement popUpTitle = driver.findElement(By.xpath("//p[contains(text(), 'Elimina gruppo')]"));
+        WebElement popUpTitle = driver.findElement(By.xpath("//h6[contains(text(), 'Elimina gruppo')]"));
 //        WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi eliminare il gruppo')]"));
         WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
         WebElement buttonElimina = driver.findElement(By.xpath("//button[contains(text(), 'Elimina')]"));
