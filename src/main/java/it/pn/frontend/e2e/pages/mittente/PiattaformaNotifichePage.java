@@ -28,9 +28,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElements;
-
 public class PiattaformaNotifichePage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(PiattaformaNotifichePage.class);
@@ -1821,10 +1818,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
             List<WebElement> statiNotifica = getWebDriverWait(10)
                     .withMessage("Il menu a tendina dello stato notifica del filtro non è visibile")
-                    .until(driver -> {
-                        List<WebElement> elements = driver.findElements(opzioniMenu);
-                        return elements.isEmpty() ? null : elements;
-                    });
+                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(opzioniMenu));
 
             Set<String> testiStati = new HashSet<>();
             for (WebElement stato : statiNotifica) {
@@ -1843,17 +1837,16 @@ public class PiattaformaNotifichePage extends BasePage {
 
         } catch (TimeoutException e) {
             Assertions.fail("Stato notifica NON trovata con errore: " + e.getMessage());
-            return false;
+            return false; // opzionale, per compilazione
         } finally {
             try {
-                WebElement closeMenu = getWebDriverWait(5)
-                        .until(ExpectedConditions.elementToBeClickable(By.id("menu-status")));
-                closeMenu.click();
-            } catch (TimeoutException ignored) {
-                // Menu già chiuso o non trovato, si ignora
+                this.element(By.id("menu-status")).click(); // chiude il menu
+            } catch (Exception e) {
+                logger.warn("Menu stato non chiuso perché non trovato o già chiuso");
             }
         }
     }
+
 
     //    public void clickPagina(int pagina) {
 //        String paginaString = "page" + pagina;
@@ -2717,8 +2710,8 @@ public class PiattaformaNotifichePage extends BasePage {
     public void selezionaVoceMenuLaterale(String testo) {
 
         WebElement element = getWebDriverWait(20)
-                .withMessage("Voce menu laterale non trovata: "+testo)
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@id,'side-item-"+testo+"')]//span")));
+                .withMessage("Voce menu laterale non trovata: " + testo)
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@id,'side-item-" + testo + "')]//span")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
@@ -2727,7 +2720,7 @@ public class PiattaformaNotifichePage extends BasePage {
     public void sullaPaginaGruppiSelezionaVoceMenuLaterale(String testo) {
 
         WebElement element = getWebDriverWait(20)
-                .withMessage("Voce menu laterale non trovata: "+testo)
+                .withMessage("Voce menu laterale non trovata: " + testo)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@role='button']//span[contains(text(),'" + testo + "')]")));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
 

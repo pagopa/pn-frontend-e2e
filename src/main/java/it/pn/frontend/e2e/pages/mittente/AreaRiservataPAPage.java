@@ -54,23 +54,24 @@ public class AreaRiservataPAPage extends BasePage {
 //    }
 
     public boolean verificaCodiceFiscale(String codiceFiscale) {
-        List<WebElement> infoLabels = getWebDriverWait(30)
-                .withMessage("Elementi informativi non trovati nella pagina")
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                        By.xpath("//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]")));
+        List<WebElement> infoLabel = getWebDriverWait(10)
+                .withMessage("Gli elementi con i codici fiscali non sono visibili")
+                .until(driver -> driver.findElements(By.xpath("//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]")));
 
-        for (WebElement element : infoLabels) {
-            String text = element.getText();
-            logger.info("Info ente presente nella pagina Area Riservata: {}", text);
-            if (text.equals(codiceFiscale)) {
-                logger.info("Codice fiscale {} trovato con successo", codiceFiscale);
+        for (WebElement element : infoLabel) {
+            String testo = element.getText().trim();
+            logger.info("Info ente presente nella pagina Area Riservata: {}", testo);
+            if (testo.equals(codiceFiscale)) {
+                logger.info("Codice fiscale {} trovato correttamente", codiceFiscale);
                 return true;
             }
         }
 
-        logger.warn("Codice fiscale {} non trovato tra gli elementi", codiceFiscale);
+        logger.warn("Codice fiscale {} non trovato", codiceFiscale);
         return false;
     }
+
+
 
     //    public void selezionaPiattaformaNotificaDev() {
 //        try {

@@ -183,16 +183,22 @@ public class AllegatiPASection extends BasePage {
 //        deleteIcons.get(0).click();
 //    }
     public void eliminaAtto() {
-        List<WebElement> deleteIcons = getWebDriverWait(10)
-                .withMessage("Icona per eliminare l'atto non visibile")
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@data-testid='DeleteIcon']")));
+        By deleteIcon = By.xpath("//*[@data-testid='DeleteIcon']");
 
-        if (!deleteIcons.isEmpty()) {
-            js().executeScript("arguments[0].click()", deleteIcons.get(0));
-        } else {
-            Assertions.fail("Nessuna icona di eliminazione trovata");
-        }
+        List<WebElement> deleteIcons = getWebDriverWait(10)
+                .withMessage("Nessuna icona di cancellazione trovata")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(deleteIcon));
+
+        WebElement firstDelete = deleteIcons.get(0);
+
+        getWebDriverWait(10)
+                .withMessage("La prima icona di cancellazione non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(firstDelete))
+                .click();
+
+        logger.info("Cliccata la prima icona di cancellazione atto");
     }
+
 
 
     //    public boolean verificaCaricamentoNotificaPdf() {

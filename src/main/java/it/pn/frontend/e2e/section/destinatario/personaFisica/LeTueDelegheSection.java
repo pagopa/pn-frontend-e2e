@@ -143,7 +143,7 @@ public class LeTueDelegheSection extends BasePage {
         logger.info("Click radio button persona fisica");
         personaFisicaRadioButton = getWebDriverWait(10)
                 .withMessage("Il radio button Persona Fisica non è visibile")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='PF']")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@value='PF']")));
         personaFisicaRadioButton.click();
     }
 

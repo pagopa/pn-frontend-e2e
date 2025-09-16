@@ -270,73 +270,39 @@ public class DisserviziAppPAPage extends BasePage {
 //        }
 //    }
     public void checkDisserviziInCorso() {
-        try {
-            aggiornamentoPagina();
-            webTool.waitTime(15);
+        aggiornamentoPagina();
+        webTool.waitTime(5);
 
-            // Aspetto che gli elementi di status siano presenti
-            List<WebElement> statusList = getWebDriverWait(15)
-                    .withMessage("Nessun elemento di status trovato nella tabella")
-                    .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                            By.xpath("//tr[contains(@id, 'tableDowntimeLog.row')]//td//div[@data-testid='downtime-status']")));
+        By statusLocator = By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']");
+        statusList = getWebDriverWait(20)
+                .withMessage("Non si trovano i record dei disservizi in corso")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(statusLocator);
+                    return elements.isEmpty() ? null : elements; // aspetta fino a quando non ci sono elementi
+                });
 
-            boolean foundInCorso = false;
-            boolean foundDataFineDash = false;
-            boolean foundFraseAttestazione = false;
+        boolean trovato = false;
 
-            if (!statusList.isEmpty()) {
-                logger.info("Trovati {} record nella tabella disservizi", statusList.size());
-
-                for (WebElement status : statusList) {
-                    String statusText = status.getText().trim();
-                    logger.debug("Controllo status: {}", statusText);
-
-                    if (statusText.contains("In corso")) {
-                        logger.info("Trovato record con disservizio ancora in corso");
-                        foundInCorso = true;
-                    }
-
-                    if (statusText.contains("-")) {
-                        logger.info("Trovato record con data di fine come: -");
-                        foundDataFineDash = true;
-                    }
-
-                    if (statusText.contains("L'attestazione sarà disponibile al termine del disservizio")) {
-                        logger.info("Trovato record con frase corretta nelle attestazioni");
-                        foundFraseAttestazione = true;
-                    }
-
-                    // Se abbiamo trovato tutto quello che cerchiamo, possiamo uscire prima
-                    if (foundInCorso && foundDataFineDash && foundFraseAttestazione) {
-                        break;
-                    }
-                }
-
-                // Verifica finale di ciò che è stato trovato
-                if (!foundInCorso) {
-                    Assertions.fail("Non si visualizza un record relativo ad un disservizio ancora in corso");
-                }
-
-                if (!foundDataFineDash) {
-                    logger.warn("Non trovato record con data di fine come '-'");
-                }
-
-                if (!foundFraseAttestazione) {
-                    logger.warn("Non trovato record con la frase completa delle attestazioni");
-                }
-
-            } else {
-                Assertions.fail("Non si visualizza alcun record nella tabella dei disservizi");
+        for (WebElement status : statusList) {
+            String text = status.getText().trim();
+            if (text.contains("In corso")) {
+                logger.info("Si visualizza un record relativo ad un disservizio ancora in corso");
+                trovato = true;
             }
+            if (text.contains("-")) {
+                logger.info("Si visualizza data di fine come '-'");
+            }
+            if (text.contains("L'attestazione sarà disponibile al termine del disservizio")) {
+                logger.info("Si visualizza la frase corretta in 'Attestazioni opponibili a terzi'");
+            }
+        }
 
-        } catch (TimeoutException e) {
-            logger.error("Timeout durante la verifica dei disservizi in corso", e);
-            Assertions.fail("Timeout durante la verifica dei disservizi in corso: " + e.getMessage());
-        } catch (Exception e) {
-            logger.error("Errore durante la verifica dei disservizi in corso", e);
-            Assertions.fail("Errore durante la verifica dei disservizi: " + e.getMessage());
+        if (!trovato) {
+            logger.error("Nessun disservizio 'In corso' trovato nella tabella");
+            Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
         }
     }
+
 
     public void checkDisservizioRisolto(String tipoDisservizio) {
         aggiornamentoPagina();
@@ -510,8 +476,7 @@ public class DisserviziAppPAPage extends BasePage {
                 if (downloadVerificato) {
                     logger.info("click a");
                     break;
-                }
-                else {// Torna indietro alla pagina di Google
+                } else {// Torna indietro alla pagina di Google
                     logger.info("click c");
                     driver.navigate().back();
                 }
@@ -546,7 +511,7 @@ public class DisserviziAppPAPage extends BasePage {
         return selectedRow;
     }
 
-    //    public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
+    //        public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
 //        attestazioniFile = driver.findElements(By.cssSelector("[data-testid='download-legal-fact']"));
 //        if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
 //            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
@@ -555,39 +520,29 @@ public class DisserviziAppPAPage extends BasePage {
 //            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
 //        }
 //    }
-    public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
-        // Trovo TUTTI i link delle attestazioni e aspetto che siano presenti
+    public void clickLinkAttestazioniOpponibileDisservizi(int index) {
         List<WebElement> attestazioniFile = getWebDriverWait(10)
-                .withMessage("Nessun link attestazioni trovato")
-                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                        By.cssSelector("[data-testid='download-legal-fact']")));
-        // Verifico che l'indice sia valido
-        if (numeroLinkAttestazioniOpponibile < 0 || numeroLinkAttestazioniOpponibile >= attestazioniFile.size()) {
-            throw new RuntimeException("Indice non valido: " + numeroLinkAttestazioniOpponibile +
-                    ". Numero link disponibili: " + attestazioniFile.size());
-        }
-        WebElement link = attestazioniFile.get(numeroLinkAttestazioniOpponibile);
-        // Mi assicuro che il link sia cliccabile
-        getWebDriverWait(5)
-                .withMessage("Link attestazione non cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(link));
-        logger.info("Clicco sul link attestazione numero {}", numeroLinkAttestazioniOpponibile + 1);
-        // Provo a cliccare normalmente, se non è visibile scrollo
-        try {
-            if (link.isDisplayed()) {
-                link.click();
-            } else {
-                js().executeScript("arguments[0].scrollIntoView({block: 'center'});", link);
-                webTool.waitTime(1);
-                link.click();
-            }
-        } catch (Exception e) {
-            // Fallback: click via JavaScript
-            logger.warn("Click normale fallito, provo con JavaScript");
-            js().executeScript("arguments[0].click();", link);
+                .withMessage("Nessun link di attestazione opponibile trovato")
+                .until(driver -> driver.findElements(By.cssSelector("[data-testid='download-legal-fact']")));
+
+        if (attestazioniFile.size() <= index) {
+            Assertions.fail("Il link con indice " + index + " non esiste. Totale link presenti: " + attestazioniFile.size());
         }
 
+        WebElement link = attestazioniFile.get(index);
+
+        if (!link.isDisplayed()) {
+            js().executeScript("arguments[0].scrollIntoView(true);", link);
+        }
+
+        getWebDriverWait(10)
+                .withMessage("Il link di attestazione opponibile non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(link))
+                .click();
+
+        logger.info("Cliccato il link di attestazione opponibile numero {}", index);
     }
+
 
     public boolean confrontoFileConDisservizio() {
         getDateDisservice();

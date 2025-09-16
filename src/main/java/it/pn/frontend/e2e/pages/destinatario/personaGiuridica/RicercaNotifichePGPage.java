@@ -269,7 +269,7 @@ public class RicercaNotifichePGPage extends BasePage {
                 }
             } else {
                 ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
-                webTool.waitTime(1);
+                webTool.waitTime(2);
                 List<WebElement> costElements = getWebDriverWait(30)
                         .withMessage("Impossibile trovare il Copy Costi Di Notifica Inclusi con IUN: " + codiceIUN)
                         .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(

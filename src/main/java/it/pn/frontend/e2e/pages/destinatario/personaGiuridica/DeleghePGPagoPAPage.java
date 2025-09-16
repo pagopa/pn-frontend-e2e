@@ -293,7 +293,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         By radioButtonLocator = By.id("associate-group");
         assegnaGruppoRadioButton = getWebDriverWait(10)
                 .withMessage("Il radio button 'Assegna gruppo' non è visibile o cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(radioButtonLocator));
+                .until(ExpectedConditions.presenceOfElementLocated(radioButtonLocator));
         assegnaGruppoRadioButton.click();
     }
 

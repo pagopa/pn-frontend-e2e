@@ -1075,7 +1075,7 @@ public class DestinatarioPASection extends BasePage {
     public void clickRadioButtonPersonaGiuridica() {
         personaGiuridicaRadioButton = getWebDriverWait(10)
                 .withMessage("Il radio button 'PG' non è visibile o cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(
+                .until(ExpectedConditions.presenceOfElementLocated(
                         By.xpath("//input[@value='PG']")
                 ));
         personaGiuridicaRadioButton.click();
@@ -1089,7 +1089,7 @@ public class DestinatarioPASection extends BasePage {
     public void clickRadioButtonPersonaGiuridicaPosizionale(int posizione) {
         personaGiuridicaRadioButton = getWebDriverWait(10)
                 .withMessage("Il radio button 'PG' per il destinatario " + posizione + " non è visibile o cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(
+                .until(ExpectedConditions.presenceOfElementLocated(
                         By.xpath("//input[@name='recipients[" + posizione + "].recipientType' and @value='PG']")
                 ));
         personaGiuridicaRadioButton.click();
