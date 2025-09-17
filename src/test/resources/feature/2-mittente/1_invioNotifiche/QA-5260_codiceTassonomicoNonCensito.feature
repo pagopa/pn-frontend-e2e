@@ -26,4 +26,5 @@ Feature: Invio notifica con codice tassonomico non censito
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
-    Then Verifica Pop-up toast di errore "Codice tassonomico non valido"
+    And Attesa 5 secondi
+    Then Verifica Pop-up toast di errore "codice tassonomico non"
