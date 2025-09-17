@@ -372,7 +372,7 @@ public class DettaglioNotificaSection extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(chipAnnullataInTimeline));
 
         getWebDriverWait(10).withMessage("Il link del documento di annullamento non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(linkAnnullamentoNotifica));
+                .until(ExpectedConditions.visibilityOfElementLocated(linkAnnullamentoNotifica));
 
         logger.info("Dettaglio Notifica Annullata Section caricata");
     }

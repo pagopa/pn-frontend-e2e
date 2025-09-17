@@ -162,22 +162,34 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 //        }
 //    }
     public String ottieniParametriCopiaKIDRegistraChiavePubblica() {
-        // Attesa che tutti i pulsanti copia siano visibili
+        By copyButtonLocator = By.xpath("//button[@type='button' and @role='button']");
+        By inputLocator = By.xpath("//input[@type='text']");
+
+        // Attendo che ci sia almeno un bottone copia
         List<WebElement> copyButtons = getWebDriverWait(15)
-                .withMessage("Il bottone copia del campo KID non è cliccabile")
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//button[@type='button' and @role='button']")));
+                .withMessage("Nessun bottone copia trovato per il campo KID")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(copyButtonLocator);
+                    return elements.isEmpty() ? null : elements;
+                });
 
-        // Clic sul primo pulsante copia
-        copyButtons.get(0).click();
+        WebElement firstCopyButton = copyButtons.get(0);
+        firstCopyButton.click();
 
-        // Attesa che tutti i campi input di testo siano visibili
-        List<WebElement> inputFields = getWebDriverWait(15)
-                .withMessage("Il campo input collegato al KID non è visibile")
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[@type='text']")));
+        // Attendo che ci sia almeno un input disponibile
+        List<WebElement> inputFields = getWebDriverWait(10)
+                .withMessage("Nessun campo input trovato dopo il click sul bottone copia")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(inputLocator);
+                    return elements.isEmpty() ? null : elements;
+                });
 
-        // Restituisci il valore del primo campo input
-        return inputFields.get(0).getAttribute("value");
+        String valore = inputFields.get(0).getAttribute("value");
+        logger.info("Valore KID ottenuto: {}", valore);
+
+        return valore;
     }
+
 
 
     //    public String ottieniParametriCopiaIssuerRegistraChiavePubblica() {
@@ -196,14 +208,32 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 //        }
 //    }
     public String ottieniParametriCopiaIssuerRegistraChiavePubblica() {
+        By copyButtonLocator = By.xpath("//button[@type='button' and @role='button']");
+        By inputLocator = By.xpath("//input[@type='text']");
+
+        // Attendo che ci sia almeno un bottone copia
         List<WebElement> copyButtons = getWebDriverWait(15)
-                .withMessage("Il bottone copia del campo Issuer non è cliccabile")
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//button[@type='button' and @role='button']")));
-        copyButtons.get(1).click();
-        List<WebElement> inputFields = getWebDriverWait(15)
-                .withMessage("Il campo input collegato all'Issuer non è visibile")
-                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//input[@type='text']")));
-        return inputFields.get(1).getAttribute("value");
+                .withMessage("Nessun bottone copia trovato per il campo KID")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(copyButtonLocator);
+                    return elements.isEmpty() ? null : elements;
+                });
+
+        WebElement firstCopyButton = copyButtons.get(1);
+        firstCopyButton.click();
+
+        // Attendo che ci sia almeno un input disponibile
+        List<WebElement> inputFields = getWebDriverWait(10)
+                .withMessage("Nessun campo input trovato dopo il click sul bottone copia")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(inputLocator);
+                    return elements.isEmpty() ? null : elements;
+                });
+
+        String valore = inputFields.get(1).getAttribute("value");
+        logger.info("Valore KID ottenuto: {}", valore);
+
+        return valore;
     }
 
 

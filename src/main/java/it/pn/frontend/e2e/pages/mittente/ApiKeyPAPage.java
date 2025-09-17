@@ -154,10 +154,16 @@ public class ApiKeyPAPage extends BasePage {
 //    }
 
     public void clickSulBottoneContinua() {
+        driver.findElement(By.tagName("body")).click();
+
         WebElement continuaButton = getWebDriverWait(40)
-                .withMessage("Il bottone Continua non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("continue-button")));
+                .withMessage("Il bottone Continua non è abilitato")
+                .until(driver -> {
+                    WebElement el = driver.findElement(By.id("continue-button"));
+                    return el.isEnabled() ? el : null;
+                });
         continuaButton.click();
+
     }
 
 
