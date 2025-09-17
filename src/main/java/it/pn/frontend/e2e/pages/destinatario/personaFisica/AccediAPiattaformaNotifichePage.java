@@ -561,7 +561,7 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
         WebElement continuaPagamento = getWebDriverWait(10)
                 .withMessage("Bottone continua pagamento non visibile")
-                .until(ExpectedConditions.elementToBeClickable(By.id("paymentEmailPageButtonContinue")));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("paymentEmailPageButtonContinue")));
 
         emailPagamento.sendKeys(email);
         confermaEmailPagamento.sendKeys(email);

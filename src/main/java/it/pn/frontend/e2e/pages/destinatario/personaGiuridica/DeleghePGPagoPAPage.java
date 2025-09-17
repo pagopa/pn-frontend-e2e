@@ -396,7 +396,7 @@ public class DeleghePGPagoPAPage extends BasePage {
         By formGroupLocator = By.id("associate-form-group");
         nonGruppoRadioButton = getWebDriverWait(30)
                 .withMessage("Il radio button 'Non assegnare ad un gruppo' non è visibile o cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(nonGruppoLocator));
+                .until(ExpectedConditions.presenceOfElementLocated(nonGruppoLocator));
         getWebDriverWait(30)
                 .withMessage("Il form di gruppo non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(formGroupLocator));

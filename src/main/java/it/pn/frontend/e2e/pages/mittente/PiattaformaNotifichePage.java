@@ -2792,22 +2792,37 @@ public class PiattaformaNotifichePage extends BasePage {
 //        Assertions.assertFalse(raccomandata.isSelected(), "Il campo Raccomandata non è vuoto");
 //    }
     public void verificaCampiVuoti() {
+        // Attendo e recupero i campi
+        WebElement oggettoNotificaField = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("subject")));
+        WebElement descrizioneField = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("abstract")));
+        WebElement numeroProtocolloField = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("paProtocolNumber")));
+        WebElement codiceTassonomicoField = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("taxonomyCode")));
+        WebElement raccomandata = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@value='AR_REGISTERED_LETTER']")));
 
-        Map<String, String> campi = Map.of(
-                "Oggetto Notifica", getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("subject"))).getAttribute("value"),
-                "Descrizione", getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("abstract"))).getAttribute("value"),
-                "Numero Protocollo", getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("paProtocolNumber"))).getAttribute("value"),
-                "Codice Tassonomico", getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id("taxonomyCode"))).getAttribute("value")
+        // Leggo i valori
+        String oggettoNotifica = oggettoNotificaField.getAttribute("value");
+        String descrizione = descrizioneField.getAttribute("value");
+        String numeroProtocollo = numeroProtocolloField.getAttribute("value");
+        String codiceTassonomico = codiceTassonomicoField.getAttribute("value");
+
+        logger.info("Valori letti -> Oggetto: '{}', Descrizione: '{}', Numero Protocollo: '{}', Codice Tassonomico: '{}', Raccomandata selezionata: {}",
+                oggettoNotifica, descrizione, numeroProtocollo, codiceTassonomico, raccomandata.isSelected());
+
+        // Asserzioni multiple
+        Assertions.assertAll("Verifica campi vuoti",
+                () -> Assertions.assertTrue(oggettoNotifica.isEmpty(), "Il campo Oggetto Notifica non è vuoto"),
+                () -> Assertions.assertTrue(descrizione.isEmpty(), "Il campo Descrizione non è vuoto"),
+                () -> Assertions.assertTrue(numeroProtocollo.isEmpty(), "Il campo Numero Protocollo non è vuoto"),
+                () -> Assertions.assertTrue(codiceTassonomico.isEmpty(), "Il campo Codice Tassonomico non è vuoto"),
+                () -> Assertions.assertFalse(raccomandata.isSelected(), "Il radio Raccomandata risulta selezionato")
         );
-        // Verifica che tutti i campi di testo siano vuoti
-        campi.forEach((nomeCampo, valore) ->
-                Assertions.assertTrue(valore.isEmpty(), "Il campo " + nomeCampo + " non è vuoto")
-        );
-        // Verifica checkbox Raccomandata
-        WebElement raccomandata = getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//input[@value='AR_REGISTERED_LETTER']")));
-        Assertions.assertFalse(raccomandata.isSelected(), "Il campo Raccomandata non è vuoto");
     }
+
 
 
     //    public void verificaBanner(String banner) {

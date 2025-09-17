@@ -256,7 +256,7 @@ public class LeTueDelegheSection extends BasePage {
         logger.info("Click checkbox solo enti selezionati");
         soloEntiSelezionatiRadioButton = getWebDriverWait(10)
                 .withMessage("Il radio button 'Solo Enti Selezionati' non è visibile o cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@value='entiSelezionati']")));
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@value='entiSelezionati']")));
         soloEntiSelezionatiRadioButton.click();
     }
 

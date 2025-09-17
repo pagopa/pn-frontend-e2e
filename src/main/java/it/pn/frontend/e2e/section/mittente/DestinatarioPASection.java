@@ -941,7 +941,7 @@ public class DestinatarioPASection extends BasePage {
     private void clickRadioButtonPersonaGiuridica(int posizione) {
         WebElement radioButtonPgBy = getWebDriverWait(15)
                 .withMessage("Il radio button 'PG' per il destinatario " + posizione + " non è visibile")
-                .until(ExpectedConditions.elementToBeClickable(
+                .until(ExpectedConditions.presenceOfElementLocated(
                         By.xpath("//input[@name='recipients[" + posizione + "].recipientType' and @value='PG']")
                 ));
         radioButtonPgBy.click();
