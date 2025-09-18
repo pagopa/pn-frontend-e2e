@@ -114,27 +114,28 @@ public class DettaglioNotificaSection extends BasePage {
 //        }
 //    }
     public void clickLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
+
+        // Locator del bottone attestazione
         By attestazioniLocator = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]");
 
-        // Attendi che ci siano abbastanza link visibili
-        List<WebElement> attestazioniFile = getWebDriverWait(20)
-                .withMessage("Non sono stati trovati abbastanza link di attestazioni opponibili")
-                .until(driver -> {
-                    List<WebElement> elements = driver.findElements(attestazioniLocator);
-                    return elements.size() > numeroLinkAttestazioniOpponibile ? elements : null;
-                });
+        // Attendo che ci siano abbastanza link caricati
+        getWebDriverWait(15).withMessage("Non sono stati trovati abbastanza link di attestazioni opponibili")
+                .until(driver -> driver.findElements(attestazioniLocator).size() > numeroLinkAttestazioniOpponibile);
 
-        WebElement target = attestazioniFile.get(numeroLinkAttestazioniOpponibile);
+        // Recupero tutti i link
+        List<WebElement> attestazioniFile = driver.findElements(attestazioniLocator);
+        WebElement linkDaClickare = attestazioniFile.get(numeroLinkAttestazioniOpponibile);
 
         try {
-            getWebDriverWait(10)
-                    .withMessage("Il link non è cliccabile")
-                    .until(ExpectedConditions.elementToBeClickable(target));
-            target.click();
+            // Provo a cliccare direttamente se è cliccabile
+            getWebDriverWait(15).withMessage("Il link non è cliccabile").until(ExpectedConditions.elementToBeClickable(linkDaClickare));
+            linkDaClickare.click();
         } catch (TimeoutException e) {
-            scrollToElementAndClick(target);
+            // Se non cliccabile, faccio scroll e click con JS o metodo custom
+            scrollToElementAndClick(linkDaClickare);
         }
     }
+
 
 
     //    public void toBeClickableLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
@@ -145,23 +146,22 @@ public class DettaglioNotificaSection extends BasePage {
 //        }
 //    }
     public void toBeClickableLinkAttestazioniOpponibile(int numeroLinkAttestazioniOpponibile) {
+
+        // Locator dei bottoni
         By attestazioniLocator = By.xpath("//button[contains(text(),'Attestazione opponibile a terzi: notifica presa in carico')]");
 
-        // Attendo che ci siano abbastanza link in pagina
-        List<WebElement> attestazioniFile = getWebDriverWait(20)
-                .withMessage("Non sono stati trovati abbastanza link di attestazioni opponibili")
-                .until(driver -> {
-                    List<WebElement> elements = driver.findElements(attestazioniLocator);
-                    return elements.size() > numeroLinkAttestazioniOpponibile ? elements : null;
-                });
+        // Attendo che ci siano abbastanza bottoni nel DOM
+        getWebDriverWait(15).withMessage("Non sono stati trovati abbastanza link di attestazioni opponibili in toBeClickableLinkAttestazioniOpponibile")
+                .until(driver -> driver.findElements(attestazioniLocator).size() > numeroLinkAttestazioniOpponibile);
 
-        WebElement target = attestazioniFile.get(numeroLinkAttestazioniOpponibile);
+        // Recupero il link desiderato
+        WebElement linkDaControllare = driver.findElements(attestazioniLocator).get(numeroLinkAttestazioniOpponibile);
 
         // Attendo che sia cliccabile
-        getWebDriverWait(10)
-                .withMessage("Il link non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(target));
+        getWebDriverWait(15).withMessage("Il link non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(linkDaControllare));
     }
+
 
 
 //    public void clickLinkDocumentiAllegati(int numeroLinkDocumentiAllegati) {

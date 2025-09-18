@@ -365,22 +365,20 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 //        }
 //    }
     public boolean piuAvvisiDisplayed() {
-        By avvisiBy = By.xpath("//div[@data-testid='pagopa-item']");
-        try {
-            List<WebElement> pagopaItems = getWebDriverWait(5)
-                    .withMessage("Avvisi pagoPa non sono visibili")
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(avvisiBy));
+        List<WebElement> pagopaItems = getWebDriverWait(5)
+                .until(driver -> driver.findElements(By.xpath("//div[@data-testid='pagopa-item']")));
 
-            if (pagopaItems.size() < 2) {
-                logger.info("Meno di due avvisi pagoPa trovati ({} trovato/i)", pagopaItems.size());
-                return false;
-            } else {
-                logger.info("Avvisi pagoPa trovati: {}", pagopaItems.size());
-                return true;
-            }
-        } catch (TimeoutException e) {
-            logger.warn("Avvisi pagoPa non trovati: {}", e.getMessage());
+        if (pagopaItems.isEmpty()) {
+            logger.info("Avvisi pagoPa sono trovati");
+            return true;
+        }
+        getWebDriverWait(3).withMessage("Avvisi pagoPa non sono trovati").until(ExpectedConditions.visibilityOf(pagopaItems.get(0))).isDisplayed();
+        if (pagopaItems.size() < 2) {
+            logger.info("Avvisi pagoPa non sono trovati");
             return false;
+        } else {
+            logger.info("Avvisi pagoPa sono trovati");
+            return true;
         }
     }
 

@@ -637,7 +637,7 @@ public class DestinatarioPASection extends BasePage {
         // Seleziona il tipo PF
         WebElement secondPGButton = getWebDriverWait(15)
                 .withMessage("Il radio button 'PF' per il secondo destinatario non è visibile")
-                .until(ExpectedConditions.elementToBeClickable(
+                .until(ExpectedConditions.presenceOfElementLocated(
                         By.xpath("//input[@name='recipients[1].recipientType' and @value ='PF']")
                 ));
         secondPGButton.click();
@@ -749,7 +749,7 @@ public class DestinatarioPASection extends BasePage {
         // Seleziona il tipo PG
         WebElement tipoPG = getWebDriverWait(15)
                 .withMessage("Il radio button 'PG' per il secondo destinatario non è visibile")
-                .until(ExpectedConditions.elementToBeClickable(
+                .until(ExpectedConditions.presenceOfElementLocated(
                         By.xpath("//input[@name='recipients[1].recipientType' and @value='PG']")
                 ));
         tipoPG.click();

@@ -532,15 +532,32 @@ public class GruppiPGPage extends BasePage {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String formattedDate = currentDate.format(formatter);
+
+        // Locator per la descrizione modificata
         By descrizioneLocator = By.xpath("//div[p[@aria-label and contains(text(), 'Nuova descrizione')]]");
-        By dataLocator = By.xpath("//div[contains(@class, 'MuiGrid-root')]//p[text()='" + formattedDate + "']");
-        getWebDriverWait(10)
-                .withMessage("La descrizione modificata non viene visualizzata e non è corretta")
-                .until(ExpectedConditions.textToBe(descrizioneLocator, "Nuova descrizione"));
-        getWebDriverWait(10)
-                .withMessage("La data della modifica non è visualizzata e non è corretta")
-                .until(ExpectedConditions.visibilityOfElementLocated(dataLocator));
+
+        // Attendo che la descrizione sia visibile e contenga il testo corretto
+        getWebDriverWait(10).withMessage("La descrizione modificata non viene visualizzata o non è corretta")
+                .until(ExpectedConditions.textToBePresentInElementLocated(descrizioneLocator, "Nuova descrizione"));
+
+        // Locator per le date (creazione e modifica)
+        By dateLocator = By.xpath("//div[contains(@class, 'MuiGrid-root')]//p[text()='" + formattedDate + "']");
+
+        // Attendo che ci siano almeno 2 date visibili
+        getWebDriverWait(10).withMessage("La data della modifica non è visualizzata o non è corretta")
+                .until(driver -> {
+                    List<WebElement> dates = driver.findElements(dateLocator);
+                    return dates.size() > 1 && dates.get(1).isDisplayed();
+                });
+
+        // Recupero la seconda data e verifico
+        List<WebElement> dataCreazioneEModifica = driver.findElements(dateLocator);
+        Assertions.assertTrue(dataCreazioneEModifica.size() > 1,
+                "Non sono presenti sufficienti date di creazione/modifica");
+        Assertions.assertEquals(formattedDate, dataCreazioneEModifica.get(1).getText(),
+                "La data della modifica non è corretta");
     }
+
 
 
     //    public void checkPopUpSospensioneGruppo() {

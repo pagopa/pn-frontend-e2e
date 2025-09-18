@@ -430,40 +430,22 @@ public class DeleghePage extends BasePage {
         return statoDelega.getText();
     }
 
-
-    //    public void checkModaleMostraCodice() {
-//        try {
-//            WebElement titoloModale = driver.findElement(By.id("dialog-title"));
-//            WebElement sottotitoloModale = driver.findElement(By.id("dialog-description"));
-//            int i = 5;
-//
-//            getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOf(titoloModale));
-//            getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOf(sottotitoloModale));
-//            while (i >= 1) {
-//                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("code-input-" + i))));
-//                i--;
-//            }
-//        } catch (TimeoutException e) {
-//            Assertions.fail("modale mostra codice non caricata con errore: " + e.getMessage());
-//        }
-//    }
-    public void checkModaleMostraCodice() {
+        public void checkModaleMostraCodice() {
         try {
-            By titoloModaleLocator = By.id("dialog-title");
-            By sottotitoloModaleLocator = By.id("dialog-description");
+            WebElement titoloModale = driver.findElement(By.id("dialog-title"));
+            WebElement sottotitoloModale = driver.findElement(By.id("dialog-description"));
+            int i = 5;
 
-            getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOfElementLocated(titoloModaleLocator));
-            getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOfElementLocated(sottotitoloModaleLocator));
-
-            for (int i = 4; i >= 0; i--) {
-                By codiceInputLocator = By.id("code-input-" + i);
-                getWebDriverWait(10).withMessage("Non si trova codice verifica " + i).until(ExpectedConditions.visibilityOfElementLocated(codiceInputLocator));
+            getWebDriverWait(10).withMessage("Non si trova il titolo").until(ExpectedConditions.visibilityOf(titoloModale));
+            getWebDriverWait(10).withMessage("Non si trova il sottotitolo").until(ExpectedConditions.visibilityOf(sottotitoloModale));
+            while (i >= 1) {
+                getWebDriverWait(10).withMessage("Non si trova codice verifica").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("(//div[@data-testid='dialog-content']//input//..//span)["+i+"]"))));
+                i--;
             }
         } catch (TimeoutException e) {
             Assertions.fail("modale mostra codice non caricata con errore: " + e.getMessage());
         }
     }
-
 
     //    public void clickAnnullaRevoca() {
 //        annullaButton = driver.findElement(By.id("dialog-close-button"));

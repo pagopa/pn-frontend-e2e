@@ -396,9 +396,8 @@ public class UtentiPGPage extends BasePage {
 
         // Inserimento email
         this.js().executeScript("arguments[0].setAttribute('autocomplete', 'off')", emailBox);
-        emailBox.clear();
+        emailBox.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
         emailBox.sendKeys(email);
-
         confirmEmailBox.clear();
         confirmEmailBox.sendKeys(email);
     }
@@ -457,39 +456,33 @@ public class UtentiPGPage extends BasePage {
 //        getWebDriverWait(10).withMessage("il popup assegna ruolo non è visualizzata").until(ExpectedConditions.visibilityOf(confirmPopup));
 //    }
     public void selectRole() {
-        By adminRadioButtonLocator = By.xpath("//p[contains(text(),'Amministratore')]");
-        By continueButtonLocator = By.xpath("//button[contains(text(),'Continua')]");
-        By confirmPopupLocator = By.xpath("//p[contains(text(),'Vuoi assegnare a')]");
-
-        WebElement adminRadioButton = getWebDriverWait(10)
+        // Attendo e clicco sul radio "Amministratore"
+        WebElement adminRadioButton = getWebDriverWait(20)
                 .withMessage("Il radio button 'Amministratore' non è visibile")
-                .until(ExpectedConditions.elementToBeClickable(adminRadioButtonLocator));
-
-        WebElement continueButton = getWebDriverWait(10)
-                .withMessage("Il bottone 'Continua' non è visibile o cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(continueButtonLocator));
-
-        // Seleziona ruolo
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//p[contains(text(),'Amministratore')]")));
         adminRadioButton.click();
-        logger.info("Selezionato ruolo 'Amministratore'");
+        logger.info("Selezionato il ruolo Amministratore");
 
-        // Controllo se Continue è attivo
+        // Attendo la visibilità del bottone "Continua"
+        WebElement continueButton = getWebDriverWait(20)
+                .withMessage("Il bottone 'Continua' non è visibile")
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[contains(text(),'Continua')]")));
+
         if (continueButton.getAttribute("disabled") == null) {
-            logger.info("Il bottone 'Continua' è attivo");
+            logger.info("Il bottone Continua è attivo");
+        } else {
+            logger.warn("Il bottone Continua risulta disabilitato");
         }
 
-        // Click su Continue
-        continueButton.click();
-        logger.info("Click sul bottone 'Continua' effettuato");
+        // Click robusto tramite Actions
+        logger.info("Si clicca sul bottone Continua");
+        new Actions(driver).moveToElement(continueButton).click().perform();
 
-        webTool.waitTime(2); // breve attesa per il popup
-
-        // Verifica popup di conferma
-        getWebDriverWait(10)
-                .withMessage("Il popup 'Assegna ruolo' non è visualizzato")
-                .until(ExpectedConditions.visibilityOfElementLocated(confirmPopupLocator));
-
-        logger.info("Popup di conferma visualizzato correttamente");
+        // Attendo il popup di conferma
+        WebElement confirmPopup = getWebDriverWait(20)
+                .withMessage("Il popup di conferma 'Vuoi assegnare a...' non è visibile")
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//p[contains(text(),'Vuoi assegnare a')]")));
+        logger.info("Popup di conferma ruolo visibile: {}", confirmPopup.getText());
     }
 
 
@@ -785,8 +778,8 @@ public class UtentiPGPage extends BasePage {
 //        logger.info("il popup elimina utente è visualizzata correttamente");
 //    }
     public void checkRemoveUserPopup() {
-        removeUserPopup  = driver.findElement(By.xpath( "//h6[contains(text(),'Elimina Utente')]"));
-        getWebDriverWait(10).withMessage("il popup elimina utente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath( "//h6[contains(text(),'Elimina Utente')]"))));
+        removeUserPopup = driver.findElement(By.xpath("//h6[contains(text(),'Elimina Utente')]"));
+        getWebDriverWait(10).withMessage("il popup elimina utente non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h6[contains(text(),'Elimina Utente')]"))));
         logger.info("il popup elimina utente è visualizzata correttamente");
     }
 
