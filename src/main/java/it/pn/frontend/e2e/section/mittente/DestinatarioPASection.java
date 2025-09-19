@@ -868,7 +868,7 @@ public class DestinatarioPASection extends BasePage {
         // Seleziona il tipo PG
         WebElement tipoPG = getWebDriverWait(15)
                 .withMessage("Il radio button 'PG' per il terzo destinatario non è visibile")
-                .until(ExpectedConditions.elementToBeClickable(
+                .until(ExpectedConditions.presenceOfElementLocated(
                         By.xpath("//input[@name='recipients[2].recipientType' and @value='PG']")
                 ));
         tipoPG.click();

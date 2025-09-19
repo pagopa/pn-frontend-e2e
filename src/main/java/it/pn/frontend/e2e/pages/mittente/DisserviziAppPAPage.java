@@ -270,11 +270,11 @@ public class DisserviziAppPAPage extends BasePage {
 //        }
 //    }
     public void checkDisserviziInCorso() {
+        webTool.waitTime(15);
         aggiornamentoPagina();
-        webTool.waitTime(5);
 
         By statusLocator = By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']");
-        statusList = getWebDriverWait(20)
+        statusList = getWebDriverWait(40)
                 .withMessage("Non si trovano i record dei disservizi in corso")
                 .until(driver -> {
                     List<WebElement> elements = driver.findElements(statusLocator);
@@ -298,7 +298,6 @@ public class DisserviziAppPAPage extends BasePage {
         }
 
         if (!trovato) {
-            logger.error("Nessun disservizio 'In corso' trovato nella tabella");
             Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
         }
     }

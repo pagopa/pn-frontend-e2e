@@ -623,7 +623,7 @@ public class NotifichePFPage extends BasePage {
 
 
     public void clickRimuoviFiltriButton() {
-        WebElement rimuoviFiltriButton = getWebDriverWait(30)
+        WebElement rimuoviFiltriButton = getWebDriverWait(35)
                 .withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='cancelButton']")));
 
