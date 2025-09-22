@@ -27,11 +27,6 @@ public class NotificheDestinatarioPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    //    public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
-//        getWebDriverWait(10).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
-//        webTool.waitTime(1);
-//        driver.findElement(By.id("iunMatch")).sendKeys(codiceIUN);
-//    }
     public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
         By iunInputLocator = By.id("iunMatch");
         WebElement iunInput = getWebDriverWait(10)
@@ -55,13 +50,6 @@ public class NotificheDestinatarioPage extends BasePage {
         return false;
     }
 
-    //    public boolean isTextBoxInvalid() {
-//        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
-//
-//        String ariaInvalid = driver.findElement(By.id("iunMatch")).getAttribute("aria-invalid");
-//        final String isTextboxInvalid = "true";
-//        return isTextboxInvalid.equals(ariaInvalid);
-//    }
     public boolean isTextBoxInvalid() {
         By iunInputLocator = By.id("iunMatch");
         WebElement iunInput = getWebDriverWait(30)
@@ -72,14 +60,6 @@ public class NotificheDestinatarioPage extends BasePage {
         return "true".equals(ariaInvalid);
     }
 
-
-    //    public void checkRicevutaConsegnaCliccabile() {
-//        logger.info("controllo esistenza bottone per scaricare zip");
-//        webTool.waitTime(10);
-//        ricevutaDiConsegnaButton = driver.findElement(By.xpath("//button[contains(text(),'Ricevuta di consegna PEC')]"));
-//        getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(ricevutaDiConsegnaButton));
-//        logger.info("Il bottone Ricevuta di consegna non cliccabile");
-//    }
     public void checkRicevutaConsegnaCliccabile() {
         logger.info("Controllo esistenza bottone per scaricare zip");
 
@@ -92,6 +72,5 @@ public class NotificheDestinatarioPage extends BasePage {
 
         logger.info("Il bottone Ricevuta di consegna è cliccabile");
     }
-
 
 }

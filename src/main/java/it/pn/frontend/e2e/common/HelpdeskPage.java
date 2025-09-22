@@ -102,19 +102,6 @@ public class HelpdeskPage extends BasePage {
         driver.get(HelpdeskURL);
     }
 
-    //    public void checkForm() {
-//        try {
-//            logger.info("Check form in corso");
-//            emailInput = driver.findElement(By.id("Email"));
-//            passwordInput = driver.findElement(By.id("Password"));
-//            loginButton = driver.findElement(By.id("buttonLogin"));
-//            getWebDriverWait(40).withMessage("email non presente").until(ExpectedConditions.visibilityOf(emailInput));
-//            getWebDriverWait(40).withMessage("password non presente").until(ExpectedConditions.visibilityOf(passwordInput));
-//            getWebDriverWait(40).withMessage("submit non presente").until(ExpectedConditions.visibilityOf(loginButton));
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Form non presente errore: " + e.getMessage());
-//        }
-//    }
     public void checkForm() {
         try {
             logger.info("Check form in corso");
@@ -174,11 +161,6 @@ public class HelpdeskPage extends BasePage {
 
     }
 
-    //    public void insertUsername(String user) {
-//        logger.info("inserisco email");
-//        emailInput = driver.findElement(By.id("Email"));
-//        emailInput.sendKeys(user);
-//    }
     public void insertUsername(String user) {
         logger.info("Inserisco email");
         By emailLocator = By.id("Email");
@@ -189,12 +171,6 @@ public class HelpdeskPage extends BasePage {
         emailInput.sendKeys(user);
     }
 
-
-    //    public void insertPassword(String pwd) {
-//        logger.info("inserisco password");
-//        passwordInput = driver.findElement(By.id("Password"));
-//        passwordInput.sendKeys(pwd);
-//    }
     public void insertPassword(String pwd) {
         logger.info("Inserisco password");
         By passwordLocator = By.id("Password");
@@ -205,12 +181,6 @@ public class HelpdeskPage extends BasePage {
         passwordInput.sendKeys(pwd);
     }
 
-
-    //    public void clickInviaButton() {
-//        logger.info("clicco il bottone login");
-//        loginButton = driver.findElement(By.id("buttonLogin"));
-//        loginButton.click();
-//    }
     public void clickInviaButton() {
         logger.info("Clicco il bottone login");
 
@@ -240,40 +210,6 @@ public class HelpdeskPage extends BasePage {
 
     }
 
-    //    public void handleDisservizio(Disservice disservizio, Status status) {
-//        waitLoadServiceTable();
-//        serviceStatusButtons = driver.findElements(By.xpath(".//button[@role='menuitem']"));
-//        getWebDriverWait(10).withMessage("Non sono visibili i pulsanti per il disservizio").until(ExpectedConditions.visibilityOfAllElements(serviceStatusButtons));
-//        for (int i = 0; i < services.size(); i++) {
-//            if (services.get(i).getText().equals(disservizio.getValue())) {
-//                logger.info("Clicco sul menu del disservizio: {}", disservizio.getValue());
-//                serviceStatusButtons.get(i).click();
-//                break;
-//            }
-//        }
-//        // this is useful to check if we correctly clicked on the menu and the tooltip is displayed otherwise we fail the test
-//        WebElement tooltip = element(By.xpath(".//div[@role='tooltip']"));
-//        if (!tooltip.isDisplayed()) {
-//            logger.error("Non è stato possibile visualizzare il tooltip per il disservizio");
-//            Assertions.fail("Non è stato possibile visualizzare il tooltip per il disservizio");
-//        }
-//        WebElement button = tooltip.findElement(By.id(status.getValue() + "-insert"));
-//        getWebDriverWait(10).withMessage("Il pulsante: " + status.getValue() + " non è visibile o cliccabile").until(ExpectedConditions.and(
-//                ExpectedConditions.visibilityOf(button),
-//                ExpectedConditions.elementToBeClickable(button)
-//        ));
-//        button.click();
-//        WebElement buttonInsert = element(By.id("buttonInserisciDisservizio"));
-//        getWebDriverWait(10).withMessage("Il pulsante di inserimento del servizio non è visibile o cliccabile").until(ExpectedConditions.and(
-//                ExpectedConditions.visibilityOf(buttonInsert),
-//                ExpectedConditions.elementToBeClickable(buttonInsert)
-//        ));
-//        buttonInsert.click();
-//        //ok va sistemato il codice
-//        WebElement alertSuccess = element(By.xpath(".//div[@role='alert']"));
-//        getWebDriverWait(10).withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile").until(ExpectedConditions.visibilityOf(alertSuccess));
-//        logger.info("{} è stato cambiato con successo in {}", disservizio.getValue(), status.getValue());
-//    }
     public void handleDisservizio(Disservice disservizio, Status status) {
         waitLoadServiceTable();
 
@@ -370,17 +306,6 @@ public class HelpdeskPage extends BasePage {
         checkbox.click();
     }
 
-    //    private void clickInserisciRisolviKOCreazioneNotifiche(Disservice disservice, Status status) {
-//        logger.info("Cerco la riga 'Creazione Notifiche' e clicco su 'Inserisci KO'...");
-//
-//        WebElement bottoneInserisciKO = getWebDriverWait(30)
-//                .withMessage("Bottone 'Inserisci KO' non trovato nella riga '" + disservice.getValue() + "'")
-//                .until(driver -> driver.findElement(By.xpath(
-//                        "//div[@role='row' and .//p[text()='" + disservice.getValue() + "']]//button[@id='" + status.getValue() + "']"
-//                )));
-//
-//        bottoneInserisciKO.click();
-//    }
     private void clickInserisciRisolviKOCreazioneNotifiche(Disservice disservice, Status status) {
         logger.info("Cerco la riga '{}' e clicco su 'Inserisci KO'...", disservice.getValue());
 
@@ -396,19 +321,6 @@ public class HelpdeskPage extends BasePage {
         logger.info("Click sul bottone 'Inserisci KO' completato per '{}'", disservice.getValue());
     }
 
-
-    //    public boolean checkServiceStatus(Disservice disservizio) {
-//        waitLoadServiceTable();
-//        serviceDates = driver.findElements(By.xpath(".//div[@data-field='data' and @role='cell']"));
-//        getWebDriverWait(10).withMessage("Non sono visibili i stati dei servizi").until(ExpectedConditions.visibilityOfAllElements(serviceDates));
-//        for (int i = 0; i < services.size(); i++) {
-//            if (services.get(i).getText().equals(disservizio.getValue())) {
-//                // check status based on the service date if present or not
-//                return !serviceDates.get(i).getText().isEmpty();
-//            }
-//        }
-//        return false;
-//    }
     public boolean checkServiceStatus(Disservice disservizio) {
         waitLoadServiceTable();
 
@@ -432,7 +344,6 @@ public class HelpdeskPage extends BasePage {
 
         return false;
     }
-
 
 
     public boolean checkIsCreatedDisservizio() {
@@ -468,24 +379,6 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    //    public void checkRicercaPage() {
-//        logger.info("check pagina ricerca ed estrazione dati");
-//        try {
-//            WebElement buttonResetFiltri = driver.findElement(By.id("resetFilter"));
-//            selectTypeOfEstrazioneDati = driver.findElement(By.id("Tipo Estrazione"));
-//            numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
-//            codiceFiscaleInput = driver.findElement(By.id("Codice Fiscale"));
-//            buttonRicerca = driver.findElement(By.id("ricerca"));
-//
-//            getWebDriverWait(30).withMessage("Tipo estrazione non trovato").until(ExpectedConditions.visibilityOf(selectTypeOfEstrazioneDati));
-//            getWebDriverWait(30).withMessage("numero ticket input non trovato").until(ExpectedConditions.visibilityOf(numeroTicketInput));
-//            getWebDriverWait(30).withMessage("codice fiscale input non trovato").until(ExpectedConditions.visibilityOf(codiceFiscaleInput));
-//            getWebDriverWait(30).withMessage("button ricerca non trovato").until(ExpectedConditions.visibilityOf(buttonRicerca));
-//            getWebDriverWait(30).withMessage("button reset filtri non trovato").until(ExpectedConditions.visibilityOf(buttonResetFiltri));
-//        } catch (TimeoutException e) {
-//            Assertions.fail("home ricerca non caricata correttamente: " + e.getMessage());
-//        }
-//    }
     public void checkRicercaPage() {
         logger.info("Check pagina ricerca ed estrazione dati");
         try {
@@ -514,24 +407,6 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-
-    //    public void logout() {
-//        try {
-//            logger.info("controllo esistenza bottone logout");
-//            buttonLogout = driver.findElement(By.id("logout"));
-//            getWebDriverWait(30).withMessage("bottone logout non trovato").until(ExpectedConditions.visibilityOf(buttonLogout));
-//            logger.info("click sul bottone logout");
-//            buttonLogout.click();
-//            logger.info("apertura dialog di conferma logout");
-//            logger.info("controllo esistenza pulsante conferma logout");
-//            getWebDriverWait(30).withMessage("bottone conferma logout non trovato").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'Esci')]")));
-//            By buttonConfermaLogout = By.xpath("//button[contains(text(),'Esci')]");
-//            logger.info("click conferma logout");
-//            elements(buttonConfermaLogout).get(0).click();
-//        } catch (TimeoutException e) {
-//            Assertions.fail("logout non riuscito correttamente: " + e.getMessage());
-//        }
-//    }
     public void logout() {
         try {
             logger.info("Controllo esistenza bottone logout");
@@ -555,30 +430,6 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    //    public void insertCfAndRicercaOnPage(String codiceFiscale) {
-//        logger.info("inserisco numero ticket");
-//        numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
-//        numeroTicketInput.sendKeys("testTAFE01");
-//        logger.info("inserisco codice fiscale");
-//        setCodiceFiscale(codiceFiscale);
-//        codiceFiscaleInput = driver.findElement(By.id("Codice Fiscale"));
-//        codiceFiscaleInput.sendKeys(codiceFiscale);
-//        logger.info("clicco sul bottone di ricerca");
-//        try {
-//            buttonRicerca = driver.findElement(By.id("ricerca"));
-//            getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
-//            buttonRicerca.click();
-//        } catch (TimeoutException e) {
-//            Assertions.fail("bottone non cliccabile:" + e.getMessage());
-//
-//        }
-//        try {
-//            TimeUnit.SECONDS.sleep(3);
-//        } catch (InterruptedException e) {
-//            logger.error("pausa con errore: {}", e.getMessage());
-//            throw new RuntimeException(e);
-//        }
-//    }
     public void insertCfAndRicercaOnPage(String codiceFiscale) {
         logger.info("Inserisco numero ticket");
         WebElement numeroTicketInput = getWebDriverWait(30)
@@ -607,14 +458,6 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-
-    //    public void insertCF(String codiceFiscale) {
-//        logger.info("inserisco codice fiscale");
-//        setCodiceFiscale(codiceFiscale);
-//        codiceFiscaleInput = driver.findElement(By.id("Codice Fiscale"));
-//        codiceFiscaleInput.sendKeys(codiceFiscale);
-//
-//    }
     public void insertCF(String codiceFiscale) {
         logger.info("Inserisco codice fiscale");
         setCodiceFiscale(codiceFiscale);
@@ -625,20 +468,6 @@ public class HelpdeskPage extends BasePage {
         codiceFiscaleInput.sendKeys(codiceFiscale);
     }
 
-
-    //    public void insertIunAndRicercaOnPage(String iun) {
-//        logger.info("inserisco numero ticket");
-//        numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
-//        numeroTicketInput.sendKeys("testTAFE01");
-//        logger.info("inserisco codice IUN");
-//        iunInput = driver.findElement(By.id("IUN"));
-//        iunInput.sendKeys(iun);
-//        logger.info("clicco sul bottone di ricerca");
-//        buttonRicerca = driver.findElement(By.id("ricerca"));
-//        getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
-//        buttonRicerca.click();
-//        webTool.waitTime(3);
-//    }
     public void insertIunAndRicercaOnPage(String iun) {
         logger.info("Inserisco numero ticket");
         WebElement numeroTicketInput = getWebDriverWait(30)
@@ -661,13 +490,6 @@ public class HelpdeskPage extends BasePage {
         webTool.waitTime(3);
     }
 
-
-    //    public void insertIun(String iun) {
-//        logger.info("inserisco codice IUN");
-//        iunInput = driver.findElement(By.id("IUN"));
-//        iunInput.sendKeys(iun);
-//
-//    }
     public void insertIun(String iun) {
         logger.info("Inserisco codice IUN");
         WebElement iunInput = getWebDriverWait(30)
@@ -676,13 +498,6 @@ public class HelpdeskPage extends BasePage {
         iunInput.sendKeys(iun);
     }
 
-
-    //    public void insertUid(String uid) {
-//        logger.info("inserisco codice univoco");
-//        inputUid = driver.findElement(By.id("Codice Univoco (uid)"));
-//        inputUid.sendKeys(uid);
-//
-//    }
     public void insertUid(String uid) {
         logger.info("Inserisco codice univoco (UID)");
         WebElement inputUid = getWebDriverWait(30)
@@ -691,12 +506,6 @@ public class HelpdeskPage extends BasePage {
         inputUid.sendKeys(uid);
     }
 
-
-    //    public void insertNumeroTicket() {
-//        logger.info("inserisco numero ticket");
-//        numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
-//        numeroTicketInput.sendKeys("testTAFE01");
-//    }
     public void insertNumeroTicket() {
         logger.info("Inserisco numero ticket");
         WebElement numeroTicketInput = getWebDriverWait(30)
@@ -705,17 +514,6 @@ public class HelpdeskPage extends BasePage {
         numeroTicketInput.sendKeys("testTAFE01");
     }
 
-
-    //    public void checkUid() {
-//        try {
-//            logger.info("controllo esistenza codice univoco");
-//            Uid = driver.findElement(By.xpath("//p[contains(text(),'Codice Univoco')]"));
-//            getWebDriverWait(30).withMessage("Codice univoco non trovato").until(ExpectedConditions.visibilityOf(Uid));
-//            setCodiceIdentificativoPF(Uid.getText().replace("Codice Univoco: ", ""));
-//        } catch (TimeoutException e) {
-//            Assertions.fail("codice univoco non trovato: " + e.getMessage());
-//        }
-//    }
     public void checkUid() {
         try {
             logger.info("Controllo esistenza codice univoco");
@@ -1007,11 +805,6 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-    //    public void clickResettaFiltri() {
-//        WebElement bottoneReset = driver.findElement(By.xpath("//button[@id='resetFilter']"));
-//        getWebDriverWait(5).withMessage("Il bottone resetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneReset));
-//        bottoneReset.click();
-//    }
     public void clickResettaFiltri() {
         By resetButtonLocator = By.id("resetFilter");
         WebElement bottoneReset = getWebDriverWait(5)
@@ -1020,13 +813,6 @@ public class HelpdeskPage extends BasePage {
         bottoneReset.click();
     }
 
-
-    //    public void checkCampiPuliti() {
-//        numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
-//        codiceFiscaleInput = driver.findElement(By.id("Codice Fiscale"));
-//        Assertions.assertTrue(numeroTicketInput.getAttribute("value").isEmpty() && codiceFiscaleInput.getAttribute("value").isEmpty(), "I campi non sono puliti");
-//        logger.info("I campi sono puliti");
-//    }
     public void checkCampiPuliti() {
         By numeroTicketLocator = By.id("Numero Ticket");
         By codiceFiscaleLocator = By.id("Codice Fiscale");
@@ -1046,28 +832,6 @@ public class HelpdeskPage extends BasePage {
         );
         logger.info("I campi sono puliti");
     }
-
-
-//    public void checkCodiceFiscale() {
-//        inputUid = driver.findElement(By.id("Codice Univoco (uid)"));
-//        inputUid.sendKeys(this.codiceIdentificativoPF);
-//        buttonRicerca = driver.findElement(By.id("ricerca"));
-//        buttonRicerca.click();
-//        try {
-//            TimeUnit.SECONDS.sleep(3);
-//        } catch (InterruptedException e) {
-//            logger.error("pausa con errore: {}", e.getMessage());
-//            throw new RuntimeException(e);
-//        }
-//        CfPersonaFisica = driver.findElement(By.xpath("//p[contains(text(),'Codice Fiscale')]"));
-//        String cfResult = CfPersonaFisica.getText().replace("Codice Fiscale: ", "");
-//        if (cfResult.equals(this.codiceFiscale)) {
-//            logger.info("codice fiscale corrispondente");
-//        } else {
-//            logger.error("codice fiscale diverso");
-//            Assertions.fail("dopo ricerca di corrispondenza il codice fiscale risulta differente");
-//        }
-//    }
 
     public void checkCodiceFiscale() {
         By uidLocator = By.id("Codice Univoco (uid)");
@@ -1098,20 +862,6 @@ public class HelpdeskPage extends BasePage {
         }
     }
 
-
-    //    public void loginHelpdeskNuovaScheda(Map<String, String> login) {
-//        webTool.waitTime(10);
-//        emailInput = driver.findElement(By.id("Email"));
-//        passwordInput = driver.findElement(By.id("Password"));
-//        loginButton = driver.findElement(By.id("buttonLogin"));
-//        getWebDriverWait(10).withMessage("Non si visualizza il campo email").until(ExpectedConditions.visibilityOf(emailInput));
-//        getWebDriverWait(10).withMessage("Non si visualizza il campo password").until(ExpectedConditions.visibilityOf(passwordInput));
-//        getWebDriverWait(10).withMessage("Non si visualizza il bottone LOGIN").until(ExpectedConditions.visibilityOf(loginButton));
-//        emailInput.sendKeys(login.get("utente"));
-//        passwordInput.sendKeys(login.get("password"));
-//        loginButton.click();
-//        logger.info("Visualizzazione pagina login corretta");
-//    }
     public void loginHelpdeskNuovaScheda(Map<String, String> login) {
         By emailLocator = By.id("Email");
         By passwordLocator = By.id("Password");
@@ -1134,12 +884,6 @@ public class HelpdeskPage extends BasePage {
         logger.info("Login effettuato correttamente e pagina login visualizzata");
     }
 
-
-    //    public void clickRicercaBottone() {
-//        buttonRicerca = driver.findElement(By.id("ricerca"));
-//        getWebDriverWait(3).withMessage("Il bottone ricerca non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
-//        buttonRicerca.click();
-//    }
     public void clickRicercaBottone() {
         By ricercaButtonLocator = By.id("ricerca");
         WebElement buttonRicerca = getWebDriverWait(3)
@@ -1148,12 +892,6 @@ public class HelpdeskPage extends BasePage {
         buttonRicerca.click();
     }
 
-
-    //    public void spuntareDeanonimizzazioneDati() {
-//        deanonimizzazioneDati = driver.findElement(By.xpath("//div[1]/div[4]/div/label/span[1]"));
-//        getWebDriverWait(3).withMessage("Il Deanonimizzazione dati non è cliccabile").until(ExpectedConditions.elementToBeClickable(deanonimizzazioneDati));
-//        deanonimizzazioneDati.click();
-//    }
     public void spuntareDeanonimizzazioneDati() {
         By deanonimizzazioneLocator = By.xpath("//div[1]/div[4]/div/label/span[1]");
         WebElement deanonimizzazioneDati = getWebDriverWait(3)
@@ -1162,19 +900,6 @@ public class HelpdeskPage extends BasePage {
         deanonimizzazioneDati.click();
     }
 
-
-    //    public void inserimentoArcoTemporale() {
-//        webTool.waitTime(60);
-//
-//        WebElement calendarButton = driver.findElement(By.xpath("//button[contains(@aria-label, 'Choose date')]"));
-//        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(calendarButton));
-//        calendarButton.click();
-//        WebElement previousMonth = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
-//        previousMonth.click();
-//        webTool.waitTime(1);
-//        WebElement dateEleven = driver.findElement(By.xpath("//button[contains(text(),'11')]"));
-//        dateEleven.click();
-//    }
     public void inserimentoArcoTemporale() {
         webTool.waitTime(60);
 
@@ -1195,6 +920,5 @@ public class HelpdeskPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(dateElevenLocator));
         dateEleven.click();
     }
-
 
 }

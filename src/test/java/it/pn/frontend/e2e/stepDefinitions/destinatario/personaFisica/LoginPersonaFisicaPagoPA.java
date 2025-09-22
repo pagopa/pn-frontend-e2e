@@ -41,7 +41,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     private static final Logger logger = LoggerFactory.getLogger(LoginPersonaFisicaPagoPA.class);
     private Map<String, String> urlPersonaFisica;
 
-
     @Autowired
     private WebDriverConfig webDriverConfig;
 
@@ -140,14 +139,12 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             notifichePFPage.waitLoadNotificheDEPage();
             //Salva il token exchange che verrà riusato per ottenere il session token da usare nelle chiamate a API SEND
             tokenExchange = token;
-
         } catch (Exception e) {
             // Gestione delle eccezioni: stampa l'errore
             logger.info("Errore durante il login PF: {}", e.getMessage());
             throw e;
         }
     }
-
 
     @When("Login con persona fisica {string}")
     public void loginConDestinatario(String datipersonaFisica) {
@@ -208,17 +205,13 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             }
 //        }
         logger.info("cookies end");
-
         accediAPiattaformaNotifichePage.waitLoadAccediAPiattaformaNotifichePage();
-
         accediAPiattaformaNotifichePage.selezionaAccediButton();
-
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
         scegliSpidPFPage.selezionareTestButton();
 
@@ -310,7 +303,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         headerPFSection.waitUrlToken();
         webTool.waitTime(2);
     }
-
 
     @Then("Home page persona fisica viene visualizzata correttamente")
     public void homePageDestinatarioVieneVisualizzataCorrettamente() {

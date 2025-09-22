@@ -60,21 +60,6 @@ public class SelezionaEntePAPage extends BasePage {
         }
     }
 
-    //    public void selezionareComune(String comune) {
-//        comuneButton = driver.findElements(By.xpath("//div[@role='button']//h6"));
-//        comuneButton.stream()
-//                .filter(element -> element.getText().contains(comune))
-//                .findFirst()
-//                .ifPresentOrElse(
-//                        element -> {
-//                            getWebDriverWait(30)
-//                                    .withMessage("L'Ente " + comune + " non è cliccabile nella pagina seleziona Ente")
-//                                    .until(ExpectedConditions.elementToBeClickable(element));
-//                            js().executeScript("arguments[0].click()", element);
-//                        },
-//                        () -> logger.warn("Ente '{}' non trovato tra i comuni disponibili", comune)
-//                );
-//    }
     public void selezionareComune(String comune) {
         By comuniLocator = By.xpath("//div[@role='button']//h6");
 
@@ -82,7 +67,6 @@ public class SelezionaEntePAPage extends BasePage {
         List<WebElement> comuni = getWebDriverWait(30)
                 .withMessage("Nessun comune visibile nella pagina seleziona Ente")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(comuniLocator));
-
         comuni.stream()
                 .filter(element -> element.getText().contains(comune))
                 .findFirst()
@@ -98,34 +82,16 @@ public class SelezionaEntePAPage extends BasePage {
                 );
     }
 
-    //    public void selezionaAccedi() {
-//        Actions actions = new Actions(driver);
-//        getWebDriverWait(60).withMessage("il buttone Accedi non è cliccabile")
-//                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[text()='Accedi' or text()='Login' or text()='Se connecter' or text()='Anmelden' or text()='Prijavite se']"))));
-//        accediButton = driver.findElement(By.xpath("//button[text()='Accedi' or text()='Login' or text()='Se connecter' or text()='Anmelden' or text()='Prijavite se']"));
-//        actions.moveToElement(accediButton).click().perform();
-//    }
     public void selezionaAccedi() {
         Actions actions = new Actions(driver);
-
         By accediLocator = By.xpath("//button[text()='Accedi' or text()='Login' or text()='Se connecter' or text()='Anmelden' or text()='Prijavite se']");
-
         WebElement accediButton = getWebDriverWait(60)
                 .withMessage("Il bottone Accedi non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(accediLocator));
-
         actions.moveToElement(accediButton).click().perform();
         logger.info("Click sul bottone Accedi/Login effettuato correttamente");
     }
 
-
-    //    public void cercaComune(String comune) {
-//        getWebDriverWait(30)
-//                .withMessage("Il campo Comune non è visibile nella pagina seleziona un Ente")
-//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("search"))));
-//        comuneSearchField = driver.findElement(By.id("search"));
-//        comuneSearchField.sendKeys(comune);
-//    }
     public void cercaComune(String comune) {
         By searchLocator = By.id("search");
 

@@ -40,13 +40,6 @@ public class SelezionaImpresaPage extends BasePage {
         logger.info("Seleziona Impresa Page caricata correttamente");
     }
 
-    //    public void clickAccediButton() {
-//        webTool.waitTime(30);
-//        accediButton = driver.findElement(By.xpath("//button[contains(text(),'Accedi')]"));
-//        getWebDriverWait(30).withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è cliccabile").until(ExpectedConditions.elementToBeClickable(accediButton));
-//        logger.info("click su pulsante accedi");
-//        accediButton.click();
-//    }
     public void clickAccediButton() {
         webTool.waitTime(30);
         WebElement accediButton = getWebDriverWait(30)
@@ -56,21 +49,6 @@ public class SelezionaImpresaPage extends BasePage {
         accediButton.click();
     }
 
-
-    //    public boolean clickSuImpresa(String ragioneSociale) {
-//        //insert try catch for handle element not clickable
-//        try {
-//            logger.info("RAGIONE SOCIALE: {}", ragioneSociale);
-//            WebElement impresaBy = driver.findElement((By.xpath("//h6[contains(text(),'" + ragioneSociale + "')]")));
-//            getWebDriverWait(5).withMessage("l'ente: " + ragioneSociale + " della pagina Seleziona la tua impresa non è visibile").until(ExpectedConditions.elementToBeClickable(impresaBy));
-//            js().executeScript("arguments[0].click()", impresaBy);
-//            logger.info("check su impresa");
-//        } catch (ElementClickInterceptedException e) {
-//            logger.info("impresa non cliccabile");
-//            return false;
-//        }
-//        return true;
-//    }
     public boolean clickSuImpresa(String ragioneSociale) {
         try {
             logger.info("RAGIONE SOCIALE: {}", ragioneSociale);
@@ -87,13 +65,6 @@ public class SelezionaImpresaPage extends BasePage {
         }
     }
 
-
-    //    public void clickAccediButton(String lingua, ButtonLanguage buttonLanguage) {
-//        String xpath = getAccediButtonXpath(lingua, buttonLanguage);
-//        getWebDriverWait(30).
-//                until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xpath)))).
-//                click();
-//    }
     public void clickAccediButton(String lingua, ButtonLanguage buttonLanguage) {
         String xpath = getAccediButtonXpath(lingua, buttonLanguage);
         By accediButtonBy = By.xpath(xpath);
@@ -118,12 +89,6 @@ public class SelezionaImpresaPage extends BasePage {
         }
     }
 
-    //    public void waitLoadSelezionaImpresaPage(String lingua, WaitLoadSelezionaImpresaLanguage waitLoadSelezionaImpresaLanguage) {
-//        String xpath = getWaitLoadSelezionaImpresaPageXpath(lingua, waitLoadSelezionaImpresaLanguage);
-//        getWebDriverWait(30).
-//                until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xpath)))).
-//                click();
-//    }
     public void waitLoadSelezionaImpresaPage(String lingua, WaitLoadSelezionaImpresaLanguage waitLoadSelezionaImpresaLanguage) {
         String xpath = getWaitLoadSelezionaImpresaPageXpath(lingua, waitLoadSelezionaImpresaLanguage);
         By impresaPageBy = By.xpath(xpath);
@@ -131,7 +96,6 @@ public class SelezionaImpresaPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(impresaPageBy));
         impresaPage.click();
     }
-
 
     private String getWaitLoadSelezionaImpresaPageXpath(String lingua, WaitLoadSelezionaImpresaLanguage waitLoadSelezionaImpresaLanguage) {
         switch (lingua.toUpperCase()) { // Converte tutto in maiuscolo
@@ -147,4 +111,5 @@ public class SelezionaImpresaPage extends BasePage {
                 return "//h3[contains(text(),'" + waitLoadSelezionaImpresaLanguage.getWaitLoadSelezionaImpresaPageIt() + "')]";
         }
     }
+
 }

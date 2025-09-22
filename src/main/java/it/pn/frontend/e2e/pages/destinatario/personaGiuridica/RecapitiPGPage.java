@@ -17,15 +17,6 @@ public class RecapitiPGPage extends BasePage {
         this.driver = driver;
     }
 
-    //    public void waitLoadRecapitiPage() {
-//        try {
-//            WebElement racapitiPageTitle = driver.findElement(By.id("Recapiti-page"));
-//            getWebDriverWait(10).withMessage("il titolo Recapiti della pagina recapiti non è visibile").until(ExpectedConditions.visibilityOf(racapitiPageTitle));
-//            logger.info("Si visualizza correttamente recapiti page");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non si visualizza correttamente recapiti page con errore:" + e.getMessage());
-//        }
-//    }
     public void waitLoadRecapitiPage() {
         getWebDriverWait(10)
                 .withMessage("Il titolo Recapiti della pagina non è visibile")

@@ -457,7 +457,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
         } else {
             logger.error("Il bottone per il pagamento non è visibile all'interno del dettaglio della notifica");
         }
-
     }
 
     @And("Si controlla se la sezione pagamento visualizzata correttamente")

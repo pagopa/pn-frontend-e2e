@@ -20,17 +20,6 @@ public class ScegliSpidPAPage extends BasePage {
         this.driver = driver;
     }
 
-
-    //    public void waitLoadScegliSpidPAPage() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("div.MuiTypography-root.MuiTypography-h4"))));
-//            logger.info("Il titolo della pagina Scegli Spid PA è stato caricato");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il titolo della pagina Scegli Spid PA non è stato caricato con errore: " + e.getMessage());
-//        } catch (Exception e) {
-//            Assertions.fail("Errore generico durante la scelta del provider SPID: " + e.getMessage());
-//        }
-//    }
     public void waitLoadScegliSpidPAPage() {
         getWebDriverWait(30)
                 .withMessage("Il titolo della pagina Scegli Spid PA non è stato caricato")
@@ -41,18 +30,6 @@ public class ScegliSpidPAPage extends BasePage {
         logger.info("Il titolo della pagina Scegli Spid PA è stato caricato correttamente");
     }
 
-
-    //    public void selezionareTestButton() {
-//        logger.info("Si clicca sul bottone Test dello SPID");
-//        try {
-//            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("xx_testenv2"))));
-//            testButton = driver.findElement(By.id("xx_testenv2"));
-//            testButton.click();
-//            logger.info("Click sul bottone TEST effettuato con successo");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il bottone TEST non è cliccabile, errore: " + e.getMessage());
-//        }
-//    }
     public void selezionareTestButton() {
         logger.info("Si clicca sul bottone Test dello SPID");
 

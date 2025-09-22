@@ -48,11 +48,6 @@ public class LoginSpidPFPage extends BasePage {
         }
     }
 
-    //    public void inserisciUtente(String user) {
-//        userNameTextField = driver.findElement(By.id("username"));
-//        getWebDriverWait(30).withMessage("L'input userName non è visibile").until(ExpectedConditions.visibilityOf(userNameTextField));
-//        userNameTextField.sendKeys(user);
-//    }
     public void inserisciUtente(String user) {
         By userNameLocator = By.id("username");
 
@@ -63,35 +58,21 @@ public class LoginSpidPFPage extends BasePage {
         logger.info("Inserito utente: {}", user);
     }
 
-
-    //    public void inserisciPassword(String pwd) {
-//        pwdTextFiled = driver.findElement(By.id("password"));
-//        getWebDriverWait(30).withMessage("L'input password non è visibile").until(ExpectedConditions.visibilityOf(pwdTextFiled));
-//        pwdTextFiled.sendKeys(pwd);
-//    }
     public void inserisciPassword(String pwd) {
         By passwordLocator = By.id("password");
 
         getWebDriverWait(30).withMessage("L'input password non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(passwordLocator))
                 .sendKeys(pwd);
-
         logger.info("Inserita password.");
     }
 
-
-    //    public void selezionaEntraConSpidButton() {
-//        entraConSpidButton = driver.findElement(By.xpath("//button[contains(@class,'button-spid')]"));
-//        getWebDriverWait(30).withMessage("Il bottone entra con spid non è cliccabile").until(ExpectedConditions.elementToBeClickable(entraConSpidButton));
-//        entraConSpidButton.click();
-//    }
     public void selezionaEntraConSpidButton() {
         By entraConSpidLocator = By.xpath("//button[contains(@class,'button-spid')]");
 
         WebElement entraConSpidButton = getWebDriverWait(30)
                 .withMessage("Il bottone entra con SPID non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(entraConSpidLocator));
-
         entraConSpidButton.click();
         logger.info("Clic sul bottone 'Entra con SPID' eseguito.");
     }

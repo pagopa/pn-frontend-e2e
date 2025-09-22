@@ -108,12 +108,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-    //    public void clickOnButtonEnterIntoDisservizi() {
-//        logger.info("click sul bottone 'stato della piattaforma'");
-//        buttonEnterIntoDisservizi = driver.findElement(By.id("side-item-Stato della piattaforma"));
-//        getWebDriverWait(10).withMessage("Bottone 'stato della piattaforma' non visualizzato").until(ExpectedConditions.visibilityOf(buttonEnterIntoDisservizi));
-//        buttonEnterIntoDisservizi.click();
-//    }
     public void clickOnButtonEnterIntoDisservizi() {
         WebElement buttonEnterIntoDisservizi = getWebDriverWait(10)
                 .withMessage("Bottone 'stato della piattaforma' non visualizzato")
@@ -122,18 +116,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
 
     }
 
-
-    //    public void waitLoadPiattaformaNotificaPage(String ragioneSociale) {
-//        try {
-//            getWebDriverWait(50).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h4[@role='heading' and contains(text(), '" + ragioneSociale + "')]"))));
-//            getWebDriverWait(40).withMessage("Il campo codice iun della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("iunMatch"))));
-//            getWebDriverWait(40).withMessage("Il campo data inizio della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("startDate"))));
-//            getWebDriverWait(40).withMessage("Il campo data fine della pagina Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("endDate"))));
-//            logger.info("La  pagina Piattaforma Notifiche si carica correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("La pagina Piattaforma Notifiche non si carica correttamente con errore: " + e.getMessage());
-//        }
-//    }
     public void waitLoadPiattaformaNotificaPage(String ragioneSociale) {
         logger.info("Attendo il caricamento della pagina Piattaforma Notifiche per: {}", ragioneSociale);
 
@@ -153,17 +135,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
     }
 
-
-    //    public void clickSuDelegeButton() {
-//        try {
-//            getWebDriverWait(20).withMessage("Sezione deleghe nel side menu non visualizzata").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Deleghe"))));
-//            delegheSideMenu = driver.findElement(By.id("side-item-Deleghe"));
-//            js().executeScript("arguments[0].click()", delegheSideMenu);
-//            logger.info("click sul bottone Deleghe effetuato");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("il bottone deleghe non è stato trovato" + e.getMessage());
-//        }
-//    }
     public void clickSuDelegeButton() {
         logger.info("Attendo e clicco sul bottone 'Deleghe' nel side menu");
         WebElement delegheSideMenu = getWebDriverWait(20)
@@ -173,17 +144,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         logger.info("Click sul bottone 'Deleghe' effettuato");
     }
 
-
-    //    public void clickNotificheENotificheDelegate() {
-//        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Notifiche"))));
-//        sideItemNotificheButton = driver.findElement(By.id("side-item-Notifiche"));
-//        sideItemNotificheButton.click();
-//
-//        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("menu-item(notifiche delegate)"))));
-//        WebElement notificheDelegateButton = driver.findElement(By.id("menu-item(notifiche delegate)"));
-//        js().executeScript("arguments[0].click()", notificheDelegateButton);
-//        logger.info("Si clicca correttamente sulla voce notifiche delegate");
-//    }
     public void clickNotificheENotificheDelegate() {
         WebElement sideItemNotificheButton = getWebDriverWait(10)
                 .withMessage("Bottone 'Notifiche' non visibile")
@@ -198,13 +158,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         logger.info("Si clicca correttamente sulla voce 'Notifiche delegate'");
     }
 
-
-    //    public void clickNotificheDelegate() {
-//        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("menu-item(notifiche delegate)"))));
-//        WebElement notificheDelegateButton = driver.findElement(By.id("menu-item(notifiche delegate)"));
-//        js().executeScript("arguments[0].click()", notificheDelegateButton);
-//        logger.info("Si clicca correttamente sulla voce notifiche delegate");
-//    }
     public void clickNotificheDelegate() {
         WebElement notificheDelegateButton = getWebDriverWait(10)
                 .withMessage("Bottone 'Notifiche delegate' non cliccabile")
@@ -212,15 +165,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         js().executeScript("arguments[0].click()", notificheDelegateButton);
     }
 
-
-    //    public void waitLoadSezioneNotificheDelegate(String ragioneSociale) {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Notifiche delegate a " + ragioneSociale + "-page"))));
-//            logger.info("Si visualizza correttamente la sezione notifiche delegate");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non si visualizza correttamente la sezione notifiche delegate con errore" + e.getMessage());
-//        }
-//    }
     public void waitLoadSezioneNotificheDelegate(String ragioneSociale) {
         logger.info("Attendo la visualizzazione della sezione 'Notifiche delegate' per: {}", ragioneSociale);
 
@@ -233,12 +177,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         logger.info("La sezione 'Notifiche delegate' si visualizza correttamente");
     }
 
-
-    //    public void clickRecapitiButton() {
-//        getWebDriverWait(10).withMessage("Il bottone recapiti non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("side-item-Recapiti"))));
-//        recapitiButton = driver.findElement(By.id("side-item-Recapiti"));
-//        js().executeScript("arguments[0].click()", recapitiButton);
-//    }
     public void clickRecapitiButton() {
         WebElement recapitiButton = getWebDriverWait(10)
                 .withMessage("Il bottone 'Recapiti' non è visibile")
@@ -261,11 +199,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-    //    public void clickIndietroButton() {
-//        getWebDriverWait(10).withMessage("Il bottone indietro non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("breadcrumb-indietro-button"))));
-//        indietroButton = driver.findElement(By.id("breadcrumb-indietro-button"));
-//        js().executeScript("arguments[0].click()", indietroButton);
-//    }
     public void clickIndietroButton() {
         WebElement indietroButton = getWebDriverWait(10)
                 .withMessage("Il bottone 'Indietro' non è visibile")
@@ -273,15 +206,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         js().executeScript("arguments[0].click()", indietroButton);
     }
 
-
-    //    public boolean sezionePagamentoDisplayed() {
-//        try {
-//            return getWebDriverWait(5).withMessage("Il sezione pagamento non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='paymentInfoBox']")))).isDisplayed();
-//        } catch (NoSuchElementException | TimeoutException e) {
-//            logger.warn("Il sezione pagamento non è visibile");
-//            return false;
-//        }
-//    }
     public boolean sezionePagamentoDisplayed() {
         try {
             WebElement paymentSection = getWebDriverWait(5)
@@ -294,15 +218,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-
-    //    public boolean messaggioNotificaAnnullataDisplayed() {
-//        try {
-//            return getWebDriverWait(5).withMessage("Il messaggio notifica annullata non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testId ='alert']")))).isDisplayed();
-//        } catch (NoSuchElementException | TimeoutException e) {
-//            logger.warn("Il messaggio notifica annullata non è visibile");
-//            return false;
-//        }
-//    }
     public boolean messaggioNotificaAnnullataDisplayed() {
         try {
             WebElement alertMessage = getWebDriverWait(5)
@@ -317,15 +232,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-
-    //    public boolean isRadioBoxPresent() {
-//        try {
-//            return getWebDriverWait(30).withMessage("Il radio box non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[role='radiogroup']")))).isDisplayed();
-//        } catch (NoSuchElementException | TimeoutException e) {
-//            logger.warn("Il radio box non è visibile");
-//            return false;
-//        }
-//    }
     public boolean isRadioBoxPresent() {
         try {
             WebElement radioBox = getWebDriverWait(30)
@@ -338,12 +244,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-
-    //    public void clickRadioBoxButton() {
-//        getWebDriverWait(10).withMessage("Il radio box button non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//span[@data-testid='radio-button']")).get(0)));
-//        radioButton = driver.findElements(By.xpath("//span[@data-testid='radio-button']"));
-//        radioButton.get(0).click();
-//    }
     public void clickRadioBoxButton() {
         WebElement firstRadioButton = getWebDriverWait(10)
                 .withMessage("Il radio box button non è cliccabile")
@@ -355,10 +255,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         logger.info("Click sul primo radio box button effettuato");
     }
 
-
-    //    public boolean titoloDiPagamentoDisplayed() {
-//        return getWebDriverWait(30).withMessage("Il sezione titolo pagamento non è visibile").until(ExpectedConditions.visibilityOf(driver.findElements(By.xpath("//span[contains(text(), 'Pagamento di Test')]")).get(0))).isDisplayed();
-//    }
     public boolean titoloDiPagamentoDisplayed() {
         try {
             WebElement titoloPagamento = getWebDriverWait(30)
@@ -373,10 +269,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-
-    //    public boolean codiceAvvisoDisplayed() {
-//        return getWebDriverWait(30).withMessage("Il sezione codice avviso non è visibile").until(ExpectedConditions.visibilityOf(driver.findElements(By.xpath("//span[contains(text(), 'Codice avviso')]")).get(0))).isDisplayed();
-//    }
     public boolean codiceAvvisoDisplayed() {
         try {
             WebElement codiceAvviso = getWebDriverWait(30)
@@ -391,17 +283,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-
-    //    public boolean modelloF24Displayed() {
-//        try {
-//            getWebDriverWait(30)
-//                    .withMessage("Il sezione scarica modello F24 non è visibile")
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("[data-testid='download-f24-button']")))).isDisplayed();
-//            return true;
-//        } catch (RuntimeException e) {
-//            return false;
-//        }
-//    }
     public boolean modelloF24Displayed() {
         try {
             WebElement downloadF24Button = getWebDriverWait(30)
@@ -416,13 +297,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
-
-    //    public void clickModelloF24Numero(int numOfF24) {
-//        getWebDriverWait(30).withMessage("Il sezione scarica modello F24 non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//button[@data-testid='download-f24-button']")).get(numOfF24 - 1)));
-//        List<WebElement> f24 = driver.findElements(By.xpath("//button[@data-testid='download-f24-button']"));
-//        logger.info("F24 trovato: {}", f24.size());
-//        f24.get(numOfF24 - 1).click();
-//    }
     public void clickModelloF24Numero(int numOfF24) {
         String xpath = String.format("(//button[@data-testid='download-f24-button'])[%d]", numOfF24);
         WebElement f24Button = getWebDriverWait(30)
@@ -432,14 +306,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         f24Button.click();
     }
 
-
-    //    public void checkBoxModelloF24PG() {
-//        try {
-//            getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='f24only-box']"))));
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
-//        }
-//    }
     public void checkBoxModelloF24PG() {
         getWebDriverWait(10)
                 .withMessage("Il box allegati modelli F24 non è visibile")
@@ -448,58 +314,6 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         logger.info("Il box del modello F24 è visualizzato correttamente");
     }
 
-
-    //    public void clickRicevutaDiConsegna() throws AWTException, IOException {
-//        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
-//        if (!headless) {
-//            logger.info("controllo esistenza bottone per scaricare zip");
-//            getWebDriverWait(10).withMessage("Il bottone Ricevuta di consegna non cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(), 'Ricevuta di consegna')]"))));
-//            ricevutaDiConsegnaButton = driver.findElement(By.xpath("//button[contains(text(), 'Ricevuta di consegna')]"));
-//            logger.info("Si clicca sul bottone Ricevuta di consegna");
-//            ricevutaDiConsegnaButton.click();
-//            Robot robot = new Robot();
-//            robot.setAutoDelay(100);
-//            robot.delay(2000);
-//            String workingDirectory = System.getProperty("user.dir");
-//            String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
-//
-//            pressTabKey(robot, 6);
-//            robot.keyPress(KeyEvent.VK_ENTER);
-//            robot.keyRelease(KeyEvent.VK_ENTER);
-//
-//            typeFilePath(robot, path);
-//
-//            robot.keyPress(KeyEvent.VK_ENTER);
-//            robot.keyRelease(KeyEvent.VK_ENTER);
-//
-//            robot.delay(1000);
-//
-//            pressTabKey(robot, 8);
-//
-//            robot.keyPress(KeyEvent.VK_ENTER);
-//            robot.keyRelease(KeyEvent.VK_ENTER);
-//
-//            logger.info("ZIP scaricato");
-//        } else {
-//            String workingDirectory = System.getProperty("user.dir");
-//            File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
-//
-//            // Generate a unique filename for the downloaded ZIP file
-//            String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
-//
-//            String codiceIUN;
-//            webTool.waitTime(1);
-//            codiceIUN = dettaglioNotificaMittenteSection.getInfoNotifica(3);
-//
-//            File file = new File(downloadDirectory, fileName);
-//            ricevutaDiConsegnaButton = driver.findElement(By.xpath("//button[contains(text(), 'Ricevuta di consegna')]"));
-//            ricevutaDiConsegnaButton.click();
-//            webTool.waitTime(1);
-//            final String urlFileRicevuta = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + codiceIUN + "/documents/");
-//            FileUtils.copyURLToFile(new URL(urlFileRicevuta), file, 1000, 1000);
-//            logger.info("ZIP file downloaded successfully.");
-//        }
-//    }
     public void clickRicevutaDiConsegna() throws AWTException, IOException {
         By ricevutaButtonLocator = By.xpath("//button[contains(text(), 'Ricevuta di consegna')]");
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
@@ -619,17 +433,14 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         String workingDirectory = System.getProperty("user.dir");
         String zipDirectoryPath = workingDirectory + "/src/test/resources/dataPopulation/zip";
         String extractDirectoryPath = zipDirectoryPath + "/extract";
-
         // Find the latest ZIP file
         File latestZipFile = helpdeskPage.findLatestZipFile(zipDirectoryPath);
         if (latestZipFile == null) {
             throw new IOException("No ZIP file found in the directory: " + zipDirectoryPath);
         }
-
         // Extract the ZIP file
         ZipFile zip = new ZipFile(latestZipFile);
         zip.extractAll(extractDirectoryPath);
-
         // Log extracted files
         Files.walk(Paths.get(extractDirectoryPath)).forEach(path -> {
             if (Files.isRegularFile(path)) {
@@ -682,4 +493,5 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("menu-item(notifiche dell'impresa)")));
         js().executeScript("arguments[0].click();", notificheImpresaButton);
     }
+
 }

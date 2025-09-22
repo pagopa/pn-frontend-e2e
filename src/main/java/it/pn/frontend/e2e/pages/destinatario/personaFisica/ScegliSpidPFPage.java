@@ -26,25 +26,15 @@ public class ScegliSpidPFPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    //    public void waitLoadScegliSpidDEPage() {
-//        try {
-//            WebElement titlePage = driver.findElement(By.id("spid-select"));
-//            getWebDriverWait(30).withMessage("Il titolo scegli Spid PF non trovato").until(ExpectedConditions.visibilityOf(titlePage));
-//            logger.info("Scegli Spid DE Page caricata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Scegli Spid DE Page non caricata con errore : " + e.getMessage());
-//        }
-//    }
     public void waitLoadScegliSpidDEPage() {
         By titlePageLocator = By.id("spid-select");
 
-        WebElement titlePage = getWebDriverWait(30)
+        getWebDriverWait(30)
                 .withMessage("Il titolo scegli SPID PF non trovato")
                 .until(ExpectedConditions.visibilityOfElementLocated(titlePageLocator));
 
         logger.info("Scegli SPID DE Page caricata");
     }
-
 
     public void selezionareTestButton() {
         WebElement testButton = getWebDriverWait(60)
@@ -52,6 +42,5 @@ public class ScegliSpidPFPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("spid-select-xx_testenv2")));
         testButton.click();
     }
-
 
 }

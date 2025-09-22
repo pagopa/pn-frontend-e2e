@@ -27,14 +27,6 @@ public class LoginPAPage extends BasePage {
         this.driver = driver;
     }
 
-    //    public void waitLoadLoginPAPage() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l"))));
-//            logger.info("Login PA Page caricata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il titolo della pagina Login PA non caricato con errore  : " + e.getMessage());
-//        }
-//    }
     public void waitLoadLoginPAPage() {
         getWebDriverWait(30)
                 .withMessage("Il titolo della pagina Login PA non è visibile dopo 30 secondi")
@@ -42,12 +34,6 @@ public class LoginPAPage extends BasePage {
                         By.cssSelector("h1.u-text-r-xl.u-margin-bottom-l")));
     }
 
-    //    public void inserisciUtenete(String user) {
-//        logger.info("Si inserisci il nome utente");
-//        getWebDriverWait(40).withMessage("Il campo user non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("username"))));
-//        userTextEdit = driver.findElement(By.id("username"));
-//        userTextEdit.sendKeys(user);
-//    }
     public void inserisciUtenete(String user) {
         logger.info("Si inserisce il nome utente: {}", user);
         WebElement userTextEdit = getWebDriverWait(40)
@@ -58,12 +44,6 @@ public class LoginPAPage extends BasePage {
 
     }
 
-    //    public void inserisciPassword(String pwd) {
-//        logger.info("Si inserisce la password dell'utente");
-//        getWebDriverWait(40).withMessage("Il campo password non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("password"))));
-//        pwdTextEdit = driver.findElement(By.id("password"));
-//        pwdTextEdit.sendKeys(pwd);
-//    }
     public void inserisciPassword(String pwd) {
         logger.info("Si inserisce la password dell'utente");
         WebElement pwdTextEdit = getWebDriverWait(40)
@@ -75,16 +55,6 @@ public class LoginPAPage extends BasePage {
 
     }
 
-    //    public void selezionaInviaDati() {
-//        logger.info("Si selezione il bottone invia");
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Invia')]"))));
-//            inviaButton = driver.findElement(By.xpath("//button[contains(text(),'Invia')]"));
-//            inviaButton.click();
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il bottone invia nella pagina Login PA non è stato cliccato con errore : " + e.getMessage());
-//        }
-//    }
     public void selezionaInviaDati() {
         logger.info("Si seleziona il bottone Invia");
         WebElement inviaButton = getWebDriverWait(30)
@@ -101,7 +71,7 @@ public class LoginPAPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(
                         By.cssSelector("button.italia-it-button.button-spid")
                 ));
-
         bottoneSpid.click();
     }
+
 }

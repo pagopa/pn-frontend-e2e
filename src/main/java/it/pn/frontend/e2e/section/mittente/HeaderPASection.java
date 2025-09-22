@@ -47,7 +47,6 @@ public class HeaderPASection extends BasePage {
                     .until(ExpectedConditions.elementToBeClickable(
                             By.xpath("//button[contains(text(), 'Esci')]")
                     ));
-
             // Clicca sul pulsante "Esci"
             selezionaEsciButton.click();
         } catch (TimeoutException e) {

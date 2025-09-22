@@ -250,7 +250,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono del PF e clicca sul bottone avvisami via SMS")
     public void nellaPaginaITuoiRecapitiSiInserisceIlNumeroDiTelefonoDelPF() {
-        //personaFisica
         logger.info("Si inserisce il numero di telefono PF");
         String phoneNumber = dataPopulationConfig.getPersonaFisica().getTelefono();
         iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
@@ -262,7 +261,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         logger.info("Si inserisce il numero di telefono PF");
         iTuoiRecapitiPage.insertTelephoneNumber(phoneNumber);
         iTuoiRecapitiPage.clickAvvisamiViaSMS();
-
     }
 
     @And("Nella pagina I Tuoi Recapiti si inserisce il numero di telefono errato {string}")
@@ -274,7 +272,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiNumeroDiTelefonoErrato() {
         String errorMessageRead = iTuoiRecapitiPage.getPhoneErrorMessage();
         Assertions.assertEquals("Numero di cellulare non valido", errorMessageRead, "messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Numero di cellulare non valido");
-
     }
 
     @And("Nella pagina I Tuoi Recapiti si controlla che il tasto avvisami via sms sia bloccato")

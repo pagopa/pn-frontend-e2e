@@ -31,21 +31,6 @@ public class LoginPGPagoPAPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    //    public void waitLoadLoginPGPage() {
-//        try {
-//            WebElement titlePageBy = driver.findElement(By.xpath("//h1[contains(text(),'Login')]"));
-//            usernameField = driver.findElement(By.id("username"));
-//            passwordField = driver.findElement(By.id("password"));
-//
-//            getWebDriverWait(30).withMessage("il titolo della pagina Login PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h1[contains(text(),'Login')]"))));
-//            getWebDriverWait(30).withMessage("Il campo username della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("username"))));
-//            getWebDriverWait(30).withMessage("Il campo password della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("password"))));
-//            getWebDriverWait(35).withMessage("Il bottone invia della pagina Login PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@name = 'confirm']"))));
-//            logger.info("LoginPGPage caricata correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("LoginPGPage non caricata correttamente con errore :" + e.getMessage());
-//        }
-//    }
     public void waitLoadLoginPGPage() {
         By titleBy = By.xpath("//h1[contains(text(),'Login')]");
         By usernameBy = By.id("username");
@@ -55,27 +40,19 @@ public class LoginPGPagoPAPage extends BasePage {
         getWebDriverWait(30)
                 .withMessage("Il titolo della pagina Login PG non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-
         usernameField = getWebDriverWait(30)
                 .withMessage("Il campo username della pagina Login PG non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(usernameBy));
-
         passwordField = getWebDriverWait(30)
                 .withMessage("Il campo password della pagina Login PG non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(passwordBy));
-
         getWebDriverWait(35)
                 .withMessage("Il bottone invia della pagina Login PG non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(submitBy));
-
         logger.info("LoginPGPage caricata correttamente");
     }
 
 
-    //    public void insertUsername(String user) {
-//        usernameField = driver.findElement(By.id("username"));
-//        usernameField.sendKeys(user);
-//    }
     public void insertUsername(String user) {
         usernameField = getWebDriverWait(30)
                 .withMessage("Il campo username non è visibile o cliccabile")
@@ -83,24 +60,12 @@ public class LoginPGPagoPAPage extends BasePage {
         usernameField.sendKeys(user);
     }
 
-
-    //    public void insertPassword(String pwd) {
-//        passwordField = driver.findElement(By.id("password"));
-//        passwordField.sendKeys(pwd);
-//    }
     public void insertPassword(String pwd) {
         passwordField = getWebDriverWait(30)
                 .withMessage("Il campo password non è visibile o cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("password")));
         passwordField.sendKeys(pwd);
     }
-
-
-//    public void clickInviaButton() {
-//        webTool.waitTime(5);
-//        inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
-//        inviaButton.click();
-//    }
 
     public void clickInviaButton() {
         webTool.waitTime(5); // attesa opzionale
