@@ -366,7 +366,6 @@ public class LoginPGPagoPATest extends BasePage {
         if (urlWithTokenFound) {
             logger.info("procedura di login from spid provata : {}", numProvaLogin);
         } else {
-            logger.error("procedura di login from spid provata : {}", numProvaLogin);
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaGiuridica.get("urlPortale") + "' è : " + this.urlPersonaGiuridica.get("responseCode"));
 
         }

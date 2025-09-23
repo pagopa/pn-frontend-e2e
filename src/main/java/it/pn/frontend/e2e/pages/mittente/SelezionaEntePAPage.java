@@ -62,7 +62,6 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void selezionareComune(String comune) {
         By comuniLocator = By.xpath("//div[@role='button']//h6");
-
         // Aspetta che tutti i comuni siano visibili e li restituisce
         List<WebElement> comuni = getWebDriverWait(30)
                 .withMessage("Nessun comune visibile nella pagina seleziona Ente")
@@ -94,12 +93,10 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void cercaComune(String comune) {
         By searchLocator = By.id("search");
-
         WebElement comuneSearchField = getWebDriverWait(30)
                 .withMessage("Il campo Comune non è visibile nella pagina seleziona un Ente")
                 .until(ExpectedConditions.visibilityOfElementLocated(searchLocator));
-
-        comuneSearchField.clear(); // utile se c’è già del testo
+        comuneSearchField.clear();
         comuneSearchField.sendKeys(comune);
 
         logger.info("Inserito il comune '{}' nel campo di ricerca", comune);

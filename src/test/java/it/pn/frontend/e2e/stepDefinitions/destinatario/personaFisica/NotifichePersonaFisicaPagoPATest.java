@@ -215,7 +215,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
         if (numeroRigheNotifiche == 20) {
             logger.info("Si visualizzano venti notifiche in elenco");
         } else {
-            logger.error("NON si visualizzano venti notifiche in elenco");
             Assertions.fail("NON si visualizzano venti notifiche in elenco");
         }
     }
@@ -264,7 +263,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
             if (scaricaAvvisoDisplayed) {
                 logger.info("Sezione scarica avviso è visualizzato");
             } else {
-                logger.error("Sezione scarica avviso non è visualizzato");
                 Assertions.fail("Sezione scarica avviso non è visualizzato");
             }
             boolean pagaAvvisoDisplayed = accediAPiattaformaNotifichePage.pagaAvvisoDisplayed();
@@ -452,7 +450,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
     public void siControllaNonSiaPresenteIlBottonePaga() {
         logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
         if (accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed()) {
-            logger.error("Il bottone per il pagamento è visibile all'interno del dettaglio della notifica");
             Assertions.fail("Il bottone per il pagamento è visibile all'interno del dettaglio della notifica");
         } else {
             logger.error("Il bottone per il pagamento non è visibile all'interno del dettaglio della notifica");
@@ -469,7 +466,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
         if (!accediAPiattaformaNotifichePage.siControllaCostiDiNotifica()) {
             logger.info("Costi di notifica non inclusi");
         } else {
-            logger.error("Costi di notifica inclusi");
             Assertions.fail("Costi di notifica inclusi");
         }
     }

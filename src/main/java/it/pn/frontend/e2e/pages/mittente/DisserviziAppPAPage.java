@@ -82,28 +82,6 @@ public class DisserviziAppPAPage extends BasePage {
         }
     }
 
-    //    public void getDateDisservice() {
-//        driver.navigate().back();
-//        webTool.waitTime(5);
-//        disserviziTable = driver.findElement(By.id("notifications-table"));
-//        List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-//
-//        if (!disserviziTableRows.isEmpty()) {
-//            WebElement primaRiga = disserviziTableRows.get(0);
-//            String dataInizioPrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(0).getText();
-//            String dataFinePrimaRiga = primaRiga.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']//div//div//p[contains(text(), 'ore')]")).get(1).getText();
-//
-//            if (dataPopulation == null) {
-//                dataPopulation = new DataPopulation();
-//            }
-//            dataPopulation.setDataDa(dataInizioPrimaRiga);
-//            dataPopulation.setDataA(dataFinePrimaRiga);
-//        } else {
-//            logger.error("non é stato possibile recuperare i dati dalla tabella dei disservizi");
-//            Assertions.fail("non é stato possibile recuperare i dati dalla tabella dei disservizi");
-//
-//        }
-//    }
     public void getDateDisservice() {
         driver.navigate().back();
         webTool.waitTime(5);
@@ -144,55 +122,6 @@ public class DisserviziAppPAPage extends BasePage {
         }
     }
 
-    //    public void waitLoadDisserviziTable() {
-//        try {
-//            webTool.waitTime(20);
-//
-//            getWebDriverWait(60).withMessage("Non si visualizza correttamente la tabella dei disservizi")
-//                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.id("notifications-table"))));
-//            disserviziTable = element(By.id("notifications-table"));
-//            // check if the table header is present
-//            WebElement disserviziTableHeader = disserviziTable.findElement(By.xpath("//thead[@role='rowgroup']"));
-//            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'header della tabella dei disservizi")
-//                    .until(ExpectedConditions.visibilityOf(disserviziTableHeader));
-//            // check if the header titles are present
-//            List<WebElement> tableHeaderTitles = disserviziTableHeader.findElements(By.xpath("//th[@data-testid='tableDowntimeLog.header.cell']"));
-//            getWebDriverWait(10).withMessage("Non si visualizza correttamente il title dell'header della tabella dei disservizi")
-//                    .until(ExpectedConditions.visibilityOfAllElements(tableHeaderTitles));
-//            // specific check for the header titles of the table
-//            if (tableHeaderTitles.size() == 5) {
-//                getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(0), "Data di inizio"));
-//                getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(1), "Data di fine"));
-//                getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(2), "Servizio coinvolto"));
-//                getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(3), "Attestazioni opponibili a terzi"));
-//                getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElement(tableHeaderTitles.get(4), "Stato"));
-//            } else {
-//                logger.error("Non si visualizza correttamente l'header della tabella dei disservizi");
-//                Assertions.fail("Non si visualizza correttamente l'header della tabella dei disservizi");
-//            }
-//            getWebDriverWait(10).withMessage("Non si visualizza correttamente l'header della tabella dei disservizi")
-//                    .until(ExpectedConditions.visibilityOf(disserviziTableHeader));
-//            List<WebElement> disserviziTableRows = disserviziTable.findElements(By.id("tableDowntimeLog.row"));
-//            // check if the rows are not empty
-//            if (!disserviziTableRows.isEmpty()) {
-//                for (WebElement disserviziRow : disserviziTableRows) {
-//                    List<WebElement> disserviziColumns = disserviziRow.findElements(By.xpath("//td[@data-testid='tableDowntimeLog.row.cell']"));
-//                    if (!disserviziColumns.isEmpty()) {
-//                        // check if the columns are not empty
-//                        for (WebElement disserviziColumn : disserviziColumns) {
-//                            getWebDriverWait(3).withMessage("Non si visualizza correttamente la tabella dei disservizi")
-//                                    .until(ExpectedConditions.attributeToBeNotEmpty(disserviziColumn, "innerText"));
-//                        }
-//                    }
-//                }
-//            } else {
-//                Assertions.fail("Non si visualizzano correttamente le righe della tabella dei disservizi");
-//            }
-//            logger.info("Si visualizza correttamente la tabella dei disservizi");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non si visualizza correttamente la tabella dei disservizi con errore" + e.getMessage());
-//        }
-//    }
     public void waitLoadDisserviziTable() {
         try {
             webTool.waitTime(20);
@@ -245,30 +174,6 @@ public class DisserviziAppPAPage extends BasePage {
         }
     }
 
-    //    public void checkDisserviziInCorso() {
-//        aggiornamentoPagina();
-//        webTool.waitTime(15);
-//        statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
-//        if (!statusList.isEmpty()) {
-//            for (WebElement status : statusList) {
-//                if (status.getText().contains("In corso")) {
-//                    logger.info("Si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-//                    continue;
-//                }
-//                if (status.getText().contains("-")) {
-//                    logger.info("Si visualizza data di fine come: -");
-//                    continue;
-//                }
-//                if (status.getText().contains("L'attestazione sarà disponibile al termine del disservizio")) {
-//                    logger.info("Si visualizza la frase corretta in 'Attestazioni opponibili a terzi'");
-//                    return;
-//                }
-//            }
-//        } else {
-//            logger.error("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-//            Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio ancora in corso");
-//        }
-//    }
     public void checkDisserviziInCorso() {
         webTool.waitTime(15);
         aggiornamentoPagina();
@@ -341,30 +246,6 @@ public class DisserviziAppPAPage extends BasePage {
 
     }
 
-    //    public void checkDisserviziDisponibili() {
-//        webTool.waitTime(20);
-//        aggiornamentoPagina();
-//        List<WebElement> statusList = driver.findElements(By.xpath("//tr[@id='tableDowntimeLog.row']//td//div[@data-testid='downtime-status']"));
-//        if (!statusList.isEmpty()) {
-//            for (WebElement status : statusList) {
-//                if (status.getText().contains("Risolto")) {
-//                    logger.info("Si visualizza un record in elenco relativo ad un disservizio risolto");
-//                    continue;
-//                } else {
-//                    Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio risolto");
-//                }
-//                if (status.getText().contains("/") || status.getText().contains("Oggi") && status.getText().contains(":")) {
-//                    logger.info("Si visualizza data di fine servizio");
-//                    continue;
-//                }
-//                if (status.getText().contains("Scarica l'attestazione")) {
-//                    logger.info("Si visualizza la frase corretta in 'Scarica l'attestazione'");
-//                }
-//            }
-//        } else {
-//            Assertions.fail("Non si visualizza un record in elenco relativo ad un disservizio disponibile");
-//        }
-//    }
     public void checkDisserviziDisponibili() {
         try {
             aggiornamentoPagina();
@@ -496,7 +377,6 @@ public class DisserviziAppPAPage extends BasePage {
 
     }
 
-
     private WebElement determineRowElement(List<WebElement> rows, int randomNumber, int indexModifier) {
         WebElement selectedRow;
         if (rows.size() > randomNumber) {
@@ -510,15 +390,6 @@ public class DisserviziAppPAPage extends BasePage {
         return selectedRow;
     }
 
-    //        public void clickLinkAttestazioniOpponibileDisservizi(int numeroLinkAttestazioniOpponibile) {
-//        attestazioniFile = driver.findElements(By.cssSelector("[data-testid='download-legal-fact']"));
-//        if (attestazioniFile.get(numeroLinkAttestazioniOpponibile).isDisplayed()) {
-//            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
-//        } else {
-//            js().executeScript("arguments[0].scrollIntoView(true);", attestazioniFile.get(numeroLinkAttestazioniOpponibile));
-//            attestazioniFile.get(numeroLinkAttestazioniOpponibile).click();
-//        }
-//    }
     public void clickLinkAttestazioniOpponibileDisservizi(int index) {
         List<WebElement> attestazioniFile = getWebDriverWait(10)
                 .withMessage("Nessun link di attestazione opponibile trovato")
@@ -541,7 +412,6 @@ public class DisserviziAppPAPage extends BasePage {
 
         logger.info("Cliccato il link di attestazione opponibile numero {}", index);
     }
-
 
     public boolean confrontoFileConDisservizio() {
         getDateDisservice();

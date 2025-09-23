@@ -74,15 +74,6 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public void waitLoadApikeyPage() {
-//        try {
-//            getWebDriverWait(30).withMessage("Il titolo della pagina ApiKey non è visibile")
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("API Key-page"))));
-//            getWebDriverWait(40).withMessage("Il bottone genera ApiKey non è cliccabile")
-//                    .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("generate-api-key"))));
-//            logger.info("Api Key Page caricata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Api Key Page NON caricata con errore: " + e.getMessage());
-//        }
         try {
             getWebDriverWait(30)
                     .withMessage("Il titolo della pagina ApiKey non è visibile")
@@ -98,17 +89,11 @@ public class ApiKeyPAPage extends BasePage {
         }
     }
 
-    //    public void clickSulBottoneGeneraApiKey() {
-//        webTool.waitTime(5);
-//        generateApiKeyButton = driver.findElement(By.id("generate-api-key"));
-//        js().executeScript("arguments[0].click()", generateApiKeyButton);
-//    }
     public void clickSulBottoneGeneraApiKey() {
         try {
             WebElement generateApiKeyButton = getWebDriverWait(20)
                     .withMessage("Il bottone genera ApiKey non è cliccabile")
                     .until(ExpectedConditions.elementToBeClickable(By.id("generate-api-key")));
-
             // Prova il click "normale"
             try {
                 generateApiKeyButton.click();
@@ -118,19 +103,11 @@ public class ApiKeyPAPage extends BasePage {
                 js().executeScript("arguments[0].click()", generateApiKeyButton);
                 logger.warn("Click eseguito con JavaScript perché il normale click è fallito: {}", e.getMessage());
             }
-
         } catch (TimeoutException e) {
             Assertions.fail("Il bottone 'Genera ApiKey' NON è stato trovato/cliccabile entro il tempo limite: " + e.getMessage());
         }
     }
 
-    //    public void inserireUnNomePerApiKey(String nomeApiKey) {
-//
-//        getWebDriverWait(30).withMessage("Il campo Nome Apikey non è visibile")
-//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("name"))));
-//        apiKeyNameInput = driver.findElement(By.id("name"));
-//        apiKeyNameInput.sendKeys(nomeApiKey);
-//    }
     public void inserireUnNomePerApiKey(String nomeApiKey) {
         try {
             WebElement apiKeyNameInput = getWebDriverWait(30)
@@ -146,13 +123,6 @@ public class ApiKeyPAPage extends BasePage {
         }
     }
 
-//    public void clickSulBottoneContinua() {
-//        getWebDriverWait(40).withMessage("Il bottone Continua non è cliccabile")
-//                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("continue-button"))));
-//        apiContinuaButton = driver.findElement(By.id("continue-button"));
-//        apiContinuaButton.click();
-//    }
-
     public void clickSulBottoneContinua() {
         driver.findElement(By.tagName("body")).click();
 
@@ -166,17 +136,6 @@ public class ApiKeyPAPage extends BasePage {
 
     }
 
-
-//    public void siVisualizzaCorrettamenteConfermaPage() {
-//        try {
-//            getWebDriverWait(30).withMessage("Il titolo della pagina conferma Apikey non è visibile")
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("go-to-api-keys"))));
-//            logger.info("Api Key Confirmation Page caricata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il titolo della Api Key ConfirmationPage NON caricata con errore: " + e.getMessage());
-//        }
-//    }
-
     public void siVisualizzaCorrettamenteConfermaPage() {
         try {
             getWebDriverWait(30)
@@ -189,11 +148,6 @@ public class ApiKeyPAPage extends BasePage {
         }
     }
 
-//    public void clickSulBottoneTornaApiKey() {
-//        tornaApiButton = driver.findElement(By.id("go-to-api-keys"));
-//        tornaApiButton.click();
-//    }
-
     public void clickSulBottoneTornaApiKey() {
         By locator = By.id("go-to-api-keys");
         WebElement tornaApiButton = getWebDriverWait(20)
@@ -202,17 +156,6 @@ public class ApiKeyPAPage extends BasePage {
         tornaApiButton.click();
     }
 
-    //    public void siVisualizzaNuovaApiAttiva(String nomeApiKey) {
-//        try {
-//            getWebDriverWait(30).withMessage("lo stato dell'ApiKey non è Attiva")
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='statusChip-Attiva']"))));
-//            getWebDriverWait(30).withMessage("Il nome del ApiKey attiva non è: " + nomeApiKey)
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(),'" + nomeApiKey + "')]"))));
-//            logger.info("Api Key Confirmation Page caricata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Api Key Confirmation Page NON caricata con errore: " + e.getMessage());
-//        }
-//    }
     public void siVisualizzaNuovaApiAttiva(String nomeApiKey) {
         try {
             // Verifica stato "Attiva"
@@ -233,13 +176,6 @@ public class ApiKeyPAPage extends BasePage {
             Assertions.fail("La nuova Api Key attiva NON è stata visualizzata: " + e.getMessage());
         }
     }
-
-//    public String getNomi(int i) {
-//        getWebDriverWait(30).withMessage("la lista dei nomi ApiKey non è visibile")
-//                .until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1kqk1ww')]/div/p"))));
-//        List<WebElement> nomiApiKeyBy = driver.findElements(By.xpath("//tbody/tr/td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1kqk1ww')]/div/p"));
-//        return nomiApiKeyBy.get(i).getText();
-//    }
 
     public int getPosizioneMenuButton(String stato) {
 
@@ -273,14 +209,6 @@ public class ApiKeyPAPage extends BasePage {
         blockButton.click();
     }
 
-    //    public void siVisualizzaPopUp() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[contains(text(),'Blocca API Key')]"))));
-//            logger.info("Il popup si visualizza correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il popup NON si visualizza correttamente con errore:" + e.getMessage());
-//        }
-//    }
     public void siVisualizzaPopUp() {
         getWebDriverWait(30)
                 .withMessage("Il popup 'Blocca API Key' NON si visualizza correttamente")
@@ -291,24 +219,12 @@ public class ApiKeyPAPage extends BasePage {
         logger.info("Il popup si visualizza correttamente");
     }
 
-
-    //    public void clickSuAnnulla() {
-//        getWebDriverWait(40).withMessage("il Bottone Annulla nel pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("close-modal-button"))));
-//        annullaButtonNelPopUp = driver.findElement(By.id("close-modal-button"));
-//        annullaButtonNelPopUp.click();
-//    }
     public void clickSuAnnulla() {
         WebElement annullaButton = getWebDriverWait(40)
                 .withMessage("Il bottone Annulla nel popup non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("close-modal-button")));
         annullaButton.click();
     }
-
-//    public void clickSuConfermaNelPopUp() {
-//        getWebDriverWait(40).withMessage("il Bottone Conferma nel pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("action-modal-button"))));
-//        confermaButtonNelPopUp = driver.findElement(By.id("action-modal-button"));
-//        confermaButtonNelPopUp.click();
-//    }
 
     public void clickSuConfermaNelPopUp() {
         WebElement confermaButton = getWebDriverWait(50)
@@ -317,14 +233,6 @@ public class ApiKeyPAPage extends BasePage {
         confermaButton.click();
     }
 
-    //    public void notificaSelezionataStatoBloccata() {
-//        try {
-//            getWebDriverWait(40).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("status-chip-Bloccata"))));
-//            logger.info("La notifica è in stato bloccata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("La notifica è in stato bloccata con errore:" + e.getMessage());
-//        }
-//    }
     public void notificaSelezionataStatoBloccata() {
         getWebDriverWait(20)
                 .withMessage("Stato 'Bloccata' non trovato o non visibile")
@@ -340,14 +248,6 @@ public class ApiKeyPAPage extends BasePage {
         attivaButtonNelMenu.click();
     }
 
-    //    public void siVisualizzaPoPUpAttiva() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[contains(text(),'Attiva API Key')]"))));
-//            logger.info("Si visualizza correttamente il popup attiva");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("NON si visualizza correttamente il popup attiva con errore:" + e.getMessage());
-//        }
-//    }
     public void siVisualizzaPoPUpAttiva() {
         getWebDriverWait(20)
                 .withMessage("Popup 'Attiva API Key' non visualizzato")
@@ -355,26 +255,12 @@ public class ApiKeyPAPage extends BasePage {
                         By.xpath("//h2[contains(text(),'Attiva API Key')]")));
     }
 
-    //    public void siVisualizzaNotificaSelezionataBloccata() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(),'Attiva')]"))));
-//            logger.info("La notifica è in stato bloccata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("La notifica è in stato bloccata con errore:" + e.getMessage());
-//        }
-//    }
     public void siVisualizzaNotificaSelezionataBloccata() {
         getWebDriverWait(20)
                 .withMessage("Elemento 'Attiva' non visualizzato")
                 .until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//span[contains(text(),'Attiva')]")));
     }
-
-//    public void clickRuotaSulMenu() {
-//        getWebDriverWait(30).withMessage("Il Bottone ruota del menu apikey non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button-rotate"))));
-//        ruotaButtonNelMenu = driver.findElement(By.id("button-rotate"));
-//        ruotaButtonNelMenu.click();
-//    }
 
     public void clickRuotaSulMenu() {
         WebElement ruotaButton = getWebDriverWait(20)
@@ -384,30 +270,12 @@ public class ApiKeyPAPage extends BasePage {
         ruotaButton.click();
     }
 
-//    public void siVisualizzaPoPUpRuota() {
-//        try {
-//            getWebDriverWait(30).withMessage("Il titolo Ruota Apikey  sul pop up non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[contains(text(),'Ruota API Key')]"))));
-//            logger.info("Si visualizza correttamente il popup ruota");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("NON si visualizza correttamente il popup ruota con errore:" + e.getMessage());
-//        }
-//    }
-
     public void siVisualizzaPoPUpRuota() {
         getWebDriverWait(20)
                 .withMessage("Il titolo 'Ruota API Key' sul popup non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//h2[contains(text(),'Ruota API Key')]")));
     }
-
-//    public void siVisualizzaNotificaSelezionataRuotata() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='statusChip-Ruotata']"))));
-//            logger.info("Si visualizza correttamente il popup ruota");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("NON si visualizza correttamente il popup ruota con errore:" + e.getMessage());
-//        }
-//    }
 
     public void siVisualizzaNotificaSelezionataRuotata() {
         getWebDriverWait(20)
@@ -485,83 +353,6 @@ public class ApiKeyPAPage extends BasePage {
 
     }
 
-//    public boolean siVisualizzaApiKeyConTesto() {
-//        try {
-//            webTool.waitTime(5);
-//            List<WebElement> apiKeyBy = driver.findElements(By.xpath("//td[div/div[contains(@class,'MuiBox-root css-4l7hgf')]]"));
-//            for (WebElement webElement : apiKeyBy) {
-//                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
-//                if (webElement.getText() == null) {
-//                    return false;
-//                }
-//            }
-//            return true;
-//        } catch (TimeoutException | NoSuchElementException e) {
-//            return false;
-//        }
-//    }
-
-//    public boolean siVisualizzaNomeEDataConTesto() {
-//        try {
-//            webTool.waitTime(5);
-//            List<WebElement> dataCellBy = driver.findElements(By.xpath("//td[div/p[contains(@class,'MuiTypography-root MuiTypography-body1')]]"));
-//            for (WebElement webElement : dataCellBy) {
-//                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
-//                if (webElement.getText() == null) {
-//                    return false;
-//                }
-//            }
-//            return true;
-//        } catch (TimeoutException | NoSuchElementException e) {
-//            return false;
-//        }
-//    }
-
-//    public boolean siVisualizzaGruppoConTesto() {
-//        try {
-//            webTool.waitTime(5);
-//            List<WebElement> gruppoCellList = driver.findElements(By.xpath("//td[div/div/div/div/div/span[contains(@class,'css-t63gu0')]]"));
-//            for (WebElement webElement : gruppoCellList) {
-//                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(webElement));
-//                if (webElement.getText() == null) {
-//                    return false;
-//                }
-//            }
-//            return true;
-//        } catch (TimeoutException | NoSuchElementException e) {
-//            return false;
-//        }
-//    }
-
-//    public boolean siVisualizzaStatoConTesto() {
-//        try {
-//            webTool.waitTime(5);
-//            List<WebElement> statoCells = driver.findElements(By.xpath("//td[div/div/div/div[@role='button']]"));
-//            for (WebElement statoCell : statoCells) {
-//                getWebDriverWait(30).until(ExpectedConditions.visibilityOf(statoCell));
-//                if (statoCell.getText() == null) {
-//                    return false;
-//                }
-//            }
-//            return true;
-//        } catch (TimeoutException | NoSuchElementException e) {
-//            return false;
-//        }
-//    }
-
-//    public boolean siVisualizzaMenuApiKey() {
-//        getWebDriverWait(30).withMessage("il bottone menu del apikey non trovato").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"))));
-//        List<WebElement> menuButtonBy = driver.findElements(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"));
-//        return !menuButtonBy.isEmpty();
-//    }
-
-    //    public void mouseHover() {
-//        getWebDriverWait(30).withMessage("stato attiva non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("status-chip-Attiva"))));
-//        WebElement statoCellBy = driver.findElement(By.id("status-chip-Attiva"));
-//        Actions action = new Actions(driver);
-//        action.moveToElement(statoCellBy).perform();
-//        logger.info("mouse hover sullo stato attiva effetuato correttamente");
-//    }
     public void mouseHover() {
         WebElement statoElement = getWebDriverWait(20)
                 .withMessage("Stato 'Attiva' non trovato")
@@ -571,14 +362,6 @@ public class ApiKeyPAPage extends BasePage {
         action.moveToElement(statoElement).perform();
     }
 
-//    public void waitLoadMessaggioData() {
-//        try {
-//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-popper-placement = 'bottom']"))));
-//            logger.info("Il messaggio con la data di creazione si vede correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il messaggio con la data di creazione NON si vede correttamente con errore: " + e.getMessage());
-//        }
-//    }
 
     public void waitLoadMessaggioData() {
         getWebDriverWait(10)
@@ -588,16 +371,6 @@ public class ApiKeyPAPage extends BasePage {
 
         logger.info("Il messaggio con la data di creazione si visualizza correttamente");
     }
-
-//    public void inserireGruppoApi(String gruppo) {
-//        getWebDriverWait(30).withMessage("Il campo gruppo Apikey non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("groups"))));
-//        gruppoInput = driver.findElement(By.id("groups"));
-//        gruppoInput.sendKeys(gruppo);
-//        getWebDriverWait(60).withMessage("Il campo Nome del Gruppo Apikey non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("groups-option-0"))));
-//        WebElement groupOption = driver.findElement(By.id("groups-option-0"));
-//        groupOption.click();
-//        gruppoInput.click();
-//    }
 
     public void inserireGruppoApi(String gruppo) {
         WebElement gruppoInput = getWebDriverWait(30)
@@ -610,21 +383,6 @@ public class ApiKeyPAPage extends BasePage {
         groupOption.click();
     }
 
-    //    public void cancellareTestoInserito() {
-//        try {
-//            getWebDriverWait(40).withMessage("il campo name non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("name"))));
-//            WebElement testoInseritoBy = driver.findElement(By.id("name"));
-//            js().executeScript("arguments[0].click()", testoInseritoBy);
-//
-//            String name = testoInseritoBy.getAttribute("value");
-//            for (int index = 0; index < name.length(); index++) {
-//                testoInseritoBy.sendKeys(Keys.BACK_SPACE);
-//            }
-//            logger.info("Il testo è stato cancellato correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il testo è NON stato cancellato correttamente" + e.getMessage());
-//        }
-//    }
     public void cancellareTestoInserito() {
         WebElement nameField = getWebDriverWait(20)
                 .withMessage("Campo 'name' non visibile")
@@ -640,14 +398,6 @@ public class ApiKeyPAPage extends BasePage {
         logger.info("Il testo è stato cancellato correttamente");
     }
 
-    //    public void siVisualizzaMessaggioErroreApiName() {
-//        try {
-//            getWebDriverWait(60).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(@id,'name-helper-text')]"))));
-//            logger.info("Si visualizza correttamente il messaggio di errore");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("NON si visualizza correttamente il messaggio di errore" + e.getMessage());
-//        }
-//    }
     public void siVisualizzaMessaggioErroreApiName() {
         getWebDriverWait(20)
                 .withMessage("Messaggio di errore API name non visualizzato")
@@ -657,12 +407,6 @@ public class ApiKeyPAPage extends BasePage {
         logger.info("Si visualizza correttamente il messaggio di errore");
     }
 
-//    public void clickSuVisualizza() {
-//        getWebDriverWait(10).withMessage("Il Bottone visualizza non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button-view"))));
-//        visualizzaApiButton = driver.findElement(By.id("button-view"));
-//        visualizzaApiButton.click();
-//    }
-
     public void clickSuVisualizza() {
         WebElement visualizzaButton = getWebDriverWait(10)
                 .withMessage("Bottone Visualizza non cliccabile")
@@ -671,14 +415,6 @@ public class ApiKeyPAPage extends BasePage {
         visualizzaButton.click();
     }
 
-    //    public void siVisualizzaPopUpVisualizza() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("subtitle-top"))));
-//            logger.info("Si visualizza correttamente il sotto titolo del pop up");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("NON si visualizza correttamente il sotto titolo pop up: " + e.getMessage());
-//        }
-//    }
     public void siVisualizzaPopUpVisualizza() {
         getWebDriverWait(30)
                 .withMessage("Sottotitolo del popup non visualizzato")
@@ -686,14 +422,6 @@ public class ApiKeyPAPage extends BasePage {
 
         logger.info("Si visualizza correttamente il sottotitolo del popup");
     }
-
-//    public void chiudiPopUpVisualizza() {
-//
-//        getWebDriverWait(30).withMessage("il Bottone chiudere pop up non è cliccabile")
-//                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("close-modal-button"))));
-//        closeButtonPopUpVisualizza = driver.findElement(By.id("close-modal-button"));
-//        closeButtonPopUpVisualizza.click();
-//    }
 
     public void chiudiPopUpVisualizza() {
         closeButtonPopUpVisualizza = getWebDriverWait(30)
@@ -703,11 +431,6 @@ public class ApiKeyPAPage extends BasePage {
         closeButtonPopUpVisualizza.click();
     }
 
-    //    public void clickVisualizzaIdApiKey() {
-//        getWebDriverWait(20).withMessage("Il bottone visualizza Id api key non è cliccabile")
-//                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("button-view-groups-id"))));
-//        driver.findElement(By.id("button-view-groups-id")).click();
-//    }
     public void clickVisualizzaIdApiKey() {
         WebElement viewButton = getWebDriverWait(20)
                 .withMessage("Bottone visualizza ID API Key non cliccabile")
@@ -715,15 +438,6 @@ public class ApiKeyPAPage extends BasePage {
 
         viewButton.click();
     }
-
-//    public void popUpGruppiAssociati() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[contains(text(),'Gruppi associati alla API')]"))));
-//            logger.info("Si visualizza correttamente il titolo popup Gruppi associati alla API");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non si visualizza correttamente il titolo popup Gruppi associati alla API con errore:" + e.getMessage());
-//        }
-//    }
 
     public void popUpGruppiAssociati() {
         getWebDriverWait(30)
@@ -759,11 +473,6 @@ public class ApiKeyPAPage extends BasePage {
         }
     }
 
-    //    public void clickBottoneGeneraChiavePubblica() {
-//        WebElement generaChiavePubblicaButton = getWebDriverWait(10).withMessage("Bottone Genera chiave pubblica non è cliccabile")
-//                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("generate-public-key"))));
-//        generaChiavePubblicaButton.click();
-//    }
     public void clickBottoneGeneraChiavePubblica() {
         WebElement button = getWebDriverWait(10)
                 .withMessage("Bottone 'Genera chiave pubblica' non cliccabile")
@@ -772,20 +481,6 @@ public class ApiKeyPAPage extends BasePage {
         button.click();
     }
 
-    //    public void mouseHoverGroups() {
-//        webTool.waitTime(3);
-//        List<WebElement> rows = driver.findElements(By.xpath("//tr[@data-testid='tableApiKeys.body.row']"));
-//        if (!rows.isEmpty()) {
-//            List<WebElement> cells = rows.get(0).findElements(By.xpath("//td"));
-//            getWebDriverWait(10).withMessage("colonna gruppi non trovato").until(ExpectedConditions.visibilityOf(cells.get(0)));
-//            Actions action = new Actions(this.driver);
-//            action.moveToElement(cells.get(3)).perform();
-//            logger.info("mouse hover sopra gruppi effetuato correttamente");
-//        } else {
-//            logger.error("Non è stato possibile trovare la colonna gruppi della prima riga");
-//            Assertions.fail("Non è stato possibile trovare la colonna gruppi della prima riga");
-//        }
-//    }
     public void mouseHoverGroups() {
         webTool.waitTime(3);
         List<WebElement> rows = driver.findElements(By.xpath("//tr[@data-testid='tableApiKeys.body.row']"));
@@ -812,13 +507,8 @@ public class ApiKeyPAPage extends BasePage {
         action.moveToElement(groupsCell).perform();
     }
 
-    //    public String copiaApiKeyESalva() {
-//        webTool.waitTime(5);
-//        WebElement apiKeyField = driver.findElement(By.id("apiKeyId"));
-//        return apiKeyField.getAttribute("value");
-//    }
     public String copiaApiKeyESalva() {
-        //TODO da considerare webTool.waitTime(5);
+        webTool.waitTime(5);
         WebElement apiKeyField = getWebDriverWait(10)
                 .withMessage("Campo API Key non trovato")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("apiKeyId")));
@@ -826,17 +516,6 @@ public class ApiKeyPAPage extends BasePage {
         return apiKeyField.getAttribute("value");
     }
 
-    //    public String visualizzaApiKeyInElenco() {
-//        webTool.waitTime(10);
-//        List<WebElement> contextMenu = driver.findElements(By.xpath("//button[@data-testid='contextMenuButton']"));
-//        contextMenu.get(0).click();
-//        webTool.waitTime(7);
-//        WebElement visualizzaCodiceButton = driver.findElement(By.xpath("//li[@data-testid='buttonView']"));
-//        visualizzaCodiceButton.click();
-//        webTool.waitTime(7);
-//        WebElement apiKeyDaElenco = driver.findElement(By.xpath("//input[@aria-invalid='false']"));
-//        return apiKeyDaElenco.getAttribute("value");
-//    }
     public String visualizzaApiKeyInElenco() {
         webTool.waitTime(10);
         WebElement contextMenu = getWebDriverWait(20)
@@ -1031,16 +710,6 @@ public class ApiKeyPAPage extends BasePage {
         button.click();
     }
 
-    //    public void verificaPopUpIntegrazioneApi(String test) {
-//        logger.info("POP up Verifico");
-//        webTool.waitTime(5);
-//        Assertions.assertTrue(
-//                driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText().toLowerCase().contains(test.toLowerCase()),
-//                "Il testo dell'alert non contiene la stringa attesa: " + test.toLowerCase() + ", ma visualizza: " + driver.findElement(By.xpath("//div[@class='MuiAlert-message css-cysxvc']")).getText().toLowerCase()
-//        );
-//
-//        webTool.waitTime(5);
-//    }
     public void verificaPopUpIntegrazioneApi(String test) {
         logger.info("Verifica popup integrazione API");
 
@@ -1055,6 +724,7 @@ public class ApiKeyPAPage extends BasePage {
         Assertions.assertTrue(actualText.contains(expectedText),
                 "Il testo dell'alert non contiene la stringa attesa: '" + expectedText +
                         "', ma visualizza: '" + actualText + "'");
+        //        webTool.waitTime(5);
     }
 
     public void clickGeneraChiavePersonale() {
@@ -1084,11 +754,6 @@ public class ApiKeyPAPage extends BasePage {
         WebElement button = getWebDriverWait(40).withMessage("Il tasto Blocca NON VISIBILE").until(ExpectedConditions.elementToBeClickable(By.id("button-block")));
         button.click();
     }
-
-    //    public void clickTrePuntiniVirtualKeys(String stato) {
-//        WebElement threeDotsButtonSecondRow = driver.findElement(By.xpath("//table[@data-testid='virtualKeysTableDesktop']//tr[1]//button[@data-testid='contextMenuButton']"));
-//        threeDotsButtonSecondRow.click();
-//    }
 
     public void clickTrePuntiniVirtualKeys(String stato) {
         WebElement threeDotsButton = getWebDriverWait(10)

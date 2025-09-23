@@ -93,16 +93,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    //    public void waitLoadDeleghePage() {
-//        try {
-//            getWebDriverWait(10).withMessage("il titolo della pagina deleghe PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Deleghe-page"))));
-//            getWebDriverWait(10).withMessage("Il bottone deleghe a carico dell'impresa non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("tab-2"))));
-//            getWebDriverWait(10).withMessage("la tabella delle deleghe a carico dell impresa non é caricabile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='delegationsOfTheCompany']"))));
-//            logger.info("Deleghe page si visualizza correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Deleghe page non si visualizza correttamente con errore: " + e.getMessage());
-//        }
-//    }
     public void waitLoadDeleghePage() {
         getWebDriverWait(10)
                 .withMessage("Il titolo della pagina deleghe PG non è visibile")
@@ -115,7 +105,6 @@ public class DeleghePGPagoPAPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='delegationsOfTheCompany']")));
         logger.info("Deleghe page si visualizza correttamente");
     }
-
 
     public void clickDelegatiImpresa() {
         try {
@@ -142,23 +131,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-    //    public void clickRevocaMenuButtonPG(String ragioneSociale) {
-//        getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.id("delegatesBodyRowDesktop"))));
-//        nomeDelegato = driver.findElements(By.id("delegatesBodyRowDesktop"));
-//        WebElement menuButton;
-//        for (WebElement delegato : nomeDelegato) {
-//            if (delegato.getText().contains(ragioneSociale)) {
-//                menuButton = delegato.findElement(By.tagName("button"));
-//                getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(menuButton));
-//                menuButton.click();
-//                webTool.waitTime(20);
-//                getWebDriverWait(10).withMessage("bottone revoca delega non cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
-//                revocaMenuButton = driver.findElement(By.id("revoke-delegation-button"));
-//                getWebDriverWait(10).until(ExpectedConditions.visibilityOf(revocaMenuButton));
-//                revocaMenuButton.click();
-//            }
-//        }
-//    }
     public void clickRevocaMenuButtonPG(String ragioneSociale) {
         By delegatoRowLocator = By.id("delegatesBodyRowDesktop");
         List<WebElement> delegati = getWebDriverWait(10)
@@ -180,12 +152,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-
-    //    public void clickSuDelegheCaricoDellImpresa() {
-//        logger.info("Click sezione deleghe a carico dell impresa");
-//        delegheCaricoImpresaButton = driver.findElement(By.id("tab-2"));
-//        delegheCaricoImpresaButton.click();
-//    }
     public void clickSuDelegheCaricoDellImpresa() {
         logger.info("Click sezione deleghe a carico dell'impresa");
         By delegheCaricoLocator = By.id("tab-2");
@@ -194,7 +160,6 @@ public class DeleghePGPagoPAPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(delegheCaricoLocator));
         delegheCaricoImpresaButton.click();
     }
-
 
     public void verificaPresenzaElencoDeleghe() {
         try {
@@ -205,10 +170,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-    //    public void insertCFDelegante(String codiceFiscale) {
-//        cfTextField = driver.findElement(By.id("taxId"));
-//        cfTextField.sendKeys(codiceFiscale);
-//    }
     public void insertCFDelegante(String codiceFiscale) {
         By cfLocator = By.id("taxId");
         cfTextField = getWebDriverWait(10)
@@ -217,11 +178,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         cfTextField.sendKeys(codiceFiscale);
     }
 
-
-    //    public void clickFiltraButton() {
-//        filtraButton = driver.findElement(By.id("confirm-button"));
-//        filtraButton.click();
-//    }
     public void clickFiltraButton() {
         By filtraButtonLocator = By.id("confirm-button");
         filtraButton = getWebDriverWait(10)
@@ -229,7 +185,6 @@ public class DeleghePGPagoPAPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(filtraButtonLocator));
         filtraButton.click();
     }
-
 
     public boolean controlloDelegaRestituita(String ragioneSociale) {
         List<WebElement> delegaBy = null;
@@ -248,10 +203,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-    //    public void clickConfirmCodeButton() {
-//        confirmCodeButton = driver.findElement(By.id("code-confirm-button"));
-//        confirmCodeButton.click();
-//    }
     public void clickConfirmCodeButton() {
         By confirmButtonLocator = By.id("code-confirm-button");
         confirmCodeButton = getWebDriverWait(10)
@@ -260,16 +211,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         confirmCodeButton.click();
     }
 
-
-    //    public void waitLoadPopUpGruppo() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-//            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//span[@data-testid='associate-group']"))));
-//            logger.info("Si vede correttamente il pop-up di assegnazione gruppo");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non si vede correttamente il pop-up di assegnazione gruppo con errore: " + e.getMessage());
-//        }
-//    }
     public void waitLoadPopUpGruppo() {
         By dialogTitleLocator = By.id("dialog-title");
         By associateGroupButtonLocator = By.xpath("//span[@data-testid='associate-group']");
@@ -282,12 +223,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Si vede correttamente il pop-up di assegnazione gruppo");
     }
 
-
-    //    public void clickAssegnaGruppoRadioButton() {
-//        logger.info("Click sul radio button assegna gruppo");
-//        assegnaGruppoRadioButton = driver.findElement(By.id("associate-group"));
-//        assegnaGruppoRadioButton.click();
-//    }
     public void clickAssegnaGruppoRadioButton() {
         logger.info("Click sul radio button 'Assegna gruppo'");
         By radioButtonLocator = By.id("associate-group");
@@ -297,17 +232,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         assegnaGruppoRadioButton.click();
     }
 
-
-    //    public void clickGruppoField(String gruppo) {
-//        gruppoField = driver.findElement(By.id("input-group"));
-//        gruppoField.sendKeys(gruppo);
-//        getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("input-group-option-0"))));
-//        WebElement gruppiOption = driver.findElement(By.id("input-group-option-0"));
-//        gruppiOption.click();
-//        Actions actions = new Actions(driver);
-//        actions.sendKeys(Keys.ESCAPE).build().perform();
-//        logger.info("click su gruppo riuscito");
-//    }
     public void clickGruppoField(String gruppo) {
         By gruppoFieldLocator = By.id("input-group");
         By firstOptionLocator = By.id("input-group-option-0");
@@ -323,12 +247,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Click su gruppo riuscito");
     }
 
-
-    //    public void clickBottoneConferma() {
-//        getWebDriverWait(40).withMessage("Il bottone conferma nel pop up di scelta gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("group-confirm-button"))));
-//        confermaButton = driver.findElement(By.id("group-confirm-button"));
-//        confermaButton.click();
-//    }
     public void clickBottoneConferma() {
         By confermaButtonLocator = By.id("group-confirm-button");
         confermaButton = getWebDriverWait(40)
@@ -338,12 +256,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Click sul bottone conferma eseguito correttamente");
     }
 
-
-    //    public void clickBottoneConfermaDelega() {
-//        getWebDriverWait(20).withMessage("il bottone conferma delega pg non é visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("code-confirm-button"))));
-//        confermaAccettazioneDelegaButton = driver.findElement(By.id("code-confirm-button"));
-//        confermaAccettazioneDelegaButton.click();
-//    }
     public void clickBottoneConfermaDelega() {
         By confermaDelegaLocator = By.id("code-confirm-button");
         confermaAccettazioneDelegaButton = getWebDriverWait(20)
@@ -352,7 +264,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         confermaAccettazioneDelegaButton.click();
         logger.info("Click sul bottone conferma delega eseguito correttamente");
     }
-
 
     public boolean verificaEsistenzaErroreCodiceSbagliato() {
         try {
@@ -366,14 +277,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-    //    public void controlloStatoAttiva(String ragioneSociale) {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//tr[contains(td/p, '" + ragioneSociale + "')]//span[contains(., 'Attiva')]"))));
-//            logger.info("La delega ha lo stato Attiva");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("La delega NON ha lo stato Attiva con errore: " + e.getMessage());
-//        }
-//    }
     public void controlloStatoAttiva(String ragioneSociale) {
         String xpathStatoAttiva = "//tr[contains(td/p, '" + ragioneSociale + "')]//span[contains(., 'Attiva')]";
         By statoAttivaLocator = By.xpath(xpathStatoAttiva);
@@ -383,14 +286,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("La delega ha lo stato Attiva per: " + ragioneSociale);
     }
 
-
-    //    public void clickNonAssegnaGruppo() {
-//        nonGruppoRadioButton = driver.findElement(By.id("associate-no-group"));
-//        getWebDriverWait(30)
-//                .withMessage("Il pulsante radiobutton 'Non assegnare ad un gruppo' non è visibile")
-//                .until(ExpectedConditions.visibilityOf(driver.findElement(By.id("associate-form-group"))));
-//        nonGruppoRadioButton.click();
-//    }
     public void clickNonAssegnaGruppo() {
         By nonGruppoLocator = By.id("associate-no-group");
         By formGroupLocator = By.id("associate-form-group");
@@ -404,11 +299,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Click sul radio button 'Non assegnare ad un gruppo' riuscito");
     }
 
-
-    //    public void clickOpzioneRifiuta() {
-//        opzioneRifiuta = driver.findElement(By.id("reject-delegation-button"));
-//        opzioneRifiuta.click();
-//    }
     public void clickOpzioneRifiuta() {
         By rejectButtonLocator = By.id("reject-delegation-button");
         opzioneRifiuta = getWebDriverWait(10)
@@ -419,11 +309,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Click sul bottone 'Rifiuta delega' eseguito correttamente");
     }
 
-
-    //    public void clickBottoneRifiuta() {
-//        rifiutaButton = driver.findElement(By.id("dialog-confirm-button"));
-//        rifiutaButton.click();
-//    }
     public void clickBottoneRifiuta() {
         By rifiutaButtonLocator = By.id("dialog-confirm-button");
         rifiutaButton = getWebDriverWait(10)
@@ -434,15 +319,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Click sul bottone 'Rifiuta' eseguito correttamente");
     }
 
-
-    //    public void waitLoadPopUpRevoca() {
-//        try {
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@aria-labelledby='confirmation-dialog-title']"))));
-//            logger.info("Si visualizza il pop-up rifiuta delega");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non si visualizza il pop-up rifiuta delega con errore: " + e.getMessage());
-//        }
-//    }
     public void waitLoadPopUpRevoca() {
         By popUpRevocaLocator = By.xpath("//div[@aria-labelledby='confirmation-dialog-title']");
         getWebDriverWait(30)
@@ -451,16 +327,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Si visualizza correttamente il pop-up rifiuta delega");
     }
 
-
-    //    public void clickOpzioneModifica() {
-//        try {
-//            getWebDriverWait(30).withMessage("il pulsante modifica delega non é presente").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("update-delegation-button"))));
-//            opzioneModifica = driver.findElement(By.id("update-delegation-button"));
-//            opzioneModifica.click();
-//        } catch (TimeoutException e) {
-//            Assertions.fail(" errore: " + e.getMessage());
-//        }
-//    }
     public void clickOpzioneModifica() {
         By modificaButtonLocator = By.id("update-delegation-button");
         opzioneModifica = getWebDriverWait(30)
@@ -470,14 +336,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Click sul pulsante 'Modifica delega' eseguito correttamente");
     }
 
-    //    public void waitLoadPopUpModifica() {
-//        try {
-//            getWebDriverWait(30).withMessage("Il titolo del pop-up non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("dialog-title"))));
-//            logger.info("Si visualizza correttamente il pop-up");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("NON Si visualizza correttamente il pop-up con errore: " + e.getMessage());
-//        }
-//    }
     public void waitLoadPopUpModifica() {
         By popUpTitleLocator = By.id("dialog-title");
         getWebDriverWait(30)
@@ -485,7 +343,6 @@ public class DeleghePGPagoPAPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(popUpTitleLocator));
         logger.info("Si visualizza correttamente il pop-up");
     }
-
 
     public boolean verificaPresenzaGruppo(String ragioneSociale) {
         try {
@@ -498,15 +355,6 @@ public class DeleghePGPagoPAPage extends BasePage {
 
     }
 
-    //    public void inserireGruppoDelegante() {
-//        getWebDriverWait(30).withMessage("Il campo cerca gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("groups"))));
-//        searchGroupTextField = driver.findElement(By.id("groups"));
-//        searchGroupTextField.click();
-//
-//        getWebDriverWait(30).withMessage("l'opzione gruppo non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("groups-option-0"))));
-//        groupOption = driver.findElement(By.id("groups-option-0"));
-//        groupOption.click();
-//    }
     public void inserireGruppoDelegante() {
         By groupFieldLocator = By.id("groups");
         By firstOptionLocator = By.id("groups-option-0");
@@ -521,18 +369,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Selezione del gruppo delegante avvenuta correttamente");
     }
 
-
-    //    public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega) {
-//        String[] codiciDelega = codiceDelega.split("");
-//        for (int i = 0; i < 5; i++) {
-//            String xpathBy = "code-input-" + i;
-//            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(By.id(xpathBy)));
-//            By codiceDelegaInputBy = By.id(xpathBy);
-//            WebElement codiceDelegaInput = driver.findElement(codiceDelegaInputBy);
-//            codiceDelegaInput.sendKeys(codiciDelega[i]);
-//        }
-//
-//    }
     public void inserimentoCodiceDelegaACaricoDellImpresaAPI(String codiceDelega) {
         String[] codiciDelega = codiceDelega.split("");
         for (int i = 0; i < 5; i++) {
@@ -555,15 +391,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-    //    public void checkAlertWrongDelegationCode() {
-//        try {
-//            getWebDriverWait(5).withMessage("Alert non visualizzato correttamente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("alert-api-status"))));
-//            logger.info("Alert visualizzato correttamente in pagina");
-//            logger.info("Alert chiusa");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Alert non visualizzato con errore: " + e.getMessage());
-//        }
-//    }
     public void checkAlertWrongDelegationCode() {
         By alertLocator = By.id("alert-api-status");
         // Attendo che l'alert sia visibile
@@ -573,18 +400,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Alert chiusa");
     }
 
-
-    //    public void clickButtonIndietroDaAssegnaGruppo() {
-//        try {
-//            logger.info("Si clicca sul bottone indietro per tornare al pop-up di inserimento codice delega");
-//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='groupCancelButton']"))));
-//            WebElement buttonIndietroPopUpAssegnaGruppo = driver.findElement(By.xpath("//button[@data-testid='groupCancelButton']"));
-//            buttonIndietroPopUpAssegnaGruppo.click();
-//            logger.info("Bottone indietro cliccato");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Bottone non visualizzato con errore: " + e.getMessage());
-//        }
-//    }
     public void clickButtonIndietroDaAssegnaGruppo() {
         By backButtonLocator = By.xpath("//button[@data-testid='groupCancelButton']");
         logger.info("Si clicca sul bottone indietro per tornare al pop-up di inserimento codice delega");
@@ -595,14 +410,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Bottone 'Indietro' cliccato correttamente");
     }
 
-
-    //    public void clickButtonIndietroCloseModale() {
-//        logger.info("Si clicca sul bottone indietro per tornare al tabella deleghe");
-//        getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='codeCancelButton']"))));
-//        WebElement buttonIndietroPopUpAssegnaGruppo = driver.findElement(By.xpath("//button[@data-testid='codeCancelButton']"));
-//        buttonIndietroPopUpAssegnaGruppo.click();
-//        logger.info("Bottone indietro cliccato");
-//    }
     public void clickButtonIndietroCloseModale() {
         By backButtonLocator = By.xpath("//button[@data-testid='codeCancelButton']");
         logger.info("Si clicca sul bottone indietro per tornare alla tabella deleghe");
@@ -627,8 +434,7 @@ public class DeleghePGPagoPAPage extends BasePage {
                 webTool.waitTime(5);
                 logger.info("Tentativo n° {} per l'attesa della formattazione...", attempt);
                 attempt++;
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -640,17 +446,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-    //    public void checkErroreInSelezioneGruppo() {
-//        driver.findElement(By.id("input-group")).sendKeys("Errore Test");
-//        try {
-//            getWebDriverWait(10).withMessage("testo di errore non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(text(),'Nessun gruppo trovato')]"))));
-//            driver.findElement(By.id("input-group")).sendKeys(Keys.ESCAPE);
-//            logger.info("testo di errore gruppo trovato con successo");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("errore in cattura testo di errore ricerca gruppo per assegnazione con errore:" + e.getMessage());
-//        }
-//
-//    }
     public void checkErroreInSelezioneGruppo() {
         By groupInputLocator = By.id("input-group");
         By errorTextLocator = By.xpath("//div[contains(text(),'Nessun gruppo trovato')]");
@@ -665,12 +460,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Testo di errore gruppo trovato con successo");
     }
 
-
-    //    public void clickIndietroInInserimentoCodiceVerifica() {
-//        getWebDriverWait(10).withMessage("bottone indietro in inserimento codice non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("code-cancel-button"))));
-//        buttonIndietroCodiceDiVerifica = driver.findElement(By.id("code-cancel-button"));
-//        buttonIndietroCodiceDiVerifica.click();
-//    }
     public void clickIndietroInInserimentoCodiceVerifica() {
         By backButtonLocator = By.id("code-cancel-button");
         buttonIndietroCodiceDiVerifica = getWebDriverWait(10)
@@ -680,30 +469,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         logger.info("Click sul bottone 'Indietro' in inserimento codice verifica eseguito correttamente");
     }
 
-    //    public void checkTabellaDelegheACaricoDellImpresa() {
-//        webTool.waitTime(10);
-//        WebElement menuDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']"));
-//        WebElement colonnaNome = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Nome')]"));
-//        WebElement colonnaInizioDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Inizio delega')]"));
-//        WebElement colonnaFineDelega = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Fine delega')]"));
-//        WebElement colonnaPermessi = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Permessi')]"));
-//        WebElement colonnaGruppi = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Gruppi')]"));
-//        WebElement colonnaStato = driver.findElement(By.xpath("//table[@id='notifications-table']//th[contains(text(),'Stato')]"));
-//        tabelleDelleDelegheACaricoDellImpresa = driver.findElement(By.id("notifications-table"));
-//        try {
-//            getWebDriverWait(10).withMessage("tabella deleghe dell impresa non caricata correttamente").until(ExpectedConditions.visibilityOf(tabelleDelleDelegheACaricoDellImpresa));
-//            getWebDriverWait(10).withMessage("colonna nome non caricata correttamente").until(ExpectedConditions.visibilityOf(colonnaNome));
-//            getWebDriverWait(10).withMessage("colonna inizio delega non caricata correttamente").until(ExpectedConditions.visibilityOf(colonnaInizioDelega));
-//            getWebDriverWait(10).withMessage("colonna fine delega non caricata correttamente").until(ExpectedConditions.visibilityOf(colonnaFineDelega));
-//            getWebDriverWait(10).withMessage("colonna permessi non caricata correttamente").until(ExpectedConditions.visibilityOf(colonnaPermessi));
-//            getWebDriverWait(10).withMessage("colonna gruppi non caricata correttamente").until(ExpectedConditions.visibilityOf(colonnaGruppi));
-//            getWebDriverWait(10).withMessage("colonna stato non caricata correttamente").until(ExpectedConditions.visibilityOf(colonnaStato));
-//            getWebDriverWait(10).withMessage("menu non caricato correttamente").until(ExpectedConditions.visibilityOf(menuDelega));
-//        } catch (TimeoutException e) {
-//            Assertions.fail("tabella deleghe a carico dell impresa non caricata correttamente" + e.getMessage());
-//        }
-//
-//    }
     public void checkTabellaDelegheACaricoDellImpresa() {
         webTool.waitTime(10);
 
@@ -739,10 +504,6 @@ public class DeleghePGPagoPAPage extends BasePage {
         }
     }
 
-
-    //    public void checkErroreInInserimentoCodice() {
-//        getWebDriverWait(20).withMessage("errore in inserimento codice errato non trovato").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("error-alert"))));
-//    }
     public void checkErroreInInserimentoCodice() {
         By errorAlertLocator = By.id("error-alert");
         getWebDriverWait(20)

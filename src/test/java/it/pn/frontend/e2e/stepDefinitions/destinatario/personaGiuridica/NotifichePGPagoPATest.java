@@ -236,7 +236,6 @@ public class NotifichePGPagoPATest extends BasePage {
             String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + dataPopulationConfig.getDatiNotifica().getCodiceIUN() + "/documents/");
             if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
-                logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
                 Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + i + ".pdf");
@@ -443,7 +442,6 @@ public class NotifichePGPagoPATest extends BasePage {
 
         final String url = downloadFile.getUrl(webDriverConfig.getBaseUrl() + "notifications/received/");
         if (headless && url.isEmpty()) {
-            logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assertions.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
         }
         nomeFile = nomeFile.replace(" ", "_").replace(":", "");
@@ -467,7 +465,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (dettaglioNotificaMittenteSection.controlloSHAFile("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")) {
             logger.info("Il codice SHA all'interno del file è corretto");
         } else {
-            logger.error("Il codice SHA  all'interno del file  NON è corretto");
             Assertions.fail("Il codice SHA  all'interno del file  NON è corretto");
         }
     }

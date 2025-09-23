@@ -26,17 +26,14 @@ public class ScegliSpidPAPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(
                         By.cssSelector("div.MuiTypography-root.MuiTypography-h4")
                 ));
-
         logger.info("Il titolo della pagina Scegli Spid PA è stato caricato correttamente");
     }
 
     public void selezionareTestButton() {
         logger.info("Si clicca sul bottone Test dello SPID");
-
         testButton = getWebDriverWait(60)
                 .withMessage("Il bottone TEST non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("xx_testenv2")));
-
         testButton.click();
         logger.info("Click sul bottone TEST effettuato con successo");
     }

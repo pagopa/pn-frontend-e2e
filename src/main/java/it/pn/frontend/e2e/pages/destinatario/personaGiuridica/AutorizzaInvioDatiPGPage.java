@@ -25,16 +25,6 @@ public class AutorizzaInvioDatiPGPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    //    public void waitLoadAutorizzaInvioDatiPGPage() {
-//        try {
-//            WebElement titlePageBy = driver.findElement(By.xpath("//h1[contains(text(),'Autorizzi')]"));
-//            getWebDriverWait(30).withMessage("Il titolo della pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
-//            getWebDriverWait(30).withMessage("Il bottone invia nella pagina autorizzi invio dati PG non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@name = 'confirm']"))));
-//            logger.info("AutorizzaInviaDatiPGPage caricata correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("AutorizzaInviaDatiPGPage non caricata correttamente con errore: " + e.getMessage());
-//        }
-//    }
     public void waitLoadAutorizzaInvioDatiPGPage() {
         By titlePageBy = By.xpath("//h1[contains(text(),'Autorizzi')]");
         By confirmButtonBy = By.xpath("//button[@name='confirm']");
@@ -50,12 +40,6 @@ public class AutorizzaInvioDatiPGPage extends BasePage {
         logger.info("AutorizzaInvioDatiPGPage caricata correttamente");
     }
 
-
-    //    public void clickInviaButton() {
-//        webTool.waitTime(5);
-//        inviaButton = driver.findElement(By.xpath("//button[@name = 'confirm']"));
-//        inviaButton.click();
-//    }
     public void clickInviaButton() {
         webTool.waitTime(5); // opzionale, se serve un piccolo delay
 
@@ -66,6 +50,5 @@ public class AutorizzaInvioDatiPGPage extends BasePage {
 
         inviaButton.click();
     }
-
 
 }

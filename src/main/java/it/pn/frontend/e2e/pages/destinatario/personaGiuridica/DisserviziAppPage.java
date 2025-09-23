@@ -29,16 +29,6 @@ public class DisserviziAppPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    //    public void waitLoadStatoDellaPiattaformaPage() {
-//        try {
-//            webTool.waitTime(10);
-//            titlePage = driver.findElement(By.id("Stato della piattaforma-page"));
-//            getWebDriverWait(10).withMessage("Titolo della pagina non presente").until(ExpectedConditions.visibilityOf(titlePage));
-//            logger.info("Si visualizza correttamente la sezione disservizi");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
-//        }
-//    }
     public void waitLoadStatoDellaPiattaformaPage() {
         webTool.waitTime(10);
         By titlePageLocator = By.id("Stato della piattaforma-page");
@@ -48,20 +38,6 @@ public class DisserviziAppPage extends BasePage {
         logger.info("Si visualizza correttamente la sezione disservizi");
     }
 
-
-    //    public void checkDatiPaginaDisservizi() {
-//        try {
-//            WebElement subtitlePage = driver.findElement(By.id("subtitle-page"));
-//            WebElement boxStatus = driver.findElement(By.xpath("//div[@data-testid='app-status-bar']"));
-//            WebElement dateLastCheck = driver.findElement(By.xpath("//div[@data-testid='appStatus-lastCheck']"));
-//            this.getWebDriverWait(10).withMessage("titolo non presente").until(ExpectedConditions.visibilityOf(titlePage));
-//            this.getWebDriverWait(10).withMessage("sottotitolo pagina non presente").until(ExpectedConditions.visibilityOf(subtitlePage));
-//            this.getWebDriverWait(10).withMessage("stato dell'applicazione non presente").until(ExpectedConditions.visibilityOf(boxStatus));
-//            this.getWebDriverWait(10).withMessage("ultimo aggiornamento stato piattaforma non presente").until(ExpectedConditions.visibilityOf(dateLastCheck));
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Dati presenti nella pagina stato della piattaforma non corretti: " + e.getMessage());
-//        }
-//    }
     public void checkDatiPaginaDisservizi() {
         By subtitleLocator = By.id("subtitle-page");
         By boxStatusLocator = By.xpath("//div[@data-testid='app-status-bar']");
@@ -86,27 +62,6 @@ public class DisserviziAppPage extends BasePage {
             Assertions.fail("Dati presenti nella pagina 'Stato della piattaforma' non corretti: " + e.getMessage());
         }
     }
-
-
-//    public void checkElencoDisservizi() {
-//        try {
-//            WebElement elementoDellaListaBy = driver.findElement(By.id("tableDowntimeLog.row"));
-//            this.getWebDriverWait(30).withMessage("tabella non trovata").until(ExpectedConditions.visibilityOf(elementoDellaListaBy));
-//            WebElement nomeColonnaDataInizioBy = driver.findElement(By.xpath("//th[contains(text(),'Data di inizio')]"));
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaDataInizioBy));
-//            WebElement nomeColonnaDataFineBy = driver.findElement(By.xpath("//th[contains(text(),'Data di fine')]"));
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaDataFineBy));
-//            WebElement nomeColonnaServizioBy = driver.findElement(By.xpath("//th[contains(text(),'Servizio coinvolto')]"));
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaServizioBy));
-//            WebElement nomeColonnaAttestazioniBy = driver.findElement(By.xpath("//th[contains(text(),'Attestazioni opponibili a terzi')]"));
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaAttestazioniBy));
-//            WebElement nomeColonnaStatoBy = driver.findElement(By.xpath("//th[contains(text(),'Stato')]"));
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOf(nomeColonnaStatoBy));
-//            logger.info("Si visualizza correttamente l'elenco dei disservizi");
-//        } catch (Exception e) {
-//            Assertions.fail("NON si visualizza correttamente l'elenco dei disservizi con errore:" + e.getMessage());
-//        }
-//    }
 
     public void checkElencoDisservizi() {
         By rowLocator = By.id("tableDowntimeLog.row");
@@ -141,22 +96,6 @@ public class DisserviziAppPage extends BasePage {
         }
     }
 
-    //
-//    public boolean checkDisservizioInCorso() {
-//        try {
-//            List<WebElement> dateDisservizioCreato = driver.findElements(By.xpath("//div[@data-testid='downtime-status']"));
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(dateDisservizioCreato));
-//            for (WebElement disservizio : dateDisservizioCreato) {
-//                if (disservizio.getText().contains("In corso")) {
-//                    return true;
-//                }
-//            }
-//            return false;
-//        } catch (TimeoutException e) {
-//            logger.info("disservizio non creato");
-//            return false;
-//        }
-//    }
     public boolean checkDisservizioInCorso() {
         By disservizioLocator = By.xpath("//div[@data-testid='downtime-status']");
         try {

@@ -345,7 +345,6 @@ public class NotificaMittentePagoPATest extends BasePage {
             TimeUnit.SECONDS.sleep(quantiSecondi);
             driver.navigate().refresh();
         } catch (Exception exc) {
-            logger.error("aspettaSecondi: {}", exc.toString());
             throw new RuntimeException(exc);
         }
     }
@@ -411,7 +410,6 @@ public class NotificaMittentePagoPATest extends BasePage {
         if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
             logger.info("File notifica.pdf caricato correttamente");
         } else {
-            logger.error("File notifica.pdf non caricato");
             Assertions.fail("File notifica.pdf non caricato");
         }
 
@@ -1181,7 +1179,6 @@ public class NotificaMittentePagoPATest extends BasePage {
         if (informazioniPreliminariPASection.checkFormInfoPreliminari()) {
             logger.info("Il form di inserimento manuale della notifica è vuoto");
         } else {
-            logger.error("Il form di inserimento manuale della notifica non è vuoto");
             Assertions.fail("Il form di inserimento manuale della notifica non è vuoto");
         }
     }
@@ -1791,7 +1788,6 @@ public class NotificaMittentePagoPATest extends BasePage {
             }
         }
         if (!notificaTrovata) {
-            logger.error("La notifica non è stata trovata dopo 1m40s");
             Assertions.fail("La notifica non è stata trovata dopo 1m40s");
         }
     }
@@ -1888,7 +1884,6 @@ public class NotificaMittentePagoPATest extends BasePage {
         if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
             logger.info("File notifica.pdf caricato correttamente");
         } else {
-            logger.error("File notifica.pdf non caricato");
             Assertions.fail("File notifica.pdf non caricato");
         }
         allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
@@ -2533,7 +2528,6 @@ public class NotificaMittentePagoPATest extends BasePage {
                 logger.info("datiNotificaPG codiceIUN: {} ", codiceIUN);
             }
             default -> {
-                logger.error("Nessun codice IUN corrisponde");
                 throw new RuntimeException("ERRORE Nessun codice IUN corrisponde");
             }
         }

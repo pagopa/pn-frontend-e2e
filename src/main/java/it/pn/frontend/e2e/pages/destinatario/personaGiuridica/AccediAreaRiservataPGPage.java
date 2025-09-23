@@ -24,19 +24,6 @@ public class AccediAreaRiservataPGPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-
-    //    public void waitLoadAccediAreaRiservataPGPage() {
-//        try {
-//            webTool.waitTime(30);
-//            By titleBy = By.xpath("//h3[contains(text(),'Come vuoi accedere?')]");
-//            getWebDriverWait(30).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
-//            getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
-//            logger.info("Accedi Area Riservata Page caricata correttamente");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Accedi Area Riservata Page non caricata correttamente con errore: " + e.getMessage());
-//        }
-//
-//    }
     public void waitLoadAccediAreaRiservataPGPage() {
         webTool.waitTime(30);
 
@@ -54,12 +41,6 @@ public class AccediAreaRiservataPGPage extends BasePage {
         logger.info("Accedi Area Riservata Page caricata correttamente");
     }
 
-
-    //    public void clickSpidButton() {
-//        spidButton = getWebDriverWait(30).withMessage("Impossibile premere il tasto spid Button della pagina Accedi Area Riservata non è visibile")
-//                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
-//        spidButton.click();
-//    }
     public void clickSpidButton() {
         By spidButtonBy = By.id("spidButton");
 
@@ -70,13 +51,6 @@ public class AccediAreaRiservataPGPage extends BasePage {
         spidButton.click();
     }
 
-
-    //    public void waitLoadAccediAreaRiservataPGPage(String lingua, WaitLoadAccediAreaRiservataPgLanguage waitLoadAccediAreaRiservataPgLanguage) {
-//        String xpath = getwaitLoadAccediAreaRiservataPGPage(lingua, waitLoadAccediAreaRiservataPgLanguage);
-//        getWebDriverWait(30).
-//                until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath(xpath)))).
-//                click();
-//    }
     public void waitLoadAccediAreaRiservataPGPage(String lingua, WaitLoadAccediAreaRiservataPgLanguage waitLoadAccediAreaRiservataPgLanguage) {
         String xpath = getwaitLoadAccediAreaRiservataPGPage(lingua, waitLoadAccediAreaRiservataPgLanguage);
         By elementoBy = By.xpath(xpath);
@@ -87,7 +61,6 @@ public class AccediAreaRiservataPGPage extends BasePage {
 
         elemento.click();
     }
-
 
     private String getwaitLoadAccediAreaRiservataPGPage(String lingua, WaitLoadAccediAreaRiservataPgLanguage waitLoadAccediAreaRiservataPgLanguage) {
         switch (lingua.toUpperCase()) { // Converte tutto in maiuscolo
@@ -119,4 +92,5 @@ public class AccediAreaRiservataPGPage extends BasePage {
         forwardButton.click();
         webTool.waitTime(2);
     }
+
 }

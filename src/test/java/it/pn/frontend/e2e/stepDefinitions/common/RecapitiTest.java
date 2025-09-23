@@ -100,7 +100,6 @@ public class RecapitiTest extends BasePage {
         } else if (emailDiCortesia.equalsIgnoreCase(tipoContatto)) {
             backgroundTest.checkEmailDiCortesiaPerEliminazioneEInserimento(indirizzoMail);
         } else {
-            logger.error("Errore nella scrittura del tipo di contatto da controllare e inserire");
             Assertions.fail("Errore nella scrittura del tipo di contatto da controllare e inserire");
         }
     }

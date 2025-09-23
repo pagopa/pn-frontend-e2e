@@ -16,16 +16,6 @@ public class GeneraApiKeySection extends BasePage {
         this.driver = driver;
     }
 
-
-    //    public void waitLoadGeneraApiKey() {
-//        try {
-//            WebElement generaApiPageTitle = driver.findElement(By.id("Genera una API Key-page"));
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(generaApiPageTitle));
-//            logger.info("Api Key caricata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Genera Api Key NON caricata con errore : " + e.getMessage());
-//        }
-//    }
     public void waitLoadGeneraApiKey() {
         By generaApiPageTitleBy = By.id("Genera una API Key-page");
         getWebDriverWait(30)

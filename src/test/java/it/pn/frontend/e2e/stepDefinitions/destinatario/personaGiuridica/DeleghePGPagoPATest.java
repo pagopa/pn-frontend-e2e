@@ -378,7 +378,6 @@ public class DeleghePGPagoPATest extends BasePage {
 
         deleghePGPagoPAPage.clickBottoneConferma();
         if (deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
-            logger.error("il codice inserito è sbagliato");
             Assertions.fail("il codice inserito è sbagliato");
         }
     }

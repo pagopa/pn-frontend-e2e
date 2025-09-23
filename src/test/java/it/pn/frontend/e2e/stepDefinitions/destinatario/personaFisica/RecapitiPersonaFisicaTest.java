@@ -363,7 +363,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         webTool.waitTime(20);
         aggiornamentoPagina();
         if (!recapitiDestinatarioPage.verificaPecAssociata()) {
-            logger.error("Pec non associata con errore");
             Assertions.fail("Pec non associata con errore");
         }
     }
@@ -431,7 +430,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     public void nellaPaginaITuoiRecapitiSiControllaCheLaEmailSiaPresente() {
         logger.info("Si controlla che la Email sia stata inserita correttamente");
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
-            logger.error("Email non è stata inserita correttamente");
             Assertions.fail("Email non è stata inserita correttamente");
         }
     }

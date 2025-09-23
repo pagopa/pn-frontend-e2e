@@ -40,19 +40,6 @@ public class AreaRiservataPAPage extends BasePage {
         }
     }
 
-//    public boolean verificaCodiceFiscale(String codiceFiscale) {
-//        boolean codiceFiscaleFound = false;
-//        infoLabel = driver.findElements(By.xpath("//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]"));
-//        for (WebElement element : infoLabel) {
-//            logger.info("Info ente presente nella pagina Area Riservata: {}" , element.getText());
-//            if (element.getText().equals(codiceFiscale)) {
-//                codiceFiscaleFound = true;
-//                break;
-//            }
-//        }
-//        return codiceFiscaleFound;
-//    }
-
     public boolean verificaCodiceFiscale(String codiceFiscale) {
         List<WebElement> infoLabel = getWebDriverWait(10)
                 .withMessage("Gli elementi con i codici fiscali non sono visibili")
@@ -71,22 +58,6 @@ public class AreaRiservataPAPage extends BasePage {
         return false;
     }
 
-
-
-    //    public void selezionaPiattaformaNotificaDev() {
-//        try {
-//            piattaformaNotificaDevGestisciButton = driver.findElement(By.id("forward_prod-pn-dev"));
-//            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaDevGestisciButton));
-//            if (piattaformaNotificaDevGestisciButton.isDisplayed()) {
-//                piattaformaNotificaDevGestisciButton.click();
-//            } else {
-//                js().executeScript("arguments[0].scrollIntoView(true);", piattaformaNotificaDevGestisciButton);
-//                piattaformaNotificaDevGestisciButton.click();
-//            }
-//        } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-//            Assertions.fail("Il bottone piattaforma notifica dev non è presente o non è cliccabile: " + e.getMessage());
-//        }
-//    }
     public void selezionaPiattaformaNotificaDev() {
         try {
             WebElement button = getWebDriverWait(15)
@@ -109,20 +80,6 @@ public class AreaRiservataPAPage extends BasePage {
         }
     }
 
-    //    public void selezionaPiattaformaNotificaTest() {
-//        try {
-//            piattaformaNotificaTestGestisciButton = driver.findElement(By.id("forward_prod-pn-test"));
-//            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaTestGestisciButton));
-//            if (piattaformaNotificaTestGestisciButton.isDisplayed()) {
-//                piattaformaNotificaTestGestisciButton.click();
-//            } else {
-//                js().executeScript("arguments[0].scrollIntoView(true);", piattaformaNotificaTestGestisciButton);
-//                piattaformaNotificaTestGestisciButton.click();
-//            }
-//        } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-//            Assertions.fail("Il bottone piattaforma notifica test non è presente o non è cliccabile: " + e.getMessage());
-//        }
-//    }
     public void selezionaPiattaformaNotificaTest() {
         try {
             WebElement button = getWebDriverWait(15)
@@ -145,20 +102,6 @@ public class AreaRiservataPAPage extends BasePage {
         }
     }
 
-    //    public void selezionaPiattaformaNotificaUat() {
-//        try {
-//            piattaformaNotificaUatGestisciButton = driver.findElement(By.id("forward_prod-pn"));
-//            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaUatGestisciButton));
-//            if (piattaformaNotificaUatGestisciButton.isDisplayed()) {
-//                piattaformaNotificaUatGestisciButton.click();
-//            } else {
-//                js().executeScript("arguments[0].scrollIntoView(true);", piattaformaNotificaUatGestisciButton);
-//                piattaformaNotificaUatGestisciButton.click();
-//            }
-//        } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-//            Assertions.fail("Il bottone piattaforma notifica uat non è presente o non è cliccabile: " + e.getMessage());
-//        }
-//    }
     public void selezionaPiattaformaNotificaUat() {
         try {
             WebElement button = getWebDriverWait(15)

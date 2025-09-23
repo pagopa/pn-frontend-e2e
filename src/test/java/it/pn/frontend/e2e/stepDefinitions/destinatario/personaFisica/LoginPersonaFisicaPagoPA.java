@@ -358,7 +358,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
-            logger.error(MessageFormat.format("TA_QA: La chiamata, {0} è andata in errore", urlChiamata));
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
         } else if (codiceRispostaChiamataApi == 0) {
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");

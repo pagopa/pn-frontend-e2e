@@ -26,14 +26,6 @@ public class AcccediAreaRiservataPAPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    //    public void waitLoadLoginPageMittente() {
-//        try {
-//            getWebDriverWait(45).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h3[@class = 'MuiTypography-root MuiTypography-h3 css-ktw4ma']"))));
-//            logger.info("Accedi Area Riservata Page caricata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail(MessageFormat.format("Il titolo nella pagina  Accedi Area Riservata non è presente con errore : {0}", e.getMessage()));
-//        }
-//    }
     public void waitLoadLoginPageMittente() {
         getWebDriverWait(45)
                 .withMessage("Titolo 'Accedi Area Riservata' non visualizzato")
@@ -43,17 +35,6 @@ public class AcccediAreaRiservataPAPage extends BasePage {
         logger.info("Accedi Area Riservata Page caricata");
     }
 
-    //    public void selezionareSpidButton() {
-//        logger.info("Si seleziona il bottone Spid");
-//        try {
-//            getWebDriverWait(60).until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
-//            spidButton = driver.findElement(By.id("spidButton"));
-//            spidButton.click();
-//            logger.info("click sul bottone SPID effettuato");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Il bottone SPID non è cliccabile con errore : " + e.getMessage());
-//        }
-//    }
     public void selezionareSpidButton() {
         logger.info("Selezione del bottone SPID");
 
@@ -80,8 +61,6 @@ public class AcccediAreaRiservataPAPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(
                         By.cssSelector("button[data-testid='idp-button-https://validator.dev.oneid.pagopa.it/demo']")
                 ));
-
         bottoneConImgPagoPA.click();
-
     }
 }

@@ -34,19 +34,6 @@ public class ConfermaDatiSpidPFPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    //    public void waitLoadConfermaDatiSpidDEPage() {
-//        try {
-//            webTool.waitTime(5);
-//            WebElement spidLogo = driver.findElement(By.id("idp-logo"));
-//            WebElement alertBox = driver.findElement(By.xpath("//h3[@class='alert-heading']"));
-//            this.getWebDriverWait(30).withMessage("spid logo non visibile").until(ExpectedConditions.visibilityOf(spidLogo));
-//            this.getWebDriverWait(30).withMessage("alert box non è visibile").until(ExpectedConditions.visibilityOf(alertBox));
-//            logger.info("Conferma Dati Spid DE Page caricata");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
-//
-//        }
-//    }
     public void waitLoadConfermaDatiSpidDEPage() {
         webTool.waitTime(5);
 

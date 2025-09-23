@@ -95,11 +95,6 @@ public class DashboardPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-    //    public void waitLoadDashboardPAPage() {
-//        WebElement statisticheTitle = driver.findElement(By.id("Statistiche-page"));
-//        getWebDriverWait(10).withMessage("Il titolo non è visibile").until(ExpectedConditions.visibilityOf(statisticheTitle));
-//        logger.info("Piattaforma Notifiche Page caricata");
-//    }
     public void waitLoadDashboardPAPage() {
         getWebDriverWait(10)
                 .withMessage("Titolo 'Statistiche' non visualizzato")
@@ -108,12 +103,6 @@ public class DashboardPage extends BasePage {
         logger.info("Piattaforma Notifiche Dashboard PA Page caricata");
     }
 
-    //    public void clickStatistiche() {
-//        sezioneStatistiche = driver.findElement(By.id("menu-item(statistiche)"));
-//        getWebDriverWait(10).withMessage("Il bottone Statistiche non visibile").until(ExpectedConditions.visibilityOf(sezioneStatistiche));
-//        logger.info("Si clicca bottone Statistiche");
-//        sezioneStatistiche.click();
-//    }
     public void clickStatistiche() {
         logger.info("Click sul bottone Statistiche");
 
@@ -122,13 +111,6 @@ public class DashboardPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("menu-item(statistiche)")))
                 .click();
     }
-
-//    public void clickUltimi6Mesi() {
-//        ultimi6MesiBottone = driver.findElements(By.xpath("//span[contains(text(),'Ultimi 6 mesi')]"));
-//        getWebDriverWait(10).withMessage("Il bottone ultimi 6 mesi non visibile").until(ExpectedConditions.visibilityOf(ultimi6MesiBottone.get(0)));
-//        logger.info("Si clicca bottone ultimi 6 mesi");
-//        ultimi6MesiBottone.get(0).click();
-//    }
 
     public void clickUltimi6Mesi() {
         List<WebElement> buttons = getWebDriverWait(10)
@@ -142,12 +124,6 @@ public class DashboardPage extends BasePage {
         buttons.get(0).click();
     }
 
-    //    public void clickUltimi6MesiNotificheDigitali() {
-//        ultimi6MesiBottone = driver.findElements(By.xpath("//span[contains(text(),'Ultimi 6 mesi')]"));
-//        getWebDriverWait(10).withMessage("Il bottone ultimi 6 mesi non visibile").until(ExpectedConditions.visibilityOf(ultimi6MesiBottone.get(1)));
-//        logger.info("Si clicca bottone ultimi 6 mesi");
-//        ultimi6MesiBottone.get(1).click();
-//    }
     public void clickUltimi6MesiNotificheDigitali() {
         List<WebElement> buttons = getWebDriverWait(10)
                 .withMessage("Bottoni 'Ultimi 6 mesi' non trovati")
@@ -160,12 +136,6 @@ public class DashboardPage extends BasePage {
         buttons.get(1).click();
     }
 
-
-    //    public void checkVisualizzaGrafico() {
-//        graficoText = driver.findElements(By.xpath("//label[contains(text(),'Grafico')]"));
-//        getWebDriverWait(10).withMessage("Il grafico non visibile").until(ExpectedConditions.visibilityOf(graficoText.get(0)));
-//        logger.info("Si visualizza il grafico");
-//    }
     public void checkVisualizzaGrafico() {
         List<WebElement> graficoText = getWebDriverWait(10)
                 .withMessage("Elemento 'Grafico' non trovato o non visibile")
@@ -177,11 +147,6 @@ public class DashboardPage extends BasePage {
         logger.info("Si visualizza il grafico");
     }
 
-    //    public void checkVisualizzaGraficoInviiDigitaliPerEsito() {
-//        graficoInviiDigitaliPerEsito = driver.findElement(By.xpath("//div[@data-testid='digitalStateContainer']"));
-//        getWebDriverWait(10).withMessage("Il grafico Invii digitali per esito non visibile").until(ExpectedConditions.visibilityOf(graficoInviiDigitaliPerEsito));
-//        logger.info("Si visualizza il grafico Invii digitali per esito");
-//    }
     public void checkVisualizzaGraficoInviiDigitaliPerEsito() {
         getWebDriverWait(10)
                 .withMessage("Il grafico Invii digitali per esito non è visibile")
@@ -191,11 +156,6 @@ public class DashboardPage extends BasePage {
         logger.info("Si visualizza il grafico Invii digitali per esito");
     }
 
-    //    public void checkVisualizzaGraficoTempoMedioInviiDigitali() {
-//        graficoTempoMedioInviiDigitali = driver.findElement(By.xpath("//div[@data-testid='digitalMeanTimeContainer']"));
-//        getWebDriverWait(10).withMessage("Il grafico Tempo medio degli invii digitali non visibile").until(ExpectedConditions.visibilityOf(graficoTempoMedioInviiDigitali));
-//        logger.info("Si visualizza il grafico Tempo medio degli invii digitali");
-//    }
     public void checkVisualizzaGraficoTempoMedioInviiDigitali() {
         getWebDriverWait(10)
                 .withMessage("Il grafico Tempo medio degli invii digitali non è visibile")
@@ -205,11 +165,6 @@ public class DashboardPage extends BasePage {
         logger.info("Si visualizza il grafico Tempo medio degli invii digitali");
     }
 
-    //    public void checkVisualizzaGraficoErroriTecnici() {
-//        graficoErroriTecnici = driver.findElement(By.xpath("//div[@data-testid='digitalErrorsDetail']"));
-//        getWebDriverWait(10).withMessage("Il grafico Errori tecnici non visibile").until(ExpectedConditions.visibilityOf(graficoErroriTecnici));
-//        logger.info("Si visualizza il grafico Errori tecnici");
-//    }
     public void checkVisualizzaGraficoErroriTecnici() {
         getWebDriverWait(10)
                 .withMessage("Il grafico Errori tecnici non è visibile")
@@ -219,11 +174,6 @@ public class DashboardPage extends BasePage {
         logger.info("Si visualizza il grafico Errori tecnici");
     }
 
-    //    public void checkVisualizzaGraficoInviatePerStato() {
-//        sezioneNotificheInviatePerStato = driver.findElement(By.xpath("//h3[contains(text(),'Notifiche inviate per stato')]/.."));
-//        getWebDriverWait(10).withMessage("la sezione Notifiche inviate per stato non visibile").until(ExpectedConditions.visibilityOf(sezioneNotificheInviatePerStato));
-//        logger.info("Si visualizza la sezione Notifiche inviate per stato e grafico");
-//    }
     public void checkVisualizzaGraficoInviatePerStato() {
         getWebDriverWait(10)
                 .withMessage("La sezione Notifiche inviate per stato non è visibile")
@@ -233,11 +183,6 @@ public class DashboardPage extends BasePage {
         logger.info("Si visualizza la sezione Notifiche inviate per stato e grafico");
     }
 
-    //    public void checkVisualizzaGraficoConsegnatePerModalitaInvio() {
-//        sezioneNotificheConsegnatePerModalitaInvio = driver.findElement(By.xpath("//h3[contains(text(),'Notifiche consegnate per modalità di invio')]/.."));
-//        getWebDriverWait(10).withMessage("la sezione Notifiche consegnate per modalità di invio non visibile").until(ExpectedConditions.visibilityOf(sezioneNotificheConsegnatePerModalitaInvio));
-//        logger.info("Si visualizza la sezione Notifiche consegnate per modalità di invio e grafico");
-//    }
     public void checkVisualizzaGraficoConsegnatePerModalitaInvio() {
         getWebDriverWait(10)
                 .withMessage("La sezione Notifiche consegnate per modalità di invio non è visibile")
@@ -247,20 +192,6 @@ public class DashboardPage extends BasePage {
         logger.info("Si visualizza la sezione Notifiche consegnate per modalità di invio e grafico");
     }
 
-    //    public void insertDataErrata() {
-//        dateDa = driver.findElements(By.id("startDate"));
-//        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
-//        logger.info("Si inserisce una data errata");
-//        dateDa.get(0).click();
-//        new Actions(driver)
-//                .keyDown(Keys.CONTROL)
-//                .sendKeys("a")
-//                .keyUp(Keys.CONTROL)
-//                .sendKeys(Keys.BACK_SPACE)
-//                .perform();
-//        webTool.waitTime(1);
-//        dateDa.get(0).sendKeys("01/01/1111");
-//    }
     public void insertDataErrata() {
         List<WebElement> dateFields = getWebDriverWait(10)
                 .withMessage("Nessun campo data trovato")
@@ -280,16 +211,6 @@ public class DashboardPage extends BasePage {
         dateDaField.sendKeys("01/01/1111");
     }
 
-    //    public void insertDataErrataNotificheDigitali() {
-//        dateDa = driver.findElements(By.id("startDate"));
-//        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(1)));
-//        logger.info("Si inserisce una data errata");
-//        dateDa.get(1).click();
-//        Actions action = new Actions(driver);
-//        action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
-//        webTool.waitTime(1);
-//        dateDa.get(1).sendKeys("01/01/1111");
-//    }
     public void insertDataErrataNotificheDigitali() {
         List<WebElement> dateDa = getWebDriverWait(10)
                 .withMessage("Nessun campo data trovato")
@@ -313,23 +234,6 @@ public class DashboardPage extends BasePage {
 
     }
 
-    //    public void insertDataCorretta() {
-//        dateDa = driver.findElements(By.id("startDate"));
-//        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(0)));
-//        logger.info("Si inserisce una data corretta");
-//        dateDa.get(0).click();
-//        new Actions(driver)
-//                .keyDown(Keys.CONTROL)
-//                .sendKeys("a")
-//                .keyUp(Keys.CONTROL)
-//                .sendKeys(Keys.BACK_SPACE)
-//                .perform();
-//        LocalDate dataDaInserire = LocalDate.now().minusDays(90);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        String formattedDate = dataDaInserire.format(formatter);
-//        webTool.waitTime(1);
-//        dateDa.get(0).sendKeys(formattedDate);
-//    }
     public void insertDataCorretta() {
         List<WebElement> dateDa = getWebDriverWait(10)
                 .withMessage("Nessun campo data trovato")
@@ -357,20 +261,6 @@ public class DashboardPage extends BasePage {
         logger.info("Inserita data: {}", formattedDate);
 
     }
-
-//    public void insertDataCorrettaNotificheDigitali() {
-//        dateDa = driver.findElements(By.id("startDate"));
-//        getWebDriverWait(10).withMessage("Il filtro di data non visibile").until(ExpectedConditions.visibilityOf(dateDa.get(1)));
-//        logger.info("Si inserisce una data corretta");
-//        dateDa.get(1).click();
-//        Actions action = new Actions(driver);
-//        action.keyDown(Keys.CONTROL).sendKeys("a").keyUp(Keys.CONTROL).sendKeys(Keys.BACK_SPACE).perform();
-//        LocalDate dataDaInserire = LocalDate.now().minusDays(90);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        String formattedDate = dataDaInserire.format(formatter);
-//        webTool.waitTime(1);
-//        dateDa.get(1).sendKeys(formattedDate);
-//    }
 
     public void insertDataCorrettaNotificheDigitali() {
         List<WebElement> dateDa = getWebDriverWait(10)
@@ -402,12 +292,6 @@ public class DashboardPage extends BasePage {
 
     }
 
-    //    public void clickFiltraButton() {
-//        bottoneFiltra = driver.findElements(By.id("filter-button"));
-//        getWebDriverWait(10).withMessage("Il bottone Filtra non cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneFiltra.get(0)));
-//        logger.info("Si clicca sul bottone Filtra");
-//        bottoneFiltra.get(0).click();
-//    }
     public void clickFiltraButton() {
         List<WebElement> bottoneFiltra = getWebDriverWait(10)
                 .withMessage("Nessun bottone Filtra trovato")
@@ -422,12 +306,6 @@ public class DashboardPage extends BasePage {
         bottoneFiltra.get(0).click();
     }
 
-    //    public void clickFiltraButtonNotificheDigitali() {
-//        bottoneFiltra = driver.findElements(By.id("filter-button"));
-//        getWebDriverWait(10).withMessage("Il bottone Filtra non cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneFiltra.get(1)));
-//        logger.info("Si clicca sul bottone Filtra");
-//        bottoneFiltra.get(1).click();
-//    }
     public void clickFiltraButtonNotificheDigitali() {
         List<WebElement> bottoneFiltra = getWebDriverWait(10)
                 .withMessage("Nessun bottone Filtra trovato")
@@ -443,12 +321,6 @@ public class DashboardPage extends BasePage {
 
     }
 
-    //    public void clickAnnullaFiltriButton() {
-//        bottoneAnnullaFiltri = driver.findElements(By.xpath("//button[@data-testid='cancelButton']"));
-//        getWebDriverWait(10).withMessage("Il bottone Annulla Filtri non cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneAnnullaFiltri.get(0)));
-//        logger.info("Si clicca sul bottone Annulla Filtri");
-//        bottoneAnnullaFiltri.get(0).click();
-//    }
     public void clickAnnullaFiltriButton() {
         List<WebElement> bottoneAnnullaFiltri = getWebDriverWait(10)
                 .withMessage("Nessun bottone Annulla Filtri trovato")
@@ -465,13 +337,6 @@ public class DashboardPage extends BasePage {
         bottoneAnnullaFiltri.get(0).click();
     }
 
-    //
-//    public void clickAnnullaFiltriButtonNotificheDigitali() {
-//        bottoneAnnullaFiltri = driver.findElements(By.xpath("//button[@data-testid='cancelButton']"));
-//        getWebDriverWait(10).withMessage("Il bottone Annulla Filtri non cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneAnnullaFiltri.get(1)));
-//        logger.info("Si clicca sul bottone Annulla Filtri");
-//        bottoneAnnullaFiltri.get(1).click();
-//    }
     public void clickAnnullaFiltriButtonNotificheDigitali() {
         List<WebElement> bottoneAnnullaFiltri = getWebDriverWait(10)
                 .withMessage("Nessun bottone Annulla Filtri trovato")
@@ -487,17 +352,6 @@ public class DashboardPage extends BasePage {
         bottoneAnnullaFiltri.get(1).click();
     }
 
-    //    public void checkTipoGrafico(String tipoGrafico) {
-//        if (tipoGrafico.equalsIgnoreCase("aggregato")) {
-//            tipoAggregato = driver.findElements(By.xpath("//span[contains(text(),'Aggregato')]"));
-//            getWebDriverWait(10).withMessage("Il tipo di grafico Aggregato non visibile").until(ExpectedConditions.visibilityOf(tipoAggregato.get(0)));
-//            logger.info("Il tipo di grafico è Aggregato");
-//        } else {
-//            tipoAndamentale = driver.findElements(By.xpath("//span[contains(text(),'Andamentale')]"));
-//            getWebDriverWait(10).withMessage("Il tipo di grafico Andamentale non visibile").until(ExpectedConditions.visibilityOf(tipoAndamentale.get(0)));
-//            logger.info("Il tipo di grafico è Andamentale");
-//        }
-//    }
     public void checkTipoGrafico(String tipoGrafico) {
         String xpath;
         String tipo;
@@ -522,17 +376,6 @@ public class DashboardPage extends BasePage {
 
     }
 
-    //    public void checkTipoGraficoPerModalitaInvio(String tipoGrafico) {
-//        if (tipoGrafico.equalsIgnoreCase("aggregato")) {
-//            tipoAggregato = driver.findElements(By.xpath("//span[contains(text(),'Aggregato')]"));
-//            getWebDriverWait(10).withMessage("Il tipo di grafico Aggregato non visibile").until(ExpectedConditions.visibilityOf(tipoAggregato.get(1)));
-//            logger.info("Il tipo di grafico è Aggregato");
-//        } else {
-//            tipoAndamentale = driver.findElements(By.xpath("//span[contains(text(),'Andamentale')]"));
-//            getWebDriverWait(10).withMessage("Il tipo di grafico Andamentale non visibile").until(ExpectedConditions.visibilityOf(tipoAndamentale.get(1)));
-//            logger.info("Il tipo di grafico è Andamentale");
-//        }
-//    }
     public void checkTipoGraficoPerModalitaInvio(String tipoGrafico) {
         String expectedText;
         int index;
@@ -557,14 +400,6 @@ public class DashboardPage extends BasePage {
 
     }
 
-    //    public void cambiaTipoGrafico() {
-//        tipoAggregato = driver.findElements(By.xpath("//span[contains(text(),'Aggregato')]"));
-//        getWebDriverWait(10).withMessage("Il tipo di grafico Aggregato non visibile").until(ExpectedConditions.visibilityOf(tipoAggregato.get(0)));
-//        tipoAggregato.get(0).click();
-//        webTool.waitTime(1);
-//        tipoAndamentale = driver.findElements(By.xpath("//span[contains(text(),'Andamentale')]"));
-//        tipoAndamentale.get(0).click();
-//    }
     public void cambiaTipoGrafico() {
         List<WebElement> tipoAggregato = getWebDriverWait(10)
                 .withMessage("Nessun elemento Aggregato trovato")
@@ -594,13 +429,6 @@ public class DashboardPage extends BasePage {
         tipoAndamentale.get(0).click();
     }
 
-    //    public void cambiaTipoGraficoPerModalitaInvio() {
-//        tipoAggregato = driver.findElements(By.xpath("//span[contains(text(),'Aggregato')]"));
-//        getWebDriverWait(10).withMessage("Il tipo di grafico Aggregato non visibile").until(ExpectedConditions.visibilityOf(tipoAggregato.get(0)));
-//        tipoAggregato.get(1).click();
-//        webTool.waitTime(1);
-//        tipoAndamentale.get(0).click();
-//    }
     public void cambiaTipoGraficoPerModalitaInvio() {
         List<WebElement> tipoAggregato = getWebDriverWait(10)
                 .withMessage("Nessun elemento Aggregato trovato")
@@ -632,12 +460,6 @@ public class DashboardPage extends BasePage {
 
     }
 
-    //    public void sceglieOpzioneSettimane() {
-//        logger.info("Si sceglie l'opzione Settimane");
-//        bottoneSettimane = driver.findElement(By.xpath("//span[contains(text(),'Settimane')]"));
-//        getWebDriverWait(10).withMessage("Il bottone Settimane non visibile").until(ExpectedConditions.visibilityOf(bottoneSettimane));
-//        bottoneSettimane.click();
-//    }
     public void sceglieOpzioneSettimane() {
         logger.info("Si sceglie l'opzione Settimane");
         WebElement bottoneSettimane = getWebDriverWait(10)
@@ -648,12 +470,6 @@ public class DashboardPage extends BasePage {
         logger.info("Cliccato sul bottone Settimane");
     }
 
-    //    public void sceglieOpzioneGiorni() {
-//        logger.info("Si sceglie l'opzione Giorni");
-//        bottoneGiorni = driver.findElement(By.xpath("//span[contains(text(),'Giorni')]"));
-//        getWebDriverWait(10).withMessage("Il bottone Giorni non visibile").until(ExpectedConditions.visibilityOf(bottoneGiorni));
-//        bottoneGiorni.click();
-//    }
     public void sceglieOpzioneGiorni() {
         logger.info("Si sceglie l'opzione Giorni");
         WebElement bottoneGiorni = getWebDriverWait(10)
@@ -663,55 +479,6 @@ public class DashboardPage extends BasePage {
         bottoneGiorni.click();
         logger.info("Cliccato sul bottone Giorni");
     }
-
-//    public void clickJpegExport() throws AWTException {
-//        boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
-//        if (!headless) {
-//            logger.info("controllo esistenza bottone per scaricare jpeg");
-//            esportaJpegBottone = driver.findElement(By.xpath("//button[@data-testid='exportJpgButton']"));
-//            getWebDriverWait(10).withMessage("Il bottone esporta jpeg non cliccabile").until(ExpectedConditions.elementToBeClickable(esportaJpegBottone));
-//            logger.info("Si clicca sul bottone Esporta JPEG");
-//            esportaJpegBottone.click();
-//            Robot robot = new Robot();
-//            robot.setAutoDelay(100);
-//            robot.delay(2000);
-//            String workingDirectory = System.getProperty("user.dir");
-//            String path = workingDirectory + "/src/test/resources/dataPopulation/jpeg";
-//
-//            pressTabKey(robot, 6);
-//            robot.keyPress(KeyEvent.VK_ENTER);
-//            robot.keyRelease(KeyEvent.VK_ENTER);
-//
-//            typeFilePath(robot, path);
-//
-//            robot.keyPress(KeyEvent.VK_ENTER);
-//            robot.keyRelease(KeyEvent.VK_ENTER);
-//
-//            robot.delay(1000);
-//
-//            pressTabKey(robot, 8);
-//
-//            robot.keyPress(KeyEvent.VK_ENTER);
-//            robot.keyRelease(KeyEvent.VK_ENTER);
-//
-//            logger.info("JPEG scaricato");
-//        } else {
-//
-//            String workingDirectory = System.getProperty("user.dir");
-//            File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/jpeg");
-//
-//            // Generate a unique filename for the downloaded ZIP file
-//            String fileName = "downloaded_" + System.currentTimeMillis() + ".jpeg";
-//
-//            logger.info("Si clicca sul bottone Esporta JPEG");
-//            esportaJpegBottone = driver.findElement(By.xpath("//button[@data-testid='exportJpgButton']"));
-//            esportaJpegBottone.click();
-//            webTool.waitTime(2);
-//            File downloadedFile = new File(downloadDirectory + fileName);
-//            Assertions.assertTrue(downloadedFile.exists());
-//            logger.info("JPEG file downloaded successfully.");
-//        }
-//    }
 
     public void clickJpegExport() throws AWTException {
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
@@ -848,4 +615,5 @@ public class DashboardPage extends BasePage {
             }
         }
     }
+
 }
