@@ -110,4 +110,3 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'risultato irreperibile assoluto')] |
       | vediDettagli | true                                                    |
-
