@@ -29,6 +29,7 @@ public class NotificheDestinatarioPage extends BasePage {
 
     public void inserisciCodiceIUN(String codiceIUN) throws InterruptedException {
         By iunInputLocator = By.id("iunMatch");
+        webTool.waitTime(1);
         WebElement iunInput = getWebDriverWait(10)
                 .withMessage("L'input codice IUN non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(iunInputLocator));

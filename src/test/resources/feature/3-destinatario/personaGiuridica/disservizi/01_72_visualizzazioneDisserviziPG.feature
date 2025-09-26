@@ -3,7 +3,7 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
   @TA_PG_VisualizzaDisservizio
   @bilinguismo
   @helpDesk
-  @NRT_Blocco_3
+#  @NRT_Blocco_3
   @Disservizi
 
   Scenario: PN-9163 - Il persona giuridica loggato visualizza lo stato dei disservizi
