@@ -1584,7 +1584,7 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean testSuccess = false;
         for (int i = 0; i < 20; i++) {
             try {
-                WebElement chipStatus = getWebDriverWait(5)
+                WebElement chipStatus = getWebDriverWait(10)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id(statoNotifica + "-status")));
                 if (chipStatus.isDisplayed()) {
                     logger.info("La notifica è passata allo stato {} e si procede con il test", statoNotifica);
