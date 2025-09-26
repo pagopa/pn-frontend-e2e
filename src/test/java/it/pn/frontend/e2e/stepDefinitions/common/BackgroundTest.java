@@ -320,12 +320,21 @@ public class BackgroundTest extends BasePage {
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 
-    public void risoluzioneDisservizioNew() {
+//    public void risoluzioneDisservizioNew() {
+//        helpdeskTest.loginHelpdeskConUtenteTest();
+//        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+//        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+//        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+//        helpdeskTest.siRisolveIlDisservizionew();
+//        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
+//    }
+    public void risoluzioneDisservizioNew(String nomeTest) {
         helpdeskTest.loginHelpdeskConUtenteTest();
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
         helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
-        helpdeskTest.siRisolveIlDisservizionew();
+        helpdeskTest.siRisolveIlDisservizionew(nomeTest+"_1");
+        helpdeskTest.siRisolveIlDisservizionew(nomeTest+"_2");
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 

@@ -3,14 +3,14 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
   @TA_PG_VisualizzaDisservizioRisolto
   @bilinguismo
   @helpDesk
-#  @NRT_Blocco_3
+  @NRT_Blocco_3
   @Disservizi
 
   Scenario: PN-9164 - Il persona giuridica loggato visualizza lo stato dei disservizi
 
     Given Creazione disservizio new su portale helpdesk
     And Aspetta 3 secondi
-    And Risoluzione disservizio new su portale helpdesk
+    And Risoluzione disservizio new su portale helpdesk nome test "PN-9164"
 
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella dashboard persona giuridica clicca su disservizi app

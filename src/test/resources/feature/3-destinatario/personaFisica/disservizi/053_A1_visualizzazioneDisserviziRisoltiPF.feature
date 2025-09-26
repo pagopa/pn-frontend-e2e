@@ -7,7 +7,7 @@ Feature: Il destinatario persona fisica visualizza i disservizi della piattaform
   Scenario: PN-9433 - Il destinatario persona fisica visualizza i disservizi della piattaforma risolti
     Given Creazione disservizio new su portale helpdesk
     And Aspetta 3 secondi
-    And Risoluzione disservizio new su portale helpdesk
+    And Risoluzione disservizio new su portale helpdesk nome test "PN-9433"
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'
     And Si visualizza correttamente la tabella dei disservizi
