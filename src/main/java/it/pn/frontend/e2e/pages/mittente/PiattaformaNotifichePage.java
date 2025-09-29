@@ -1584,6 +1584,9 @@ public class PiattaformaNotifichePage extends BasePage {
         boolean testSuccess = false;
         for (int i = 0; i < 20; i++) {
             try {
+                if (i > 0) {
+                    driver.navigate().refresh();
+                }
                 WebElement chipStatus = getWebDriverWait(10)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id(statoNotifica + "-status")));
                 if (chipStatus.isDisplayed()) {
@@ -1596,7 +1599,7 @@ public class PiattaformaNotifichePage extends BasePage {
                 logger.info("Dopo {} tentativi la notifica non è ancora passata allo stato: {}", i, statoNotifica);
             }
             webTool.waitTime(15);
-            driver.navigate().refresh();
+
         }
         if (!testSuccess) {
             Assertions.fail("La notifica non è passata allo stato " + statoNotifica);
