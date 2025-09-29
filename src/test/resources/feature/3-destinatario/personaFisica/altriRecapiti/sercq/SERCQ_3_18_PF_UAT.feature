@@ -14,14 +14,8 @@ Feature: Rework della pagina dei contatti
       | familyName   | Pluto                  |
       | fiscalNumber | TINIT-AAAAAA00A00A000B |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Verifica ed Elimina personalizzati per ente
-    And Verifica e Disattiva domicilio digitale "Conferma"
-    And Attesa 2 secondi
+    And Rimuovi tutti i recapiti se esistono
     And Refresh pagina
-    And Verifica e Disattiva app IO
-    And Verifica e Disattiva email
-    And Verifica e Disattiva cellulare
-    And Attesa 1 secondi
   #    Scenario: 3
     When Click Inizia
     And Click Continua

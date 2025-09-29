@@ -243,7 +243,9 @@ public class HooksNew {
                         }
                     }
                     else {
-                        restContact.removeDigitalAddressCourtesyEmail();
+                        if (!"APPIO".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressCourtesyEmail();
+                        }
                     }
                 } else {
                     restContact.removeSpecialContact(address);

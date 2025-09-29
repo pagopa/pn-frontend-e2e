@@ -8,12 +8,8 @@ Feature: Rework della pagina dei contatti
   Scenario:[SERCQ_34_35_36_PG]
    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
-    And Verifica ed Elimina personalizzati per ente
-    And Attesa 1 secondi
-    And Verifica e Disattiva domicilio digitale "Conferma"
-    And Attesa 1 secondi
-    And Verifica e Disattiva email
-   And Attesa 1 secondi
+   And Rimuovi tutti i recapiti se esistono
+   And Refresh pagina
 
    #    Precondizione
    When Click Inizia

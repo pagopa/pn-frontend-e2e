@@ -9,18 +9,8 @@ Feature: Rework della pagina dei contatti
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 
-    And Verifica ed Elimina personalizzati per ente
-    And Attesa 1 secondi
+    And Rimuovi tutti i recapiti se esistono
     And Refresh pagina
-    And Verifica ed Elimina personalizzati per ente
-    And Attesa 1 secondi
-    And Refresh pagina
-    And Verifica e Disattiva domicilio digitale "Conferma"
-    And Attesa 1 secondi
-    And Refresh pagina
-    And Verifica e Disattiva email
-    And Verifica e Disattiva cellulare
-    And Attesa 1 secondi
 #    Precondizione
     When Click Inizia
     And Click Continua
