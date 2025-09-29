@@ -1347,6 +1347,9 @@ public class NotificaMittentePagoPATest extends BasePage {
         logger.info("switchToPortal(AppPortal.PF)");
         webTool.switchToPortalUrl(urlFactory, AppPortalUrl.PF_URL);
         logger.info("selezionaPrimaNotifica");
+        String iun = notificationSingleton.getIun(hooksNew.getScenario());
+        logger.info("LOGGER PARALLELO IUN: {}",iun);
+        piattaformaNotifichePage.clickBottoneFiltraNotifica("filter-notifications-button",iun);
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
         driver.navigate().refresh();
