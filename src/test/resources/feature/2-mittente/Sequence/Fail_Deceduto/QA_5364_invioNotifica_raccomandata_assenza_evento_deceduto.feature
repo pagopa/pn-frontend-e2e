@@ -29,8 +29,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | codicepostale     | 20147                 |
       | stato             | ITALIA                |
     Then Creo in background una notifica per destinatario tramite API REST
-    And Attesa 120 secondi
     And Si seleziona la notifica mittente
+#    se funziona provare a scendere
+    And Attesa 900 secondi
     And Si attende completamento notifica "Consegnata"
     And Attesa 400 secondi
     And Refresh pagina
