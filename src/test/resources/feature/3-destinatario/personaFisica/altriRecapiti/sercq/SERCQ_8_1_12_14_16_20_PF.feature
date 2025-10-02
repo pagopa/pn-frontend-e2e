@@ -3,7 +3,7 @@ Feature: Rework della pagina dei contatti
 #  @TestSuite_ON
   @TA_SERCQ_8_1_12_14_16_20_PF
   @addressBook1
-  #@TA_SERCQ_ON
+  @TA_SERCQ_ON
   @NRT_Blocco_2
   Scenario:[SERCQ_8_1_12_14_16_20_PF]
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
