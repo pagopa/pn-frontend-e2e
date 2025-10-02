@@ -10,6 +10,7 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 
    And Rimuovi da API tutti i recapiti per persona giuridica se esistono
+   And Attesa 1 secondi
    And Refresh pagina
 
 
