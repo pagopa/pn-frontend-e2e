@@ -243,8 +243,11 @@ public class HooksNew {
                         }
                     }
                     else {
-                        if (!"APPIO".equalsIgnoreCase(address.getChannelType())) {
+                        if ("EMAIL".equalsIgnoreCase(address.getChannelType())) {
                             restContact.removeDigitalAddressCourtesyEmail();
+                        }
+                        else if ("SMS".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressSms();
                         }
                     }
                 } else {

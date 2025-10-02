@@ -84,6 +84,22 @@ public class RestContact {
     }
 
     /**
+     * Rimuove il numero di telefono usato per gli SMS.
+     */
+    public void removeDigitalAddressSms() throws RestContactException {
+        String url = "https://webapi." + webDriverConfig.getEnvironment() + ".notifichedigitali.it/bff/v1/addresses/COURTESY/default/SMS";
+        try {
+            headers.put("Authorization", setAuthorizationToken());
+            String response = httpClient.sendHttpDeleteRequest(url, headers, String.class);
+            logger.info("Risposta ricevuta: " + response);
+            logger.info("Indirizzo digitale di cortesia rimosso con successo");
+        } catch (IOException e) {
+            logger.error("Error during removeDigitalAdressCourtesySms: {}", e.getMessage());
+            throw new RestContactException("Non è stato possibile rimuovere l'indirizzo digitale di cortesia", e);
+        }
+    }
+
+    /**
      * Rimuove l'indirizzo PEC legale predefinito.
      */
     public void removeDigitalAddressLegalPec() throws RestContactException {
