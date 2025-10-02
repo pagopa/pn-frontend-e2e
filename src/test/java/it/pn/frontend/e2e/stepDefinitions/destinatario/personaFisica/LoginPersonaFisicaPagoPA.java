@@ -863,7 +863,12 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                         }
                     }
                     else {
-                        restContact.removeDigitalAddressCourtesyEmail();
+                        if ("EMAIL".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressCourtesyEmail();
+                        }
+                        else if ("SMS".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressSms();
+                        }
                     }
                 } else {
                     restContact.removeSpecialContact(address);

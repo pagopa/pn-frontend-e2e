@@ -14,7 +14,7 @@ Feature: Rework della pagina dei contatti
       | familyName   | Pluto                  |
       | fiscalNumber | TINIT-AAAAAA00A00A000B |
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Rimuovi tutti i recapiti se esistono
+    And Rimuovi da API tutti i recapiti per persona fisica se esistono
     And Verifica e Disattiva app IO
     And Refresh pagina
   #    Scenario: 3
