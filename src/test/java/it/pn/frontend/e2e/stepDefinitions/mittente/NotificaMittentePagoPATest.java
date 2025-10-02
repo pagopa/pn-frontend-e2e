@@ -714,7 +714,8 @@ public class NotificaMittentePagoPATest extends BasePage {
     @And("Nella pagina stato della piattaforma si cambia pagina")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPagina() {
         piattaformaNotifichePage.setHooksNew(hooksNew);
-        int pagina = piattaformaNotifichePage.getPageMeseCorrente();
+//        int pagina = piattaformaNotifichePage.getPageMeseCorrente();
+        int pagina = 1;
         piattaformaNotifichePage.selezionaFrecettaFinoaPagina(pagina);
     }
 
