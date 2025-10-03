@@ -184,7 +184,6 @@ public class WebTool {
         return finalNumber;
     }
 
-
     /**
      * Decode the NotificationRequestId from the response of the newNotification API
      * The NotificationRequestId is encoded in base64
@@ -238,7 +237,6 @@ public class WebTool {
         }
         return finalNumber;
     }
-
 
     public static String convertToLocalTime(String timeString, ZoneId targetZoneId) {
         // Parse la stringa del tempo nel formato hh:mm a LocalTime

@@ -122,12 +122,20 @@ public class HelpdeskTest extends BasePage {
         }
     }
 
-    @And("Si risolve il disservizio new")
-    public void siRisolveIlDisservizionew() {
+//    @And("Si risolve il disservizio new")
+//    public void siRisolveIlDisservizionew() {
+//        if (helpdeskPage.checkIsCreatedDisservizio()) {
+//            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE, Status.RISOLVI_KO);
+//        }
+//    }
+
+    @And("Si risolve il disservizio new nome test {string}")
+    public void siRisolveIlDisservizionew(String nomeTest) {
         if (helpdeskPage.checkIsCreatedDisservizio()) {
-            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE, Status.RISOLVI_KO);
+            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE, Status.RISOLVI_KO,nomeTest);
         }
     }
+
 
     @And("Si verifica la creazione del disservizio")
     public void siVerificaLaCreazioneDelDisservizio() {
@@ -363,9 +371,13 @@ public class HelpdeskTest extends BasePage {
         backgroundTest.risoluzioneDisservizio();
     }
 
-    @And("Risoluzione disservizio new su portale helpdesk")
-    public void risoluzioneDisservizioNewSuPortaleHelpdesk() {
-        backgroundTest.risoluzioneDisservizioNew();
+//    @And("Risoluzione disservizio new su portale helpdesk")
+//    public void risoluzioneDisservizioNewSuPortaleHelpdesk() {
+//        backgroundTest.risoluzioneDisservizioNew();
+//    }
+    @And("Risoluzione disservizio new su portale helpdesk nome test {string}")
+    public void risoluzioneDisservizioNewSuPortaleHelpdesk(String nomeTest) {
+        backgroundTest.risoluzioneDisservizioNew(nomeTest);
     }
 
     @And("Verifica Disservizio")

@@ -34,6 +34,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
@@ -344,7 +345,6 @@ public class NotificaMittentePagoPATest extends BasePage {
             TimeUnit.SECONDS.sleep(quantiSecondi);
             driver.navigate().refresh();
         } catch (Exception exc) {
-            logger.error("aspettaSecondi: {}", exc.toString());
             throw new RuntimeException(exc);
         }
     }
@@ -410,7 +410,6 @@ public class NotificaMittentePagoPATest extends BasePage {
         if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
             logger.info("File notifica.pdf caricato correttamente");
         } else {
-            logger.error("File notifica.pdf non caricato");
             Assertions.fail("File notifica.pdf non caricato");
         }
 
@@ -1180,7 +1179,6 @@ public class NotificaMittentePagoPATest extends BasePage {
         if (informazioniPreliminariPASection.checkFormInfoPreliminari()) {
             logger.info("Il form di inserimento manuale della notifica è vuoto");
         } else {
-            logger.error("Il form di inserimento manuale della notifica non è vuoto");
             Assertions.fail("Il form di inserimento manuale della notifica non è vuoto");
         }
     }
@@ -1349,6 +1347,9 @@ public class NotificaMittentePagoPATest extends BasePage {
         logger.info("switchToPortal(AppPortal.PF)");
         webTool.switchToPortalUrl(urlFactory, AppPortalUrl.PF_URL);
         logger.info("selezionaPrimaNotifica");
+        String iun = notificationSingleton.getIun(hooksNew.getScenario());
+        logger.info("LOGGER PARALLELO IUN: {}",iun);
+        piattaformaNotifichePage.clickBottoneFiltraNotifica("filter-notifications-button",iun);
         piattaformaNotifichePage.selezionaPrimaNotifica();
         webTool.waitTime(5);
         driver.navigate().refresh();
@@ -1644,7 +1645,12 @@ public class NotificaMittentePagoPATest extends BasePage {
         }
         accettazioneRichiestaNotifica.setNotificationRequestId(notificationRequestId);
         accettazioneRichiestaNotifica.setRichiestaNotificaEndPoint(urlRichiestaNotifica);
+        //Aggiunti massimo numero di tentativi (90) per evitare stallo in caso stato della notifica rimanga in stato WAITING
+        int maximumRetry = 0;
+
         do {
+            Assertions.assertTrue(maximumRetry <= 90, "La notifica risulta ancora in stato WAITING dopo 15 minuti");
+
             try {
                 TimeUnit.SECONDS.sleep(10);
             } catch (InterruptedException e) {
@@ -1653,7 +1659,8 @@ public class NotificaMittentePagoPATest extends BasePage {
             boolean result = accettazioneRichiestaNotifica.runGetRichiestaNotifica();
             if (result) {
                 statusNotifica = accettazioneRichiestaNotifica.getStatusNotifica();
-                logger.info("lo stato della notifica è : {} ", statusNotifica);
+                logger.info("lo stato della notifica è :" + statusNotifica);
+                maximumRetry++;
             } else {
                 if (accettazioneRichiestaNotifica.getResponseCode() != 200) {
                     Assertions.fail("la risposta dell'accettazione della notifica " + notificationRequestId + " è: " + accettazioneRichiestaNotifica.getResponseCode());
@@ -1784,7 +1791,6 @@ public class NotificaMittentePagoPATest extends BasePage {
             }
         }
         if (!notificaTrovata) {
-            logger.error("La notifica non è stata trovata dopo 1m40s");
             Assertions.fail("La notifica non è stata trovata dopo 1m40s");
         }
     }
@@ -1881,7 +1887,6 @@ public class NotificaMittentePagoPATest extends BasePage {
         if (allegatiPASection.verificaCaricamentoNotificaPdf()) {
             logger.info("File notifica.pdf caricato correttamente");
         } else {
-            logger.error("File notifica.pdf non caricato");
             Assertions.fail("File notifica.pdf non caricato");
         }
         allegatiPASection.inserimentoNomeAllegato(datiNotificaMap.get("nomeDocumentoNotifica"));
@@ -2046,6 +2051,11 @@ public class NotificaMittentePagoPATest extends BasePage {
     @When("Seleziona voce menu laterale {string}")
     public void selezionaVoceMenuLaterale(String testo) {
         piattaformaNotifichePage.selezionaVoceMenuLaterale(testo);
+    }
+
+    @When("Sulla Pagina Gruppi si seleziona voce menu laterale {string}")
+    public void sullaPaginaGruppiSelezionaVoceMenuLaterale(String testo) {
+        piattaformaNotifichePage.sullaPaginaGruppiSelezionaVoceMenuLaterale(testo);
     }
 
     @When("Click Genera Api Key")
@@ -2448,8 +2458,51 @@ public class NotificaMittentePagoPATest extends BasePage {
 
     @And("Disabilita Pop-Up Chrome")
     public void disabilitaPopUpChrome() {
-        driver.switchTo().alert().accept();
+        try {
+            logger.info("Pop-up Chrome presente");
+            driver.switchTo().alert().accept();
+        }
+        //In caso il pop-up non sia presente, si intercetta l'eccezione e si continua con il test
+        catch (NoAlertPresentException e) {
+            logger.info("Pop-up Chrome non presente");
+        }
     }
+
+    @And("Si clicca sui radio button del pagamento")
+    public void cliccaSuiRadioButtonDelPagamento() {
+        List<WebElement> radioButtonList = getWebDriverWait(10)
+                .withMessage("Impossibile trovare input con aria-labelledby='label-radio'")
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//input[contains(@aria-labelledby,'label-radio')]")));
+        if (radioButtonList.isEmpty())
+            Assertions.fail("Non ci sono radio button nella sezione del pagamento della notifica.");
+        for (WebElement radioButton : radioButtonList) {
+            radioButton.click();
+        }
+    }
+    @And("Nel portale Send {string} accedere ad una rotta non esistente")
+    public void nelPortaleSendAccedereAdUnaRottaNonEsistente(String portal) {
+        portal = portal.toLowerCase();
+        String env = this.webDriverConfig.getEnvironment();
+        switch (portal) {
+            case PF:
+                driver.get(webDriverConfig.getBaseUrlPfTest()+"prova");
+                break;
+            case PG:
+                driver.get(webDriverConfig.getBaseUrlPgTest()+"prova");
+                break;
+            case PA:
+                driver.get(webDriverConfig.getUrlMittente()+"/prova");
+                break;
+            default:
+                Assertions.fail("Tipologia di portale non specificato o errato!");
+        }
+    }
+
+    @And("Verifica esistenza Pagina non trovata")
+    public void verificaEsistenzaPaginaNonTrovata() {
+        piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
+    }
+
 
 
     @And("Inserisci Max Caratteri Input pec portale PA {int}")
@@ -2487,11 +2540,11 @@ public class NotificaMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
     }
 
+
     @And("Click Torna alla home")
     public void clickTornaAllaHome() {
         piattaformaNotifichePage.clickTornaAllaHome();
     }
-
 
     class EsitoNotifica {
         String statusNotifica;
@@ -2517,7 +2570,6 @@ public class NotificaMittentePagoPATest extends BasePage {
                 logger.info("datiNotificaPG codiceIUN: {} ", codiceIUN);
             }
             default -> {
-                logger.error("Nessun codice IUN corrisponde");
                 throw new RuntimeException("ERRORE Nessun codice IUN corrisponde");
             }
         }

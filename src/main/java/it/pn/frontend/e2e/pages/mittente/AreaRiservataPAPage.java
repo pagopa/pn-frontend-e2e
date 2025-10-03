@@ -41,60 +41,86 @@ public class AreaRiservataPAPage extends BasePage {
     }
 
     public boolean verificaCodiceFiscale(String codiceFiscale) {
-        boolean codiceFiscaleFound = false;
-        infoLabel = driver.findElements(By.xpath("//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]"));
+        List<WebElement> infoLabel = getWebDriverWait(10)
+                .withMessage("Gli elementi con i codici fiscali non sono visibili")
+                .until(driver -> driver.findElements(By.xpath("//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]")));
+
         for (WebElement element : infoLabel) {
-            logger.info("Info ente presente nella pagina Area Riservata: {}" , element.getText());
-            if (element.getText().equals(codiceFiscale)) {
-                codiceFiscaleFound = true;
-                break;
+            String testo = element.getText().trim();
+            logger.info("Info ente presente nella pagina Area Riservata: {}", testo);
+            if (testo.equals(codiceFiscale)) {
+                logger.info("Codice fiscale {} trovato correttamente", codiceFiscale);
+                return true;
             }
         }
-        return codiceFiscaleFound;
+
+        logger.warn("Codice fiscale {} non trovato", codiceFiscale);
+        return false;
     }
 
     public void selezionaPiattaformaNotificaDev() {
         try {
-            piattaformaNotificaDevGestisciButton = driver.findElement(By.id("forward_prod-pn-dev"));
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaDevGestisciButton));
-            if (piattaformaNotificaDevGestisciButton.isDisplayed()) {
-                piattaformaNotificaDevGestisciButton.click();
-            } else {
-                js().executeScript("arguments[0].scrollIntoView(true);", piattaformaNotificaDevGestisciButton);
-                piattaformaNotificaDevGestisciButton.click();
+            WebElement button = getWebDriverWait(15)
+                    .withMessage("Bottone piattaforma notifica dev non trovato")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("forward_prod-pn-dev")));
+
+            try {
+                button.click();
+                logger.info("Cliccato su piattaforma notifica dev");
+
+            } catch (ElementClickInterceptedException e) {
+                logger.warn("Bottone intercettato, effettuo scroll e riprovo");
+                js().executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+                button.click();
+                logger.info("Cliccato su piattaforma notifica dev dopo scroll");
             }
-        } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-            Assertions.fail("Il bottone piattaforma notifica dev non è presente o non è cliccabile: " + e.getMessage());
+
+        } catch (TimeoutException e) {
+            Assertions.fail("Il bottone piattaforma notifica dev non è cliccabile: " + e.getMessage());
         }
     }
 
     public void selezionaPiattaformaNotificaTest() {
         try {
-            piattaformaNotificaTestGestisciButton = driver.findElement(By.id("forward_prod-pn-test"));
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaTestGestisciButton));
-            if (piattaformaNotificaTestGestisciButton.isDisplayed()) {
-                piattaformaNotificaTestGestisciButton.click();
-            } else {
-                js().executeScript("arguments[0].scrollIntoView(true);", piattaformaNotificaTestGestisciButton);
-                piattaformaNotificaTestGestisciButton.click();
+            WebElement button = getWebDriverWait(15)
+                    .withMessage("Bottone piattaforma notifica test non trovato")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("forward_prod-pn-test")));
+
+            try {
+                button.click();
+                logger.info("Cliccato su piattaforma notifica test");
+
+            } catch (ElementClickInterceptedException e) {
+                logger.warn("Bottone intercettato, effettuo scroll e riprovo");
+                js().executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+                button.click();
+                logger.info("Cliccato su piattaforma notifica test dopo scroll");
             }
-        } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-            Assertions.fail("Il bottone piattaforma notifica test non è presente o non è cliccabile: " + e.getMessage());
+
+        } catch (TimeoutException e) {
+            Assertions.fail("Il bottone piattaforma notifica test non è cliccabile: " + e.getMessage());
         }
     }
 
     public void selezionaPiattaformaNotificaUat() {
         try {
-            piattaformaNotificaUatGestisciButton = driver.findElement(By.id("forward_prod-pn"));
-            getWebDriverWait(30).until(ExpectedConditions.elementToBeClickable(piattaformaNotificaUatGestisciButton));
-            if (piattaformaNotificaUatGestisciButton.isDisplayed()) {
-                piattaformaNotificaUatGestisciButton.click();
-            } else {
-                js().executeScript("arguments[0].scrollIntoView(true);", piattaformaNotificaUatGestisciButton);
-                piattaformaNotificaUatGestisciButton.click();
+            WebElement button = getWebDriverWait(15)
+                    .withMessage("Bottone piattaforma notifica UAT non trovato")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("forward_prod-pn")));
+
+            try {
+                button.click();
+                logger.info("Cliccato su piattaforma notifica UAT");
+
+            } catch (ElementClickInterceptedException e) {
+                logger.warn("Bottone UAT intercettato, effettuo scroll e riprovo");
+                js().executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+                button.click();
+                logger.info("Cliccato su piattaforma notifica UAT dopo scroll");
             }
-        } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-            Assertions.fail("Il bottone piattaforma notifica uat non è presente o non è cliccabile: " + e.getMessage());
+
+        } catch (TimeoutException e) {
+            Assertions.fail("Il bottone piattaforma notifica UAT non è cliccabile: " + e.getMessage());
         }
     }
 

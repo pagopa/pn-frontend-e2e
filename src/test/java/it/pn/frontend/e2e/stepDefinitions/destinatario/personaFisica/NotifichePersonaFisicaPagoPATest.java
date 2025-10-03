@@ -215,7 +215,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
         if (numeroRigheNotifiche == 20) {
             logger.info("Si visualizzano venti notifiche in elenco");
         } else {
-            logger.error("NON si visualizzano venti notifiche in elenco");
             Assertions.fail("NON si visualizzano venti notifiche in elenco");
         }
     }
@@ -246,35 +245,30 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
             if (titoloPagamentoIsDisplayed) {
                 logger.info("Sezione titolo di pagamento è visualizzato");
             } else {
-                logger.error("Sezione titolo di pagamento non è visualizzato");
                 Assertions.fail("Sezione titolo di pagamento non è visualizzato");
             }
             boolean codiceAvvisoIsDisplayed = accediAPiattaformaNotifichePage.codiceAvvisoDisplayed();
             if (codiceAvvisoIsDisplayed) {
                 logger.info("Sezione codice avviso è visualizzato");
             } else {
-                logger.error("Sezione codice avviso non è visualizzato");
                 Assertions.fail("Sezione codice avviso non è visualizzato");
             }
             boolean modelloF24IsDisplayed = accediAPiattaformaNotifichePage.modelloF24Displayed();
             if (modelloF24IsDisplayed) {
                 logger.info("Sezione scarica modello F24 è visualizzato");
             } else {
-                logger.error("Sezione scarica modello F24 non è visualizzato");
                 Assertions.fail("Sezione scarica modello F24 non è visualizzato");
             }
             boolean scaricaAvvisoDisplayed = accediAPiattaformaNotifichePage.scaricaAvvisoDisplayed();
             if (scaricaAvvisoDisplayed) {
                 logger.info("Sezione scarica avviso è visualizzato");
             } else {
-                logger.error("Sezione scarica avviso non è visualizzato");
                 Assertions.fail("Sezione scarica avviso non è visualizzato");
             }
             boolean pagaAvvisoDisplayed = accediAPiattaformaNotifichePage.pagaAvvisoDisplayed();
             if (pagaAvvisoDisplayed) {
                 logger.info("Sezione paga avviso è visualizzato");
             } else {
-                logger.error("Sezione paga avviso non è visualizzato");
                 Assertions.fail("Sezione paga avviso non è visualizzato");
             }
         }
@@ -456,12 +450,10 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
     public void siControllaNonSiaPresenteIlBottonePaga() {
         logger.info("Si controlla che il bottone per il pagamento non sia visibile all'interno del dettaglio della notifica");
         if (accediAPiattaformaNotifichePage.checkButtonPagaIsDisplayed()) {
-            logger.error("Il bottone per il pagamento è visibile all'interno del dettaglio della notifica");
             Assertions.fail("Il bottone per il pagamento è visibile all'interno del dettaglio della notifica");
         } else {
             logger.error("Il bottone per il pagamento non è visibile all'interno del dettaglio della notifica");
         }
-
     }
 
     @And("Si controlla se la sezione pagamento visualizzata correttamente")
@@ -474,7 +466,6 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
         if (!accediAPiattaformaNotifichePage.siControllaCostiDiNotifica()) {
             logger.info("Costi di notifica non inclusi");
         } else {
-            logger.error("Costi di notifica inclusi");
             Assertions.fail("Costi di notifica inclusi");
         }
     }
@@ -523,6 +514,17 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
     public void portalePFVaiANotifica(String codiceIUN) {
         String env = webDriverConfig.getEnvironment();
         this.driver.get("https://cittadini." + env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
+    }
+
+    @When("Nella pagina Piattaforma Notifiche persona fisica si accede alla notifica con codice IUN specifico")
+    public void portalePFVaiANotifica(Map<String, String> codiciIUN) {
+        String env = webDriverConfig.getEnvironment();
+        if (codiciIUN.containsKey("dev") || codiciIUN.containsKey("test") || codiciIUN.containsKey("uat")) {
+            this.driver.get("https://cittadini." + env + ".notifichedigitali.it/notifiche/" + codiciIUN.get(env) + "/dettaglio");
+            webTool.waitTime(5);
+        }
+        else
+            Assertions.fail("Nessuna chiave valida per gli ambienti di esecuzione!");
     }
 }
 

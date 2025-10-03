@@ -30,7 +30,7 @@ public class CookiesSection extends BasePage {
 
     public boolean waitLoadCookiesPage() {
         try {
-            getWebDriverWait(20)
+            getWebDriverWait(30)
                     .withMessage("Problemi con il metodo waitLoadCookiesPage")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("onetrust-banner-sdk")));
             logger.info("Cookies Page caricata");
@@ -42,27 +42,17 @@ public class CookiesSection extends BasePage {
     }
 
     public void selezionaAccettaTuttiButton() {
-
         try {
-            WebElement accettaTuttiButton = getWebDriverWait(30)
+            WebElement accettaTuttiButton = getWebDriverWait(60)
                     .withMessage("Il bottone 'Accetta tutti i cookie' non è cliccabile")
                     .until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
-
             logger.info("Si seleziona 'Accetta tutti i cookie'");
             new Actions(driver).moveToElement(accettaTuttiButton).click().perform();
-
         } catch (TimeoutException e) {
             Assertions.fail("Non è cliccabile il bottone 'Accetta tutti i cookie': " + e.getMessage());
         }
 
     }
 
-    public void chiudiPagamentoPopup() {
-            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='Chiudi']")));
-            logger.info("Si seleziona chiudi i cookies");
-             chiudiPagamentoPopupButton = driver.findElement(By.xpath("//button[@aria-label='Chiudi']"));
 
-            Actions actions = new Actions(driver);
-            actions.moveToElement(chiudiPagamentoPopupButton).click().perform();
-    }
 }

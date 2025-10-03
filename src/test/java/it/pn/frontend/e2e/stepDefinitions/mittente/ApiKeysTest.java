@@ -86,21 +86,18 @@ public class ApiKeysTest extends BasePage {
     @And("Nella sezione genera Api Key cliccare bottone continua")
     public void nellaSezioneGeneraApiKeyCliccareBottoneContinua() {
         logger.info("Si clicca sul bottone continua");
-
         apiKeyPAPage.clickSulBottoneContinua();
     }
 
     @And("Si visualizza correttamente la pagina di conferma")
     public void siVisualizzaCorrettamenteLaPaginaDiConferma() {
         logger.info("Si visualizza la pagina di conferma");
-
         apiKeyPAPage.siVisualizzaCorrettamenteConfermaPage();
     }
 
     @And("Nella pagina di conferma cliccare sul bottone Torna a API key")
     public void nellaPaginaDiConfermaCliccareSulBottoneTornaAAPIKey() {
         logger.info("Si clicca sul bottone torna a API Key");
-
         apiKeyPAPage.clickSulBottoneTornaApiKey();
     }
 

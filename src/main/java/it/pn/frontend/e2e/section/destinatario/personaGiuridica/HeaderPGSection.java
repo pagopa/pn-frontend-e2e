@@ -31,19 +31,21 @@ public class HeaderPGSection extends BasePage {
     }
 
     public void waitLoadHeaderPGPage() {
-        try {
-            getWebDriverWait(70).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]"))));
-            getWebDriverWait(70).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@title = 'Esci']"))));
-            logger.info("HeaderSectionPG caricata correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("HeaderSectionPG non caricata correttamente con errore: " + e.getMessage());
-        }
+        getWebDriverWait(70)
+                .withMessage("Logo PagoPA non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]")));
+
+        getWebDriverWait(70)
+                .withMessage("Bottone Esci non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@title='Esci']")));
+
+        logger.info("HeaderSectionPG caricata correttamente");
     }
 
     public void clickEsciButton() {
         esciButton = getWebDriverWait(60)
-                .withMessage("Non Si Visualizza il tasto Esci sul Pop-Up")
-                .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@title = 'Esci']"))));
+                .withMessage("Non si visualizza il tasto Esci sul Pop-Up")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@title='Esci']")));
         esciButton.click();
     }
 

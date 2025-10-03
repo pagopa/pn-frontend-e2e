@@ -73,6 +73,7 @@ public class DeleghePagoPATest extends BasePage {
 
     private WebTool webTool;
 
+    private Map<String, Object> deleghe = new HashMap<>();
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
 
@@ -94,7 +95,6 @@ public class DeleghePagoPATest extends BasePage {
         notifichePFPage = new NotifichePFPage(driver);
         delegatiImpresaSection = new DelegatiImpresaSection(driver);
     }
-
 
     @When("Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe")
     public void waitDelegheButton() {
@@ -125,7 +125,6 @@ public class DeleghePagoPATest extends BasePage {
         logger.info("Click sul bottone aggiungi nuova delega");
         deleghePage.clickAggiungiDelegaButton();
     }
-
 
     @And("Nella sezione Le Tue Deleghe inserire i dati")
     public void nellaSezioneLeTueDelegheInserireIDati(Map<String, String> personaFisica) {
@@ -391,11 +390,9 @@ public class DeleghePagoPATest extends BasePage {
                 attempt++;
             }
         }
-        logger.error("Errore nella response DelegateResponsePF per PF dopo {} tentativi", maxAttempts);
         Assertions.fail("Errore nella response DelegateResponsePF per PF dopo " + maxAttempts + " tentativi");
         webTool.waitTime(3);
     }
-
 
     @When("Creo in background una delega per persona fisica 1")
     public void creaInBackgroundUnaDelegaPerPersonaFisica1() {
@@ -419,7 +416,6 @@ public class DeleghePagoPATest extends BasePage {
         if (leTueDelegheSection.verificaEsistenzaErroreCodiceSbagliato()) {
             logger.info("Il messaggio di codice sbagliato è visualizzata");
         } else {
-            logger.error("Il messaggio di codice sbagliato non è visualizzata");
             Assertions.fail("Il messaggio di codice sbagliato non è visualizzata");
         }
 
@@ -507,7 +503,6 @@ public class DeleghePagoPATest extends BasePage {
             Assertions.fail("NON si visualizza correttamente il permesso della delega");
         }
     }
-
 
     @And("Si controlla che non sia presente una delega con stesso nome")
     public void siControllaCheNonSiaPresenteUnaDelegaConStessoNome(Map<String, String> personaFisica) {
@@ -735,4 +730,8 @@ public class DeleghePagoPATest extends BasePage {
         deleghePage.nellaSezioneLeTueDelegheVerificaEsistenzaNomeECognomiErrati(nome + " " + cognome, persona);
     }
 
+    @And("Rimuovi tutti i delegati da i Tuoi Delegati se esistono")
+    public void rimuoviDelegatiPF() {
+        deleghePage.rimuoviDelegatiPF();
+    }
 }

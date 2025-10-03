@@ -37,8 +37,6 @@ public class RestTemplateConfiguration {
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public RestTemplate customRestTemplate() {
 
-
-
         // Configura i timeout
         RequestConfig requestConfig = RequestConfig.custom()
                 .setConnectTimeout(Timeout.of(990_000, TimeUnit.MILLISECONDS)) // Timeout di connessione
@@ -91,7 +89,6 @@ public class RestTemplateConfiguration {
         }
 
         private void doLog(HttpRequest request, ClientHttpResponse response) {
-//            String httpMethod = request.getMethodValue();
             String httpMethod = request.getMethod().name();
             String requestUrl = request.getURI().toString();
             String traceId = getTraceIdFromHttpResponse( response );

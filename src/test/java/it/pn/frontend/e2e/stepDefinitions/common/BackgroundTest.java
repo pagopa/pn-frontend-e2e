@@ -101,7 +101,6 @@ public class BackgroundTest extends BasePage {
         datiPersonaFisica.put("ragioneSociale", "Lucrezia Borgia");
     }
 
-
     @PostConstruct
     public void init() {
         webTool = new WebTool(driver);
@@ -110,9 +109,7 @@ public class BackgroundTest extends BasePage {
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     }
 
-
     public void invioNotificaErrorePec(String numeroNotificaID) {
-
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari();
@@ -143,7 +140,6 @@ public class BackgroundTest extends BasePage {
         deleghePagoPATest.nellaSezioneDelegheSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
     }
 
-
     public void loginPF(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
         personaFisicaPagoPA.homePageDestinatarioVieneVisualizzataCorrettamente();
@@ -163,7 +159,6 @@ public class BackgroundTest extends BasePage {
         deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelega);
         deleghePagoPATest.siCliccaSulBottoneAccetta();
     }
-
 
     public void loginPFRecapiti(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
@@ -201,7 +196,6 @@ public class BackgroundTest extends BasePage {
         deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
     }
 
-
     public void aggiuntaEmailPF() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(nomeFilePersonaFisica);
@@ -230,7 +224,6 @@ public class BackgroundTest extends BasePage {
         recapitiPersonaFisicaTest.nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti();
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
-
 
     public void accettazioneDelegaSceltaGruppo(boolean withGroup, String gruppo) {
         deleghePagoPATest.siSceglieOpzioneAccetta();
@@ -263,7 +256,6 @@ public class BackgroundTest extends BasePage {
         deleghePGPagoPATest.siCliccaSulBottoneIndietroInInserimentoCodiceVerifica();
     }
 
-
     public void aggiuntaNuovaDelegaDellImpresaPG() {
         deleghePGPagoPATest.nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa();
         deleghePGPagoPATest.nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega();
@@ -277,7 +269,6 @@ public class BackgroundTest extends BasePage {
     public void logoutPG() {
         loginPGPagoPATest.logoutDaPortalePersonaGiuridica();
     }
-
 
     public void aggiungiPECPG() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario("pec@pec.pagopa.it");
@@ -329,15 +320,23 @@ public class BackgroundTest extends BasePage {
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 
-    public void risoluzioneDisservizioNew() {
+//    public void risoluzioneDisservizioNew() {
+//        helpdeskTest.loginHelpdeskConUtenteTest();
+//        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+//        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+//        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+//        helpdeskTest.siRisolveIlDisservizionew();
+//        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
+//    }
+    public void risoluzioneDisservizioNew(String nomeTest) {
         helpdeskTest.loginHelpdeskConUtenteTest();
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
         helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
-        helpdeskTest.siRisolveIlDisservizionew();
+        helpdeskTest.siRisolveIlDisservizionew(nomeTest+"_1");
+        helpdeskTest.siRisolveIlDisservizionew(nomeTest+"_2");
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
-
 
     public void aggiuntaEmailDiCortesia(String email) {
         recapitiTest.siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(email);

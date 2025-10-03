@@ -31,44 +31,36 @@ public class SuccessPASection extends BasePage {
         webTool = new WebTool(driver);
     }
 
-
     public void waitLoadSuccessPASection() {
         try {
             getWebDriverWait(60)
                     .withMessage("Non è presente il testo 'La notifica è stata creata con successo'")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("title-sync-feedback")));
-
             logger.info("TA_QA: La notifica è stata creata con successo, PA section caricata correttamente");
-
         } catch (TimeoutException e) {
             Assertions.fail("TA_QA: Il titolo della Success PA section non è stato caricato. Errore: " + e.getMessage());
         }
     }
 
+
     public void vaiAlleNotifiche() {
         logger.info("click pulsante vai alle notifiche");
         logger.info("Tentativo di cliccare il pulsante 'Vai alle notifiche'...");
-
-        getWebDriverWait(80)
+        By vaiAlleNotificheLocator = By.id("go-to-notifications");
+        WebElement vaiAlleNotifiche = getWebDriverWait(80)
                 .withMessage("Il pulsante con id 'go-to-notifications' non è presente nel DOM.")
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("go-to-notifications")));
-
-        WebElement vaiAlleNotifiche = driver.findElement(By.id("go-to-notifications"));
-
+                .until(ExpectedConditions.presenceOfElementLocated(vaiAlleNotificheLocator));
         try {
             getWebDriverWait(10).until(ExpectedConditions.invisibilityOfElementLocated(
-                    By.cssSelector(".MuiBackdrop-root, .spinner, .overlay-loader"))); // personalizza se usi altri overlay
+                    By.cssSelector(".MuiBackdrop-root, .spinner, .overlay-loader")));
         } catch (TimeoutException ignored) {
             logger.warn("Overlay ancora presente, si tenta comunque il click.");
         }
-
         js().executeScript("arguments[0].scrollIntoView({block: 'center'});", vaiAlleNotifiche);
-        webTool.waitTime(1); // Attesa per stabilizzare
-
-        getWebDriverWait(10)
+        webTool.waitTime(1); // stabilizzazione
+        vaiAlleNotifiche = getWebDriverWait(10)
                 .withMessage("Il pulsante 'Vai alle notifiche' non è cliccabile.")
-                .until(ExpectedConditions.elementToBeClickable(vaiAlleNotifiche));
-
+                .until(ExpectedConditions.elementToBeClickable(vaiAlleNotificheLocator));
         try {
             vaiAlleNotifiche.click();
             logger.info("Clic sul pulsante 'Vai alle notifiche' eseguito con successo.");
@@ -78,4 +70,5 @@ public class SuccessPASection extends BasePage {
             logger.info("Click via JavaScript eseguito correttamente.");
         }
     }
+
 }
