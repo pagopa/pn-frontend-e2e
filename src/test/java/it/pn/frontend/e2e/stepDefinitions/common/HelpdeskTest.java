@@ -44,10 +44,6 @@ public class HelpdeskTest extends BasePage {
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
 
-//    private Map<String, Object> datiTestHelpdesk = new HashMap<>();
-//    private Map<String, Object> datiPersonaFisica = new HashMap<>();
-
-
     @PostConstruct
     public void init() {
         logger.info("INIT TEST...: ");
@@ -112,10 +108,8 @@ public class HelpdeskTest extends BasePage {
 
     @And("Si crea il disservizio new")
     public void siCreaIlDisservizioNew() {
-//        webTool.waitTime(5);
         if (!helpdeskPage.checkIsCreatedDisservizio()) {
             helpdeskPage.handleDisservizioNew(Disservice.CREAZIONE_NOTIFICHE, Status.INSERISCI_KO);
-//            webTool.waitTime(5);
         }
     }
 
@@ -155,18 +149,16 @@ public class HelpdeskTest extends BasePage {
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
         }
         if (helpdeskPage.checkServiceStatus(Disservice.CREAZIONE_NOTIFICHE)) {
             helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE, Status.OK);
         } else {
-            logger.info("Lo stato del servizio: " + Disservice.CREAZIONE_NOTIFICHE + " è già in OK");
+            logger.info("Lo stato del servizio: {} è già in OK",Disservice.CREAZIONE_NOTIFICHE);
         }
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
         }
         logger.info("Torno sulla piattaforma send per il logout");
@@ -190,8 +182,6 @@ public class HelpdeskTest extends BasePage {
 
     @And("viene inserito codice fiscale")
     public void vieneInseritoCodiceFiscale() {
-        //personaFisica
-//        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
         helpdeskPage.insertCfAndRicercaOnPage(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
     }
 
@@ -200,7 +190,6 @@ public class HelpdeskTest extends BasePage {
         helpdeskPage.insertCF(CF);
     }
 
-    ///-*-*-**-
     @And("viene inserito codice IUN {string}")
     public void vieneInseritoIun(String iun) {
         String codiceIun = getCodiceIun(iun, "viene inserito codice IUN");
@@ -256,7 +245,6 @@ public class HelpdeskTest extends BasePage {
     public void vieneVisualizzatoMessaggioDiErroreCF() {
         helpdeskPage.checkMessaggioDiErroreCF();
     }
-
 
     @Then("controllo messaggio di successo")
     public void controlloMessaggioSuccesso() {
@@ -315,7 +303,6 @@ public class HelpdeskTest extends BasePage {
     @And("Si verifica che i campi sono puliti")
     public void siVerificaCheICampiSonoPuliti() {
         helpdeskPage.checkCampiPuliti();
-
     }
 
     @Then("controllo password")

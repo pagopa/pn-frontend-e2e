@@ -1,6 +1,5 @@
 Feature: Mittente visualizza correttamente la notifica in stato Annulato
 
-  @TestSuite
   @TA_MittentevisualizzazioneNotifichaAnnullataConPagamento
   @NRT_Blocco_2
   @NRT_Blocco_2_visualizzazioneNotifiche

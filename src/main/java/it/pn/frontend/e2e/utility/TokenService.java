@@ -1,10 +1,8 @@
 package it.pn.frontend.e2e.utility;
 
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.model.enums.AppPortalUrl;
 import it.pn.frontend.e2e.model.enums.TokenLogin;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service

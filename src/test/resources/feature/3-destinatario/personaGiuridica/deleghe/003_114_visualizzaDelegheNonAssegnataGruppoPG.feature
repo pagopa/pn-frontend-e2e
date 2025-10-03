@@ -1,6 +1,5 @@
 Feature: La persona giuridica visualizza le deleghe
 
-  @TestSuite
   @TA_PGVisualizzaDelegheSenzaGruppo
   @DeleghePG
   @PG
@@ -12,13 +11,6 @@ Feature: La persona giuridica visualizza le deleghe
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Nella pagina Deleghe si clicca su Delegati dall impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa
-    # Seconda PG non disponibile per TA, si crea una delega per persona fisica
-    #And Creo in background una delega per persona giuridica
-    #  | accessoCome    | delegante         |
-    #  | fiscalCode     | LELPTR04A01C352E  |
-    #  | companyName    | Le Epistolae srl  |
-    #  | displayName    | Le Epistolae srl  |
-    #  | person         | false             |
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Lucrezia Borgia"
     When Creo in background una delega per persona giuridica
       | accessoCome | delegante        |
@@ -33,10 +25,10 @@ Feature: La persona giuridica visualizza le deleghe
     And Nella pagina Deleghe si clicca su Deleghe a carico dell impresa
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Creo in background una delega per persona giuridica
-      | accessoCome    | delegante     |
-      | fiscalCode     | 27957814470   |
-      | companyName    | Convivio Spa  |
-      | displayName    | Convivio Spa  |
-      | person         | false         |
+      | accessoCome | delegante    |
+      | fiscalCode  | 27957814470  |
+      | companyName | Convivio Spa |
+      | displayName | Convivio Spa |
+      | person      | false        |
     And Si controlla la tabella deleghe a carico dell impresa
     And Si accetta la delega senza gruppo

@@ -4,14 +4,13 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo ruota una vi
   @TA_PG_AmministratoreDiGruppoRuotaVirtualKey_QA_5331
   @integrazioneApi
   @integrazioneApiPg2
-  #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5331_5329_5333_5335_5337_5341_5339  PG - Utente della PG con ruolo di amministratore di gruppo ruota una virtual key,
-                          Utente della PG con ruolo di amministratore di gruppo censisce una virtual key,
-                          Eliminazione di una virtual key ruotata per un utente della PG con ruolo di amministratore di gruppo,
-                          Eliminazione di una virtual key bloccata per un utente della PG con ruolo di amministratore di gruppo,
-                          Utente della PG con ruolo di amministratore di gruppo prova a ruotare una virtual key con una virtual key già ruotata,
-                         Utente della PG con ruolo di amministratore di gruppo prova a bloccare una virtual key con una virtual key già bloccata
+  Utente della PG con ruolo di amministratore di gruppo censisce una virtual key,
+  Eliminazione di una virtual key ruotata per un utente della PG con ruolo di amministratore di gruppo,
+  Eliminazione di una virtual key bloccata per un utente della PG con ruolo di amministratore di gruppo,
+  Utente della PG con ruolo di amministratore di gruppo prova a ruotare una virtual key con una virtual key già ruotata,
+  Utente della PG con ruolo di amministratore di gruppo prova a bloccare una virtual key con una virtual key già bloccata
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
       | user           | DanteAlighieri |
@@ -108,7 +107,7 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo ruota una vi
     When Verifica stato Chiave Personale "Bloccata"
     And Cliccare sui tre puntini Virtual key con stato "Bloccata"
     And verifica tre puntini mostra di piu
-      | delete | Elimina            |
+      | delete | Elimina           |
       | view   | Visualizza codice |
     And Nella pagina Api Key si clicca sulla voce Elimina del menu Api Key
     And Nella pop up cliccare sul tasto conferma
@@ -132,5 +131,5 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo ruota una vi
     And Verifica stato Chiave Personale "Bloccata"
     And Cliccare sui tre puntini Virtual key con stato "Attiva"
     And verifica tre puntini mostra di piu
-      | ruota  | Ruota             |
-      | view   | Visualizza codice |
+      | ruota | Ruota             |
+      | view  | Visualizza codice |

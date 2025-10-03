@@ -1,11 +1,9 @@
 Feature: Mittente genera una notifica tramite destinatario con pec
 
-  @TestSuite
   @TA_invioNotificaConPec
   @mittente
   @invioNotifiche_07
   @NRT_Blocco_1
-  @loginFE_8
   Scenario: PN-9644 - Mittente genera una notifica tramite destinatario con pec
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
@@ -27,8 +25,6 @@ Feature: Mittente genera una notifica tramite destinatario con pec
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica viene creata correttamente "datiNotifica"
-#    And Nella pagina Piattaforma Notifiche inserire il codice IUN della notifica
-#    And Cliccare sul bottone Filtra
     And Cliccare sul bottone Filtra Notifica "filter-button"
     And Si verifica che la notifica sia nello stato avanzato
     And Cliccare sulla notifica restituita

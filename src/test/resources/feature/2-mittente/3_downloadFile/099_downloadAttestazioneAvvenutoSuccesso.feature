@@ -1,6 +1,5 @@
 Feature: il mittente effettua il download attestazione opponibile a terzi avvenuto successo
 
-  @TestSuite
   @TA_MittenteDownloadAttestazioneAvvenutaSuccesso
   @DownloadFileMittente
   @NRT_Blocco_1
@@ -13,5 +12,4 @@ Feature: il mittente effettua il download attestazione opponibile a terzi avvenu
     And Si visualizza correttamente la section Dettaglio Notifica
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: avvenuto accesso")] |
-      | vediDettagli | false                                          |
-#   And Logout da portale mittente
+      | vediDettagli | false                                                                          |

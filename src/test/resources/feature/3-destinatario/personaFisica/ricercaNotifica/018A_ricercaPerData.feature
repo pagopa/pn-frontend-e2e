@@ -1,6 +1,5 @@
 Feature: Ricerca notifica per periodo temporale persona fisica
 
-  @TestSuite
   @TA_PFricercaPerData
   @NRT_Blocco_2
 

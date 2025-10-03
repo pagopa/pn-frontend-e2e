@@ -1,6 +1,5 @@
 Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
 
-  @TestSuite
   @TA_PGricercaDeleghePerGruppo
   @DeleghePG
   @PG
@@ -27,11 +26,11 @@ Feature:La persona giuridica fa una ricerca per gruppo delle deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Si controlla che non sia presente una delega con stesso nome persona giuridica "Convivio Spa"
     And Creo in background una delega per persona giuridica
-      | accessoCome    | delegante     |
-      | fiscalCode     | 27957814470   |
-      | companyName    | Convivio Spa  |
-      | displayName    | Convivio Spa  |
-      | person         | false         |
+      | accessoCome | delegante    |
+      | fiscalCode  | 27957814470  |
+      | companyName | Convivio Spa |
+      | displayName | Convivio Spa |
+      | person      | false        |
     And Si controlla la tabella deleghe a carico dell impresa
     And Si accetta la delega con gruppo "Test gruppi"
     And Nella pagina Deleghe sezione Deleghe a Carico dell impresa si inserisce il gruppo del delegante

@@ -12,13 +12,13 @@ public class F24 {
     private MetadataAttachment metadataAttachment;
 
 
-    public F24(){
+    public F24() {
         title = "F24";
         applyCost = false;
-       metadataAttachment = new MetadataAttachment();
+        metadataAttachment = new MetadataAttachment();
     }
 
-    public F24(String title, Boolean applyCost, MetadataAttachment metadataAttachment){
+    public F24(String title, Boolean applyCost, MetadataAttachment metadataAttachment) {
         this.title = title;
         this.applyCost = applyCost;
         this.metadataAttachment = metadataAttachment;

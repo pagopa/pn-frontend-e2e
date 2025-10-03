@@ -1,9 +1,8 @@
 Feature: invio notifica con sequence
 
   @Tag_PN_14806_13_OK-CompiutaGiacenza_890
-  @TestSuite
   @Tag_CAD_ARCAD
-  @NRT
+  @NRT_Blocco_2
 
   Scenario: [PN-14806_13] CAD/ARCAD SEQUENCE OK-CompiutaGiacenza_890
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -43,15 +42,12 @@ Feature: invio notifica con sequence
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
 
-    #And Aspetta 10 secondi
     #Decommentare per test in UAT
     #And Aspetta la notifica con IUN salvato
-#    And Aspetta 10 secondi
     And Attesa 15 secondi
     And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
-#    And Aspetta 300 secondi
     And Attesa 300 secondi
     And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica

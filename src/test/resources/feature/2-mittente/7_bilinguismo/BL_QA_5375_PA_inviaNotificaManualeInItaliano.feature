@@ -1,6 +1,5 @@
 Feature: PA invia notifica manuale in Italiano
 
-  @TestSuite
   @TA_bilinguismoRefreshPaginaItaliano_QA5375
   @bilinguismo
   @NRT_Blocco_1
@@ -15,7 +14,6 @@ Feature: PA invia notifica manuale in Italiano
     And Home page mittente viene visualizzata correttamente
 
     And Selezionare da impostazione lingua "Italiano"
-#    And Selezionare da impostazione lingua "Italiano"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari

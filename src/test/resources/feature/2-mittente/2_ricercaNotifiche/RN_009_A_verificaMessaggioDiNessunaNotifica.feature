@@ -3,8 +3,6 @@ Feature: Mittente effetua una ricerca notifiche con diversi filtri
   @TA_MittenteRicercaNotificaSenzaResultato
   @mittente
   @ricercaNotificheMittente
-  @TestSuite
-  @loginFE
   @NRT_Blocco_1
   Scenario: PN-9326 - Verifica messaggio di nessuna notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

@@ -1,6 +1,5 @@
 Feature: Ricerca notifica per periodo temporale persona fisica
 
-  @TestSuite
   @TA_PFVisualizzaNotificaApiV1
   @NRT_Blocco_2
   Scenario: PN-9441 - Visualizzazione dettaglio notifica inserita con API v.1

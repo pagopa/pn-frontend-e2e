@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class PopUpRevocaDelegaSection extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("RevocaDelegaSection");
+    private static final Logger logger = LoggerFactory.getLogger(PopUpRevocaDelegaSection.class);
 
     @FindBy(id = "confirmation-dialog-delegations")
     WebElement title;

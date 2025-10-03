@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class LeTueDelegheSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("LeTueDelegheSection");
+    private static final Logger logger = LoggerFactory.getLogger(LeTueDelegheSection.class);
 
     private static final String CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}";
 
@@ -177,14 +177,11 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void inserireCF(String cf) {
-//        codiceFiscaleInput = driver.findElement(By.id("codiceFiscale"));
-//        codiceFiscaleInput.sendKeys(cf);
-
         WebElement codiceFiscale = getWebDriverWait(10)
                 .withMessage("Il campo Codice Fiscale non è visibile o non è pronto per l'interazione")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("codiceFiscale")));
 
-        codiceFiscale.clear(); // opzionale, se vuoi cancellare prima
+        codiceFiscale.clear();
         codiceFiscale.sendKeys(cf);
 
     }
@@ -215,20 +212,10 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void clickInviaRichiesta() {
-//        inviaLaRichiestaButton = driver.findElement(By.id("create-button"));
-//        getWebDriverWait(30).withMessage("il bottone invia richiesta non è cliccabile").until(ExpectedConditions.elementToBeClickable(inviaLaRichiestaButton));
-//        logger.info("click pulsante invia richiesta");
-//
-//        inviaLaRichiestaButton.click();
-//        logger.info("click pulsante dopo");
-
-
         WebElement inviaRichiestaButton = getWebDriverWait(30)
                 .withMessage("Il bottone 'Invia Richiesta' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("create-button")));
         inviaRichiestaButton.click();
-
-
     }
 
     public String messaggioDiErrore() {
@@ -247,18 +234,6 @@ public class LeTueDelegheSection extends BasePage {
             Assertions.fail("Il messaggio di errore NON viene visualizzato con errore: " + e.getMessage());
         }
     }
-
-//    public void clickOpzioneAccetta() {
-//        try {
-//            getWebDriverWait(40).withMessage("Il bottone clickOpzioneAccetta blocco try").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
-//            By acceptDelegaButton = By.xpath("//*[@id='accept-button']");
-//            element(acceptDelegaButton).click();
-//        } catch (NoSuchElementException | TimeoutException e) {
-//            getWebDriverWait(40).withMessage("Il bottone clickOpzioneAccetta blocco catch").until(ExpectedConditions.elementToBeClickable((By.xpath("//*[@id='accept-button']"))));
-//            driver.findElement(By.xpath("//*[@id='accept-button']")).click();
-//            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
-//        }
-//    }
 
     public void clickOpzioneAccetta() {
         try {
@@ -356,9 +331,6 @@ public class LeTueDelegheSection extends BasePage {
                     .findFirst()
                     .orElse(null);
             getWebDriverWait(5).until(ExpectedConditions.visibilityOf(delega));
-//            By statoAttivaBy = By.xpath("//tr[@data-testid='delegatorsTable.body.row']//td[@scope='col' and div/p[contains(text(),'" + nome + " " + cognome + "')]]");
-//            this.getWebDriverWait(30).until(ExpectedConditions.visibilityOfElementLocated(statoAttivaBy));
-//            logger.info("La delega con nome " + nome + "  " + cognome + "è ancora presente");
         } catch (TimeoutException e) {
             Assertions.fail("La delega non è presente con errore: " + e.getMessage());
         }

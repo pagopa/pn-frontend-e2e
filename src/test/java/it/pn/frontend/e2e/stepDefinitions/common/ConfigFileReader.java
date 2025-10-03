@@ -1,6 +1,5 @@
 package it.pn.frontend.e2e.stepDefinitions.common;
 
-import io.cucumber.java.After;
 import io.cucumber.java.BeforeAll;
 import org.junit.jupiter.api.AfterAll;
 import org.slf4j.Logger;
@@ -21,44 +20,32 @@ public class ConfigFileReader {
         try (InputStream input = ConfigFileReader.class.getClassLoader().getResourceAsStream(TEST_CONFIG_FILE)) {
             if (input != null) {
                 properties.load(input);
-                logger.info(properties.getProperty("browser"));
+                logger.info("load properties {}",properties.getProperty("browser"));
                 return true;
             } else {
                 System.err.println("Unable to find " + TEST_CONFIG_FILE);
                 return false;
             }
         } catch (IOException e) {
-            logger.info("Exception: " + e.getMessage());
+            logger.info("Exception: {}", e.getMessage());
         }
         return false;
     }
 
     @BeforeAll
     public static void startTestSuite() {
-        /**
-        if (loadProperties()) {
-            logger.info("properties loaded");
-            properties.forEach((property, value) -> {
-                        String actualSystemProperty = System.getProperty(property.toString());
-                        if (actualSystemProperty == null) {
-                            System.setProperty(property.toString(), value.toString());
-                        }
-                    }
-            );
-        }
-         **/
         if (System.getProperty("cucumber.filter.tags") != null) {
             testSuite = System.getProperty("cucumber.filter.tags").substring(1);
-            logger.info("run test della test suite = " + testSuite);
+            logger.info("run test della test suite =  {}", testSuite);
         } else {
             logger.info("run tutti i test");
         }
-        logger.info("start the test suite = " + testSuite);
+        logger.info("start the test suite =  {}", testSuite);
     }
 
     @AfterAll
     public static void finishTestSuite() {
-        logger.info("finish the test suite = " + testSuite);
+        logger.info("finish the test suite =  {}", testSuite);
     }
 
 

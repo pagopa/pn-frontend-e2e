@@ -1,6 +1,5 @@
 Feature: Mittente genera Api Key senza gruppo
 
-  @TestSuite
   @TA_MittenteGeneraApiKeySenzaGruppo
   @ApikeyMittente
   @integrazioneApiPa

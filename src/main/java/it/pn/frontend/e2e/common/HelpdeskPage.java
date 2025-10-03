@@ -36,7 +36,7 @@ import java.util.stream.Stream;
 
 public class HelpdeskPage extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("Helpdesk Page");
+    private final Logger logger = LoggerFactory.getLogger(HelpdeskPage.class);
 
 
     @FindBy(id = "buttonLogin")
@@ -112,24 +112,15 @@ public class HelpdeskPage extends BasePage {
             getWebDriverWait(40).withMessage("password non presente").until(ExpectedConditions.visibilityOf(passwordInput));
             getWebDriverWait(40).withMessage("submit non presente").until(ExpectedConditions.visibilityOf(loginButton));
         } catch (TimeoutException e) {
-            logger.error("Form non presente errore: " + e.getMessage());
             Assertions.fail("Form non presente errore: " + e.getMessage());
         }
     }
 
     public void checkHome() {
-//        try {
-//            monitoraggioPN = driver.findElement(By.id("cardTitle-Monitoraggio Piattaforma Notifiche"));
-//            getWebDriverWait(10).withMessage("home non presente").until(ExpectedConditions.visibilityOf(monitoraggioPN));
-//            logger.info("pagina home carica");
-//        } catch (TimeoutException e) {
-//            logger.error("errore caricamento home helpdesk: " + e.getMessage());
-//            Assertions.fail("errore caricamento home helpdesk: " + e.getMessage());
-//        }
         try {
             logger.info("In attesa che la pagina home venga caricata...");
 
-          getWebDriverWait(10)
+            getWebDriverWait(10)
                     .withMessage("La pagina home non è stata caricata correttamente: elemento 'Monitoraggio Piattaforma Notifiche' non trovato")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("cardTitle-Monitoraggio Piattaforma Notifiche")));
 
@@ -139,12 +130,6 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void waitLoadServiceTable() {
-//        services = driver.findElements(By.xpath(".//div[@data-field='functionality' and @role='cell']"));
-//        if (services.size() < 3) {
-//            Assertions.fail("I servizi visualizzati sono meno di 3");
-//        }
-//        getWebDriverWait(10).withMessage("Non è visibile la tabella dei disservizi").until(ExpectedConditions.visibilityOfAllElements(services));
-//        By serviceXpath = By.xpath(".//div[@data-field='functionality' and @role='cell']");
 
         List<WebElement> services = getWebDriverWait(10)
                 .withMessage("Non è visibile la tabella dei disservizi o i servizi sono meno di 3")
@@ -181,15 +166,6 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void clickMonitoraggio() {
-//        try {
-//            logger.info("clicco sulla card monitoraggio piattaforma notifiche");
-//            monitoraggioPN = driver.findElement(By.id("cardTitle-Monitoraggio Piattaforma Notifiche"));
-//            getWebDriverWait(10).withMessage("Il bottone monitoraggio non è cliccabile").until(ExpectedConditions.elementToBeClickable(monitoraggioPN));
-//            monitoraggioPN.click();
-//        } catch (TimeoutException e) {
-//            logger.error("Card monitoraggio non cliccabile: " + e.getMessage());
-//            Assertions.fail("Card monitoraggio non cliccabile: " + e.getMessage());
-//        }
 
         try {
             logger.info("In attesa che la card 'Monitoraggio Piattaforma Notifiche' sia cliccabile...");
@@ -212,7 +188,7 @@ public class HelpdeskPage extends BasePage {
         getWebDriverWait(10).withMessage("Non sono visibili i pulsanti per il disservizio").until(ExpectedConditions.visibilityOfAllElements(serviceStatusButtons));
         for (int i = 0; i < services.size(); i++) {
             if (services.get(i).getText().equals(disservizio.getValue())) {
-                logger.info("Clicco sul menu del disservizio: " + disservizio.getValue());
+                logger.info("Clicco sul menu del disservizio: {}", disservizio.getValue());
                 serviceStatusButtons.get(i).click();
                 break;
             }
@@ -238,22 +214,23 @@ public class HelpdeskPage extends BasePage {
         //ok va sistemato il codice
         WebElement alertSuccess = element(By.xpath(".//div[@role='alert']"));
         getWebDriverWait(10).withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile").until(ExpectedConditions.visibilityOf(alertSuccess));
-        logger.info(disservizio.getValue() + " è stato cambiato con successo in " + status.getValue());
+        logger.info("{} è stato cambiato con successo in {}", disservizio.getValue(), status.getValue());
     }
 
     public void handleDisservizioNew(Disservice disservice, Status status) {
         waitLoadServiceTable();
-        logger.info ("*-*-*-*-*-*-*-*- handleDisservizioNew *-*-*-*-*-*-*-*-*-**-");
-        clickInserisciRisolviKOCreazioneNotifiche(disservice,status);
+        logger.info("*-*-*-*-*-*-*-*- handleDisservizioNew *-*-*-*-*-*-*-*-*-**-");
+        clickInserisciRisolviKOCreazioneNotifiche(disservice, status);
         selezionaCheckBoxPopUpCreazioneNotifiche();
         clickInserisciRisolviKOPopUpInserisciEvento();
         verificaAlert();
     }
+
     public void handleRisolviDisservizionew(Disservice disservice, Status status) {
         driver.navigate().refresh();
         waitLoadServiceTable();
-        logger.info ("*-*-*-*-*-*-*-*- handleRisolviDisservizionew *-*-*-*-*-*-*-*-*-**-");
-        clickInserisciRisolviKOCreazioneNotifiche(disservice,status);
+        logger.info("*-*-*-*-*-*-*-*- handleRisolviDisservizionew *-*-*-*-*-*-*-*-*-**-");
+        clickInserisciRisolviKOCreazioneNotifiche(disservice, status);
         scriviTesto();
         clickInserisciRisolviKOPopUpInserisciEvento();
         selezionaCheckBoxPopUpCreazioneNotifiche();
@@ -273,14 +250,14 @@ public class HelpdeskPage extends BasePage {
 
     public void verificaAlert() {
         getWebDriverWait(10)
-               .withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile")
-               .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@role='alert']")));
+                .withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@role='alert']")));
     }
 
     private void clickInserisciRisolviKOPopUpInserisciEvento() {
         WebElement bottoneInserisciKO = getWebDriverWait(30)
                 .withMessage("Impossibile trovare checkbox nel pop-up Inseriscvi Evento | Creazine Notifiche")
-                .until(ExpectedConditions.elementToBeClickable( By.id("createEvent")));
+                .until(ExpectedConditions.elementToBeClickable(By.id("createEvent")));
         bottoneInserisciKO.click();
     }
 
@@ -292,15 +269,15 @@ public class HelpdeskPage extends BasePage {
     }
 
     private void clickInserisciRisolviKOCreazioneNotifiche(Disservice disservice, Status status) {
-            logger.info("Cerco la riga 'Creazione Notifiche' e clicco su 'Inserisci KO'...");
+        logger.info("Cerco la riga 'Creazione Notifiche' e clicco su 'Inserisci KO'...");
 
-            WebElement bottoneInserisciKO = getWebDriverWait(30)
-                    .withMessage("Bottone 'Inserisci KO' non trovato nella riga '"+disservice.getValue()+"'")
-                    .until(driver -> driver.findElement(By.xpath(
-                            "//div[@role='row' and .//p[text()='"+disservice.getValue()+"']]//button[@id='"+status.getValue()+"']"
-                    )));
+        WebElement bottoneInserisciKO = getWebDriverWait(30)
+                .withMessage("Bottone 'Inserisci KO' non trovato nella riga '" + disservice.getValue() + "'")
+                .until(driver -> driver.findElement(By.xpath(
+                        "//div[@role='row' and .//p[text()='" + disservice.getValue() + "']]//button[@id='" + status.getValue() + "']"
+                )));
 
-            bottoneInserisciKO.click();
+        bottoneInserisciKO.click();
     }
 
     public boolean checkServiceStatus(Disservice disservizio) {
@@ -365,7 +342,6 @@ public class HelpdeskPage extends BasePage {
             getWebDriverWait(30).withMessage("button ricerca non trovato").until(ExpectedConditions.visibilityOf(buttonRicerca));
             getWebDriverWait(30).withMessage("button reset filtri non trovato").until(ExpectedConditions.visibilityOf(buttonResetFiltri));
         } catch (TimeoutException e) {
-            logger.error("home ricerca non caricata correttamente: " + e.getMessage());
             Assertions.fail("home ricerca non caricata correttamente: " + e.getMessage());
         }
     }
@@ -379,12 +355,11 @@ public class HelpdeskPage extends BasePage {
             buttonLogout.click();
             logger.info("apertura dialog di conferma logout");
             logger.info("controllo esistenza pulsante conferma logout");
-            getWebDriverWait(30).withMessage("bottone conferma logout non trovato").until(ExpectedConditions.visibilityOfElementLocated( By.xpath("//button[contains(text(),'Esci')]")));
+            getWebDriverWait(30).withMessage("bottone conferma logout non trovato").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'Esci')]")));
             By buttonConfermaLogout = By.xpath("//button[contains(text(),'Esci')]");
             logger.info("click conferma logout");
             elements(buttonConfermaLogout).get(0).click();
         } catch (TimeoutException e) {
-            logger.error("logout non riuscito correttamente: " + e.getMessage());
             Assertions.fail("logout non riuscito correttamente: " + e.getMessage());
         }
     }
@@ -409,7 +384,7 @@ public class HelpdeskPage extends BasePage {
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
+            logger.error("pausa con errore: {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -494,7 +469,6 @@ public class HelpdeskPage extends BasePage {
             By checkUidIsDisplayed = By.id("Codice Univoco (uid)");
             this.getWebDriverWait(30).withMessage("input uid non trovato").until(ExpectedConditions.visibilityOfElementLocated(checkUidIsDisplayed));
         } catch (TimeoutException e) {
-            logger.error("opzione ottieni cf non trovata: " + e.getMessage());
             Assertions.fail("opzione ottieni cf non trovata: " + e.getMessage());
         }
     }
@@ -539,7 +513,6 @@ public class HelpdeskPage extends BasePage {
             By messaggio = By.xpath("//p[contains(text(),'intervallo temporale non può superare i 3 mesi')]");
             getWebDriverWait(15).withMessage("Messaggio di errore non trovato").until(ExpectedConditions.visibilityOfElementLocated(messaggio));
         } catch (TimeoutException e) {
-            logger.error("Messaggio di errore non trovato: " + e.getMessage());
             Assertions.fail("Messaggio di errore non trovato: " + e.getMessage());
         }
     }
@@ -559,71 +532,28 @@ public class HelpdeskPage extends BasePage {
 
     public void checkZipLink() throws IOException, AWTException {
 
-            By zipLinkLocator = By.xpath("//a[contains(text(),'Download')]");
+        By zipLinkLocator = By.xpath("//a[contains(text(),'Download')]");
 
-            // Aspetta il link e prendi l'URL del file ZIP
-            WebElement zipLink = getWebDriverWait(10)
-                    .withMessage("Link 'Download' non trovato")
-                    .until(ExpectedConditions.elementToBeClickable(zipLinkLocator));
+        // Aspetta il link e prendi l'URL del file ZIP
+        WebElement zipLink = getWebDriverWait(10)
+                .withMessage("Link 'Download' non trovato")
+                .until(ExpectedConditions.elementToBeClickable(zipLinkLocator));
 
-            String url = zipLink.getAttribute("href");
-            String workingDirectory = System.getProperty("user.dir");
-            File downloadDir = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
+        String url = zipLink.getAttribute("href");
+        String workingDirectory = System.getProperty("user.dir");
+        File downloadDir = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
 
-            // Crea la cartella se non esiste
-            if (!downloadDir.exists()) {
-                downloadDir.mkdirs();
-            }
+        // Crea la cartella se non esiste
+        if (!downloadDir.exists()) {
+            downloadDir.mkdirs();
+        }
 
-            // Scarica il file
-            String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
-            File destFile = new File(downloadDir, fileName);
-            FileUtils.copyURLToFile(new URL(url), destFile, 5000, 5000);
+        // Scarica il file
+        String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
+        File destFile = new File(downloadDir, fileName);
+        FileUtils.copyURLToFile(new URL(url), destFile, 5000, 5000);
 
 
-//        if (!headless) {
-//            logger.info("controllo esistenza link per scaricare zip");
-//            By zipLink = By.xpath("//a[contains(text(),'Download')]");
-//            WebElement linkZip = getWebDriverWait(10)
-//                    .withMessage("Link per scaricare zip non trovato")
-//                    .until(ExpectedConditions.visibilityOfElementLocated(zipLink));
-//            linkZip.click();
-//            Robot robot = new Robot();
-//            robot.setAutoDelay(100);
-//            robot.delay(2000);
-//            String workingDirectory = System.getProperty("user.dir");
-//            String path = workingDirectory + "/src/test/resources/dataPopulation/zip";
-//
-//            pressTabKey(robot, 6);
-//            robot.keyPress(KeyEvent.VK_ENTER);
-//            robot.keyRelease(KeyEvent.VK_ENTER);
-//
-//            typeFilePath(robot, path);
-//
-//            robot.keyPress(KeyEvent.VK_ENTER);
-//            robot.keyRelease(KeyEvent.VK_ENTER);
-//
-//            robot.delay(1000);
-//
-//            pressTabKey(robot, 8);
-//
-//            robot.keyPress(KeyEvent.VK_ENTER);
-//            robot.keyRelease(KeyEvent.VK_ENTER);
-//
-//            logger.info("Zip scaricato");
-//        } else {
-//            By zipLink = By.xpath("//a[contains(text(),'Download')]");
-//            String url = this.element(zipLink).getAttribute("href");
-//            String workingDirectory = System.getProperty("user.dir");
-//            File downloadDirectory = new File(workingDirectory + "/src/test/resources/dataPopulation/zip");
-//
-//            // Generate a unique filename for the downloaded ZIP file
-//            String fileName = "downloaded_" + System.currentTimeMillis() + ".zip";
-//
-//            File downloadFile = new File(downloadDirectory, fileName);
-//            FileUtils.copyURLToFile(new URL(url), downloadFile, 1000, 1000);
-//            logger.info("ZIP file downloaded successfully.");
-//        }
     }
 
     private void typeFilePath(Robot robot, String filePath) {
@@ -683,7 +613,7 @@ public class HelpdeskPage extends BasePage {
         // Log extracted files
         Files.walk(Paths.get(extractDirectoryPath)).forEach(path -> {
             if (Files.isRegularFile(path)) {
-                System.out.println("Found file: " + path.toString());
+                logger.info("Found file: {}", path.toString());
             }
         });
     }
@@ -700,11 +630,6 @@ public class HelpdeskPage extends BasePage {
 
     public void checkPassword() {
         logger.info("controllo esistenza password");
-//        webTool.waitTime(5);
-//        WebElement messaggio = driver.findElement(By.xpath("//p[contains(text(),'Password:')]"));
-//        getWebDriverWait(10).withMessage("Password non trovato").until(ExpectedConditions.visibilityOf(messaggio));
-//        String password = messaggio.getText().split(": ")[1];
-//        setPassword(password);
         WebElement messaggio = getWebDriverWait(10)
                 .withMessage("Impossibile trovare la Passwrd ")
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//p[contains(text(),'Password:')]")));
@@ -721,8 +646,7 @@ public class HelpdeskPage extends BasePage {
         deleteAllZipFiles(zipDirectoryPath);
 
         deleteFilesInDirectory(extractDirectoryPath, null);
-
-        System.out.println("Cleanup completed successfully.");
+        logger.info("Cleanup completed successfully.");
     }
 
     private void deleteAllZipFiles(String directoryPath) throws IOException {
@@ -731,9 +655,9 @@ public class HelpdeskPage extends BasePage {
                     .forEach(file -> {
                         try {
                             Files.deleteIfExists(file);
-                            System.out.println("Deleted ZIP file: " + file.getFileName());
+                            logger.info("Deleted ZIP file: {}", file.getFileName());
                         } catch (IOException e) {
-                            System.err.println("Failed to delete ZIP file: " + file.getFileName());
+                            logger.error("Failed to delete ZIP file: {}", file.getFileName());
                             e.printStackTrace();
                         }
                     });
@@ -784,12 +708,11 @@ public class HelpdeskPage extends BasePage {
         Path dir = Paths.get(directoryPath);
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
             for (Path entry : stream) {
-                if (Files.isRegularFile(entry)) {
-                    if (extension == null || entry.toString().endsWith(extension)) {
-                        Files.delete(entry);
-                        System.out.println("Deleted file: " + entry.toString());
-                    }
+                if (Files.isRegularFile(entry) && (extension == null || entry.toString().endsWith(extension))) {
+                    Files.delete(entry);
+                    logger.info("Deleted file: {}", entry.toString());
                 }
+
             }
         } catch (IOException e) {
             throw new IOException("Failed to delete files in directory: " + directoryPath, e);
@@ -817,7 +740,7 @@ public class HelpdeskPage extends BasePage {
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
+            logger.error("pausa con errore: {}", e.getMessage());
             throw new RuntimeException(e);
         }
         CfPersonaFisica = driver.findElement(By.xpath("//p[contains(text(),'Codice Fiscale')]"));

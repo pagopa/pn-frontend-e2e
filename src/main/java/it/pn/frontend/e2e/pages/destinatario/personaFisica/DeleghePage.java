@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DeleghePage extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("DeleghePage");
+    private final Logger logger = LoggerFactory.getLogger(DeleghePage.class);
 
 
     @Autowired
@@ -53,12 +53,6 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickAggiungiDelegaButton() {
-//        addDelegaButton = driver.findElement(By.id("add-delegation-button"));
-//        getWebDriverWait(10).withMessage("Il bottone aggiungi delega non è visualizzato").until(ExpectedConditions.elementToBeClickable(addDelegaButton));
-//        logger.info("click sul bottone add deleghe");
-//        webTool.waitTime(3);
-//        addDelegaButton.click();
-
         WebElement aggiungiDelegaButton = getWebDriverWait(30)
                 .withMessage("Il bottone aggiungi delega non è visualizzato o non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("add-delegation-button")));
@@ -85,7 +79,7 @@ public class DeleghePage extends BasePage {
             getWebDriverWait(30).withMessage("Il nome del Delegato non è visibile").until(ExpectedConditions.visibilityOf(nomeDelegato));
             return true;
         } catch (TimeoutException | NoSuchElementException e) {
-            logger.error("nome del delegato non presente con errore " + e.getMessage());
+            logger.error("nome del delegato non presente con errore: {}" , e.getMessage());
             return false;
         }
     }
@@ -106,7 +100,7 @@ public class DeleghePage extends BasePage {
             logger.info("Trovato correttamente almeno una delega");
             return true;
         } catch (TimeoutException e) {
-            logger.warn("Deleghe NON trovate con errore: " + e.getMessage());
+            logger.warn("Deleghe NON trovate con errore: {}" , e.getMessage());
             return false;
         }
     }
@@ -159,9 +153,6 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickOpzioneRevoca() {
-//        revocaButton = driver.findElement(By.id("revoke-delegation-button"));
-//        revocaButton.click();
-
         WebElement clickOpzioneRevoca = getWebDriverWait(20)
                 .withMessage("Il pulsante 'Revoca' con id 'revoke-delegation-button' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
@@ -171,35 +162,16 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
-//        try {
-//            getWebDriverWait(200)
-//             .until(ExpectedConditions.visibilityOfElementLocated(
-//                     By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']")));
-//            logger.info("Si clicca correttamente il menu della delega");
-//            By menuDelegheBy =
-//                     By.xpath("//table[@id='notifications-table']//td[div/p[contains(text(),'" + nome + " " + cognome + "')]]/following-sibling::td//button[@data-testid='delegationMenuIcon']");
-//            element(menuDelegheBy).click();
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non si visualizza correttamente il menu della delega con errore:" + e.getMessage());
-//        }
         WebElement menuButton = getWebDriverWait(200)
                 .withMessage("Impossibile trovare i tre puntini per selezionare il rifiuto")
                 .until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//tr[.//p[contains(text(), 'Gaio Giulio Cesare')]]//button[@data-testid='delegationMenuIcon']"))
-        );
+                        By.xpath("//tr[.//p[contains(text(), 'Gaio Giulio Cesare')]]//button[@data-testid='delegationMenuIcon']"))
+                );
         menuButton.click();
 
     }
 
     public void clickRifiuta() {
-//        try {
-//            WebElement rifiutaButtonBy = driver.findElement(By.id("reject-delegation-button"));
-//            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(rifiutaButtonBy));
-//            rifiutaButtonBy.click();
-//            logger.info("Si visualizza il bottone rifiuta");
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Non si visualizza correttamente il bottone rifiuta con errore: " + e.getMessage());
-//        }
         WebElement rifiutaButtonBy = getWebDriverWait(30)
                 .withMessage("Non trovato bottone 'Rifiuta'")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("reject-delegation-button")));
@@ -299,12 +271,6 @@ public class DeleghePage extends BasePage {
 
     public void clickDelegheDelDelegante(String personaFisica) {
 
-//        WebElement menuDelegheDelegante = driver.findElement(By.id("menu-item" + personaFisica.toLowerCase()));
-//        getWebDriverWait(10).withMessage("Voce del menu laterale non visibile e non cliccabile").until(ExpectedConditions.and(
-//                ExpectedConditions.visibilityOf(menuDelegheDelegante),
-//                ExpectedConditions.elementToBeClickable(menuDelegheDelegante)
-//        ));
-//        menuDelegheDelegante.click();
         By menuLocator = By.id("menu-item" + personaFisica.toLowerCase());
 
         WebElement menuDelegheDelegante = getWebDriverWait(20)
@@ -317,10 +283,10 @@ public class DeleghePage extends BasePage {
     public void selezionaPGRadioButton(String portale) {
 
         String xpath;
-        if(portale.equalsIgnoreCase("PF"))
-            xpath="//label[@id='recipent-pg']";
+        if (portale.equalsIgnoreCase("PF"))
+            xpath = "//label[@id='recipent-pg']";
         else
-            xpath="//label[@id='select-pg']";
+            xpath = "//label[@id='select-pg']";
 
         WebElement labelElement = getWebDriverWait(10)
                 .until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
@@ -335,7 +301,7 @@ public class DeleghePage extends BasePage {
 
         String testoErrore = messaggioErrore.getText();
 
-        Assertions.assertTrue(testoErrore.contains(messaggio),"Messaggio atteso non trovato. Messaggio rilevato: " + testoErrore);
+        Assertions.assertTrue(testoErrore.contains(messaggio), "Messaggio atteso non trovato. Messaggio rilevato: " + testoErrore);
     }
 
     public void nellaSezioneLeTueDelegheVerificaEsistenzaNomeECognomiErrati(String nomeCompletoAtteso, String persona) {

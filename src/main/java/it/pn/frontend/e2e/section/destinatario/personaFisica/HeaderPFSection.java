@@ -18,7 +18,7 @@ import java.util.List;
 
 public class HeaderPFSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("HeaderPFSection");
+    private static final Logger logger = LoggerFactory.getLogger(HeaderPFSection.class);
 
 
     @FindBy(xpath = "//a[@title='Sito di PagoPA S.p.A.']")
@@ -30,7 +30,7 @@ public class HeaderPFSection extends BasePage {
     @FindBy(xpath = "//ul[@role='menu']//li")
     List<WebElement> menuProfileItems;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public HeaderPFSection(WebDriver driver) {
         this.driver = driver;
@@ -40,9 +40,6 @@ public class HeaderPFSection extends BasePage {
 
     public void waitLoadHeaderDESection() {
         try {
-//            getWebDriverWait(60)
-//                    .withMessage("il titolo del header non è visibile")
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]"))));
             getWebDriverWait(60)
                     .withMessage("Il titolo del header non è visibile")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]")));
@@ -80,7 +77,7 @@ public class HeaderPFSection extends BasePage {
         esciVoce.click();
     }
 
-    public void confermaDiVolerUscire(){
+    public void confermaDiVolerUscire() {
         WebElement exitButton = getWebDriverWait(35).withMessage("il titolo del header non è visibile")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='confirm-button']")));
         exitButton.click();

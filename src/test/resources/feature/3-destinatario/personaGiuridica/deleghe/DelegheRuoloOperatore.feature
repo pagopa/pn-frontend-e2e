@@ -1,6 +1,5 @@
 Feature:Deleghe lato ruolo operatore
 
-  # Eliminated TestSuite tag until fix. Convivio spa is not visible for the user GabrieleDAnnunzio
   @DeleghePG_1
   @PG
 
@@ -11,12 +10,12 @@ Feature:Deleghe lato ruolo operatore
   Scenario: [TA-FE CONTROLLO DELGHE LAYOUT RUOLO OPERATORE]- Si controlla lato ruolo operatore assenza deleghe
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
-      | user           | GabrieleDAnnunzio |
-      | pwd            | test           |
-      | ragioneSociale | DivinaCommedia Srl   |
+      | user           | GabrieleDAnnunzio  |
+      | pwd            | test               |
+      | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
     Then Home page persona giuridica ruolo operatore viene visualizzata correttamente
-      | ragioneSociale | DivinaCommedia Srl   |
+      | ragioneSociale | DivinaCommedia Srl |
 
   @TA_PGRuoloOperatoreControlloAnnullamentoNotifica
   Scenario: [TA-FE CONTROLLO DELGHE LAYOUT RUOLO OPERATORE]- Si controlla lato ruolo operatore che non sia possibile annullare la notifica
@@ -34,10 +33,10 @@ Feature:Deleghe lato ruolo operatore
     Given Login Page persona giuridica viene visualizzata
     When Login con persona giuridica
       | user           | GabrieleDAnnunzio |
-      | pwd            | test           |
-      | ragioneSociale | Convivio Spa   |
+      | pwd            | test              |
+      | ragioneSociale | Convivio Spa      |
     And Si clicca su prodotto
     Then Home page persona giuridica ruolo operatore viene visualizzata correttamente
-      | ragioneSociale | Convivio Spa   |
+      | ragioneSociale | Convivio Spa |
     And Cliccare sulla notifica restituita
     And Il bottone annulla notifica non è visualizzabile nella descrizione della notifica

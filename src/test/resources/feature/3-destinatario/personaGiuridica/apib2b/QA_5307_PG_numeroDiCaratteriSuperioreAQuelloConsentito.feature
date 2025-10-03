@@ -1,10 +1,8 @@
 Feature: PG -Utente Amministratore Persona Giuridica prova a censire una chiave pubblica per la Persona Giuridica inserendo nel campo “nome” e nel campo “Inserisci il valore della chiave” un numero di caratteri superiore a quello consentito
 
-  @TestSuite
   @TA_PG_NumeroDiCampiSuperiori_QA_5307
   @integrazioneApi
   @integrazioneApiDelegato
-  #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5307_5309_5311_5314  PG - Utente Amministratore Persona Giuridica prova a censire una chiave pubblica per la Persona Giuridica inserendo nel campo “nome” e nel campo “Inserisci il valore della chiave” un numero di caratteri superiore a quello consentito,
                             Rotazione di una public key attiva per un utente Amministratore Persona Giuridica,

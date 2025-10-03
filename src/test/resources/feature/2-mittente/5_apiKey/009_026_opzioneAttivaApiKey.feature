@@ -1,6 +1,5 @@
 Feature: Mittente seleziona l'opzione attiva api Key
 
-  @TestSuite
   @TA_MittenteAttivaApiKey
   @ApikeyMittente
   @integrazioneApiPa

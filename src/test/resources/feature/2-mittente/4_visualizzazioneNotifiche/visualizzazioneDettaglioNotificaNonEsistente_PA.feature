@@ -1,6 +1,5 @@
 Feature: Visualizzazione dettaglio notifica mittente
 
-  @TestSuite
   @TA_PAVisualizzaNotificaNonEsistente
   @GestioneErrori
   @NRT_Blocco_2

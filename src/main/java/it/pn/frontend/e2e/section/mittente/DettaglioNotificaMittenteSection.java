@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 public class DettaglioNotificaMittenteSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaMittenteSection");
+    private static final Logger logger = LoggerFactory.getLogger(DettaglioNotificaMittenteSection.class);
 
 
     @FindBy(id = "more-less-timeline-step")
@@ -79,8 +79,6 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void waitLoadDettaglioNotificaSection() {
-       // WebElement titleDettaglioNotificaField = driver.findElement(By.id("title-of-page"));
-//        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(driver.findElement(By.id("title-of-page"))));
         getWebDriverWait(20)
                 .withMessage("Impossibile trovare Dettaglio Notifica ")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("title-of-page")));
@@ -132,7 +130,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     private boolean controlloCodice() {
         try {
-            getWebDriverWait(30).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//td[contains(text(),'Codice IUN')]"))));
+            getWebDriverWait(30).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//td[contains(text(),'Codice IUN')]"))));
             logger.info("codice iun presente");
             return true;
         } catch (TimeoutException e) {
@@ -148,7 +146,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public boolean controlloTestoFile(String nameFile, String testoDaControllare) {
         String basePathFile = "src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nameFile + ".pdf";
         File file = new File(basePathFile);
-        logger.info("percorso file: " + file.getAbsolutePath());
+        logger.info("percorso file: {}", file.getAbsolutePath());
         try {
             PDDocument pdfFile = PDDocument.load(file);
             PDFTextStripper pdfStripper = new PDFTextStripper();
@@ -169,7 +167,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public boolean controlloSHAFile(String nameFile) {
         String basePathFile = "src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nameFile + ".pdf";
         File file = new File(basePathFile);
-        logger.info("percorso file: " + file.getAbsolutePath());
+        logger.info("percorso file: {}", file.getAbsolutePath());
         // Define the regex pattern for SHA-256
         String sha256Pattern = "\\b[A-Fa-f0-9]{64}\\b";
         Pattern pattern = Pattern.compile(sha256Pattern);
@@ -191,37 +189,20 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         return false;
     }
 
-    //    public void clickVediPiuDettagli() {
-//        getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(0)));
-//        logger.info("click su vedi dettagli");
-//        vediDettagliButton = driver.findElements(By.id("more-less-timeline-step"));
-//        vediDettagliButton.get(0).click();
-//        try {
-//            getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(driver.findElements(By.id("more-less-timeline-step")).get(1)));
-//            vediDettagliButton.get(1).click();
-//        } catch (Exception e) {
-//            logger.info("ulteriore vedi dettaglio non presente");
-//        }
-//    }
     public void clickVediPiuDettagli() {
-
         logger.info("Cerco il primo bottone 'Vedi dettaglio'");
-
         List<WebElement> vediDettagliButtons = getWebDriverWait(20)
                 .withMessage("Imposibile trovare il primo Vedi piu dettagli ")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("more-less-timeline-step")));
-
         if (vediDettagliButtons.isEmpty()) {
             Assertions.fail("Non è stato trovato alcun bottone 'Vedi dettaglio'");
         }
-
         vediDettagliButtons.get(0).click();
         logger.info("Primo bottone 'Vedi dettaglio' cliccato");
 
         try {
             vediDettagliButtons = getWebDriverWait(20)
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("more-less-timeline-step")));
-
             if (vediDettagliButtons.size() > 1) {
                 vediDettagliButtons.get(1).click();
                 logger.info("Secondo bottone 'Vedi dettaglio' cliccato");
@@ -361,7 +342,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public void checkNumeroFallimentiInvioViaPEC(int numeroFallimenti) {
         try {
             List<WebElement> invioPECFallitoBy = driver.findElements(By.xpath("//span[text()='Invio via PEC fallito']"));
-            logger.info("L'invio della notifica è fallito questo numero di volte: " + invioPECFallitoBy.size());
+            logger.info("L'invio della notifica è fallito questo numero di volte: {}",invioPECFallitoBy.size());
             if (invioPECFallitoBy.size() != numeroFallimenti) {
                 Assertions.fail("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
             }
@@ -372,9 +353,8 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkStatoTimeline(String xpathStatoTimeline) {
         try {
-//            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(statoTimeline))));
             getWebDriverWait(15)
-                    .withMessage("Impossibile controllare lo stato della timeline: "+xpathStatoTimeline)
+                    .withMessage("Impossibile controllare lo stato della timeline: " + xpathStatoTimeline)
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathStatoTimeline)));
             logger.info("stato timeline checkato con successo avvenuta");
         } catch (TimeoutException e) {
@@ -384,7 +364,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void siCliccaSuAllegatoInTimeline(String xpath) {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath(xpath))));
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(xpath))));
             WebElement allegatoTimeline = driver.findElement(By.xpath(xpath));
             allegatoTimeline.click();
             checkURL("pn-safestorage");
@@ -404,7 +384,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
 
     public void checkInvioADomicilioDiPiattaforma(String domicilioDiPiattaforma) {
         try {
-            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]"))));
+            getWebDriverWait(10).withMessage("Non si visualizza l'invio della notifica al domicilio di piattaforma nella timeline").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(span/text(), 'Invio via PEC riuscito') and (//div[contains(p/text(), '" + domicilioDiPiattaforma + "')])]"))));
         } catch (TimeoutException e) {
             Assertions.fail("L'invio della notifica al domicilio di piattaforma indicato non viene effettuato con errore: " + e.getMessage());
         }
@@ -414,7 +394,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public void checkDoppioFallimentoInvioViaPEC(int numeroFallimenti) {
         try {
             List<WebElement> invioPECFallitoBy = driver.findElements(By.xpath("//span[text()='Invio via PEC fallito']"));
-            logger.info("L'invio della notifica è fallito questo numero di volte: " + invioPECFallitoBy.size());
+            logger.info("L'invio della notifica è fallito questo numero di volte: {}", invioPECFallitoBy.size());
             if (invioPECFallitoBy.size() != numeroFallimenti) {
                 Assertions.fail("L'invio della notifica non è fallito " + numeroFallimenti + " volta/e");
             }
@@ -501,13 +481,6 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void checkBoxModelloF24() {
-//        try {
-//          //  WebElement boxModelloF24 = driver.findElement(By.xpath("//span[contains(text(),'Modelli F24 allegati')]"));
-//            getWebDriverWait(10).withMessage("Non si visualizza il box allegati modelli F24")
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//span[contains(text(),'Modelli F24 allegati')]"))));
-//        } catch (TimeoutException e) {
-//            Assertions.fail("Box del modello F24 non visualizzato correttamente con errore: " + e.getMessage());
-//        }
         getWebDriverWait(10)
                 .withMessage("Il box con testo Modelli F24 allegati non è visibile entro il timeout")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Modelli F24 allegati')]")));
@@ -608,7 +581,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     }
 
     public void sceglieEnte(String nomeEnte) {
-        logger.info("Si sceglie ente: " + nomeEnte);
+        logger.info("Si sceglie ente: {}", nomeEnte);
         enteButton = driver.findElement(By.xpath("//span[contains(text(), 'Amministratore')]"));
         enteButton.click();
         webTool.waitTime(1);
@@ -636,7 +609,7 @@ public class DettaglioNotificaMittenteSection extends BasePage {
     public void clickLaTuaImpresa(String testo) {
 
         WebElement button = getWebDriverWait(30).withMessage("click La Tua Impresa non trovato").until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//li[contains(text(),'"+testo+"')]")
+                By.xpath("//li[contains(text(),'" + testo + "')]")
         ));
         button.click();
     }

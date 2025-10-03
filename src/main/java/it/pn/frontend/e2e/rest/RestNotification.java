@@ -5,11 +5,10 @@ import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.exceptions.RestNotificationException;
-import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
-import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import it.pn.frontend.e2e.model.documents.PreLoadRequest;
 import it.pn.frontend.e2e.model.documents.PreLoadResponse;
-import lombok.Setter;
+import it.pn.frontend.e2e.model.notification.NewNotificationRequest;
+import it.pn.frontend.e2e.model.notification.NewNotificationResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +31,8 @@ public class RestNotification {
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
 
-    private  CustomHttpClient customHttpClient;
+    private CustomHttpClient customHttpClient;
 
-//    @Autowired
     public RestNotification() {
     }
 
@@ -49,7 +47,7 @@ public class RestNotification {
         final CustomHttpClient<NewNotificationRequest, NewNotificationResponse> httpClient2 = new CustomHttpClient<>(); // Modifica qui
         try {
             NewNotificationResponse response = httpClient2.sendHttpPostRequest("/delivery/v2.3/requests", null, notification, NewNotificationResponse.class);
-            Assertions.assertNotNull( response,"Error during createNewNotification");
+            Assertions.assertNotNull(response, "Error during createNewNotification");
             log.info(String.valueOf(response));
             return response;
         } catch (IOException e) {
@@ -72,7 +70,7 @@ public class RestNotification {
     }
 
     public void uploadDocument(String url, String secret, String sha256) throws RestNotificationException {
-        final CustomHttpClient<?, ?> httpClient2 = new CustomHttpClient<>();//customHttpClient;
+        final CustomHttpClient<?, ?> httpClient2 = new CustomHttpClient<>();
         try {
             httpClient2.sendHttpUpLoadPutRequest(url, secret, sha256, null);
         } catch (IOException e) {
@@ -82,7 +80,7 @@ public class RestNotification {
     }
 
     public void uploadDocumentF24(String url, String secret, String sha256, File metaDatiDocument) throws RestNotificationException {
-        final CustomHttpClient<?, ?> httpClient2 = new CustomHttpClient<>();//customHttpClient;
+        final CustomHttpClient<?, ?> httpClient2 = new CustomHttpClient<>();
         try {
             httpClient2.sendHttpUpLoadf24PutRequest(url, secret, sha256, null, metaDatiDocument);
         } catch (IOException e) {
@@ -93,18 +91,17 @@ public class RestNotification {
 
     public LinkedTreeMap<String, Object> getNotificationStatus(String notificationRequestId) {
         String env = webDriverConfig.getEnvironment();
-        log.info("getNotificationStatus_getEnvironment: "+env);
+        log.info("getNotificationStatus_getEnvironment: " + env);
         final CustomHttpClient<Object, Object> httpClient2 = new CustomHttpClient<>();//customHttpClient;  // Modifica qui
         switch (env) {
             case "dev" -> {
                 httpClient2.setBaseUrlApi("https://api.dev.notifichedigitali.it");
                 httpClient2.setApiKey(dataPopulationConfig.getMittente().getCodiceApiKeyDEV());
             }
-            case "test" ->
-                    httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
+            case "test" -> httpClient2.setBaseUrlApi("https://api.test.notifichedigitali.it");
             case "uat" -> {
-                    httpClient2.setBaseUrlApi("https://api.uat.notifichedigitali.it");
-                    httpClient2.setApiKey(dataPopulationConfig.getMittente().getCodiceApiKeyUAT());
+                httpClient2.setBaseUrlApi("https://api.uat.notifichedigitali.it");
+                httpClient2.setApiKey(dataPopulationConfig.getMittente().getCodiceApiKeyUAT());
             }
             default -> {
                 Assertions.fail("Ambiente non valido o non trovato!");
@@ -117,7 +114,7 @@ public class RestNotification {
                 LinkedTreeMap<String, Object> responseData = (LinkedTreeMap<String, Object>) response;
                 if (responseData.containsKey("notificationRequestStatus")) {
                     return responseData;
-                }else {
+                } else {
                     log.error("L'attributo 'notificationRequestStatus' non è presente nella risposta JSON");
                     return null;
                 }

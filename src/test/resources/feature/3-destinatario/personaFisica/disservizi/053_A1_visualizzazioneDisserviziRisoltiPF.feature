@@ -1,6 +1,5 @@
 Feature: Il destinatario persona fisica visualizza i disservizi della piattaforma risolti
 
-  @TestSuite
   @TA_PF_VisualizzaDisserviziRisolti
   @helpDesk
   @NRT_Blocco_2

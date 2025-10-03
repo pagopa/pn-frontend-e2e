@@ -1,6 +1,5 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
-  @TestSuite
   @NotificaADueDestinatariConSequenceDeceduto890
   @NRT_Blocco_3
   @Sequence_Deceduto
@@ -18,15 +17,15 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU DECEDUTO_890_QA-5356     |
-      | descrizione       | PAGAMENTO RATA IMU DECEDUTO_890_QA-5356     |
-      | gruppo            | test-TA-FE-TEST         |
-      | codiceTassonomico | 100105P                 |
-      | modalitaInvio     | 890                     |
+      | oggettoNotifica   | Pagamento rata IMU DECEDUTO_890_QA-5356 |
+      | descrizione       | PAGAMENTO RATA IMU DECEDUTO_890_QA-5356 |
+      | gruppo            | test-TA-FE-TEST                         |
+      | codiceTassonomico | 100105P                                 |
+      | modalitaInvio     | 890                                     |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
-      | soggettoGiuridico       | PF                       |
+      | soggettoGiuridico       | PF                 |
       | nomeCognomeDestinatario | Gaio Giulio Cesare |
       | codiceFiscale           | CSRGGL44L13H501E   |
     And Seleziona radion button Inserimento Manuale se esiste "0"

@@ -4,6 +4,7 @@ import io.opentelemetry.api.trace.StatusCode;
 import lombok.Data;
 
 import java.util.List;
+
 @Data
 public class ErrorResponse {
     private String type;
