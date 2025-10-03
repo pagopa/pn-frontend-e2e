@@ -122,12 +122,12 @@ public class HelpdeskTest extends BasePage {
         }
     }
 
-//    @And("Si risolve il disservizio new")
-//    public void siRisolveIlDisservizionew() {
-//        if (helpdeskPage.checkIsCreatedDisservizio()) {
-//            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE, Status.RISOLVI_KO);
-//        }
-//    }
+    @And("Si risolve il disservizio new")
+    public void siRisolveIlDisservizionew() {
+        if (helpdeskPage.checkIsCreatedDisservizio()) {
+            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE, Status.RISOLVI_KO);
+        }
+    }
 
     @And("Si risolve il disservizio new nome test {string}")
     public void siRisolveIlDisservizionew(String nomeTest) {

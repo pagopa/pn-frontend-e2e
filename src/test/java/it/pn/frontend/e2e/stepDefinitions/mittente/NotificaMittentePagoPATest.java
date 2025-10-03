@@ -2479,31 +2479,11 @@ public class NotificaMittentePagoPATest extends BasePage {
             radioButton.click();
         }
     }
-    @And("Nel portale Send {string} accedere ad una rotta non esistente")
-    public void nelPortaleSendAccedereAdUnaRottaNonEsistente(String portal) {
-        portal = portal.toLowerCase();
-        String env = this.webDriverConfig.getEnvironment();
-        switch (portal) {
-            case PF:
-                driver.get(webDriverConfig.getBaseUrlPfTest()+"prova");
-                break;
-            case PG:
-                driver.get(webDriverConfig.getBaseUrlPgTest()+"prova");
-                break;
-            case PA:
-                driver.get(webDriverConfig.getUrlMittente()+"/prova");
-                break;
-            default:
-                Assertions.fail("Tipologia di portale non specificato o errato!");
-        }
-    }
 
     @And("Verifica esistenza Pagina non trovata")
     public void verificaEsistenzaPaginaNonTrovata() {
         piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
     }
-
-
 
     @And("Inserisci Max Caratteri Input pec portale PA {int}")
     public void inserisciMaxCaratteriInputPecPortalePA(int maxCaratteri) {
@@ -2514,9 +2494,8 @@ public class NotificaMittentePagoPATest extends BasePage {
     public void verificaErroreLabelPec(String erroreLabel) {
         piattaformaNotifichePage.verificaErrore(erroreLabel);
     }
-
-
     @And("Nel portale Send {string} accedere ad una rotta non esistente")
+
     public void nelPortaleSendAccedereAdUnaRottaNonEsistente(String portal) {
         portal = portal.toLowerCase();
         String env = this.webDriverConfig.getEnvironment();
@@ -2534,12 +2513,6 @@ public class NotificaMittentePagoPATest extends BasePage {
                 Assertions.fail("Tipologia di portale non specificato o errato!");
         }
     }
-
-    @And("Verifica esistenza Pagina non trovata")
-    public void verificaEsistenzaPaginaNonTrovata() {
-        piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
-    }
-
 
     @And("Click Torna alla home")
     public void clickTornaAllaHome() {

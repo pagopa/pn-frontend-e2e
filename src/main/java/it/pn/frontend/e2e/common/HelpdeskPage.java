@@ -264,18 +264,18 @@ public class HelpdeskPage extends BasePage {
         verificaAlert();
     }
 
-//    public void handleRisolviDisservizionew(Disservice disservice, Status status) {
-//        driver.navigate().refresh();
-//        waitLoadServiceTable();
-//        logger.info("*-*-*-*-*-*-*-*- handleRisolviDisservizionew *-*-*-*-*-*-*-*-*-**-");
-//        clickInserisciRisolviKOCreazioneNotifiche(disservice, status);
-//        scriviTesto();
-//        clickInserisciRisolviKOPopUpInserisciEvento();
-//        selezionaCheckBoxPopUpCreazioneNotifiche();
-//        clickInserisciRisolviKOPopUpInserisciEvento();
-//        verificaAlert();
-//
-//    }
+    public void handleRisolviDisservizionew(Disservice disservice, Status status) {
+        driver.navigate().refresh();
+        waitLoadServiceTable();
+        logger.info("*-*-*-*-*-*-*-*- handleRisolviDisservizionew *-*-*-*-*-*-*-*-*-**-");
+        clickInserisciRisolviKOCreazioneNotifiche(disservice, status);
+        scriviTesto();
+        clickInserisciRisolviKOPopUpInserisciEvento();
+        selezionaCheckBoxPopUpCreazioneNotifiche();
+        clickInserisciRisolviKOPopUpInserisciEvento();
+        verificaAlert();
+
+    }
 
     public void handleRisolviDisservizionew(Disservice disservice, Status status, String nomeTest) {
         driver.navigate().refresh();
@@ -289,14 +289,14 @@ public class HelpdeskPage extends BasePage {
         verificaAlert();
 
     }
-//    private void scriviTesto() {
-//        WebElement campoEditabile = getWebDriverWait(10)
-//                .withMessage("Impossibile trovare il campo editabile nel pop up Risolvi Evento")
-//                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ProseMirror[contenteditable='true']")));
-//
-//        String testoCasuale = "TEST AUTOMATICO: " + (new Random().nextInt(90000) + 10000);
-//        campoEditabile.sendKeys(testoCasuale);
-//    }
+    private void scriviTesto() {
+        WebElement campoEditabile = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il campo editabile nel pop up Risolvi Evento")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ProseMirror[contenteditable='true']")));
+
+        String testoCasuale = "TEST AUTOMATICO: " + (new Random().nextInt(90000) + 10000);
+        campoEditabile.sendKeys(testoCasuale);
+    }
 
     private void scriviTesto(String nomeTest) {
         WebElement campoEditabile = getWebDriverWait(10)
