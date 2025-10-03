@@ -16,7 +16,7 @@ import java.util.Map;
 
 public class LeTueDelegheSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("LeTueDelegheSection");
+    private static final Logger logger = LoggerFactory.getLogger(LeTueDelegheSection.class);
 
 
     @FindBy(xpath = "//input[@value='PF']")

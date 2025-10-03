@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class InformazioniPreliminariPASection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("InformazioniPreliminariPASection");
+    private static final Logger logger = LoggerFactory.getLogger(InformazioniPreliminariPASection.class);
 
     @FindBy(id = "paProtocolNumber")
     WebElement numeroProtocolloTextField;

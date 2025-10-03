@@ -22,7 +22,7 @@ public class DisserviziAppPage extends BasePage {
     @FindBy(id = "Stato della piattaforma-page")
     WebElement titlePage;
 
-    private final Logger logger = LoggerFactory.getLogger("Disservizi Page");
+    private final Logger logger = LoggerFactory.getLogger(DisserviziAppPage.class);
 
     private WebTool webTool;
 

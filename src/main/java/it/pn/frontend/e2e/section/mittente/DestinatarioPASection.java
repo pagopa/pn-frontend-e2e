@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class DestinatarioPASection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DestinatarioPASection");
+    private static final Logger logger = LoggerFactory.getLogger(DestinatarioPASection.class);
 
 
     @FindBy(css = "input[value='PF']")

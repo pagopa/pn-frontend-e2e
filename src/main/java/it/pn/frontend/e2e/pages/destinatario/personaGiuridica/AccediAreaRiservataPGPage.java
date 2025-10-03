@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AccediAreaRiservataPGPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("AccediAreaRiservataPGPage");
+    private final Logger logger = LoggerFactory.getLogger(AccediAreaRiservataPGPage.class);
 
     @FindBy(id = "spidButton")
     WebElement spidButton;

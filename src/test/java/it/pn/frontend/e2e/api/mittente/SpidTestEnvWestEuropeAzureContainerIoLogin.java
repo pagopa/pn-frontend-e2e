@@ -22,7 +22,7 @@ import java.util.List;
 
 public class SpidTestEnvWestEuropeAzureContainerIoLogin {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidTestenvWesteuropeAzurecontainerIoLogin");
+    private static final Logger logger = LoggerFactory.getLogger(SpidTestEnvWestEuropeAzureContainerIoLogin.class);
     private String spidTestEnvWestEuropeAzureContainerIoLoginEndPoint;
     private final String requestKey;
     private final String relayState;

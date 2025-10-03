@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 
 public class CookiesSection extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("CookiesPage");
+    private static final Logger logger = LoggerFactory.getLogger(CookiesSection.class);
 
 
 

@@ -51,7 +51,7 @@ import java.util.*;
 @Component
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class PnExternalServiceClientImpl {
-    private static final Logger logger = LoggerFactory.getLogger("PnExternalServiceClientImpl");
+    private static final Logger logger = LoggerFactory.getLogger(PnExternalServiceClientImpl.class);
     private final RestTemplate restTemplate;
 
 //    private final String apiKeyMvp1;

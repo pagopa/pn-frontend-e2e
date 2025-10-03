@@ -32,7 +32,7 @@ import java.util.stream.IntStream;
 
 @Slf4j
 public class DestinatarioPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("DestinatarioPage");
+    private final Logger logger = LoggerFactory.getLogger(DestinatarioPage.class);
 
 
     @Getter

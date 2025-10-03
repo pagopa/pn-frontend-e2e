@@ -18,7 +18,7 @@ import java.util.List;
 
 public class AllegatiPASection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("AllegatiSection");
+    private static final Logger logger = LoggerFactory.getLogger(AllegatiPASection.class);
 
     @FindBy(css = "div[data-testid='fileInput'] > input[accept='application/pdf']")
     WebElement selezionaloDalTuoComputerInput;

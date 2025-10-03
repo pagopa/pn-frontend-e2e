@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 
 
 public class PiattaformaNotifichePGPAPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePGPAPage");
+    private final Logger logger = LoggerFactory.getLogger(PiattaformaNotifichePGPAPage.class);
 
 
     @FindBy(id = "side-item-Deleghe")

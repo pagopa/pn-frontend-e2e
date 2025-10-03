@@ -18,7 +18,7 @@ import java.util.List;
 
 public class HeaderPFSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("HeaderPFSection");
+    private static final Logger logger = LoggerFactory.getLogger(HeaderPFSection.class);
 
 
     @FindBy(xpath = "//a[@title='Sito di PagoPA S.p.A.']")

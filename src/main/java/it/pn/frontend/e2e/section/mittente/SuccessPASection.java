@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 public class SuccessPASection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("SuccessPASection");
+    private static final Logger logger = LoggerFactory.getLogger(SuccessPASection.class);
 
     @FindBy(id = "go-to-notifications")
     WebElement successButton;

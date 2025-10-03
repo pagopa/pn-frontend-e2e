@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 
 public class AutorizzaInvioDatiPGPage extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("AutorizzaInvioDatiPGPage");
+    private static final Logger logger = LoggerFactory.getLogger(AutorizzaInvioDatiPGPage.class);
 
 
 

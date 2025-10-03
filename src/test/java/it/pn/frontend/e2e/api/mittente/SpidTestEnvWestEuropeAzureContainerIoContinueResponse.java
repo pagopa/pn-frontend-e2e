@@ -21,7 +21,7 @@ import java.util.List;
 
 public class SpidTestEnvWestEuropeAzureContainerIoContinueResponse {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidTestenvWesteuropeAzurecontainerIoContinueResponse");
+    private static final Logger logger = LoggerFactory.getLogger(SpidTestEnvWestEuropeAzureContainerIoContinueResponse.class);
     private String spidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint;
     private final String requestKey;
     private final BasicCookieStore cookieStore;

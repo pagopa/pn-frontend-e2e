@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DeleghePage extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("DeleghePage");
+    private final Logger logger = LoggerFactory.getLogger(DeleghePage.class);
 
 
     @Autowired

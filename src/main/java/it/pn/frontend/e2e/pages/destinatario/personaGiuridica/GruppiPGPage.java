@@ -24,7 +24,7 @@ import java.util.Map;
 
 @Slf4j
 public class GruppiPGPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("GruppiPGPage");
+    private final Logger logger = LoggerFactory.getLogger(GruppiPGPage.class);
 
     @FindBy(id = "side-item-Gruppi")
     WebElement gruppiButton;

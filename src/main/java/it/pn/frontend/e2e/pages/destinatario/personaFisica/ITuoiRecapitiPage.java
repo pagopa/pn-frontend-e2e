@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class ITuoiRecapitiPage extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("ITuoiRecapitiPage");
+    private static final Logger logger = LoggerFactory.getLogger(ITuoiRecapitiPage.class);
 
     @FindBy(id = "side-item-I tuoi recapiti")
     WebElement iTuoiRecapitiButton;

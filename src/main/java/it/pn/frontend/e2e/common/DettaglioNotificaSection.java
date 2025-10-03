@@ -23,7 +23,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 
 public class DettaglioNotificaSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
+    private static final Logger logger = LoggerFactory.getLogger(DettaglioNotificaSection.class);
 
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
     List<WebElement> attestazioniFile;

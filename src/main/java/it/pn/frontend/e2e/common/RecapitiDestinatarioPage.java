@@ -14,7 +14,7 @@ import java.util.List;
 
 
 public class RecapitiDestinatarioPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("RecapitiDestinatarioPage");
+    private final Logger logger = LoggerFactory.getLogger(RecapitiDestinatarioPage.class);
 
 
     @FindBy(id = "default_pec-button")

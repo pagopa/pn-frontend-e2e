@@ -17,7 +17,7 @@ import java.util.List;
 
 public class HeaderPASection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("HeaderPASection");
+    private static final Logger logger = LoggerFactory.getLogger(HeaderPASection.class);
 
     @FindBy(xpath = "//button[contains(text(),'Esci')]")
     WebElement esciButton;

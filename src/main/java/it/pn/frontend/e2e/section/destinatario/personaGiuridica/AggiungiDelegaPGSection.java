@@ -20,9 +20,7 @@ import java.util.List;
 
 public class AggiungiDelegaPGSection extends BasePage {
 
-
-
-    private final Logger logger = LoggerFactory.getLogger("AggiungiDelegaPGSection");
+    private final Logger logger = LoggerFactory.getLogger(AggiungiDelegaPGSection.class);
 
     @FindBy(id = "select-pg")
     WebElement personaGiuridicaButton;

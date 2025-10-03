@@ -15,7 +15,7 @@ import java.util.List;
 
 public class DelegatiImpresaSection extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("DelegatiImpresaSection");
+    private final Logger logger = LoggerFactory.getLogger(DelegatiImpresaSection.class);
 
 
     @FindBy(id = "show-code-button")

@@ -37,7 +37,7 @@ Component: Aggiunta dell’annotazione @Component per rendere la classe gestibil
 
 public class PiattaformaNotifichePage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("PiattaformaNotifichePage");
+    private static final Logger logger = LoggerFactory.getLogger(PiattaformaNotifichePage.class);
 
 
     @FindBy(id = "recipientId")

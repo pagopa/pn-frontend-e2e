@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 public class CreazioneDelega {
-    private static final Logger logger = LoggerFactory.getLogger("CreazioneDelega");
+    private static final Logger logger = LoggerFactory.getLogger(CreazioneDelega.class);
     private String url;
     private String body;
     private String authorizationToken;

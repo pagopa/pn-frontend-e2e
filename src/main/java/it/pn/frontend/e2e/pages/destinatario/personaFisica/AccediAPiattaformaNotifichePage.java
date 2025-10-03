@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AccediAPiattaformaNotifichePage extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("AccediAPiattaformaNotifichePage");
+    private static final Logger logger = LoggerFactory.getLogger(AccediAPiattaformaNotifichePage.class);
 
     @FindBy(id = "spidButton")
     WebElement accediButton;
