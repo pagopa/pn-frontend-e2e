@@ -1,9 +1,7 @@
 package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,21 +20,11 @@ public class ScegliSpidPGPage extends BasePage {
         this.driver = driver;
     }
 
-    public void waitLoadScegliSpidPGPage() {
-        try {
-            WebElement titlePageBy = driver.findElement(By.xpath("//div[contains(text(),'Scegli il tuo SPID')]"));
-            testButton = driver.findElement(By.id("xx_testenv2"));
-            getWebDriverWait(30).withMessage("Il titolo della pagina Scegli il tuo SPID non è visibile").until(ExpectedConditions.visibilityOf(titlePageBy));
-            getWebDriverWait(30).withMessage("Il bottone test della pagina Scegli il tuo SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(testButton));
-            logger.info("ScegliSpidPGPage caricata correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail("ScegliSpidPGPage non caricata correttamente con errore: " + e.getMessage());
-        }
-    }
-
     public void clickTestButton() {
-        testButton = driver.findElement(By.id("xx_testenv2"));
-        getWebDriverWait(60).withMessage("Il bottone TEST non è cliccabile nella login").until(ExpectedConditions.elementToBeClickable(testButton));
+        WebElement testButton = getWebDriverWait(60)
+                .withMessage("Il bottone TEST non è cliccabile nella login")
+                .until(ExpectedConditions.elementToBeClickable(By.id("xx_testenv2")));
         testButton.click();
     }
+
 }

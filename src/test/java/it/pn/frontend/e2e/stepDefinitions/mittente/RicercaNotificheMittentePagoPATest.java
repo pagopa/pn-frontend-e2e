@@ -90,7 +90,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (piattaformaNotifichePGPAPage.sezionePagamentoDisplayed()) {
             logger.info("Si visualizza correttamente box di pagamento");
         } else {
-            logger.error("Non si visualizza correttamente box di pagamento");
             Assertions.fail("Non si visualizza correttamente box di pagamento");
         }
     }
@@ -100,7 +99,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (piattaformaNotifichePGPAPage.messaggioNotificaAnnullataDisplayed()) {
             logger.info("Si visualizza correttamente il messaggio notifica annulata");
         } else {
-            logger.error("Non si visualizza correttamente il messaggio notifica annulata");
             Assertions.fail("Non si visualizza correttamente il messaggio notifica annulata");
         }
 
@@ -114,7 +112,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (piattaformaNotifichePage.isFiltraButtonDisabled()) {
             logger.info("Il bottone Filtra è disabilitato");
         } else {
-            logger.error("Il bottone Filtra è abilitato");
             Assertions.fail("Il bottone Filtra è abilitato");
         }
     }
@@ -122,22 +119,17 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Cliccare sul bottone Filtra del delegato")
     public void cliccareSulBottoneFiltraDelDelegato() {
         logger.info("Si clicca sul tasto filtra del delegante sotto notifiche");
-
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String codiceFiscale) {
         logger.info("Si verifica i risultati restituiti");
-
         headerPASection.waitLoadHeaderSection();
-
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         int listaCF = piattaformaNotifichePage.getListaCf(codiceFiscale);
-
         if (listaCF >= 1) {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
-
         } else {
             Assertions.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
         }
@@ -187,11 +179,9 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca");
 
         if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
-            logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
         }
         if (!piattaformaNotifichePage.controlloDateInserite(dataA)) {
-            logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
         }
         piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA, true);
@@ -203,11 +193,9 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca");
 
         if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
-            logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
         }
         if (!piattaformaNotifichePage.controlloDateInserite(dataA)) {
-            logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
         }
         dataFineErrata = piattaformaNotifichePage.inserimentoArcoTemporaleErrato(dataDA, dataA);
@@ -232,7 +220,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (results >= 1) {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
-            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
             Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
     }

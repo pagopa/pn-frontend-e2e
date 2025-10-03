@@ -122,7 +122,6 @@ public class DisserviziAppPATest extends BasePage {
         disserviziAppPAPage.setFolderPath(webDriverConfig.getDownloadFilePath());
         boolean isCorrect = disserviziAppPAPage.confrontoFileConDisservizio();
         if (!isCorrect) {
-            logger.error("i dati del pdf non corrispondono a quelli della tabella");
             Assertions.fail("i dati del pdf non corrispondono a quelli della tabella");
         }
     }

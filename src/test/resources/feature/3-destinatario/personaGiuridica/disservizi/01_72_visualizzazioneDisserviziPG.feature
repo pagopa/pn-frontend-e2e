@@ -16,4 +16,4 @@ Feature: La persona giuridica visualizza i disservizi della applicazione
     And Si visualizzano correttamente i dati sullo stato della piattaforma
     And Si visualizza storico disservizi
     And Si visualizza un record in elenco relativo ad un disservizio ancora in corso
-    And Risoluzione disservizio new su portale helpdesk
+    And Risoluzione disservizio new su portale helpdesk nome test "PN-9163"

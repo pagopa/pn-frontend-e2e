@@ -39,7 +39,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "Delegations of authority"
     And Verifica traduzione testo "Contact details"
 ##  Verificare traduzione della sezione HP notifiche
-    And Attendi secondi "1"
+    And Attesa 10 secondi
     When Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Company notifications"
     And Verifica traduzione testo "Notifications of"
@@ -56,7 +56,9 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "view service disruption history and download the attestations"
     And Verifica traduzione testo "Disruption history"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
+    And Attesa 1 secondi
     And Cambia lingua footer "German"
+    And Attesa 1 secondi
     And Cambia lingua footer "Französisch"
  ##  Verificare traduzione della sezione HP notifiche
     When Seleziona voce menu laterale "Notifications"
@@ -80,7 +82,9 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"
 #    ------------------------------------------------
+    And Attesa 1 secondi
     And Cambia lingua footer "Allemand"
+    And Attesa 1 secondi
     And Cambia lingua footer "Slowenisch"
 #    And Aspetta 1 secondi
     And Attesa 1 secondi

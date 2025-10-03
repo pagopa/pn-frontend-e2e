@@ -2,9 +2,7 @@ package it.pn.frontend.e2e.pages.destinatario.personaFisica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,18 +35,20 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     }
 
     public void waitLoadConfermaDatiSpidDEPage() {
-        try {
-            webTool.waitTime(5);
-            WebElement spidLogo = driver.findElement(By.id("idp-logo"));
-            WebElement alertBox = driver.findElement(By.xpath("//h3[@class='alert-heading']"));
-            this.getWebDriverWait(30).withMessage("spid logo non visibile").until(ExpectedConditions.visibilityOf(spidLogo));
-            this.getWebDriverWait(30).withMessage("alert box non è visibile").until(ExpectedConditions.visibilityOf(alertBox));
-            logger.info("Conferma Dati Spid DE Page caricata");
-        } catch (TimeoutException e) {
-            Assertions.fail("Conferma Dati Spid DE Page non caricata con errore : " + e.getMessage());
+        webTool.waitTime(5);
 
-        }
+        By spidLogoLocator = By.id("idp-logo");
+        By alertBoxLocator = By.xpath("//h3[@class='alert-heading']");
+
+        getWebDriverWait(30).withMessage("SPID logo non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(spidLogoLocator));
+
+        getWebDriverWait(30).withMessage("Alert box non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(alertBoxLocator));
+
+        logger.info("Conferma Dati Spid DE Page caricata");
     }
+
 
     public String leggiNomeUtente() {
         getWebDriverWait(30).withMessage("nome utente non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'name')]/strong")));

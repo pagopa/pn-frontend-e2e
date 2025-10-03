@@ -28,18 +28,24 @@ public class PopUpRevocaDelegaSection extends BasePage {
     }
 
     public void waitLoadPopUpRevocaDelegaSection() {
-        title = driver.findElement(By.id("confirmation-dialog-delegations"));
-        revocaDialogAction = driver.findElement(By.id("dialog-action-button"));
-        getWebDriverWait(10).withMessage("la sezione revoca delega non è caricata").until(ExpectedConditions.visibilityOf(title));
-        getWebDriverWait(10).withMessage("Il bottone Revoca la delega sul pop up non è cliccabile").until(ExpectedConditions.elementToBeClickable(revocaDialogAction));
+        title = getWebDriverWait(10)
+                .withMessage("La sezione 'Revoca delega' non è caricata")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmation-dialog-delegations")));
+        revocaDialogAction = getWebDriverWait(10)
+                .withMessage("Il bottone 'Revoca la delega' sul pop-up non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
     }
 
     public void clickRevocaLaDelega() {
-        revocaDialogAction = driver.findElement(By.id("dialog-confirm-button"));
-        getWebDriverWait(10).withMessage("Non è possibile cliccare il bottone").until(ExpectedConditions.elementToBeClickable(revocaDialogAction));
-        logger.info("click revoca delega");
-        this.revocaDialogAction.click();
-        getWebDriverWait(10).withMessage("Il toast di conferma rimozione delega non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='snackBarContainer']"))));
+        revocaDialogAction = getWebDriverWait(10)
+                .withMessage("Il bottone 'Revoca la delega' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-confirm-button")));
+        logger.info("Click su 'Revoca la delega'");
+        revocaDialogAction.click();
+        getWebDriverWait(10)
+                .withMessage("Il toast di conferma rimozione delega non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='snackBarContainer']")));
     }
+
 
 }

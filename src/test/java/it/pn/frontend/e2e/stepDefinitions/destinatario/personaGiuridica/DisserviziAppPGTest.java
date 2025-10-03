@@ -85,7 +85,6 @@ public class DisserviziAppPGTest extends BasePage {
             }
         }
         if (!res) {
-            logger.error("dopo aver atteso alcuni secondi il disservizio non è stato ancora creato");
             Assertions.fail("dopo aver atteso alcuni secondi il disservizio non è stato ancora creato");
         }
         disserviziAppPage.waitLoadStatoDellaPiattaformaPage();

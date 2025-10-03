@@ -35,8 +35,13 @@ public class InvioNotifichePAPage extends BasePage {
     }
 
     public void selezionareTornaAButton() {
-        getWebDriverWait(10).withMessage("Il bottone Torna a nella pagina invio notifica PA non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("previous-step")));
-        WebElement indietroButton = driver.findElement(By.id("previous-step"));
+        // Aspetto che il bottone sia cliccabile e lo trovo direttamente
+        WebElement indietroButton = getWebDriverWait(10)
+                .withMessage("Il bottone 'Torna a' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("previous-step")));
+
+        logger.info("Clicco sul bottone 'Torna a'");
         scrollToElementAndClick(indietroButton);
     }
+
 }

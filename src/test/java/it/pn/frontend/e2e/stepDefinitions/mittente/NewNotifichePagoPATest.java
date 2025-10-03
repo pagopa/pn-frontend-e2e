@@ -128,6 +128,7 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.verificaModelloF24(numeroPosizioneDebitoria);
     }
 
+    // Step per inserire costo da pagare sugli avvisi
     @And("Inserire Tutti Codice Avviso")
     public void inserireTuttiCodiceAvviso() {
         List<String> codiciAvvisi = destinatarioPage.inserireTuttiCodiceAvviso();

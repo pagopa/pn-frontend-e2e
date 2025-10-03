@@ -378,7 +378,6 @@ public class DeleghePGPagoPATest extends BasePage {
 
         deleghePGPagoPAPage.clickBottoneConferma();
         if (deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
-            logger.error("il codice inserito è sbagliato");
             Assertions.fail("il codice inserito è sbagliato");
         }
     }
@@ -566,6 +565,7 @@ public class DeleghePGPagoPATest extends BasePage {
     }
 
     public void checkErroreInInserimentoCodiceErrato() {
+        deleghePGPagoPAPage.checkTextboxCodiceSonoRosse();
         deleghePGPagoPAPage.checkErroreInInserimentoCodice();
     }
 
@@ -574,7 +574,7 @@ public class DeleghePGPagoPATest extends BasePage {
     }
 
     public void siCliccaSulBottoneIndietroInAssegnazioneGruppo() {
-        deleghePGPagoPAPage.clickButtonIndietroInAssegnazioneGruppo();
+        deleghePGPagoPAPage.clickButtonIndietroDaAssegnaGruppo();
     }
 
     @And("Non si inserisce il codice OTP e l invito della delega non è più presente")

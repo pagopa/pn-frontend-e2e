@@ -3,6 +3,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
   @NotificaATreDestinatariConSequenceDecedutoConsegnatoIrreperibile890
   @NRT_Blocco_3
   @Sequence_Deceduto
+  @deceduto
 
   Scenario: [DECEDUTO_890_QA-5359] - Il mittente invia una notifica a tre destinatari, solo uno raggiungibile al primo tentativo
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
@@ -110,4 +111,3 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'risultato irreperibile assoluto')] |
       | vediDettagli | true                                                    |
-

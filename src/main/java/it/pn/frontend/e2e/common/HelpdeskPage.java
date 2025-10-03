@@ -105,16 +105,30 @@ public class HelpdeskPage extends BasePage {
     public void checkForm() {
         try {
             logger.info("Check form in corso");
-            emailInput = driver.findElement(By.id("Email"));
-            passwordInput = driver.findElement(By.id("Password"));
-            loginButton = driver.findElement(By.id("buttonLogin"));
-            getWebDriverWait(40).withMessage("email non presente").until(ExpectedConditions.visibilityOf(emailInput));
-            getWebDriverWait(40).withMessage("password non presente").until(ExpectedConditions.visibilityOf(passwordInput));
-            getWebDriverWait(40).withMessage("submit non presente").until(ExpectedConditions.visibilityOf(loginButton));
+
+            By emailLocator = By.id("Email");
+            By passwordLocator = By.id("Password");
+            By loginButtonLocator = By.id("buttonLogin");
+
+            getWebDriverWait(40)
+                    .withMessage("Email non presente")
+                    .until(ExpectedConditions.visibilityOfElementLocated(emailLocator));
+
+            getWebDriverWait(40)
+                    .withMessage("Password non presente")
+                    .until(ExpectedConditions.visibilityOfElementLocated(passwordLocator));
+
+            getWebDriverWait(40)
+                    .withMessage("Submit non presente")
+                    .until(ExpectedConditions.visibilityOfElementLocated(loginButtonLocator));
+
+            logger.info("Form visualizzato correttamente");
+
         } catch (TimeoutException e) {
-            Assertions.fail("Form non presente errore: " + e.getMessage());
+            Assertions.fail("Form non presente, errore: " + e.getMessage());
         }
     }
+
 
     public void checkHome() {
         try {
@@ -148,20 +162,34 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void insertUsername(String user) {
-        logger.info("inserisco email");
-        emailInput = driver.findElement(By.id("Email"));
+        logger.info("Inserisco email");
+        By emailLocator = By.id("Email");
+        WebElement emailInput = getWebDriverWait(10)
+                .withMessage("Il campo email non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(emailLocator));
+
         emailInput.sendKeys(user);
     }
 
     public void insertPassword(String pwd) {
-        logger.info("inserisco password");
-        passwordInput = driver.findElement(By.id("Password"));
+        logger.info("Inserisco password");
+        By passwordLocator = By.id("Password");
+        WebElement passwordInput = getWebDriverWait(10)
+                .withMessage("Il campo password non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(passwordLocator));
+
         passwordInput.sendKeys(pwd);
     }
 
     public void clickInviaButton() {
-        logger.info("clicco il bottone login");
-        loginButton = driver.findElement(By.id("buttonLogin"));
+        logger.info("Clicco il bottone login");
+
+        By loginButtonLocator = By.id("buttonLogin");
+
+        WebElement loginButton = getWebDriverWait(10)
+                .withMessage("Il bottone login non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(loginButtonLocator));
+
         loginButton.click();
     }
 
@@ -184,38 +212,48 @@ public class HelpdeskPage extends BasePage {
 
     public void handleDisservizio(Disservice disservizio, Status status) {
         waitLoadServiceTable();
-        serviceStatusButtons = driver.findElements(By.xpath(".//button[@role='menuitem']"));
-        getWebDriverWait(10).withMessage("Non sono visibili i pulsanti per il disservizio").until(ExpectedConditions.visibilityOfAllElements(serviceStatusButtons));
-        for (int i = 0; i < services.size(); i++) {
-            if (services.get(i).getText().equals(disservizio.getValue())) {
+
+        List<WebElement> serviceStatusButtons = getWebDriverWait(10)
+                .withMessage("Non sono visibili i pulsanti per il disservizio")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(".//button[@role='menuitem']")));
+
+        boolean clicked = false;
+        for (WebElement button : serviceStatusButtons) {
+            if (button.getText().equals(disservizio.getValue())) {
                 logger.info("Clicco sul menu del disservizio: {}", disservizio.getValue());
-                serviceStatusButtons.get(i).click();
+                getWebDriverWait(10)
+                        .withMessage("Pulsante disservizio non cliccabile")
+                        .until(ExpectedConditions.elementToBeClickable(button));
+                js().executeScript("arguments[0].scrollIntoView(true);", button);
+                button.click();
+                clicked = true;
                 break;
             }
         }
-        // this is useful to check if we correctly clicked on the menu and the tooltip is displayed otherwise we fail the test
-        WebElement tooltip = element(By.xpath(".//div[@role='tooltip']"));
-        if (!tooltip.isDisplayed()) {
-            logger.error("Non è stato possibile visualizzare il tooltip per il disservizio");
-            Assertions.fail("Non è stato possibile visualizzare il tooltip per il disservizio");
+
+        if (!clicked) {
+            Assertions.fail("Il pulsante per il disservizio " + disservizio.getValue() + " non è stato trovato");
         }
-        WebElement button = tooltip.findElement(By.id(status.getValue() + "-insert"));
-        getWebDriverWait(10).withMessage("Il pulsante: " + status.getValue() + " non è visibile o cliccabile").until(ExpectedConditions.and(
-                ExpectedConditions.visibilityOf(button),
-                ExpectedConditions.elementToBeClickable(button)
-        ));
-        button.click();
-        WebElement buttonInsert = element(By.id("buttonInserisciDisservizio"));
-        getWebDriverWait(10).withMessage("Il pulsante di inserimento del servizio non è visibile o cliccabile").until(ExpectedConditions.and(
-                ExpectedConditions.visibilityOf(buttonInsert),
-                ExpectedConditions.elementToBeClickable(buttonInsert)
-        ));
+
+        WebElement statusButton = getWebDriverWait(10)
+                .withMessage("Il pulsante " + status.getValue() + " non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id(status.getValue() + "-insert")));
+        js().executeScript("arguments[0].scrollIntoView(true);", statusButton);
+        statusButton.click();
+
+        WebElement buttonInsert = getWebDriverWait(10)
+                .withMessage("Il pulsante di inserimento del servizio non è visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("buttonInserisciDisservizio")));
+        js().executeScript("arguments[0].scrollIntoView(true);", buttonInsert);
         buttonInsert.click();
-        //ok va sistemato il codice
-        WebElement alertSuccess = element(By.xpath(".//div[@role='alert']"));
-        getWebDriverWait(10).withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile").until(ExpectedConditions.visibilityOf(alertSuccess));
+
+        getWebDriverWait(10)
+                .withMessage("L'alert di successo post-inserimento servizio o disservizio non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@role='alert']")));
+
         logger.info("{} è stato cambiato con successo in {}", disservizio.getValue(), status.getValue());
     }
+
 
     public void handleDisservizioNew(Disservice disservice, Status status) {
         waitLoadServiceTable();
@@ -226,25 +264,46 @@ public class HelpdeskPage extends BasePage {
         verificaAlert();
     }
 
-    public void handleRisolviDisservizionew(Disservice disservice, Status status) {
+//    public void handleRisolviDisservizionew(Disservice disservice, Status status) {
+//        driver.navigate().refresh();
+//        waitLoadServiceTable();
+//        logger.info("*-*-*-*-*-*-*-*- handleRisolviDisservizionew *-*-*-*-*-*-*-*-*-**-");
+//        clickInserisciRisolviKOCreazioneNotifiche(disservice, status);
+//        scriviTesto();
+//        clickInserisciRisolviKOPopUpInserisciEvento();
+//        selezionaCheckBoxPopUpCreazioneNotifiche();
+//        clickInserisciRisolviKOPopUpInserisciEvento();
+//        verificaAlert();
+//
+//    }
+
+    public void handleRisolviDisservizionew(Disservice disservice, Status status, String nomeTest) {
         driver.navigate().refresh();
         waitLoadServiceTable();
         logger.info("*-*-*-*-*-*-*-*- handleRisolviDisservizionew *-*-*-*-*-*-*-*-*-**-");
         clickInserisciRisolviKOCreazioneNotifiche(disservice, status);
-        scriviTesto();
+        scriviTesto(nomeTest);
         clickInserisciRisolviKOPopUpInserisciEvento();
         selezionaCheckBoxPopUpCreazioneNotifiche();
         clickInserisciRisolviKOPopUpInserisciEvento();
         verificaAlert();
 
     }
+//    private void scriviTesto() {
+//        WebElement campoEditabile = getWebDriverWait(10)
+//                .withMessage("Impossibile trovare il campo editabile nel pop up Risolvi Evento")
+//                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ProseMirror[contenteditable='true']")));
+//
+//        String testoCasuale = "TEST AUTOMATICO: " + (new Random().nextInt(90000) + 10000);
+//        campoEditabile.sendKeys(testoCasuale);
+//    }
 
-    private void scriviTesto() {
+    private void scriviTesto(String nomeTest) {
         WebElement campoEditabile = getWebDriverWait(10)
                 .withMessage("Impossibile trovare il campo editabile nel pop up Risolvi Evento")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ProseMirror[contenteditable='true']")));
 
-        String testoCasuale = "TEST AUTOMATICO: " + (new Random().nextInt(90000) + 10000);
+        String testoCasuale = "TEST AUTOMATICO "+nomeTest+" : " + (new Random().nextInt(90000) + 10000);
         campoEditabile.sendKeys(testoCasuale);
     }
 
@@ -269,29 +328,44 @@ public class HelpdeskPage extends BasePage {
     }
 
     private void clickInserisciRisolviKOCreazioneNotifiche(Disservice disservice, Status status) {
-        logger.info("Cerco la riga 'Creazione Notifiche' e clicco su 'Inserisci KO'...");
+        logger.info("Cerco la riga '{}' e clicco su 'Inserisci KO'...", disservice.getValue());
+
+        By bottoneInserisciKOLocator = By.xpath(
+                "//div[@role='row' and .//p[text()='" + disservice.getValue() + "']]//button[@id='" + status.getValue() + "']"
+        );
 
         WebElement bottoneInserisciKO = getWebDriverWait(30)
                 .withMessage("Bottone 'Inserisci KO' non trovato nella riga '" + disservice.getValue() + "'")
-                .until(driver -> driver.findElement(By.xpath(
-                        "//div[@role='row' and .//p[text()='" + disservice.getValue() + "']]//button[@id='" + status.getValue() + "']"
-                )));
+                .until(ExpectedConditions.elementToBeClickable(bottoneInserisciKOLocator));
 
         bottoneInserisciKO.click();
+        logger.info("Click sul bottone 'Inserisci KO' completato per '{}'", disservice.getValue());
     }
 
     public boolean checkServiceStatus(Disservice disservizio) {
         waitLoadServiceTable();
-        serviceDates = driver.findElements(By.xpath(".//div[@data-field='data' and @role='cell']"));
-        getWebDriverWait(10).withMessage("Non sono visibili i stati dei servizi").until(ExpectedConditions.visibilityOfAllElements(serviceDates));
-        for (int i = 0; i < services.size(); i++) {
-            if (services.get(i).getText().equals(disservizio.getValue())) {
-                // check status based on the service date if present or not
-                return !serviceDates.get(i).getText().isEmpty();
+
+        // Trova tutte le righe della tabella
+        List<WebElement> righeServizi = getWebDriverWait(10)
+                .withMessage("Le righe della tabella dei servizi non sono visibili")
+                .until(driver -> {
+                    List<WebElement> elements = driver.findElements(By.xpath(".//div[@role='row']"));
+                    return elements.isEmpty() ? null : elements; // restituisce null finché la lista è vuota
+                });
+
+
+        for (WebElement riga : righeServizi) {
+            List<WebElement> nomeServizioList = riga.findElements(By.xpath(".//p[text()='" + disservizio.getValue() + "']"));
+            if (!nomeServizioList.isEmpty()) {
+                // Servizio trovato
+                List<WebElement> dataServizioList = riga.findElements(By.xpath(".//div[@data-field='data']"));
+                return !dataServizioList.isEmpty() && !dataServizioList.get(0).getText().isEmpty();
             }
         }
+
         return false;
     }
+
 
     public boolean checkIsCreatedDisservizio() {
         try {
@@ -327,119 +401,153 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void checkRicercaPage() {
-        logger.info("check pagina ricerca ed estrazione dati");
+        logger.info("Check pagina ricerca ed estrazione dati");
         try {
-            WebElement buttonResetFiltri = driver.findElement(By.id("resetFilter"));
-            selectTypeOfEstrazioneDati = driver.findElement(By.id("Tipo Estrazione"));
-            numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
-            codiceFiscaleInput = driver.findElement(By.id("Codice Fiscale"));
-            buttonRicerca = driver.findElement(By.id("ricerca"));
+            selectTypeOfEstrazioneDati = getWebDriverWait(30)
+                    .withMessage("Tipo estrazione non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("Tipo Estrazione")));
 
-            getWebDriverWait(30).withMessage("Tipo estrazione non trovato").until(ExpectedConditions.visibilityOf(selectTypeOfEstrazioneDati));
-            getWebDriverWait(30).withMessage("numero ticket input non trovato").until(ExpectedConditions.visibilityOf(numeroTicketInput));
-            getWebDriverWait(30).withMessage("codice fiscale input non trovato").until(ExpectedConditions.visibilityOf(codiceFiscaleInput));
-            getWebDriverWait(30).withMessage("button ricerca non trovato").until(ExpectedConditions.visibilityOf(buttonRicerca));
-            getWebDriverWait(30).withMessage("button reset filtri non trovato").until(ExpectedConditions.visibilityOf(buttonResetFiltri));
+            numeroTicketInput = getWebDriverWait(30)
+                    .withMessage("Numero ticket input non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("Numero Ticket")));
+
+            codiceFiscaleInput = getWebDriverWait(30)
+                    .withMessage("Codice fiscale input non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("Codice Fiscale")));
+
+            buttonRicerca = getWebDriverWait(30)
+                    .withMessage("Button ricerca non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("ricerca")));
+
+            getWebDriverWait(30)
+                    .withMessage("Button reset filtri non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("resetFilter")));
+
         } catch (TimeoutException e) {
-            Assertions.fail("home ricerca non caricata correttamente: " + e.getMessage());
+            Assertions.fail("Home ricerca non caricata correttamente: " + e.getMessage());
         }
     }
 
     public void logout() {
         try {
-            logger.info("controllo esistenza bottone logout");
-            buttonLogout = driver.findElement(By.id("logout"));
-            getWebDriverWait(30).withMessage("bottone logout non trovato").until(ExpectedConditions.visibilityOf(buttonLogout));
-            logger.info("click sul bottone logout");
+            logger.info("Controllo esistenza bottone logout");
+            WebElement buttonLogout = getWebDriverWait(30)
+                    .withMessage("Bottone logout non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("logout")));
+
+            logger.info("Click sul bottone logout");
             buttonLogout.click();
-            logger.info("apertura dialog di conferma logout");
-            logger.info("controllo esistenza pulsante conferma logout");
-            getWebDriverWait(30).withMessage("bottone conferma logout non trovato").until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'Esci')]")));
-            By buttonConfermaLogout = By.xpath("//button[contains(text(),'Esci')]");
-            logger.info("click conferma logout");
-            elements(buttonConfermaLogout).get(0).click();
+
+            logger.info("Attesa dialog di conferma logout");
+            WebElement buttonConfermaLogout = getWebDriverWait(30)
+                    .withMessage("Bottone conferma logout non trovato")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Esci')]")));
+
+            logger.info("Click conferma logout");
+            buttonConfermaLogout.click();
+
         } catch (TimeoutException e) {
-            Assertions.fail("logout non riuscito correttamente: " + e.getMessage());
+            Assertions.fail("Logout non riuscito correttamente: " + e.getMessage());
         }
     }
 
     public void insertCfAndRicercaOnPage(String codiceFiscale) {
-        logger.info("inserisco numero ticket");
-        numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
+        logger.info("Inserisco numero ticket");
+        WebElement numeroTicketInput = getWebDriverWait(30)
+                .withMessage("Campo 'Numero Ticket' non trovato")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("Numero Ticket")));
         numeroTicketInput.sendKeys("testTAFE01");
-        logger.info("inserisco codice fiscale");
-        setCodiceFiscale(codiceFiscale);
-        codiceFiscaleInput = driver.findElement(By.id("Codice Fiscale"));
-        codiceFiscaleInput.sendKeys(codiceFiscale);
-        logger.info("clicco sul bottone di ricerca");
-        try {
-            buttonRicerca = driver.findElement(By.id("ricerca"));
-            getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
-            buttonRicerca.click();
-        } catch (TimeoutException e) {
-            Assertions.fail("bottone non cliccabile:" + e.getMessage());
 
-        }
+        logger.info("Inserisco codice fiscale");
+        setCodiceFiscale(codiceFiscale);
+        WebElement codiceFiscaleInput = getWebDriverWait(30)
+                .withMessage("Campo 'Codice Fiscale' non trovato")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("Codice Fiscale")));
+        codiceFiscaleInput.sendKeys(codiceFiscale);
+
+        logger.info("Clicco sul bottone di ricerca");
+        WebElement buttonRicerca = getWebDriverWait(30)
+                .withMessage("Bottone per la ricerca non trovato o non cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("ricerca")));
+        buttonRicerca.click();
+
         try {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: {}", e.getMessage());
+            logger.error("Pausa interrotta: {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
     public void insertCF(String codiceFiscale) {
-        logger.info("inserisco codice fiscale");
+        logger.info("Inserisco codice fiscale");
         setCodiceFiscale(codiceFiscale);
-        codiceFiscaleInput = driver.findElement(By.id("Codice Fiscale"));
-        codiceFiscaleInput.sendKeys(codiceFiscale);
 
+        WebElement codiceFiscaleInput = getWebDriverWait(30)
+                .withMessage("Campo 'Codice Fiscale' non trovato o non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("Codice Fiscale")));
+        codiceFiscaleInput.sendKeys(codiceFiscale);
     }
 
     public void insertIunAndRicercaOnPage(String iun) {
-        logger.info("inserisco numero ticket");
-        numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
+        logger.info("Inserisco numero ticket");
+        WebElement numeroTicketInput = getWebDriverWait(30)
+                .withMessage("Campo 'Numero Ticket' non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("Numero Ticket")));
         numeroTicketInput.sendKeys("testTAFE01");
-        logger.info("inserisco codice IUN");
-        iunInput = driver.findElement(By.id("IUN"));
+
+        logger.info("Inserisco codice IUN");
+        WebElement iunInput = getWebDriverWait(30)
+                .withMessage("Campo 'IUN' non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("IUN")));
         iunInput.sendKeys(iun);
-        logger.info("clicco sul bottone di ricerca");
-        buttonRicerca = driver.findElement(By.id("ricerca"));
-        getWebDriverWait(30).withMessage("bottone per la ricerca non trovato").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
+
+        logger.info("Clicco sul bottone di ricerca");
+        WebElement buttonRicerca = getWebDriverWait(30)
+                .withMessage("Bottone 'Ricerca' non cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("ricerca")));
         buttonRicerca.click();
+
         webTool.waitTime(3);
     }
 
     public void insertIun(String iun) {
-        logger.info("inserisco codice IUN");
-        iunInput = driver.findElement(By.id("IUN"));
+        logger.info("Inserisco codice IUN");
+        WebElement iunInput = getWebDriverWait(30)
+                .withMessage("Campo 'IUN' non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("IUN")));
         iunInput.sendKeys(iun);
-
     }
 
     public void insertUid(String uid) {
-        logger.info("inserisco codice univoco");
-        inputUid = driver.findElement(By.id("Codice Univoco (uid)"));
+        logger.info("Inserisco codice univoco (UID)");
+        WebElement inputUid = getWebDriverWait(30)
+                .withMessage("Campo 'Codice Univoco (UID)' non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("Codice Univoco (uid)")));
         inputUid.sendKeys(uid);
-
     }
 
     public void insertNumeroTicket() {
-        logger.info("inserisco numero ticket");
-        numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
+        logger.info("Inserisco numero ticket");
+        WebElement numeroTicketInput = getWebDriverWait(30)
+                .withMessage("Campo 'Numero Ticket' non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("Numero Ticket")));
         numeroTicketInput.sendKeys("testTAFE01");
     }
 
     public void checkUid() {
         try {
-            logger.info("controllo esistenza codice univoco");
-            Uid = driver.findElement(By.xpath("//p[contains(text(),'Codice Univoco')]"));
-            getWebDriverWait(30).withMessage("Codice univoco non trovato").until(ExpectedConditions.visibilityOf(Uid));
-            setCodiceIdentificativoPF(Uid.getText().replace("Codice Univoco: ", ""));
+            logger.info("Controllo esistenza codice univoco");
+            By uidLocator = By.xpath("//p[contains(text(),'Codice Univoco')]");
+            WebElement uidElement = getWebDriverWait(30)
+                    .withMessage("Codice univoco non trovato")
+                    .until(ExpectedConditions.visibilityOfElementLocated(uidLocator));
+            setCodiceIdentificativoPF(uidElement.getText().replace("Codice Univoco: ", ""));
         } catch (TimeoutException e) {
-            Assertions.fail("codice univoco non trovato: " + e.getMessage());
+            Assertions.fail("Codice univoco non trovato: " + e.getMessage());
         }
     }
+
 
     public void setCodiceIdentificativoPF(String codiceIdentificativoPF) {
         this.codiceIdentificativoPF = codiceIdentificativoPF;
@@ -719,78 +827,119 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void clickResettaFiltri() {
-        WebElement bottoneReset = driver.findElement(By.xpath("//button[@id='resetFilter']"));
-        getWebDriverWait(5).withMessage("Il bottone resetta non è cliccabile").until(ExpectedConditions.elementToBeClickable(bottoneReset));
+        By resetButtonLocator = By.id("resetFilter");
+        WebElement bottoneReset = getWebDriverWait(5)
+                .withMessage("Il bottone resetta non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(resetButtonLocator));
         bottoneReset.click();
     }
 
     public void checkCampiPuliti() {
-        numeroTicketInput = driver.findElement(By.id("Numero Ticket"));
-        codiceFiscaleInput = driver.findElement(By.id("Codice Fiscale"));
-        Assertions.assertTrue(numeroTicketInput.getAttribute("value").isEmpty() && codiceFiscaleInput.getAttribute("value").isEmpty(), "I campi non sono puliti");
+        By numeroTicketLocator = By.id("Numero Ticket");
+        By codiceFiscaleLocator = By.id("Codice Fiscale");
+
+        WebElement numeroTicketInput = getWebDriverWait(10)
+                .withMessage("Campo Numero Ticket non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(numeroTicketLocator));
+
+        WebElement codiceFiscaleInput = getWebDriverWait(10)
+                .withMessage("Campo Codice Fiscale non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(codiceFiscaleLocator));
+
+        Assertions.assertTrue(
+                numeroTicketInput.getAttribute("value").isEmpty() &&
+                        codiceFiscaleInput.getAttribute("value").isEmpty(),
+                "I campi non sono puliti"
+        );
         logger.info("I campi sono puliti");
     }
 
     public void checkCodiceFiscale() {
-        inputUid = driver.findElement(By.id("Codice Univoco (uid)"));
+        By uidLocator = By.id("Codice Univoco (uid)");
+        By ricercaButtonLocator = By.id("ricerca");
+        By cfPersonaFisicaLocator = By.xpath("//p[contains(text(),'Codice Fiscale')]");
+
+        WebElement inputUid = getWebDriverWait(10)
+                .withMessage("Campo Codice Univoco non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(uidLocator));
         inputUid.sendKeys(this.codiceIdentificativoPF);
-        buttonRicerca = driver.findElement(By.id("ricerca"));
+
+        WebElement buttonRicerca = getWebDriverWait(10)
+                .withMessage("Bottone Ricerca non visibile o cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(ricercaButtonLocator));
         buttonRicerca.click();
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            logger.error("pausa con errore: {}", e.getMessage());
-            throw new RuntimeException(e);
-        }
-        CfPersonaFisica = driver.findElement(By.xpath("//p[contains(text(),'Codice Fiscale')]"));
-        String cfResult = CfPersonaFisica.getText().replace("Codice Fiscale: ", "");
+
+        // Attesa esplicita invece di sleep
+        WebElement cfPersonaFisica = getWebDriverWait(10)
+                .withMessage("Campo Codice Fiscale non visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(cfPersonaFisicaLocator));
+
+        String cfResult = cfPersonaFisica.getText().replace("Codice Fiscale: ", "");
         if (cfResult.equals(this.codiceFiscale)) {
-            logger.info("codice fiscale corrispondente");
+            logger.info("Codice fiscale corrispondente");
         } else {
-            logger.error("codice fiscale diverso");
-            Assertions.fail("dopo ricerca di corrispondenza il codice fiscale risulta differente");
+            logger.error("Codice fiscale diverso");
+            Assertions.fail("Dopo ricerca, il codice fiscale risulta differente");
         }
     }
 
     public void loginHelpdeskNuovaScheda(Map<String, String> login) {
-        webTool.waitTime(10);
-        emailInput = driver.findElement(By.id("Email"));
-        passwordInput = driver.findElement(By.id("Password"));
-        loginButton = driver.findElement(By.id("buttonLogin"));
-        getWebDriverWait(10).withMessage("Non si visualizza il campo email").until(ExpectedConditions.visibilityOf(emailInput));
-        getWebDriverWait(10).withMessage("Non si visualizza il campo password").until(ExpectedConditions.visibilityOf(passwordInput));
-        getWebDriverWait(10).withMessage("Non si visualizza il bottone LOGIN").until(ExpectedConditions.visibilityOf(loginButton));
+        By emailLocator = By.id("Email");
+        By passwordLocator = By.id("Password");
+        By loginButtonLocator = By.id("buttonLogin");
+
+        WebElement emailInput = getWebDriverWait(10)
+                .withMessage("Non si visualizza il campo email")
+                .until(ExpectedConditions.visibilityOfElementLocated(emailLocator));
+        WebElement passwordInput = getWebDriverWait(10)
+                .withMessage("Non si visualizza il campo password")
+                .until(ExpectedConditions.visibilityOfElementLocated(passwordLocator));
+        WebElement loginButton = getWebDriverWait(10)
+                .withMessage("Non si visualizza il bottone LOGIN")
+                .until(ExpectedConditions.elementToBeClickable(loginButtonLocator));
+
         emailInput.sendKeys(login.get("utente"));
         passwordInput.sendKeys(login.get("password"));
         loginButton.click();
-        logger.info("Visualizzazione pagina login corretta");
+
+        logger.info("Login effettuato correttamente e pagina login visualizzata");
     }
 
     public void clickRicercaBottone() {
-        buttonRicerca = driver.findElement(By.id("ricerca"));
-        getWebDriverWait(3).withMessage("Il bottone ricerca non è cliccabile").until(ExpectedConditions.elementToBeClickable(buttonRicerca));
+        By ricercaButtonLocator = By.id("ricerca");
+        WebElement buttonRicerca = getWebDriverWait(3)
+                .withMessage("Il bottone ricerca non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(ricercaButtonLocator));
         buttonRicerca.click();
     }
 
     public void spuntareDeanonimizzazioneDati() {
-        deanonimizzazioneDati = driver.findElement(By.xpath("//div[1]/div[4]/div/label/span[1]"));
-        getWebDriverWait(3).withMessage("Il Deanonimizzazione dati non è cliccabile").until(ExpectedConditions.elementToBeClickable(deanonimizzazioneDati));
+        By deanonimizzazioneLocator = By.xpath("//div[1]/div[4]/div/label/span[1]");
+        WebElement deanonimizzazioneDati = getWebDriverWait(3)
+                .withMessage("Il Deanonimizzazione dati non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(deanonimizzazioneLocator));
         deanonimizzazioneDati.click();
     }
-
 
     public void inserimentoArcoTemporale() {
         webTool.waitTime(60);
 
-        WebElement calendarButton = driver.findElement(By.xpath("//button[contains(@aria-label, 'Choose date')]"));
-        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(calendarButton));
+        By calendarButtonLocator = By.xpath("//button[contains(@aria-label, 'Choose date')]");
+        WebElement calendarButton = getWebDriverWait(20)
+                .until(ExpectedConditions.elementToBeClickable(calendarButtonLocator));
         calendarButton.click();
-        WebElement previousMonth = driver.findElement(By.xpath("//button[@aria-label='Previous month']"));
+
+        By previousMonthLocator = By.xpath("//button[@aria-label='Previous month']");
+        WebElement previousMonth = getWebDriverWait(10)
+                .until(ExpectedConditions.elementToBeClickable(previousMonthLocator));
         previousMonth.click();
+
         webTool.waitTime(1);
-        WebElement dateEleven = driver.findElement(By.xpath("//button[contains(text(),'11')]"));
+
+        By dateElevenLocator = By.xpath("//button[contains(text(),'11')]");
+        WebElement dateEleven = getWebDriverWait(10)
+                .until(ExpectedConditions.elementToBeClickable(dateElevenLocator));
         dateEleven.click();
     }
-
 
 }
