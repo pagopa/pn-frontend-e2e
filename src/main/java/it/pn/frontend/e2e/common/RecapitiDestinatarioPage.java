@@ -1419,7 +1419,9 @@ public class RecapitiDestinatarioPage extends BasePage {
         WebElement button = getWebDriverWait(15)
                 .withMessage("Non è presente la notifica '" + testo + "'")
                 .until(ExpectedConditions.elementToBeClickable(
+
                         By.cssSelector("[data-testid='sideMenuItem-" + testo + "']")
+
                 ));
         button.click();
     }

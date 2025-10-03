@@ -2484,7 +2484,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Impossibile trovare il 'not-found-back-button'")
                 .until(ExpectedConditions
-                        .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
+                .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
     }
 
     public void clickTornaAllaHome() {
@@ -2494,5 +2494,5 @@ public class PiattaformaNotifichePage extends BasePage {
                         .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
         buttonTornaAllaHome.click();
     }
-
+  
 }
