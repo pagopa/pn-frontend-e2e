@@ -11,19 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-/*
-*Modifiche e Ottimizzazioni
-Miglioramento Logging: Utilizzo di placeholder ({}) in logger per gestire i messaggi in modo più efficiente.
-Stream API in selezionareComune: Sostituisce il ciclo for con uno stream, semplificando il controllo della presenza e selezione del comune.
-Verifica .ifPresentOrElse: Aggiunta di un messaggio di log per i casi in cui il comune non viene trovato.
-Refactoring per Gestione delle Eccezioni: La gestione delle eccezioni è mantenuta invariata per chiarezza e robustezza del codice.
-*
-*
-* */
+
 public class SelezionaEntePAPage extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(SelezionaEntePAPage.class);
-
 
 
     @FindBy(xpath = "//div[@role='button']//h6")
@@ -36,7 +27,7 @@ public class SelezionaEntePAPage extends BasePage {
     private WebElement comuneSearchField;
 
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public SelezionaEntePAPage(WebDriver driver) {
         this.driver = driver;
@@ -47,13 +38,10 @@ public class SelezionaEntePAPage extends BasePage {
         try {
             webTool.waitTime(30);
 
-//            driver.findElements(By.xpath("//div[@role='button']//h6"));
-
-             getWebDriverWait(80)
+            getWebDriverWait(80)
                     .withMessage("Elenco dei comuni Ente non sono visibili entro il tempo previsto")
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@role='button']//h6")));
 
-            // *-*-*-*-* Sostituito per il Bilingusmo
             getWebDriverWait(80)
                     .withMessage("Nessuno dei titoli attesi è visibile")
                     .until(ExpectedConditions.or(
@@ -63,7 +51,6 @@ public class SelezionaEntePAPage extends BasePage {
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Wähle deine Körperschaft']")),
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[text()='Izberite svojo organizacijo']"))
                     ));
-            // *-*-*-*-*
             getWebDriverWait(60)
                     .withMessage("Il campo cerca non è cliccabile nella pagina Seleziona Ente")
                     .until(ExpectedConditions.elementToBeClickable(By.id("search")));

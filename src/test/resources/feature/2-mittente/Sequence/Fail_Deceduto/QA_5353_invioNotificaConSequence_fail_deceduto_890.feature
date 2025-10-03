@@ -1,7 +1,6 @@
 Feature: invio notifica con sequence
 
   @NotificaConSequenceDeceduto890
-  @TestSuite
   @NRT_Blocco_3
   @Sequence_Deceduto
 
@@ -13,10 +12,10 @@ Feature: invio notifica con sequence
     # Esecuzione scenario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
-      | modello         | 890                                             |
-      | documenti       | 1                                               |
+      | modello         | 890                                                         |
+      | documenti       | 1                                                           |
       | oggettoNotifica | Pagamento rata IMU per immobile in via DECEDUTO_890_QA-5353 |
-      | costiNotifica   | false                                           |
+      | costiNotifica   | false                                                       |
     And Si aggiunge un destinatario alla notifica
       | tipoDestinatario  | PG                     |
       | nomeCognome       | Convivio Spa           |
@@ -34,7 +33,6 @@ Feature: invio notifica con sequence
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Resa al mittente"
-#    And Aspetta 400 secondi
     And Attesa 400 secondi
     And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica

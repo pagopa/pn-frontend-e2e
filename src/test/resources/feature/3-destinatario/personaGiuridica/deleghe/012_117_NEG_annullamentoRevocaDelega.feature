@@ -1,6 +1,5 @@
 Feature: La persona giuridica annulla l'operazione di revoca una delega
 
-  @TestSuite
   @TA_PGAnnullaRevocaDelega
   @DeleghePG
   @PG

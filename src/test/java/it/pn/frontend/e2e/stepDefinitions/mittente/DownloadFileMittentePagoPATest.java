@@ -7,7 +7,6 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.DettaglioNotificaSection;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.mittente.DisserviziAppPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DettaglioNotificaMittenteSection;
@@ -22,10 +21,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Primary;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -75,12 +72,12 @@ public class DownloadFileMittentePagoPATest extends BasePage {
     @Lazy
     private BackgroundTest backgroundTest;
 
-    private  WebTool webTool;
+    private WebTool webTool;
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         downloadFile = new DownloadFile(driver);
@@ -115,8 +112,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
         if (!downloadFile.controlloEsistenzaCartella(pathCartella)) {
             pathCartella.mkdirs();
         }
-
-        //this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         int count = 1;
 
         dettaglioNotificaMittenteSection.waitLoadingSpinner();
@@ -140,7 +135,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
 
         if (headless && urlDocumentiAllegati.isEmpty()) {
             String testoLink = dettaglioNotificaMittenteSection.getTextDocumentiAllegati();
-            logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
             Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
         }
 
@@ -160,7 +154,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (headless && urlAvvenutaRicezione.isEmpty()) {
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
-                logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
                 Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             file = new File(filepath + count + ".pdf");
@@ -179,7 +172,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
             final String urlFileAttestazioneOpponibile = downloadFile.getUrl(baseUrl);
             if (headless && urlFileAttestazioneOpponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
-                logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
                 Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             file = new File(filepath + count + ".pdf");
@@ -224,7 +216,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
         File file = new File(filepath + count + "PN_NOTIFICATION_ATTACHMENTS.pdf");
 
         if (headless && urlDocumentiAllegati.isEmpty()) {
-            logger.error("Non è stato recuperato l'URL per il download dei documenti Allegati.");
             Assertions.fail("Non è stato recuperato l'URL per il download dei documenti Allegati.");
         }
         downloadFile.download(urlDocumentiAllegati, file, headless);
@@ -293,7 +284,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
             final String urlAvvenutaRicezione = downloadFile.getUrl(url);
             if (urlAvvenutaRicezione.isEmpty()) {
                 String testoLink = dettaglioNotificaMittenteSection.getTextLinkAvvenutaRicezione(i);
-                logger.error("Non è stato recuperato l'URL per il download per il link: " + testoLink);
                 Assertions.fail("Non è stato recuperato l'URL per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN" + count + "Avviso_di_avvenuta_ricezione.pdf");
@@ -341,7 +331,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
             final String urlFileAttestazioneOpponibile = downloadFile.getUrl(baseUrl);
             if (urlFileAttestazioneOpponibile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
-                logger.error("Non è stato recuperato l'URL per il download per il link: " + testoLink);
                 Assertions.fail("Non è stato recuperato l'URL per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/mittente/notificaN" + count + "Attestazioni_Opponoboli.pdf");
@@ -359,20 +348,18 @@ public class DownloadFileMittentePagoPATest extends BasePage {
 
     @And("Nella sezione Dettaglio Notifiche si seleziona il file, {string}, da scaricare")
     public void siSelezionanoIlFileDaScaricare(String nomeFile) {
-        logger.info("Si cerca di scaricare il file " + nomeFile);
+        logger.info("Si cerca di scaricare il file : {} ", nomeFile);
         boolean headless = headlessParam.equalsIgnoreCase("true");
-       // this.datiNotifica = dataPopulation.readDataPopulation("datiNotifica.yaml");
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         webTool.waitTime(5);
 
         final String url = downloadFile.getUrl(baseUrl + "notifications/sent/");
         if (headless && url.isEmpty()) {
-            logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assertions.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
         }
         nomeFile = nomeFile.replace(" ", "_").replace(":", "");
         File file = new File("src/test/resources/dataPopulation/downloadFileNotifica/mittente/" + nomeFile + ".pdf");
-        logger.info("Il file verrà scaricato in: " + file.getAbsolutePath());
+        logger.info("Il file verrà scaricato in: {} ", file.getAbsolutePath());
         downloadFile.download(url, file, headless);
         if (!headless) {
             dettaglioNotificaMittenteSection.goBack();
@@ -387,14 +374,12 @@ public class DownloadFileMittentePagoPATest extends BasePage {
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {
                 logger.info("Il testo all'interno del file è corretto");
             } else {
-                logger.error("Il testo all'interno del file  NON è corretto");
                 Assertions.fail("Il testo  all'interno del file  NON è corretto");
             }
         } else if (nomeFile.contains("Avviso di avvenuta ricezione")) {
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, "A Simple PDF File")) {
                 logger.info("Il testo all'interno del file è corretto");
             } else {
-                logger.error("Il testo all'interno del file  NON è corretto");
                 Assertions.fail("Il testo  all'interno del file  NON è corretto");
             }
         } else {
@@ -402,7 +387,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
                 if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("mittente"))) {
                     logger.info("Il nome del mittente all'interno del file è corretto");
                 } else {
-                    logger.error("Il nome del mittente  all'interno del file  NON è corretto");
                     Assertions.fail("Il nome del mittente  all'interno del file  NON è corretto");
                 }
             }
@@ -410,28 +394,24 @@ public class DownloadFileMittentePagoPATest extends BasePage {
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("destinatario"))) {
                 logger.info("Il nome del destinatario all'interno del file è corretto");
             } else {
-                logger.error("Il nome del destinatario  all'interno del file  NON è corretto");
                 Assertions.fail("Il nome del destinatario  all'interno del file  NON è corretto");
             }
 
             if (dettaglioNotificaMittenteSection.controlloTestoFile(nomeFile, infoNotifiche.get("codiceFiscale"))) {
                 logger.info("Il codiceFiscale del destinatario all'interno del file è corretto");
             } else {
-                logger.error("Il codiceFiscale del destinatario  all'interno del file  NON è corretto");
                 Assertions.fail("Il codiceFiscale del destianatario  all'interno del file  NON è corretto");
             }
 
             if (dettaglioNotificaMittenteSection.controlloTestoFileData(nomeFile, infoNotifiche.get("data"))) {
                 logger.info("La data della notifica all'interno del file è corretta");
             } else {
-                logger.error("La data della notifica all'interno del file  NON è corretta");
                 Assertions.fail("La data della notifica  all'interno del file  NON è corretta");
             }
 
             if (dettaglioNotificaMittenteSection.controlloTestoFileCodiceIUN(nomeFile, infoNotifiche.get("codiceIUN"))) {
                 logger.info("Il codice IUN della notifica all'interno del file è corretto");
             } else {
-                logger.error("Il codice IUN della notifica all'interno del file  NON è corretto");
                 Assertions.fail("Il codice IUN della notifica  all'interno del file  NON è corretto");
             }
         }
@@ -446,7 +426,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.waitLoadingSpinner();
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPersonaGiuridica();
 
-       //this.datiNotifica = dataPopulation.readDataPopulation("datiNotificaPG.yaml");
         String codiceIun = dataPopulationConfig.getDatiNotificaPg().getCodiceIUN();
         if (codiciIun.contains(codiceIun)) {
             piattaformaNotifichePage.inserimentoCodiceIUN(codiceIun);
@@ -461,8 +440,6 @@ public class DownloadFileMittentePagoPATest extends BasePage {
         logger.info("Si verifica l'esistenza della notifica con il codice IUN");
 
         List<String> codiciIun = piattaformaNotifichePage.getCodiceIunPresenti();
-//        Map<String, Object> personaFisica = dataPopulation.readDataPopulation("datiNotifica.yaml");
-//        String codiceIun = personaFisica.get("codiceIUN").toString();
         String codiceIun = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         if (!codiciIun.contains(codiceIun)) {
             backgroundTest.invioNotificaErrorePec("NotificaErrorePec");

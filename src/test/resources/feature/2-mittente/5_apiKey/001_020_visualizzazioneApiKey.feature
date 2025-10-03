@@ -1,6 +1,5 @@
 Feature: Mittente visualizza correttamente la pagina Api Key
 
-  @TestSuite
   @TA_MittenteVisualizzazioneApiKey
   @ApikeyMittente
   @integrazioneApiPa

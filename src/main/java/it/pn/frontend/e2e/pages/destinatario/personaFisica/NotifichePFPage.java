@@ -104,7 +104,7 @@ public class NotifichePFPage extends BasePage {
 
     public void waitESelectDelegheButton() {
 
-        getWebDriverWait(10).withMessage("Non viene visualizzato il bottone deleghe nella sidebar").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//div[contains(@data-testid,'menu-item(deleghe)')]"))));
+        getWebDriverWait(10).withMessage("Non viene visualizzato il bottone deleghe nella sidebar").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@data-testid,'menu-item(deleghe)')]"))));
         WebElement buttonDelegheWebElement = driver.findElement(By.xpath("//div[contains(@data-testid,'menu-item(deleghe)')]"));
         buttonDelegheWebElement.click();
         logger.info("cliccato correttamente su delega button");
@@ -112,7 +112,7 @@ public class NotifichePFPage extends BasePage {
 
     public void selectFiltraButton() {
         webTool.waitTime(5);
-        getWebDriverWait(40).withMessage("Il bottone filtra sulla pagina notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable( driver.findElement(By.id("filter-notifications-button"))));
+        getWebDriverWait(40).withMessage("Il bottone filtra sulla pagina notifiche non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));
         filtraButton = driver.findElement(By.id("filter-notifications-button"));
         filtraButton.click();
     }
@@ -124,7 +124,7 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void inserimentoArcoTemporale(String dataDA, String dataA) {
-        getWebDriverWait(20).withMessage("I campi di inserimento data non sono visibili").until(ExpectedConditions.visibilityOfAllElements(driver.findElement(By.id("startDate")),  driver.findElement(By.id("endDate"))));
+        getWebDriverWait(20).withMessage("I campi di inserimento data non sono visibili").until(ExpectedConditions.visibilityOfAllElements(driver.findElement(By.id("startDate")), driver.findElement(By.id("endDate"))));
         dataInizioField = driver.findElement(By.id("startDate"));
         dataFineField = driver.findElement(By.id("endDate"));
         dataInizioField.click();
@@ -170,14 +170,14 @@ public class NotifichePFPage extends BasePage {
     public void siVisualizzanoFiltriRicerca() {
         getWebDriverWait(30).withMessage("il filtro Codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
         getWebDriverWait(30).withMessage("il filtro Data Da non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("startDate"))));
-        getWebDriverWait(30).withMessage("il filtro Data A non è visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("endDate"))));
+        getWebDriverWait(30).withMessage("il filtro Data A non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("endDate"))));
         logger.info("Si visualizzano correttamente i filtri ricerca");
     }
 
     public void siVisualizzaElencoNotifiche() {
         getWebDriverWait(30).withMessage("le righe della tabella notifiche non sono visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//tr[contains(@id,'notificationsTable.body.row')]"))));
 
-        getWebDriverWait(30).withMessage("il nome della colonna Data non è visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.xpath("//th[contains(text(),'Data')]"))));
+        getWebDriverWait(30).withMessage("il nome della colonna Data non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//th[contains(text(),'Data')]"))));
 
         getWebDriverWait(30).withMessage("il nome della colonna Oggetto non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//th[contains(text(),'Oggetto')]"))));
 
@@ -201,39 +201,11 @@ public class NotifichePFPage extends BasePage {
     }
 
     public List<WebElement> getDateNotifiche() {
-//        getWebDriverWait(30).withMessage("la data della notifica non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"))));
-//        return driver.findElements(By.xpath("//td[contains(@class,'MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-164wyiq')]"));
-
         return getWebDriverWait(30)
                 .withMessage("La data della notifica non è visibile")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                         By.xpath("//tr/td[2]")));
     }
-
-//    public boolean controllaNotifiche(List<WebElement> dateNotifiche) {
-//        for (int i = 0; i < dateNotifiche.size() - 1; i++) {
-//            String dataString1 = dateNotifiche.get(i).getText();
-//            String datastring2 = dateNotifiche.get(i + 1).getText();
-//            LocalDate data1;
-//            LocalDate data2;
-//            if (dataString1.equals("Oggi")) {
-//                data1 = LocalDate.now();
-//            } else {
-//                String[] date = dataString1.split("/");
-//                data1 = LocalDate.parse(date[2] + "-" + date[1] + "-" + date[0]);
-//            }
-//            if (datastring2.equals("Oggi")) {
-//                data2 = LocalDate.now();
-//            } else {
-//                String[] date = datastring2.split("/");
-//                data2 = LocalDate.parse(date[2] + "-" + date[1] + "-" + date[0]);
-//            }
-//            if (data1.isBefore(data2)) {
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
 
     public boolean controllaNotifiche(List<WebElement> dateNotifiche) {
         for (int i = 0; i < dateNotifiche.size() - 1; i++) {
@@ -286,17 +258,6 @@ public class NotifichePFPage extends BasePage {
 
     public void siSceglieUnaPaginaDiversaConNumeroESiFiltra(String iun) {
 
-//        getWebDriverWait(30).withMessage("la terza pagina delle notifiche non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("page3"))));
-//        numeroPaginaTreButton = driver.findElement(By.id("page3"));
-//        js().executeScript("arguments[0].click()", numeroPaginaTreButton);
-//
-//        codiceIunTextField = driver.findElement(By.id("iunMatch"));
-//        codiceIunTextField.click();
-//        codiceIunTextField.sendKeys(iun);
-//        clickFiltraButton();
-//        webTool.waitTime(2);
-//        clickRimuoviFiltriButton();
-
         WebElement numeroPaginaTreButton = getWebDriverWait(30)
                 .withMessage("La terza pagina delle notifiche non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("page3")));
@@ -314,10 +275,6 @@ public class NotifichePFPage extends BasePage {
         clickFiltraButton();
 
         clickRimuoviFiltriButton();
-
-
-
-
     }
 
     public void modificaNumeroNotifichePagina() {
@@ -359,9 +316,6 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickFiltraButton() {
-//        getWebDriverWait(30).withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("filter-notifications-button"))));
-//        filtraButton = driver.findElement(By.id("filter-notifications-button"));
-//        filtraButton.click();
         WebElement filtraButton = getWebDriverWait(30)
                 .withMessage("Il bottone filtra nella pagina ricerca Notifiche PF non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("filter-notifications-button")));
@@ -370,12 +324,12 @@ public class NotifichePFPage extends BasePage {
     }
 
     public boolean isErrorMessageDisplayed() {
-        return getWebDriverWait(30).withMessage("Il messaggio di errore non e visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("iunMatch-helper-text")))).isDisplayed();
+        return getWebDriverWait(30).withMessage("Il messaggio di errore non e visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch-helper-text")))).isDisplayed();
     }
 
     public boolean isTextBoxInvalid() {
         final String isTextboxInvalid;
-        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("iunMatch"))));
+        getWebDriverWait(30).withMessage("L'input codice IUN non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("iunMatch"))));
         codiceIunTextField = driver.findElement(By.id("iunMatch"));
         String ariaInvalid = codiceIunTextField.getAttribute("aria-invalid");
         isTextboxInvalid = "true";
@@ -383,10 +337,6 @@ public class NotifichePFPage extends BasePage {
     }
 
     public void clickRimuoviFiltriButton() {
-//        getWebDriverWait(30).withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.cssSelector("[data-testid='cancelButton']"))));
-//        rimuoviFiltriButton = driver.findElement(By.cssSelector("[data-testid='cancelButton']"));
-//        rimuoviFiltriButton.click();
-
         WebElement rimuoviFiltriButton = getWebDriverWait(30)
                 .withMessage("Il bottone rimuovi filtri nella pagina ricerca Notifiche PG non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='cancelButton']")));
@@ -439,8 +389,6 @@ public class NotifichePFPage extends BasePage {
         Assertions.assertEquals(numeroAttesoCodiciAvviso, codiciAvviso.size(),
                 "Numero errato di codici avviso PagoPA, attesi: " + numeroAttesoCodiciAvviso);
 
-
-
         // Verifica modelli F24
         List<WebElement> modelliF24 = getWebDriverWait(15)
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
@@ -454,7 +402,7 @@ public class NotifichePFPage extends BasePage {
         List<WebElement> elements = getWebDriverWait(15)
                 .withMessage("Impossibile Verificare la Sezione Pagamenti")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("[data-testid='paymentInfoBox']"))
-        );
+                );
 
         Assertions.assertFalse(elements.isEmpty(), "La sezione Pagamenti non è presente sulla pagina!");
     }

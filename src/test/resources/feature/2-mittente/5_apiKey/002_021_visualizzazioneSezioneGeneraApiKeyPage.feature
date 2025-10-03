@@ -1,6 +1,5 @@
 Feature: Mittente visualizza correttamente la sezione genera Api Key
 
-  @TestSuite
   @TA_MittenteVisualizzaGeneraApiKey
   @ApikeyMittente
   @integrazioneApiPa

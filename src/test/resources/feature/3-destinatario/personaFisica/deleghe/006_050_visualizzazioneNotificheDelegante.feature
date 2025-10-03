@@ -1,13 +1,12 @@
 Feature: Il delegato visualizza la notifiche del delegante
-  
-  @TestSuite
+
   @TA_PFvisualizzaNotificheDelegante
   @DeleghePF
   @deleghe1
   @PF
   @DeleghePFPG
   @DeleghePFPG1
-    @loginFE_8_x
+  @loginFE_8_x
   @NRT_Blocco_3
   Scenario: PN-9419 - Il delegato visualizza la notifiche del delegante
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
@@ -21,9 +20,9 @@ Feature: Il delegato visualizza la notifiche del delegante
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega
     And Si visualizza correttamente la pagina nuova delega
     And Nella sezione Le Tue Deleghe inserire i dati
-      | nome          | Lucrezia          |
-      | cognome       | Borgia            |
-      | codiceFiscale | BRGLRZ80D58H501Q  |
+      | nome          | Lucrezia         |
+      | cognome       | Borgia           |
+      | codiceFiscale | BRGLRZ80D58H501Q |
       | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
     And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
@@ -40,10 +39,10 @@ Feature: Il delegato visualizza la notifiche del delegante
 
     And PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
-      | modello         | A/R                |
-      | documenti       | 1                  |
+      | modello         | A/R                           |
+      | documenti       | 1                             |
       | oggettoNotifica | Pagamento rata IMU -> PN-9419 |
-      | costiNotifica   | false              |
+      | costiNotifica   | false                         |
     And Si aggiunge un destinatario alla notifica
       | indirizzo        | VIA ROMA           |
       | codicePostale    | 20147              |

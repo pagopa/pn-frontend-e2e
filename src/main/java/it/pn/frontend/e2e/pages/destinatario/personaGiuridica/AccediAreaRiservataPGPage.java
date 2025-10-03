@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AccediAreaRiservataPGPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("AccediAreaRiservataPGPage");
+    private final Logger logger = LoggerFactory.getLogger(AccediAreaRiservataPGPage.class);
 
     @FindBy(id = "spidButton")
     WebElement spidButton;
@@ -34,8 +34,8 @@ public class AccediAreaRiservataPGPage extends BasePage {
             getWebDriverWait(30).withMessage("il titolo della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.visibilityOfElementLocated(titleBy));
             getWebDriverWait(30).withMessage("Lo spid Button della pagina Accedi Area Riservata non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
             logger.info("Accedi Area Riservata Page caricata correttamente");
-        } catch (TimeoutException e ){
-            Assertions.fail("Accedi Area Riservata Page non caricata correttamente con errore: "+e.getMessage());
+        } catch (TimeoutException e) {
+            Assertions.fail("Accedi Area Riservata Page non caricata correttamente con errore: " + e.getMessage());
         }
 
     }
@@ -60,18 +60,18 @@ public class AccediAreaRiservataPGPage extends BasePage {
             case "FR":
                 return "//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageFr() + "')]";
             case "DE":
-                return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageDe() + "')]";
+                return "//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageDe() + "')]";
             case "SL":
-                return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageSl() + "')]";
+                return "//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageSl() + "')]";
             default:
-                return"//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageIt() + "')]";
+                return "//h3[contains(text(),'" + waitLoadAccediAreaRiservataPgLanguage.getWaitLoadAccediAreaRiservataPGPageIt() + "')]";
         }
     }
 
     public void clickScegliAmbienteSendBottonePersonaGiuridica(String ambiente) {
         WebElement forwardButton = getWebDriverWait(20)
-                .withMessage("Il bottone per l Ambiente '"+ambiente+"' non è cliccabile")
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[contains(@aria-label, '"+ambiente+"')]/ancestor::div[contains(@class, 'MuiCard-root')]//button")));
+                .withMessage("Il bottone per l Ambiente '" + ambiente + "' non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//h6[contains(@aria-label, '" + ambiente + "')]/ancestor::div[contains(@class, 'MuiCard-root')]//button")));
         forwardButton.click();
         webTool.waitTime(2);
     }

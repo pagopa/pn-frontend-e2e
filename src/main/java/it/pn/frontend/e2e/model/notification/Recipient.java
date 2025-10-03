@@ -1,8 +1,8 @@
 package it.pn.frontend.e2e.model.notification;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import it.pn.frontend.e2e.model.address.PhysicalAddress;
 import it.pn.frontend.e2e.model.address.DigitalDomicile;
+import it.pn.frontend.e2e.model.address.PhysicalAddress;
 import it.pn.frontend.e2e.model.enums.RecipientTypeEnum;
 import lombok.Data;
 

@@ -2,7 +2,6 @@ package it.pn.frontend.e2e.pages.destinatario.personaGiuridica;
 
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.utility.WebTool;
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
@@ -13,8 +12,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,7 +21,7 @@ import java.util.Map;
 
 @Slf4j
 public class GruppiPGPage extends BasePage {
-    private final Logger logger = LoggerFactory.getLogger("GruppiPGPage");
+    private final Logger logger = LoggerFactory.getLogger(GruppiPGPage.class);
 
     @FindBy(id = "side-item-Gruppi")
     WebElement gruppiButton;
@@ -255,7 +252,6 @@ public class GruppiPGPage extends BasePage {
                 inputNomeGruppo.sendKeys(modifica);
             }
         } catch (InterruptedException e) {
-            log.error("È fallita l'attesa prima della modifica del campo con errore: {}", e.getMessage());
             Assertions.fail("È fallita l'attesa prima della modifica del campo con errore: " + e.getMessage());
         }
     }
@@ -347,11 +343,9 @@ public class GruppiPGPage extends BasePage {
 
     public void checkPopUpEliminazioneGruppo() {
         WebElement popUpTitle = driver.findElement(By.xpath("//p[contains(text(), 'Elimina gruppo')]"));
-//        WebElement popUpSubtitle = driver.findElement(By.xpath("//p[contains(text(), 'Vuoi eliminare il gruppo')]"));
         WebElement buttonAnnulla = driver.findElement(By.xpath("//button[contains(text(), 'Annulla')]"));
         WebElement buttonElimina = driver.findElement(By.xpath("//button[contains(text(), 'Elimina')]"));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il titolo del pop up").until(ExpectedConditions.visibilityOf(popUpTitle));
-//        getWebDriverWait(10).withMessage("Non si visualizza correttamente il sottotitolo del pop up").until(ExpectedConditions.visibilityOf(popUpSubtitle));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone annulla del pop up").until(ExpectedConditions.visibilityOf(buttonAnnulla));
         getWebDriverWait(10).withMessage("Non si visualizza correttamente il bottone elimina del pop up").until(ExpectedConditions.visibilityOf(buttonElimina));
     }

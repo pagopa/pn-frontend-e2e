@@ -11,13 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
-import java.sql.Driver;
 import java.util.List;
 
 public class RicercaNotifichePGPage extends BasePage {
 
-    private final Logger logger = LoggerFactory.getLogger("RicercaNotifichePGPage");
-
+    private final Logger logger = LoggerFactory.getLogger(RicercaNotifichePGPage.class);
 
 
     @FindBy(id = "filter-notifications-button")
@@ -31,7 +29,7 @@ public class RicercaNotifichePGPage extends BasePage {
 
     @Autowired
     @Lazy
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public RicercaNotifichePGPage(WebDriver driver) {
         this.driver = driver;
@@ -111,7 +109,7 @@ public class RicercaNotifichePGPage extends BasePage {
         }
     }
 
-    public void cliccaSuPrimaNotifica(){
+    public void cliccaSuPrimaNotifica() {
         try {
             webTool.waitTime(10);
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable((By.id("notificationsTable.body.row"))));
@@ -160,7 +158,7 @@ public class RicercaNotifichePGPage extends BasePage {
                 ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
                 webTool.waitTime(1);
                 List<WebElement> costElements = getWebDriverWait(30)
-                        .withMessage("Impossibile trovare il Copy Costi Di Notifica Inclusi con IUN: "+codiceIUN)
+                        .withMessage("Impossibile trovare il Copy Costi Di Notifica Inclusi con IUN: " + codiceIUN)
                         .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
                                 By.xpath("//p[contains(@data-testid, 'apply-costs-caption')]")
                         ));

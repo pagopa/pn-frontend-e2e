@@ -30,10 +30,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     #verificare alternativa per questo test per controllo SHA
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
-      | vediDettagli | false                                          |
-   # And Nella sezione Dettaglio Notifiche PG si seleziona il file, "Attestazione opponibile a terzi: notifica presa in carico", da scaricare
-    #Then Si controlla il SHA all interno del file atteztazione
-#    And Logout da portale persona fisica
+      | vediDettagli | false                                                                                  |
 
 
   @TA_PFDownloadAttestazioneOpponibilePresaInCaricoEVerificaEnte
@@ -42,8 +39,8 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
       | user   | albino63 |
-      | pwd    | test    |
-      | comune | Verona  |
+      | pwd    | test     |
+      | comune | Verona   |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     Then Home page mittente viene visualizzata correttamente
@@ -78,8 +75,7 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Cliccare sulla notifica restituita
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
-      | vediDettagli | false                                          |
-#    And Logout da portale persona fisica
+      | vediDettagli | false                                                                                  |
 
 
   @TA_PFVerificaEnteNelDettaglioNotifica
@@ -88,8 +84,8 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
       | user   | albino63 |
-      | pwd    | test    |
-      | comune | Verona  |
+      | pwd    | test     |
+      | comune | Verona   |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     Then Home page mittente viene visualizzata correttamente
@@ -123,4 +119,3 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Aspetta 60 secondi
     And Cliccare sulla notifica restituita
     And Verifica nome ente mittente "Comune di Viggiu"
-#    And Logout da portale persona fisica

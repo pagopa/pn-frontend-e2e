@@ -4,16 +4,10 @@ import it.pn.frontend.e2e.common.WebdriverScopeBean;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.utility.CookieConfig;
 import lombok.Getter;
-import lombok.Setter;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.HasDevTools;
-//import org.openqa.selenium.devtools.v126.network.Network;
-//import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
 import org.openqa.selenium.devtools.v138.network.Network;
 import org.openqa.selenium.devtools.v138.network.model.RequestWillBeSent;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -38,16 +32,14 @@ import java.util.*;
 @Getter
 public class WebDriverManager {
 
-    /**
-     * Logger
-     */
+
     private static final Logger logger = LoggerFactory.getLogger(WebDriverManager.class);
 
     @Getter
-    private  final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
+    private final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     @Getter
-    private  final ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
+    private final ThreadLocal<DevTools> devToolsThread = new ThreadLocal<>();
 
     @Getter
     private final ThreadLocal<List<NetWorkInfo>> networkInfosThread = ThreadLocal.withInitial(ArrayList::new);
@@ -64,8 +56,7 @@ public class WebDriverManager {
     private final String os = System.getProperty("os.name");
 
 
-
-    public  List<NetWorkInfo> getNetworkInfo() {
+    public List<NetWorkInfo> getNetworkInfo() {
         return networkInfosThread.get();
     }
 
@@ -81,10 +72,9 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN......." + Math.random());
+        logger.info("NUOVO BEAN....... {}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
-//        io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().setup();
 
         var chromeOptions = new ChromeOptions();
@@ -105,17 +95,11 @@ public class WebDriverManager {
                 "--disable-geolocation"
         );
 
-
-
-//        chromeOptions.addArguments("--lang=it", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
-
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT") ;
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "it,it-IT");
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         long id = Thread.currentThread().getId();
-        logger.info("Thread.currentThread(): "+ id);
-//        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + id);
-//        chromeOptions.addArguments("--user-data-dir=/path/to/unique/profile" + Thread.currentThread().getId());
+        logger.info("Thread.currentThread(): {}", id);
 
         if (Boolean.parseBoolean(webDriverConfig.getHeadless())) {
             chromeOptions.addArguments("--headless=new"); // usa il motore moderno
@@ -144,7 +128,7 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN DE......." + Math.random());
+        logger.info("NUOVO BEAN DE.......{}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
@@ -153,7 +137,7 @@ public class WebDriverManager {
         chromeOptions.addArguments("--lang=de-DE", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "de,de-DE") ;
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "de,de-DE");
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profiletedesc" + Thread.currentThread().getId());
 
@@ -182,7 +166,7 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN FR......." + Math.random());
+        logger.info("NUOVO BEAN FR....... {}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
@@ -191,7 +175,7 @@ public class WebDriverManager {
         chromeOptions.addArguments("--lang=fr-FR", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "fr,fr-FR") ;
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "fr,fr-FR");
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profilefranc" + Thread.currentThread().getId());
 
@@ -220,7 +204,7 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN SL......." + Math.random());
+        logger.info("NUOVO BEAN SL.......{}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
@@ -229,7 +213,7 @@ public class WebDriverManager {
         chromeOptions.addArguments("--lang=sl", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "sl,sl") ;
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "sl,sl");
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profileslov" + Thread.currentThread().getId());
 
@@ -259,7 +243,7 @@ public class WebDriverManager {
             throw new RuntimeException(e);
         }
 
-        logger.info("NUOVO BEAN EN......." + Math.random());
+        logger.info("NUOVO BEAN EN.......{}", Math.random());
         var browser = Optional.ofNullable(webDriverConfig.getBrowser())
                 .orElseThrow(() -> new IllegalArgumentException("Browser must be specified"));
         io.github.bonigarcia.wdm.WebDriverManager.chromedriver().browserVersion("138.0.7204.168").setup();
@@ -268,7 +252,7 @@ public class WebDriverManager {
         chromeOptions.addArguments("--lang=en-US", "--incognito", "--disable-dev-shm-usage", "--remote-allow-origins=*", "--enable-clipboard", "--disable-geolocation");
 
         var downloadFilePath = webDriverConfig.getDownloadFilePath();
-        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "en,en-US") ;
+        var chromePrefs = Map.of("download.default_directory", downloadFilePath, "intl.accept_languages", "en,en-US");
         chromeOptions.setExperimentalOption("prefs", chromePrefs);
         chromeOptions.addArguments("--user-data-dir=/path/to/unique/profileenglish" + Thread.currentThread().getId());
 
@@ -355,7 +339,7 @@ public class WebDriverManager {
                     var url = request.getRequest().getUrl();
                     cookieConfig.getCookies(url).forEach(cookie -> driver.manage().addCookie(cookie));
                     requests.put(request.getRequestId().toString(), request);
-                    logger.info("Request URL: " + request.getRequest().getUrl());
+                    logger.info("Request URL: {}", request.getRequest().getUrl());
                     // Safely access the request properties
                     String threadId = Thread.currentThread().getName();
                     logger.info("Thread: " + threadId + " - URL: " + request.getRequest().getUrl());
@@ -364,16 +348,16 @@ public class WebDriverManager {
                     logger.info("Received a null event or request object.");
                 }
             } catch (Exception e) {
-                logger.error("Error processing the request: " + e.getMessage());
+                logger.error("Error processing the request: {}", e.getMessage());
             }
         });
 
         // Aspetta per vedere tutte le richieste di rete
-         try {
-         Thread.sleep(5000);
-         } catch (InterruptedException e) {
-         throw new RuntimeException(e);
-         }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         devToolsThread.set(devTools);
         driverThreadLocal.set(driver);
 
@@ -411,7 +395,7 @@ public class WebDriverManager {
                     } catch (Exception ignored) {
                         // Ignorato perché non sempre è disponibile il body della risposta
                     }
-                    logger.info("NET_INFO: " + netWorkInfo.getRequestUrl());
+                    logger.info("NET_INFO: {}", netWorkInfo.getRequestUrl());
 
                     netWorkInfos.add(netWorkInfo);
 
@@ -423,7 +407,7 @@ public class WebDriverManager {
         devToolsThread.set(devTools);
     }
 
-    public  void clearRequest() {
+    public void clearRequest() {
         requests.clear();
     }
 
@@ -433,8 +417,7 @@ public class WebDriverManager {
     }
 
 
-
-    public  WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions) {
+    public WebDriver getDriver(ChromeOptions chromeOptions, EdgeOptions edgeOptions, FirefoxOptions firefoxOptions) {
         if (driverThreadLocal.get() == null) {
 
             if (chromeOptions != null) {
@@ -450,7 +433,7 @@ public class WebDriverManager {
                 try {
                     DevTools devTools = ((ChromeDriver) driver).getDevTools();
                     devTools.createSession();
-                    devTools.send(Network.enable(Optional.empty(), Optional.empty(),Optional.empty(), Optional.empty()));
+                    devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()));
                     devToolsThread.set(devTools);
                     devToolsThread.set(devTools);
                 } catch (Exception e) {
@@ -475,8 +458,8 @@ public class WebDriverManager {
                 driverThreadLocal.set(driver);
             }
         }
-        logger.info("Start WebDriverManager..." +  driverThreadLocal.get());
-        return  driverThreadLocal.get();
+        logger.info("Start WebDriverManager...{}", driverThreadLocal.get());
+        return driverThreadLocal.get();
     }
 
     public void quitDriver() {

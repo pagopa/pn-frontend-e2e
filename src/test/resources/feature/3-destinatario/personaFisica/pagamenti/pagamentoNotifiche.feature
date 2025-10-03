@@ -1,17 +1,16 @@
 Feature:Pagamento notifica
 
-  @TestSuite
   @PF
   @PagamentoNotificaPF
   @notificaPagataESuccessivamenteAnnullata
-    @NRT_Blocco_2
+  @NRT_Blocco_2
   Scenario:[NOTIFICA-PAGAMENTO NOTIFICA AVVISO PAGOPA] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
-      | modello         | 890                |
-      | documenti       | 1                  |
+      | modello         | 890                                                          |
+      | documenti       | 1                                                            |
       | oggettoNotifica | Pagamento rata IMU NOTIFICA-PAGAMENTO NOTIFICA AVVISO PAGOPA |
-      | costiNotifica   | true               |
+      | costiNotifica   | true                                                         |
     And Si aggiunge un destinatario alla notifica
       | at                | Presso             |
       | indirizzo         | VIA ROMA 20        |
@@ -92,7 +91,6 @@ Feature:Pagamento notifica
     And Cliccare sul bottone Paga
     Then Si inserisce i dati di pagamento e procede con il pagamento "prova@test.it"
     And Si verifica che visualizzato lo stato Pagato
-
 
 
   @PagamentoNotificaMultiPFConPiuAvvisiEF24

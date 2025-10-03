@@ -38,17 +38,16 @@ public class SpidAcs {
                     .addParameter("SAMLResponse", this.samlResponseInput)
                     .build();
             this.headerLocal = httpclient.execute(httpPost, classicHttpResponse -> {
-                logger.info(classicHttpResponse.getCode() + " " + classicHttpResponse.getReasonPhrase());
+                logger.info("{} - {} ",classicHttpResponse.getCode(), classicHttpResponse.getReasonPhrase());
                 Header[] headers = classicHttpResponse.getHeaders();
                 for (Header header : headers) {
-                    logger.info("Key : " + header.getName()
-                            + " ,Value : " + header.getValue());
+                    logger.info("Key : {} ,Value : {}",  header.getName(),header.getValue());
                 }
                 Map<String, String> hm = new HashMap<>();
                 hm.put("responseCode", String.valueOf(classicHttpResponse.getCode()));
                 hm.put("urlPortale",classicHttpResponse.getHeader("Location").getValue());
-                logger.info(classicHttpResponse.getHeader("Location").getValue());
-                logger.info(hm.get("urlPortale"));
+                logger.info("runSpidAcs Location {}",classicHttpResponse.getHeader("Location").getValue());
+                logger.info("runSpidAcs urlPortale {}",hm.get("urlPortale"));
                 return hm;
             });
         }catch (IOException e){

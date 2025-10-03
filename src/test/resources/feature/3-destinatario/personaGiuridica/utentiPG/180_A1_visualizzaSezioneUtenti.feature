@@ -1,6 +1,5 @@
 Feature: La persona giuridica visualizza gli utenti
 
-  @TestSuite
   @TA_PGUtenti_1
   @VisualizzaUtentiPG
   @PG

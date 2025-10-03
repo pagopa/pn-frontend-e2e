@@ -1,12 +1,10 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
-  @TestSuite_1
   @InvioNotificaADueDestinatariEntrambiRaggiungibili
   @addressBook1
   Scenario: PN-9257 [TA-FE INVIO NOTIFICA A DUE DESTINATARI ENTRAMBI NON RAGGIUNGIBILI] - Il mittente invia una notifica a due destinatari , entrambi non raggiungibili al primo tentativo
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
-#    And Logout da portale persona fisica
     And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
 

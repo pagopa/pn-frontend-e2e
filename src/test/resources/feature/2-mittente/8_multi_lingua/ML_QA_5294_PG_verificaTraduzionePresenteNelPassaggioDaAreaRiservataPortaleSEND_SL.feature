@@ -1,6 +1,5 @@
 Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a portale SEND - SL
 
-  @TestSuite
   @TA_multiLinguaSloveno_QA5294
   @multiLingua
   @multiLinguaPg

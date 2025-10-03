@@ -15,7 +15,7 @@ public enum AppPortalUrl {
     private final String paramToken;
     private final String tokenKey;
 
-    private static final Logger logger = LoggerFactory.getLogger("AppPortalUrl");
+    private static final Logger logger = LoggerFactory.getLogger(AppPortalUrl.class);
 
 
     AppPortalUrl(String baseUrl, String paramToken, String tokenKey) {

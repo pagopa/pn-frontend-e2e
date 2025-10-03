@@ -1,6 +1,5 @@
 Feature:Il delegato persona giuridica accede ad una delega
 
-  @TestSuite
   @DeleghePG
   @PG
   @DeleghePFPG
@@ -29,10 +28,10 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Nella sezione Delegati dell impresa click sul bottone aggiungi nuova delega senza revocare quella esistente
     And Si visualizza la sezione Aggiungi Delega persona giuridica
     And Nella sezione Le Tue Deleghe inserire i dati
-      | nome          | Lucrezia            |
-      | cognome       | Borgia              |
-      | codiceFiscale | BRGLRZ80D58H501Q    |
-      | ente          | Comune di Verona    |
+      | nome          | Lucrezia         |
+      | cognome       | Borgia           |
+      | codiceFiscale | BRGLRZ80D58H501Q |
+      | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe click sul bottone Invia richiesta
     Then Nella sezione Le Tue Deleghe si visualizza il messaggio di errore delega gia aggiunta
 

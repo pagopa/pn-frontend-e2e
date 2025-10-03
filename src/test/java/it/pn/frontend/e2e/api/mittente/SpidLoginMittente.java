@@ -47,7 +47,7 @@ public class SpidLoginMittente {
                     .build();
 
             httpclient.execute(httpGet, context, response -> {
-                logger.info(response.getCode() + " " + response.getReasonPhrase());
+                logger.info("{}  {}", response.getCode(), response.getReasonPhrase());
                 Assertions.assertEquals(response.getCode(), 200);
                 final HttpEntity entity = response.getEntity();
                 this.responseBody = EntityUtils.toString(entity);

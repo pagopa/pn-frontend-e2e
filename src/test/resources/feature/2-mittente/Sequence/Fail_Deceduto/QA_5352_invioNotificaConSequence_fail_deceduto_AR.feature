@@ -1,7 +1,6 @@
 Feature: invio notifica con sequence
 
   @NotificaConSequenceDecedutoAR
-  @TestSuite
   @NRT_Blocco_3
   @Sequence_Deceduto
 
@@ -30,7 +29,6 @@ Feature: invio notifica con sequence
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Resa al mittente"
-#    And Aspetta 400 secondi
     And Attesa 400 secondi
     And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica

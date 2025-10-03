@@ -10,9 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +20,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 
 public class DettaglioNotificaSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DettaglioNotificaSection");
+    private static final Logger logger = LoggerFactory.getLogger(DettaglioNotificaSection.class);
 
     @FindBy(xpath = "//button[contains(text(),'Attestazione opponibile a terzi: ')]")
     List<WebElement> attestazioniFile;
@@ -114,13 +111,12 @@ public class DettaglioNotificaSection extends BasePage {
     }
 
     public void selezioneVediDettaglioButton() {
-        vediDettagliButton =  driver.findElement(By.id("more-less-timeline-step"));
+        vediDettagliButton = driver.findElement(By.id("more-less-timeline-step"));
         scrollToElementAndClick(vediDettagliButton);
         tuttiStatiNotificaList = driver.findElements(By.xpath("//*[contains(@class, 'MuiTimelineItem-root')]"));
         if (!tuttiStatiNotificaList.isEmpty()) {
             logger.info("Tutti gli stati sono stati visualizzati correttamente");
         } else {
-            logger.error("Tutti i stati non sono stati visualizzati correttamente");
             Assertions.fail("Tutti i stati non sono stati visualizzati correttamente");
         }
     }
@@ -139,10 +135,7 @@ public class DettaglioNotificaSection extends BasePage {
 
     public boolean isFieldNotDisplayed(By xpath) {
         List<WebElement> elements = driver.findElements(xpath);
-        if (!elements.isEmpty()) {
-            return false;
-        }
-        return true;
+        return elements.isEmpty();
 
     }
 
@@ -189,17 +182,12 @@ public class DettaglioNotificaSection extends BasePage {
             checkboxAvvisoPagoPa.click();
             logger.info("check su avviso pagopa avvenuto con successo");
         } catch (TimeoutException e) {
-            logger.error("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
             Assertions.fail("check su avviso pagopa non avvenuto con successo: " + e.getMessage());
         }
     }
 
     public void checkMessaggioScadenzaDownload() {
-//         webTool.waitTime(2);
-//         WebElement checkAvvisoDownloadScaduto = driver.findElement(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]"));
-//         getWebDriverWait(10).withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile").until(ExpectedConditions.visibilityOf(checkAvvisoDownloadScaduto));
-
-         getWebDriverWait(10)
+        getWebDriverWait(10)
                 .withMessage("In messaggio Al momento non è possibile scaricare il documento non è visibile")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[contains(text(), 'Al momento non è possibile scaricare il documento')]")));
 

@@ -1,6 +1,5 @@
 Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
 
-  @TestSuite
   @TA_PGaccettaDelegaConGruppo
   @DeleghePG
   @PG

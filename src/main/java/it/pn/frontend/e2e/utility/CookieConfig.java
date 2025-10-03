@@ -1,16 +1,11 @@
 package it.pn.frontend.e2e.utility;
 
-import it.pn.frontend.e2e.config.WebDriverConfig;
 import lombok.Getter;
 import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -18,7 +13,7 @@ import java.util.*;
 
 @Component
 public class CookieConfig {
-    private static final Logger logger = LoggerFactory.getLogger("CookieConfig");
+    private static final Logger logger = LoggerFactory.getLogger(CookieConfig.class);
 
     private final Map<String, Set<Cookie>> cookieMap;
     @Value("${environment}")
@@ -37,10 +32,9 @@ public class CookieConfig {
     }
 
 
-
     public boolean isCookieEnabled() {
-        logger.info("COOOKIE....: "+ cookie);
-        logger.info("COOOKIE....ENVIROMENT: "+ environment);
+        logger.info("COOOKIE....: {}", cookie);
+        logger.info("COOOKIE....ENVIROMENT: {}", environment);
         String isCookieEnabled = cookie;
         if (isCookieEnabled == null || isCookieEnabled.equals("false")) {
             logger.info("Cookies are disabled");
@@ -155,7 +149,6 @@ public class CookieConfig {
 
     public Set<Cookie> getCookies(String url) {
         if (cookieMap.get(url) != null) {
-           // threadLocalCookies.set(cookieMap.get(url));
             return cookieMap.get(url);
         }
         return new HashSet<>();

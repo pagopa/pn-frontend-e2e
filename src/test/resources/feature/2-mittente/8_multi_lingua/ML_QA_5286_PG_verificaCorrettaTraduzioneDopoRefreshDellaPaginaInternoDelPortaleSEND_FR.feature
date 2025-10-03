@@ -1,6 +1,5 @@
 Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND- FR
 
-  @TestSuite
   @TA_multiLinguaFrancese_QA5286
   @multiLingua
   @multiLinguaPg
@@ -23,7 +22,6 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     And Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Notifications de l"
     And Verifica traduzione testo "Notifications de"
-#    And Verifica traduzione testo "Lire les notifications de Convivio Spa"
 ##  Raggiungere la sezione Notifiche delegate e verificarne la traduzione
     When Seleziona voce menu laterale "Notifications mandatées"
     And Verifica traduzione testo "Lire les notifications mandatées à Convivio Spa"
@@ -31,7 +29,6 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     When Seleziona voce menu laterale "Coordonnées"
     And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
 #    Selezionare Stato della Piattaforma
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"

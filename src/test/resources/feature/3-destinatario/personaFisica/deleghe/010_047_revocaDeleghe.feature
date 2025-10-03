@@ -1,6 +1,5 @@
 Feature:La persona fisica revoca una delega
 
-  @TestSuite
   @TA_PFrevocaDelega
   @DeleghePF
   @PF

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebdriverScopeConfig {
     @Bean
-    public static BeanFactoryPostProcessor beanFactoryPostProcessor(){
+    public static BeanFactoryPostProcessor beanFactoryPostProcessor() {
         return new WebdriverScopePostProcessor();
     }
 }

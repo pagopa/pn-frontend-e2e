@@ -1,10 +1,8 @@
 Feature: il mittente fa una ricerca combinata tra stato e data
 
-  @TestSuite
     @mittente
     @ricercaNotificheMittente
     @TA_MittenteRicercaPerDataStato
-    @loginFE
     @NRT_Blocco_1
   Scenario Outline: PN-9222_2 - il mittente fa una ricerca sia per data che per stato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

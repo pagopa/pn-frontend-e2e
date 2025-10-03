@@ -23,7 +23,7 @@ public class RecapitiTest extends BasePage {
     private final String emailDiCortesia = "email di cortesia";
     private final String ELIMINA = "Elimina";
 
-    public  String OTP;
+    public String OTP;
 
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
@@ -40,7 +40,7 @@ public class RecapitiTest extends BasePage {
     PiattaformaNotifichePage piattaformaNotifichePage;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
         iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
@@ -95,9 +95,9 @@ public class RecapitiTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia già una {string} e si inserisce {string}")
     public void nellaPaginaITuoiRecapitiSiControllaCheCiSiaGiaUnaPECESiInserisce(String tipoContatto, String indirizzoMail) {
         logger.info("Si controlla che non ci sia già una " + tipoContatto + " e se ne inserisce una");
-        if (PEC.equalsIgnoreCase(tipoContatto)){
+        if (PEC.equalsIgnoreCase(tipoContatto)) {
             backgroundTest.checkPECEsistentePerEliminazioneEInserimento(indirizzoMail);
-        } else if (emailDiCortesia.equalsIgnoreCase(tipoContatto)){
+        } else if (emailDiCortesia.equalsIgnoreCase(tipoContatto)) {
             backgroundTest.checkEmailDiCortesiaPerEliminazioneEInserimento(indirizzoMail);
         } else {
             logger.error("Errore nella scrittura del tipo di contatto da controllare e inserire");
@@ -175,7 +175,6 @@ public class RecapitiTest extends BasePage {
     public void siControllaCheLEmailInseritaSiaPresente() {
         logger.info("Si controlla che la Email sia stata inserita correttamente");
         if (!recapitiDestinatarioPage.verificaMailAssociata()) {
-            logger.error("Email non è stata inserita correttamente");
             Assertions.fail("Email non è stata inserita correttamente");
         }
     }
@@ -190,7 +189,7 @@ public class RecapitiTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia una email di cortesia impostata")
     public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaUnaEmailDiCortesiaImpostata() {
         logger.info("Si controlla la presenza di una email di cortesia");
-        if(recapitiDestinatarioPage.verificaMailAssociata()){
+        if (recapitiDestinatarioPage.verificaMailAssociata()) {
             logger.info("Email di cortesia trovata, si procede con l'eliminazione");
             recapitiDestinatarioPage.clickSuBottoneEmailDiCortesia(ELIMINA);
             recapitiDestinatarioPage.confermaButtonEliminaClick();
@@ -206,7 +205,7 @@ public class RecapitiTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti si controlla che non ci sia un numero di cellulare di cortesia impostato")
     public void nellaPaginaITuoiRecapitiSiControllaCheNonCiSiaUnNumeroDiCellulareDiCortesiaImpostato() {
         logger.info("Si controlla la presenza di un numero di cellulare di cortesia");
-        if(recapitiDestinatarioPage.verificaNumeroDiCellulareAssociato()) {
+        if (recapitiDestinatarioPage.verificaNumeroDiCellulareAssociato()) {
             logger.info("Numero di cellulare di cortesia trovato, si procede con l'eliminazione");
             recapitiDestinatarioPage.clickSuBottoneCellulareDiCortesia(ELIMINA);
             recapitiDestinatarioPage.confermaButtonEliminaClick();
@@ -218,7 +217,6 @@ public class RecapitiTest extends BasePage {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         if (variabileAmbiente.equalsIgnoreCase("uat")) {
             logger.info("Si clicca su 'Attiva SEND su IO'");
-//            recapitiDestinatarioPage.verificaPagina("Attiva SEND su IO");
             recapitiDestinatarioPage.clickSuBottoneAttivaSENDSuIO();
         }
         logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);
@@ -229,8 +227,6 @@ public class RecapitiTest extends BasePage {
         String variabileAmbiente = webDriverConfig.getEnvironment();
         if (variabileAmbiente.equalsIgnoreCase("uat")) {
             logger.info("Si clicca su 'Collega SEND su IO'");
-//            recapitiDestinatarioPage.verificaPagina("Collega SEND su IO");
-//            recapitiDestinatarioPage.clickSuBottoneCollegaSENDSuIO();
             iTuoiRecapitiPage.clickCollegaSENDSuIO();
         }
         logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);

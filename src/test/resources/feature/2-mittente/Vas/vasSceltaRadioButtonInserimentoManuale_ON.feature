@@ -1,6 +1,5 @@
 Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
-  @TestSuite
   @TA_VAS_36_35
   @NRT_PHYSICAL_ADDRESS_LOOKUP_ON
   @NRT_Blocco_3
@@ -19,16 +18,16 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     # VAS_36
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | Via Roma              |
-      | localita  | Milano                |
-      | comune    | Milano                |
-      | provincia | MI                    |
-      | cap       | 20147                 |
-      | stato     | Italia                |
+      | indirizzo | Via Roma |
+      | localita  | Milano   |
+      | comune    | Milano   |
+      | provincia | MI       |
+      | cap       | 20147    |
+      | stato     | Italia   |
 
     And Verifica Disibilitato Tasto Continua
    # VAS_35
     Then Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | civico    | 20                    |
+      | civico | 20 |
     And Cliccare su continua
     And Verifica Pagina  Invia una nuova notifica la sezione Posizione Debitoria

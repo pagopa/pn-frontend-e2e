@@ -1,6 +1,5 @@
 Feature:La persona giuridica visualizza le deleghe
 
-  @TestSuite
   @TA_PGricercaDelegheSenzaGruppo
   @DeleghePG
   @PG
