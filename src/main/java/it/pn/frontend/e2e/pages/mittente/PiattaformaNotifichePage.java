@@ -1118,66 +1118,6 @@ public class PiattaformaNotifichePage extends BasePage {
         }
     }
 
-//    public void selezionaFrecettaFinoaPagina(int pagina) {
-//        String paginaString = "page" + pagina;
-//        getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
-//                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("next")));
-//        frecciaPaginaSuccessiva = driver.findElement(By.id("next"));
-//        if (!element(By.id("next")).isDisplayed()) {
-//            numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
-//            js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
-//        }
-//        int i = 0;
-//
-//        while (element(By.id("next")).isEnabled() && i <= pagina) {
-//            element(By.id("next")).click();
-//            webTool.waitTime(2);
-//            try {
-//                if (element(By.id("paginaString")).isDisplayed()) {
-//                    break;
-//                }
-//            } catch (NoSuchElementException e) {
-//                logger.error("{} non visualizzata", paginaString);
-//            }
-//            i++;
-//        }
-//
-//    }
-//public void selezionaFrecettaFinoaPagina(int pagina) {
-//    String paginaString = "page" + pagina;
-//    getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
-//            .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("next")));
-//    frecciaPaginaSuccessiva = driver.findElement(By.id("next"));
-//    if (!element(By.id("next")).isDisplayed()) {
-//        numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
-//        js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
-//    }
-//
-//    // WHILE UNIFICATO - condizione primaria: verifyDateCondition()
-//    while (element(By.id("next")).isEnabled() && !verifyDateCondition()) {
-//        element(By.id("next")).click();
-//        webTool.waitTime(2);
-//
-//        // Controllo secondario: se abbiamo raggiunto la pagina, ma CONTINUIAMO
-//        // finché non troviamo verifyDateCondition()
-//        try {
-//            if (element(By.id(paginaString)).isDisplayed()) {
-//                logger.info("Raggiunta pagina {} ma continuo per cercare verifyDateCondition", pagina);
-//                // Non breakiamo, continuiamo a cercare verifyDateCondition
-//            }
-//        } catch (NoSuchElementException e) {
-//            logger.error("{} non visualizzata", paginaString);
-//        }
-//        pagina++;
-//    }
-//
-//    // Log finale
-//    if (verifyDateCondition()) {
-//        logger.info("Trovata verifyDateCondition alla pagina {}", pagina);
-//    } else {
-//        logger.info("VerifyDateCondition non trovata dopo {} pagine", pagina);
-//    }
-//}
     public void selezionaFrecettaFinoaPagina(int pagina) {
         String paginaString = "page" + pagina;
         getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
@@ -1187,16 +1127,43 @@ public class PiattaformaNotifichePage extends BasePage {
             numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
             js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
+        int i = 0;
+
+        while (element(By.id("next")).isEnabled() && i <= pagina) {
+            element(By.id("next")).click();
+            webTool.waitTime(2);
+            try {
+                if (element(By.id("paginaString")).isDisplayed()) {
+                    break;
+                }
+            } catch (NoSuchElementException e) {
+                logger.error("{} non visualizzata", paginaString);
+            }
+            i++;
+        }
+
+    }
+
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaFinoAGiorniIndietro(long giorni) {
+        int paginaCorrente = 1;
+        String paginaString = "page" + paginaCorrente;
+        getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("next")));
+        frecciaPaginaSuccessiva = driver.findElement(By.id("next"));
+        if (!element(By.id("next")).isDisplayed()) {
+            numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+            js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
+        }
 
         boolean foundDateCondition = false;
-        int paginaCorrente = pagina;
+
 
         while (element(By.id("next")).isEnabled() && !foundDateCondition) {
             element(By.id("next")).click();
             webTool.waitTime(2);
 
             // Controlla subito se abbiamo trovato la condizione
-            foundDateCondition = verifyDateCondition(300);
+            foundDateCondition = verifyDateCondition(giorni);
 
             // Controllo secondario: se abbiamo raggiunto la pagina
             try {
@@ -2579,12 +2546,13 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Prima riga
         LocalDate firstDate = extractDateFromRow(rows.get(0));
-        logger.info("LOGGER firstDate: "+firstDate);
-        // Ultima riga
-        LocalDate lastDate = extractDateFromRow(rows.get(rows.size() - 1));
-        logger.info("LOGGER lastDate: "+lastDate);
-
-        return firstDate.isBefore(referenceDate) || lastDate.isBefore(referenceDate);
+        logger.info("LOGGER firstDate: " + firstDate);
+//        // Ultima riga
+//        LocalDate lastDate = extractDateFromRow(rows.get(rows.size() - 1));
+//        logger.info("LOGGER lastDate: "+lastDate);
+//
+//        return firstDate.isBefore(referenceDate) || lastDate.isBefore(referenceDate);
+        return firstDate.isBefore(referenceDate);
     }
 
     private static LocalDate extractDateFromRow(WebElement row) {
@@ -2594,7 +2562,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         // Parsing della data (esempio: "02/04/2025, ore 09:25")
         String[] parts = dateText.split(",");
-        String datePart = parts[0].trim(); // "02/04/2025"
+        String datePart = parts[0].trim();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(datePart, formatter);

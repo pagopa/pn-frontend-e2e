@@ -8,7 +8,8 @@ Feature: Persona Giuridica prova ad effettuare download AOT scaduti da 120gg
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'
     And Si visualizza correttamente la tabella dei disservizi
     And Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro
-    And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 15
+#    And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 15
+    And Nella pagina stato della piattaforma si cambia pagina fino a 300 giorni indietro
     And Attesa 2 secondi
     And Download file attestazione disservizio
 

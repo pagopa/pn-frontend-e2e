@@ -9,7 +9,7 @@ Feature: Persona Fisica prova ad effettuare download AOT scaduti da 120gg
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'
     And Si visualizza correttamente la tabella dei disservizi
     And Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro
-    And Nella pagina stato della piattaforma si cambia pagina
+    And Nella pagina stato della piattaforma si cambia pagina fino a 300 giorni indietro
     And Attesa 4 secondi
     And Download file attestazione disservizio
 
