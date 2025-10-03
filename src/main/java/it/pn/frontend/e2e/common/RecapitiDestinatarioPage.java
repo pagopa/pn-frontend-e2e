@@ -1901,4 +1901,25 @@ public class RecapitiDestinatarioPage extends BasePage {
         dialogButton.click();
 
     }
+
+
+    public void clickOkHoCapitoRecapitiPopUp() {
+        WebElement dialogButton = getWebDriverWait(40)
+                .withMessage("Impossibile trovare il pulsante nel Pop-UP Ok, ho capito")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-close-button")));
+        dialogButton.click();
+
+    }
+
+
+    public void verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String testBanner) {
+        WebElement alert = getWebDriverWait(20)
+                .withMessage("Impossibile trovare il Banner nella pagina Personalizza il tuo domicilio digitale per ente mittente ")
+                .until(ExpectedConditions
+                .visibilityOfElementLocated(By.cssSelector("[data-testid='alreadyExistsAlert']")));
+
+        String alertText = alert.getText();
+        Assertions.assertTrue(
+                alertText.toLowerCase().contains(testBanner.toLowerCase()),"Il banner non contiene una email o la parola '"+testBanner+"'" );
+    }
 }
