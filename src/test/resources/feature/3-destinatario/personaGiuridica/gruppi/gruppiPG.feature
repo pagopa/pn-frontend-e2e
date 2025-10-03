@@ -1,6 +1,5 @@
 Feature: Si eseguono e si controllano tutte le operazioni che possono essere eseguite sui gruppi
 
-  @TestSuite
   @gruppiPG
   @loginFE
   @NRT_Blocco_3

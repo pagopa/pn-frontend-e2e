@@ -23,12 +23,10 @@ public class PreAccediAreaRiservataPGPage extends BasePage {
 
     public void waitLoadPreAccediPage() {
         try {
-           // WebElement titlePage = driver.findElement(By.id("login-page-title"));
             getWebDriverWait(30).withMessage("Il titolo della pagina PreAccediAreaRiservataPGPage non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("login-page-title"))));
             getWebDriverWait(30).withMessage("Il bottone accedi della pagina PreAccediAreaRiservataPGPage non è visibile").until(ExpectedConditions.visibilityOf(accediButton));
             logger.info("PreAccediAreaRiservataPGPage caricata corretamente");
         } catch (TimeoutException e ){
-            logger.error("PreAccediAreaRiservataPGPage non  caricata corretamente con errore: " +e.getMessage());
             Assertions.fail("PreAccediAreaRiservataPGPage non  caricata corretamente con errore: " +e.getMessage());
         }
     }

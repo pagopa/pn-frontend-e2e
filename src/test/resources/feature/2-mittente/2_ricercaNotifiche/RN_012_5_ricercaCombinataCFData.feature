@@ -1,11 +1,9 @@
 Feature: il mittente fa una ricerca combinata tra cf e data
 
-  @TestSuite
   @mittente
   @ricercaNotificheMittente
   @TA_MittenteRicercaPerCFeData
 
-  @loginFE
   @NRT_Blocco_1
   Scenario: PN-9222_5 - il mittente fa una ricera sia per cf che per data
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

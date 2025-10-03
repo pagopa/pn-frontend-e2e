@@ -1,6 +1,5 @@
 Feature: persona giuridica scarica attestazione opponibile
 
-  @TestSuite
   @TA_PG_DownloadFileAOTPresaInCarico
   @DownloadFilePG
   @PG
@@ -12,8 +11,8 @@ Feature: persona giuridica scarica attestazione opponibile
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente
       | user   | albino63 |
-      | pwd    | test    |
-      | comune | Verona  |
+      | pwd    | test     |
+      | comune | Verona   |
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     Then Home page mittente viene visualizzata correttamente
@@ -22,9 +21,9 @@ Feature: persona giuridica scarica attestazione opponibile
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
       | oggettoNotifica   | Pagamento RATA IMU PN-10432 |
       | descrizione       | PAGAMENTO RATA IMU PN-10432 |
-      | codiceTassonomico | 100105P            |
-      | modalitaInvio     | A/R                |
-      | gruppo            | test-TA-FE-TEST    |
+      | codiceTassonomico | 100105P                     |
+      | modalitaInvio     | A/R                         |
+      | gruppo            | test-TA-FE-TEST             |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
@@ -57,4 +56,4 @@ Feature: persona giuridica scarica attestazione opponibile
     And Cliccare sulla notifica restituita
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
-      | vediDettagli | false                                          |
+      | vediDettagli | false                                                                                  |

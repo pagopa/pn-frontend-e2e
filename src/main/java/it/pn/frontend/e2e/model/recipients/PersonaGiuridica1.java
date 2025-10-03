@@ -6,5 +6,4 @@ import lombok.Data;
 public class PersonaGiuridica1 extends PersonaGiuridica {
 
 
-
 }

@@ -32,31 +32,31 @@ public class CreazioneDelega {
         this.responseBody = responseBody;
     }
 
-    public boolean runCreazioneDelegheApi(){
-        try{
+    public boolean runCreazioneDelegheApi() {
+        try {
             CloseableHttpClient httpClient = HttpClients.createDefault();
             ClassicHttpRequest httpPost = ClassicRequestBuilder
                     .post(url)
                     .addHeader(HttpHeaders.AUTHORIZATION, this.authorizationToken)
                     .setEntity(body)
-                    .addHeader(HttpHeaders.CONTENT_TYPE,"application/json")
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/json")
                     .build();
             httpClient.execute(httpPost, response -> {
-                logger.info("La request ha risposto con:"+response.getCode()+"-"+response.getReasonPhrase());
-                if (response.getCode()==201){
+                logger.info("La request ha risposto con: {} - {} ", response.getCode(), response.getReasonPhrase());
+                if (response.getCode() == 201) {
                     logger.info("Salvataggio dati del body");
                     final HttpEntity entity = response.getEntity();
                     setResponseBody(EntityUtils.toString(entity));
                     return true;
-                }else {
+                } else {
                     this.responseCode = response.getCode();
                     return false;
                 }
             });
-        } catch (IOException e){
+        } catch (IOException e) {
             return false;
-         }
-        return this.responseBody!=null;
+        }
+        return this.responseBody != null;
     }
 
     public String getAuthorizationToken() {
@@ -82,7 +82,6 @@ public class CreazioneDelega {
     public void setUrl(String url) {
         this.url = url;
     }
-
 
 
 }

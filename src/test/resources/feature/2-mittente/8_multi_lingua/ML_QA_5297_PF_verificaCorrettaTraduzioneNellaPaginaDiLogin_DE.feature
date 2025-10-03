@@ -1,6 +1,5 @@
 Feature: PF - Verifica corretta traduzione nella pagina di Login - DE
 
-  @TestSuite
   @TA_multiLinguaTedesco_QA5297
   @multiLingua
   @multiLinguaPf

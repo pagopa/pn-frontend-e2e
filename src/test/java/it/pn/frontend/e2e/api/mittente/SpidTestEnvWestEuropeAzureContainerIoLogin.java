@@ -70,7 +70,7 @@ public class SpidTestEnvWestEuropeAzureContainerIoLogin {
                 .build();
         try {
             this.responseBody = httpclient.execute(httpPost, classicHttpResponse -> {
-                logger.info(classicHttpResponse.getCode() + " " + classicHttpResponse.getReasonPhrase());
+                logger.info("{} - {} ",classicHttpResponse.getCode(), classicHttpResponse.getReasonPhrase());
                 List<Cookie> cookieList =context.getCookieStore().getCookies();
                 for (Cookie cookie : cookieList){
                     logger.info(cookie.getName());
@@ -81,7 +81,7 @@ public class SpidTestEnvWestEuropeAzureContainerIoLogin {
                 Assertions.assertEquals(classicHttpResponse.getCode(),200);
                 final HttpEntity entity = classicHttpResponse.getEntity();
                 String resultContent = EntityUtils.toString(entity);
-                logger.info(resultContent);
+                logger.info("resultContent: {}",resultContent);
                 return resultContent;
             });
         } catch (IOException e) {

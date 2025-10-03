@@ -7,7 +7,7 @@ public class CompleteTransactionResponse {
     private boolean result;
     private CompleteTransactioneResponseStatus completeTransactioneResponseStatus;
 
-    public CompleteTransactionResponse(boolean result, CompleteTransactioneResponseStatus completeTransactioneResponseStatus){
+    public CompleteTransactionResponse(boolean result, CompleteTransactioneResponseStatus completeTransactioneResponseStatus) {
         this.result = result;
         this.completeTransactioneResponseStatus = completeTransactioneResponseStatus;
     }

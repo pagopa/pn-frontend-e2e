@@ -21,18 +21,15 @@ public class AppPortalUrlFactory  {
         String token = "";
         switch (portal) {
             case PA_URL -> {
-//                token = env.equalsIgnoreCase("dev") ? webDriverConfig.getTokendevMittente() : webDriverConfig.getTokentestMittente();
                 token =  webDriverConfig.getTokentestMittente();
                 break;
             }
             case PF_URL -> {
                 logger.info("Switch a portale PF");
-//                token = env.equalsIgnoreCase("dev") ? webDriverConfig.getTokendevPFDelegante() : webDriverConfig.getTokentestPFDelegante();
                 token =  webDriverConfig.getTokentestPFDelegante();
                 break;
             }
             case PG_URL -> {
-//                token = env.equalsIgnoreCase("dev") ? webDriverConfig.getTokendevPGDelegante() : webDriverConfig.getTokentestPGDelegante();
                 token = webDriverConfig.getTokentestPGDelegante();
                 break;
             }

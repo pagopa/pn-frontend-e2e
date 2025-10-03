@@ -1,6 +1,5 @@
 Feature:Il delegato persona giuridica accetta la delega non assegnandoli un gruppo personaGiuridica
 
-  @TestSuite
   @TA_PGaccettazioneDelegaSenzaGruppo
   @DeleghePG
   @PG

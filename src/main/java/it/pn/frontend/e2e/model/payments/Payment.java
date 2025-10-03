@@ -9,11 +9,11 @@ public class Payment {
 
     private PagoPa pagoPa;
 
-    public Payment(){
+    public Payment() {
         pagoPa = new PagoPa();
     }
 
-    public Payment(PagoPa pagoPa){
+    public Payment(PagoPa pagoPa) {
         this.pagoPa = pagoPa;
     }
 

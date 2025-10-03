@@ -1,6 +1,5 @@
 Feature: Mittente seleziona l'opzione visualizza api Key
 
-  @TestSuite
   @TA_MittenteOpzioneVisualizzaApiKey
   @ApikeyMittente
   @integrazioneApiPa

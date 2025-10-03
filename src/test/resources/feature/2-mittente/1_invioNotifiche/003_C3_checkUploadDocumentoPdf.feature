@@ -1,9 +1,7 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
-  @TestSuite
   @InvioNotificaACaricaDocumentoPdf
   @invioNotifiche_07
-  @loginFE
   @NRT_Blocco_1
   Scenario: PN-9319-Inserimento file pdf
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
@@ -12,9 +10,9 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
       | oggettoNotifica   | Pagamento rata IMU PN-9319 |
       | descrizione       | PAGAMENTO RATA IMU PN-9319 |
-      | gruppo            | test-TA-FE-TEST    |
-      | codiceTassonomico | 100105P           |
-      | modalitaInvio     | A/R                |
+      | gruppo            | test-TA-FE-TEST            |
+      | codiceTassonomico | 100105P                    |
+      | modalitaInvio     | A/R                        |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
@@ -25,13 +23,13 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Seleziona radion button Inserimento Manuale se esiste "0"
 
     And Nella section Destinitario si clicca su "Aggiungi un indirizzo fisico" e si inseriscono i dati
-      | indirizzo | Via Roma              |
-      | civico    | 20                    |
-      | localita  | Milano                |
-      | comune    | Milano                |
-      | provincia | MI                    |
-      | cap       | 20147                 |
-      | stato     | Italia                |
+      | indirizzo | Via Roma |
+      | civico    | 20       |
+      | localita  | Milano   |
+      | comune    | Milano   |
+      | provincia | MI       |
+      | cap       | 20147    |
+      | stato     | Italia   |
     And Cliccare su continua
     #      Aggiungere alle notifiche
     And Seleziona Nessun Pagamento 1
@@ -40,5 +38,4 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati si carica un atto
     Then Si visualizza correttamente il codice hash del documento
-#    And Logout da portale mittente
 

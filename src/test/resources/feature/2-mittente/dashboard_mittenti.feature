@@ -113,7 +113,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     Then Nella pagina Statistiche si visualizza il grafico Errori tecnici per tipologia
 
 
-
   @ApplicazioneFiltroGraficiElevataDati
   Scenario: PN-12047 - Dashboard mittenti - Applicazione filtro grafici con PA che restituisce una quantità elevata di dati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

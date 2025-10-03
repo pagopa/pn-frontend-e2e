@@ -9,9 +9,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 
 public class InvioNotifichePAPage extends BasePage {
@@ -19,7 +16,7 @@ public class InvioNotifichePAPage extends BasePage {
     @FindBy(id = "step-submit")
     WebElement continuaButton;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public InvioNotifichePAPage(WebDriver driver) {
         this.driver = driver;
@@ -27,22 +24,13 @@ public class InvioNotifichePAPage extends BasePage {
     }
 
     public void selezionareContinuaButton() {
-//        webTool.waitTime(5);
-//        //continuaButton = driver.findElement(By.id("step-submit"));
-//        getWebDriverWait(10).withMessage("Il bottone continua nella pagina invio notifica PA non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
-//        continuaButton = driver.findElement(By.id("step-submit"));
-//        scrollToElementAndClick(continuaButton);
-
         webTool.waitTime(5);
-
         // Attendi che il bottone "Continua" sia cliccabile
         WebElement selezionareContinuaButton = getWebDriverWait(10)
                 .withMessage("Il bottone continua nella pagina invio notifica PA non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("step-submit")));
-
         // Scorri fino all'elemento e fai clic
         scrollToElementAndClick(selezionareContinuaButton);
-
 
     }
 

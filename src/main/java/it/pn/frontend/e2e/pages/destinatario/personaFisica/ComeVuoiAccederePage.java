@@ -23,24 +23,24 @@ public class ComeVuoiAccederePage extends BasePage {
         this.driver = driver;
     }
 
-    public void waitLoadComeVuoiAccederePage(){
-        try{
+    public void waitLoadComeVuoiAccederePage() {
+        try {
             WebElement titoloLabel = driver.findElement(By.id("login-mode-page-title"));
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElements(titoloLabel));
             logger.info("Come Vuoi Accedere Page caricata");
-        }catch (TimeoutException e){
-            Assertions.fail("Come Vuoi Accedere Page non caricata con errore : "+e.getMessage());
+        } catch (TimeoutException e) {
+            Assertions.fail("Come Vuoi Accedere Page non caricata con errore : " + e.getMessage());
         }
     }
 
-    public void selezionaSpidButton(){
+    public void selezionaSpidButton() {
 
         getWebDriverWait(60).withMessage("Il bottone SPID non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
         spidButton = driver.findElement(By.id("spidButton"));
         spidButton.click();
     }
 
-    public boolean verificaPresenzaSpidButton(){
+    public boolean verificaPresenzaSpidButton() {
 
         getWebDriverWait(60).withMessage("spid button non è visibile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("spidButton"))));
         spidButton = driver.findElement(By.id("spidButton"));

@@ -1,7 +1,6 @@
 Feature: invio notifica con sequence
 
   @Tag_PN_14806_16_OK-Giacenza-gt10_890_ZIP
-  @TestSuite
   @Tag_CAD_ARCAD
   @NRT_Blocco_2
 
@@ -10,7 +9,7 @@ Feature: invio notifica con sequence
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | OK-Giacenza-gt10_890_ZIP|
+      | oggettoNotifica   | OK-Giacenza-gt10_890_ZIP |
       | descrizione       | OK-Giacenza-gt10_890_ZIP |
       | gruppo            | test-TA-FE               |
       | codiceTassonomico | 100105P                  |
@@ -41,12 +40,10 @@ Feature: invio notifica con sequence
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
 
-#    And Aspetta 10 secondi
     And Attesa 10 secondi
     And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Consegnata"
-#    And Aspetta 300 secondi
     And Attesa 300 secondi
     And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica

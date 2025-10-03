@@ -37,21 +37,22 @@ public class ITuoiRecapitiPage extends BasePage {
         webTool = new WebTool(driver);
     }
 
-public void iTuoiRecapitiButtonClick() {
-    try {
-        WebElement buttonTuoiRecapiti = getWebDriverWait(20)
-                .withMessage("Impossibile cliccare su menu laterale 'I tuoi recapiti'")
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("side-item-I tuoi recapiti")));
-        getWebDriverWait(20).until(ExpectedConditions.visibilityOf(buttonTuoiRecapiti));
-        getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(buttonTuoiRecapiti));
-        js().executeScript("arguments[0].scrollIntoView(true);", buttonTuoiRecapiti);
-        js().executeScript("arguments[0].click();", buttonTuoiRecapiti);
+    public void iTuoiRecapitiButtonClick() {
+        try {
+            WebElement buttonTuoiRecapiti = getWebDriverWait(20)
+                    .withMessage("Impossibile cliccare su menu laterale 'I tuoi recapiti'")
+                    .until(ExpectedConditions.presenceOfElementLocated(By.id("side-item-I tuoi recapiti")));
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOf(buttonTuoiRecapiti));
+            getWebDriverWait(20).until(ExpectedConditions.elementToBeClickable(buttonTuoiRecapiti));
+            js().executeScript("arguments[0].scrollIntoView(true);", buttonTuoiRecapiti);
+            js().executeScript("arguments[0].click();", buttonTuoiRecapiti);
 
-        logger.info("Cliccato su 'I tuoi recapiti' con successo.");
-    } catch (TimeoutException e) {
-        Assertions.fail("Il bottone 'I tuoi recapiti' non trovato o non è cliccabile: " + e.getMessage());
+            logger.info("Cliccato su 'I tuoi recapiti' con successo.");
+        } catch (TimeoutException e) {
+            Assertions.fail("Il bottone 'I tuoi recapiti' non trovato o non è cliccabile: " + e.getMessage());
+        }
     }
-}
+
     public void waitLoadITuoiRecapitiPage() {
         try {
             getWebDriverWait(10).until(ExpectedConditions.or(
@@ -77,7 +78,7 @@ public void iTuoiRecapitiButtonClick() {
                     ExpectedConditions.visibilityOf(driver.findElement(By.id("default_email"))),
                     ExpectedConditions.attributeToBe(driver.findElement(By.id("default_email")), "placeholder", "Il tuo indirizzo e-mail")
             ));
-            getWebDriverWait(10).withMessage("il bottone avvisami via email non è presente").until(ExpectedConditions.visibilityOf( driver.findElement(By.id("courtesy-email-button"))));
+            getWebDriverWait(10).withMessage("il bottone avvisami via email non è presente").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("courtesy-email-button"))));
             final String disclaimerText = "Se non hai la PEC, leggi subito la notifica: non riceverai la raccomandata cartacea e risparmierai tempo e denaro.";
             getWebDriverWait(10).withMessage("il disclaimer del contatto di cortesia non è presente o non ha il testo corretto").until(ExpectedConditions.and(
                     ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='contacts disclaimer']"))),
@@ -173,7 +174,6 @@ public void iTuoiRecapitiButtonClick() {
         }
     }
 
-
     public void cancellaTesto() {
         try {
             webTool.waitTime(3);
@@ -198,7 +198,7 @@ public void iTuoiRecapitiButtonClick() {
     public void verificaEmailModificata(String email) {
         getWebDriverWait(30)
                 .withMessage("La nuova mail non si visualizza correttamente")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'"+email+"')]")));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'" + email + "')]")));
     }
 
 
@@ -225,7 +225,7 @@ public void iTuoiRecapitiButtonClick() {
                 .withMessage("Non è visibile l'opzione indirizzo email")
                 .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("dropdown-PEC"))));
         WebElement opzionePEC = driver.findElement(By.id("dropdown-PEC"));
-       opzionePEC.click();
+        opzionePEC.click();
     }
 
     public void checkPostModifica() {
@@ -264,6 +264,7 @@ public void iTuoiRecapitiButtonClick() {
             Assertions.fail("Il riquadro PEC NON si visualizza correttamente con errori:" + e.getMessage());
         }
     }
+
     public void clickConfermaEmail() {
         webTool.waitTime(2);
         WebElement confermaEmail = getWebDriverWait(10)
@@ -271,34 +272,6 @@ public void iTuoiRecapitiButtonClick() {
                 .until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("saveContact-default_email"))));
         confermaEmail.click();
     }
-
-//    public void siCliccaSulBottoneDelPopUpOkHoCapito() {
-//        try {
-//            webTool.waitTime(6);
-//            logger.info("metodo Ok Ho Capito");
-//            WebElement okHoCapitoButton = getWebDriverWait(30)
-//                    .withMessage("Non si visualizza il bottone 'Ok ho capito' nel pop-up")
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//button[@data-testid='understandButton']"))));
-//
-//            // Verifica se il bottone è visibile e cliccabile
-//            if (okHoCapitoButton.isDisplayed()) {
-//                okHoCapitoButton.click();
-//                logger.info("Bottone 'Ok ho capito' cliccato nel pop-up.");
-//            } else {
-//                // Se non è visibile, utilizza JavaScript per cliccarlo
-//                js().executeScript("arguments[0].click()", okHoCapitoButton);
-//                logger.info("Bottone 'Ok ho capito' cliccato tramite JavaScript.");
-//            }
-//
-//        } catch (TimeoutException e) {
-//            // Gestione del caso in cui il bottone non sia visibile entro il tempo limite
-//            Assertions.fail("Errore: Il bottone 'Ok ho capito' nel pop-up non è visibile entro il tempo limite. Dettagli: " + e.getMessage());
-//        } catch (Exception e) {
-//            // Gestione di eventuali altre eccezioni
-//            Assertions.fail("Si è verificato un errore imprevisto durante il clic sul bottone 'Ok ho capito'. Dettagli: " + e.getMessage());
-//        }
-//        webTool.waitTime(1);
-//    }
 
     public void siCliccaSulBottoneDelPopUpOkHoCapito() {
         try {
@@ -339,7 +312,7 @@ public void iTuoiRecapitiButtonClick() {
         WebElement inserisciPecButton =
                 getWebDriverWait(30)
                         .withMessage("Impossibile trovare il tasto Inserisci PEC")
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-testid='pec-section']//button")));
+                        .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-testid='pec-section']//button")));
         inserisciPecButton.click();
     }
 
@@ -393,8 +366,7 @@ public void iTuoiRecapitiButtonClick() {
                     .withMessage("Impossibile cliccare sul bottone Scarica l'app IO ")
                     .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Scarica')]")));
             scaricaButton.click();
-        }
-        catch (TimeoutException e) {
+        } catch (TimeoutException e) {
             Assertions.fail("Utente ha già un profilo IO");
         }
     }
@@ -456,10 +428,6 @@ public void iTuoiRecapitiButtonClick() {
     }
 
     public void clickBottoneIniziaNelBanner() {
-
-//        getWebDriverWait(10)
-//                .withMessage("Impossibile Trovare il Banner ")
-//                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[data-testid='addDomicileBanner']")));
 
         WebElement iniziaButton = getWebDriverWait(20)
                 .withMessage("Impossibile I tasto Inizia nel banner")

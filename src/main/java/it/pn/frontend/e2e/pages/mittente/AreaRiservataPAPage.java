@@ -7,14 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
-/*
-*Iniezione Spring: La classe è ora annotata con @Component per permettere a Spring Boot di gestirla come un bean, e il costruttore AreaRiservataPAPage riceve WebDriver tramite iniezione automatica.
-Gestione WebElement: Gli elementi WebElement definiti con @FindBy vengono iniettati automaticamente grazie a Spring e Selenium, senza ulteriori istanze di driver nella classe.
-* */
 
 public class AreaRiservataPAPage extends BasePage {
 
@@ -42,7 +36,6 @@ public class AreaRiservataPAPage extends BasePage {
             getWebDriverWait(30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(panoramicaLabel));
             logger.info("Titolo Panoramica dell'area Riservata PA Page caricato");
         } catch (TimeoutException e) {
-            logger.error("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore: " + e.getMessage());
             Assertions.fail("Titolo 'Panoramica' dell'area Riservata PA Page non caricato con errore: " + e.getMessage());
         }
     }
@@ -51,7 +44,7 @@ public class AreaRiservataPAPage extends BasePage {
         boolean codiceFiscaleFound = false;
         infoLabel = driver.findElements(By.xpath("//p[contains(@class,'MuiTypography-root MuiTypography-body1 ShowDots')]"));
         for (WebElement element : infoLabel) {
-            logger.info("Info ente presente nella pagina Area Riservata: " + element.getText());
+            logger.info("Info ente presente nella pagina Area Riservata: {}" , element.getText());
             if (element.getText().equals(codiceFiscale)) {
                 codiceFiscaleFound = true;
                 break;
@@ -71,7 +64,6 @@ public class AreaRiservataPAPage extends BasePage {
                 piattaformaNotificaDevGestisciButton.click();
             }
         } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-            logger.error("Il bottone piattaforma notifica dev non è presente o non è cliccabile: " + e.getMessage());
             Assertions.fail("Il bottone piattaforma notifica dev non è presente o non è cliccabile: " + e.getMessage());
         }
     }
@@ -87,7 +79,6 @@ public class AreaRiservataPAPage extends BasePage {
                 piattaformaNotificaTestGestisciButton.click();
             }
         } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-            logger.error("Il bottone piattaforma notifica test non è presente o non è cliccabile: " + e.getMessage());
             Assertions.fail("Il bottone piattaforma notifica test non è presente o non è cliccabile: " + e.getMessage());
         }
     }
@@ -103,7 +94,6 @@ public class AreaRiservataPAPage extends BasePage {
                 piattaformaNotificaUatGestisciButton.click();
             }
         } catch (TimeoutException | NoSuchElementException | ElementClickInterceptedException e) {
-            logger.error("Il bottone piattaforma notifica uat non è presente o non è cliccabile: " + e.getMessage());
             Assertions.fail("Il bottone piattaforma notifica uat non è presente o non è cliccabile: " + e.getMessage());
         }
     }

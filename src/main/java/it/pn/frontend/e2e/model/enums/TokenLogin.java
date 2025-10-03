@@ -2,11 +2,11 @@ package it.pn.frontend.e2e.model.enums;
 
 
 public enum TokenLogin {
-    PF_DELEGATE_TOKEN("555","11"),
-    PF_DELEGATOR_TOKEN("555","11"),
-    PG_DELEGATE_TOKEN("555","11"),
-    PG_DELEGATOR_TOKEN("555","11"),
-    PA_TOKEN("555","11");
+    PF_DELEGATE_TOKEN("555", "11"),
+    PF_DELEGATOR_TOKEN("555", "11"),
+    PG_DELEGATE_TOKEN("555", "11"),
+    PG_DELEGATOR_TOKEN("555", "11"),
+    PA_TOKEN("555", "11");
 
 
     private final String devToken;
@@ -19,8 +19,9 @@ public enum TokenLogin {
     }
 
     public String getToken() {
-        return  testToken;
+        return testToken;
     }
+
     public String getToken(String environment) {
         return environment.equalsIgnoreCase("dev") ? devToken : testToken;
     }

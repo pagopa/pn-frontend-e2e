@@ -18,8 +18,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -27,13 +27,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Slf4j
 public class DestinatarioPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger(DestinatarioPage.class);
-
 
     @Getter
     @Setter
@@ -155,7 +152,7 @@ public class DestinatarioPage extends BasePage {
                 String notificationStatus;
                 do {
                     Assertions.assertTrue(maxAttemptsPolling <= 9, "La notifica risulta ancora in stato WAITING dopo 9 tentativi");
-                    log.info("responseOfCreateNotification.getNotificationRequestId(): {}",responseOfCreateNotification.getNotificationRequestId());
+                    log.info("responseOfCreateNotification.getNotificationRequestId(): {}", responseOfCreateNotification.getNotificationRequestId());
                     getNotificationStatus = restNotification.getNotificationStatus(responseOfCreateNotification.getNotificationRequestId());
                     notificationStatus = getNotificationStatus.get("notificationRequestStatus").toString();
                     if (!notificationStatus.equals("ACCEPTED")) {
@@ -248,15 +245,15 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void selezionaModelloF24(int numeroPosizioneDebitoria) {
-        selezionaRadioButtonPerValore("F24",numeroPosizioneDebitoria);
+        selezionaRadioButtonPerValore("F24", numeroPosizioneDebitoria);
     }
 
     public void selezionaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
-        selezionaRadioButtonPerValore("PAGO_PA_F24",numeroPosizioneDebitoria);
+        selezionaRadioButtonPerValore("PAGO_PA_F24", numeroPosizioneDebitoria);
     }
 
     public void selezionaNessunPagamento(int numeroPosizioneDebitoria) {
-        selezionaRadioButtonPerValore("NOTHING",numeroPosizioneDebitoria);
+        selezionaRadioButtonPerValore("NOTHING", numeroPosizioneDebitoria);
     }
 
     public void verificaAvvisoPagoPA(int numeroPosizioneDebitoria) {
@@ -264,15 +261,15 @@ public class DestinatarioPage extends BasePage {
     }
 
     public void verificaModelloF24(int numeroPosizioneDebitoria) {
-        verificaRadioButtonPerValore("F24",numeroPosizioneDebitoria);
+        verificaRadioButtonPerValore("F24", numeroPosizioneDebitoria);
     }
 
     public void verificaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
-        verificaRadioButtonPerValore("PAGO_PA_F24",numeroPosizioneDebitoria);
+        verificaRadioButtonPerValore("PAGO_PA_F24", numeroPosizioneDebitoria);
     }
 
     public void verificaNessunPagamento(int numeroPosizioneDebitoria) {
-        verificaRadioButtonPerValore("NOTHING",numeroPosizioneDebitoria);
+        verificaRadioButtonPerValore("NOTHING", numeroPosizioneDebitoria);
     }
 
     public boolean verificaPresenzaSezioneTecnologiaPagamentoAvvisoPagoPA() {
@@ -281,8 +278,7 @@ public class DestinatarioPage extends BasePage {
                     ExpectedConditions.visibilityOfElementLocated(By.xpath("//div//span[@id='pagopaIntMode']")));
             log.info("Sezione Tecnologia Pagamento Avviso PagoPA presente");
             return true;
-        }
-        catch (TimeoutException | NoSuchElementException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             return false;
         }
     }
@@ -296,8 +292,7 @@ public class DestinatarioPage extends BasePage {
                     ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//input[@name='creditorTaxId'])[" + numeroPosizioneDebitoria + "]")), "value")));
             log.info("Sezione Specifiche Avviso PagoPA presente");
             return true;
-        }
-        catch (TimeoutException | NoSuchElementException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             log.info("Sezione Specifiche Avviso PagoPA non è visibile: {}", e.getMessage());
             return false;
         }
@@ -311,31 +306,31 @@ public class DestinatarioPage extends BasePage {
                     ExpectedConditions.attributeToBeNotEmpty(driver.findElement(By.xpath("(//div[contains(@data-testid,'f24-payment-box')])[" + numeroPosizioneDebitoria + "]//input")), "value")));
             log.info("Sezione Specifiche Modello F24 presente");
             return true;
-        }
-        catch (TimeoutException | NoSuchElementException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             log.info("Sezione Specifiche Modello F24 non è visibile: {}", e.getMessage());
             return false;
         }
     }
 
     public void selezionaInclusoNellAtto(int numeroPosizioneDebitoria) {
-        selezionaRadioButtonPerValore("FLAT_RATE",numeroPosizioneDebitoria);
+        selezionaRadioButtonPerValore("FLAT_RATE", numeroPosizioneDebitoria);
     }
+
     public void selezionaACaricoDelDestinatario(int numeroPosizioneDebitoria) {
-        selezionaRadioButtonPerValore("DELIVERY_MODE",numeroPosizioneDebitoria);
+        selezionaRadioButtonPerValore("DELIVERY_MODE", numeroPosizioneDebitoria);
     }
 
     public void selezionaModoAsincrono(int numeroPosizioneDebitoria) {
-        selezionaRadioButtonPerValore("ASYNC",numeroPosizioneDebitoria);
+        selezionaRadioButtonPerValore("ASYNC", numeroPosizioneDebitoria);
     }
 
     public void selezionaModoSincrono(int numeroPosizioneDebitoria) {
-        selezionaRadioButtonPerValore("SYNC",numeroPosizioneDebitoria);
+        selezionaRadioButtonPerValore("SYNC", numeroPosizioneDebitoria);
     }
 
     public void selezionaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
         WebElement label = getWebDriverWait(10)
-                .withMessage("Impossibile selezionare radio button: "+value)
+                .withMessage("Impossibile selezionare radio button: " + value)
                 .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("(//input[@type='radio' and @value='" + value + "']/ancestor::label)[" + numeroPosizioneDebitoria + "]")));
         label.click();
@@ -343,7 +338,7 @@ public class DestinatarioPage extends BasePage {
 
     public void verificaRadioButtonPerValore(String value, int numeroPosizioneDebitoria) {
         WebElement label = getWebDriverWait(10)
-                .withMessage("Valore radio button non cliccabile: "+value)
+                .withMessage("Valore radio button non cliccabile: " + value)
                 .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("(//input[@type='radio' and @value='" + value + "']/ancestor::label)[" + numeroPosizioneDebitoria + "]")));
         Assertions.assertTrue(label.findElement(By.tagName("input")).isSelected(), "Valore radio button non previsto: " + value);
@@ -355,8 +350,7 @@ public class DestinatarioPage extends BasePage {
                     ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='payments-type-choice']")));
             log.info("Sezione Posizione Debitoria presente");
             return true;
-        }
-        catch (TimeoutException | NoSuchElementException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             log.info("Sezione Posizione Debitoria non è visibile: {}", e.getMessage());
             return false;
         }
@@ -368,12 +362,12 @@ public class DestinatarioPage extends BasePage {
                     ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[@data-testid='debtPositionDetailForm']")));
             log.info("Sezione Dettaglio Posizione Debitoria presente");
             return true;
-        }
-        catch (TimeoutException | NoSuchElementException e) {
+        } catch (TimeoutException | NoSuchElementException e) {
             log.info("Sezione Dettaglio Posizione Debitoria non è visibile: {}", e.getMessage());
             return false;
         }
     }
+
     public void inserireCostoDiNotifica() {
         int centesimi = 10 + new Random().nextInt(91); // (100 - 10 + 1) = 91
         String valoreFormato = String.format(Locale.US, "%.2f", centesimi / 100.0);
@@ -386,7 +380,7 @@ public class DestinatarioPage extends BasePage {
         campoCosto.sendKeys(valoreFormato);
     }
 
-    public  List<String> inserireTuttiCodiceAvviso() {
+    public List<String> inserireTuttiCodiceAvviso() {
         String[] prefissi = {"3020101244636", "3020401244637"};
         Random random = new Random();
         List<String> codiciAvvisoInseriti = new ArrayList<>();
@@ -404,7 +398,7 @@ public class DestinatarioPage extends BasePage {
             String prefisso = prefissi[random.nextInt(prefissi.length)];
             String parteRandomStr = String.format("%05d", random.nextInt(100000));
             String codiceAvviso = prefisso + parteRandomStr;
-            logger.info("Codice Avviso Generato dal metodo inserireTuttiCodiceAvviso: {}",codiceAvviso);
+            logger.info("Codice Avviso Generato dal metodo inserireTuttiCodiceAvviso: {}", codiceAvviso);
 
             try {
                 getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(input));
@@ -456,7 +450,7 @@ public class DestinatarioPage extends BasePage {
 
         for (WebElement input : inputCodiciFiscali) {
             try {
-                Assertions.assertTrue(input.getText().equalsIgnoreCase("77777777777"),"Codice fiscale ente creditore presente");
+                Assertions.assertTrue(input.getText().equalsIgnoreCase("77777777777"), "Codice fiscale ente creditore presente");
             } catch (Exception e) {
                 Assertions.fail("Codice fiscale ente creditore non previsto", e);
             }
@@ -515,15 +509,15 @@ public class DestinatarioPage extends BasePage {
 
 
     public void inserireIVA() {
-        WebElement campoIva  = getWebDriverWait(10)
+        WebElement campoIva = getWebDriverWait(10)
                 .withMessage("Inpossibile selezionare Iva")
                 .until(ExpectedConditions.elementToBeClickable(By.id("vat")));
-        campoIva .click();
+        campoIva.click();
         List<WebElement> opzioni = getWebDriverWait(10)
                 .withMessage("Inpossibile selezionare il menu dell Iva")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                By.xpath("//ul[@role='listbox']//li[@role='option']")
-        ));
+                        By.xpath("//ul[@role='listbox']//li[@role='option']")
+                ));
 
         WebElement sceltaRandom = opzioni.get(new Random().nextInt(opzioni.size()));
         sceltaRandom.click();
@@ -545,7 +539,7 @@ public class DestinatarioPage extends BasePage {
                 getWebDriverWait(5).until(ExpectedConditions.elementToBeClickable(switchContainer));
                 switchContainer.click();
             } catch (Exception e) {
-                Assertions.fail("Errore cliccando su Applica costo di notifica: "+ e.getMessage());
+                Assertions.fail("Errore cliccando su Applica costo di notifica: " + e.getMessage());
             }
         }
     }
@@ -576,16 +570,15 @@ public class DestinatarioPage extends BasePage {
     }
 
 
-
     public void inserisciTitoloDocumentoPosizioneDebitoria(int numNotifiche) {
 
         StringBuilder fileName = new StringBuilder("Documento_");
 
         List<WebElement> campiTitolo = getWebDriverWait(10)
-                .withMessage("Impossibile inserire il Titolo Documento num: "+ (numNotifiche -1))
-                .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("input[name='name']"), numNotifiche -1));
+                .withMessage("Impossibile inserire il Titolo Documento num: " + (numNotifiche - 1))
+                .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector("input[name='name']"), numNotifiche - 1));
 
-        WebElement campo = campiTitolo.get(numNotifiche -1);
+        WebElement campo = campiTitolo.get(numNotifiche - 1);
         campo.clear();
         campo.sendKeys(fileName.append(numNotifiche));
 
@@ -655,26 +648,25 @@ public class DestinatarioPage extends BasePage {
                 "Come posso registrare la mia impresa a SEND?",
                 "Come delegare una persona a gestire le notifiche della mia impresa?"
         );
-            List<WebElement> faqs = getWebDriverWait(20)
-                    .withMessage("Impossibile Trovare l'elemento .MuiAccordion-root")
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".MuiAccordion-root")));
+        List<WebElement> faqs = getWebDriverWait(20)
+                .withMessage("Impossibile Trovare l'elemento .MuiAccordion-root")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".MuiAccordion-root")));
 
-            for (WebElement faq : faqs) {
-                try {
-                    // Trova l'elemento della domanda
-                    WebElement questionEl = getWebDriverWait(10).until(
-                            ExpectedConditions.visibilityOf(faq.findElement(By.cssSelector(".MuiAccordionSummary-content p")))
-                    );
-                    String question = questionEl.getText();
-                        Assertions.assertTrue(expectedQuestions.contains(question),
-                                "Domanda non trovata nella lista delle domande attese: " + question);
+        for (WebElement faq : faqs) {
+            try {
+                // Trova l'elemento della domanda
+                WebElement questionEl = getWebDriverWait(10).until(
+                        ExpectedConditions.visibilityOf(faq.findElement(By.cssSelector(".MuiAccordionSummary-content p")))
+                );
+                String question = questionEl.getText();
+                Assertions.assertTrue(expectedQuestions.contains(question),
+                        "Domanda non trovata nella lista delle domande attese: " + question);
 
-                } catch (Exception e) {
-                    Assertions.fail("Errore durante l'estrazione della domanda: " + e.getMessage());
-                }
+            } catch (Exception e) {
+                Assertions.fail("Errore durante l'estrazione della domanda: " + e.getMessage());
             }
+        }
     }
-
 
 
     public void verificaCampoPrecompilatoCreditorTaxId() {
@@ -684,7 +676,7 @@ public class DestinatarioPage extends BasePage {
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("creditorTaxId")));
 
         String valore = taxIdInput.getAttribute("value");
-        Assertions.assertFalse(valore == null || valore.trim().isEmpty(),"Il campo 'creditorTaxId' non è precompilato!");
+        Assertions.assertFalse(valore == null || valore.trim().isEmpty(), "Il campo 'creditorTaxId' non è precompilato!");
 
     }
 

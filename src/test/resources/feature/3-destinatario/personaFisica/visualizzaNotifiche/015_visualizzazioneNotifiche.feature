@@ -1,6 +1,5 @@
 Feature: La persona fisica visualizza la sezione notifiche
 
-  @TestSuite
   @TA_PFvisualizzaNotifiche_015
   @NRT_Blocco_2
 

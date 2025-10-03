@@ -1,6 +1,5 @@
 Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a portale SEND - SL
 
-  @TestSuite
   @TA_multiLinguaSloveno_QA5288
   @multiLingua
   @multiLinguaPf
@@ -16,11 +15,8 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
-      #| lingua       | Sloveno |
-#    And Aspetta 2 secondi
     And Attesa 2 secondi
     And Refresh pagina
-#    And Aspetta 2 secondi
     And Attesa 2 secondi
     When Seleziona voce menu laterale "Obvestila"
 #   Verificole traduzioni del portale

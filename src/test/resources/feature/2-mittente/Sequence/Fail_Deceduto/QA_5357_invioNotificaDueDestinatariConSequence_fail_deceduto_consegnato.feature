@@ -1,6 +1,5 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
-  @TestSuite
   @NotificaADueDestinatariConSequenceDecedutoConsegnato890
   @NRT_Blocco_3
   @Sequence_Deceduto
@@ -18,15 +17,15 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU DECEDUTO_890_QA-5357      |
-      | descrizione       | PAGAMENTO RATA IMU DECEDUTO_890_QA-5357     |
-      | gruppo            | test-TA-FE-TEST         |
-      | codiceTassonomico | 100105P                 |
-      | modalitaInvio     | 890                     |
+      | oggettoNotifica   | Pagamento rata IMU DECEDUTO_890_QA-5357 |
+      | descrizione       | PAGAMENTO RATA IMU DECEDUTO_890_QA-5357 |
+      | gruppo            | test-TA-FE-TEST                         |
+      | codiceTassonomico | 100105P                                 |
+      | modalitaInvio     | 890                                     |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
-      | soggettoGiuridico       | PF                       |
+      | soggettoGiuridico       | PF                 |
       | nomeCognomeDestinatario | Gaio Giulio Cesare |
       | codiceFiscale           | CSRGGL44L13H501E   |
     And Seleziona radion button Inserimento Manuale se esiste "0"
@@ -62,7 +61,6 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-#    And Aspetta 10 secondi
     And Attesa 15 secondi
     And Refresh pagina
     And Si seleziona la notifica mittente
@@ -73,13 +71,11 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Si visualizza correttamente la timeline relativi a tutti i destinatari
       | PF | CSRGGL44L13H501E |
       | PG | 27957814470      |
-#    And Aspetta 10 secondi
     And Attesa 10 secondi
     And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'stata consegnata perché il destinatario è deceduto')] |
       | vediDettagli | true                                                                       |
-#    And Aspetta 10 secondi
     And Attesa 10 secondi
     And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica

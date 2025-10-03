@@ -1,6 +1,5 @@
 Feature: Mittente seleziona CTA annulla in attiva api Key
 
-  @TestSuite
   @TA_MittenteAnullaAttivazioneApiKey
   @mittente
   @ApikeyMittente

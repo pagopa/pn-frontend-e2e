@@ -1,6 +1,5 @@
 Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
 
-  @TestSuite
   @TA_VAS_29_32_33_34
   @NRT_PHYSICAL_ADDRESS_LOOKUP_ON
   @NRT_Blocco_3

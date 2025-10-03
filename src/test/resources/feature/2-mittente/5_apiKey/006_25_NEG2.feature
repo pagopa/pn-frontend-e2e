@@ -1,6 +1,5 @@
 Feature: Mittente seleziona CTA annulla in blocca api Key
 
-  @TestSuite
   @TA_MittenteAannullaBloccaApiKey
   @ApikeyMittente
   @integrazioneApiPa
