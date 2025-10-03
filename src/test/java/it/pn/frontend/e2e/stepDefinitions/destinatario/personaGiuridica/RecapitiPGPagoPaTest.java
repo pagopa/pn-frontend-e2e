@@ -260,6 +260,11 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.cliccaBottone(testo);
     }
 
+    @And("Click Notifica {string}")
+    public void cliccaNotifica(String testo) {
+        recapitiDestinatarioPage.cliccaNotifica(testo);
+    }
+
     @And("Click Bottone Esci PG")
     public void cliccaBottoneEsciPG() {
         recapitiDestinatarioPage.cliccaBottoneEsciPG();

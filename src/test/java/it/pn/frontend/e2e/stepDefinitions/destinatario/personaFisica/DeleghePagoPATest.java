@@ -115,6 +115,11 @@ public class DeleghePagoPATest extends BasePage {
         deleghePage.clickAggiungiDelegaButton();
     }
 
+    @And("Nella sezione Deleghe Rifiuta Deleghe Esistenti")
+    public void nellaSezioneDelegheRimuoviDelegheEsistenti() {
+        delegatiImpresaSection.verificaRemoveMenuDelega();
+    }
+
     @And("Nella sezione Deleghe click sul bottone aggiungi nuova delega PF")
     public void nellaSezioneDelegheClickSulBottoneAggiungiNuovaDelegaPF() {
         logger.info("Click sul bottone aggiungi nuova delega");

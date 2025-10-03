@@ -1155,6 +1155,15 @@ public class RecapitiDestinatarioPage extends BasePage {
         button.click();
     }
 
+    public void cliccaNotifica(String testo) {
+        WebElement button = getWebDriverWait(15)
+                .withMessage("Non è presente la notifica '" + testo + "'")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("[data-testid='sideMenuItem-" + testo +"']")
+                ));
+        button.click();
+    }
+
     public void cliccaBottoneEsciPG() {
         WebElement button = getWebDriverWait(15)
                 .withMessage("Non è presente il bottone Esci PG")
