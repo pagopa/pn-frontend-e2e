@@ -10,7 +10,6 @@ import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoCont
 import it.pn.frontend.e2e.api.mittente.SpidTestEnvWestEuropeAzureContainerIoLogin;
 import it.pn.frontend.e2e.config.*;
 import it.pn.frontend.e2e.common.BasePage;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.pages.destinatario.DestinatarioPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.rest.RestContact;
@@ -94,9 +93,6 @@ public class LoginPGPagoPATest extends BasePage {
 
     @Autowired
     private RestContact restContact;
-
-    @Autowired
-    private HooksNew hooksNew;
 
     @PostConstruct
     public void init(){
@@ -523,7 +519,6 @@ public class LoginPGPagoPATest extends BasePage {
     @And("Rimuovi da API tutti i recapiti per persona giuridica se esistono")
     public void clearRecapitiPG() {
         restContact.setSessionToken(sessionToken);
-        restContact.setScenarioId(hooksNew.getScenario());
         var digitalAddresses = restContact.getAllDigitalAddress();
         if (digitalAddresses != null && !digitalAddresses.isEmpty()) {
             digitalAddresses.forEach(address -> {

@@ -51,10 +51,6 @@ public class RestContact {
     @Getter
     private String sessionToken;
 
-    @Setter
-    @Getter
-    private String scenarioId;
-
     @Autowired
     public RestContact(WebDriverConfig webDriverConfig, CustomHttpClient<?, String> httpClient) {
         this.httpClient = httpClient;
@@ -187,10 +183,9 @@ public class RestContact {
 
         try {
             headers.put("Authorization", setAuthorizationToken());
-            headers.put("Scenario", scenarioId);
             List<DigitalAddress> response = httpClientDigitalAddress.sendHttpGetRequestListDigitalAddress(url, headers, DigitalAddress.class);
-            logger.info("Risposta ricevuta per {}: {}", scenarioId, response);
-            logger.info("Indirizzi digitali per {} ricevuti con successo", scenarioId);
+            logger.info("Risposta ricevuta: {}", response);
+            logger.info("Indirizzi digitali ricevuti con successo");
             return response;
         } catch (IOException e) {
             logger.error("Error during getAllDigitalAddress {}", e.getMessage());

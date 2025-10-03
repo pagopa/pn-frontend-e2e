@@ -13,7 +13,6 @@ import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.config.WebDriverManager;
-import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.listeners.NetWorkInfo;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.*;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
@@ -95,9 +94,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
     @Autowired
     private RestContact restContact;
-
-    @Autowired
-    private HooksNew hooksNew;
 
     @PostConstruct
     public void init(){
@@ -854,7 +850,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     @And("Rimuovi da API tutti i recapiti per persona fisica se esistono")
     public void clearRecapitiPF() {
         restContact.setSessionToken(sessionToken);
-        restContact.setScenarioId(hooksNew.getScenario());
         var digitalAddresses = restContact.getAllDigitalAddress();
         if (digitalAddresses != null && !digitalAddresses.isEmpty()) {
             digitalAddresses.forEach(address -> {
