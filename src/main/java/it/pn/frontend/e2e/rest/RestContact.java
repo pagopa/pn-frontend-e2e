@@ -153,6 +153,7 @@ public class RestContact {
 
     /**
      * Ottiene l'indirizzo digitale di default.
+     * N.B. in parallelismo il token può essere sovrascritto da test concorrenti
      */
     public DigitalAddressResponse getDigitalAddress() throws RestContactException {
         CustomHttpClient<?, DigitalAddressResponse> httpClientDigitalAddress = customHttpClient;
