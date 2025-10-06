@@ -2494,8 +2494,8 @@ public class NotificaMittentePagoPATest extends BasePage {
     public void verificaErroreLabelPec(String erroreLabel) {
         piattaformaNotifichePage.verificaErrore(erroreLabel);
     }
-    @And("Nel portale Send {string} accedere ad una rotta non esistente")
 
+    @And("Nel portale Send {string} accedere ad una rotta non esistente")
     public void nelPortaleSendAccedereAdUnaRottaNonEsistente(String portal) {
         portal = portal.toLowerCase();
         String env = this.webDriverConfig.getEnvironment();
