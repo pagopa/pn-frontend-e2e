@@ -2498,36 +2498,6 @@ public class NotificaMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
     }
 
-
-
-    @And("Nel portale Send {string} accedere ad una rotta non esistente")
-    public void nelPortaleSendAccedereAdUnaRottaNonEsistente(String portal) {
-        portal = portal.toLowerCase();
-        String env = this.webDriverConfig.getEnvironment();
-        switch (portal) {
-            case PF:
-                driver.get(webDriverConfig.getBaseUrlPfTest()+"prova");
-//                this.driver.get("https://cittadini." + env + ".notifichedigitali.it/prova");
-                break;
-            case PG:
-                driver.get(webDriverConfig.getBaseUrlPgTest()+"prova");
-//                this.driver.get("https://imprese." + env + ".notifichedigitali.it/prova");
-                break;
-            case PA:
-                driver.get(webDriverConfig.getUrlMittente()+"/prova");
-//                this.driver.get("https://selfcare." + env + ".notifichedigitali.it/prova");
-                break;
-            default:
-                Assertions.fail("Tipologia di portale non specificato o errato!");
-        }
-    }
-
-    @And("Verifica esistenza Pagina non trovata")
-    public void verificaEsistenzaPaginaNonTrovata() {
-        piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
-    }
-
-
     @And("Click Torna alla home")
     public void clickTornaAllaHome() {
         piattaformaNotifichePage.clickTornaAllaHome();
