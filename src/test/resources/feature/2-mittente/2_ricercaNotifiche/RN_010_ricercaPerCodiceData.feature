@@ -1,10 +1,8 @@
 Feature: Mittente effetua una ricerca notifiche per Data
 
-  @TestSuite
   @TA_MittenteRicercaPerData
   @mittente
   @ricercaNotificheMittente
-  @loginFE
   @NRT_Blocco_1
   Scenario: PN-9220 - Mittente loggato effettua una ricerca per periodo temporale
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

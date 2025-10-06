@@ -1,6 +1,5 @@
 Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno del portale SEND - DE
 
-  @TestSuite
   @TA_multiLinguaTedesca_QA5303
   @multiLingua
   @multiLinguaPf
@@ -17,10 +16,8 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       #| lingua       | Tedesco |
-#    And Aspetta 2 secondi
     And Attesa 2 secondi
     Then Refresh pagina
-#    And Aspetta 2 secondi
     And Attesa 2 secondi
     And Verifica traduzione testo "Zustellungen"
     And Verifica traduzione testo "Deine Adressen"

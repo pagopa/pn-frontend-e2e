@@ -1,11 +1,9 @@
 Feature: Il mittente inserisce 2 destinatari e viene eliminato il primo
 
   @TA_checkAggiuntaCancellazioneDestinatario
-  @TestSuite
   @mittente
   @invioNotifiche_07
   @NRT_Blocco_1
-  @loginFE
   Scenario: PN-8902 - il mittente inserisce i dati sbagliati fino alla sezione Destinatario
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica

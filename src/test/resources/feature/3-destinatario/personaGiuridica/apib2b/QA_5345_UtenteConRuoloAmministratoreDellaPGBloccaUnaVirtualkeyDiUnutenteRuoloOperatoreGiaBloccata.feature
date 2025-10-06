@@ -1,10 +1,8 @@
 Feature: PG - Utente con ruolo amministratore della PG blocca una virtual key di un utente della PG con ruolo di operatore con già una virtual key bloccata
 
-  @TestSuite
   @TA_PG_AmministratorePG_BloccaVirtualKeyDiUnUtenteRuoloOperatoreGiaBloccata_QA_5345
   @integrazioneApi
   @integrazioneApiPg2
-  #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5345  PG - Utente con ruolo amministratore della PG blocca una virtual key di un utente della PG con ruolo di operatore con già una virtual key bloccata
     Given Login Page persona giuridica viene visualizzata
@@ -32,7 +30,6 @@ Feature: PG - Utente con ruolo amministratore della PG blocca una virtual key di
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
 # tasto Registra chiave pubblica
-#    And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
       | nome | Chiave- |

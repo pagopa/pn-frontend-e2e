@@ -1,10 +1,8 @@
 Feature: PG - Utente con ruolo Amministratore della PG elimina una virtual key ruotata di un utente con ruolo di operatore
 
-  @TestSuite
   @TA_PG_AmministratorePG_EliminaVirtualKeyDiUnUtenteRuoloOperatoreBloccata_QA_5344
   @integrazioneApi
   @integrazioneApiPg2
-  #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5344  PG - Utente con ruolo Amministratore della PG elimina una virtual key ruotata di un utente con ruolo di operatore
     Given Login Page persona giuridica viene visualizzata
@@ -32,7 +30,6 @@ Feature: PG - Utente con ruolo Amministratore della PG elimina una virtual key r
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
 # tasto Registra chiave pubblica
-#    And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave pubblica
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
     And Nella sezione Registra chiave pubblica si inseriscono i dati della chiave pubblica
       | nome | Chiave- |

@@ -1,6 +1,5 @@
 Feature:Controllo dati notifica con pagamento
 
-  @TestSuite
   @NotificaConPagamentoPG
   @ControlloNotificaConPagamentoPG
   @NRT_Blocco_3
@@ -14,7 +13,6 @@ Feature:Controllo dati notifica con pagamento
       | iun            | LZXM-LNKJ-PTMR-202405-K-1 |
       | ragioneSociale | Convivio Spa              |
     And Cliccare sulla notifica restituita
-#    Then Si visualizza correttamente la section Dettaglio Notifica annullata
     And Si controlla che il testo sia nel box pagamento "//div[@data-testid='cancelledAlertPayment']"
 
   @ControlloNotificaConPagamentoPG

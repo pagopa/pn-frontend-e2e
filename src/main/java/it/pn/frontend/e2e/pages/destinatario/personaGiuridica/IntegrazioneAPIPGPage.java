@@ -9,11 +9,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 public class IntegrazioneAPIPGPage extends BasePage {
-    private static final Logger logger = LoggerFactory.getLogger("IntegrazioneAPIPG");
+    private static final Logger logger = LoggerFactory.getLogger(IntegrazioneAPIPGPage.class);
 
     private WebTool webTool;
 
@@ -26,19 +25,19 @@ public class IntegrazioneAPIPGPage extends BasePage {
     }
 
     public void waitLoadIntegrazioneAPIPage() {
-        try {
-            getWebDriverWait(10).withMessage("Il titolo della pagina Notifiche PG non è visibile").until(ExpectedConditions.visibilityOf(driver.findElement(By.id("Integrazione API-page"))));
-            logger.info("La pagina Piattaforma Integrazione API si carica correttamente");
-        } catch (TimeoutException e) {
-            Assertions.fail(MessageFormat.format("La pagina Integrazione API non si carica correttamente con errore: {0}", e.getMessage()));
-        }
+        By titleLocator = By.id("Integrazione API-page");
+        getWebDriverWait(10)
+                .withMessage("Il titolo della pagina 'Integrazione API' non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(titleLocator));
+        logger.info("La pagina 'Piattaforma Integrazione API' si carica correttamente");
     }
 
     public void checkConfermaCreazioneChiavePubblica() {
-        getWebDriverWait(10).withMessage("Il label Stato per la chiave pubblica non è su 'Attiva' o non è visibile")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(@data-testid,'statusChip-Attiva')]"))));
-        //TO DO: Attiva se si conferma che il pop up deve essere nella pagina Integrazione API (ora è su Registra Chiave Pubblica -> Controlla i parametri)
-        //getWebDriverWait(30).withMessage("Pop up NON visualizzato").until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@role='alert']/div[text()='Chiave pubblica registrata con successo.']"))));
+        By statusAttivaLocator = By.xpath("//div[contains(@data-testid,'statusChip-Attiva')]");
+        getWebDriverWait(10)
+                .withMessage("Il label Stato per la chiave pubblica non è su 'Attiva' o non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(statusAttivaLocator));
+        logger.info("Il label Stato della chiave pubblica è correttamente 'Attiva'");
     }
 
     public void verificaPresenzaChiavePubblicheCensite() {
@@ -46,7 +45,7 @@ public class IntegrazioneAPIPGPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath("//table[@data-testid='publicKeysTableDesktop']"))));
     }
 
-    public void verificaTabellaChiaviPubbliche () {
+    public void verificaTabellaChiaviPubbliche() {
         try {
             getWebDriverWait(10).withMessage("Non si visualizza correttamente la tabella delle chiavi pubbliche censite sulla pagina Integrazione API")
                     .until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By.xpath("//table[@data-testid='publicKeysTableDesktop']"))));
@@ -91,34 +90,67 @@ public class IntegrazioneAPIPGPage extends BasePage {
     }
 
     public String tabellaChiaviPubblicheCopiaValorePublicKey() {
-        getWebDriverWait(15).withMessage("il bottone Copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//table[@data-testid='publicKeysTableDesktop']//..//button[@data-testid='copyToClipboard']"))));
-        WebElement copyButton = driver.findElement(By.xpath("//table[@data-testid='publicKeysTableDesktop']//..//button[@data-testid='copyToClipboard']"));
+        By copyButtonLocator = By.xpath("//table[@data-testid='publicKeysTableDesktop']//..//button[@data-testid='copyToClipboard']");
+        By inputFieldsLocator = By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr//..//p");
+        WebElement copyButton = getWebDriverWait(15)
+                .withMessage("Il bottone Copia del campo Chiave Personale non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(copyButtonLocator));
         copyButton.click();
-        List<WebElement> inputFields = driver.findElements(By.xpath("//table[@data-testid='publicKeysTableDesktop']//tr//..//p"));
+
+        List<WebElement> inputFields = getWebDriverWait(15)
+                .withMessage("I campi della tabella chiavi pubbliche non sono visibili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(inputFieldsLocator));
         return inputFields.get(1).getText();
     }
 
     public String visualizzaCodiceCopiaChiavePersonale() {
-        getWebDriverWait(15).withMessage("il bottone Copia del campo Chiave Personale non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(0)));
-        List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
-        formFields.get(0).click();
-        List<WebElement> inputFields = driver.findElements(By.xpath("//input[@aria-invalid='false']"));
+        By copyButtonLocator = By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']");
+        By inputFieldLocator = By.xpath("//input[@aria-invalid='false']");
+        List<WebElement> copyButtons = getWebDriverWait(15)
+                .withMessage("Il bottone Copia del campo Chiave Personale non è cliccabile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(copyButtonLocator));
+        copyButtons.get(0).click();
+        List<WebElement> inputFields = getWebDriverWait(15)
+                .withMessage("I campi input della chiave personale non sono visibili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(inputFieldLocator));
         return inputFields.get(0).getAttribute("value");
     }
 
     public String visualizzaCodiceCopiaKID() {
-        getWebDriverWait(15).withMessage("il bottone Copia del campo KID non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(1)));
-        List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
-        formFields.get(1).click();
-        List<WebElement> inputFields = driver.findElements(By.xpath("//input[@aria-invalid='false']"));
+        By copyButtonsLocator = By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']");
+        By inputFieldsLocator = By.xpath("//input[@aria-invalid='false']");
+        List<WebElement> copyButtons = getWebDriverWait(15)
+                .withMessage("I bottoni Copia nel dialog non sono cliccabili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(copyButtonsLocator));
+        if (copyButtons.size() < 2) {
+            throw new IllegalStateException("Non sono presenti almeno due bottoni Copia");
+        }
+        copyButtons.get(1).click();
+        List<WebElement> inputFields = getWebDriverWait(15)
+                .withMessage("I campi input nel dialog non sono visibili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(inputFieldsLocator));
+        if (inputFields.size() < 2) {
+            throw new IllegalStateException("Non sono presenti almeno due campi input");
+        }
         return inputFields.get(1).getAttribute("value");
     }
 
     public String visualizzaCodiceCopiaIssuer() {
-        getWebDriverWait(15).withMessage("il bottone Copia del campo Issuer non è cliccabile").until(ExpectedConditions.elementToBeClickable(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']")).get(2)));
-        List<WebElement> formFields = driver.findElements(By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']"));
-        formFields.get(2).click();
-        List<WebElement> inputFields = driver.findElements(By.xpath("//input[@aria-invalid='false']"));
+        By copyButtonsLocator = By.xpath("//div[@data-testid='dialog-content']//..//button[@type='button' and @role='button']");
+        By inputFieldsLocator = By.xpath("//input[@aria-invalid='false']");
+        List<WebElement> copyButtons = getWebDriverWait(15)
+                .withMessage("I bottoni Copia nel dialog non sono cliccabili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(copyButtonsLocator));
+        if (copyButtons.size() < 3) {
+            throw new IllegalStateException("Non sono presenti almeno tre bottoni Copia");
+        }
+        copyButtons.get(2).click();
+        List<WebElement> inputFields = getWebDriverWait(15)
+                .withMessage("I campi input nel dialog non sono visibili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(inputFieldsLocator));
+        if (inputFields.size() < 3) {
+            throw new IllegalStateException("Non sono presenti almeno tre campi input");
+        }
         return inputFields.get(2).getAttribute("value");
     }
 

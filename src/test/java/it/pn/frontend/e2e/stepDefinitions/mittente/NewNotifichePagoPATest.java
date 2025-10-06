@@ -55,7 +55,7 @@ public class NewNotifichePagoPATest extends BasePage {
 
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         destinatarioPage = new DestinatarioPage(driver);
         destinatarioPage.setNotificationRequest(notificationRequest);
@@ -63,9 +63,8 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.setRestNotification(restNotification);
     }
 
-
     @Then("Creo in background una notifica per destinatario tramite API REST")
-    public void creoUnaNotificaPerDestinatarioTramiteAPIREST(){
+    public void creoUnaNotificaPerDestinatarioTramiteAPIREST() {
         destinatarioPage.setHooksNew(hooksNew);
         destinatarioPage.checkCreateNewNotification();
     }
@@ -81,38 +80,37 @@ public class NewNotifichePagoPATest extends BasePage {
     }
 
     @And("Si completa percorso RADD")
-    public void siCompletaPercorsoRADD(Map<String,String> datiDestinatario) {
+    public void siCompletaPercorsoRADD(Map<String, String> datiDestinatario) {
         String environment = environmentParam;
         String token = "";
         logger.info("Si completa percorso RADD");
         switch (environment) {
             case "dev" -> {
-                /* TODO */
+//                Da sviluppare quando servira
             }
             case "test" ->
                     token = dataPopulation.readDataPopulation(FILE_TOKEN_LOGIN).get("tokentestRaddista1").toString();
             default -> {
-                log.error("Ambiente non valido");
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
         }
         String operationId = UUID.randomUUID().toString();
-        destinatarioPage.raddFlow(token,datiDestinatario.get("tipoDestinatario"), datiDestinatario.get("codiceFiscale"),operationId);
+        destinatarioPage.raddFlow(token, datiDestinatario.get("tipoDestinatario"), datiDestinatario.get("codiceFiscale"), operationId);
     }
 
     @And("Seleziona Avviso PagoPA {int}")
     public void selezionaAvvisoPagoPA(int numeroPosizioneDebitoria) {
-        destinatarioPage.selezionaAvvisoPagoPA( numeroPosizioneDebitoria);
+        destinatarioPage.selezionaAvvisoPagoPA(numeroPosizioneDebitoria);
     }
 
     @And("Seleziona Avviso PagoPA add Modello F24 {int}")
     public void selezionaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
-        destinatarioPage.selezionaAvvisoPagoPAaddModelloF24( numeroPosizioneDebitoria);
+        destinatarioPage.selezionaAvvisoPagoPAaddModelloF24(numeroPosizioneDebitoria);
     }
 
     @And("Seleziona Modello F24 {int}")
     public void selezionaModelloF24(int numeroPosizioneDebitoria) {
-        destinatarioPage.selezionaModelloF24( numeroPosizioneDebitoria);
+        destinatarioPage.selezionaModelloF24(numeroPosizioneDebitoria);
     }
 
     @And("Verifica Avviso PagoPA {int}")
@@ -122,23 +120,26 @@ public class NewNotifichePagoPATest extends BasePage {
 
     @And("Verifica Avviso PagoPA add Modello F24 {int}")
     public void verificaAvvisoPagoPAaddModelloF24(int numeroPosizioneDebitoria) {
-        destinatarioPage.verificaAvvisoPagoPAaddModelloF24( numeroPosizioneDebitoria);
+        destinatarioPage.verificaAvvisoPagoPAaddModelloF24(numeroPosizioneDebitoria);
     }
 
     @And("Verifica Modello F24 {int}")
     public void verificaModelloF24(int numeroPosizioneDebitoria) {
-        destinatarioPage.verificaModelloF24( numeroPosizioneDebitoria);
+        destinatarioPage.verificaModelloF24(numeroPosizioneDebitoria);
     }
 
+    // Step per inserire costo da pagare sugli avvisi
     @And("Inserire Tutti Codice Avviso")
     public void inserireTuttiCodiceAvviso() {
         List<String> codiciAvvisi = destinatarioPage.inserireTuttiCodiceAvviso();
         dataPopulationConfig.getDatiNotifica().setCodiciAvvisi(codiciAvvisi);
     }
+
     @And("Inserire Tutti Codice Fiscale Ente")
     public void inserireTuttiCodiceFiscaleEnte() {
         destinatarioPage.inserireTuttiCodiceFiscaleEnte();
     }
+
     @And("Verifica Tutti Codice Fiscale Ente")
     public void verificaTuttiCodiceFiscaleEnte() {
         destinatarioPage.verificaTuttiCodiceFiscaleEnte();
@@ -148,6 +149,7 @@ public class NewNotifichePagoPATest extends BasePage {
     public void inserireTuttiCodiceAvvisoErrati() {
         destinatarioPage.inserireTuttiCodiceAvvisoErrati();
     }
+
     @And("Inserire Tutti Codice Fiscale Ente Errati")
     public void inserireTuttiCodiceFiscaleEnteErrati() {
         destinatarioPage.inserireTuttiCodiceFiscaleEnteErrati();
@@ -204,7 +206,7 @@ public class NewNotifichePagoPATest extends BasePage {
 
     @And("Seleziona Modo Asincrono {int}")
     public void selezionaModoAsincrono(int numeroPosizioneDebitoria) {
-        destinatarioPage.selezionaModoAsincrono( numeroPosizioneDebitoria);
+        destinatarioPage.selezionaModoAsincrono(numeroPosizioneDebitoria);
     }
 
     @And("Verifica Presenza Sezione Tecnologia Pagamento Avviso PagoPA")
@@ -258,22 +260,15 @@ public class NewNotifichePagoPATest extends BasePage {
         destinatarioPage.clickSuAggiungiAltroModelloF24(posizione);
     }
 
-//    @And("Click Su Aggiungi Codice Di Avviso PagoPa")
-//    public void clickSuAggiungiCodiceDiAvvisoPagoPa() {
-//        destinatarioPage.clickSuAggiungiCodiceDiAvvisoPagoPa();
-//    }
-
     @And("Click Su Aggiungi Codice Di Avviso PagoPa {int}")
     public void clickSuAggiungiCodiceDiAvvisoPagoPa(int posizione) {
         destinatarioPage.clickSuAggiungiCodiceDiAvvisoPagoPa(posizione);
     }
 
-
     @And("Inserisci Titolo Documento Posizione Debitoria {int}")
     public void inserisciTitoloDocumentoPosizioneDebitoria(int numNotifiche) {
         destinatarioPage.inserisciTitoloDocumentoPosizioneDebitoria(numNotifiche);
     }
-
 
     @And("Click Su Aggiungi un altro documento")
     public void clickSuAggiungiUnAltroDocumento() {
@@ -294,7 +289,6 @@ public class NewNotifichePagoPATest extends BasePage {
     @And("Verifica Pagina Come Mai")
     public void verificaPaginaComeMai() {
         destinatarioPage.verificaPaginaComeMai();
-
     }
 
     @And("Verifica campo precompilato creditorTaxId")

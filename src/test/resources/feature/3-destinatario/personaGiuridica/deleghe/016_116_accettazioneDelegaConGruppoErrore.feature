@@ -1,6 +1,5 @@
 Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
 
-  @TestSuite
   @TA_PGaccettaDelegaConGruppoConErrore
   @DeleghePG
   @PG
@@ -12,9 +11,9 @@ Feature:Il delegato persona giuridica accetta la delega assegnandoli un gruppo
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Creo in background una delega per persona giuridica
-      | accessoCome    | delegante     |
-      | fiscalCode     | 27957814470   |
-      | companyName    | Convivio Spa  |
-      | displayName    | Convivio Spa  |
-      | person         | false         |
+      | accessoCome | delegante    |
+      | fiscalCode  | 27957814470  |
+      | companyName | Convivio Spa |
+      | displayName | Convivio Spa |
+      | person      | false        |
     And Si emula accettazione della delega con gruppo con errore

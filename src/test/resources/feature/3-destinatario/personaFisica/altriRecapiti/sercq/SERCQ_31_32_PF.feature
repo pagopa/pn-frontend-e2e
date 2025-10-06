@@ -8,7 +8,6 @@ Feature: Rework della pagina dei contatti
   Scenario:[SERCQ_31_32_PF]
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
     And Refresh pagina
@@ -29,7 +28,6 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-#    And Nella sezione altri recapiti si clicca sul bottone conferma di popup
     And Click Continua Tab Inserisci un recapito
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
@@ -39,7 +37,6 @@ Feature: Rework della pagina dei contatti
     And Refresh pagina
     And Disattiva Indirizzo email aziendale
     And Attesa 2 secondi
-
 #    Scenario: 31
     And Click Bottone Gestisci
     And Click Bottone "Trasferisci su una PEC"
@@ -51,24 +48,18 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
     And Click Torna ai tuoi recapiti
-
     And Attesa 2 secondi
     And Refresh pagina
-
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica Pagina "pectest@pec.it"
-
 #    Scenario: 32
     And Click Bottone Gestisci
     And Click Bottone "Trasferisci su SEND"
     And Click Continua
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-#    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-#    And Nella sezione altri recapiti si clicca sul bottone conferma di popup
-
     And Click Continua Tab Inserisci un recapito
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale

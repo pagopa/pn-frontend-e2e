@@ -1,6 +1,5 @@
 Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
 
-  @TestSuite
   @TA_multiLinguaInglese_QA5275
   @multiLingua
   @multiLinguaPg
@@ -15,7 +14,6 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     #   Cambio lingua
     And Cambia lingua footer "Inglese"
     And Si clicca su prodotto
-#    And Aspetta 2 secondi
     And Attesa 2 secondi
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Delegations of authority"
@@ -37,7 +35,6 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "view service disruption history and download the attestations"
     And Verifica traduzione testo "Disruption history"
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     When Cambia lingua footer "German"
     And Seleziona voce menu laterale "Bescheide"
@@ -45,7 +42,6 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "Anschriften"
     And Verifica traduzione testo "Benutzer"
 ##  Verificare traduzione della sezione HP notifiche
-#    And Aspetta 2 secondi
     And Attesa 2 secondi
     When Seleziona voce menu laterale "Vollmachten"
     And Verifica traduzione testo "Hier können die Bevollmächtigten des Unternehmens und deren Vollmachten verwaltet werden"
@@ -70,10 +66,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     When Seleziona voce menu laterale "Coordonnées"
     And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
 #    Selezionare Stato della Piattaforma
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"
     And Verifica traduzione testo "Historique des dysfonctionnements"
@@ -81,10 +75,8 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
     And Cambia lingua footer "Anglais"
     And Cambia lingua footer "Slovenian"
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     And Seleziona voce menu laterale "Obvestila"
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     And Verifica traduzione testo "Prenosi pooblastil"
     And Verifica traduzione testo "Kontaktni podatki"

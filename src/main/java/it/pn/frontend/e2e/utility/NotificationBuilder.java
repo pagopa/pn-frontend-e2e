@@ -11,12 +11,10 @@ import it.pn.frontend.e2e.model.notification.Recipient;
 import it.pn.frontend.e2e.model.payments.F24Payment;
 import it.pn.frontend.e2e.model.payments.PagoPaPayment;
 import it.pn.frontend.e2e.rest.RestNotification;
-import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,17 +32,16 @@ public class NotificationBuilder {
     public static final String APPLICATION_PDF = "application/pdf";
     public static final String APPLICATION_JSON = "application/json";
 
-//    @Autowired
     @Getter
     @Setter
-    private  RestNotification restNotification;
+    private RestNotification restNotification;
     @Getter
     private String sha;
 
     @Autowired
     public NotificationBuilder(RestNotification restNotification) {
 
-        this.restNotification= restNotification;
+        this.restNotification = restNotification;
     }
 
     public PhysicalCommunicationTypeEnum modelloNotifica(String modello) {
@@ -107,7 +104,7 @@ public class NotificationBuilder {
         List<PreLoadRequest> preLoadRequestList = new ArrayList<>();
         preLoadRequestList.add(preLoadRequest);
         List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-        Assertions.assertNotNull(response,"La chiamata per il preload del documento non è andata a buon fine");
+        Assertions.assertNotNull(response, "La chiamata per il preload del documento non è andata a buon fine");
         log.info("PreLoad del documento effettuato con successo");
         if (costiNotifica.equalsIgnoreCase("false")) {
             PagoPaPayment avvisoPagoPa = new PagoPaPayment(WebTool.generateNoticeCodeNumber(), sha256, response.get(0).getKey(), "v1", false);
@@ -139,7 +136,7 @@ public class NotificationBuilder {
         List<PreLoadRequest> preLoadRequestList = new ArrayList<>();
         preLoadRequestList.add(preLoadRequest);
         List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-        Assertions.assertNotNull(response,"La chiamata per il preload dell'F24 non è andata a buon fine");
+        Assertions.assertNotNull(response, "La chiamata per il preload dell'F24 non è andata a buon fine");
         log.info("PreLoad dell'F24 effettuato con successo");
         if (costiNotifica.equalsIgnoreCase("false")) {
             F24Payment f24 = new F24Payment(sha256, response.get(0).getKey(), "v1", false);
@@ -168,7 +165,7 @@ public class NotificationBuilder {
         List<String> sha256List = new ArrayList<>();
         listForPreloadPopulation(numeroDocumenti, sha256List, preLoadRequestList);
         List<PreLoadResponse> response = restNotification.preLoadDocument(preLoadRequestList);
-        Assertions.assertNotNull(response,"La chiamata per il preload del documento non è andata a buon fine");
+        Assertions.assertNotNull(response, "La chiamata per il preload del documento non è andata a buon fine");
         log.info("PreLoad del documento effettuato con successo");
         ArrayList<Document> documents = new ArrayList<>();
         for (int i = 0; i < numeroDocumenti; i++) {

@@ -1,6 +1,5 @@
 Feature: il delegato accetta la delega
 
-  @TestSuite
   @TA_PFaccettaDelega
   @DeleghePF
   @PF
@@ -43,5 +42,5 @@ Feature: il delegato accetta la delega
     And Si inserisce il codice delega nel pop-up OTP "corretto"
     And Si clicca sul bottone Accetta
     And Si controlla che la delega ha lo stato Attiva
-      | firstName   | Gaio Giulio       |
-      | lastName    | Cesare            |
+      | firstName | Gaio Giulio |
+      | lastName  | Cesare      |

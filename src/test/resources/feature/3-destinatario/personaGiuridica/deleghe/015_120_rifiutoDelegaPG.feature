@@ -1,6 +1,5 @@
 Feature:Il delegato persona giuridica rifiuta la delega
 
-  @TestSuite
   @TA_PGrifiutoDelega
   @DeleghePG
   @PG
@@ -12,12 +11,12 @@ Feature:Il delegato persona giuridica rifiuta la delega
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe
     And Si visualizza correttamente la pagina Deleghe sezione Deleghe a Carico dell impresa
     And Creo in background una delega per persona giuridica
-      | accessoCome | delegante    |
-      | fiscalCode  | 27957814470  |
-      | companyName | Convivio Spa |
-      | displayName | Convivio Spa |
-      | person      | false        |
-      | DelegheCarico | true        |
+      | accessoCome   | delegante    |
+      | fiscalCode    | 27957814470  |
+      | companyName   | Convivio Spa |
+      | displayName   | Convivio Spa |
+      | person        | false        |
+      | DelegheCarico | true         |
     And Si accetta la delega senza gruppo
     And Nella pagina Deleghe sezione Deleghe a carico dell'impresa clicca sul menu della delega
     And Nella sezione Deleghe si clicca sul bottone rifiuta

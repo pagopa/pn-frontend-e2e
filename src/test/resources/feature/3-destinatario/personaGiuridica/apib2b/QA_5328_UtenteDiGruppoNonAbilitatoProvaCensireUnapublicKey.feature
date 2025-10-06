@@ -4,7 +4,6 @@ Feature: PG - Utente Amministratore di gruppo non abilitato prova a censire una 
   @TA_PG_UtenteAmministratoreDiGruppoNonAbilitatoProvaCensirePublicKey_QA_5328
   @integrazioneApi
   @integrazioneApiPg2
-  #@bilinguismo
   @NRT_Blocco_2
   Scenario:PN-QA-5328  PG - Utente Amministratore di gruppo non abilitato prova a censire una public key
     Given Login Page persona giuridica viene visualizzata

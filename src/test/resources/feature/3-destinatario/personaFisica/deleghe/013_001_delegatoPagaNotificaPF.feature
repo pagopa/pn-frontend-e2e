@@ -1,6 +1,5 @@
 Feature:Il delegato persona giuridica accede ad una delega
 
-  @TestSuite
   @TA_PFdelegatoPagaNotifica
   @DeleghePF
   @PF
@@ -17,9 +16,9 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Nella sezione Deleghe click sul bottone aggiungi nuova delega
     And Si visualizza correttamente la pagina nuova delega
     And Nella sezione Le Tue Deleghe inserire i dati
-      | nome          | Lucrezia          |
-      | cognome       | Borgia            |
-      | codiceFiscale | BRGLRZ80D58H501Q  |
+      | nome          | Lucrezia         |
+      | cognome       | Borgia           |
+      | codiceFiscale | BRGLRZ80D58H501Q |
       | ente          | Comune di Verona |
     And Nella sezione Le Tue Deleghe verificare che la data sia corretta
     And Nella sezione Le Tue Deleghe salvare il codice verifica all'interno del file "PF"
@@ -36,10 +35,10 @@ Feature:Il delegato persona giuridica accede ad una delega
 
     And PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica
-      | modello         | A/R                |
-      | documenti       | 1                  |
+      | modello         | A/R                            |
+      | documenti       | 1                              |
       | oggettoNotifica | Pagamento rata IMU -> PN-10388 |
-      | costiNotifica   | false              |
+      | costiNotifica   | false                          |
     And Si aggiunge un destinatario alla notifica
       | indirizzo        | VIA ROMA           |
       | codicePostale    | 20147              |

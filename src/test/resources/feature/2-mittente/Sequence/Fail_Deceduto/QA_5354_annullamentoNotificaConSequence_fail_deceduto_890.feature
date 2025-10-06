@@ -1,7 +1,6 @@
 Feature: invio notifica con sequence
 
   @annullamentoNotificaConSequenceDeceduto890
-  @TestSuite
   @NRT_Blocco_3
   @Sequence_Deceduto
 
@@ -33,7 +32,6 @@ Feature: invio notifica con sequence
     And Si annulla la notifica
     And Si verifica che la notifica abbia lo stato "Annullata"
     And Il bottone annulla notifica non è visualizzabile nella descrizione della notifica
-#    And Aspetta 400 secondi
     And Attesa 400 secondi
     And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica

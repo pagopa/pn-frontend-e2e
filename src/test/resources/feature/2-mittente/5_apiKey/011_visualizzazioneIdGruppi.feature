@@ -1,6 +1,5 @@
 Feature: Mittente seleziona l'opzione visualizza ID gruppo
 
-  @TestSuite
   @TA_MittenteVisualizzaIDGroup
   @ApikeyMittente
   @integrazioneApiPa

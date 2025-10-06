@@ -1,6 +1,5 @@
 Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
 
-  @TestSuite
   @TA_multiLinguaTedesco_QA5299
   @multiLingua
   @multiLinguaPg
@@ -15,7 +14,6 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
 #   Cambio lingua
     When Cambia lingua footer "Tedesco"
     And Si clicca su prodotto
-#    And Aspetta 2 secondi
     And Attesa 2 secondi
     And Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
@@ -79,7 +77,6 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "Ici, vous pouvez gérer les mandataires de l"
     And Verifica traduzione testo "Procurations à la charge de l"
 #    Selezionare Stato della Piattaforma
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"

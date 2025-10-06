@@ -1,6 +1,5 @@
 Feature: Mittente effettua il download delle attestazioni dei disservizi risolti
 
-  @TestSuite
   @TA_MittenteDownloadDisservizioRisolto
   @bilinguismo
   @helpDesk
@@ -8,9 +7,8 @@ Feature: Mittente effettua il download delle attestazioni dei disservizi risolti
 
   Scenario: PN-9238 - Mittente effettua il download delle attestazioni dei disservizi risolti
     Given Creazione disservizio new su portale helpdesk
-    #And Aspetta 3 secondi
     And Refresh pagina
-    And Risoluzione disservizio new su portale helpdesk
+    And Risoluzione disservizio new su portale helpdesk nome test "PN-9238"
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'
     And Refresh pagina

@@ -34,22 +34,18 @@ public class HelpdeskTest extends BasePage {
     @Autowired
     private WebDriverConfig webDriverConfig;
 
-    private HelpdeskPage helpdeskPage ;
+    private HelpdeskPage helpdeskPage;
 
     @Autowired
     @Lazy
     private BackgroundTest backgroundTest;
 
-    private  WebTool webTool;
+    private WebTool webTool;
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
 
-//    private Map<String, Object> datiTestHelpdesk = new HashMap<>();
-//    private Map<String, Object> datiPersonaFisica = new HashMap<>();
-
-
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         helpdeskPage = new HelpdeskPage(driver);
@@ -112,10 +108,8 @@ public class HelpdeskTest extends BasePage {
 
     @And("Si crea il disservizio new")
     public void siCreaIlDisservizioNew() {
-//        webTool.waitTime(5);
         if (!helpdeskPage.checkIsCreatedDisservizio()) {
             helpdeskPage.handleDisservizioNew(Disservice.CREAZIONE_NOTIFICHE, Status.INSERISCI_KO);
-//            webTool.waitTime(5);
         }
     }
 
@@ -123,17 +117,25 @@ public class HelpdeskTest extends BasePage {
     public void siRisolveIlDisservizio() {
         webTool.waitTime(5);
         if (helpdeskPage.checkIsCreatedDisservizio()) {
-            helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE,Status.OK);
+            helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE, Status.OK);
             webTool.waitTime(5);
         }
     }
 
-    @And("Si risolve il disservizio new")
-    public void siRisolveIlDisservizionew() {
+//    @And("Si risolve il disservizio new")
+//    public void siRisolveIlDisservizionew() {
+//        if (helpdeskPage.checkIsCreatedDisservizio()) {
+//            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE, Status.RISOLVI_KO);
+//        }
+//    }
+
+    @And("Si risolve il disservizio new nome test {string}")
+    public void siRisolveIlDisservizionew(String nomeTest) {
         if (helpdeskPage.checkIsCreatedDisservizio()) {
-            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE,Status.RISOLVI_KO);
+            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE, Status.RISOLVI_KO,nomeTest);
         }
     }
+
 
     @And("Si verifica la creazione del disservizio")
     public void siVerificaLaCreazioneDelDisservizio() {
@@ -155,18 +157,16 @@ public class HelpdeskTest extends BasePage {
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
         }
         if (helpdeskPage.checkServiceStatus(Disservice.CREAZIONE_NOTIFICHE)) {
             helpdeskPage.handleDisservizio(Disservice.CREAZIONE_NOTIFICHE, Status.OK);
         } else {
-            logger.info("Lo stato del servizio: " + Disservice.CREAZIONE_NOTIFICHE + " è già in OK");
+            logger.info("Lo stato del servizio: {} è già in OK",Disservice.CREAZIONE_NOTIFICHE);
         }
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            logger.error("pausa con errore: " + e.getMessage());
             throw new RuntimeException(e);
         }
         logger.info("Torno sulla piattaforma send per il logout");
@@ -190,8 +190,6 @@ public class HelpdeskTest extends BasePage {
 
     @And("viene inserito codice fiscale")
     public void vieneInseritoCodiceFiscale() {
-        //personaFisica
-//        helpdeskPage.insertCfAndRicercaOnPage(datiPersonaFisica.get("codiceFiscale").toString());
         helpdeskPage.insertCfAndRicercaOnPage(dataPopulationConfig.getPersonaFisica().getCodiceFiscale());
     }
 
@@ -199,15 +197,16 @@ public class HelpdeskTest extends BasePage {
     public void vieneInseritoCodiceFiscaleSenzaRicerca(String CF) {
         helpdeskPage.insertCF(CF);
     }
-    ///-*-*-**-
+
     @And("viene inserito codice IUN {string}")
     public void vieneInseritoIun(String iun) {
-        String codiceIun = getCodiceIun(iun,"viene inserito codice IUN");
+        String codiceIun = getCodiceIun(iun, "viene inserito codice IUN");
         helpdeskPage.insertIunAndRicercaOnPage(codiceIun);
     }
+
     @And("viene inserito codice IUN senza ricerca {string}")
     public void vieneInseritoIunSenzaRicerca(String iun) {
-        String codiceIun = getCodiceIun(iun,"viene inserito codice IUN senza ricerca");
+        String codiceIun = getCodiceIun(iun, "viene inserito codice IUN senza ricerca");
         helpdeskPage.insertIun(codiceIun);
     }
 
@@ -217,20 +216,20 @@ public class HelpdeskTest extends BasePage {
     }
 
     @And("viene inserito codice univoco {string}")
-    public void vieneInseritoUID(String uid){
+    public void vieneInseritoUID(String uid) {
         helpdeskPage.insertUid(uid);
     }
 
     @And("Cliccare sul bottone ricerca")
-    public void cliccareSulBottoneRicerca(){
+    public void cliccareSulBottoneRicerca() {
         logger.info("Cliccare sul bottone ricerca");
         helpdeskPage.clickRicercaBottone();
     }
 
-    @And ("Spuntare la casella Deanonimizzazione dati")
-    public void spuntareDeanonimizzazioneDati(){
-    logger.info("Spuntare la casella Deanonimizzazione dati");
-    helpdeskPage.spuntareDeanonimizzazioneDati();
+    @And("Spuntare la casella Deanonimizzazione dati")
+    public void spuntareDeanonimizzazioneDati() {
+        logger.info("Spuntare la casella Deanonimizzazione dati");
+        helpdeskPage.spuntareDeanonimizzazioneDati();
 
     }
 
@@ -241,21 +240,19 @@ public class HelpdeskTest extends BasePage {
     }
 
     @And("viene visualizzato messaggio di errore data")
-    public void vieneVisualizzatoMessaggioDiErroreData(){
+    public void vieneVisualizzatoMessaggioDiErroreData() {
         helpdeskPage.checkMessaggioDiErroreData();
     }
 
     @And("viene visualizzato messaggio di errore IUN")
-    public void vieneVisualizzatoMessaggioDiErroreIUN(){
+    public void vieneVisualizzatoMessaggioDiErroreIUN() {
         helpdeskPage.checkMessaggioDiErroreIUN();
     }
 
     @And("viene visualizzato messaggio di errore CF")
-    public void vieneVisualizzatoMessaggioDiErroreCF(){
+    public void vieneVisualizzatoMessaggioDiErroreCF() {
         helpdeskPage.checkMessaggioDiErroreCF();
     }
-
-
 
     @Then("controllo messaggio di successo")
     public void controlloMessaggioSuccesso() {
@@ -280,7 +277,7 @@ public class HelpdeskTest extends BasePage {
     public void controlloPresenteDocumento(String docName) throws IOException {
         logger.info("Controllo sia presente documento {}", docName);
         webTool.waitTime(5);
-        Assertions.assertTrue (helpdeskPage.trovaDocumentoConTitolo(docName), "Documento " + docName + " non è trovato");
+        Assertions.assertTrue(helpdeskPage.trovaDocumentoConTitolo(docName), "Documento " + docName + " non è trovato");
         logger.info("Documento {} è trovato", docName);
     }
 
@@ -307,14 +304,13 @@ public class HelpdeskTest extends BasePage {
     }
 
     @And("Si clicca sul bottone resetta filtri")
-    public void siCliccaResettaFiltri(){
+    public void siCliccaResettaFiltri() {
         helpdeskPage.clickResettaFiltri();
     }
 
     @And("Si verifica che i campi sono puliti")
-    public void siVerificaCheICampiSonoPuliti(){
+    public void siVerificaCheICampiSonoPuliti() {
         helpdeskPage.checkCampiPuliti();
-
     }
 
     @Then("controllo password")
@@ -374,40 +370,46 @@ public class HelpdeskTest extends BasePage {
     public void risoluzioneDisservizioSuPortaleHelpdesk() {
         backgroundTest.risoluzioneDisservizio();
     }
-    @And("Risoluzione disservizio new su portale helpdesk")
-    public void risoluzioneDisservizioNewSuPortaleHelpdesk() {
-        backgroundTest.risoluzioneDisservizioNew();
+
+//    @And("Risoluzione disservizio new su portale helpdesk")
+//    public void risoluzioneDisservizioNewSuPortaleHelpdesk() {
+//        backgroundTest.risoluzioneDisservizioNew();
+//    }
+    @And("Risoluzione disservizio new su portale helpdesk nome test {string}")
+    public void risoluzioneDisservizioNewSuPortaleHelpdesk(String nomeTest) {
+        backgroundTest.risoluzioneDisservizioNew(nomeTest);
     }
 
     @And("Selezione ottieni notifica")
-    public void selezioneOttieniNotifica(){
+    public void selezioneOttieniNotifica() {
         logger.info("Selezione ottieni notifica");
         helpdeskPage.selectOttieniNotifica();
     }
-     @And("Selezione ottieni log completi")
-    public void selezioneOttieniLogCompleti(){
-         logger.info("Selezione ottieni log completi");
-         helpdeskPage.selectOttieniLogCompleti();
-     }
+
+    @And("Selezione ottieni log completi")
+    public void selezioneOttieniLogCompleti() {
+        logger.info("Selezione ottieni log completi");
+        helpdeskPage.selectOttieniLogCompleti();
+    }
 
     private String getCodiceIun(String iun, String message) {
         String codiceIun;
         switch (iun) {
             case "IUN0" -> {
-                codiceIun=webDriverConfig.getCodiceIun();
+                codiceIun = webDriverConfig.getCodiceIun();
             }
             case "IUN1" -> {
-                codiceIun=webDriverConfig.getCodiceIunN1();
+                codiceIun = webDriverConfig.getCodiceIunN1();
             }
             case "IUN2" -> {
-                codiceIun=webDriverConfig.getCodiceIunN2();
+                codiceIun = webDriverConfig.getCodiceIunN2();
             }
             case "IUN3" -> {
-                codiceIun=webDriverConfig.getCodiceIunN3();
+                codiceIun = webDriverConfig.getCodiceIunN3();
             }
             default -> {
                 logger.error(message);
-                throw new RuntimeException(message+" 'ERRATO'");
+                throw new RuntimeException(message + " 'ERRATO'");
             }
         }
         return codiceIun;

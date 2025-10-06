@@ -23,16 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-/*
-*Modifiche principali
-Autowired per il driver Web e per altre classi: Integrato @Autowired per NotificationSingleton, PiattaformaNotifichePage, DestinatarioPage e WebDriver, mantenendo i metodi invariati.
-Component: Aggiunta annotazione @Component per permettere l’iniezione automatica di Spring Boot in questa classe di step definiti in Cucumber.
-* Pattern Matching for Switch: Utilizzato il switch pattern matching per selezionare la URL appropriata in collegarsiLink.
-Uso di var per Tipi Locali: Refactoring con var per variabili locali ove il tipo è ovvio, semplificando la lettura.
-*
-* */
 
 public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(RicercaNotifichePersonaFisicaPATest.class);
@@ -57,7 +47,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     private HooksNew hooksNew;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         destinatarioPage = new DestinatarioPage(driver);
@@ -124,7 +114,6 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     @Then("Nella pagina Piattaforma Notifiche persona fisica vengo restituite tutte le notifiche con il codice IUN della notifica {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioVengoRestituiteTutteLeNotificheConIlCodiceIUNDellaNotifica(String dpDatiNotifica) {
         logger.info("Si verificano i risultati restituiti");
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         headerPFSection.waitLoadHeaderDESection();
         notifichePFPage.waitLoadNotificheDEPage();
         String codiceIUNInserito = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
@@ -133,7 +122,6 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         if (result) {
             logger.info("Il risultato é coerente con il codice IUN inserito");
         } else {
-            logger.error("Il risultato NON é coerente con il codice IUN inserito");
             Assertions.fail("Il risultato NON é coerente con il codice IUN inserito");
         }
     }
@@ -155,8 +143,6 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     @And("Nella pagina Piattaforma Notifiche mittente inserire un arco temporale")
     public void nellaPaginaPiattaformaNotificheMittenteInserireUnaDataDaDAAA() {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca ");
-//        LocalDate dataFine = LocalDate.of(date.get("annoA"), date.get("meseA"), date.get("giornoA"));
-//        LocalDate dataInizio = LocalDate.of(date.get("annoDa"), date.get("meseDa"), date.get("giornoDa"));
         var dateNow = LocalDate.now();
         var dataInizio = dateNow.minusDays(30);
         var dataFine = dateNow.minusDays(10);
@@ -176,7 +162,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         var dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         var datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
         logger.info("ARCO TEMPORRALE SETTATO: " + datada + " - " + dataa);
-        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa,true);
+        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa, true);
     }
 
     @And("Se i risultati sono contenuti in più pagine persona fisica è possibile effettuare il cambio pagina")
@@ -198,10 +184,8 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
 
     @And("Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN non valido da dati notifica {string}")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaInserireIlCodiceIunNonValidoDaDatiNotifica(String datiNotificaNonValidoPF) throws InterruptedException {
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         logger.info("Si inserisce il codice IUN non valido");
         notificheDestinatarioPage.inserisciCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
-        //DOPPIO INSERIMENTO ????
         notificheDestinatarioPage.inserisciCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
     }
 
@@ -213,22 +197,17 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
         if (isErrorMessageDisplayed) {
             logger.info("il messaggio di errore é visualizzato");
         } else {
-            logger.error("Il messaggio di errore non è visualizzato");
             Assertions.fail("Il messaggio di errore non è visualizzato");
         }
-
         if (notifichePFPage.isTextBoxInvalid()) {
             logger.info("IUN text box non è valido");
         } else {
-            logger.error("IUN text box non è passato allo stato non valido");
             Assertions.fail("IUN text box non è passato allo stato non valido");
         }
-
         notifichePFPage.clickFiltraButton();
         if (notifichePFPage.isErrorMessageDisplayed()) {
             logger.info("Il bottone Filtra è disattivato");
         } else {
-            logger.error("Il bottone Filtra è attivo");
             Assertions.fail("Il bottone Filtra è attivo");
         }
     }
@@ -263,7 +242,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
 
     @And("Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN {string}")
     public void nellaPaginaPiattaformaNotificheDestinatarioSiEffettuaLaRicercaPerCodiceIUN(String codiceIUN) {
-        logger.info("Si cerca una notifica tramite IUN: " + codiceIUN);
+        logger.info("Si cerca una notifica tramite IUN: {}", codiceIUN);
         piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
     }
@@ -271,7 +250,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     @And("Si seleziona la notifica destinatario")
     public void siSelezionaLaNotificaDestinatario() {
         String iun = notificationSingleton.getIun(hooksNew.getScenario());
-        if(StringUtils.isEmpty(iun)){
+        if (StringUtils.isEmpty(iun)) {
             throw new IllegalArgumentException("Il valore di codiceIUN è nullo");
         }
         backgroundTest.setHooksNew(hooksNew);
@@ -282,6 +261,7 @@ public class RicercaNotifichePersonaFisicaPATest extends BasePage {
     public void laPersonaFisicaCliccaSullaPrimaNotificaRestituita() {
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
+
     @And("La persona fisica clicca sulla prima notifica restituita con stato {string}")
     public void laPersonaFisicaCliccaSullaPrimaNotificaRestituita(String stato) {
         piattaformaNotifichePage.selezionaPrimaNotifica(stato);

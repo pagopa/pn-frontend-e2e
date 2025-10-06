@@ -1,10 +1,8 @@
 Feature: invio notifica con lo stesso codice fiscale
 
-  @TestSuite
   @TA_invioNotificaCapInesistente
   @invioNotifiche_07
   @NRT_Blocco_1
-  @loginFE_8
   Scenario: PN-9646 - il mittente invia la notifica con CAP inesistente
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
@@ -28,4 +26,3 @@ Feature: invio notifica con lo stesso codice fiscale
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica e' stata rifiutata "datiNotifica"
-#    And Logout da portale mittente

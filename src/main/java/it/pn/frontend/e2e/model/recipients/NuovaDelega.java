@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class NuovaDelega {
 
-    private String  nome;
-    private String  cognome;
-    private String  codiceFiscale;
-    private String  ente;
-    private String  codiceDelega;
-    private String  ragioneSociale;
+    private String nome;
+    private String cognome;
+    private String codiceFiscale;
+    private String ente;
+    private String codiceDelega;
+    private String ragioneSociale;
 
 
 }

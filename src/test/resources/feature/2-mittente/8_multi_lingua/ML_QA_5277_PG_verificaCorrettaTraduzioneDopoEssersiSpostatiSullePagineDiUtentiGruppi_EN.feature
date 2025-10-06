@@ -1,6 +1,5 @@
 Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine di Utenti e Gruppi - EN
 
-  @TestSuite
   @TA_multiLinguaInglese_QA5277
   @multiLingua
   @multiLinguaPg

@@ -19,13 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.concurrent.TimeUnit;
 import java.util.Map;
 
-public class ApiKeysTest  extends BasePage {
+public class ApiKeysTest extends BasePage {
 
     private static final Logger logger = LoggerFactory.getLogger(ApiKeysTest.class);
 
     @Getter
     @Setter
-    private  String ApiKey;
+    private String ApiKey;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -37,7 +37,7 @@ public class ApiKeysTest  extends BasePage {
     private GeneraApiKeySection generaApiKeySection;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         apiKeyPAPage = new ApiKeyPAPage(driver);
@@ -86,21 +86,18 @@ public class ApiKeysTest  extends BasePage {
     @And("Nella sezione genera Api Key cliccare bottone continua")
     public void nellaSezioneGeneraApiKeyCliccareBottoneContinua() {
         logger.info("Si clicca sul bottone continua");
-
         apiKeyPAPage.clickSulBottoneContinua();
     }
 
     @And("Si visualizza correttamente la pagina di conferma")
     public void siVisualizzaCorrettamenteLaPaginaDiConferma() {
         logger.info("Si visualizza la pagina di conferma");
-
         apiKeyPAPage.siVisualizzaCorrettamenteConfermaPage();
     }
 
     @And("Nella pagina di conferma cliccare sul bottone Torna a API key")
     public void nellaPaginaDiConfermaCliccareSulBottoneTornaAAPIKey() {
         logger.info("Si clicca sul bottone torna a API Key");
-
         apiKeyPAPage.clickSulBottoneTornaApiKey();
     }
 
@@ -146,7 +143,6 @@ public class ApiKeysTest  extends BasePage {
     public void nellaPaginaApiKeySiCliccaSulBottoneMenuDiUnaApiKeyBloccataPresenteInElenco() {
         apiKeyPAPage.clickMenuButtonBlocca();
     }
-
 
     @And("Nella pagina Api Key si clicca sulla voce attiva del menu Api Key")
     public void nellaPaginaApiKeySiCliccaSullaVoceAttivaDelMenuApiKey() {
@@ -252,28 +248,25 @@ public class ApiKeysTest  extends BasePage {
     @And("Nella pagina Api Key si clicca sulla voce visualizza id gruppo del menu Api Key")
     public void nellaPaginaApiKeySiCliccaSullaVoceVisualizzaIdGruppoDelMenuApiKey() {
         logger.info("Si clicca sulla voce visualizza id gruppo");
-
         apiKeyPAPage.clickVisualizzaIdApiKey();
     }
 
     @And("Nella pagina Api Key si visualizza il pop up Gruppi associati alla API")
     public void nellaPaginaApiKeySiVisualizzaIlPopUpGruppiAssociatiAllaAPI() {
         logger.info("Si controlla che si vede il pop-up gruppi associato alla Api");
-
         apiKeyPAPage.popUpGruppiAssociati();
     }
 
     @Then("Nella pop up cliccare sul tasto chiudi")
     public void nellaPopUpCliccareSulTastoChiudi() {
         logger.info("Si clicca sul tasto chiudi");
-
         apiKeyPAPage.chiudiPopUpVisualizza();
     }
 
     @And("Si copia correttamente la Api Key cliccando sul bottone di copia")
     public void siCopiaCorrettamenteLaApiKeyCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'copy-clipboard' per copiare la Api Key");
-         apiKeyPAPage.copiaApiKey(1);
+        apiKeyPAPage.copiaApiKey(1);
     }
 
     @Then("Nella pagina Api Key posizionare il cursuore sopra il numero gruppi")
@@ -283,16 +276,16 @@ public class ApiKeysTest  extends BasePage {
     }
 
     @And("Si copia e salva API key generata")
-    public void siCopiaESalvaApiKeyGenearta(){
+    public void siCopiaESalvaApiKeyGenearta() {
         logger.info("Si copia e salva API key generata");
         setApiKey(apiKeyPAPage.copiaApiKeyESalva());
     }
 
     @And("Si clicca visualizza codice e verifica che il valore dell'apikey copiato sia uguale")
-    public void siVerificaValoreApiKeyUguale(){
+    public void siVerificaValoreApiKeyUguale() {
         logger.info("Verifica che il valore dell'apikey copiato sia uguale a quello visualizzato in elenco");
-        String apiKeyDaElenco =  apiKeyPAPage.visualizzaApiKeyInElenco();
-       Assertions.assertTrue(getApiKey().equalsIgnoreCase(apiKeyDaElenco));
+        String apiKeyDaElenco = apiKeyPAPage.visualizzaApiKeyInElenco();
+        Assertions.assertTrue(getApiKey().equalsIgnoreCase(apiKeyDaElenco));
     }
 
     @And("Pulisci ambiente public keys")
@@ -350,7 +343,7 @@ public class ApiKeysTest  extends BasePage {
 
     @Then("verifica tre puntini mostra di piu")
     public void verificaTrePuntiniMostraDiPiu(Map<String, String> chiave) {
-        apiKeyPAPage.verificaTrePuntiniMostraDiPiu( chiave);
+        apiKeyPAPage.verificaTrePuntiniMostraDiPiu(chiave);
     }
 
     @And("Aggiornamento Pagina")
@@ -379,12 +372,12 @@ public class ApiKeysTest  extends BasePage {
     }
 
     @And("Inserisci valore della chiave {string}")
-    public void inserisciValoreDellaChiave( String stato) {
+    public void inserisciValoreDellaChiave(String stato) {
         apiKeyPAPage.inserisciValoreDellaChiave(stato);
     }
 
     @And("Click registra o Fine")
-    public void clickRegistraOrFine () {
+    public void clickRegistraOrFine() {
         logger.info("Click registra o Fine");
         apiKeyPAPage.clickRegistraOrFine();
     }

@@ -34,7 +34,6 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata e 
     And Si visualizza correttamente la section Dettaglio Notifica annullata
     And Aspetta 10 secondi
     And Si controlla che le ricevute PEC siano scaricabili
-#    And Logout da portale mittente
 
 
   @TA_annullamentoNotificaMittenteEControlloPEC
@@ -68,10 +67,8 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata e 
     And Si visualizza correttamente la section Dettaglio Notifica annullata
     And Aspetta 10 secondi
     And Si controlla che le ricevute PEC siano scaricabili
-#    And Logout da portale mittente
 
   @TA_annullamentoNotificaMittenteEControlloMailDiCortesia
-#  @addressBook1
   Scenario: [TA-FE MITTENTE CREA E ANNULLA UNA NOTIFICA CON PAGAMENTO] - Mittente invia una notifica a destinatario con PEC impostata e la annulla, si controlla che le ricevute PEC sono scaricabili
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Rimuovi tutti i recapiti se esistono
@@ -108,7 +105,6 @@ Feature: Mittente invia una notifica analogica o digitale che viene annullata e 
     And Aspetta 10 secondi
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),"È in corso l'invio del messaggio di cortesia tramite email.")] |
-      | vediDettagli | true  |
-#    And Logout da portale mittente
+      | vediDettagli | true                                                                                |
 
 

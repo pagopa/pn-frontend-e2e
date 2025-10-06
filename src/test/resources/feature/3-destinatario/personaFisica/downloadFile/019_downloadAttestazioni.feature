@@ -1,6 +1,5 @@
 Feature: persona fisica scarica attestazioni all'interno di una notifica
 
-  @TestSuite
   @test19
   @TA_PFDownloadAttestazioni
   @NRT_Blocco_2
@@ -13,4 +12,4 @@ Feature: persona fisica scarica attestazioni all'interno di una notifica
     And Si controlla sezione Pagamento se notifica prevede il pagamento
     And Si verifica che la ricevuta di postalizzazione sia cliccabile
       | xpathStato   | //button[contains(text(),"Attestazione opponibile a terzi: notifica presa in carico")] |
-      | vediDettagli | false                                          |
+      | vediDettagli | false                                                                                  |

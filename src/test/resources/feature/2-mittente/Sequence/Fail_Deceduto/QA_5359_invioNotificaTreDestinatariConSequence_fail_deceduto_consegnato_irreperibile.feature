@@ -1,9 +1,9 @@
 Feature: Mittente invia una notifica digitale al destinatario con indirizzo fornito dalla PA
 
-  @TestSuite
   @NotificaATreDestinatariConSequenceDecedutoConsegnatoIrreperibile890
   @NRT_Blocco_3
   @Sequence_Deceduto
+  @deceduto
 
   Scenario: [DECEDUTO_890_QA-5359] - Il mittente invia una notifica a tre destinatari, solo uno raggiungibile al primo tentativo
     # Rimozione preventiva recapiti per permettere la ricezione delle sequence
@@ -26,11 +26,11 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
-      | oggettoNotifica   | Pagamento rata IMU DECEDUTO_890_QA-5359     |
-      | descrizione       | PAGAMENTO RATA IMU DECEDUTO_890_QA-5359     |
-      | gruppo            | test-TA-FE-TEST         |
-      | codiceTassonomico | 100105P                 |
-      | modalitaInvio     | 890                     |
+      | oggettoNotifica   | Pagamento rata IMU DECEDUTO_890_QA-5359 |
+      | descrizione       | PAGAMENTO RATA IMU DECEDUTO_890_QA-5359 |
+      | gruppo            | test-TA-FE-TEST                         |
+      | codiceTassonomico | 100105P                                 |
+      | modalitaInvio     | 890                                     |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario
@@ -85,12 +85,10 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
     And Cliccare sul bottone vai alle notifiche
     And Si visualizza correttamente la pagina Piattaforma Notifiche
     And Si verifica che la notifica è stata creata correttamente
-#    And Aspetta 10 secondi
     And Attesa 15 secondi
     And Refresh pagina
     And Si seleziona la notifica mittente
     And Si attende completamento notifica "Invio in corso"
-#    And Aspetta 400 secondi
     And Attesa 400 secondi
     And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
@@ -108,10 +106,8 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | vediDettagli | true                                                                          |
     And Aspetta 10 secondi
     And In parallelo si effettua l'accesso al portale destinatario persona fisica e si verifica la timeline ""
-#    And Aspetta 60 secondi
     And Attesa 60 secondi
     And Refresh pagina
     And Si controlla lo stato timeline in dettaglio notifica
       | xpathStato   | //p[contains(text(),'risultato irreperibile assoluto')] |
       | vediDettagli | true                                                    |
-

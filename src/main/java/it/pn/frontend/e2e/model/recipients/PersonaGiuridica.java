@@ -12,5 +12,4 @@ public class PersonaGiuridica extends PersonaFisica {
     private String bearerToken;
 
 
-
 }

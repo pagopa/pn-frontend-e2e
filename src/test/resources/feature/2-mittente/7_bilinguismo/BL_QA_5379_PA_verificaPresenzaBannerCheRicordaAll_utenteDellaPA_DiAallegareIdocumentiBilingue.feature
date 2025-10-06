@@ -1,6 +1,5 @@
 Feature: PA Verifica presenza banner che ricorda all’utente della PA di allegare i documenti bilingue
 
-  @TestSuite
   @TA_bilinguismoVerificaPresenzaBannerAllegareDocumentiBilingue_QA5379
   @bilinguismo
   @NRT_Blocco_1

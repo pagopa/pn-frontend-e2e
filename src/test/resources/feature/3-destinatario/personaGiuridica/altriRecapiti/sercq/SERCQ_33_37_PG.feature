@@ -34,6 +34,17 @@ Feature: Rework della pagina dei contatti
     And Refresh pagina
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 
+     #Validation bug PG QA-6395
+    And Click Bottone Gestisci
+    And Click Bottone "Personalizza per ente"
+    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
+    And Seleziona Tipologia "Indirizzo PEC"
+    And Spuntare checkbox privacy
+    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "pec@pec.pagopa.it"
+    And Click Ok ho capito Recapiti Pop-up
+
+     # FINE Validation bug PG QA-6395
+
 
 #    Scenario: 33
     And Click Bottone Gestisci
@@ -64,7 +75,6 @@ Feature: Rework della pagina dei contatti
     And Seleziona Tipologia "Domicilio Digitale SEND"
     And Attesa 1 secondi
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
-    And Click Bottone Conferma Modifica Recapito
     And Attesa 1 secondi
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti

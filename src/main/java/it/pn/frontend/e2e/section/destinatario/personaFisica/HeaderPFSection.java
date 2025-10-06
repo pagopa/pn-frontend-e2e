@@ -18,7 +18,7 @@ import java.util.List;
 
 public class HeaderPFSection extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("HeaderPFSection");
+    private static final Logger logger = LoggerFactory.getLogger(HeaderPFSection.class);
 
 
     @FindBy(xpath = "//a[@title='Sito di PagoPA S.p.A.']")
@@ -30,7 +30,7 @@ public class HeaderPFSection extends BasePage {
     @FindBy(xpath = "//ul[@role='menu']//li")
     List<WebElement> menuProfileItems;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public HeaderPFSection(WebDriver driver) {
         this.driver = driver;
@@ -40,9 +40,6 @@ public class HeaderPFSection extends BasePage {
 
     public void waitLoadHeaderDESection() {
         try {
-//            getWebDriverWait(60)
-//                    .withMessage("il titolo del header non è visibile")
-//                    .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]"))));
             getWebDriverWait(60)
                     .withMessage("Il titolo del header non è visibile")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[contains(@title, 'PagoPA S.p.A.')]")));
@@ -56,31 +53,48 @@ public class HeaderPFSection extends BasePage {
     }
 
     public void selezionaProfiloUtenteMenu() {
-        buttonProfile = driver.findElement(By.xpath("//button[@aria-label='party-menu-button']"));
+        WebElement buttonProfile = getWebDriverWait(35)
+                .withMessage("Il pulsante del profilo utente non è cliccabile dopo 35 secondi")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label='party-menu-button']")));
         js().executeScript("arguments[0].scrollIntoView(true);", buttonProfile);
-        logger.info("click sul profilo utente");
+        logger.info("Click sul profilo utente");
         buttonProfile.click();
     }
 
     public void selezionaVoceITuoiDati() {
-        getWebDriverWait(35).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//ul[@role='menu']//li"))));
-        menuProfileItems = driver.findElements(By.xpath("//ul[@role='menu']//li"));
+        // Attende che le voci del menu siano visibili
+        menuProfileItems = getWebDriverWait(35)
+                .withMessage("Le voci del menu non sono visibili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                        By.xpath("//ul[@role='menu']//li")
+                ));
         WebElement iTuoiDatiVoce = menuProfileItems.get(0);
-        getWebDriverWait(30).withMessage("la voce I tuoi Dati non è visibile").until(ExpectedConditions.visibilityOf(iTuoiDatiVoce));
-        logger.info("click su voce I tuoi Dati");
+        // Attende che la voce specifica sia visibile prima del click
+        getWebDriverWait(30)
+                .withMessage("La voce 'I tuoi Dati' non è visibile")
+                .until(ExpectedConditions.visibilityOf(iTuoiDatiVoce));
+
+        logger.info("Click su voce 'I tuoi Dati'");
         iTuoiDatiVoce.click();
     }
 
     public void selezionaVoceEsci() {
-        getWebDriverWait(35).withMessage("il titolo del header non è visibile").until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//ul[@role='menu']//li"))));
-        menuProfileItems = driver.findElements(By.xpath("//ul[@role='menu']//li"));
+        // Attende che le voci del menu siano visibili
+        menuProfileItems = getWebDriverWait(35)
+                .withMessage("Le voci del menu non sono visibili")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(
+                        By.xpath("//ul[@role='menu']//li")
+                ));
         WebElement esciVoce = menuProfileItems.get(1);
-        getWebDriverWait(30).withMessage("la voce esci non è visibile").until(ExpectedConditions.visibilityOf(esciVoce));
-        logger.info("click su voce esci");
+        // Attende che la voce specifica sia visibile prima del click
+        getWebDriverWait(30)
+                .withMessage("La voce 'Esci' non è visibile")
+                .until(ExpectedConditions.visibilityOf(esciVoce));
+        logger.info("Click su voce 'Esci'");
         esciVoce.click();
     }
 
-    public void confermaDiVolerUscire(){
+    public void confermaDiVolerUscire() {
         WebElement exitButton = getWebDriverWait(35).withMessage("il titolo del header non è visibile")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='confirm-button']")));
         exitButton.click();

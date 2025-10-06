@@ -1,6 +1,5 @@
 Feature: Visualizzazione dettaglio notifica persona giuridica
 
-  @TestSuite
   @TA_PGVisualizzaNotificaUtenteNonAutorizzato
   @GestioneErrori
   @NRT_Blocco_3

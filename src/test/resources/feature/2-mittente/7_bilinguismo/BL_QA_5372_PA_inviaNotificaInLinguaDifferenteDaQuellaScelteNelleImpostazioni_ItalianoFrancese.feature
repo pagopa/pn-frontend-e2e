@@ -1,6 +1,5 @@
 Feature: PA invia notifica in lingua differente da quella scelte nelle impostazioni - Italiano Francese
 
-  @TestSuite
   @TA_bilinguismoLinguaDifferenteDalleImpostazioni_ItalianoFrancese_QA5372
   @bilinguismo
   @NRT_Blocco_1

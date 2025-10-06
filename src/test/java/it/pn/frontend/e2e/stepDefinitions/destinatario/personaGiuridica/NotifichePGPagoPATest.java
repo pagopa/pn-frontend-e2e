@@ -55,17 +55,15 @@ public class NotifichePGPagoPATest extends BasePage {
 
     private PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
 
-    private  PiattaformaNotifichePage piattaformaNotifichePage;
+    private PiattaformaNotifichePage piattaformaNotifichePage;
 
-    private DestinatarioPage destinatarioPage ;
+    private DestinatarioPage destinatarioPage;
 
     private DeleghePGPagoPAPage deleghePage;
 
     private IntegrazioneAPIPGPage integrazioneAPIPGPage;
 
-//    Map<String, Object> personaGiuridica = new HashMap<>();
-
-    private  HomePagePG homePagePG;
+    private HomePagePG homePagePG;
 
     private DettaglioNotificaSection dettaglioNotificaSection;
 
@@ -83,14 +81,14 @@ public class NotifichePGPagoPATest extends BasePage {
     @Lazy
     private BackgroundTest backgroundTest;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
     private WebDriverManager webDriverManager;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         leTueDelegheSection = new LeTueDelegheSection(driver);
@@ -109,11 +107,9 @@ public class NotifichePGPagoPATest extends BasePage {
     }
 
 
-
     @And("Nella Home page persona giuridica si clicca su Send Notifiche Digitali")
     public void clickSendNotificheDigitali() {
         this.logger.info("Si clicca su Send Notifiche Digitali");
-
         homePagePG.waitLoadHomePagePGPage();
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
@@ -134,22 +130,17 @@ public class NotifichePGPagoPATest extends BasePage {
             }
         }
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
-
         String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";
-
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
-            logger.error("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
         } else if (codiceRispostaChiamataApi == 0) {
-            logger.error("TA_QA: La chiamata, " + urlChiamata + " non trovata");
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " non trovata");
         }
     }
 
     private int getCodiceRispostaChiamataApi(String urlChiamata) {
         logger.info("Recupero codice risposta della chiamata" + urlChiamata);
-
         int codiceRispostaChiamataApi = 0;
         for (NetWorkInfo chiamate : webDriverManager.getNetworkInfo()) {
             if (chiamate.getRequestUrl().startsWith(urlChiamata) && chiamate.getRequestMethod().equals("GET")) {
@@ -163,7 +154,6 @@ public class NotifichePGPagoPATest extends BasePage {
     @When("Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Deleghe")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaClickSulBottoneDeleghe() {
         logger.info("Si clicca sul bottone Deleghe");
-
         piattaformaNotifichePGPAPage.clickSuDelegeButton();
     }
 
@@ -176,7 +166,6 @@ public class NotifichePGPagoPATest extends BasePage {
     @And("Nella Pagina Notifiche destinatario si clicca su notifiche delegate")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSuNotificheDelegate() {
         logger.info("Si clicca correttamente su notifiche delegate");
-
         piattaformaNotifichePGPAPage.clickNotificheENotificheDelegate();
     }
 
@@ -188,9 +177,9 @@ public class NotifichePGPagoPATest extends BasePage {
     @And("Nella Pagina Notifiche destinatario si clicca solo su notifiche delegate")
     public void nellaPaginaNotifichePersonaGiuridicaSiCliccaSoloSuNotificheDelegate() {
         logger.info("Si clicca correttamente su notifiche delegate");
-
         piattaformaNotifichePGPAPage.clickNotificheDelegate();
     }
+
     @And("Nella sezione Deleghe si verifica sia presente una delega accettata per PG")
     public void nellaSezioneDelegheSiVerificaSiaPresenteUnaDelegaAccettataPerPG() {
         logger.info("Si controlla che sia presente una delega");
@@ -203,26 +192,21 @@ public class NotifichePGPagoPATest extends BasePage {
         } else if (leTueDelegheSection.controlloPresenzaBottoneAccetta()) {
             backgroundTest.accettazioneDelegaPG();
         }
-
         driver.navigate().refresh();
     }
 
     @And("Nella sezione Deleghe si crea una delega accettata per PG")
     public void nellaSezioneDelegheSiVerificaSiaCreUnaDelegaAccettataPerPG() {
         logger.info("Si controlla che sia presente una delega accettata");
-            backgroundTest.loginPGDeleghe("personaGiuridica");
-            backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
-            backgroundTest.logoutPG();
-            /*delegatoPG ha codice fiscale non più valido e utente non più abilitato,
-              step continua dopo login su nellaSezioneDelegheSiAccettaLaDelegaAccettataPerPG */
-            //backgroundTest.loginPGDeleghe("delegatoPG");
+        backgroundTest.loginPGDeleghe("personaGiuridica");
+        backgroundTest.aggiuntaNuovaDelegaDellImpresaPG();
+        backgroundTest.logoutPG();
     }
 
     @And("Nella sezione Deleghe si accetta la delega accettata per PG")
     public void nellaSezioneDelegheSiAccettaLaDelegaAccettataPerPG() {
         logger.info("Si controlla che sia presente una delega accettata");
         backgroundTest.accettazioneDelegaPG();
-
         driver.navigate().refresh();
     }
 
@@ -234,14 +218,12 @@ public class NotifichePGPagoPATest extends BasePage {
     @When("Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti")
     public void nellaPaginaPiattaformaNotifichePersonaGiuridicaSiCliccaSulBottoneITuoiRecapiti() {
         logger.info("Si clicca sulla voce recapiti nel menu");
-
         piattaformaNotifichePGPAPage.clickRecapitiButton();
     }
 
     @Then("Si selezionano i file attestazioni opponibili da scaricare, all'interno della notifica persona giuridica, e si controlla che il download sia avvenuto")
     public void siSelezionanoIFileAttestazioniOpponibiliDaScaricareAllInternoDellaNotificaPersonaGiuridicaESiControllaCheIlDownloadSiaAvvenuto() {
         int numeroLinkAttestazioniOpponibile = dettaglioNotificaSection.getLinkAttestazioniOpponibili();
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         String workingDirectory = System.getProperty("user.dir");
         File pathCartella = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/personaGiuridica");
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
@@ -251,10 +233,9 @@ public class NotifichePGPagoPATest extends BasePage {
         for (int i = 0; i < numeroLinkAttestazioniOpponibile; i++) {
             dettaglioNotificaSection.clickLinkAttestazioniOpponibile(i);
             webTool.waitTime(5);
-            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" +dataPopulationConfig.getDatiNotifica().getCodiceIUN() + "/documents/");
+            String urlFileAttestazioneOppponubile = downloadFile.getUrl("https://webapi.test.notifichedigitali.it/bff/v1/notifications/received/" + dataPopulationConfig.getDatiNotifica().getCodiceIUN() + "/documents/");
             if (headless && urlFileAttestazioneOppponubile.isEmpty()) {
                 String testoLink = dettaglioNotificaSection.getTextLinkAttestazioniOpponibili(i);
-                logger.error("Non è stato recuperato url per il download per il link: " + testoLink);
                 Assertions.fail("Non è stato recuperato url per il download per il link: " + testoLink);
             }
             File file = new File(workingDirectory + "/src/test/resources/dataPopulation/downloadFileNotifica/destinatario/notificaN" + i + ".pdf");
@@ -292,10 +273,6 @@ public class NotifichePGPagoPATest extends BasePage {
 
     public void siRecuperaBearerToken(String dpFile) {
         logger.info("Si recupera il bearer token");
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
-        //personaGiuridica
-        //personaGiuridica
-
         if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("Si accettano i cookies");
@@ -309,8 +286,6 @@ public class NotifichePGPagoPATest extends BasePage {
             throw new RuntimeException(e);
         }
         String bearerToken = getBearerToken();
-//        personaGiuridica.put("bearerToken", bearerToken);
-//        dataPopulation.writeDataPopulation(dpFile + ".yaml", personaGiuridica);
         dataPopulationConfig.getPersonaGiuridica().setBearerToken(bearerToken);
     }
 
@@ -343,7 +318,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (piattaformaNotifichePGPAPage.modelloF24Displayed()) {
             logger.info("Il modello F24 è trovato");
         } else {
-            logger.error("Il modello F24 non è trovato");
             Assertions.fail("Il modello F24 non è trovato");
         }
     }
@@ -354,7 +328,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (!piattaformaNotifichePGPAPage.modelloF24Displayed()) {
             logger.info("Il modello F24 non è trovato");
         } else {
-            logger.error("Il modello F24 è trovato");
             Assertions.fail("Il modello F24 è trovato");
         }
     }
@@ -379,7 +352,7 @@ public class NotifichePGPagoPATest extends BasePage {
 
     @And("Si controlla sia presente piu avvisi PagoPa PG")
     public void siControllaSiaPresentePiuAvvisiPagoPaPG() {
-        Assertions.assertTrue(accediAPiattaformaNotifichePage.piuAvvisiDisplayed(),"Avvissi PagoPA non sono trovati");
+        Assertions.assertTrue(accediAPiattaformaNotifichePage.piuAvvisiDisplayed(), "Avvissi PagoPA non sono trovati");
         logger.info("Avvissi PagoPA sono trovati");
 
     }
@@ -387,25 +360,23 @@ public class NotifichePGPagoPATest extends BasePage {
     @And("Si controlla sia presente l'avvisi PagoPa PG")
     public void siControllaSiaPresenteLAvvisiPagoPaPG() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
-        Assertions.assertTrue(accediAPiattaformaNotifichePage.piuAvvisiDisplayed(),"Avviso PagoPA non è trovato");
+        Assertions.assertTrue(accediAPiattaformaNotifichePage.piuAvvisiDisplayed(), "Avviso PagoPA non è trovato");
         logger.info("Avviso PagoPA è trovato");
     }
 
     @And("Si controlla non sia presente l'avviso PagoPa")
     public void siControllaNonSiaPresenteLAvvisoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
-//        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
         webTool.waitTime(5);
-        Assertions.assertTrue( accediAPiattaformaNotifichePage.piuAvvisiDisplayed(), "Avviso PagoPA non sia presente");
+        Assertions.assertTrue(accediAPiattaformaNotifichePage.piuAvvisiDisplayed(), "Avviso PagoPA non sia presente");
         logger.info("Avviso PagoPA è presente");
     }
 
     @And("Si controlla non sia presente l'allegato PagoPa")
     public void siControllaNonSiaPresenteLAllegatoPagoPa() {
         logger.info("Si controlla la presenza del box per il pagamento della notifica");
-//        AccediAPiattaformaNotifichePage accediAPiattaformaNotifichePage = new AccediAPiattaformaNotifichePage(this.driver);
         webTool.waitTime(5);
-        Assertions.assertTrue(accediAPiattaformaNotifichePage.allegatoPagoPaDisplayed(),"Avviso PagoPA non sia presente");
+        Assertions.assertTrue(accediAPiattaformaNotifichePage.allegatoPagoPaDisplayed(), "Avviso PagoPA non sia presente");
         logger.info("Avviso PagoPA è presente");
     }
 
@@ -468,11 +439,9 @@ public class NotifichePGPagoPATest extends BasePage {
         boolean headless = webDriverConfig.getHeadless().equalsIgnoreCase("true");
         dettaglioNotificaMittenteSection.clickLinkAttestazioneOpponibile(nomeFile);
         webTool.waitTime(5);
-//        DownloadFile downloadFile = new DownloadFile(this.driver);
 
         final String url = downloadFile.getUrl(webDriverConfig.getBaseUrl() + "notifications/received/");
         if (headless && url.isEmpty()) {
-            logger.error("Non è stato recuperato url per il download per il link: " + nomeFile);
             Assertions.fail("Non è stato recuperato url per il download per il link: " + nomeFile);
         }
         nomeFile = nomeFile.replace(" ", "_").replace(":", "");
@@ -486,8 +455,8 @@ public class NotifichePGPagoPATest extends BasePage {
 
     @Then("Si controlla il testo all interno del file destinatario {string}")
     public void siControllaIlTestoAlSuoInternoDestonatario(String nomeFile) {
-    logger.info("Si controlla che il testo al suo interno si corretto");
-    piattaformaNotifichePGPAPage.controllaTesto(nomeFile);
+        logger.info("Si controlla che il testo al suo interno si corretto");
+        piattaformaNotifichePGPAPage.controllaTesto(nomeFile);
     }
 
     @And("Si controlla il SHA all interno del file atteztazione")
@@ -496,7 +465,6 @@ public class NotifichePGPagoPATest extends BasePage {
         if (dettaglioNotificaMittenteSection.controlloSHAFile("Attestazione_opponibile_a_terzi_notifica_presa_in_carico")) {
             logger.info("Il codice SHA all'interno del file è corretto");
         } else {
-            logger.error("Il codice SHA  all'interno del file  NON è corretto");
             Assertions.fail("Il codice SHA  all'interno del file  NON è corretto");
         }
     }
@@ -521,12 +489,23 @@ public class NotifichePGPagoPATest extends BasePage {
 
     @And("Riduci zoom pagina al {string}%")
     public void riduciZoomPaginaAl(String size) {
-        piattaformaNotifichePage.riduciZoomPaginaAl( size);
+        piattaformaNotifichePage.riduciZoomPaginaAl(size);
     }
 
     @When("Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN {string}")
-    public void portalePFVaiANotifica(String codiceIUN) {
+    public void portalePGVaiANotifica(String codiceIUN) {
         String env = webDriverConfig.getEnvironment();
-        this.driver.get("https://imprese."+ env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
+        this.driver.get("https://imprese." + env + ".notifichedigitali.it/notifiche/" + codiceIUN + "/dettaglio");
+    }
+
+    @When("Nella pagina Piattaforma Notifiche persona giuridica si accede alla notifica con codice IUN specifico")
+    public void portalePGVaiANotifica(Map<String, String> codiciIUN) {
+        String env = webDriverConfig.getEnvironment();
+        if (codiciIUN.containsKey("dev") || codiciIUN.containsKey("test") || codiciIUN.containsKey("uat")) {
+            this.driver.get("https://imprese." + env + ".notifichedigitali.it/notifiche/" + codiciIUN.get(env) + "/dettaglio");
+            webTool.waitTime(5);
+        }
+        else
+            Assertions.fail("Nessuna chiave valida per gli ambienti di esecuzione!");
     }
 }
