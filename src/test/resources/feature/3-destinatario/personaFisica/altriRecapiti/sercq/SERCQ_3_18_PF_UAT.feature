@@ -38,12 +38,10 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Click Annulla
-
 #      Scenario: 18
     And Si clicca su 'Attiva SEND su IO'
     And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si controlla che IO sia attivo
     And Disattiva app IO e Annulla
-
     And Verifica e Disattiva app IO
     And Nella pagina I Tuoi Recapiti si controlla che IO non sia attivato

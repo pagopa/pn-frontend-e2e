@@ -1,6 +1,5 @@
 Feature: PA invia notifica manuale bilingue: Italiano e Sloveno
 
-  @TestSuite
   @TA_bilinguismoRefreshPaginaItalianoSloveno_QA5377
   @bilinguismo
   @NRT_Blocco_1
@@ -13,7 +12,6 @@ Feature: PA invia notifica manuale bilingue: Italiano e Sloveno
     And Click entra su Send Mittente
     And Home page mittente viene visualizzata correttamente
 
-#    And Selezionare da impostazione lingua "Italiano"
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo
     And Selezionare da impostazione lingua "Sloveno"
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica

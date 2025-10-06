@@ -1,6 +1,5 @@
 Feature:La persona fisica visualizza le notifiche in elenco
 
-  @TestSuite
   @TA_PFPaginazioneConFiltro
   @NRT_Blocco_2
 

@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class ButtonLanguage {
-    String  clickAccediButtonIt;
-    String  clickAccediButtonEn;
-    String  clickAccediButtonFr;
-    String  clickAccediButtonDe;
-    String  clickAccediButtonSl;
+    String clickAccediButtonIt;
+    String clickAccediButtonEn;
+    String clickAccediButtonFr;
+    String clickAccediButtonDe;
+    String clickAccediButtonSl;
 }

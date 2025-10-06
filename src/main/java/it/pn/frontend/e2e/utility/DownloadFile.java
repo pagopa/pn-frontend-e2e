@@ -24,20 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/*
-Principali Miglioramenti:
-try-with-resources: Per la gestione automatica delle risorse come BufferedInputStream e BufferedOutputStream.
-Uso di Optional: Per evitare possibili null pointer exception e migliorare la sicurezza del codice.
-Rimozione di variabili ridondanti: Ho migliorato la leggibilità del codice eliminando dichiarazioni di variabili duplicate e accorpando operazioni dove possibile.
-stream() e findFirst(): Ho usato le Stream API di Java 8+ per migliorare la ricerca di elementi, riducendo il numero di cicli e rendendo il codice più leggibile.
-Gestione delle eccezioni: Ho migliorato il tracciamento delle eccezioni, fornendo messaggi più descrittivi e chiari quando si verifica un errore.
-*
-* */
 
 
 public class DownloadFile extends BasePage {
 
-    private static final Logger logger = LoggerFactory.getLogger("DownloadFile");
+    private static final Logger logger = LoggerFactory.getLogger(DownloadFile.class);
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -125,8 +116,7 @@ public class DownloadFile extends BasePage {
                 }
             }
         } else {
-            logger.error("File non scaricato o non completo numberOfFile={}", numberOfFile);
-            Assertions.fail("File non scaricato");
+            Assertions.fail("File non scaricato o non completo numberOfFile:"+ numberOfFile);
         }
     }
 
@@ -135,9 +125,6 @@ public class DownloadFile extends BasePage {
     }
 
     public String getUrl(String urlChiamata) {
-
-           // netWorkInfos = NetworkInfoManager.getNetworkInfo();
-
 
         String url = webDriveBean.getNetworkInfo().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata) &&
@@ -193,8 +180,6 @@ public class DownloadFile extends BasePage {
             environment = webDriverConfig.getEnvironment();
         }
 
-           // netWorkInfos = NetworkInfoManager.getNetworkInfo();
-
         String urlChiamata = "https://webapi." + environment + ".notifichedigitali.it/delivery/notifications/received?";
         return webDriveBean.getNetworkInfo().stream()
                 .filter(netWorkInfo -> netWorkInfo.getRequestUrl().contains(urlChiamata))
@@ -207,8 +192,6 @@ public class DownloadFile extends BasePage {
         if (webDriverConfig != null){
             environment = webDriverConfig.getEnvironment();
         }
-
-           // netWorkInfos = NetworkInfoManager.getNetworkInfo();
 
         String urlChiamata = "https://webapi." + environment + url;
         return webDriveBean.getNetworkInfo().stream()

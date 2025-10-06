@@ -8,24 +8,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/*
-*Modifiche e Ottimizzazioni
-Costruttore con @Autowired: Iniezione di WebDriver tramite Spring Boot.
-loadComponentWaitTime inizializzato tramite System.getProperty: Permette di definire il valore come variabile di ambiente con un valore predefinito di 10.
-Metodo retryClickAndInsertText: Separato in un metodo privato per evitare codice duplicato.
-Commenti migliorati: Documentazione migliorata per una migliore comprensione di alcune funzioni.
-Thread.currentThread().interrupt() in waitLoadPage(): Gestisce correttamente l’interruzione del thread per conformità alle best practices di Java.
-*
-*
-* */
 
 public class BasePage {
 
-   // protected WebDriver driver;
     protected int loadComponentWaitTime;
     private static final Logger loggerBase = LoggerFactory.getLogger(BasePage.class);
 
@@ -38,15 +28,6 @@ public class BasePage {
         PageFactory.initElements(this.driver, this);
         loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime", "10"));
     }
-
-    /**
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(this.driver, this);
-        loadComponentWaitTime = Integer.parseInt(System.getProperty("loadComponentWaitTime", "10"));
-    }
-
-     **/
 
     protected void scrollToElementClickAndInsertText(WebElement element, String text) {
         try {
@@ -122,7 +103,6 @@ public class BasePage {
         By loadingSpinnerBy = By.xpath("//span[@role='loadingSpinner']");
         getWebDriverWait(60).withMessage("Page is still loading").until(ExpectedConditions.invisibilityOfElementLocated(loadingSpinnerBy));
     }
-
 
 
     public void goBack() {

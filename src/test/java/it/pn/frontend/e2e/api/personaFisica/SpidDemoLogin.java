@@ -14,9 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+
 public class SpidDemoLogin {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidDemoLogin");
+    private static final Logger logger = LoggerFactory.getLogger(SpidDemoLogin.class);
     private String spidDemoLoginEndPoint;
     private String responseBody;
     private final String username;
@@ -38,7 +39,7 @@ public class SpidDemoLogin {
                          String samlRequestInput, String relayStateInput,
                          String sigAlgInput, String signatureInput,
                          String purposeInput, String minAgeInput,
-                         String maxAgeInput, String retryInput){
+                         String maxAgeInput, String retryInput) {
 
         this.username = username;
         this.password = password;
@@ -55,19 +56,19 @@ public class SpidDemoLogin {
 
     }
 
-    public void runSpidDemoLogin(){
-        try{
+    public void runSpidDemoLogin() {
+        try {
             CloseableHttpClient httpclient = HttpClients.createDefault();
             ClassicHttpRequest httpPost = ClassicRequestBuilder
                     .post(this.getSpidDemoLoginEndPoint())
-                    .addHeader(HttpHeaders.CONTENT_TYPE,"application/x-www-form-urlencoded")
+                    .addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded")
                     .addParameter("username", this.username)
                     .addParameter("password", this.password)
                     .addParameter("params[spidLevel]", this.spidLevelInput)
                     .addParameter("params[organizationDisplayName]", this.organizationDisplayNameInput)
                     .addParameter("params[samlRequest]", this.samlRequestInput)
                     .addParameter("params[relayState]", this.relayStateInput)
-                    .addParameter("params[sigAlg]",this.sigAlgInput)
+                    .addParameter("params[sigAlg]", this.sigAlgInput)
                     .addParameter("params[signature]", this.signatureInput)
                     .addParameter("params[purpose]", this.purposeInput)
                     .addParameter("params[minAge]", this.minAgeInput)
@@ -75,14 +76,14 @@ public class SpidDemoLogin {
                     .addParameter("retry", this.retryInput)
                     .build();
             this.responseBody = httpclient.execute(httpPost, classicHttpResponse -> {
-                logger.info(classicHttpResponse.getCode() + " " + classicHttpResponse.getReasonPhrase());
-                Assertions.assertEquals(classicHttpResponse.getCode(),200);
+                logger.info("{} - {}", classicHttpResponse.getCode(), classicHttpResponse.getReasonPhrase());
+                Assertions.assertEquals(classicHttpResponse.getCode(), 200);
                 final HttpEntity entity = classicHttpResponse.getEntity();
                 String resultContent = EntityUtils.toString(entity);
-                logger.info(resultContent);
+                logger.info("runSpidDemoLogin {}",resultContent);
                 return resultContent;
             });
-        } catch (IOException e){
+        } catch (IOException e) {
             Assertions.fail(e.getMessage());
         }
     }
@@ -99,16 +100,16 @@ public class SpidDemoLogin {
         return responseBody;
     }
 
-    private Document doc(){
+    private Document doc() {
         return Jsoup.parse(this.responseBody);
     }
 
-    public String getRelayStateOutput(){
+    public String getRelayStateOutput() {
         return this.doc().select("input[name=\"RelayState\"]").attr("value");
     }
 
-    public String getSAMLResponseOutput(){
-        logger.info("SAMLResponse "+this.doc().select("input[name=\"SAMLResponse\"]").attr("value"));
+    public String getSAMLResponseOutput() {
+        logger.info("SAMLResponse {}", this.doc().select("input[name=\"SAMLResponse\"]").attr("value"));
         return this.doc().select("input[name=\"SAMLResponse\"]").attr("value");
     }
 }

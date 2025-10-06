@@ -18,16 +18,13 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
       | 01/03/2024          | 01/02/2024        |
 
 
-  @TestSuite
-    @TA_MittenteRicercaPerDataErrata_1
+  @TA_MittenteRicercaPerDataErrata_1
     @mittente
     @ricercaNotificheMittente
-    @loginFE
     @NRT_Blocco_1
   Scenario Outline: PN-9323 - Mittente loggato effettua una ricerca per periodo temporale errato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche inserire un arco temporale errato da <inizioArcoTemporale> a <fineArcoTemporale>
-    #And  Aspetta 10 secondi
     And Refresh pagina
     And Verifica che non è possibile selezionare una data Fine antecedente alla data Inizio
 

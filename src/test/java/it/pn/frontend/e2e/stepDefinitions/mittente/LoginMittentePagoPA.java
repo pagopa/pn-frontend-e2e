@@ -35,13 +35,10 @@ import java.util.concurrent.TimeUnit;
 public class LoginMittentePagoPA extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(LoginMittentePagoPA.class);
 
-   @Autowired
-   private DataPopulation dataPopulation;
+    @Autowired
+    private DataPopulation dataPopulation;
 
-    private  WebTool webTool;
-
-    // Percorso del file token specificato nelle configurazioni, con valore di default 'tokenLogin.yaml'
-   // @Value("${token.login.file:tokenLogin.yaml}")
+    private WebTool webTool;
 
     private Map<String, String> urlMittente;
 
@@ -68,7 +65,7 @@ public class LoginMittentePagoPA extends BasePage {
     private SelezionaEntePAPage selezionaEntePAPage;
 
     private AreaRiservataPAPage areaRiservataPAPage;
-    private ConfermaDatiSpidPFPage confermaDatiSpidPFPage ;
+    private ConfermaDatiSpidPFPage confermaDatiSpidPFPage;
 
     @Autowired
     BasicCookieStore cookieStore;
@@ -82,7 +79,7 @@ public class LoginMittentePagoPA extends BasePage {
 
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         areaRiservataPAPage = new AreaRiservataPAPage(driver);
@@ -105,22 +102,20 @@ public class LoginMittentePagoPA extends BasePage {
 
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
-            case "dev" ->driver.get(webDriverConfig.getUrlMittente());
-            case "test", "uat" ->
-                    driver.get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
+            case "dev" -> driver.get(webDriverConfig.getUrlMittente());
+            case "test", "uat" -> driver.get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
     }
 
     @Given("Login Page mittente viene visualizzata")
-    public void loginPageMittenteVieneVisualizzata(Map<String,String> datiMittenteTable) {
+    public void loginPageMittenteVieneVisualizzata(Map<String, String> datiMittenteTable) {
         logger.info("Si recupera l'ambiente e si visualizza la pagina di login");
         String variabileAmbiente = webDriverConfig.getEnvironment();
         switch (variabileAmbiente) {
             case "dev" -> driver.get(webDriverConfig.getUrlMittente());
-            case "test", "uat" ->
-                    driver.get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
+            case "test", "uat" -> driver.get(webDriverConfig.getUrlMittente().replace("dev", variabileAmbiente));
             default ->
                     Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
         }
@@ -128,22 +123,6 @@ public class LoginMittentePagoPA extends BasePage {
 
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard")
     public void loginMittenteConTokenExchange() {
-
-//        String environment = webDriverConfig.getEnvironment();
-//        String token = "";
-//        token = webDriverConfig.getTokentestMittente();
-//
-//        // Si effettua il login con token exchange
-//        String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
-//        driver.get(urlLogin);
-//        logger.info("Login effettuato con successo");
-//        // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
-//        webTool.waitTime(10);
-//
-//        // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
-//        headerPASection.waitLoadHeaderSection();
-//        piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-
 
         String environment = webDriverConfig.getEnvironment();
         String token = webDriverConfig.getTokentestMittente();
@@ -163,14 +142,14 @@ public class LoginMittentePagoPA extends BasePage {
             piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         } catch (Exception e) {
             // Gestione delle eccezioni: stampa l'errore
-            logger.info("Errore durante il login PA: " + e.getMessage());
+            logger.info("Errore durante il login PA:  {} ", e.getMessage());
             throw e;
         }
     }
 
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di {string}")
     public void loginMittenteConTokenExchangeComuneDi(String comune) {
-        //TODO Il parametro comune potrebbe servire in futuro se esiste il token exchange
+        // Il parametro comune potrebbe servire in futuro se esiste il token exchange
         String environment = webDriverConfig.getEnvironment();
         String token = "";
         token = webDriverConfig.getTokentestMittenteViggiu();
@@ -227,11 +206,8 @@ public class LoginMittentePagoPA extends BasePage {
     }
 
     @When("Login con mittente")
-    public void loginConMittente(Map<String,String> datiMittenteFile) {
+    public void loginConMittente(Map<String, String> datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
-
-//        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
-//        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -242,28 +218,15 @@ public class LoginMittentePagoPA extends BasePage {
             }
             logger.info("cookies end");
         }
-
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
-
         acccediAreaRiservataPAPage.bottoneConImgPagoPA();
 
-
-//        scegliSpidPAPage.selezionareTestButton();
-
-//        loginPAPage.waitLoadLoginPAPage();
         loginPAPage.inserisciUtenete(datiMittenteFile.get("user"));
         loginPAPage.inserisciPassword(datiMittenteFile.get("pwd"));
         loginPAPage.entraConSpid();
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
-
-//        headerPFSection.waitUrlToken();
-
-//        loginPAPage.selezionaInviaDati();
-
-//        autorizziInvioDatiPAPage.waitLoadAutorizziInvioDatiPAPage();
-//        autorizziInvioDatiPAPage.selezionareInvia()
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -287,9 +250,6 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginConMittenteComuneDi(String comune) {
         logger.info("Si effetua la Login dal portale mittente");
 
-//        preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
-//        preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
-
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies section start, before login");
@@ -304,14 +264,10 @@ public class LoginMittentePagoPA extends BasePage {
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
         acccediAreaRiservataPAPage.bottoneConImgPagoPA();
-//        scegliSpidPAPage.selezionareTestButton();
-
-//        loginPAPage.waitLoadLoginPAPage();
-        if(comune.equalsIgnoreCase("Viggiu")){
+        if (comune.equalsIgnoreCase("Viggiu")) {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
-        }
-        else {
+        } else {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
         }
@@ -333,11 +289,10 @@ public class LoginMittentePagoPA extends BasePage {
             logger.info("cookies section end, after login");
         }
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        if(comune.equalsIgnoreCase("Viggiu")){
+        if (comune.equalsIgnoreCase("Viggiu")) {
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
-        }
-        else {
+        } else {
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
         }
@@ -367,7 +322,6 @@ public class LoginMittentePagoPA extends BasePage {
         } else {
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlMittente.get("urlPortale") + "' è : " + this.urlMittente.get("responseCode"));
         }
-
         driver.get(this.urlMittente.get("urlPortale"));
 
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
@@ -481,7 +435,7 @@ public class LoginMittentePagoPA extends BasePage {
 
         String relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse = spidTestEnvWestEuropeAzureContainerIoContinueResponse.getRelayStateOutput();
         if (relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse != null) {
-            logger.info("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : {}" , relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
+            logger.info("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse : {}", relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse);
         } else {
             Assertions.fail("relayStateFromSpidTestEnvWestEuropeAzureContainerIoContinueResponse is null");
         }
@@ -534,15 +488,12 @@ public class LoginMittentePagoPA extends BasePage {
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
 
-        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
-            if (cookiesSection.waitLoadCookiesPage()) {
+        if (!webDriverManager.getCookieConfig().isCookieEnabled() && cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-        }
+
 //        Nuove specifiche UI
         headerPASection.selezionaSecondoEsciButtonPA();
-//        logger.info("secondo esci");
-//        headerPASection.selezionaEsciButton();
         webTool.waitTime(5);
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
     }
@@ -590,16 +541,13 @@ public class LoginMittentePagoPA extends BasePage {
         headerPASection.selezionaSecondoEsciButtonPA();
         webTool.waitTime(2);
 
-        // fix NRT
         acccediAreaRiservataPAPage.selezionareSpidButton();
-
         acccediAreaRiservataPAPage.bottoneConImgPagoPA();
 
-        if(comune.equalsIgnoreCase("Viggiu")){
+        if (comune.equalsIgnoreCase("Viggiu")) {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
-        }
-        else {
+        } else {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
         }
@@ -608,29 +556,14 @@ public class LoginMittentePagoPA extends BasePage {
         confermaDatiSpidPFPage.selezionaConfermaButton();
 
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
-        if(comune.equalsIgnoreCase("Viggiu")){
+        if (comune.equalsIgnoreCase("Viggiu")) {
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
-        }
-        else {
+        } else {
             selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
             selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
         }
         selezionaEntePAPage.selezionaAccedi();
-
-
-
-
-//        if(comune.equalsIgnoreCase("Viggiu")){
-//            logger.info("Entro come comune di {}",comune);
-//            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComuneViggiu());
-//            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComuneViggiu());
-//        }
-//        else {
-//            selezionaEntePAPage.cercaComune(dataPopulationConfig.getMittente().getComune());
-//            selezionaEntePAPage.selezionareComune(dataPopulationConfig.getMittente().getComune());
-//        }
-//        selezionaEntePAPage.selezionaAccedi();
 
     }
 
@@ -641,8 +574,10 @@ public class LoginMittentePagoPA extends BasePage {
             case "dev" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-dev");
             case "test" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-test");
             case "uat" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn");
-            case "hotfix" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-hotfix");
-            case "collaudo" -> acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-coll");
+            case "hotfix" ->
+                    acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-hotfix");
+            case "collaudo" ->
+                    acccediAreaRiservataPAPage.clickScegliAmbienteSendBottoneMittente("forward_prod-pn-coll");
 
             default -> {
                 Assertions.fail("Ambiente non valido o non trovato!");

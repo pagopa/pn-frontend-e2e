@@ -1,6 +1,5 @@
 Feature: Mittente invia una notifica digitale a multidestinatario duplicato, viene visualizzato messaggio di errore
 
-  @TestSuite
   @TA_invioNotificaMultidestinatarioDuplicato
   @invioNotifiche_07
   @NRT_Blocco_1
@@ -12,9 +11,9 @@ Feature: Mittente invia una notifica digitale a multidestinatario duplicato, vie
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica
       | oggettoNotifica   | Pagamento rata IMU PN-9254 |
       | descrizione       | PAGAMENTO RATA IMU PN-9254 |
-      | gruppo            | test-TA-FE-TEST    |
-      | codiceTassonomico | 100105P          |
-      | modalitaInvio     | A/R                |
+      | gruppo            | test-TA-FE-TEST            |
+      | codiceTassonomico | 100105P                    |
+      | modalitaInvio     | A/R                        |
     And Cliccare su continua
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
     Then Nella section Destinatario si inseriscono i dati del destinatario

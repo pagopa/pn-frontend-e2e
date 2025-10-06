@@ -6,7 +6,7 @@ Feature: Rework della pagina dei contatti
   @TA_SERCQ_ON
   @NRT_Blocco_2
   Scenario:[SERCQ_25_27_PG]
-   Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 
     And Verifica ed Elimina personalizzati per ente
@@ -36,7 +36,7 @@ Feature: Rework della pagina dei contatti
     And Click Continua
 
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
-   And Si clicca sul bottone del pop-up ok ho capito
+    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email

@@ -1,6 +1,5 @@
 Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
 
-  @TestSuite
   @TA_multiLinguaFrancese_QA5287
   @multiLingua
   @multiLinguaPg
@@ -13,12 +12,9 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     #   Cambio lingua
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     And Cambia lingua footer "Francese"
     And Si clicca su prodotto
-#    And Riduci zoom pagina al "60"%
-#    And Aspetta 3 secondi
     And Attesa 3 secondi
     When Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Notifications"
@@ -63,7 +59,6 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
 #-*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*--*-*-*-*-*-
     And Cambia lingua footer "Französisch"
     And Cambia lingua footer "Anglais"
-#    And Aspetta 1 secondi
     And Attesa 1 secondi
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Delegations of authority"

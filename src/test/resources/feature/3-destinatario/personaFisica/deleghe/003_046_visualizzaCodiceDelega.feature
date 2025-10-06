@@ -1,6 +1,5 @@
 Feature:La persona fisica visualizza il codice  di una delega
 
-  @TestSuite
   @TA_PFvisualizzaCodiceDelega
   @NRT_Blocco_3
   @deleghe1

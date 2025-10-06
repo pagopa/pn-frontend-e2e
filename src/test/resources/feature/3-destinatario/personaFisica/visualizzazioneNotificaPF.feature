@@ -1,6 +1,5 @@
 Feature:Controllo dati notifica
 
-  @TestSuite
   @TA_PFvisualizzaNotifiche
   @CheckNotificaConDocumentiAllegatiPF1
   @NRT_Blocco_2
@@ -21,20 +20,20 @@ Feature:Controllo dati notifica
       | oggettoNotifica | Pagamento rata IMU |
       | costiNotifica   | true               |
     And Si aggiunge un destinatario alla notifica
-      | at                | Presso             |
-      | indirizzo         | VIA ROMA 20        |
-      | dettagliIndirizzo | Scala b            |
-      | codicePostale     | 20147              |
-      | comune            | Milano             |
-      | dettagliComune    | Milano             |
-      | provincia         | MI                 |
-      | stato             | Italia             |
-      | nomeCognome       | Gaio Giulio       |
-      | codiceFiscale     | CSRGGL44L13H501E        |
-      | tipoDestinatario  | PF                |
-      | domicilioDigitale | test@test.com      |
-      | avvisoPagoPa      | 0                 |
-      | F24               | 2                  |
+      | at                | Presso           |
+      | indirizzo         | VIA ROMA 20      |
+      | dettagliIndirizzo | Scala b          |
+      | codicePostale     | 20147            |
+      | comune            | Milano           |
+      | dettagliComune    | Milano           |
+      | provincia         | MI               |
+      | stato             | Italia           |
+      | nomeCognome       | Gaio Giulio      |
+      | codiceFiscale     | CSRGGL44L13H501E |
+      | tipoDestinatario  | PF               |
+      | domicilioDigitale | test@test.com    |
+      | avvisoPagoPa      | 0                |
+      | F24               | 2                |
     Then Creo in background una notifica per destinatario tramite API REST
     And Si seleziona la notifica destinatario
     And Si attende completamento notifica "Consegnata"

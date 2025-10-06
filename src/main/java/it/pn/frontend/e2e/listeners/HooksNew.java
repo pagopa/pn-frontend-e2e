@@ -1,14 +1,6 @@
 package it.pn.frontend.e2e.listeners;
 
 
-import static org.springframework.util.ObjectUtils.isEmpty;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -24,7 +16,6 @@ import lombok.Setter;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-//import org.openqa.selenium.devtools.v126.network.model.RequestWillBeSent;
 import org.openqa.selenium.devtools.v138.network.model.RequestWillBeSent;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
@@ -34,12 +25,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class HooksNew {
 
-    /**
-     * Logger
-     */
+
     private static final Logger logger = LoggerFactory.getLogger(HooksNew.class);
 
     private WebDriverWait wait;
@@ -47,7 +42,7 @@ public class HooksNew {
     private final Map<String, RequestWillBeSent> requests = new HashMap<>();
     @Getter
     @Setter
-    public  String scenario;
+    public String scenario;
 
     private final String os = System.getProperty("os.name");
     @Autowired
@@ -72,7 +67,6 @@ public class HooksNew {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        // WebDriverManager.getDriverThreadLocal().get();
 
         setScenario(scenario.getName());
         scenario.getSourceTagNames().stream()
@@ -123,65 +117,6 @@ public class HooksNew {
         }
         logger.info("----- END SCENARIO: {} -----", scenario.getName());
     }
-
-
-    /**
-     * @After public void endScenario(Scenario scenario) throws IOException {
-     * <p>
-     * <p>
-     * <p>
-     * <p>
-     * System.clearProperty("IUN");
-     * NetworkInfoManager.getNetworkInfo().forEach(netWorkInfo -> {
-     * logger.info("Request ID: {}", netWorkInfo.getRequestId());
-     * logger.info("Request URL: {}", netWorkInfo.getRequestUrl());
-     * logger.info("Method: {}", netWorkInfo.getRequestMethod());
-     * logger.info("Response Status: {}", netWorkInfo.getResponseStatus());
-     * logger.info("Response Body: {}", netWorkInfo.getResponseBody());
-     * });
-     * <p>
-     * if (scenario.isFailed()) {
-     * logger.error("Scenario failed: {}", scenario.getName());
-     * var screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-     * var screenshotBytes = Files.readAllBytes(screenshot.toPath());
-     * var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
-     * var timestamp = formatter.format(new Date());
-     * var fileName = "logs/" + scenario.getName() + "_" + timestamp + ".png";
-     * FileUtils.copyFile(screenshot, new File(fileName));
-     * scenario.attach(screenshotBytes, "image/png", scenario.getName());
-     * }
-     * <p>
-     * try {
-     * webDriveManager.quitDriver();
-     * } catch (Exception e) {
-     * logger.error("Error while quitting driver: {}", e.getMessage());
-     * }
-     * try {
-     * webDriveManager.clearRequest();
-     * webDriveManager.clearNetWorkInfos();
-     * } catch (Exception e) {
-     * logger.error("Error while clearing network infos: {}", e.getMessage());
-     * }
-     * <p>
-     * <p>
-     * logger.info("----- END SCENARIO: {} -----", scenario.getName());
-     * }
-     **/
-
-    /**
-    @And("Revoca deleghe se esistono")
-    @After("@DeleghePF or @DeleghePG")
-    public void clearDelegate() {
-        logger.info("Revoking all delegations...");
-        var mandateId = mandateSingleton.getMandateId(HooksNew.getScenario());
-        if (mandateId != null) {
-            restDelegation.revokeDelegation(mandateId);
-            logger.info("Delegation revoked: {}", mandateId);
-        } else {
-            logger.info("Mandate ID not found");
-        }
-    }
-     **/
 
 
     @After("@DeleghePF")
@@ -237,8 +172,7 @@ public class HooksNew {
                     if ("LEGAL".equalsIgnoreCase(address.getAddressType())) {
                         if ("SERCQ_SEND".equalsIgnoreCase(address.getChannelType())) {
                             restContact.removeDigitalAddressLegalSend();
-                        }
-                        else if ("PEC".equalsIgnoreCase(address.getChannelType())) {
+                        } else if ("PEC".equalsIgnoreCase(address.getChannelType())) {
                             restContact.removeDigitalAddressLegalPec();
                         }
                     }

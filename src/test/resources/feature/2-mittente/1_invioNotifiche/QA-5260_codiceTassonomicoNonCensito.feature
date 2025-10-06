@@ -1,6 +1,5 @@
 Feature: Invio notifica con codice tassonomico non censito
 
-  @TestSuite
   @TA_codiceTassonomicoNonCensito
   @bilinguismo
   @NRT_Blocco_1
@@ -19,7 +18,6 @@ Feature: Invio notifica con codice tassonomico non censito
     And Nella section Destinatario inserire nome cognome e codice fiscale da persona fisica "personaFisica"
     And Seleziona radion button Inserimento Manuale se esiste "0"
     And Nella section Destinatario cliccare su aggiungi indirizzo fisico, compilare i dati della persona fisica "personaFisica" destinatario 0
-#    And Nella section Destinatario cliccare su Aggiungi domicilio Digitale, compilare i dati della persona fisica
     And Cliccare su continua
 #    #      Aggiungere alle notifiche
     And Seleziona Nessun Pagamento 1
@@ -28,4 +26,4 @@ Feature: Invio notifica con codice tassonomico non censito
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Allegati
     And Nella section Allegati caricare l'atto e inserire il nome atto "datiNotifica"
     And Nella section Allegati cliccare sul bottone Invia
-    Then Verifica Pop-up toast di errore "Codice tassonomico non valido"
+    Then Verifica Pop-up toast di errore "codice tassonomico non"

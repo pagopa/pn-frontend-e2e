@@ -43,7 +43,7 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
     private Map<String, Object> datiNotificaPG;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         notifichePFPage = new NotifichePFPage(driver);
         headerPGSection = new HeaderPGSection(driver);
@@ -82,7 +82,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
 
     @And("La persona giuridica clicca sulla prima notifica restituita")
     public void laPersonaGiuridicaCliccaSullaPrimaNotificaRestituita() {
-//        ricercaNotifichePGPage.cliccaSuPrimaNotifica();
         piattaformaNotifichePage.selezionaPrimaNotifica();
     }
 
@@ -108,7 +107,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
             if (titoloPagamentoIsDisplayed) {
                 logger.info("Sezione titolo di pagamento è visualizzato");
             } else {
-                logger.error("Sezione titolo di pagamento non è visualizzato");
                 Assertions.fail("Sezione titolo di pagamento non è visualizzato");
             }
 
@@ -116,7 +114,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
             if (codiceAvvisoIsDisplayed) {
                 logger.info("Sezione codice avviso è visualizzato");
             } else {
-                logger.error("Sezione codice avviso non è visualizzato");
                 Assertions.fail("Sezione codice avviso non è visualizzato");
             }
 
@@ -124,7 +121,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
             if (modelloF24IsDisplayed) {
                 logger.info("Sezione scarica modello F24 è visualizzato");
             } else {
-                logger.error("Sezione scarica modello F24 non è visualizzato");
                 Assertions.fail("Sezione scarica modello F24 non è visualizzato");
             }
         }
@@ -169,7 +165,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         if (result) {
             logger.info("Il risultato é coerente con le date inserite");
         } else {
-            logger.error("Il risultato NON é coerente con le date inserite");
             Assertions.fail("Il risultato NON é coerente con le date inserite");
         }
     }
@@ -191,7 +186,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         if (isErrorMessageDisplayed) {
             logger.info("il messaggio di errore é visualizzato");
         } else {
-            logger.error("il messaggio di errore non é visualizzato");
             Assertions.fail("il messaggio di errore non é visualizzato");
         }
 
@@ -199,7 +193,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         if (isTextBoxInValid) {
             logger.info("IUN text box non é valido");
         } else {
-            logger.error("IUN text box non é passato allo stato non valido");
             Assertions.fail("IUN text box non é passato allo stato non valido");
         }
         ricercaNotifichePGPage.clickFiltraButton();
@@ -207,7 +200,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         if (isErrorMessageStillDisplayed) {
             logger.info("Il bottone Filtra é dissativato");
         } else {
-            logger.error("Il bottone Filtra é attivo");
             Assertions.fail("Il bottone Filtra é attivo");
         }
     }
@@ -238,7 +230,6 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         if (isDateBoxStillInvalid) {
             logger.info("Il bottone Filtra é disattivato");
         } else {
-            logger.error("Il bottone Filtra é attivo");
             Assertions.fail("Il bottone Filtra é attivo");
         }
     }
@@ -253,10 +244,9 @@ public class RicercaNotifichePersonaGiuridicaPATest extends BasePage {
         ricercaNotifichePGPage.clickBottoneConfermaPopUp();
     }
 
-
     @And("Verifica Neumro Copy Costi di notifica Inclusi {int} IUN {string}")
     public void verificaNeumroCopyCostiDiNotificaInclusi(int numeroCopy, String codiceIUN) {
-        ricercaNotifichePGPage.verificaNeumroCopyCostiDiNotificaInclusi(numeroCopy,codiceIUN);
+        ricercaNotifichePGPage.verificaNeumroCopyCostiDiNotificaInclusi(numeroCopy, codiceIUN);
     }
 
 }

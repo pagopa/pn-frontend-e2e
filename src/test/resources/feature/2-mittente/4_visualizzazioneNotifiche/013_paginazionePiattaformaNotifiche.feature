@@ -1,9 +1,7 @@
 Feature:il mittente cambia visualizzazione della pagina
 
-  @TestSuite
   @TA_MittentePaginazioneNotifiche
   @visualizzazioneNotificheMittente
-  @loginFE
   @NRT_Blocco_2
   @NRT_Blocco_2_visualizzazioneNotifiche
   Scenario: PN-9223 - il mittente cambia visualizzazione della pagina

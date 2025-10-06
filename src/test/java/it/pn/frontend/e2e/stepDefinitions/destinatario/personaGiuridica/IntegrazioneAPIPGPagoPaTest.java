@@ -32,7 +32,7 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
 
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
-    private WebDriverManager webDriverManager;
+//    private WebDriverManager webDriverManager;
 
     private WebTool webTool;
 
@@ -43,7 +43,7 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
     private RegistraChiavePubblicaPGSection registraChiavePubblicaPGSection;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         integrazioneAPIPGPage = new IntegrazioneAPIPGPage(driver);
@@ -77,10 +77,11 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
 
     @And("Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale")
     public void nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale() {
-            Assertions.assertTrue(
-                    integrazioneAPIPGPage.nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale(),
-                    "Il bottone Genera chiave personale non è trovato");
+        Assertions.assertTrue(
+                integrazioneAPIPGPage.nellaPaginaIntegrazioneAPISiControllaSiaPresenteIlBottoneGeneraChiavePersonale(),
+                "Il bottone Genera chiave personale non è trovato");
     }
+
     @And("Da Visualizza codice si copia correttamente il campo KID cliccando sul bottone di copia")
     public void visualizzaCodiceSiCopiaCorrettamenteIlCampoKIDCliccandoSulBottoneDiCopia() {
         logger.info("Si clicca copia sul tasto 'KID' per copiare il campo KID");
@@ -96,7 +97,7 @@ public class IntegrazioneAPIPGPagoPaTest extends BasePage {
     }
 
     @And("Si copia il valore della chiave pubblica dalla tabella delle chiavi pubbliche")
-    public void copiaValorePublicKeyDaTabellaChiavePubbliche () {
+    public void copiaValorePublicKeyDaTabellaChiavePubbliche() {
         logger.info("Si copia il valore della chiave pubblica dalla tabella delle chiavi pubbliche");
         String copiedValue = integrazioneAPIPGPage.tabellaChiaviPubblicheCopiaValorePublicKey();
         logger.info("Il campo Valore della chiave pubblica copiata è: {}", copiedValue);

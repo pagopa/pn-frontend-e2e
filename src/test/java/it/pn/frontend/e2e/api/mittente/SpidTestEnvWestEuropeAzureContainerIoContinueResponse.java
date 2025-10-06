@@ -21,7 +21,7 @@ import java.util.List;
 
 public class SpidTestEnvWestEuropeAzureContainerIoContinueResponse {
 
-    private static final Logger logger = LoggerFactory.getLogger("SpidTestenvWesteuropeAzurecontainerIoContinueResponse");
+    private static final Logger logger = LoggerFactory.getLogger(SpidTestEnvWestEuropeAzureContainerIoContinueResponse.class);
     private String spidTestEnvWestEuropeAzureContainerIoContinueResponseEndPoint;
     private final String requestKey;
     private final BasicCookieStore cookieStore;
@@ -49,7 +49,7 @@ public class SpidTestEnvWestEuropeAzureContainerIoContinueResponse {
                 .build();
         try {
             this.responseBody = httpclient.execute(httpPost, classicHttpResponse -> {
-                logger.info(classicHttpResponse.getCode() + " " + classicHttpResponse.getReasonPhrase());
+                logger.info("{} - {}",classicHttpResponse.getCode() , classicHttpResponse.getReasonPhrase());
                 List<Cookie> cookieList =context.getCookieStore().getCookies();
                 for (Cookie cookie : cookieList){
                     logger.info(cookie.getName());
@@ -60,7 +60,7 @@ public class SpidTestEnvWestEuropeAzureContainerIoContinueResponse {
                 Assertions.assertEquals( classicHttpResponse.getCode(),200);
                 final HttpEntity entity = classicHttpResponse.getEntity();
                 String resultContent = EntityUtils.toString(entity);
-                logger.info(resultContent);
+                logger.info("resultContent: {}",resultContent);
                 return resultContent;
             });
         } catch (IOException e) {

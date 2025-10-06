@@ -1,9 +1,8 @@
 Feature: Visualizzazione dettaglio notifica persona fisica
 
-  @TestSuite
   @TA_PFVisualizzaNotificaNonEsistente
   @GestioneErrori
-    @NRT_Blocco_2
+  @NRT_Blocco_2
   Scenario: [PN-14926-PN_DELIVERY_NOTIFICATIONNOTFOUND_PF] - Errore per notifiche non accessibili all’utente
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona fisica si accede alla notifica con codice IUN "XVRJ-HRGW-AQZN-202905-N-1"

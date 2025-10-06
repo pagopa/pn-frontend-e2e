@@ -1,10 +1,8 @@
 Feature: Mittente effetua una ricerca notifiche per CF
 
-  @TestSuite
   @TA_MittenteRicercaNotificaPerCF
   @mittente
   @ricercaNotificheMittente
-  @loginFE
   @NRT_Blocco_1
   Scenario: PN-9217 - Mittente loggato effettua una ricerca per CF
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

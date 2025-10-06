@@ -3,15 +3,13 @@ Feature: Utente Amministratore Persona Giuridica censisce una chiave pubblica pe
   @TA_PG_CreazioneChiavePubblica_QA_5305_5306_5308_5310_5348
   @integrazioneApi
   @integrazioneApiDelegante
-  #@bilinguismo
   @PG
-  @TestSuite
   @NRT_Blocco_2
 
   Scenario: PN-QA-5305_5306_5308_5310_5348 [DELEGANTE PG AMMINISTRATORE] - Amministratore PG censisce una chiave pubblica per la Persona Giuridica,
-          visualizza sezione Integrazione con Public Key censita, Visualizzazione e copia dei codici per un utente Amministratore PG con Public Key attiva,
-          ruota una chiave pubblica attiva e censisce una chiave pubblica con il valore della chiave ruotata,
-          blocca una chiave pubblica attiva e censisce una chiave pubblica con il valore della chiave bloccata
+  visualizza sezione Integrazione con Public Key censita, Visualizzazione e copia dei codici per un utente Amministratore PG con Public Key attiva,
+  ruota una chiave pubblica attiva e censisce una chiave pubblica con il valore della chiave ruotata,
+  blocca una chiave pubblica attiva e censisce una chiave pubblica con il valore della chiave bloccata
     # Reset ambiente di test
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API

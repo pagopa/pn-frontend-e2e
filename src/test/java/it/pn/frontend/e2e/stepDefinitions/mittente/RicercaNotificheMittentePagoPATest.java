@@ -2,23 +2,18 @@ package it.pn.frontend.e2e.stepDefinitions.mittente;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
-import it.pn.frontend.e2e.listeners.Hooks;
 import it.pn.frontend.e2e.listeners.HooksNew;
 import it.pn.frontend.e2e.model.singleton.NotificationSingleton;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.PiattaformaNotifichePGPAPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.section.mittente.DestinatarioPASection;
 import it.pn.frontend.e2e.section.mittente.HeaderPASection;
-import it.pn.frontend.e2e.utility.DataPopulation;
-import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +23,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class RicercaNotificheMittentePagoPATest extends BasePage {
 
@@ -37,13 +30,13 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
     private boolean dataFineErrata;
 
-    private  DestinatarioPASection destinatarioPASection;
+    private DestinatarioPASection destinatarioPASection;
 
-    private  PiattaformaNotifichePage piattaformaNotifichePage;
+    private PiattaformaNotifichePage piattaformaNotifichePage;
 
-    private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+    private PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
 
-    private  HeaderPASection headerPASection;
+    private HeaderPASection headerPASection;
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
     @Autowired
@@ -55,7 +48,7 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
 
     @PostConstruct
-    public void init(){
+    public void init() {
         logger.info("INIT TEST...: ");
         piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
@@ -81,11 +74,8 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Cliccare sul bottone Filtra Notifica {string}")
     public void cliccareSulBottoneFiltraNotifica(String xpath) {
         logger.info("Si clicca sul tasto filtra Notifica");
-        //String codiceIUN = dataPopulationConfig.getDatiNotifica().getCodiceIUN();
         String codiceIUN = notificationSingleton.getIun(hooksNew.getScenario());
-//        String codiceIUN ="DPTV-WMWK-TPNA-202506-H-1";
-//        piattaformaNotifichePage.inserimentoCodiceIUN(codiceIUN);
-        logger.info("IUN cliccareSulBottoneFiltraNotifica: "+codiceIUN);
+        logger.info("IUN cliccareSulBottoneFiltraNotifica: {} ", codiceIUN);
         piattaformaNotifichePage.clickBottoneFiltraNotifica(xpath, codiceIUN);
     }
 
@@ -100,7 +90,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (piattaformaNotifichePGPAPage.sezionePagamentoDisplayed()) {
             logger.info("Si visualizza correttamente box di pagamento");
         } else {
-            logger.error("Non si visualizza correttamente box di pagamento");
             Assertions.fail("Non si visualizza correttamente box di pagamento");
         }
     }
@@ -110,7 +99,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (piattaformaNotifichePGPAPage.messaggioNotificaAnnullataDisplayed()) {
             logger.info("Si visualizza correttamente il messaggio notifica annulata");
         } else {
-            logger.error("Non si visualizza correttamente il messaggio notifica annulata");
             Assertions.fail("Non si visualizza correttamente il messaggio notifica annulata");
         }
 
@@ -124,7 +112,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (piattaformaNotifichePage.isFiltraButtonDisabled()) {
             logger.info("Il bottone Filtra è disabilitato");
         } else {
-            logger.error("Il bottone Filtra è abilitato");
             Assertions.fail("Il bottone Filtra è abilitato");
         }
     }
@@ -132,22 +119,17 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Cliccare sul bottone Filtra del delegato")
     public void cliccareSulBottoneFiltraDelDelegato() {
         logger.info("Si clicca sul tasto filtra del delegante sotto notifiche");
-
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice fiscale del destinatario {string}")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConIlCodiceFiscaleDelDestinatario(String codiceFiscale) {
         logger.info("Si verifica i risultati restituiti");
-
         headerPASection.waitLoadHeaderSection();
-
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         int listaCF = piattaformaNotifichePage.getListaCf(codiceFiscale);
-
         if (listaCF >= 1) {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
-
         } else {
             Assertions.fail("Codici fiscali non presenti o non uguali a quello selezionato " + codiceFiscale);
         }
@@ -172,7 +154,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     public void nellaPaginaPiattaformaNotificheInserireIlCodiceIUNDellaNotifica() {
         logger.info("Si inserisce il codice IUN");
         piattaformaNotifichePage.inserimentoCodiceIUN(dataPopulationConfig.getDatiNotifica().getCodiceIUN());
-//        piattaformaNotifichePage.inserimentoCodiceIUN("DPTV-WMWK-TPNA-202506-H-1");
     }
 
     @Then("Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con il codice IUN della notifica")
@@ -198,11 +179,9 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca");
 
         if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
-            logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
         }
         if (!piattaformaNotifichePage.controlloDateInserite(dataA)) {
-            logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
         }
         piattaformaNotifichePage.inserimentoArcoTemporale(dataDA, dataA, true);
@@ -214,14 +193,12 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         logger.info("Si inserisce l'arco temporale su cui effettuare la ricerca");
 
         if (!piattaformaNotifichePage.controlloDateInserite(dataDA)) {
-            logger.error("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data DA  sbagliato. Deve essere dd/MM/yyyy");
         }
         if (!piattaformaNotifichePage.controlloDateInserite(dataA)) {
-            logger.error("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
             Assertions.fail("Formato della data A  sbagliato. Deve essere dd/MM/yyyy");
         }
-        dataFineErrata =  piattaformaNotifichePage.inserimentoArcoTemporaleErrato(dataDA, dataA);
+        dataFineErrata = piattaformaNotifichePage.inserimentoArcoTemporaleErrato(dataDA, dataA);
     }
 
     @And("Verifica che non è possibile selezionare una data Fine antecedente alla data Inizio")
@@ -243,7 +220,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (results >= 1) {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
-            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
             Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
     }
@@ -263,7 +239,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
             case "ANNULLATA" -> statoInserito = "CANCELLED";
             case "DESTINATARIO IRREPERIBILE" -> statoInserito = "UNREACHABLE";
             default -> {
-                logger.error("Stato notifica inserito non valido");
                 Assertions.fail("Stato notifica inserito non valido");
             }
         }
@@ -275,36 +250,27 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @Then("^Nella pagina Piattaforma Notifiche vengo restituite tutte le notifiche con lo stato della notifica(.*)$")
     public void nellaPaginaPiattaformaNotificheVengoRestituiteTutteLeNotificheConLoStatoDellaNotificaStato(String statoNotifica) {
         logger.info("Si controllano che gli stati delle notifiche siano uguali a quello selezionato");
-
         headerPASection.waitLoadHeaderSection();
-
         int numeroStatoNotifica = piattaformaNotifichePage.getListStato(statoNotifica.substring(1));
-
         if (numeroStatoNotifica >= 1) {
             logger.info("Gli stati della notifica sono uguali a quelli selezionati");
         } else {
-            logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
             Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
-
         }
-
     }
 
     @And("Nella pagina Piattaforma Notifiche inserire la data invio notifica")
     public void nellaPaginaPiattaformaNotificheInserireLaDataInvioNotifica() {
         logger.info("Inserimento data invio notifica");
-
         Date date = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
         String dataNotifica = dateFormat.format(date).replace("-", "/");
-
-        piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica,true);
+        piattaformaNotifichePage.inserimentoArcoTemporale(dataNotifica, dataNotifica, true);
     }
 
     @And("Nella pagina piattaforma Notifiche selezionare lo stato notifica Depositata")
     public void nellaPaginaPiattaformaNotificheSelezionareLoStatoNotifica() {
         logger.info("Si seleziona lo stato notifica Depositata");
-
         piattaformaNotifichePage.selezionareStatoNotifica("ACCEPTED");
     }
 
@@ -316,33 +282,25 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
 
         String dataa = piattaformaNotifichePage.conversioneFormatoDate(dateA.toString());
         String datada = piattaformaNotifichePage.conversioneFormatoDate(dateDa.toString());
-        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa,true);
+        piattaformaNotifichePage.inserimentoArcoTemporale(datada, dataa, true);
     }
 
     @And("Il sistema restituisce notifiche con codice fiscale e arco temporale uguale a quelli inserito")
     public void ilSistemaRestituisceNotificheConCodiceFiscaleEArcoTemporaleUgualeAQuelliInserito() {
         logger.info("Si verifica i risultati restituiti");
         headerPASection.waitLoadHeaderSection();
-
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-
-
         String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
-
         if (listaCF >= 1) {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
-
         } else {
-            logger.error("Il codice fiscale della notifica NON è uguale a quello selezionato");
             Assertions.fail("Il codice fiscale notifica NON è uguale a quello selezionato");
         }
-
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
         if (results >= 1) {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
-            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
             Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
     }
@@ -350,7 +308,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Nella pagina Piattaforma Notifiche inserire una data")
     public void nellaPaginaPiattaformaNotificheInserireUnaData() {
         LocalDate data = LocalDate.now();
-
         String dataInserita = piattaformaNotifichePage.conversioneFormatoDate(data.toString());
         piattaformaNotifichePage.inserimentoData(dataInserita);
     }
@@ -359,26 +316,18 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("^Il sistema restituisce notifiche con data e stato uguale a quelli inserito (.*)$")
     public void ilSistemaRestituisceNotificheConDataEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
         logger.info("Si verifica i risultati restituiti");
-
         headerPASection.waitLoadHeaderSection();
-
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-
         int numeroStatoNotificha = piattaformaNotifichePage.getListStato(statoNotifica);
-
         if (numeroStatoNotificha >= 1) {
             logger.info("Gli stati della notifica sono uguali a quelli selezionati");
         } else {
-
-            logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
             Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
-
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
         if (results >= 1) {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
-            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
             Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
     }
@@ -386,23 +335,18 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("^Il sistema restituisce notifiche con arco temporale e stato uguale a quelli inserito (.*)$")
     public void ilSistemaRestituisceNotificheConArcoTemporaleEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
         logger.info("Si verifica i risultati restituiti");
-
         headerPASection.waitLoadHeaderSection();
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
         if (results >= 1) {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
-            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
             Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
         int numeroStatoNotificha = piattaformaNotifichePage.getListStato(statoNotifica);
-
         if (numeroStatoNotificha >= 1) {
             logger.info("Gli stati della notifica sono uguali a quelli selezionati");
         } else {
-
-            logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
             Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }
@@ -412,7 +356,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (piattaformaNotifichePage.verificaEsistenzaRisultati()) {
             logger.info("Il filtro non ha nessun risultato");
         } else {
-            logger.error("Il filtro ha portate qualche risultato");
             Assertions.fail("Il filtro ha portate qualche risultato");
         }
     }
@@ -420,28 +363,19 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("Il sistema restituisce notifiche con codice fiscale e data uguale a quelli inserito")
     public void ilSistemaRestituisceNotificheConCodiceFiscaleEDataUgualeAQuelliInserito() {
         logger.info("Si verifica i risultati restituiti");
-
         headerPASection.waitLoadHeaderSection();
-
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-
-
         String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
-
         if (listaCF >= 1) {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
-
         } else {
-            logger.error("Il codice fiscale della notifica NON è uguale a quello selezionato");
             Assertions.fail("Il codice fiscale notifica NON è uguale  a quello selezionato");
         }
-
         int results = piattaformaNotifichePage.controlloNumeroRisultatiDate();
         if (results >= 1) {
             logger.info("Sono presenti risultati per il filtro data");
         } else {
-            logger.error("Le date delle notifiche NON sono uguali a quelle selezionate");
             Assertions.fail("Le date delle notifiche NON sono uguali a quelle selezionate");
         }
     }
@@ -449,29 +383,19 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
     @And("^Il sistema restituisce notifiche con codice fiscale e stato uguale a quelli inserito (.*)$")
     public void ilSistemaRestituisceNotificheConCodiceFiscaleEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
         logger.info("Si verifica i risultati restituiti");
-
         headerPASection.waitLoadHeaderSection();
-
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
-
-
         String cfInserito = dataPopulationConfig.getPersonaFisica().getCodiceFiscale();
         int listaCF = piattaformaNotifichePage.getListaCf(cfInserito);
-
         if (listaCF >= 1) {
             logger.info("Il codice fiscale della notifica è uguale a quello selezionato");
-
         } else {
-            logger.error("Il codice fiscale della notifica NON è uguale  a quello selezionato");
             Assertions.fail("Il codice fiscale notifica NON è uguale  a quello selezionato");
         }
         int numeroStatoNotificha = piattaformaNotifichePage.getListStato(statoNotifica);
-
         if (numeroStatoNotificha >= 1) {
             logger.info("Gli stati della notifica sono uguali a quelli selezionati");
         } else {
-
-            logger.error("Gli stati della notifica NON sono uguali a quelli selezionati");
             Assertions.fail("Gli stati della notifica NON sono uguali a quelli selezionati");
         }
     }
@@ -489,7 +413,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
             case "ANNULLATA" -> statoInserito = "CANCELLED";
             case "DESTINATARIO IRREPERIBILE" -> statoInserito = "UNREACHABLE";
             default -> {
-                logger.error("Stato notifica inserito non valido");
                 Assertions.fail("Stato notifica inserito non valido");
             }
         }
@@ -506,7 +429,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (piattaformaNotifichePage.controlloDateErrate()) {
             logger.info("Le date inserite sono errate");
         } else {
-            logger.error("Le date inserite sono corrette");
             Assertions.fail("Le date inserite sono corrette");
         }
     }
@@ -516,7 +438,6 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         if (piattaformaNotifichePage.controlloEsistenzaStato()) {
             logger.info("Campo stato notifica trovato");
         } else {
-            logger.error("Campo stato notifica NON trovato");
             Assertions.fail("Campo stato notifica NON trovato");
         }
     }

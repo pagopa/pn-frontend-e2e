@@ -10,5 +10,5 @@ Feature: Il mittente inserisce i dati nella sezione informazioni preliminari
     And Nella section Informazioni preliminari inserire i dati della notifica senza pagamento "VAS_31_DOWN"
     And Cliccare su continua
     Then Si visualizza correttamente la pagina Piattaforma Notifiche section Destinatario
-   And Verifica Banner attivo e Inserimento manuale selezionato
+    And Verifica Banner attivo e Inserimento manuale selezionato
 

@@ -1,17 +1,10 @@
 package it.pn.frontend.e2e.model.singleton;
 
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-/*
-*Modifiche Apportate:
-Annotazione @Component: La classe è annotata con @Component, permettendo a Spring di gestire l'istanza come un Singleton automaticamente.
-Rimozione del metodo getInstance: Con l'uso di @Component, non è necessario implementare il pattern Singleton manualmente. Spring gestirà una sola istanza di questa classe nel contesto dell'applicazione.
-Costruttore privato rimosso: Non è necessario bloccare il costruttore dato che Spring garantisce l’unicità dell’istanza.
-* */
+
 
 @Component
 public class MandateSingleton {

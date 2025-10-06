@@ -1,10 +1,8 @@
 Feature: il mittente fa una ricerca combinata tra cf e stato
 
-  @TestSuite
-    @mittente
+  @mittente
     @ricercaNotificheMittente
     @TA_MittenteRicercaPerCFeStato
-    @loginFE
     @NRT_Blocco_1
   Scenario Outline: PN-9222 - il mittente fa una ricera sia per cf che per stato
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard

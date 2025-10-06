@@ -25,46 +25,17 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.util.Timeout;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Scope;
-import org.springframework.http.client.ClientHttpRequestInterceptor;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
-
 
 @Configuration
 public class RestTemplateConfiguration {
 
     public static final String CUCUMBER_SCENARIO_NAME_MDC_ENTRY = "cucumber_scenario_name";
 
-//    @Bean(name = "customRestTemplate")
-//    @Primary
-//    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-//    public RestTemplate customRestTemplate() {
-//        RestTemplate restTemplate = new RestTemplate();
-//        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-//        requestFactory.setConnectTimeout(990_000);
-//        requestFactory.setReadTimeout(990_000);
-//        requestFactory.setConnectionRequestTimeout(990_000);
-////        requestFactory.setBufferRequestBody(false);
-//        restTemplate.setRequestFactory(requestFactory);
-//
-//        List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
-//        interceptors.add(new RequestAndTraceIdInterceptor());
-//
-//        return restTemplate;
-//    }
-
     @Bean(name = "customRestTemplate")
     @Primary
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public RestTemplate customRestTemplate() {
-
-
 
         // Configura i timeout
         RequestConfig requestConfig = RequestConfig.custom()
@@ -77,11 +48,6 @@ public class RestTemplateConfiguration {
         PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = PoolingHttpClientConnectionManagerBuilder.create().setDefaultSocketConfig(socketConfig).build();
         CloseableHttpClient httpClient = HttpClientBuilder.create().setDefaultRequestConfig(requestConfig).setConnectionManager(poolingHttpClientConnectionManager).build();
         //----------------------------
-
-//        // Crea un'istanza di HttpClient con i timeout configurati
-//        CloseableHttpClient httpClient = HttpClients.custom()
-//                .setDefaultRequestConfig(requestConfig)
-//                .build();
 
         // Configura il RequestFactory con l'HttpClient
         HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
@@ -123,7 +89,6 @@ public class RestTemplateConfiguration {
         }
 
         private void doLog(HttpRequest request, ClientHttpResponse response) {
-//            String httpMethod = request.getMethodValue();
             String httpMethod = request.getMethod().name();
             String requestUrl = request.getURI().toString();
             String traceId = getTraceIdFromHttpResponse( response );

@@ -1,6 +1,5 @@
 Feature: La persona fisica visualizza la sezione notifiche
 
-  @TestSuite
   @TA_VerificaMessaggioErroreErrorCode
   @NRT_Blocco_2
 

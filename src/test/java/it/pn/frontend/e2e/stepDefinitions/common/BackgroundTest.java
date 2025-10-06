@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
-public class BackgroundTest  extends BasePage {
+public class BackgroundTest extends BasePage {
 
     private final String nomeFileDatiNotifica = "datiNotifica";
     private final String nomeFilePersonaFisica = "personaFisica";
@@ -46,7 +46,7 @@ public class BackgroundTest  extends BasePage {
     @Autowired
     @Lazy
     @Setter
-    private  RecapitiPersonaFisicaTest recapitiPersonaFisicaTest;
+    private RecapitiPersonaFisicaTest recapitiPersonaFisicaTest;
     @Autowired
     @Lazy
     @Setter
@@ -62,11 +62,11 @@ public class BackgroundTest  extends BasePage {
     @Autowired
     @Lazy
     @Setter
-    private  DisserviziAppPGTest disserviziAppPGTest ;
+    private DisserviziAppPGTest disserviziAppPGTest;
     @Autowired
     @Lazy
     @Setter
-    private  HelpdeskTest helpdeskTest;
+    private HelpdeskTest helpdeskTest;
     @Autowired
     @Lazy
     @Setter
@@ -80,17 +80,17 @@ public class BackgroundTest  extends BasePage {
     @Lazy
     @Setter
     private NotificaMittentePagoPATest notificaMittentePagoPATest;
-    private  RecapitiDestinatarioPage recapitiDestinatarioPage ;
-    private  ITuoiRecapitiPage iTuoiRecapitiPage;
+    private RecapitiDestinatarioPage recapitiDestinatarioPage;
+    private ITuoiRecapitiPage iTuoiRecapitiPage;
     @Setter
     @Getter
-    private  PiattaformaNotifichePage piattaformaNotifichePage;
+    private PiattaformaNotifichePage piattaformaNotifichePage;
 
     @Setter
     @Getter
     private HooksNew hooksNew;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     public BackgroundTest() {
         datiPersonaFisica = new HashMap<>();
@@ -101,19 +101,15 @@ public class BackgroundTest  extends BasePage {
         datiPersonaFisica.put("ragioneSociale", "Lucrezia Borgia");
     }
 
-
     @PostConstruct
-    public void init(){
+    public void init() {
         webTool = new WebTool(driver);
         recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
         iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     }
 
-
-
-    public void invioNotificaErrorePec(String numeroNotificaID ) {
-
+    public void invioNotificaErrorePec(String numeroNotificaID) {
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheSiRecuperaLUltimoNumeroProtocollo();
         notificaMittentePagoPATest.nellaPaginaPiattaformaNotificheCliccareSulBottoneInviaUnaNuovaNotifica();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionInformazioniPreliminari();
@@ -121,7 +117,7 @@ public class BackgroundTest  extends BasePage {
         notificaMittentePagoPATest.cliccareSuContinua();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionDestinatario();
         notificaMittentePagoPATest.nellaSectionDestinatarioInserireNomeCognomeECodiceFiscaleDaDestinatario(nomeFilePersonaFisica);
-        notificaMittentePagoPATest.nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(nomeFilePersonaFisica,0);
+        notificaMittentePagoPATest.nellaSectionDestinatarioCliccareSuAggiungiIndirizzoFisicoCompilareIDatiDelDestinatario(nomeFilePersonaFisica, 0);
         notificaMittentePagoPATest.nellaSectionDestinatarioCliccareSuAggiungiDomicilioDigitaleCompilareIDatiDellaPersonaFisica();
         notificaMittentePagoPATest.cliccareSuContinua();
         notificaMittentePagoPATest.siVisualizzaCorrettamenteLaPaginaPiattaformaNotificheSectionAllegati();
@@ -144,7 +140,6 @@ public class BackgroundTest  extends BasePage {
         deleghePagoPATest.nellaSezioneDelegheSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
     }
 
-
     public void loginPF(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
         personaFisicaPagoPA.homePageDestinatarioVieneVisualizzataCorrettamente();
@@ -161,13 +156,9 @@ public class BackgroundTest  extends BasePage {
     public void accettazioneDelegaPG() {
         deleghePagoPATest.siSceglieOpzioneAccetta();
         //Seconda PG non disponibile per PA, si usa PF
-        //deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelegaPG);
         deleghePagoPATest.siInserisceIlCodiceDelegaNelPopUp(nomeFileNuovaDelega);
         deleghePagoPATest.siCliccaSulBottoneAccetta();
-        //deleghePGPagoPATest.siCliccaSulBottoneConfermaGruppo();
-
     }
-
 
     public void loginPFRecapiti(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
@@ -205,7 +196,6 @@ public class BackgroundTest  extends BasePage {
         deleghePagoPATest.siControllaCheLaDelegaHaLoStatoAttiva(nomeFilePersonaFisica);
     }
 
-
     public void aggiuntaEmailPF() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLEmailDelPFECliccaSulBottoneAvvisamiViaEmail(nomeFilePersonaFisica);
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiRecuperaLOTPDellaEmailTramiteRequestMethod(nomeFilePersonaFisica);
@@ -234,7 +224,6 @@ public class BackgroundTest  extends BasePage {
         recapitiPersonaFisicaTest.nellaPaginaPiattaformaNotifichePersonaFisicaSiCliccaSulBottoneITuoiRecapiti();
         recapitiPersonaFisicaTest.siVisualizzaCorrettamenteLaPaginaITuoiRecapiti();
     }
-
 
     public void accettazioneDelegaSceltaGruppo(boolean withGroup, String gruppo) {
         deleghePagoPATest.siSceglieOpzioneAccetta();
@@ -267,16 +256,9 @@ public class BackgroundTest  extends BasePage {
         deleghePGPagoPATest.siCliccaSulBottoneIndietroInInserimentoCodiceVerifica();
     }
 
-
     public void aggiuntaNuovaDelegaDellImpresaPG() {
         deleghePGPagoPATest.nellaPaginaDelegheSiCliccaSuDelegatiDallImpresa();
         deleghePGPagoPATest.nellaSezioneDelegatiDellImpresaClickSulBottoneAggiungiNuovaDelega();
-        //Seconda PG per deleghe non disponibile per testing, si usa PF
-        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaInserireIDati();
-        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaSalvareIlCodiceVerificaAllInternoDelFile();
-        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaVerificareCheLaDataSiaCorretta();
-        //deleghePGPagoPATest.nellaSezioneLeTueDeleghePersonaGiuridicaclickSulBottoneInviaRichiestaESulBottoneTornaAlleDeleghe();
-        //deleghePGPagoPATest.nellaSezioneDelegatiDallImpresaSiVisualizzaLaDelegaInStatoDiAttesaDiConferma();
         deleghePagoPATest.nellaSezioneLeTueDelegheInserireIDati(datiPersonaFisica);
         deleghePagoPATest.nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta();
         deleghePagoPATest.nellaSezioneLeTueDelegheSalvareIlCodiceVerificaAllInternoDelFile("PG");
@@ -287,7 +269,6 @@ public class BackgroundTest  extends BasePage {
     public void logoutPG() {
         loginPGPagoPATest.logoutDaPortalePersonaGiuridica();
     }
-
 
     public void aggiungiPECPG() {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceLaPECDelDestinatario("pec@pec.pagopa.it");
@@ -339,16 +320,23 @@ public class BackgroundTest  extends BasePage {
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 
-    public void risoluzioneDisservizioNew() {
+//    public void risoluzioneDisservizioNew() {
+//        helpdeskTest.loginHelpdeskConUtenteTest();
+//        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
+//        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
+//        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
+//        helpdeskTest.siRisolveIlDisservizionew();
+//        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
+//    }
+    public void risoluzioneDisservizioNew(String nomeTest) {
         helpdeskTest.loginHelpdeskConUtenteTest();
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
         helpdeskTest.clickSuCardMonitoraggioPiattaforma();
         helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
-        helpdeskTest.siRisolveIlDisservizionew();
-//        helpdeskTest.siRisolveIlDisservizionew();
+        helpdeskTest.siRisolveIlDisservizionew(nomeTest+"_1");
+        helpdeskTest.siRisolveIlDisservizionew(nomeTest+"_2");
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
-
 
     public void aggiuntaEmailDiCortesia(String email) {
         recapitiTest.siInserisceLEmailDiCortesiaESiCliccaSulBottoneAvvisamiViaEmail(email);
@@ -419,7 +407,7 @@ public class BackgroundTest  extends BasePage {
     public void inserimentoOTPErratoTreVolteEControlloMessaggio(String OTP) {
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlPopUpDiInserimentoOTP();
         recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiSiInserisceOTPSbagliato(OTP);
-        for(int i = 0; i < 2; i++){
+        for (int i = 0; i < 2; i++) {
             recapitiPersonaFisicaTest.nellaPaginaITuoiRecapitiCliccaSulBottoneConferma();
         }
         recapitiTest.siVisualizzaCorrettamenteIlMessaggioDiErroreDeiTreTentativi();
@@ -437,18 +425,11 @@ public class BackgroundTest  extends BasePage {
     public void siFiltraLaTabellaDelleNotificheDelDestinatarioPerIUN(String iun) {
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonDestinatario();
-//        logger.info("SETTAGIO hooksNew");
-//        webTool.waitTime(2);
-//        piattaformaNotifichePage.setHooksNew(hooksNew);
-//        logger.info("DOPO SETTAGIO hooksNew");
         piattaformaNotifichePage.clickSuNotifica(iun);
     }
 
 
     public void siFiltraLaTabellaDelleNotifichePerIUNMittente(String iun) {
-//        piattaformaNotifichePage.setHooksNew(hooksNew);
-//        piattaformaNotifichePage.clickBottoneFiltraNotifica("filter-button",iun);
-
         piattaformaNotifichePage.inserimentoCodiceIUN(iun);
         piattaformaNotifichePage.selectFiltraNotificaButtonMittente();
         logger.info("SETTAGIO hooksNew siFiltraLaTabellaDelleNotifichePerIUNMittente");

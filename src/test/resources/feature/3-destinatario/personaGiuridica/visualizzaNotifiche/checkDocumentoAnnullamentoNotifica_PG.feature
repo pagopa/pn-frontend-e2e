@@ -1,6 +1,5 @@
 Feature: Presenza del documento di attestazione opponibile a terzi relativo all'annullamento della notifica
 
-  @TestSuite
   @PG
   @TA_verificaDocumentoAnnullamentoNotifica_PA_PG
   @NRT_Blocco_3
@@ -35,7 +34,6 @@ Feature: Presenza del documento di attestazione opponibile a terzi relativo all'
       And Si verifica che la notifica abbia lo stato "Annullata"
       And Aspetta 120 secondi
       And Si visualizza correttamente la section Dettaglio Notifica annullata
-    #And Logout da portale mittente
       And PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
       And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
       And Si seleziona la notifica destinatario

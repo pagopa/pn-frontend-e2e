@@ -1,6 +1,5 @@
 Feature: Mittente seleziona l'opzione blocca api Key
 
-  @TestSuite
   @TA_MittenteBloccaApikey
   @ApikeyMittente
   @integrazioneApiPa

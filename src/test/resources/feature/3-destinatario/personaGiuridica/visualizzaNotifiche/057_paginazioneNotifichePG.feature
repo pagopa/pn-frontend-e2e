@@ -1,6 +1,5 @@
 Feature: La persona giuridica visualizza la sezione notifiche
 
-  @TestSuite
   @TA_PGPaginazioneNotifiche
   @NRT_Blocco_3
   @VisualizzaNotifiche

@@ -1,6 +1,5 @@
 Feature: persona fisica aggiunge una delega dall'elenco degli enti radice
 
-  @TestSuite
   @TA_PFaggiuntaDelegaEnteRadice
   @DeleghePF
   @PF

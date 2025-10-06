@@ -14,7 +14,6 @@ import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -50,7 +49,7 @@ public class AccettazioneRichiestaNotifica {
                     .addParameter("notificationRequestId", notificationRequestId)
                     .build();
             httpclient.execute(httpGet, response -> {
-                logger.info(response.getCode() + " " + response.getReasonPhrase());
+                logger.info("{} - {} ", response.getCode(), response.getReasonPhrase());
                 setResponseReasonPhrase(response.getReasonPhrase());
                 if (response.getCode() == 200) {
                     final HttpEntity entity = response.getEntity();
@@ -100,11 +99,9 @@ public class AccettazioneRichiestaNotifica {
         ObjectMapper jsonMapper = new ObjectMapper();
         try {
             JsonNode parsedResponse = jsonMapper.readTree(body);
-            String statusNotifica = parsedResponse.get("notificationRequestStatus").textValue();
-            return statusNotifica;
+            return parsedResponse.get("notificationRequestStatus").textValue();
         } catch (Exception e) {
-            logger.error("error when parsing response body");
-            logger.error(e.getMessage());
+            logger.error("error when parsing response body: {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }

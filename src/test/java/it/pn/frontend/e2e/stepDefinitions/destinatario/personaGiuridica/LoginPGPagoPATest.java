@@ -34,44 +34,41 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-//@Component inserire in un secondo momenti
-//
 public class LoginPGPagoPATest extends BasePage {
 
     private final Logger logger = LoggerFactory.getLogger(LoginPGPagoPATest.class);
     private Map<String, String> urlPersonaGiuridica;
 
-
     @Autowired
     private WebDriverConfig webDriverConfig;
 
     @Autowired
-    private  DataPopulation dataPopulation;
+    private DataPopulation dataPopulation;
 
     @Autowired
     private WebViewMultiLanguageConfig webViewMultiLanguageConfig;
 
-    private  HeaderPGSection headerPGSection;
+    private HeaderPGSection headerPGSection;
 
-    private  AccediAreaRiservataPGPage accediAreaRiservataPGPage;
+    private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
 
-    private  SelezionaImpresaPage selezionaImpresaPage;
+    private SelezionaImpresaPage selezionaImpresaPage;
 
-    private  PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
+    private PiattaformaNotifichePGPAPage piattaformaNotifichePGPAPage;
 
-    private  HomePagePG homePagePG;
+    private HomePagePG homePagePG;
 
-    private  ScegliSpidPGPage scegliSpidPGPage;
+    private ScegliSpidPGPage scegliSpidPGPage;
 
-    private  LoginPGPagoPAPage loginPGPagoPAPage;
+    private LoginPGPagoPAPage loginPGPagoPAPage;
 
-    private  AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage;
+    private AutorizzaInvioDatiPGPage autorizzaInvioDatiPGPage;
 
-    private  DestinatarioPage destinatarioPage;
+    private DestinatarioPage destinatarioPage;
 
-    private  CookiesSection cookiesSection;
+    private CookiesSection cookiesSection;
 
-    private  WebTool webTool;
+    private WebTool webTool;
 
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
@@ -95,12 +92,12 @@ public class LoginPGPagoPATest extends BasePage {
     private RestContact restContact;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         webTool = new WebTool(driver);
         headerPGSection = new HeaderPGSection(driver);
         accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(driver);
         selezionaImpresaPage = new SelezionaImpresaPage(driver);
-        piattaformaNotifichePGPAPage  = new PiattaformaNotifichePGPAPage(driver);
+        piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
         homePagePG = new HomePagePG(driver);
         scegliSpidPGPage = new ScegliSpidPGPage(driver);
         loginPGPagoPAPage = new LoginPGPagoPAPage(driver);
@@ -114,14 +111,6 @@ public class LoginPGPagoPATest extends BasePage {
     @Given("Login Page persona giuridica viene visualizzata")
     public void loginPagePersonaGiuridicaVieneVisualizzata() {
         String variabileAmbiente = webDriverConfig.getEnvironment();
-//        switch (variabileAmbiente) {
-//            case "dev" -> driver.get(webDriverConfig.getBaseUrlPgDev());
-//            case "test", "uat" ->
-//                    driver.get(webDriverConfig.getBaseUrlPgTest().replace("dev", variabileAmbiente));
-//            default ->
-//                    Assertions.fail("Non stato possibile trovare l'ambiente inserito, Inserisci in -Denvironment test o dev o uat");
-//        }
-
         driver.get(webDriverConfig.getBaseUrlPgTest().replace("dev", variabileAmbiente));
 
     }
@@ -130,20 +119,6 @@ public class LoginPGPagoPATest extends BasePage {
     public void loginMittenteConTokenExchange(String personaGiuridica) {
         String environment = webDriverConfig.getEnvironment();
         String token = "";
-//        switch (environment) {
-//            case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-//                    webDriverConfig.getTokendevPGDelegante()
-//                    :
-//                    webDriverConfig.getTokendevPGDelegato();
-//            case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-//                    webDriverConfig.getTokentestPGDelegante()
-//                    :
-//                    webDriverConfig.getTokentestPGDelegato();
-//            default -> {
-//                logger.error("Ambiente non valido");
-//                Assertions.fail("Ambiente non valido o non trovato!");
-//            }
-//        }
         token = personaGiuridica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPGDelegante() : webDriverConfig.getTokentestPGDelegato();
 
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
@@ -182,8 +157,6 @@ public class LoginPGPagoPATest extends BasePage {
 
     @When("Login portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod() {
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
-        //personaGiuridica
         String userMittente = webDriverConfig.getUserDante();
         String pwdMittente = webDriverConfig.getPwdDante();
         this.readUrlPortaleMittente(userMittente, pwdMittente);
@@ -204,22 +177,15 @@ public class LoginPGPagoPATest extends BasePage {
             }
             numProvaLogin++;
         }
-
         if (urlWithTokenFound) {
             logger.info("procedura di login from spid provata : {}", numProvaLogin);
         } else {
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaGiuridica.get("urlPortale") + "' è : " + this.urlPersonaGiuridica.get("responseCode"));
         }
-
         driver.get(this.urlPersonaGiuridica.get("urlPortale"));
-
-        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
-            if (cookiesSection.waitLoadCookiesPage()) {
-                cookiesSection.selezionaAccettaTuttiButton();
-            }
+        if (!webDriverManager.getCookieConfig().isCookieEnabled() && cookiesSection.waitLoadCookiesPage()) {
+            cookiesSection.selezionaAccettaTuttiButton();
         }
-
-
         selezionaImpresaPage.clickSuImpresa(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         selezionaImpresaPage.clickAccediButton();
     }
@@ -305,15 +271,15 @@ public class LoginPGPagoPATest extends BasePage {
     public void loginConPersonaGiuridica(Map<String, String> datiPG) {
         logger.info("La persona guiridica cerca di fare il login");
 //        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
-            if (cookiesSection.waitLoadCookiesPage()) {
-                cookiesSection.selezionaAccettaTuttiButton();
-            }
+        if (cookiesSection.waitLoadCookiesPage()) {
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
 //        }
 
         if (StringUtils.isEmpty(datiPG.get("lingua")) || datiPG.get("lingua").equalsIgnoreCase("IT")) {
             accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
-        }
-        else accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage(datiPG.get("lingua"),webViewMultiLanguageConfig.getWaitLoadAccediAreaRiservataPgLanguage());
+        } else
+            accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage(datiPG.get("lingua"), webViewMultiLanguageConfig.getWaitLoadAccediAreaRiservataPgLanguage());
 
         accediAreaRiservataPGPage.clickSpidButton();
 
@@ -321,14 +287,12 @@ public class LoginPGPagoPATest extends BasePage {
 
         loginPGPagoPAPage.waitLoadLoginPGPage();
 
-        if(datiPG.get("user").equalsIgnoreCase("GabrieleDAnnunzio") || datiPG.get("user").equalsIgnoreCase("GiuseppeUngaretti")
+        if (datiPG.get("user").equalsIgnoreCase("GabrieleDAnnunzio") || datiPG.get("user").equalsIgnoreCase("GiuseppeUngaretti")
                 || datiPG.get("user").equalsIgnoreCase("n.lotti") || datiPG.get("user").equalsIgnoreCase("m.montessori")
-        ){
+        ) {
             loginPGPagoPAPage.insertUsername(datiPG.get("user"));
             loginPGPagoPAPage.insertPassword(datiPG.get("pwd"));
-        }
-
-        else {
+        } else {
             loginPGPagoPAPage.insertUsername(webDriverConfig.getUserDante());
             loginPGPagoPAPage.insertPassword(webDriverConfig.getPwdDante());
         }
@@ -377,7 +341,6 @@ public class LoginPGPagoPATest extends BasePage {
 
     @When("Login {string} portale persona giuridica tramite request method")
     public void loginPortalePersonaGiuridicaTramiteRequestMethod(String dpFile) {
-        //TODO ATTUALMENTE NON VIENE UTILIZZATA
         //personaGiuridica
         String userMittente = webDriverConfig.getUserDante();
         String pwdMittente = webDriverConfig.getPwdDante();
@@ -403,20 +366,15 @@ public class LoginPGPagoPATest extends BasePage {
         if (urlWithTokenFound) {
             logger.info("procedura di login from spid provata : {}", numProvaLogin);
         } else {
-            logger.error("procedura di login from spid provata : {}", numProvaLogin);
             Assertions.fail("Codice risposta ricevuto per questo end point: '" + this.urlPersonaGiuridica.get("urlPortale") + "' è : " + this.urlPersonaGiuridica.get("responseCode"));
 
         }
 
         driver.get(this.urlPersonaGiuridica.get("urlPortale"));
 
-        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
-            if (cookiesSection.waitLoadCookiesPage()) {
-                cookiesSection.selezionaAccettaTuttiButton();
-            }
+        if (!webDriverManager.getCookieConfig().isCookieEnabled() && cookiesSection.waitLoadCookiesPage()) {
+            cookiesSection.selezionaAccettaTuttiButton();
         }
-
-
         selezionaImpresaPage.clickSuImpresa(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         selezionaImpresaPage.clickAccediButton();
     }
@@ -429,15 +387,8 @@ public class LoginPGPagoPATest extends BasePage {
         String urlIniziale = "https://imprese." + variabileAmbiente + ".notifichedigitali.it/#selfCareToken=";
         String token;
         if (nomeFileLogin.equalsIgnoreCase("delegatoPG")) {
-//            token = variabileAmbiente.equalsIgnoreCase("test") ?
-//                    webDriverConfig.getTokentestPGDelegato():
-//                    webDriverConfig.getTokendevPGDelegato();
             token = webDriverConfig.getTokentestPGDelegato();
-        }
-        else  {
-//            token = variabileAmbiente.equalsIgnoreCase("test") ?
-//                    webDriverConfig.getTokentestPGDelegante():
-//                    webDriverConfig.getTokendevPGDelegante();
+        } else {
             token = webDriverConfig.getTokentestPGDelegante();
         }
         String url = urlIniziale + token;
@@ -445,39 +396,20 @@ public class LoginPGPagoPATest extends BasePage {
     }
 
     public String getTokenExchangePGFromFile(String personaGiuridica) {
-        String environment = webDriverConfig.getEnvironment();
         String token = "";
-//        switch (environment) {
-//            case "dev" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-//                    webDriverConfig.getTokendevPGDelegante()
-//                    :
-//                    webDriverConfig.getTokendevPGDelegato();
-//            case "test" -> token = personaGiuridica.equalsIgnoreCase("delegante") ?
-//                    webDriverConfig.getTokentestPGDelegante()
-//                    :
-//                    webDriverConfig.getTokentestPGDelegato();
-//            default -> {
-//                logger.error("Ambiente non valido");
-//                Assertions.fail("Ambiente non valido o non trovato!");
-//            }
-//        }
-
-        token = personaGiuridica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPGDelegante():webDriverConfig.getTokentestPGDelegato();
-
+        token = personaGiuridica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPGDelegante() : webDriverConfig.getTokentestPGDelegato();
         return token;
     }
 
     @And("Si clicca su prodotto")
     public void siCliccaSuProdotto() {
-//        destinatarioPage.clickProdotto(xpath);
         logger.info("Dobbiamo Clicccare l'ambiente");
         clickEntraSuSendPersonaGiuridica();
         logger.info("verifico esistenza cookie");
-        //TODO SOLO PE HOTFIX
 //        if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
-            if (cookiesSection.waitLoadCookiesPage()) {
-                cookiesSection.selezionaAccettaTuttiButton();
-            }
+        if (cookiesSection.waitLoadCookiesPage()) {
+            cookiesSection.selezionaAccettaTuttiButton();
+        }
 //        }
         logger.info("Terminata procedura scelta ambiente");
     }
@@ -486,6 +418,7 @@ public class LoginPGPagoPATest extends BasePage {
     public void siCliccaSuProdotto(String xpath) {
         destinatarioPage.clickProdotto(xpath);
     }
+
     @And("Click entra su Send Persona Giuridica")
     public void clickEntraSuSendPersonaGiuridica() {
         String environment = webDriverConfig.getEnvironment();
@@ -526,8 +459,7 @@ public class LoginPGPagoPATest extends BasePage {
                     if ("LEGAL".equalsIgnoreCase(address.getAddressType())) {
                         if ("SERCQ_SEND".equalsIgnoreCase(address.getChannelType())) {
                             restContact.removeDigitalAddressLegalSend();
-                        }
-                        else if ("PEC".equalsIgnoreCase(address.getChannelType())) {
+                        } else if ("PEC".equalsIgnoreCase(address.getChannelType())) {
                             restContact.removeDigitalAddressLegalPec();
                         }
                     }
