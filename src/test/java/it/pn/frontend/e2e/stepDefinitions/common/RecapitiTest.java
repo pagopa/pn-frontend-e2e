@@ -381,94 +381,6 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
     }
 
-//    @And("Nella pagina I Tuoi Recapiti si inserisce {string} con caratteri speciali per la persona {string}")
-//    public void nellaPaginaITuoiRecapitiSiInserisceConCaratteriSpecialiPerLaPersona(String tipo, String persona) {
-//        // Ottengo la lista di tutti gli indirizzi non validi
-//        List<String> indirizziInvalidi = recapitiDestinatarioPage.generateInvalidAddress(tipo);
-//
-//        for (String indirizzoGenerato : indirizziInvalidi) {
-//            // Pulisce il campo input
-//            recapitiDestinatarioPage.cancellaTesto();
-//
-//            // Inserisce l’indirizzo corrente
-//            recapitiDestinatarioPage.insertEmailPEC(indirizzoGenerato);
-//
-//            // Attende l’eventuale comparsa dell’errore
-//            webTool.waitTime(2);
-//
-//            // Verifica se compare l’errore di indirizzo non valido
-//            boolean erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoPecModificatoNonValido(tipo);
-//
-//            if (!erroreVisibile) {
-//                Assertions.fail("Il sistema ha accettato un indirizzo non valido: " + indirizzoGenerato);
-//            } else {
-//                logger.info("✅ Indirizzo non valido correttamente rifiutato: {}", indirizzoGenerato);
-//            }
-//        }
-//
-//        // Se arriviamo qui, tutti gli indirizzi sono stati respinti
-//        Assertions.assertTrue(true, "Tutti gli indirizzi non validi sono stati correttamente rifiutati");
-//    }
-
-//    public void nellaPaginaITuoiRecapitiSiInserisceConCaratteriSpecialiPerLaPersona(String tipo, String persona) {
-//
-//        int tentativi = 0;
-//        int maxTentativi = 30;
-//        String indirizzoGenerato;
-//
-//        while (tentativi < maxTentativi) {
-//            // Genera indirizzo non valido in base al tipo richiesto
-//            indirizzoGenerato = tipo.equalsIgnoreCase("pec") ?
-//                    recapitiDestinatarioPage.generateInvalidAddress("pec") :
-//                    recapitiDestinatarioPage.generateInvalidAddress("email");
-//            //Possibilita in futuro, distinguere se è per persona fisica o giuridica e per email o pec
-//            recapitiDestinatarioPage.cancellaTesto();
-//            recapitiDestinatarioPage.insertEmailPEC(indirizzoGenerato);
-//
-//
-//            webTool.waitTime(2);
-//
-//            boolean erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoPecModificatoNonValido(tipo);
-//
-//            // Se NON c’è errore → indirizzo accettato → interrompi
-//            if (!erroreVisibile) {
-//                Assertions.fail("Il sistema ha accettato un indirizzo non valido: " + indirizzoGenerato);
-//                return;
-//            }
-//            tentativi++;
-//        }
-//        Assertions.assertTrue(true, "Tutti gli indirizzi sono stati correttamente segnalati come non validi");
-//
-//
-//    }
-
-//    @And("Si inserisce {string} con Caratteri Speciali Personalizza il tuo domicilio digitale per ente mittente")
-//    public void siInserisceConCaratteriSpecialiPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String tipo) {
-//        // Ottengo la lista di tutti gli indirizzi non validi
-//        List<String> indirizziInvalidi = recapitiDestinatarioPage.generateInvalidAddress(tipo);
-//
-//        for (String indirizzoGenerato : indirizziInvalidi) {
-//            // Inserisce l’indirizzo nella sezione corretta della pagina
-//            recapitiDestinatarioPage.inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnteCaratteriSpeciali(indirizzoGenerato);
-//
-//            // Attende che il sistema elabori l’input
-//            webTool.waitTime(2);
-//
-//            // Controlla se compare il messaggio di errore
-//            boolean erroreVisibile = recapitiDestinatarioPage
-//                    .verificaIndirizzoPecPersonalizzaIlTuoDomicilioPerEnteMittenteNonValido(tipo);
-//
-//            if (!erroreVisibile) {
-//                Assertions.fail("Il sistema ha accettato un indirizzo non valido: " + indirizzoGenerato);
-//            } else {
-//                logger.info(" Indirizzo non valido correttamente rifiutato: {}", indirizzoGenerato);
-//            }
-//        }
-//
-//        // Se il ciclo termina, significa che tutti gli indirizzi sono stati rifiutati
-//        Assertions.assertTrue(true, "Tutti gli indirizzi non validi sono stati correttamente segnalati come tali");
-//    }
-
     @And("Verifica Indirizzi {string} Non Validi Con Caratteri Speciali per {string}")
     public void verificaIndirizziNonValidiConCaratteriSpeciali(String tipo, String contesto) {
         // Ottengo la lista di tutti gli indirizzi non validi (uno per ogni carattere speciale)
@@ -498,8 +410,6 @@ public class RecapitiTest extends BasePage {
                 default:
                     throw new IllegalArgumentException("Contesto non supportato: " + contesto);
             }
-
-            // Attende che il sistema elabori l’input
             webTool.waitTime(2);
 
             // Verifica se compare il messaggio di errore in base al contesto
@@ -530,35 +440,6 @@ public class RecapitiTest extends BasePage {
         Assertions.assertTrue(indirizziAccettati.isEmpty(),
                 "Il sistema ha accettato i seguenti indirizzi non validi: " + indirizziAccettati);
     }
-
-
-//    public void siInserisceConCaratteriSpecialiPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String tipo) {
-//        int tentativi = 0;
-//        int maxTentativi = 30;
-//        String indirizzoGenerato;
-//
-//        while (tentativi < maxTentativi) {
-//            // Genera indirizzo non valido in base al tipo richiesto
-//            indirizzoGenerato = tipo.equalsIgnoreCase("pec") ?
-//                    recapitiDestinatarioPage.generateInvalidAddress("pec") :
-//                    recapitiDestinatarioPage.generateInvalidAddress("email");
-//
-//                recapitiDestinatarioPage.inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnteCaratteriSpeciali(indirizzoGenerato);
-//
-//            // Verifica se il sistema NON ha segnalato errore (quindi lo considera valido)
-//            webTool.waitTime(2);
-//
-//            boolean erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoPecPersonalizzaIlTuoDomicilioPerEnteMittenteNonValido(tipo);
-//
-//            // Se NON c’è errore → indirizzo accettato → interrompi
-//            if (!erroreVisibile) {
-//                Assertions.fail("Il sistema ha accettato un indirizzo non valido: " + indirizzoGenerato);
-//                return;
-//            }
-//            tentativi++;
-//        }
-//        Assertions.assertTrue(true, "Tutti gli indirizzi sono stati correttamente segnalati come non validi");
-//    }
 
     @And("Verifica Banner Personalizza il tuo domicilio digitale per ente mittente {string}")
     public void verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String testBanner) {

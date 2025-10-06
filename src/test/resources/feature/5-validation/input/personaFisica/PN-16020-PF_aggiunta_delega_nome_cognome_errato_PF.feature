@@ -1,6 +1,5 @@
 Feature:La persona giuridica aggiunge una nuova delega con nome e cogmome errati rispetto al CF
 
-  @TestSuite
   @TA_PF_aggiuntadelega_nome_cognome_errato
   @DeleghePF
   @NRT_VALIDATION

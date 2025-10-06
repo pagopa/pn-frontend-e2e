@@ -1,6 +1,5 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite_ON
   @TA_Inserimento_Email_Sbagliata_PG
   @addressBook2
   @NRT_VALIDATION
@@ -15,5 +14,4 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
     And Attesa 1 secondi
 
-#    And Si inserisce "email" con Caratteri Speciali Home Page
     And Verifica Indirizzi "email" Non Validi Con Caratteri Speciali per "homepage"

@@ -1,10 +1,9 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite_ON
   @TA_Inserimento_Pec_Sbagliata_Personalizza_tuo_domicilio_digitale_per_ente_mittente_PF
   @addressBook1
   @NRT_VALIDATION
-  Scenario:PN - PF Si inserisce una pec con caratteri speciali e si verifica che si evidenzia l'errore - homepage recapiti
+  Scenario:PN - PF Inserimento Pec Sbagliata Personalizza tuo domicilio digitale per ente mittente PF
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 
@@ -33,11 +32,9 @@ Feature: Rework della pagina dei contatti
     And Refresh pagina
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 
-
 #    Scenario: 33
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Indirizzo PEC"
-#    And Si inserisce "pec" con Caratteri Speciali Personalizza il tuo domicilio digitale per ente mittente
     And Verifica Indirizzi "pec" Non Validi Con Caratteri Speciali per "ente"

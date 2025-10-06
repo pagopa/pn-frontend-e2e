@@ -1,6 +1,5 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite_ON
   @TA_modifica_Pec_Caratteri_Speciali_PG
   @addressBook2
   @NRT_VALIDATION
@@ -29,7 +28,5 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC
-
-#    And Nella pagina I Tuoi Recapiti si inserisce "pec" con caratteri speciali per la persona "fisica"
     And Verifica Indirizzi "pec" Non Validi Con Caratteri Speciali per "persona"
 

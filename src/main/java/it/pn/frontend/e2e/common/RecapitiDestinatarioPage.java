@@ -1949,7 +1949,6 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("sender-helper-text")));
 
         Assertions.assertEquals("Campo obbligatorio", enteHelperText.getText().trim());
-
         // Verifica campo "Tipologia"
         WebElement pecHelperText = getWebDriverWait(10)
                 .withMessage("Messaggio 'Indirizzo PEC non valido' non visibile")
@@ -1985,27 +1984,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     }
 
-    //    public  String generateInvalidAddress(String type) {
-//        String baseName = "anna";
-//        int insertPos = random.nextInt(baseName.length() + 1);
-//
-//        char invalidChar = INVALID_SPECIAL_CHARS[random.nextInt(INVALID_SPECIAL_CHARS.length)];
-//
-//        String localPart = baseName.substring(0, insertPos) + invalidChar + baseName.substring(insertPos);
-//
-//        if ("pec".equalsIgnoreCase(type)) {
-//            String domain = "pec.it";
-//            return localPart + "@" + domain;
-//        } else if ("email".equalsIgnoreCase(type)) {
-//            String domain = "gmail.com";
-//            String ext = "com";
-//            return localPart + "@" + domain + "." + ext;
-//        } else {
-//            throw new IllegalArgumentException("Tipo non supportato: " + type);
-//        }
-//    }
     public List<String> generateInvalidAddress(String type) {
-        String baseName = "anna"; // puoi renderlo random se vuoi
+        String baseName = "anna";
         List<String> invalidAddresses = new ArrayList<>();
 
         for (char invalidChar : INVALID_SPECIAL_CHARS) {

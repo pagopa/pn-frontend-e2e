@@ -1,6 +1,5 @@
 Feature: il mittente fa una ricerca combinata tra stato e arco temporale  con nessun risultato
 
-#  @TestSuite
   @TA_PN-16104_errata_visulaizzione_tost_errore_dopo_cancella_filtri_PA
     @NRT_VALIDATION
   Scenario Outline: PN-16104 errata_visulaizzione_tost_errore_dopo_cancella_filtri_PA
@@ -8,12 +7,10 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale  con ne
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
 #  Utilizzare per AWS
     And Nella pagina Statistiche inserire una data da <inizioArcoTemporale> a <fineArcoTemporale>
-#
+
     #  Utilizzare In LOCALE
 #    And Nella pagina Statistiche si inserisce una data corretta EndDate
 #    And Nella pagina Statistiche si inserisce una data corretta StartDate
-
-
 
     And Nella pagina Statistiche si clicca sul bottone Annulla filtri
 
@@ -24,13 +21,6 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale  con ne
     And Si chiude toast di errore
     And Click Bottone "Ricarica"
     And Verifica Pop-up toast di errore
-
-
-
-
-
-
-
 
     Examples:
       | inizioArcoTemporale | fineArcoTemporale |

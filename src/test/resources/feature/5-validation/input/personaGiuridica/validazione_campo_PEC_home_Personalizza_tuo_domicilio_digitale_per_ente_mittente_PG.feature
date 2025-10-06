@@ -1,6 +1,5 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite_ON
   @TA_Inserimento_Pec_Sbagliata_Personalizza_tuo_domicilio_digitale_per_ente_mittente_PG
   @addressBook2
   @NRT_VALIDATION
@@ -30,5 +29,4 @@ Feature: Rework della pagina dei contatti
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Indirizzo PEC"
-#    And Si inserisce "pec" con Caratteri Speciali Personalizza il tuo domicilio digitale per ente mittente
     And Verifica Indirizzi "pec" Non Validi Con Caratteri Speciali per "ente"

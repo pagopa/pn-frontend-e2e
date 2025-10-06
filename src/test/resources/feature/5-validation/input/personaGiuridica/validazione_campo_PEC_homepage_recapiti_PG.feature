@@ -1,6 +1,5 @@
 Feature: Rework della pagina dei contatti
 
-#  @TestSuite_ON
   @TA_Inserimento_Pec_Sbagliata_PG
   @addressBook2
   @NRT_VALIDATION
@@ -18,5 +17,4 @@ Feature: Rework della pagina dei contatti
    #    Precondizione
     When Click Inizia
     And Click Insirisci Pec
-#    And Si inserisce "pec" con Caratteri Speciali Home Page
     And Verifica Indirizzi "email" Non Validi Con Caratteri Speciali per "homepage"
