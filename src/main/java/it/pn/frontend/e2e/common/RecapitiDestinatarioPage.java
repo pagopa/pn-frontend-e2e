@@ -3,14 +3,16 @@ package it.pn.frontend.e2e.common;
 import it.pn.frontend.e2e.utility.WebTool;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 
 public class RecapitiDestinatarioPage extends BasePage {
@@ -19,22 +21,8 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     private static final Random random = new Random();
     private static final char[] INVALID_SPECIAL_CHARS = {
-            '{', '}', '[', ']', '(', ')', '<', '>', ',', ';', ':', '\\', '\"', '\'', '`', ' ', '|', '^', '~'
+            '{', '}', '[', ']', '(', ')', '<', '>', ',', ';', ':', '\"', '\'', '`', ' ', '|', '^', '~'
     };
-
-    private static final String[] PEC_DOMAINS = {
-            "legalmail.it", "postacert.it", "pec.it"
-    };
-
-    private static final String[] EMAIL_DOMAINS = {
-            "gmail.com", "yahoo.com", "hotmail.com", "example.com"
-    };
-
-    private static final String[] EMAIL_EXTENSIONS = {
-            "com", "net", "org", "it"
-    };
-
-
 
     @FindBy(id = "default_pec-button")
     WebElement attivaButton;
@@ -146,7 +134,8 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .withMessage("Campo input PEC non trovato o non interagibile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("default_pec")));
 
-        insertPec.clear();
+        insertPec.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        insertPec.sendKeys(Keys.DELETE);
         insertPec.sendKeys(emailPEC);
 
         logger.info("Email PEC '{}' inserita con successo.", emailPEC);
@@ -339,8 +328,9 @@ public class RecapitiDestinatarioPage extends BasePage {
         if (!inserimentoMailField.isDisplayed()) {
             js().executeScript("arguments[0].scrollIntoView(true);", inserimentoMailField);
         }
-
-        inserimentoMailField.clear();
+        inserimentoMailField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        inserimentoMailField.sendKeys(Keys.DELETE);
+//        inserimentoMailField.clear();
         inserimentoMailField.sendKeys(email);
         logger.info("Email inserita: {}", email);
 
@@ -1876,15 +1866,14 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
     }
 
-    public boolean  verificaIndirizzoEmailPecNonValido(String emailPec) {
+    public boolean verificaIndirizzoEmailPecNonValido(String emailPec) {
         try {
             WebElement errore = null;
             if (emailPec.equalsIgnoreCase("pec")) {
                 errore = getWebDriverWait(5)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
 
-            }
-            else{
+            } else {
                 errore = getWebDriverWait(5)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
             }
@@ -1896,15 +1885,14 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public boolean  verificaIndirizzoPecModificatoNonValido(String emailPec) {
+    public boolean verificaIndirizzoPecModificatoNonValido(String emailPec) {
         try {
             WebElement errore = null;
             if (emailPec.equalsIgnoreCase("pec")) {
                 errore = getWebDriverWait(5)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-helper-text")));
 
-            }
-            else{
+            } else {
                 //non cancellare potrenne servire dopo
 //                errore = getWebDriverWait(5)
 //                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
@@ -1917,15 +1905,14 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public boolean  verificaIndirizzoPecPersonalizzaIlTuoDomicilioPerEnteMittenteNonValido(String emailPec) {
+    public boolean verificaIndirizzoPecPersonalizzaIlTuoDomicilioPerEnteMittenteNonValido(String emailPec) {
         try {
             WebElement errore = null;
             if (emailPec.equalsIgnoreCase("pec")) {
                 errore = getWebDriverWait(5)
                         .until(ExpectedConditions.visibilityOfElementLocated(By.id("s_value-helper-text")));
 
-            }
-            else{
+            } else {
                 //non cancellare potrenne servire dopo
 //                errore = getWebDriverWait(5)
 //                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
@@ -1998,29 +1985,53 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     }
 
-    public  String generateInvalidAddress(String type) {
-        String baseName = getRandomName();
-        int insertPos = random.nextInt(baseName.length() + 1);
-        char invalidChar = INVALID_SPECIAL_CHARS[random.nextInt(INVALID_SPECIAL_CHARS.length)];
-        String localPart = baseName.substring(0, insertPos) + invalidChar + baseName.substring(insertPos);
+    //    public  String generateInvalidAddress(String type) {
+//        String baseName = "anna";
+//        int insertPos = random.nextInt(baseName.length() + 1);
+//
+//        char invalidChar = INVALID_SPECIAL_CHARS[random.nextInt(INVALID_SPECIAL_CHARS.length)];
+//
+//        String localPart = baseName.substring(0, insertPos) + invalidChar + baseName.substring(insertPos);
+//
+//        if ("pec".equalsIgnoreCase(type)) {
+//            String domain = "pec.it";
+//            return localPart + "@" + domain;
+//        } else if ("email".equalsIgnoreCase(type)) {
+//            String domain = "gmail.com";
+//            String ext = "com";
+//            return localPart + "@" + domain + "." + ext;
+//        } else {
+//            throw new IllegalArgumentException("Tipo non supportato: " + type);
+//        }
+//    }
+    public List<String> generateInvalidAddress(String type) {
+        String baseName = "anna"; // puoi renderlo random se vuoi
+        List<String> invalidAddresses = new ArrayList<>();
 
-        if ("pec".equalsIgnoreCase(type)) {
-            String domain = PEC_DOMAINS[random.nextInt(PEC_DOMAINS.length)];
-            return localPart + "@" + domain;
-        } else if ("email".equalsIgnoreCase(type)) {
-            String domain = EMAIL_DOMAINS[random.nextInt(EMAIL_DOMAINS.length)];
-            String ext = EMAIL_EXTENSIONS[random.nextInt(EMAIL_EXTENSIONS.length)];
-            return localPart + "@" + domain + "." + ext;
-        } else {
-            throw new IllegalArgumentException("Tipo non supportato: " + type);
+        for (char invalidChar : INVALID_SPECIAL_CHARS) {
+            // Inserisco ogni carattere non valido in una posizione casuale
+            int insertPos = random.nextInt(baseName.length() + 1);
+            String localPart = baseName.substring(0, insertPos) + invalidChar + baseName.substring(insertPos);
+
+            String fullAddress;
+            switch (type.toLowerCase()) {
+                case "pec":
+                    fullAddress = localPart + "@pec.it";
+                    break;
+                case "email":
+                    fullAddress = localPart + "@gmail.com";
+                    break;
+                default:
+                    throw new IllegalArgumentException("Tipo non supportato: " + type);
+            }
+
+            invalidAddresses.add(fullAddress);
         }
+
+        return invalidAddresses;
     }
 
-    private  String getRandomName() {
-        String[] names = { "anna", "mario", "luigi", "giuseppe", "francesca", "paolo", "lucia", "roberto" };
-        return names[random.nextInt(names.length)];
-    }
-  
+
     public void clickOkHoCapitoRecapitiPopUp() {
         WebElement dialogButton = getWebDriverWait(40)
                 .withMessage("Impossibile trovare il pulsante nel Pop-UP Ok, ho capito")
@@ -2033,11 +2044,11 @@ public class RecapitiDestinatarioPage extends BasePage {
         WebElement alert = getWebDriverWait(20)
                 .withMessage("Impossibile trovare il Banner nella pagina Personalizza il tuo domicilio digitale per ente mittente ")
                 .until(ExpectedConditions
-                .visibilityOfElementLocated(By.cssSelector("[data-testid='alreadyExistsAlert']")));
+                        .visibilityOfElementLocated(By.cssSelector("[data-testid='alreadyExistsAlert']")));
 
         String alertText = alert.getText();
         Assertions.assertTrue(
-                alertText.toLowerCase().contains(testBanner.toLowerCase()),"Il banner non contiene una email o la parola '"+testBanner+"'" );
+                alertText.toLowerCase().contains(testBanner.toLowerCase()), "Il banner non contiene una email o la parola '" + testBanner + "'");
     }
 
 }

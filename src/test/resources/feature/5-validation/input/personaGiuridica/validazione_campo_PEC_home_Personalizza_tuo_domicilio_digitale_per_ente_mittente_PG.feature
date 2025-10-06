@@ -14,7 +14,6 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     And Verifica e Disattiva email
     And Attesa 1 secondi
-
   #    Precondizione
     When Click Inizia
     And Click Insirisci Pec
@@ -27,12 +26,9 @@ Feature: Rework della pagina dei contatti
     And Attesa 2 secondi
     And Refresh pagina
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
-
-
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Indirizzo PEC"
-
-
-    And Si inserisce "pec" con Caratteri Speciali Personalizza il tuo domicilio digitale per ente mittente
+#    And Si inserisce "pec" con Caratteri Speciali Personalizza il tuo domicilio digitale per ente mittente
+    And Verifica Indirizzi "pec" Non Validi Con Caratteri Speciali per "ente"

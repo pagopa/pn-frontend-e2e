@@ -34,5 +34,6 @@ Feature: Rework della pagina dei contatti
 
     And Nella pagina I Tuoi Recapiti si clicca sul bottone modifica PEC e si verifica che si possa modificare la PEC
 
-    And Nella pagina I Tuoi Recapiti si inserisce "PEC" con caratteri speciali per la persona "fisica"
+#    And Nella pagina I Tuoi Recapiti si inserisce "PEC" con caratteri speciali per la persona "fisica"
+    And Verifica Indirizzi "pec" Non Validi Con Caratteri Speciali per "persona"
 

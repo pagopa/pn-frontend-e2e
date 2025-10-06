@@ -39,5 +39,5 @@ Feature: Rework della pagina dei contatti
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Indirizzo PEC"
-    And Si inserisce "pec" con Caratteri Speciali Personalizza il tuo domicilio digitale per ente mittente
-
+#    And Si inserisce "pec" con Caratteri Speciali Personalizza il tuo domicilio digitale per ente mittente
+    And Verifica Indirizzi "pec" Non Validi Con Caratteri Speciali per "ente"

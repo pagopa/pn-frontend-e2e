@@ -23,4 +23,5 @@ Feature: PF Si inserisce un email con caratteri speciali e si verifica che si ev
     When Click Inizia
     And Click Continua
 
-    And Si inserisce "email" con Caratteri Speciali Home Page
+#    And Si inserisce "email" con Caratteri Speciali Home Page
+    And Verifica Indirizzi "email" Non Validi Con Caratteri Speciali per "homepage"

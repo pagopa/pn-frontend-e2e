@@ -22,4 +22,5 @@ Feature: Rework della pagina dei contatti
 
     When Click Inizia
     And Click Bottone "Inserisci PEC"
-    And Si inserisce "pec" con Caratteri Speciali Home Page
+#    And Si inserisce "pec" con Caratteri Speciali Home Page
+    And Verifica Indirizzi "pec" Non Validi Con Caratteri Speciali per "homepage"
