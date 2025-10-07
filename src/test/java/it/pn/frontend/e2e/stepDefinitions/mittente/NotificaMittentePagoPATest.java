@@ -2490,6 +2490,7 @@ public class NotificaMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.inserisciMaxCaratteriInputPecPortalePA(maxCaratteri);
     }
 
+
     @And("Verifica errore label pec {string}")
     public void verificaErroreLabelPec(String erroreLabel) {
         piattaformaNotifichePage.verificaErrore(erroreLabel);
@@ -2513,6 +2514,7 @@ public class NotificaMittentePagoPATest extends BasePage {
                 Assertions.fail("Tipologia di portale non specificato o errato!");
         }
     }
+
 
     @And("Click Torna alla home")
     public void clickTornaAllaHome() {
