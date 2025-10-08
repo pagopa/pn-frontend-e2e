@@ -11,4 +11,3 @@ Feature: Persona Fisica prova ad effettuare download AOT scaduti da 120gg
     And Nella pagina stato della piattaforma si cambia pagina fino a 550 giorni indietro
     And Attesa 4 secondi
     And Download file attestazione disservizio
-
