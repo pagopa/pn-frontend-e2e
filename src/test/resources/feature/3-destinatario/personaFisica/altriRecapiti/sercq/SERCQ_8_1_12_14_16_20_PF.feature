@@ -22,11 +22,13 @@ Feature: Rework della pagina dei contatti
     And Refresh pagina
     When Click Inizia
     And Click Continua
-    #    Scenario:1
+#   SERCQ - Fase 2: Scenario 1
+#   & Configurazione domicilio digitale - Fase 2: Scenario 13 (Attivazione SERCQ solo tramite email)
     And Click Aggiungi email
     And Verifica  Indirizzo email non valido
     And Click Continua Tab Inserisci un recapito
     And Click Ok ho capito Recapiti
+    #And Verifica della presenza della modale Importanza aggiunta contatti
 #    Scenario:8
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Si clicca sul bottone del pop-up ok ho capito
@@ -40,7 +42,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-#    Scenario:1
+#   SERCQ - Fase 2: Scenario 1
+#   & Configurazione domicilio digitale - Fase 2: Scenario 13 (Attivazione SERCQ solo tramite email)
     And Click Continua Tab Inserisci un recapito
     And Click Attiva domicilio digitale
     And Verifica presenza Campo obbligatorio
@@ -88,7 +91,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Click Annulla
     And Verifica e Disattiva email
-#    Scenario:20
+#   SERCQ Fase 2: Scenario 20
     When Click Inizia
     And Click Continua
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
@@ -101,6 +104,23 @@ Feature: Rework della pagina dei contatti
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Verifica e Disattiva email
+
+    #Configurazione domicilio digitale - Fase 2: Scenario 16 (disattivazione email con DD attivo)
+    And Click su bottone Disattiva per il recapito mail
+    And Click Annulla
+    And Click su bottone Disattiva per il recapito mail
+    And Click su bottone Conferma per la disattivazione del recapito mail
+#   SERCQ Fase 2: Scenario 20
+#   & Configurazione domicilio digitale - Fase 2: Scenario 18 (Disattivazione SERCQ)
     And Disattiva domicilio digitale e Annulla
     And Verifica e Disattiva domicilio digitale "Conferma"
+
+   #Configurazione domicilio digitale - Fase 2: Scenario 15 (disattivazione email con DD attivo)
+    When Click Inizia
+    And Click Continua
+    And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
+    And Click Annulla
+    And Click su bottone Disattiva per il recapito mail
+    And Click Annulla
+    And Click su bottone Disattiva per il recapito mail
+    And Click su bottone Conferma per la disattivazione del recapito mail

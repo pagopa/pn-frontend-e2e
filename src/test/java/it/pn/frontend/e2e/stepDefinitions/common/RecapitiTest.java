@@ -330,6 +330,11 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.clickOkHoCapitoRecapitiPopUp();
     }
 
+    @And("Verifica della presenza della modale Importanza aggiunta contatti")
+    public void verificaPresenzaModaleImportanzaAggiuntaContatti() {
+        recapitiDestinatarioPage.verificaPresenzaModaleImportanzaAggiuntaContatti();
+    }
+
     @And("Verifica presenza Campo obbligatorio")
     public void verificaPresenzaCampoObbligatorio() {
         recapitiDestinatarioPage.verificaPresenzaCampoObbligatorio();
@@ -379,4 +384,15 @@ public class RecapitiTest extends BasePage {
     public void verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String testBanner) {
         recapitiDestinatarioPage.verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(testBanner);
     }
+
+    @And("Click su bottone Disattiva per il recapito mail")
+    public void clickSuBottoneDisattivaPerIlRecapitoMail() {
+        recapitiDestinatarioPage.clickDisattivaEmail();
+    }
+
+    @And("Click su bottone Conferma per la disattivazione del recapito mail")
+    public void clickSuBottoneConfermaPerDisattivazioneIlRecapitoMail() {
+        recapitiDestinatarioPage.clickSuConfermaElimina();
+    }
+
 }

@@ -132,3 +132,5 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
     And Disattiva domicilio digitale e Annulla
     And Verifica e Disattiva domicilio digitale "Conferma"
+
+   #Configurazione domicilio digitale - Fase 2: Scenario 15 (disattivazione email con DD non attivo)

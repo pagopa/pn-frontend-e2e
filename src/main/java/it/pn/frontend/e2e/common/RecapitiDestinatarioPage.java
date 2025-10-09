@@ -1754,6 +1754,30 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public void clickDisattivaEmail() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(15)
+                    .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")
+                    .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-testid='disable-email']")));
+
+
+            if (!disattivaButton.isDisplayed()) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", disattivaButton);
+                webTool.waitTime(1);
+            }
+
+            try {
+                getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(disattivaButton)).click();
+            } catch (ElementClickInterceptedException e) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", disattivaButton);
+            }
+        } catch (TimeoutException e) {
+            logger.warn("Bottone 'Disattiva Email' non trovato entro il tempo limite.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la disattivazione dell'email: " + e.getMessage());
+        }
+    }
+
     public void disattivaIndirizzoEmailAziendale() {
         WebElement disattivaButton = getWebDriverWait(20)
                 .withMessage("Pulsante 'Disattiva' non trovato per l'indirizzo email aziendale")
@@ -1921,5 +1945,16 @@ public class RecapitiDestinatarioPage extends BasePage {
         String alertText = alert.getText();
         Assertions.assertTrue(
                 alertText.toLowerCase().contains(testBanner.toLowerCase()),"Il banner non contiene una email o la parola '"+testBanner+"'" );
+    }
+
+    public void verificaPresenzaModaleImportanzaAggiuntaContatti() {
+        getWebDriverWait(10)
+                .withMessage("Testo nella modale non corretto o non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[@id='confirmation-dialog-title' and contains(text(), 'Aggiungi un indirizzo email per gli avvisi!')]")))
+                );
+        WebElement dialogButton = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il pulsante 'Ok, ho capito' nella modale")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-confirm-button")));
+        dialogButton.click();
     }
 }

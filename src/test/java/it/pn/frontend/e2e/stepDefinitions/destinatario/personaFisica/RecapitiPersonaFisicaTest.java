@@ -1037,6 +1037,15 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         recapitiDestinatarioPage.clickBottoneEsciPF();
     }
 
-
+    //Usare questo step per inserimento OTP a mano in caso di malfunzionamento external-channels
+    @And ("Nella pagina I Tuoi Recapiti si inserisce il codice OTP con tempo di attesa")
+    public void nellaPaginaITuoiRecapitiSiInserisceIlCodiceOTPConTempoDiAttesa() {
+        logger.info("Si inserisce il codice OTP di verifica con tempo di attesa");
+        iTuoiRecapitiPage.sendOTPWithWait();
+        recapitiDestinatarioPage.confermaButtonClickPopUp();
+        if (recapitiDestinatarioPage.waitMessaggioErrore()) {
+            Assertions.fail("Il codice OTP non è stato inserito entro tempo di attesa o è sbagliato");
+        }
+    }
 }
 

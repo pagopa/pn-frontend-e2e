@@ -172,6 +172,17 @@ public class ITuoiRecapitiPage extends BasePage {
         }
     }
 
+    public void sendOTPWithWait() {
+        int wait = 180;
+        try {
+            getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.xpath("//div[@data-testid='dialog-content']//div[@aria-hidden='true']//div"))));
+            getWebDriverWait(wait).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='dialog-content']")));
+            logger.info("Il codice otp è stato inserito entro " + wait + " secondi");
+        } catch (TimeoutException e) {
+            Assertions.fail("Il codice otp NON è stato inserito dopo " + wait + " secondi con errore:" + e.getMessage());
+        }
+    }
+
     public void clickSalvaEmail() {
         By salvaButtonLocator = By.xpath("//button[contains(text(),'Salva')]");
 
