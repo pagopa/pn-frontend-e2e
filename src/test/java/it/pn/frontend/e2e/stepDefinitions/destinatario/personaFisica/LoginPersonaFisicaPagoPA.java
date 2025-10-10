@@ -770,7 +770,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         CustomHttpClient<?, String> httpClient = customHttpClient;
         try {
             String jwtToken = httpClient.getJwtToken(tokenExchange);
-            logger.info("TOKEN DI SESSIONE PF: {}",jwtToken);
             sessionToken = jwtToken;
         } catch (IOException e) {
             logger.error("Errore durante portalePFNewSessionToken", e);

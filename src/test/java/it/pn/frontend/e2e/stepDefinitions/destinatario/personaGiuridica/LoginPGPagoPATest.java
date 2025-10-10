@@ -440,7 +440,6 @@ public class LoginPGPagoPATest extends BasePage {
         CustomHttpClient<?, String> httpClient = customHttpClient;
         try {
             String jwtToken = httpClient.getJwtToken(tokenExchange);
-            logger.info("TOKEN DI SESSIONE PG: {}",jwtToken);
             sessionToken = jwtToken;
         } catch (IOException e) {
             logger.error("Errore durante portalePGNewSessionToken", e);
