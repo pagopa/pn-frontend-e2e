@@ -110,12 +110,29 @@ Feature: Rework della pagina dei contatti
     And Click Annulla
     And Click su bottone Disattiva per il recapito mail
     And Click su bottone Conferma per la disattivazione del recapito mail
+#   Configurazione domicilio digitale - Fase 2: Scenario 25 (disattivazione email con DD attivo e PEC personalizzato)
+    And Click Bottone Gestisci
+    And Click Bottone "Personalizza per ente"
+    And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
+    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
+    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1pf@pec.it"
+    And Spuntare checkbox privacy
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova1pf@pec.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
+    And Click Torna ai tuoi recapiti
+    And Attesa 2 secondi
+    And Refresh pagina
+    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    And Click su bottone Disattiva per il recapito mail
+    And Click su bottone Conferma per la disattivazione del recapito mail
+    And Si clicca sul bottone del pop-up ok ho capito
 #   SERCQ Fase 2: Scenario 20
 #   & Configurazione domicilio digitale - Fase 2: Scenario 18 (Disattivazione SERCQ)
     And Disattiva domicilio digitale e Annulla
     And Verifica e Disattiva domicilio digitale "Conferma"
 
-   #Configurazione domicilio digitale - Fase 2: Scenario 15 (disattivazione email con DD attivo)
+   #Configurazione domicilio digitale - Fase 2: Scenario 15 (disattivazione email senza DD attivo)
     When Click Inizia
     And Click Continua
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale

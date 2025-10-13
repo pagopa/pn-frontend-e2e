@@ -1363,13 +1363,28 @@ public class RecapitiDestinatarioPage extends BasePage {
         ));
     }
 
-    public void checkBannerRecapitoCortesiaMancante() {
-        verificaPresenza("Il banner di recapito di cortesia mancante non è presente", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]")));
-        verificaPresenza("Il banner di recapito di cortesia mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("(//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p)[1]")));
-        verificaPresenza("Il banner di recapito di cortesia mancante non ha il sottotesto corretto", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("(//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p)[2]")));
+    public void checkBannerRecapitoCortesiaMancanteDDAcceso() {
+        try {
+            verificaPresenza("Il banner di recapito di cortesia mancante non è presente", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]")));
+            verificaPresenza("Il banner di recapito di cortesia mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p[contains(text(), 'Non perderti le comunicazioni importanti')]")));
+            verificaPresenza("Il banner di recapito di cortesia mancante non ha il sottotesto corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p[contains(text(), 'Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND.')]")));
+        } catch (TimeoutException e) {
+        Assertions.fail("Il banner di email mancante non è presente");
+        }
+    }
+
+    public void checkAssenzaBannerRecapitoCortesiaMancanteDDAcceso() {
+        try {
+            verificaPresenza("Il banner di recapito di cortesia mancante è presente", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]")));
+            Assertions.fail("Il banner di email mancante è presente.");
+        }
+        catch (TimeoutException e) {
+            Assertions.assertTrue(true, "Il banner di email mancante è presente");
+        }
     }
 
     public void checkPresenzaBannerEmailMancante() {
@@ -1864,15 +1879,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Il messaggio di errore per l'indirizzo pec non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
-    }
-
-    public void verificaScomparsaBannerInizia() {
-        boolean invisibile = getWebDriverWait(10)
-                .withMessage("Il tasto 'Inizia' nel banner è ancora visibile")
-                .until(ExpectedConditions.invisibilityOfElementLocated(
-                        By.xpath("//div[@data-testid='addDomicileBanner']//button[contains(@class, 'MuiButton-root')]")));
-
-        Assertions.assertTrue(invisibile, "Il tasto 'Inizia' è ancora presente nel banner.");
     }
 
     public void verificaAbilitazioneCampoEmail() {

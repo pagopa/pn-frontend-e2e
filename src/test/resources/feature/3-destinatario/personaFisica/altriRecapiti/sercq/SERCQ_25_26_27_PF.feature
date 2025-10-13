@@ -50,4 +50,4 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
-    And Verifica Scomparsa Banner Inizia
+    And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso

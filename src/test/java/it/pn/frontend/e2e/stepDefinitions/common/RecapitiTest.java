@@ -231,10 +231,16 @@ public class RecapitiTest extends BasePage {
         logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);
     }
 
-    @And("Si visualizza correttamente il banner di recapito di cortesia mancante")
-    public void siVisualizzaCorrettamenteIlBannerDiDomicilioMancante() {
-        logger.info("Si visualizza correttamente il banner di recapito di cortesia mancante");
-        recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancante();
+    @And("Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso")
+    public void siVisualizzaCorrettamenteIlBannerDiDomicilioMancanteDDAcceso() {
+        logger.info("Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso");
+        recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancanteDDAcceso();
+    }
+
+    @And("Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso")
+    public void nonSiVisualizzaCorrettamenteIlBannerDiDomicilioMancanteDDAcceso() {
+        logger.info("Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso");
+        recapitiDestinatarioPage.checkAssenzaBannerRecapitoCortesiaMancanteDDAcceso();
     }
 
     @And("Si visualizza correttamente il banner di email mancante")
@@ -348,11 +354,6 @@ public class RecapitiTest extends BasePage {
     @And("Verifica  Indirizzo pec non valido")
     public void verificaIndirizzoPecNonValido() {
         recapitiDestinatarioPage.verificaIndirizzoPecNonValido();
-    }
-
-    @And("Verifica Scomparsa Banner Inizia")
-    public void verificaScomparsaBannerInizia() {
-        recapitiDestinatarioPage.verificaScomparsaBannerInizia();
     }
 
     @And("Verifica abilitazione campo email")

@@ -53,10 +53,15 @@ Feature: Rework della pagina dei contatti
     And Refresh pagina
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica Pagina "pectest@pec.it"
-#    Scenario: 32
+#   SERCQ - Fase 2: Scenario 32
+#   & Configurazione domicilio digitale - Fase 2: Scenario 20 (Trasferimento DD da PEC a SEND solo tramite email)
     And Click Bottone Gestisci
     And Click Bottone "Trasferisci su SEND"
     And Click Continua
+    And Click Aggiungi email
+    And Verifica  Indirizzo email non valido
+    And Click Continua Tab Inserisci un recapito
+    And Click Ok ho capito Recapiti
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"

@@ -40,15 +40,22 @@ Feature: Rework della pagina dei contatti
     And Click Notifiche
     And Attesa 1 secondi
     And Refresh pagina
+    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
     And Click Bottone Inizia nel Banner
     And Verifica abilitazione campo email
 #    Scenario: 29
     And Click Notifiche
     And Entro dentro la prima notifica con stato "Avvenuto accesso"
+    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
+    And Refresh pagina
+    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
     And Click Bottone Inizia nel Banner
     And Verifica abilitazione campo email
     #    Scenario: 30
     And Click I Tuoi Dati
+    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
+    And Refresh pagina
+    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
     And Click Bottone Inizia nel Banner
     And Verifica abilitazione campo email
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
@@ -56,4 +63,11 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     And Click Notifiche
-    And Verifica Scomparsa Banner Inizia
+    And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
+#   & Configurazione domicilio digitale - Fase 2: Scenario 19 (Verifica assenza banner per inserimento recapito di cortesia)
+    And Entro dentro la prima notifica con stato "Avvenuto accesso"
+    And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
+    And Click I Tuoi Dati
+    And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
+    And Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
