@@ -23,7 +23,7 @@ Feature: Rework della pagina dei contatti
     When Click Inizia
     And Click Continua
 #   SERCQ - Fase 2: Scenario 1
-#   & Configurazione domicilio digitale - Fase 2: Scenario 13 (Attivazione SERCQ solo tramite email)
+#   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
     And Click Aggiungi email
     And Verifica  Indirizzo email non valido
     And Click Continua Tab Inserisci un recapito
@@ -31,14 +31,12 @@ Feature: Rework della pagina dei contatti
     #And Verifica della presenza della modale Importanza aggiunta contatti
 #    Scenario:8
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore
     And Nella sezione altri recapiti si clicca sul bottone annulla di popup
     And Click Aggiungi email
-    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
@@ -72,7 +70,6 @@ Feature: Rework della pagina dei contatti
     And Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
     And Si inserisce la nuova Email "emailprovapf@test.it" del PF e clicca su Conferma
-    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "emailprovapf@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
@@ -95,7 +92,6 @@ Feature: Rework della pagina dei contatti
     When Click Inizia
     And Click Continua
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
@@ -117,6 +113,7 @@ Feature: Rework della pagina dei contatti
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1pf@pec.it"
     And Spuntare checkbox privacy
+    And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova1pf@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
@@ -125,8 +122,10 @@ Feature: Rework della pagina dei contatti
     And Refresh pagina
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Click su bottone Disattiva per il recapito mail
-    And Click su bottone Conferma per la disattivazione del recapito mail
-    And Si clicca sul bottone del pop-up ok ho capito
+    And Verifica pop-up Non è possibile disattivare l'email
+    And Si chiude pop-up Non è possibile disattivare l'email
+#   SERCQ Fase 2: Scenario 20 (precondizione)
+    And Verifica ed Elimina personalizzati per ente
 #   SERCQ Fase 2: Scenario 20
 #   & Configurazione domicilio digitale - Fase 2: Scenario 18 (Disattivazione SERCQ)
     And Disattiva domicilio digitale e Annulla

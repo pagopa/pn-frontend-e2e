@@ -388,7 +388,7 @@ public class RecapitiTest extends BasePage {
 
     @And("Click su bottone Disattiva per il recapito mail")
     public void clickSuBottoneDisattivaPerIlRecapitoMail() {
-        recapitiDestinatarioPage.clickDisattivaEmail();
+        recapitiDestinatarioPage.clickBottoneDisattivaInSezioneEmailDiCortesia();
     }
 
     @And("Click su bottone Conferma per la disattivazione del recapito mail")
@@ -396,4 +396,13 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.clickSuConfermaElimina();
     }
 
+    @Then("Verifica pop-up Non è possibile disattivare l'email")
+    public void verificaNonEPossibileDisattivareEmail() {
+        iTuoiRecapitiPage.checkNonEPossibileDisattivareEmail();
+    }
+
+    @And("Si chiude pop-up Non è possibile disattivare l'email")
+    public void siChiudePopUpNonÈPossibileDisattivareLEmail() {
+        iTuoiRecapitiPage.siChiudeNonEPossibileDisattivareEmail();
+    }
 }

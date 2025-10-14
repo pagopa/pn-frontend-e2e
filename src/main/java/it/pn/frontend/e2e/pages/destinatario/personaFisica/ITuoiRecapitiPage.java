@@ -502,6 +502,21 @@ public class ITuoiRecapitiPage extends BasePage {
         buttonChiudi.click();
     }
 
+    public void checkNonEPossibileDisattivareEmail() {
+        getWebDriverWait(10)
+                .withMessage("Pop-up 'Non è possibile disattivare l'email' non visibile o testi sbagliati")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(),'Non è possibile disattivare l’email')]")),
+                        ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Per procedere, devi prima disattivare il domicilio digitale e i recapiti personalizzati.')]"))));
+    }
+
+    public void siChiudeNonEPossibileDisattivareEmail() {
+        WebElement buttonChiudi = getWebDriverWait(10)
+                .withMessage("Bottone 'Non è possibile disattivare l'email' non è visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("buttonClose")));
+        buttonChiudi.click();
+    }
+
     public void clickNotifiche() {
         WebElement notificaButton = getWebDriverWait(10)
                 .withMessage("Impossibile cliccare sul menu laterale la Voce Notifiche ")

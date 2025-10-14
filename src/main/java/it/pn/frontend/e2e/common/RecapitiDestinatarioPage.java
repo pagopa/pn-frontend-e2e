@@ -1619,7 +1619,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void clickBottoneDisattivaInDomicilioDigitale(String testo) {
+    public void clickBottoneDisattivaInParagrafoDomicilioDigitale(String testo) {
         WebElement disattivaButton = getWebDriverWait(10).withMessage("Disattiva Non è presente dentro '" + testo + "'")
                 .until(ExpectedConditions.elementToBeClickable
                         (By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
@@ -1676,10 +1676,10 @@ public class RecapitiDestinatarioPage extends BasePage {
                             (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled() && chooseButton.equalsIgnoreCase("Conferma")) {
                 disattivaButton.click();
-                clickSuConfermaElimina();
+                clickSuDisattivaDomicilioDigitale();
             } else if (disattivaButton.isDisplayed() && disattivaButton.isEnabled() && chooseButton.equalsIgnoreCase("Annulla")) {
                 disattivaButton.click();
-                clickAnnulla();
+                clickSuConfermaElimina();
             } else {
                 logger.warn("Bottone 'Disattiva Domicilio Digitale' non è visibile o abilitato.");
             }
@@ -1688,6 +1688,18 @@ public class RecapitiDestinatarioPage extends BasePage {
         } catch (Exception e) {
             Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Domicilio Digitale'.", e);
         }
+    }
+
+    private void clickSuDisattivaDomicilioDigitale() {
+        logger.info("PRIMA DI clickSuDisattivaDomicilioDigitale");
+
+        WebElement confermaRimuoviDomicilioDigitale = getWebDriverWait(20)
+                .withMessage("Non è stato possibile cliccare sul bottone conferma")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva domicilio digitale']")));
+
+        confermaRimuoviDomicilioDigitale.click();
+
+        logger.info("DOPO DI clickSuDisattivaDomicilioDigitale");
     }
 
     public void disattivaDomicilioDigitaleAnnulla() {
@@ -1750,7 +1762,6 @@ public class RecapitiDestinatarioPage extends BasePage {
                     .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")
                     .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-testid='disable-email']")));
 
-
             if (!disattivaButton.isDisplayed()) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", disattivaButton);
                 webTool.waitTime(1);
@@ -1761,7 +1772,10 @@ public class RecapitiDestinatarioPage extends BasePage {
             } catch (ElementClickInterceptedException e) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", disattivaButton);
             }
-            clickSuConfermaElimina();
+            if (getWebDriverWait(20).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]"))))
+                clickSuConfermaElimina();
+            else
+                clickSuDisattivaEmailEDomicilioDigitale();
         } catch (TimeoutException e) {
             logger.warn("Bottone 'Disattiva Email' non trovato entro il tempo limite.");
         } catch (Exception e) {
@@ -1769,7 +1783,42 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void clickDisattivaEmail() {
+    private void clickSuDisattivaEmail() {
+        logger.info("PRIMA DI clickSuDisattivaEmail");
+
+        WebElement confermaRimuoviEmail = getWebDriverWait(20)
+                .withMessage("Non è stato possibile cliccare sul bottone conferma")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email']")));
+
+        confermaRimuoviEmail.click();
+        logger.info("DOPO DI clickSuDisattivaEmail");
+    }
+
+    private void clickSuDisattivaEmailEDomicilioDigitale() {
+        logger.info("PRIMA DI clickSuDisattivaEmailEDomicilioDigitale");
+
+        logger.info("clickSuDisattivaEmailEDomicilioDigitale: Click su Disattiva email e Annulla");
+        WebElement confermaRimuoviEmail = getWebDriverWait(20)
+                .withMessage("Non è stato possibile cliccare sul bottone conferma")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email']")));
+        confermaRimuoviEmail.click();
+        clickAnnulla();
+
+        logger.info("clickSuDisattivaEmailEDomicilioDigitale: Click su Disattiva email e Disattiva email e domicilio");
+        clickBottoneDisattivaInSezioneEmailDiCortesia();
+        confermaRimuoviEmail = getWebDriverWait(20)
+                .withMessage("Non è stato possibile cliccare sul bottone conferma")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email']")));
+        confermaRimuoviEmail.click();
+
+        WebElement confermaRimuoviEmailEDomicilio = getWebDriverWait(20)
+                .withMessage("Non è stato possibile cliccare sul bottone conferma")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email e domicilio']")));
+        confermaRimuoviEmailEDomicilio.click();
+        logger.info("DOPO DI clickSuDisattivaEmailEDomicilioDigitale");
+    }
+
+    public void clickBottoneDisattivaInSezioneEmailDiCortesia() {
         try {
             WebElement disattivaButton = getWebDriverWait(15)
                     .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")

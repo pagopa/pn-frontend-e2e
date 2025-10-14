@@ -397,7 +397,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
 
     @When("Click Bottone Disattiva In domicilio digitale {string}")
     public void clickBottoneDisattivaInDomicilioDigitale(String testo) {
-        recapitiDestinatarioPage.clickBottoneDisattivaInDomicilioDigitale(testo);
+        recapitiDestinatarioPage.clickBottoneDisattivaInParagrafoDomicilioDigitale(testo);
     }
 
     @And("Verifica e Disattiva Personalizzati per Ente")
