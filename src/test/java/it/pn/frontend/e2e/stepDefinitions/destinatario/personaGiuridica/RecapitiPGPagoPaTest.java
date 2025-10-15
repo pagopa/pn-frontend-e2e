@@ -400,11 +400,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.clickBottoneDisattivaInParagrafoDomicilioDigitale(testo);
     }
 
-    @And("Verifica e Disattiva Personalizzati per Ente")
-    public void verificaEDisattivaPersonalizzatiPerEnte() {
-        recapitiDestinatarioPage.verificaEDisattivaPersonalizzatiPerEnte();
-    }
-
     @And("Click Bottone Conferma Modifica Recapito")
     public void clickBottoneConfermaModificaRecapito() {
         recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();

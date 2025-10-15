@@ -231,16 +231,16 @@ public class RecapitiTest extends BasePage {
         logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);
     }
 
-    @And("Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso")
-    public void siVisualizzaCorrettamenteIlBannerDiDomicilioMancanteDDAcceso() {
-        logger.info("Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso");
-        recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancanteDDAcceso();
+    @And("Si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato")
+    public void siVisualizzaCorrettamenteIlBannerDiDomicilioMancanteDDAttivato() {
+        logger.info("Si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato");
+        recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancanteDDAttivato();
     }
 
-    @And("Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso")
-    public void nonSiVisualizzaCorrettamenteIlBannerDiDomicilioMancanteDDAcceso() {
-        logger.info("Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso");
-        recapitiDestinatarioPage.checkAssenzaBannerRecapitoCortesiaMancanteDDAcceso();
+    @And("Non si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato")
+    public void nonSiVisualizzaCorrettamenteIlBannerDiDomicilioMancanteDDAttivato() {
+        logger.info("Non si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato");
+        recapitiDestinatarioPage.checkAssenzaBannerRecapitoCortesiaMancanteDDAttivato();
     }
 
     @And("Si visualizza correttamente il banner di email mancante")
@@ -404,5 +404,15 @@ public class RecapitiTest extends BasePage {
     @And("Si chiude pop-up Non è possibile disattivare l'email")
     public void siChiudePopUpNonÈPossibileDisattivareLEmail() {
         iTuoiRecapitiPage.siChiudeNonEPossibileDisattivareEmail();
+    }
+
+    @And("Si visualizza correttamente il banner di Domicilio Digitale non attivato")
+    public void siVisualizzaCorrettamenteIlBannerDiDomicilioDigitaleNonAttivato() {
+        recapitiDestinatarioPage.checkBannerDomicilioDigitaleNonAttivato();
+    }
+
+    @And("Click su Disattiva Personalizzati per Ente e Annulla")
+    public void clickSuDisattivaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.clickSuDisattivaPersonalizzatiPerEnteEAnnulla();
     }
 }

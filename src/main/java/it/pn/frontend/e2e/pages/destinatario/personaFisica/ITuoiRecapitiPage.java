@@ -572,5 +572,4 @@ public class ITuoiRecapitiPage extends BasePage {
                 ));
         continuaButton.click();
     }
-
 }

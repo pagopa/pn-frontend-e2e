@@ -38,8 +38,8 @@ Feature: Rework della pagina dei contatti
     Then Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
     And Aspetta 5 secondi
     And Si visualizza correttamente la Pagina Notifiche persona fisica
-    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
+    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato
     And La persona fisica clicca sulla prima notifica restituita con stato "Avvenuto accesso"
-    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
+    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato
     And La persona fisica seleziona la voce I tuoi dati
-    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
+    And Si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato

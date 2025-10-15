@@ -54,7 +54,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
 
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
-    And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD acceso
+    And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato
 
 
 

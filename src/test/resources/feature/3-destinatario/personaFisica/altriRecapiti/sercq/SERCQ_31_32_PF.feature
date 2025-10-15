@@ -25,10 +25,10 @@ Feature: Rework della pagina dei contatti
     When Click Inizia
     And Click Continua
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    #And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP con tempo di attesa
+    #And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     And Click Continua Tab Inserisci un recapito
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
@@ -36,7 +36,6 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 3 secondi
     And Refresh pagina
-    And Disattiva Indirizzo email aziendale
     And Attesa 2 secondi
 #    Scenario: 31
     And Click Bottone Gestisci
@@ -46,15 +45,20 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Si inserisce la Pec della "personaFisica" e si clicca sul bottone Conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
+    #And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP con tempo di attesa
+    #And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
     And Click Torna ai tuoi recapiti
     And Attesa 2 secondi
     And Refresh pagina
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica Pagina "pectest@pec.it"
+    And Attesa 10 secondi
+    And Refresh pagina
+    And Verifica e Disattiva email
+    And Refresh pagina
 #   SERCQ - Fase 2: Scenario 32
-#   & Configurazione domicilio digitale - Fase 2: Scenario 20 (Trasferimento DD da PEC a SEND solo tramite email)
+#   & Configurazione domicilio digitale - Fase 2: Scenario 21 (Trasferimento DD da PEC a SEND solo tramite email)
     And Click Bottone Gestisci
     And Click Bottone "Trasferisci su SEND"
     And Click Continua
@@ -64,8 +68,9 @@ Feature: Rework della pagina dei contatti
     And Click Ok ho capito Recapiti
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    #And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP con tempo di attesa
+    #And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     And Click Continua Tab Inserisci un recapito
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale

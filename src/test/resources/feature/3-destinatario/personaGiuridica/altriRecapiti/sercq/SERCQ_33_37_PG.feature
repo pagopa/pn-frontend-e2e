@@ -81,7 +81,7 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 
  #    Precondizione Scenario: 37
-    And Verifica e Disattiva Personalizzati per Ente
+    And Verifica ed Elimina personalizzati per ente
 
       #Scenario: 37
     And Verifica e Disattiva domicilio digitale "Annulla"
