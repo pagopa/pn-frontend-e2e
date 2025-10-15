@@ -391,11 +391,6 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.clickBottoneDisattivaInSezioneEmailDiCortesia();
     }
 
-    @And("Click su bottone Conferma per la disattivazione del recapito mail")
-    public void clickSuBottoneConfermaPerDisattivazioneIlRecapitoMail() {
-        recapitiDestinatarioPage.clickSuDisattivaEmailEDomicilioDigitale();
-    }
-
     @Then("Verifica pop-up Non è possibile disattivare l'email")
     public void verificaNonEPossibileDisattivareEmail() {
         iTuoiRecapitiPage.checkNonEPossibileDisattivareEmail();

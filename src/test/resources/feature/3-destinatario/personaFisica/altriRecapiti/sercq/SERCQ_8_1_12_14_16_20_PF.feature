@@ -100,13 +100,36 @@ Feature: Rework della pagina dei contatti
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    And Verifica e Disattiva domicilio digitale "Annulla"
+    And Verifica e Disattiva domicilio digitale "Conferma"
+#   Configurazione domicilio digitale - Fase 2: Scenario 17 (disattivazione email con DD attivo)
+#   Precondizioni
+    When Click Inizia
+    And Click Continua
+    And Click Continua Tab Inserisci un recapito
+    And Spuntare checkbox privacy
+    And Click Attiva domicilio digitale
+    And Click Torna ai tuoi recapiti
+    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 
-    #Configurazione domicilio digitale - Fase 2: Scenario 17 (disattivazione email con DD attivo)
     And Click su bottone Disattiva per il recapito mail
     And Click Annulla
-    And Click su bottone Disattiva per il recapito mail
-    And Click su bottone Conferma per la disattivazione del recapito mail
+    And Verifica e Disattiva email
 #   Configurazione domicilio digitale - Fase 2: Scenario 26 (disattivazione email con DD attivo e PEC personalizzato)
+#  Precondizioni
+    When Click Inizia
+    And Click Continua
+
+    And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+
+    And Click Continua Tab Inserisci un recapito
+    And Spuntare checkbox privacy
+    And Click Attiva domicilio digitale
+    And Click Torna ai tuoi recapiti
+    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
@@ -138,5 +161,4 @@ Feature: Rework della pagina dei contatti
     And Click Annulla
     And Click su bottone Disattiva per il recapito mail
     And Click Annulla
-    And Click su bottone Disattiva per il recapito mail
-    And Click su bottone Conferma per la disattivazione del recapito mail
+    And Verifica e Disattiva email

@@ -1,13 +1,13 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_SERCQ_V2_23_24_25_26_PF
+  @TA_SERCQ_V2_23_24_25_26_PG
   @addressBook1
   @TA_SERCQ_ON
   @NRT_Blocco_2
-  Scenario:[SERCQV2_23_24_25_26_PF]
-    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
-    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+  Scenario:[SERCQV2_23_24_25_26_PG]
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Attesa 1 secondi
     And Refresh pagina
@@ -28,18 +28,18 @@ Feature: Rework della pagina dei contatti
     And Click Attiva domicilio digitale PEC
     And Verifica  Indirizzo pec non valido
     And Spuntare checkbox privacy
-    And Si inserisce la Pec della "personaFisica" e si clicca sul bottone Conferma
+    And Si inserisce la Pec della "personaGiuridica" e si clicca sul bottone Conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore
     And Cliccare sul bottone Annulla
     And Click Attiva domicilio digitale PEC
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
     And Click Torna ai tuoi recapiti
-    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
     And Click Bottone Gestisci
@@ -53,14 +53,14 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Verifica presenza Campo obbligatorio
     And Attesa 1 secondi
-    And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
     And Spuntare checkbox privacy
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Attesa 1 secondi
     And Click Torna ai tuoi recapiti
-    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     #Configurazione domicilio digitale - Fase 2: Scenario 25 (modifica email con DD personalizzato per ente)
 #   Precondizione
     And Refresh pagina
@@ -71,19 +71,19 @@ Feature: Rework della pagina dei contatti
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Domicilio Digitale SEND"
     And Spuntare checkbox privacy
-    And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
     And Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
-    And Si inserisce la nuova Email "emailprovapf@test.it" del PF e clicca su Conferma
+    And Si inserisce la nuova Email "emailprova@test.it" del PG e clicca su Conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "emailprovapf@test.it" tramite chiamata request
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "emailprova@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata "emailprovapf@test.it"
+    Then Nella pagina I Tuoi Recapiti si controlla che la Email sia stata modificata "emailprova@test.it"
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Click Torna ai tuoi recapiti
-    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     #Configurazione domicilio digitale - Fase 2: Scenario 24 (disattivazione recapito cortesia email con DD personalizzato per ente)
     And Verifica e Disattiva email
 #   Configurazione domicilio digitale - Fase 2: Scenario 26 (Disattivazione recapito personalizzato SEND)
@@ -93,12 +93,12 @@ Feature: Rework della pagina dei contatti
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Domicilio Digitale SEND"
     And Spuntare checkbox privacy
-    And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Click Torna ai tuoi recapiti
-    When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #   Esecuzione scenario 26
     And Verifica e Disattiva domicilio digitale "Conferma"
     And Si chiude pop-up Impossibile disattivare il Domicilio Digitale

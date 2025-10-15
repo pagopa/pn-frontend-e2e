@@ -872,7 +872,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickButtonAnnullaEliminazioneInPopUp() {
-        By annullaButtonBy = By.id("buttonAnnulla");
+        By annullaButtonBy = By.xpath("//button[contains(text(),'Annulla')]");
 
         WebElement buttonAnnulla = getWebDriverWait(10)
                 .withMessage("Non è stato possibile cliccare sul bottone annulla")
@@ -1818,7 +1818,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.info("DOPO DI clickSuDisattivaEmailEDomicilioDigitale");
         }
         catch (Exception e ) {
-            logger.info("Errore su clickSuDisattivaEmailEDomicilioDigitale: " + e);
+            logger.info("Errore su clickSuDisattivaEmailEDomicilioDigitale: {}", e);
         }
     }
 
