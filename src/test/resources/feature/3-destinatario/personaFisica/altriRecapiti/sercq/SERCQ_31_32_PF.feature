@@ -26,9 +26,8 @@ Feature: Rework della pagina dei contatti
     And Click Continua
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    #And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP con tempo di attesa
-    #And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     And Click Continua Tab Inserisci un recapito
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
@@ -45,9 +44,8 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Si inserisce la Pec della "personaFisica" e si clicca sul bottone Conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    #And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP con tempo di attesa
-    #And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
+    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
     And Click Torna ai tuoi recapiti
     And Attesa 2 secondi
     And Refresh pagina
@@ -68,9 +66,8 @@ Feature: Rework della pagina dei contatti
     And Click Ok ho capito Recapiti
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    #And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP con tempo di attesa
-    #And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
     And Click Continua Tab Inserisci un recapito
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
