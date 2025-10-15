@@ -71,7 +71,7 @@ Feature: Rework della pagina dei contatti
     And Click Torna ai tuoi recapiti
     And Click Notifiche
     And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato
-#   & Configurazione domicilio digitale - Fase 2: Scenario 19 (Verifica assenza banner per inserimento recapito di cortesia)
+#   & Configurazione domicilio digitale - Fase 2: Scenario 20 (Verifica assenza banner per inserimento recapito di cortesia)
     And Entro dentro la prima notifica con stato "Avvenuto accesso"
     And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato
     And Click I Tuoi Dati

@@ -1794,7 +1794,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         logger.info("DOPO DI clickSuDisattivaEmail");
     }
 
-    private void clickSuDisattivaEmailEDomicilioDigitale() {
+    public void clickSuDisattivaEmailEDomicilioDigitale() {
         logger.info("PRIMA DI clickSuDisattivaEmailEDomicilioDigitale");
         try {
             logger.info("clickSuDisattivaEmailEDomicilioDigitale: Click su Disattiva email e Annulla");
@@ -1905,7 +1905,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Impossibile Trovare il messaggio Campo obbligatorio").until(
                         ExpectedConditions.visibilityOfElementLocated(
-                                By.id("disclaimer-helper-text")));
+                                By.xpath("//*[contains(@id, 'disclaimer-helper-text')]")));
     }
 
     public void spuntareCheckboxPrivacy() {
@@ -2047,4 +2047,5 @@ public class RecapitiDestinatarioPage extends BasePage {
             Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Personalizzati Per Ente'.", e);
         }
     }
+
 }

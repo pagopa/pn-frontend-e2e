@@ -41,7 +41,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
 #   SERCQ - Fase 2: Scenario 1
-#   & Configurazione domicilio digitale - Fase 2: Scenario 13 (Attivazione SERCQ solo tramite email)
+#   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
     And Click Continua Tab Inserisci un recapito
     And Click Attiva domicilio digitale
     And Verifica presenza Campo obbligatorio
@@ -101,12 +101,12 @@ Feature: Rework della pagina dei contatti
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 
-    #Configurazione domicilio digitale - Fase 2: Scenario 16 (disattivazione email con DD attivo)
+    #Configurazione domicilio digitale - Fase 2: Scenario 17 (disattivazione email con DD attivo)
     And Click su bottone Disattiva per il recapito mail
     And Click Annulla
     And Click su bottone Disattiva per il recapito mail
     And Click su bottone Conferma per la disattivazione del recapito mail
-#   Configurazione domicilio digitale - Fase 2: Scenario 25 (disattivazione email con DD attivo e PEC personalizzato)
+#   Configurazione domicilio digitale - Fase 2: Scenario 26 (disattivazione email con DD attivo e PEC personalizzato)
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
@@ -127,11 +127,11 @@ Feature: Rework della pagina dei contatti
 #   SERCQ Fase 2: Scenario 20 (precondizione)
     And Verifica ed Elimina personalizzati per ente
 #   SERCQ Fase 2: Scenario 20
-#   & Configurazione domicilio digitale - Fase 2: Scenario 18 (Disattivazione SERCQ)
+#   & Configurazione domicilio digitale - Fase 2: Scenario 19 (Disattivazione Domicilio Digitale SEND)
     And Disattiva domicilio digitale e Annulla
     And Verifica e Disattiva domicilio digitale "Conferma"
 
-   #Configurazione domicilio digitale - Fase 2: Scenario 15 (disattivazione email senza DD attivo)
+   #Configurazione domicilio digitale - Fase 2: Scenario 16 (disattivazione email senza DD attivo)
     When Click Inizia
     And Click Continua
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale

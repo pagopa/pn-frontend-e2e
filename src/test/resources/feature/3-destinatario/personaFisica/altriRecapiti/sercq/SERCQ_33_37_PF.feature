@@ -33,8 +33,13 @@ Feature: Rework della pagina dei contatti
     And Attesa 2 secondi
     And Refresh pagina
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
+    And Click Aggiungi email
+    And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
+    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    And Refresh pagina
 #   SERCQ - Fase 2: Scenario 33
-#   & Configurazione domicilio digitale - Fase 2: Scenario 21 (Aggiunta recapiti personalizzati SEND e PEC solo tramite email)
+#   & Configurazione domicilio digitale - Fase 2: Scenario 22 (Aggiunta recapiti personalizzati SEND e PEC solo tramite email)
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
@@ -55,13 +60,13 @@ Feature: Rework della pagina dei contatti
 #    Scenario: 33
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
-    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
+    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate - Riscossione"
     And Seleziona Tipologia "Domicilio Digitale SEND"
+    And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
+    And Verifica presenza Campo obbligatorio
     And Spuntare checkbox privacy
     And Attesa 1 secondi
-    And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
-    And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
+    And Non si visualizzano correttamente i pulsanti modifica, elimina e non è possibile modificare l'email
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Attesa 1 secondi
     And Click Torna ai tuoi recapiti
@@ -72,6 +77,11 @@ Feature: Rework della pagina dei contatti
     And Si chiude pop-up Impossibile disattivare il Domicilio Digitale
     And Click su Disattiva Personalizzati per Ente e Annulla
     And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
+    And Refresh pagina
+    And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
+    And Refresh pagina
     And Verifica e Disattiva domicilio digitale "Annulla"
     And Attesa 2 secondi
     And Verifica e Disattiva domicilio digitale "Conferma"

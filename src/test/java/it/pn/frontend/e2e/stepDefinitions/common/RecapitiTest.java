@@ -393,7 +393,7 @@ public class RecapitiTest extends BasePage {
 
     @And("Click su bottone Conferma per la disattivazione del recapito mail")
     public void clickSuBottoneConfermaPerDisattivazioneIlRecapitoMail() {
-        recapitiDestinatarioPage.clickSuConfermaElimina();
+        recapitiDestinatarioPage.clickSuDisattivaEmailEDomicilioDigitale();
     }
 
     @Then("Verifica pop-up Non è possibile disattivare l'email")
@@ -414,5 +414,11 @@ public class RecapitiTest extends BasePage {
     @And("Click su Disattiva Personalizzati per Ente e Annulla")
     public void clickSuDisattivaPersonalizzatiPerEnte() {
         recapitiDestinatarioPage.clickSuDisattivaPersonalizzatiPerEnteEAnnulla();
+    }
+
+    @And("Non si visualizzano correttamente i pulsanti modifica, elimina e non è possibile modificare l'email")
+    public void nonSiVisualizzanoCorrettamenteGliElementiPostModifica() {
+        logger.info("Si controlla che non si visualizzano correttamente i pulsanti modifica, elimina e che non è possibile modificare l'email");
+        iTuoiRecapitiPage.checkAssenzaPostModifica();
     }
 }

@@ -25,7 +25,6 @@ Feature: Rework della pagina dei contatti
     When Click Inizia
     And Click Continua
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
@@ -34,7 +33,6 @@ Feature: Rework della pagina dei contatti
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Verifica e Disattiva email
     #    Scenario: 34
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
@@ -50,6 +48,8 @@ Feature: Rework della pagina dei contatti
     And Attesa 2 secondi
     And Refresh pagina
     Then Verifica Pagina "prova1pf@pec.it"
+    And Refresh pagina
+    And Attesa 10 secondi
      #Validation bug PF QA-8729
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"

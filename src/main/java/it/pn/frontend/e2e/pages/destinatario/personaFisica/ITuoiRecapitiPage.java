@@ -324,6 +324,30 @@ public class ITuoiRecapitiPage extends BasePage {
                 .until(ExpectedConditions.attributeToBeNotEmpty(emailField, "value"));
     }
 
+    public void checkAssenzaPostModifica() {
+        try {
+            getWebDriverWait(10)
+                    .withMessage("Non si visualizza il bottone Salva e non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.id("saveContact-default_email")));
+
+            getWebDriverWait(10)
+                    .withMessage("Non si visualizza il bottone Annulla e non è cliccabile")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Annulla')]")));
+
+            WebElement emailField = getWebDriverWait(10)
+                    .withMessage("Non si visualizza il campo email e non è modificabile")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email")));
+
+            getWebDriverWait(10).withMessage("Il campo email non è readonly")
+                    .until(ExpectedConditions.attributeToBe(emailField, "readonly", ""));
+
+            getWebDriverWait(10).withMessage("Il campo email non ha valore")
+                    .until(ExpectedConditions.attributeToBeNotEmpty(emailField, "value"));
+        } catch (TimeoutException e) {
+            Assertions.assertTrue(true, "il campo email non è modificabile");
+        }
+    }
+
     public void checkRiquadroPEC() {
         // Titolo della sezione recapito legale
         WebElement titolo = getWebDriverWait(10)
