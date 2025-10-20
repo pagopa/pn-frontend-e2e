@@ -31,13 +31,13 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
   #  INIZIO REWORK_DOMICILIO_DIGITALE_PG_75
     And Nella sezione altri recapiti si clicca sul bottone conferma di popup
-    And Verifica Pagina "Codice assente o incompleto"
+    And Verifica testo nella pagina "Codice assente o incompleto"
     #  FINE REWORK_DOMICILIO_DIGITALE_PG_75
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
 
-    And Verifica Pagina "La tua mail per ricevere aggiornamenti"
-    And Verifica Pagina "email dove possiamo informarti quando"
+    And Verifica testo nella pagina "La tua mail per ricevere aggiornamenti"
+    And Verifica testo nella pagina "email dove possiamo informarti quando"
 
 #  ----------------------------------------------------------------------
 #  AD oggi  il test non è implementabile perchè non abbiamo la possibilita di recupero OTP

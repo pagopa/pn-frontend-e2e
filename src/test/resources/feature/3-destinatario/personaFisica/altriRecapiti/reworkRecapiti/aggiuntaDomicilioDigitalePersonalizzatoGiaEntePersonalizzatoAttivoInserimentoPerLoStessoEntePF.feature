@@ -39,12 +39,12 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
      #  INIZIO REWORK_DOMICILIO_DIGITALE_PG_75
     And Nella sezione altri recapiti si clicca sul bottone conferma di popup
-    And Verifica Pagina "Codice assente o incompleto"
+    And Verifica testo nella pagina "Codice assente o incompleto"
     #  FINE REWORK_DOMICILIO_DIGITALE_PG_75
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaFisica"
     #  FINE REWORK_DOMICILIO_DIGITALE_PG_72_73
-    And Verifica Pagina "Validazione PEC in corso"
+    And Verifica testo nella pagina "Validazione PEC in corso"
 
 
 #    And Aspetta 2 secondi
@@ -59,16 +59,16 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova1@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-#    When Verifica Pagina "domicilio digitale"
+#    When Verifica testo nella pagina "domicilio digitale"
     And Click Torna ai tuoi recapiti
 
     #  INIZIO REWORK_DOMICILIO_DIGITALE_PG_76
-    And Verifica Pagina "Validazione PEC in corso"
+    And Verifica testo nella pagina "Validazione PEC in corso"
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Domicilio Digitale SEND"
-    And Verifica Pagina "possibile associare il domicilio digitale SEND"
+    And Verifica testo nella pagina "possibile associare il domicilio digitale SEND"
     And Click Bottone Esci PF
 #    And Aspetta 2 secondi
     And Attesa 2 secondi
@@ -80,16 +80,16 @@ Feature: Rework della pagina dei contatti
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
     And Seleziona Tipologia "Indirizzo PEC"
     And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova2@pec.it"
-    And Verifica Pagina "Conferma modifica recapito"
+    And Verifica testo nella pagina "Conferma modifica recapito"
     And Click Bottone Conferma Modifica Recapito
 
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
 
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova2@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    When Verifica Pagina "domicilio digitale"
+    When Verifica testo nella pagina "domicilio digitale"
     And Click Torna ai tuoi recapiti
 #    And Aspetta 1 secondi
     And Attesa 2 secondi
     And Refresh pagina
-    And Verifica Pagina "prova2@pec.it"
+    And Verifica testo nella pagina "prova2@pec.it"

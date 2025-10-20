@@ -255,6 +255,11 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.verificaDaAttivareDomicilioDigitale();
     }
 
+    @And("Verifica presenza bottone {string}")
+    public void verificaPresenzaBottone(String testo) {
+        recapitiDestinatarioPage.checkBottone(testo);
+    }
+
     @And("Click Bottone {string}")
     public void cliccaBottone(String testo) {
         recapitiDestinatarioPage.cliccaBottone(testo);
@@ -270,7 +275,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
         recapitiDestinatarioPage.cliccaBottoneEsciPG();
     }
 
-    @And("Verifica Pagina {string}")
+    @And("Verifica testo nella pagina {string}")
     public void verificaPagina(String testo) {
         recapitiDestinatarioPage.verificaPagina(testo);
     }

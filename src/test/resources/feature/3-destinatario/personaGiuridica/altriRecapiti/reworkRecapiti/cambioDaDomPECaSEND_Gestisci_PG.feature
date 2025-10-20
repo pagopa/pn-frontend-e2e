@@ -31,12 +31,12 @@ Feature: Rework della pagina dei contatti
     When Click Bottone Gestisci
     And Click Bottone "Trasferisci su SEND"
 
-    When Verifica Pagina "Trasferisci il domicilio digitale sulla piattaforma SEND"
-    And Verifica Pagina "Come funziona"
+    When Verifica testo nella pagina "Trasferisci il domicilio digitale sulla piattaforma SEND"
+    And Verifica testo nella pagina "Come funziona"
     ##  REWORK_DOMICILIO_DIGITALE_PG_47
     And Click Bottone Esci PG
-    Then Verifica Pagina "Il domicilio digitale della tua impresa"
-    And Verifica Pagina "Indirizzo email aziendale"
+    Then Verifica testo nella pagina "Il domicilio digitale della tua impresa"
+    And Verifica testo nella pagina "Indirizzo email aziendale"
 
 
 

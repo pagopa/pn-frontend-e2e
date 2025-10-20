@@ -37,12 +37,12 @@ Feature: Rework della pagina dei contatti
    #  REWORK_DOMICILIO_DIGITALE_PG_59
     When Click Bottone Gestisci
     And Click Bottone "Indietro"
-    And Verifica Pagina "Il tuo domicilio digitale"
+    And Verifica testo nella pagina "Il tuo domicilio digitale"
     And Verifica Attivazione Domicilio digitale
 ##  REWORK_DOMICILIO_DIGITALE_PG_60
     When Click Bottone Gestisci
     And Click Bottone Esci PF
-    And Verifica Pagina "Il tuo domicilio digitale"
+    And Verifica testo nella pagina "Il tuo domicilio digitale"
     And Verifica Attivazione Domicilio digitale
 #  REWORK_DOMICILIO_DIGITALE_PG_57
     When Click Bottone Gestisci

@@ -22,10 +22,10 @@ Feature: Rework della pagina dei contatti
 
     When Click Inizia
     And Click Bottone "Inserisci PEC"
-    Then Verifica Pagina "Usa una PEC come domicilio digitale"
-    And Verifica Pagina "Inserisci la tua PEC"
-    And Verifica Pagina "Quando un ente ti invia una notifica SEND"
-    And Verifica Pagina "Indirizzo PEC"
+    Then Verifica testo nella pagina "Usa una PEC come domicilio digitale"
+    And Verifica testo nella pagina "Inserisci la tua PEC"
+    And Verifica testo nella pagina "Quando un ente ti invia una notifica SEND"
+    And Verifica testo nella pagina "Indirizzo PEC"
 
 
     And Si inserisce la Pec della "personaFisica" e si clicca sul bottone Conferma
@@ -43,4 +43,4 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
 
-    Then Verifica Pagina "prova@pec.it"
+    Then Verifica testo nella pagina "prova@pec.it"

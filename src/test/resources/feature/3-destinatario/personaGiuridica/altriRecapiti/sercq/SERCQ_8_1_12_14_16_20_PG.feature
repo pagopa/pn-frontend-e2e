@@ -52,6 +52,9 @@ Feature: Rework della pagina dei contatti
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
     And Click Continua Tab Inserisci un recapito
    And Verifica della pagina Stai attivando il domicilio digitale su SEND per PG
+   And Verifica testo nella pagina "Preferisci usare la PEC aziendale?"
+   And Verifica testo nella pagina "In alternativa, puoi usare una PEC come domicilio digitale per le notifiche di SEND."
+   And Verifica presenza bottone "Inserisci PEC"
    And Click Attiva domicilio digitale
     And Verifica presenza Campo obbligatorio
     And Spuntare checkbox privacy
@@ -138,6 +141,9 @@ Feature: Rework della pagina dei contatti
    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #  Esecuzione scenario 17
    And Click su bottone Disattiva per il recapito mail
+   And Verifica testo nella pagina "Vuoi disattivare gli avvisi via email?"
+   And Verifica testo nella pagina "Se disattivi l’indirizzo email non possiamo avvisarti"
+   And Verifica testo nella pagina "una comunicazione a valore legale per te."
    And Click Annulla
    And Verifica e Disattiva email
 #   Configurazione domicilio digitale - Fase 2: Scenario 26 (disattivazione email con DD attivo e PEC personalizzato)

@@ -44,6 +44,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone "Personalizza per ente"
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Click Bottone "Personalizza per ente"
+    And Verifica della pagina Personalizza il tuo domicilio digitale per ente mittente per PF
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Verifica campo obbligatorio Ente e Tipologia
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
@@ -53,6 +54,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova1pf@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
+    And Verifica della pagina Hai aggiornato il tuo domicilio digitale
     And Click Torna ai tuoi recapiti
     And Attesa 2 secondi
     And Refresh pagina

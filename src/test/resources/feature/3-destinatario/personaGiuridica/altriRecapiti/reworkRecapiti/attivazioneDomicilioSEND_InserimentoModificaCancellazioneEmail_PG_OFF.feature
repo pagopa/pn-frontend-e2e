@@ -32,8 +32,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
-    And Verifica Pagina "prova@test.it"
-    And Verifica Pagina "Quando c’è una notifica per la tua impresa, ti informiamo con una email."
+    And Verifica testo nella pagina "prova@test.it"
+    And Verifica testo nella pagina "Quando c’è una notifica per la tua impresa, ti informiamo con una email."
 #  Modifica Email
     And Click Modifica Email
     And Si visualizzano correttamente i pulsanti modifica, elimina ed è possibile modificare l'email
@@ -42,8 +42,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "provaemail@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    And Verifica Pagina "provaemail@test.it"
-    And Verifica Pagina "Quando c’è una notifica per la tua impresa, ti informiamo con una email."
+    And Verifica testo nella pagina "provaemail@test.it"
+    And Verifica testo nella pagina "Quando c’è una notifica per la tua impresa, ti informiamo con una email."
 # Verifica assenza banner email mancante
     Then Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
     #And Aspetta 5 secondi

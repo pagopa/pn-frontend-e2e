@@ -31,7 +31,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-    And Verifica Pagina "prova@test.it"
+    And Verifica testo nella pagina "prova@test.it"
 #   Attivazione Domicilio Digitale
     When Click Inizia
     And Click Attiva

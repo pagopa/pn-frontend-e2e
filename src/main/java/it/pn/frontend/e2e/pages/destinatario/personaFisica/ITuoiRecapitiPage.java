@@ -600,20 +600,100 @@ public class ITuoiRecapitiPage extends BasePage {
     public void verificaDellaPaginaAttivaDomicilioDigitaleSuSEND() {
         getWebDriverWait(10)
                 .withMessage("Titolo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]")))
-                );
+                .until(ExpectedConditions.or(
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Trasferisci il domicilio digitale sulla piattaforma SEND')]")))
+                ));
 
         getWebDriverWait(10)
                 .withMessage("Testo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
                 .until(ExpectedConditions.and(
-                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//p[contains(text(), 'Un ente ti invia una notifica su SEND')]"))),
-                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//p[contains(text(), 'La notifica ti viene ')]"))),
-                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//a[contains(text(), 'consegnata')]"))),
-                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//p[contains(text(), 'Accedi alla notifica')]"))),
-                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//p[contains(text(), 'Apri il dettaglio della notifica digitale sulla piattaforma SEND o, se hai attivato il servizio, direttamente dall’app IO')]"))),
-                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='pec-section']//p[contains(text(), 'Hai una PEC?')]"))),
-                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='pec-section']//button[contains(text(), 'Inserisci PEC')]")))
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Un ente ti invia una notifica su SEND')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica ti viene ')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//a[contains(text(), 'consegnata')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Accedi alla notifica')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Apri il dettaglio della notifica digitale sulla piattaforma SEND o, se hai attivato il servizio, direttamente dall’app IO')]")))
                         )
                 );
+    }
+
+    public void GestisciIlDomicilioDigitale() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella pagina Gestisci il tuo domicilio digitale non corretto o non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-title']//p[contains(text(),'Gestisci il tuo domicilio digitale')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella pagina Gestisci il tuo domicilio digitale non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//h6[@data-testid='legalContactsTitle']"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Personalizza il tuo domicilio digitale per ente mittente')]"))),
+                        ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[@data-testid='legalContactManager']//button[contains(text(),'Personalizza per ente')]")))
+                        )
+                );
+    }
+
+    public void verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittente() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella pagina Personalizza il tuo domicilio digitale per ente mittente non corretto o non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-title']//p[contains(text(),'Personalizza il tuo domicilio digitale per ente mittente')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella pagina Personalizza il tuo domicilio digitale per ente mittente non corretto o non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='addSpecialContact']//p[contains(text(),'Il domicilio digitale personalizzato dove riceverai le notifiche SEND che ti invia un ente specifico')]")))
+                );
+    }
+
+    public void verificaDellaTYPTrasferimentoDelDomicilioDigitaleInCorso() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella TYP Trasferimento del domicilio digitale in corso non corretto o non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Trasferimento del domicilio digitale in corso')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella TYP Hai attivato il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                                ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//p[contains(text(), 'La PEC è in fase di validazione. Una volta confermata, il tuo domicilio digitale sarà trasferito all’indirizzo che hai scelto. Fino a quel momento, resterà attivo il domicilio digitale SEND.')]"))),
+                                ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button' and contains(text(),'Ok, ho capito')]")))
+                        )
+                );
+    }
+
+    public void verificaDellaTYPHaiTrasferitoIlTuoDomicilioDigitaleSuSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella TYP Hai trasferito il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Hai trasferito il tuo domicilio digitale su SEND')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella TYP Hai trasferito il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                                ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//p[contains(text(), 'Riceverai le tue comunicazioni a valore legale al tuo Domicilio digitale su SEND e un messaggio ai recapiti che hai scelto.')]"))),
+                                ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button' and contains(text(),'Ok, ho capito')]")))
+                        )
+                );
+    }
+
+    public void verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella TYP Hai aggiornato il tuo domicilio digitale non corretto o non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Hai aggiornato il tuo domicilio digitale')]")))
+                );
+    }
+
+    public void verificaDellaPaginaUsaUnaPECComeDomicilioDigitale() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella pagina Usa una PEC come domicilio digitale non corretto o non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-title']//p[contains(text(),'Usa una PEC come domicilio digitale')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella pagina Usa una PEC come domicilio digitale non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Inserisci la tua PEC')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Quando un ente ti invia una notifica SEND, ricevi la comunicazione a valore legale sulla PEC che hai scelto.')]"))),
+                        ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Indietro')]")))
+                ));
     }
 }

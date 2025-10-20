@@ -26,9 +26,9 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP "personaGiuridica"
 
-    And Verifica Pagina "Validazione PEC in corso"
+    And Verifica testo nella pagina "Validazione PEC in corso"
 
     When Click annulla Validazione
     And Click Bottone conferma Pop-up
-    Then Verifica Pagina "Il domicilio digitale della tua impresa"
-    And Verifica Pagina "Inizia"
+    Then Verifica testo nella pagina "Il domicilio digitale della tua impresa"
+    And Verifica testo nella pagina "Inizia"

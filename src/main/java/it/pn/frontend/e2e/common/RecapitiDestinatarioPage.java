@@ -1423,6 +1423,13 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public void checkBottone (String testo) {
+        getWebDriverWait(15)
+                .withMessage("Non è presente il bottone '" + testo + "'")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//button[contains(text(), '" + testo + "')]")));
+    }
+
     public void cliccaBottone(String testo) {
         WebElement button = getWebDriverWait(15)
                 .withMessage("Non è presente il bottone '" + testo + "'")
@@ -1813,9 +1820,25 @@ public class RecapitiDestinatarioPage extends BasePage {
                     .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email']")));
             confermaRimuoviEmail.click();
 
-            WebElement confermaRimuoviEmailEDomicilio = getWebDriverWait(20)
+            getWebDriverWait(10)
+                    .withMessage("Il primo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(),'Con l’email si disattiva anche il domicilio digitale SEND')]")));
+
+            getWebDriverWait(10)
+                    .withMessage("Il secondo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
+                    .until(ExpectedConditions.or(
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il tuo domicilio digitale SEND potresti ricevere le comunicazioni via raccomandata')]")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'azienda potrebbe ricevere le comunicazioni via raccomandata e')]"))
+                    ));
+
+            getWebDriverWait(10)
+                    .withMessage("Il terzo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//strong[contains(text(),'pagare i relativi costi.')]")));
+
+            getWebDriverWait(20)
                     .withMessage("Non è stato possibile cliccare sul bottone conferma")
                     .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email e domicilio']")));
+            WebElement confermaRimuoviEmailEDomicilio = driver.findElement(By.xpath("//button[@label='Disattiva email e domicilio']"));
             confermaRimuoviEmailEDomicilio.click();
             logger.info("DOPO DI clickSuDisattivaEmailEDomicilioDigitale");
         }
@@ -2056,8 +2079,10 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void verificaDellaPaginaLaTuaEmailPerRicevereAvvisiSulleNotificheSEND() {
         getWebDriverWait(10)
                 .withMessage("Titolo nella pagina La tua email per ricevere avvisi sulle notifiche SEND non corretto o non presente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]")))
-                );
+                .until(ExpectedConditions.or(
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]"))),
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Trasferisci il domicilio digitale sulla piattaforma SEND')]")))
+                        ));
 
         getWebDriverWait(10)
                 .withMessage("Testo nella pagina La tua email per ricevere avvisi sulle notifiche SEND non corretto o non presente")
@@ -2071,15 +2096,17 @@ public class RecapitiDestinatarioPage extends BasePage {
     public void verificaDellaPaginaStaiAttivandoIlTuoDomicilioDigitaleSuSEND() {
         getWebDriverWait(10)
                 .withMessage("Titolo nella pagina Stai attivando il tuo domicilio digitale su SEND non corretto o non presente")
-                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]")))
-                );
+                .until(ExpectedConditions.or(
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Trasferisci il domicilio digitale sulla piattaforma SEND')]")))
+                ));
 
         getWebDriverWait(10)
                 .withMessage("Testo nella pagina Stai attivando il tuo domicilio digitale su SEND non corretto o non presente")
                 .until(ExpectedConditions.and(
-                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h6[contains(text(), 'Stai attivando il tuo domicilio digitale su SEND')]"))),
-                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Le tue comunicazioni a valore legale saranno recapitate a:')]"))),
-                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Premendo “Attiva domicilio digitale” dichiari di aver letto la ')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//h6[contains(text(), 'Stai attivando il tuo domicilio digitale su SEND')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Le tue comunicazioni a valore legale saranno recapitate a:')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Premendo “Attiva domicilio digitale” dichiari di aver letto la ')]"))),
                         ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//a[@data-testid='tos-link' and contains(text(), 'Informativa privacy')]"))),
                         ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//a[@data-testid='tos-link' and contains(text(), 'Termini del servizio')]")))
                         )

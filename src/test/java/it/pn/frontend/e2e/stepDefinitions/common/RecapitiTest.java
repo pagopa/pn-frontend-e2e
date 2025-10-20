@@ -464,4 +464,54 @@ public class RecapitiTest extends BasePage {
     public void verificaDellaTYPHaiAttivatoIlDomicilioDigitaleSuSENDPG() {
         recapitiPGPage.verificaDellaTYPHaiAttivatoIlDomicilioDigitaleSuSEND();
     }
+
+    @And("Verifica della pagina Gestisci il tuo domicilio digitale")
+    public void verificaDellaPaginaGestisciIlTuoDomicilioDigitale() {
+        iTuoiRecapitiPage.GestisciIlDomicilioDigitale();
+    }
+
+    @And("Verifica della pagina Gestisci il domicilio digitale per PG")
+    public void verificaDellaPaginaGestisciIlDomicilioDigitalePerPG() {
+        recapitiPGPage.verificaDellaPaginaGestisciIlDomicilioDigitalePerPG();
+    }
+
+    @And("Verifica della pagina Personalizza il tuo domicilio digitale per ente mittente per PF")
+    public void verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittentePF() {
+        iTuoiRecapitiPage.verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittente();
+    }
+
+    @And("Verifica della pagina Personalizza il tuo domicilio digitale per ente mittente per PG")
+    public void verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittentePG() {
+        recapitiPGPage.verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittente();
+    }
+
+    @And("Verifica della TYP Trasferimento del domicilio digitale in corso per PF")
+    public void verificaDellaTYPTrasferimentoDelDomicilioDigitaleInCorsoPF() {
+        iTuoiRecapitiPage.verificaDellaTYPTrasferimentoDelDomicilioDigitaleInCorso();
+    }
+
+    @And("Verifica della TYP Hai trasferito il tuo domicilio digitale su SEND")
+    public void verificaDellaTYPHaiTrasferitoIlTuoDomicilioDigitaleSuSEND() {
+        iTuoiRecapitiPage.verificaDellaTYPHaiTrasferitoIlTuoDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della TYP Hai trasferito il domicilio digitale su SEND per PG")
+    public void verificaDellaTYPHaiTrasferitoIlDomicilioDigitaleSuSENDPerPG() {
+        recapitiPGPage.verificaDellaTYPHaiTrasferitoIlDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della pagina Hai aggiornato il tuo domicilio digitale")
+    public void verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale() {
+        iTuoiRecapitiPage.verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale();
+    }
+
+    @And("Verifica della pagina Usa una PEC come domicilio digitale per PF")
+    public void verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePF() {
+        iTuoiRecapitiPage.verificaDellaPaginaUsaUnaPECComeDomicilioDigitale();
+    }
+
+    @And("Verifica della pagina Usa una PEC come domicilio digitale per PG")
+    public void verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePG() {
+        recapitiPGPage.verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePG();
+    }
 }

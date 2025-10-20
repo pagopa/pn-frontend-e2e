@@ -47,9 +47,9 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
-    Then Verifica Pagina "prova1pf@pec.it"
-    And Attesa 20 secondi
+    Then Verifica testo nella pagina "prova1pf@pec.it"
     And Refresh pagina
+    And Attesa 10 secondi
      #Validation bug PF QA-8729
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
@@ -72,7 +72,7 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
-    Then Verifica Pagina "prova2pf@pec.it"
+    Then Verifica testo nella pagina "prova2pf@pec.it"
     #    Scenario: 35
     And Click Modifica personalizzati per ente
     And Click Annulla
@@ -84,7 +84,7 @@ Feature: Rework della pagina dei contatti
     And Si verifica se popup conferma presente
     And Attesa 3 secondi
     And Refresh pagina
-    And Verifica Pagina "pectest@pec.it"
+    And Verifica testo nella pagina "pectest@pec.it"
     #    Scenario: 36
     When Click Elimina personalizzati per ente
     And Attesa 2 secondi

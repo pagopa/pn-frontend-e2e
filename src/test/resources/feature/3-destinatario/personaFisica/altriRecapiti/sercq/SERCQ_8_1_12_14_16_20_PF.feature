@@ -24,6 +24,8 @@ Feature: Rework della pagina dei contatti
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
     When Click Inizia
     And Verifica della pagina Attiva domicilio digitale su SEND per PF
+    And Verifica testo nella pagina "Hai una PEC?"
+    And Verifica presenza bottone "Inserisci PEC"
     And Click Continua
     And Verifica della pagina La tua email per ricevere avvisi sulle notifiche SEND
     And Click Aggiungi email

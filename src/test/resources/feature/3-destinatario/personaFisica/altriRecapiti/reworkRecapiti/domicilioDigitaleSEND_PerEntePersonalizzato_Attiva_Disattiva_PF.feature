@@ -41,6 +41,6 @@ Feature: Rework della pagina dei contatti
     And Click Torna ai tuoi recapiti
 #  REWORK_DOMICILIO_DIGITALE_PG_64
     Then Click Bottone Disattiva In domicilio digitale "domicilio digitale"
-    And Verifica Pagina "devi prima disattivare i domicili digitali personalizzati"
+    And Verifica testo nella pagina "devi prima disattivare i domicili digitali personalizzati"
     And Click Bottone "ho capito"
-    And Verifica Pagina "domicilio digitale"
+    And Verifica testo nella pagina "domicilio digitale"
