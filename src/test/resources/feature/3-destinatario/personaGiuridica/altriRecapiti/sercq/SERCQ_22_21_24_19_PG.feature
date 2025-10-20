@@ -69,9 +69,12 @@ Feature: Rework della pagina dei contatti
     And Attesa 2 secondi
     And Refresh pagina
     Then Verifica Pagina "prova@pec.it"
-
-#    Scenario:19
+#   SERCQ Fase 2: Scenario 19
+#   & Configurazione domicilio digitale - Fase 2: Scenario 18 (Disattivazione Domicilio Digitale PEC)
     And Disattiva domicilio digitale e Annulla
     And Verifica e Disattiva domicilio digitale "Conferma"
+    And Attesa 2 secondi
+    And Refresh pagina
+    Then Verifica Da Attivare Domicilio digitale
 
 

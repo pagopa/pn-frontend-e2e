@@ -34,7 +34,11 @@ Feature: Rework della pagina dei contatti
     And Attesa 2 secondi
     And Refresh pagina
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
-
+    And Click Aggiungi email
+    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+    And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
+    And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
+    And Refresh pagina
      #Validation bug PG QA-6395
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
@@ -43,10 +47,10 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "pec@pec.pagopa.it"
     And Click Ok ho capito Recapiti Pop-up
-
      # FINE Validation bug PG QA-6395
-
-
+    And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
+    And Click Bottone "Indietro"
+    And Attesa 2 secondi
 #    Scenario: 33
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
@@ -68,22 +72,33 @@ Feature: Rework della pagina dei contatti
     And Click Torna ai tuoi recapiti
     And Attesa 2 secondi
     And Refresh pagina
-
+    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 #    Scenario: 33
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
-    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
+    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate - Riscossione"
     And Seleziona Tipologia "Domicilio Digitale SEND"
+    And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
+    And Verifica presenza Campo obbligatorio
+    And Spuntare checkbox privacy
     And Attesa 1 secondi
+    And Non si visualizzano correttamente i pulsanti modifica, elimina e non è possibile modificare l'email
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Attesa 1 secondi
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 
- #    Precondizione Scenario: 37
+#   SERCQ - Fase 2: Scenario: 37
+#   & Configurazione domicilio digitale - Fase 2: Scenario 27 (Disattivazione DD SEND personalizzato)
+    And Verifica e Disattiva domicilio digitale "Conferma"
+    And Si chiude pop-up Impossibile disattivare il Domicilio Digitale
+    And Click su Disattiva Personalizzati per Ente e Annulla
     And Verifica ed Elimina personalizzati per ente
-
-      #Scenario: 37
+    And Attesa 1 secondi
+    And Refresh pagina
+    And Verifica ed Elimina personalizzati per ente
+    And Attesa 1 secondi
+    And Refresh pagina
     And Verifica e Disattiva domicilio digitale "Annulla"
     And Attesa 2 secondi
     And Verifica e Disattiva domicilio digitale "Conferma"

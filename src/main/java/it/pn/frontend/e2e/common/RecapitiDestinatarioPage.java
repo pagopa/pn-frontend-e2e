@@ -1331,15 +1331,16 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void verificaDaAttivareDomicilioDigitale() {
-        verificaPresenza("Impossibile trovare Il domicilio digitale della tua impresa ", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h6[contains(text(), 'domicilio digitale')]")
-        ));
-        verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Da attivare')]")
-        ));
-        verificaPresenza("Impossibile Cliccare su Inizia ", ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(text(),'Inizia')]")
-        ));
+        try {
+            getWebDriverWait(10).withMessage("Impossibile trovare Il domicilio digitale della tua impresa ").until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//h6[contains(text(), 'domicilio digitale')]")));
+            getWebDriverWait(10).withMessage("Impossibile trovare Attivo ").until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Da attivare')]")));
+            getWebDriverWait(10).withMessage("Impossibile Cliccare su Inizia ").until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//button[contains(text(),'Inizia')]")));
+        } catch (Exception e) {
+            Assertions.fail("Errore in verificaDaAttivareDomicilioDigitale: {}", e);
+        }
     }
 
     public void verificaDaAttivareIO() {
