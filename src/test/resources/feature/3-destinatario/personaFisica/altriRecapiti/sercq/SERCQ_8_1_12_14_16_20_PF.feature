@@ -20,15 +20,17 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
     And Attesa 1 secondi
     And Refresh pagina
-    When Click Inizia
-    And Click Continua
 #   SERCQ - Fase 2: Scenario 1
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
+    When Click Inizia
+    And Verifica della pagina Attiva domicilio digitale su SEND per PF
+    And Click Continua
+    And Verifica della pagina La tua email per ricevere avvisi sulle notifiche SEND
     And Click Aggiungi email
     And Verifica  Indirizzo email non valido
     And Click Continua Tab Inserisci un recapito
+    And Verifica della presenza della modale Importanza aggiunta contatti
     And Click Ok ho capito Recapiti
-    #And Verifica della presenza della modale Importanza aggiunta contatti
 #    Scenario:8
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
@@ -43,10 +45,12 @@ Feature: Rework della pagina dei contatti
 #   SERCQ - Fase 2: Scenario 1
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
     And Click Continua Tab Inserisci un recapito
+    And Verifica della pagina Stai attivando il tuo domicilio digitale su SEND
     And Click Attiva domicilio digitale
     And Verifica presenza Campo obbligatorio
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
+    And Verifica della TYP Hai attivato il tuo domicilio digitale su SEND
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
   #    Scenario:12

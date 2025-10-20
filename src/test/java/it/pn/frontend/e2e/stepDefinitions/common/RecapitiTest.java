@@ -6,6 +6,7 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
@@ -28,6 +29,7 @@ public class RecapitiTest extends BasePage {
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
     private ITuoiRecapitiPage iTuoiRecapitiPage;
+    private RecapitiPGPage recapitiPGPage;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -44,6 +46,7 @@ public class RecapitiTest extends BasePage {
         logger.info("INIT TEST...: ");
         recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
         iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        recapitiPGPage = new RecapitiPGPage(driver);
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         backgroundTest.setRecapitiTest(this);
 
@@ -415,5 +418,50 @@ public class RecapitiTest extends BasePage {
     public void nonSiVisualizzanoCorrettamenteGliElementiPostModifica() {
         logger.info("Si controlla che non si visualizzano correttamente i pulsanti modifica, elimina e che non è possibile modificare l'email");
         iTuoiRecapitiPage.checkAssenzaPostModifica();
+    }
+
+    @And("Verifica della pagina Attiva domicilio digitale su SEND per PF")
+    public void verificaDellaPaginaAttivaDomicilioDigitaleSuSENDPF() {
+        iTuoiRecapitiPage.verificaDellaPaginaAttivaDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della pagina Attiva domicilio digitale su SEND per PG")
+    public void verificaDellaPaginaAttivaDomicilioDigitaleSuSENDPG() {
+        recapitiPGPage.verificaDellaPaginaAttivaDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della pagina La tua email per ricevere avvisi sulle notifiche SEND")
+    public void verificaDellaPaginaLaTuaEmailPerRicevereAvvisiSulleNotificheSEND() {
+        recapitiDestinatarioPage.verificaDellaPaginaLaTuaEmailPerRicevereAvvisiSulleNotificheSEND();
+    }
+
+    @And("Verifica della pagina Stai attivando il tuo domicilio digitale su SEND")
+    public void verificaDellaPaginaStaiAttivandoIlTuoDomicilioDigitaleSuSEND() {
+        recapitiDestinatarioPage.verificaDellaPaginaStaiAttivandoIlTuoDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della TYP Hai attivato il tuo domicilio digitale su SEND")
+    public void verificaDellaTYPHaiAttivatoIlTuoDomicilioDigitaleSuSEND() {
+        recapitiDestinatarioPage.verificaDellaTYPHaiAttivatoIlTuoDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della pagina La email aziendale per ricevere avvisi sulle notifiche SEND")
+    public void verificaDellaPaginaLaEmailAziendalePerRicevereAvvisiSulleNotificheSEND() {
+        recapitiPGPage.verificaDellaPaginaLaEmailAziendalePerRicevereAvvisiSulleNotificheSEND();
+    }
+
+    @And("Verifica della presenza della modale Importanza aggiunta contatti aziendali")
+    public void verificaDellaPresenzaDellaModaleImportanzaAggiuntaContattiAziendali() {
+        recapitiPGPage.verificaPresenzaModaleImportanzaAggiuntaContattiAziendali();
+    }
+
+    @And("Verifica della pagina Stai attivando il domicilio digitale su SEND per PG")
+    public void verificaDellaPaginaStaiAttivandoIlDomicilioDigitaleSuSENDPG() {
+        recapitiPGPage.verificaDellaPaginaStaiAttivandoIlDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della TYP Hai attivato il domicilio digitale su SEND per PG")
+    public void verificaDellaTYPHaiAttivatoIlDomicilioDigitaleSuSENDPG() {
+        recapitiPGPage.verificaDellaTYPHaiAttivatoIlDomicilioDigitaleSuSEND();
     }
 }
