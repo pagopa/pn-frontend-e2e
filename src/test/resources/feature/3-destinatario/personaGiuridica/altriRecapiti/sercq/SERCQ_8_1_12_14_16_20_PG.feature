@@ -21,15 +21,17 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
    And Attesa 1 secondi
    And Refresh pagina
-
-    When Click Inizia
-    And Click Continua
 #   SERCQ - Fase 2: Scenario 1
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
+    When Click Inizia
+   And Verifica della pagina Attiva domicilio digitale su SEND per PG
+   And Click Continua
+   And Verifica della pagina La email aziendale per ricevere avvisi sulle notifiche SEND
     And Click Aggiungi email
     And Verifica  Indirizzo email non valido
     And Click Continua Tab Inserisci un recapito
-    And Click Ok ho capito Recapiti
+   And Verifica della presenza della modale Importanza aggiunta contatti aziendali
+   And Click Ok ho capito Recapiti
 
 #    Scenario:8
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
@@ -49,11 +51,13 @@ Feature: Rework della pagina dei contatti
 #   SERCQ - Fase 2: Scenario 1
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
     And Click Continua Tab Inserisci un recapito
-    And Click Attiva domicilio digitale
+   And Verifica della pagina Stai attivando il domicilio digitale su SEND per PG
+   And Click Attiva domicilio digitale
     And Verifica presenza Campo obbligatorio
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
-    And Click Torna ai tuoi recapiti
+   And Verifica della TYP Hai attivato il domicilio digitale su SEND per PG
+   And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
 
   #    Scenario:12

@@ -596,4 +596,24 @@ public class ITuoiRecapitiPage extends BasePage {
                 ));
         continuaButton.click();
     }
+
+    public void verificaDellaPaginaAttivaDomicilioDigitaleSuSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//p[contains(text(), 'Un ente ti invia una notifica su SEND')]"))),
+                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//p[contains(text(), 'La notifica ti viene ')]"))),
+                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//a[contains(text(), 'consegnata')]"))),
+                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//p[contains(text(), 'Accedi alla notifica')]"))),
+                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//ul//li//p[contains(text(), 'Apri il dettaglio della notifica digitale sulla piattaforma SEND o, se hai attivato il servizio, direttamente dall’app IO')]"))),
+                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='pec-section']//p[contains(text(), 'Hai una PEC?')]"))),
+                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='pec-section']//button[contains(text(), 'Inserisci PEC')]")))
+                        )
+                );
+    }
 }

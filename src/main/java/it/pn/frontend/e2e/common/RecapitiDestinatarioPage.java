@@ -788,9 +788,10 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickAvvisamiViaEmail() {
         By avvisamiEmailLocator = By.id("default_email-button");
-        WebElement avvisamiViaEmailButton = getWebDriverWait(10)
+        getWebDriverWait(10)
                 .withMessage("Il bottone 'Avvisami via email' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(avvisamiEmailLocator));
+        WebElement avvisamiViaEmailButton = driver.findElement(avvisamiEmailLocator);
         avvisamiViaEmailButton.click();
     }
 
@@ -2009,13 +2010,16 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void verificaPresenzaModaleImportanzaAggiuntaContatti() {
         getWebDriverWait(10)
-                .withMessage("Testo nella modale non corretto o non presente")
+                .withMessage("Titolo nella modale Importanza aggiunta contatti non corretto o non presente")
                 .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[@id='confirmation-dialog-title' and contains(text(), 'Aggiungi un indirizzo email per gli avvisi!')]")))
                 );
-        WebElement dialogButton = getWebDriverWait(10)
-                .withMessage("Impossibile trovare il pulsante 'Ok, ho capito' nella modale")
-                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-confirm-button")));
-        dialogButton.click();
+        getWebDriverWait(10)
+                .withMessage("Testo nella modale Importanza aggiunta contatti non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Per attivare il domicilio digitale SEND abbiamo bisogno del tuo indirizzo email, così possiamo')]"))),
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//strong[contains(text(), 'una comunicazione a valore legale per te.')]"))),
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Ricorda che se non leggi in tempo una notifica SEND, potresti non essere al corrente di eventuali scadenze e incorrere in sanzioni.')]"))))
+                );
     }
 
     public void checkBannerDomicilioDigitaleNonAttivato() {
@@ -2049,4 +2053,66 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
+    public void verificaDellaPaginaLaTuaEmailPerRicevereAvvisiSulleNotificheSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella pagina La tua email per ricevere avvisi sulle notifiche SEND non corretto o non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella pagina La tua email per ricevere avvisi sulle notifiche SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='emailSmsContactWizard']//p[contains(text(), 'La tua email per ricevere avvisi sulle notifiche SEND')]"))),
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='emailSmsContactWizard']//p[contains(text(), 'L’email dove ti avviseremo quando ricevi una comunicazione a valore legale per te su SEND.')]")))
+                        )
+                );
+    }
+
+    public void verificaDellaPaginaStaiAttivandoIlTuoDomicilioDigitaleSuSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella pagina Stai attivando il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella pagina Stai attivando il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h6[contains(text(), 'Stai attivando il tuo domicilio digitale su SEND')]"))),
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Le tue comunicazioni a valore legale saranno recapitate a:')]"))),
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Premendo “Attiva domicilio digitale” dichiari di aver letto la ')]"))),
+                        ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//a[@data-testid='tos-link' and contains(text(), 'Informativa privacy')]"))),
+                        ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//a[@data-testid='tos-link' and contains(text(), 'Termini del servizio')]")))
+                        )
+                );
+    }
+
+    public void verificaDellaTYPHaiAttivatoIlTuoDomicilioDigitaleSuSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella TYP Hai attivato il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Hai attivato il tuo domicilio digitale su SEND')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella TYP Hai attivato il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='wizard-feedback-step']//p[contains(text(), 'Riceverai le tue comunicazioni a valore legale al tuo Domicilio digitale su SEND e un messaggio ai recapiti che hai scelto.')]"))),
+                        ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button' and contains(text(),'Ok, ho capito')]")))
+                        )
+                );
+    }
+
+    public void verificaDellaTYPHaiAttivatoIlDomicilioDigitaleSuSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella TYP Hai attivato il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Hai attivato il tuo domicilio digitale su SEND')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella TYP Hai attivato il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='wizard-feedback-step']//p[contains(text(), 'Riceverai le tue comunicazioni a valore legale al tuo Domicilio digitale su SEND e un messaggio ai recapiti che hai scelto.')]"))),
+                                ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button' and contains(text(),'Ok, ho capito')]")))
+                        )
+                );
+    }
 }
