@@ -2080,15 +2080,16 @@ public class RecapitiDestinatarioPage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Titolo nella pagina La tua email per ricevere avvisi sulle notifiche SEND non corretto o non presente")
                 .until(ExpectedConditions.or(
-                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]"))),
-                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//p[contains(text(), 'Trasferisci il domicilio digitale sulla piattaforma SEND')]")))
-                        ));
+                        ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]")),
+                        ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(), 'Trasferisci il domicilio digitale sulla piattaforma SEND')]"))
+                        )
+                );
 
         getWebDriverWait(10)
                 .withMessage("Testo nella pagina La tua email per ricevere avvisi sulle notifiche SEND non corretto o non presente")
                 .until(ExpectedConditions.and(
-                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='emailSmsContactWizard']//p[contains(text(), 'La tua email per ricevere avvisi sulle notifiche SEND')]"))),
-                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='emailSmsContactWizard']//p[contains(text(), 'L’email dove ti avviseremo quando ricevi una comunicazione a valore legale per te su SEND.')]")))
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='emailSmsContactWizard']//p[contains(text(), 'La tua email per ricevere avvisi sulle notifiche SEND')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='emailSmsContactWizard']//p[contains(text(), 'L’email dove ti avviseremo quando ricevi una comunicazione a valore legale per te su SEND.')]")))
                         )
                 );
     }

@@ -25,6 +25,9 @@ Feature: Rework della pagina dei contatti
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
     When Click Inizia
    And Verifica della pagina Attiva domicilio digitale su SEND per PG
+   And Verifica testo nella pagina "Preferisci usare la PEC aziendale?"
+   And Verifica testo nella pagina "In alternativa, puoi usare una PEC come domicilio digitale per le notifiche di SEND."
+   And Verifica presenza bottone "Inserisci PEC"
    And Click Continua
    And Verifica della pagina La email aziendale per ricevere avvisi sulle notifiche SEND
     And Click Aggiungi email
@@ -52,9 +55,6 @@ Feature: Rework della pagina dei contatti
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
     And Click Continua Tab Inserisci un recapito
    And Verifica della pagina Stai attivando il domicilio digitale su SEND per PG
-   And Verifica testo nella pagina "Preferisci usare la PEC aziendale?"
-   And Verifica testo nella pagina "In alternativa, puoi usare una PEC come domicilio digitale per le notifiche di SEND."
-   And Verifica presenza bottone "Inserisci PEC"
    And Click Attiva domicilio digitale
     And Verifica presenza Campo obbligatorio
     And Spuntare checkbox privacy
