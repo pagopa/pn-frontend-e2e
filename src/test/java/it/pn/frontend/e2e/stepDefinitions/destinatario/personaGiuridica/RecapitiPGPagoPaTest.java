@@ -6,7 +6,6 @@ import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.DataPopulationConfig;
-import it.pn.frontend.e2e.config.WebDriverManager;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.stepDefinitions.common.BackgroundTest;
@@ -14,20 +13,11 @@ import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 
 import jakarta.annotation.PostConstruct;
-import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class RecapitiPGPagoPaTest extends BasePage {
     private final Logger logger = LoggerFactory.getLogger(RecapitiPGPagoPaTest.class);
@@ -291,17 +281,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
 
     @And("Verifica testo nella pagina {string}")
     public void verificaPagina(String testo) {
-        try {
-            recapitiDestinatarioPage.verificaPagina(testo);
-            var screenshot = ((TakesScreenshot) webDriverManager.getDriverThreadLocal().get()).getScreenshotAs(OutputType.FILE);
-            var screenshotBytes = Files.readAllBytes(screenshot.toPath());
-            var formatter = new SimpleDateFormat("dd_MM_yyyy_HH_mm_ss");
-            var timestamp = formatter.format(new Date());
-            var fileName = "logs/" + "debug" + "_" + timestamp + ".png";
-            FileUtils.copyFile(screenshot, new File(fileName));
-        } catch (IOException e) {
-            logger.error("Failed to take screenshot: {}", e.getMessage());
-        }
+        recapitiDestinatarioPage.verificaPagina(testo);
     }
 
     @And("Click Inserisci Email Pop-Up")
