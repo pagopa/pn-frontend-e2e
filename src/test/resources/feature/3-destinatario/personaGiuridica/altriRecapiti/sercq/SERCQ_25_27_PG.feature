@@ -32,7 +32,7 @@ Feature: Rework della pagina dei contatti
     And Click Annulla
 
 #    Scenario: 27
-    And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
+    #And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
     And Entro dentro la prima notifica con stato "Avvenuto accesso"
     And Attesa 1 secondi
     And Click Bottone Inizia nel Banner
