@@ -44,7 +44,7 @@ Feature: Rework della pagina dei contatti
 
     #    Scenario: 29
     #   N.B. Banner sostituito dopo che eliminazione recapito mail elimina anche DD collegato
-    And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
+    #And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
     And Entro dentro la prima notifica con stato "Avvenuto accesso"
     And Si visualizza correttamente il banner di Domicilio Digitale non attivato
     And Refresh pagina
