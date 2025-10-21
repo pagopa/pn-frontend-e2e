@@ -40,10 +40,6 @@ public class RecapitiPGPagoPaTest extends BasePage {
     @Autowired
     private DataPopulationConfig dataPopulationConfig;
 
-    @Autowired
-    @Lazy
-    private WebDriverManager webDriverManager;
-
     @PostConstruct
     public void init() {
         logger.info("INIT TEST...: ");
