@@ -48,7 +48,6 @@ Feature: Rework della pagina dei contatti
     And Attesa 2 secondi
     And Refresh pagina
     Then Verifica testo nella pagina "prova1pf@pec.it"
-    And Refresh pagina
      #Validation bug PF QA-8729
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
