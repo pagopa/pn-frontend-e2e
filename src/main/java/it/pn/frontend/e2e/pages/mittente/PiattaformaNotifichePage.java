@@ -1128,6 +1128,7 @@ public class PiattaformaNotifichePage extends BasePage {
             js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
         }
         int i = 0;
+
         while (element(By.id("next")).isEnabled() && i <= pagina) {
             element(By.id("next")).click();
             webTool.waitTime(2);
@@ -1141,6 +1142,47 @@ public class PiattaformaNotifichePage extends BasePage {
             i++;
         }
 
+    }
+
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaFinoAGiorniIndietro(long giorni) {
+        int paginaCorrente = 1;
+        String paginaString = "page" + paginaCorrente;
+        getWebDriverWait(60).withMessage("il bottone pagina successiva non è cliccabile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("next")));
+        frecciaPaginaSuccessiva = driver.findElement(By.id("next"));
+        if (!element(By.id("next")).isDisplayed()) {
+            numeroNotificheButton = driver.findElement(By.id("rows-per-page"));
+            js().executeScript("arguments[0].scrollIntoView(true);", numeroNotificheButton);
+        }
+
+        boolean foundDateCondition = false;
+
+
+        while (element(By.id("next")).isEnabled() && !foundDateCondition) {
+            element(By.id("next")).click();
+            webTool.waitTime(2);
+
+            // Controlla subito se abbiamo trovato la condizione
+            foundDateCondition = verifyDateCondition(giorni);
+
+            // Controllo secondario: se abbiamo raggiunto la pagina
+            try {
+                if (element(By.id(paginaString)).isDisplayed()) {
+                    logger.info("Raggiunta pagina {} ma continuo per cercare verifyDateCondition", paginaCorrente);
+                    // Non breakiamo, continuiamo a cercare verifyDateCondition
+                }
+            } catch (NoSuchElementException e) {
+                logger.error("{} non visualizzata", paginaString);
+            }
+            paginaCorrente++;
+        }
+
+        // Log finale
+        if (foundDateCondition) {
+            logger.info("Trovata verifyDateCondition alla pagina {}", paginaCorrente);
+        } else {
+            logger.info("VerifyDateCondition non trovata dopo {} pagine", paginaCorrente);
+        }
     }
 
     public void siCambiaPaginaUtilizzandoUnNumero() {
@@ -2484,7 +2526,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Impossibile trovare il 'not-found-back-button'")
                 .until(ExpectedConditions
-                .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
+                        .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
     }
 
     public void clickTornaAllaHome() {
@@ -2494,5 +2536,36 @@ public class PiattaformaNotifichePage extends BasePage {
                         .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
         buttonTornaAllaHome.click();
     }
-  
+
+    public boolean verifyDateCondition(long giorni) {
+        List<WebElement> rows = driver.findElements(By.cssSelector("tr[data-testid='tableDowntimeLog.row']"));
+
+        if (rows.isEmpty()) return false;
+
+        LocalDate referenceDate = LocalDate.now().minusDays(giorni);
+
+        // Prima riga
+        LocalDate firstDate = extractDateFromRow(rows.get(0));
+        logger.info("LOGGER firstDate: " + firstDate);
+//        // Ultima riga
+//        LocalDate lastDate = extractDateFromRow(rows.get(rows.size() - 1));
+//        logger.info("LOGGER lastDate: "+lastDate);
+//
+//        return firstDate.isBefore(referenceDate) || lastDate.isBefore(referenceDate);
+        return firstDate.isBefore(referenceDate);
+    }
+
+    private static LocalDate extractDateFromRow(WebElement row) {
+        // Estrae la prima cella della riga (data di inizio)
+        WebElement dateCell = row.findElement(By.cssSelector("td:nth-child(1)"));
+        String dateText = dateCell.getText();
+
+        // Parsing della data (esempio: "02/04/2025, ore 09:25")
+        String[] parts = dateText.split(",");
+        String datePart = parts[0].trim();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(datePart, formatter);
+    }
+
 }
