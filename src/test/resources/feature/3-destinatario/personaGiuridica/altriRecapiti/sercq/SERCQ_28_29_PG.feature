@@ -1,7 +1,7 @@
 Feature: Rework della pagina dei contatti
 
 #  @TestSuite_ON
-  @TA_SERCQ_228_229_PG
+  @TA_SERCQ_28_29_PG
   @addressBook2
   @TA_SERCQ_ON
   @NRT_Blocco_2
