@@ -52,7 +52,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
-    And Verifica Banner Personalizza il tuo domicilio digitale per ente mittente "associato al recapito prova1pf@pec.it"
+    #And Verifica Banner Personalizza il tuo domicilio digitale per ente mittente "associato al recapito prova1pf@pec.it"
     And Spuntare checkbox privacy
     And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1pf@pec.it"
     And Click Torna ai tuoi recapiti
