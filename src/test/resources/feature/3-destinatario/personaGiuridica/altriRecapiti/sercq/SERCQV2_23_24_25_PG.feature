@@ -49,7 +49,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone "Personalizza per ente"
     And Verifica della pagina Personalizza il tuo domicilio digitale per ente mittente per PG
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
-    And Seleziona Tipologia "Domicilio Digitale SEND"
+    And Seleziona Tipologia "Domicilio digitale SEND"
     And Click Aggiungi email
     And Verifica  Indirizzo email non valido
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
@@ -74,7 +74,7 @@ Feature: Rework della pagina dei contatti
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
-    And Seleziona Tipologia "Domicilio Digitale SEND"
+    And Seleziona Tipologia "Domicilio digitale SEND"
     And Spuntare checkbox privacy
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"

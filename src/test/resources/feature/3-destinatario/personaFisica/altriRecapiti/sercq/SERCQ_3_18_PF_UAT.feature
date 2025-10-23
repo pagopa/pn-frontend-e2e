@@ -5,7 +5,7 @@ Feature: Rework della pagina dei contatti
   @addressBook1
   @TA_SERCQ_UAT_ON
 
-  Scenario:[SERCQ_3_18_PF_UAT] Attivazione Domicilio Digitale SEND PF - Recapiti di cortesia presenti - Ambiente UAT
+  Scenario:[SERCQ_3_18_PF_UAT] Attivazione Domicilio digitale SEND PF - Recapiti di cortesia presenti - Ambiente UAT
     Given Login Page persona fisica test viene visualizzata
     And Login con persona fisica input
       | user         | pluto-ta               |

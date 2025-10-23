@@ -79,7 +79,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate - Riscossione"
-    And Seleziona Tipologia "Domicilio Digitale SEND"
+    And Seleziona Tipologia "Domicilio digitale SEND"
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Verifica presenza Campo obbligatorio
     And Spuntare checkbox privacy

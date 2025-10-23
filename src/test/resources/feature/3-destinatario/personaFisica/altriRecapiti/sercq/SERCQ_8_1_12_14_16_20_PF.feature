@@ -156,7 +156,7 @@ Feature: Rework della pagina dei contatti
 #   SERCQ Fase 2: Scenario 20 (precondizione)
     And Verifica ed Elimina personalizzati per ente
 #   SERCQ Fase 2: Scenario 20
-#   & Configurazione domicilio digitale - Fase 2: Scenario 19 (Disattivazione Domicilio Digitale SEND)
+#   & Configurazione domicilio digitale - Fase 2: Scenario 19 (Disattivazione Domicilio digitale SEND)
     And Disattiva domicilio digitale e Annulla
     And Verifica e Disattiva domicilio digitale "Conferma"
 
