@@ -2503,15 +2503,12 @@ public class NotificaMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
     }
 
+
     @And("Click Torna alla home")
     public void clickTornaAllaHome() {
         piattaformaNotifichePage.clickTornaAllaHome();
     }
 
-
-    /**
-     * A simple object that represents the esito notifica, i.e. the return value of siVerificaEsitoNotifica.
-     */
     class EsitoNotifica {
         String statusNotifica;
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;

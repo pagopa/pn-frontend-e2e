@@ -2526,7 +2526,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Impossibile trovare il 'not-found-back-button'")
                 .until(ExpectedConditions
-                        .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
+                .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
     }
 
     public void clickTornaAllaHome() {
@@ -2537,6 +2537,7 @@ public class PiattaformaNotifichePage extends BasePage {
         buttonTornaAllaHome.click();
     }
 
+
     public boolean verifyDateCondition(long giorni) {
         List<WebElement> rows = driver.findElements(By.cssSelector("tr[data-testid='tableDowntimeLog.row']"));
 
@@ -2544,14 +2545,9 @@ public class PiattaformaNotifichePage extends BasePage {
 
         LocalDate referenceDate = LocalDate.now().minusDays(giorni);
 
-        // Prima riga
         LocalDate firstDate = extractDateFromRow(rows.get(0));
         logger.info("LOGGER firstDate: " + firstDate);
-//        // Ultima riga
-//        LocalDate lastDate = extractDateFromRow(rows.get(rows.size() - 1));
-//        logger.info("LOGGER lastDate: "+lastDate);
-//
-//        return firstDate.isBefore(referenceDate) || lastDate.isBefore(referenceDate);
+
         return firstDate.isBefore(referenceDate);
     }
 
@@ -2567,5 +2563,6 @@ public class PiattaformaNotifichePage extends BasePage {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(datePart, formatter);
     }
+
 
 }

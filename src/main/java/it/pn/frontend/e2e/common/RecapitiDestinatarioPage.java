@@ -1419,7 +1419,9 @@ public class RecapitiDestinatarioPage extends BasePage {
         WebElement button = getWebDriverWait(15)
                 .withMessage("Non è presente la notifica '" + testo + "'")
                 .until(ExpectedConditions.elementToBeClickable(
+
                         By.cssSelector("[data-testid='sideMenuItem-" + testo + "']")
+
                 ));
         button.click();
     }
@@ -1898,5 +1900,26 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("dialog-confirm-button")));
         dialogButton.click();
 
+    }
+
+
+    public void clickOkHoCapitoRecapitiPopUp() {
+        WebElement dialogButton = getWebDriverWait(40)
+                .withMessage("Impossibile trovare il pulsante nel Pop-UP Ok, ho capito")
+                .until(ExpectedConditions.elementToBeClickable(By.id("dialog-close-button")));
+        dialogButton.click();
+
+    }
+
+
+    public void verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String testBanner) {
+        WebElement alert = getWebDriverWait(20)
+                .withMessage("Impossibile trovare il Banner nella pagina Personalizza il tuo domicilio digitale per ente mittente ")
+                .until(ExpectedConditions
+                .visibilityOfElementLocated(By.cssSelector("[data-testid='alreadyExistsAlert']")));
+
+        String alertText = alert.getText();
+        Assertions.assertTrue(
+                alertText.toLowerCase().contains(testBanner.toLowerCase()),"Il banner non contiene una email o la parola '"+testBanner+"'" );
     }
 }

@@ -325,6 +325,10 @@ public class RecapitiTest extends BasePage {
     public void clickOkHoCapitoRecapiti() {
         recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
     }
+    @And("Click Ok ho capito Recapiti Pop-up")
+    public void clickOkHoCapitoRecapitiPopUp() {
+        recapitiDestinatarioPage.clickOkHoCapitoRecapitiPopUp();
+    }
 
     @And("Verifica presenza Campo obbligatorio")
     public void verificaPresenzaCampoObbligatorio() {
@@ -369,5 +373,10 @@ public class RecapitiTest extends BasePage {
     @And("Click Scollega SEND da IO nel Pop-up Aggiungi i tuoi recapiti e importante")
     public void clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante() {
         recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
+    }
+
+    @And("Verifica Banner Personalizza il tuo domicilio digitale per ente mittente {string}")
+    public void verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String testBanner) {
+        recapitiDestinatarioPage.verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(testBanner);
     }
 }

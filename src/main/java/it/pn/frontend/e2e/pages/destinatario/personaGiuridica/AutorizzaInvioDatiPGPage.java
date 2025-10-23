@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 public class AutorizzaInvioDatiPGPage extends BasePage {
     private static final Logger logger = LoggerFactory.getLogger(AutorizzaInvioDatiPGPage.class);
 
-
     @FindBy(xpath = "//button[@name = 'confirm']")
     WebElement inviaButton;
 

@@ -45,22 +45,29 @@ Feature: Rework della pagina dei contatti
     And Attesa 2 secondi
     And Refresh pagina
     Then Verifica Pagina "prova1@pec.it"
-
-    And Click Bottone Gestisci
-    And Click Bottone "Personalizza per ente"
-    And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
-    And Spuntare checkbox privacy
-    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova2@pec.it"
-    And Click Bottone conferma Pop-up
-    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova2@pec.it" tramite chiamata request
-
-    And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    And Click Torna ai tuoi recapiti
-    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
-    And Attesa 2 secondi
-    And Refresh pagina
-    Then Verifica Pagina "prova2@pec.it"
+     #Validation bug PF QA-8730
+   And Click Bottone Gestisci
+   And Click Bottone "Personalizza per ente"
+   And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
+    And Verifica Banner Personalizza il tuo domicilio digitale per ente mittente "associato al recapito prova1@pec.it"
+   And Spuntare checkbox privacy
+    And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1@pec.it"
+   And Click Torna ai tuoi recapiti
+    # FINE Validation bug PF QA-8730
+   And Click Bottone Gestisci
+   And Click Bottone "Personalizza per ente"
+   And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
+   And Spuntare checkbox privacy
+   And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova2@pec.it"
+   And Click Bottone conferma Pop-up
+   And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+   And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "prova2@pec.it" tramite chiamata request
+   And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
+   And Click Torna ai tuoi recapiti
+   When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
+   And Attesa 2 secondi
+   And Refresh pagina
+   Then Verifica Pagina "prova2@pec.it"
 
   #    Scenario: 35
     And Click Modifica personalizzati per ente
