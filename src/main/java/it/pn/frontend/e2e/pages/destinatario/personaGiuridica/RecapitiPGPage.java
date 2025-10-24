@@ -36,8 +36,8 @@ public class RecapitiPGPage extends BasePage {
                 .withMessage("Testo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
                 .until(ExpectedConditions.and(
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Un ente invia una notifica SEND per')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica ti viene ')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//a[contains(text(), 'consegnata')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica viene ')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Quando arriva una notifica su SEND per la tua impresa, ti avvisiamo tramite email e, se lo desideri, anche via SMS')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Accedi alla notifica')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Apri il dettaglio della notifica digitale sulla piattaforma SEND')]")))
                         )
@@ -120,7 +120,7 @@ public class RecapitiPGPage extends BasePage {
                 .withMessage("Testo nella pagina Gestisci il domicilio digitale per PG non corretto o non presente")
                 .until(ExpectedConditions.and(
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//h6[@data-testid='legalContactsTitle']"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Personalizza il tuo domicilio digitale per ente mittente')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Personalizza il domicilio digitale per ente mittente')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Scegli dove ricevere le notifiche inviate alla tua impresa da un ente specifico.')]"))),
                         ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//div[@data-testid='legalContactManager']//button[contains(text(),'Personalizza per ente')]")))
                         )
@@ -130,12 +130,12 @@ public class RecapitiPGPage extends BasePage {
     public void verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittente() {
         getWebDriverWait(10)
                 .withMessage("Titolo nella pagina Personalizza il tuo domicilio digitale per ente mittente non corretto o non presente")
-                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-title']//p[contains(text(),'Personalizza il tuo domicilio digitale per ente mittente')]")))
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-title']//p[contains(text(),'Personalizza il domicilio digitale per ente mittente')]")))
                 );
 
         getWebDriverWait(10)
                 .withMessage("Testo nella pagina Personalizza il tuo domicilio digitale per ente mittente non corretto o non presente")
-                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='addSpecialContact']//p[contains(text(),'Il domicilio digitale personalizzato dove riceverai le notifiche SEND per la tua impresa che ti invia un ente specifico')]")))
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='addSpecialContact']//p[contains(text(),'Il domicilio digitale personalizzato dove la tua impresa riceverà le notifiche SEND inviate da un ente specifico')]")))
                 );
     }
 
@@ -163,7 +163,7 @@ public class RecapitiPGPage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Testo nella pagina Usa una PEC come domicilio digitale non corretto o non presente")
                 .until(ExpectedConditions.and(
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Inserisci la tua PEC')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Inserisci la PEC della tua impresa')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Quando un ente invia una notifica su SEND alla tua impresa, ricevi la comunicazione a valore legale sulla PEC che hai scelto.')]"))),
                         ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Indietro')]")))
                 ));
