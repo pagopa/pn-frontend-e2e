@@ -679,7 +679,7 @@ public class ITuoiRecapitiPage extends BasePage {
     public void verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale() {
         getWebDriverWait(10)
                 .withMessage("Titolo nella TYP Hai aggiornato il tuo domicilio digitale non corretto o non presente")
-                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Hai aggiornato il tuo domicilio digitale')]")))
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Hai aggiornato il domicilio digitale della tua impresa')]")))
                 );
     }
 

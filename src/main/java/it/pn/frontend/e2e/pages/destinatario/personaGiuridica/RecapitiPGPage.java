@@ -70,8 +70,7 @@ public class RecapitiPGPage extends BasePage {
                 .withMessage("Testo nella modale Importanza aggiunta contatti non corretto o non presente")
                 .until(ExpectedConditions.and(
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Per attivare il domicilio digitale SEND abbiamo bisogno di un indirizzo email aziendale, così possiamo')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//strong[contains(text(), 'avvisarti quando c’è una comunicazione a valore legale per la tua impresa.')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Ricorda che, se la notifica non viene letta in tempo, l’impresa potrebbe non essere al corrente di eventuali scadenze e incorrere in sanzioni.')]"))))
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//strong[contains(text(), 'inviare un avviso quando c’è una comunicazione a valore legale per la tua impresa.')]"))))
                 );
     }
 
@@ -164,7 +163,7 @@ public class RecapitiPGPage extends BasePage {
                 .withMessage("Testo nella pagina Usa una PEC come domicilio digitale non corretto o non presente")
                 .until(ExpectedConditions.and(
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Inserisci la PEC della tua impresa')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Quando un ente invia una notifica su SEND alla tua impresa, ricevi la comunicazione a valore legale sulla PEC che hai scelto.')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Quando un ente invia una notifica SEND alla tua impresa, ricevi la comunicazione a valore legale sulla PEC che hai scelto.')]"))),
                         ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Indietro')]")))
                 ));
     }
