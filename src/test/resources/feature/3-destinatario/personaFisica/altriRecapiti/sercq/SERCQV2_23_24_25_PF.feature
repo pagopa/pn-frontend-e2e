@@ -61,7 +61,7 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Attesa 1 secondi
-    And Verifica della pagina Hai aggiornato il tuo domicilio digitale
+    And Verifica della pagina Hai aggiornato il tuo domicilio digitale per PF
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     #Configurazione domicilio digitale - Fase 2: Scenario 25 (modifica email con DD personalizzato per ente)

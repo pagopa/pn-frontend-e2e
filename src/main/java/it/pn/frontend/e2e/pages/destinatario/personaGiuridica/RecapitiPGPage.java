@@ -64,7 +64,7 @@ public class RecapitiPGPage extends BasePage {
     public void verificaPresenzaModaleImportanzaAggiuntaContattiAziendali() {
         getWebDriverWait(10)
                 .withMessage("Titolo nella modale Importanza aggiunta contatti aziendali non corretto o non presente")
-                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//h2[@id='confirmation-dialog-title' and contains(text(), 'Aggiungere un indirizzo email aziendale per gli avvisi!')]")))
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//h2[@id='confirmation-dialog-title' and contains(text(), 'Aggiungi un indirizzo email aziendale per gli avvisi!')]")))
                 );
         getWebDriverWait(10)
                 .withMessage("Testo nella modale Importanza aggiunta contatti non corretto o non presente")
@@ -87,7 +87,7 @@ public class RecapitiPGPage extends BasePage {
                 .until(ExpectedConditions.and(
                                 ExpectedConditions.visibilityOfElementLocated((By.xpath("//h6[contains(text(), 'Stai attivando il domicilio digitale su SEND')]"))),
                                 ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'impresa saranno recapitate a:')]"))),
-                                ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Premendo “Attiva domicilio digitale” dichiari di aver letto la ')]"))),
+                                ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'dichiari di aver letto la ')]"))),
                                 ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//a[@data-testid='tos-link' and contains(text(), 'Informativa privacy')]"))),
                                 ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//a[@data-testid='tos-link' and contains(text(), 'Termini del servizio')]")))
                         )
@@ -166,5 +166,12 @@ public class RecapitiPGPage extends BasePage {
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(),'Quando un ente invia una notifica SEND alla tua impresa, ricevi la comunicazione a valore legale sulla PEC che hai scelto.')]"))),
                         ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[contains(text(),'Indietro')]")))
                 ));
+    }
+
+    public void verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella TYP Hai aggiornato il tuo domicilio digitale non corretto o non presente")
+                .until(ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Hai aggiornato il domicilio digitale della tua impresa')]")))
+                );
     }
 }

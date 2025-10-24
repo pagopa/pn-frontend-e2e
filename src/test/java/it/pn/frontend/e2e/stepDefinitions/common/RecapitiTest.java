@@ -500,9 +500,14 @@ public class RecapitiTest extends BasePage {
         recapitiPGPage.verificaDellaTYPHaiTrasferitoIlDomicilioDigitaleSuSEND();
     }
 
-    @And("Verifica della pagina Hai aggiornato il tuo domicilio digitale")
-    public void verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale() {
+    @And("Verifica della pagina Hai aggiornato il tuo domicilio digitale per PF")
+    public void verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitalePF() {
         iTuoiRecapitiPage.verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale();
+    }
+
+    @And("Verifica della pagina Hai aggiornato il tuo domicilio digitale per PG")
+    public void verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitalePG() {
+        recapitiPGPage.verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale();
     }
 
     @And("Verifica della pagina Usa una PEC come domicilio digitale per PF")
