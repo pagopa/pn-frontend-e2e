@@ -1828,7 +1828,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                     .withMessage("Il secondo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
                     .until(ExpectedConditions.or(
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il tuo domicilio digitale SEND potresti ricevere le comunicazioni via raccomandata')]")),
-                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'azienda potrebbe ricevere le comunicazioni via raccomandata e')]"))
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'la tua impresa potrebbe ricevere le comunicazioni via raccomandata e')]"))
                     ));
 
             getWebDriverWait(10)

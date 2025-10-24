@@ -112,7 +112,6 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Click Annulla
     And Verifica e Disattiva email
-
 #    Scenario:20
     When Click Inizia
     And Click Continua
