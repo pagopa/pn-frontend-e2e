@@ -2519,6 +2519,11 @@ public class NotificaMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.siControllaCheDataDiInizioEDataDiFineAbbianoTestoPerHelperText(testo);
     }
 
+    @And("Si controlla che non ci sia il campo {string} nel dettaglio notifica")
+    public void siControllaCheNonCiSiaIlCampoNelDettaglioNotifica(String campo) {
+        dettaglioNotificaMittenteSection.siControllaCheNonCiSiaIlCampoNelDettaglioNotifica(campo);
+    }
+
     class EsitoNotifica {
         String statusNotifica;
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;
