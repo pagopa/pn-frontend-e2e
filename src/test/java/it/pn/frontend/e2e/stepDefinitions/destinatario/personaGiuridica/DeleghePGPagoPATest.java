@@ -443,7 +443,7 @@ public class DeleghePGPagoPATest extends BasePage {
 
             DelegateRequestPG delegateRequestPG = dataPopulationConfig.getDelegateRequestPG();
             delegateRequestPG.setDelegate(delegatePG);
-
+            logger.info("debug delegatePG {}", delegatePG);
             String tokenExchange = loginPGPagoPaTest.getTokenExchangePGFromFile(personaGiuridica.get("accessoCome"));
             int attempt = 0;
             int maxAttempts = 7;
