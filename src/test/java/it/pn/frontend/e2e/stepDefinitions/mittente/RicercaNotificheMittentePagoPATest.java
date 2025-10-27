@@ -312,6 +312,15 @@ public class RicercaNotificheMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.inserimentoData(dataInserita);
     }
 
+    @And("Nel campo Data inizio si inserisce una data {string}")
+    public void siInserisceUnaDataInizio(String data) {
+        piattaformaNotifichePage.siInserisceUnaDataInizio(data);
+    }
+
+    @And("Nel campo Data fine si inserisce una data {string}")
+    public void siInserisceUnaDataFine(String data) {
+        piattaformaNotifichePage.siInserisceUnaDataFine(data);
+    }
 
     @And("^Il sistema restituisce notifiche con data e stato uguale a quelli inserito (.*)$")
     public void ilSistemaRestituisceNotificheConDataEStatoUgualeAQuelliInseritoStato(String statoNotifica) {
