@@ -126,8 +126,8 @@ public class RestDelegation {
      */
     public void rejectDelegation(String mandateId) throws RestDelegationException {
         try {
-            //N.B. Non usato, in caso cambiare da /mandate/api a bff
-            httpClientPG.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/reject", headers);
+            //N.B. Controllare se funziona quando metodo verrà riusato
+            httpClientPG.sendHttpPatchRequest("/bff/v1/mandate/" + mandateId + "/reject", headers);
             logger.info("Delega {} rifiutata con successo", mandateId);
         } catch (IOException e) {
             throw new RestDelegationException("Errore durante il rifiuto della delega", e);
@@ -139,7 +139,8 @@ public class RestDelegation {
      *
      * @return lista di `DelegateResponsePF` con le deleghe
      */
-    public List<DelegateResponsePF> getDelegator() {
+    //non usato, probabilmente deprecato
+    /*public List<DelegateResponsePF> getDelegator() {
         try {
             List<DelegateResponsePF> response = httpClientPF.sendHttpGetRequestListDelegate("/mandate/api/v1/mandates-by-delegator", headers, DelegateResponsePF.class);
             if (response != null) {
@@ -150,7 +151,7 @@ public class RestDelegation {
             logger.error("Errore durante getDelegator", e);
         }
         return null;
-    }
+    }*/
 
     public List<DelegateResponsePF> getDeleghe() {
         try {
