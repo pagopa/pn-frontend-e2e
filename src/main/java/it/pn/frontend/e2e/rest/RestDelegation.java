@@ -157,7 +157,7 @@ public class RestDelegation {
         try {
             List<DelegateResponsePF> getResponseList = httpClientPF.sendHttpGetRequestListDelegate("/bff/v1/mandate/delegator", headers, DelegateResponsePF.class);
             if (getResponseList != null) {
-                logger.info("getResponseList {}", getResponseList.toArray());
+                logger.info("getResponseList {}", getResponseList);
                 return getResponseList;
             }
         }
