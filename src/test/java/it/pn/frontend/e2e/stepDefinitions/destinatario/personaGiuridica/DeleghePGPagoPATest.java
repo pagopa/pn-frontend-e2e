@@ -24,8 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Map;
 
 
@@ -451,12 +450,32 @@ public class DeleghePGPagoPATest extends BasePage {
             while (attempt <= maxAttempts) {
                 response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
 
-                if (response != null && response.getVerificationCode() != null && !response.getVerificationCode().isEmpty()) {
-                    logger.info("Inizio controllo notifica fino a stato accettata");
-                    mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), response.getMandateId());
-                    mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), response.getVerificationCode());
+                logger.info("Inizio controllo notifica fino a stato accettata");
+                if (response == null) {
                     driver.navigate().refresh();
-                    return;
+                    //N.B.: Creare metodi per PG se risposte API da /delegator non corrispondono
+                    List<DelegateResponsePF> getResponseList = restDelegation.getDeleghe();
+                    if (getResponseList != null) {
+                        logger.info("getResponseList {}", getResponseList);
+                        if (getResponseList != null && !getResponseList.isEmpty()) {
+                            getResponseList.forEach(delegate -> {
+                                if (delegate.getDelegate().getDisplayName().equalsIgnoreCase(personaGiuridica.get("displayName"))) {
+                                    mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), delegate.getMandateId());
+                                    mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), delegate.getVerificationCode());
+                                }
+                            });
+                        }
+                        if (mandateSingleton.getMandateId(hooksNew.getScenario()) == null) {
+                            Assertions.fail("Non è stato possibile recuperare la delega creata!");
+                        }
+                        else {
+                            logger.info("Selected delegate id {}", mandateSingleton.getMandateId(hooksNew.getScenario()));
+                        }
+                        return;
+                    }
+                    else {
+                        Assertions.fail("Non è stato possibile recuperare la lista delle deleghe!");
+                    }
                 } else {
                     logger.warn("Tentativo #{} di attesa risposta. Riprovo...", attempt);
                     webTool.waitTime(3);
@@ -491,14 +510,32 @@ public class DeleghePGPagoPATest extends BasePage {
         while (attempt <= maxAttempts) {
 
             response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
-
-            if (response != null && response.getVerificationCode() != null && !response.getVerificationCode().isEmpty()) {
-                logger.info("Inizio controllo notifica fino a stato accettata");
-
-                mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), response.getMandateId());
-                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), response.getVerificationCode());
+            logger.info("Inizio controllo notifica fino a stato accettata");
+            if (response == null) {
                 driver.navigate().refresh();
-                return;
+                List<DelegateResponsePF> getResponseList = restDelegation.getDeleghe();
+                if (getResponseList != null) {
+                    logger.info("getResponseList {}", getResponseList);
+                    //DelegateResponsePF selectedDelegate = deleghePGPagoPAPage.getSelectedDelegate(getResponseList, );
+                    if (getResponseList != null && !getResponseList.isEmpty()) {
+                        getResponseList.forEach(delegate -> {
+                            if (delegate.getDelegate().getDisplayName().equalsIgnoreCase(personaFisica.get("displayName"))) {
+                                mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), delegate.getMandateId());
+                                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), delegate.getVerificationCode());
+                            }
+                        });
+                    }
+                    if (mandateSingleton.getMandateId(hooksNew.getScenario()) == null) {
+                        Assertions.fail("Non è stato possibile recuperare la delega creata!");
+                    }
+                    else {
+                        logger.info("Selected delegate id {}", mandateSingleton.getMandateId(hooksNew.getScenario()));
+                    }
+                    return;
+                }
+                else {
+                    Assertions.fail("Non è stato possibile recuperare la lista delle deleghe!");
+                }
             } else {
                 logger.warn("Tentativo #{} di attesa risposta. Riprovo...", attempt);
                 webTool.waitTime(3);

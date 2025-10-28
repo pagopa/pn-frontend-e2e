@@ -3,10 +3,8 @@ package it.pn.frontend.e2e.rest;
 import it.pn.frontend.e2e.config.CustomHttpClient;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.exceptions.RestDelegationException;
-import it.pn.frontend.e2e.model.delegate.DelegateRequestPF;
-import it.pn.frontend.e2e.model.delegate.DelegateRequestPG;
-import it.pn.frontend.e2e.model.delegate.DelegateResponsePF;
-import it.pn.frontend.e2e.model.delegate.DelegateResponsePG;
+import it.pn.frontend.e2e.model.delegate.*;
+import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,9 +65,13 @@ public class RestDelegation {
         try {
             String jwtToken = httpClientPF.getJwtToken(tokenExchange);
             headers.put("Authorization", "Bearer " + jwtToken);
-            DelegateResponsePF response = httpClientPF.sendHttpPostRequest("/mandate/api/v1/mandate", headers, delegateRequestPF, DelegateResponsePF.class);
+            DelegateResponsePF response = httpClientPF.sendHttpPostRequest("/bff/v1/mandate", headers, delegateRequestPF, DelegateResponsePF.class);
             if (response != null) {
-                logger.info("Response: {}", response);
+                Assertions.fail("Wrong response after create BFF: {}" + response);
+            }
+            //Case BFF 201
+            else {
+                logger.info("Response is null from BFF, correct!");
                 return response;
             }
         } catch (IOException e) {
@@ -90,7 +92,7 @@ public class RestDelegation {
         try {
             String jwtToken = httpClientPG.getJwtToken(tokenExchange);
             headers.put("Authorization", "Bearer " + jwtToken);
-            DelegateResponsePG response = httpClientPG.sendHttpPostRequest("/mandate/api/v1/mandate", headers, delegateRequest, DelegateResponsePG.class);
+            DelegateResponsePG response = httpClientPG.sendHttpPostRequest("/bff/v1/mandate", headers, delegateRequest, DelegateResponsePG.class);
             if (response != null) {
                 logger.info("Response: {}", response);
                 return response;
@@ -109,7 +111,7 @@ public class RestDelegation {
      */
     public void revokeDelegation(String mandateId) throws RestDelegationException {
         try {
-            httpClientPF.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/revoke", headers);
+            httpClientPF.sendHttpPatchRequest("/bff/v1/mandate/" + mandateId + "/revoke", headers);
             logger.info("Delega {} revocata con successo", mandateId);
         } catch (IOException e) {
             throw new RestDelegationException("Errore durante la revoca della delega", e);
@@ -148,4 +150,19 @@ public class RestDelegation {
         }
         return null;
     }
+
+    public List<DelegateResponsePF> getDeleghe() {
+        try {
+            List<DelegateResponsePF> getResponseList = httpClientPF.sendHttpGetRequestListDelegate("/bff/v1/mandate/delegator", headers, DelegateResponsePF.class);
+            if (getResponseList != null) {
+                logger.info("getResponseList {}", getResponseList.toArray());
+                return getResponseList;
+            }
+        }
+        catch (IOException e) {
+            logger.error("Errore durante getDeleghe", e);
+        }
+        return null;
+    }
+
 }
