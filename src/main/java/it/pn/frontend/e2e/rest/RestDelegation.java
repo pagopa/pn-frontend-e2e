@@ -153,9 +153,24 @@ public class RestDelegation {
         return null;
     }*/
 
-    public List<DelegateResponsePF> getDeleghe() {
+    public List<DelegateResponsePF> getDeleghePF() {
         try {
             List<DelegateResponsePF> getResponseList = httpClientPF.sendHttpGetRequestListDelegate("/bff/v1/mandate/delegator", headers, DelegateResponsePF.class);
+            if (getResponseList != null) {
+                logger.info("getResponseList {}", getResponseList.toArray());
+                return getResponseList;
+            }
+        }
+        catch (IOException e) {
+            logger.error("Errore durante getDeleghe", e);
+        }
+        return null;
+    }
+
+    public List<DelegateResponsePG> getDeleghePG() {
+        try {
+            List<DelegateResponsePG> getResponseList = httpClientPG.sendHttpGetRequestListDelegatePG("/bff/v1/mandate/delegator", headers, DelegateResponsePG.class);
+
             if (getResponseList != null) {
                 logger.info("getResponseList {}", getResponseList.toArray());
                 return getResponseList;

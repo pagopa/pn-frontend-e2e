@@ -310,7 +310,7 @@ public class DeleghePGPagoPATest extends BasePage {
         logger.info("Si seleziona il bottone conferma");
         deleghePGPagoPAPage.clickBottoneConferma();
         if (deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
-            Assertions.fail("il codice inserito è sbagliato");
+            Assertions.fail("il codice inserito è sbagliato riga 313");
         }
     }
 
@@ -377,7 +377,7 @@ public class DeleghePGPagoPATest extends BasePage {
 
         deleghePGPagoPAPage.clickBottoneConferma();
         if (deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
-            Assertions.fail("il codice inserito è sbagliato");
+            Assertions.fail("il codice inserito è sbagliato riga 380");
         }
     }
 
@@ -428,11 +428,11 @@ public class DeleghePGPagoPATest extends BasePage {
             creoInBackgroundUnaDelegaPFPerPersonaGiuridica(personaGiuridica);
         } else {
             //logica elimina delega
-            logger.info("Verifico se esiste una delega");
+            logger.info("Verifico se esiste una delegaPG");
             logger.info("DelegheCarico: {}", personaGiuridica.get("DelegheCarico"));
             delegatiImpresaSection.verificaRemoveMenuDelega(personaGiuridica.get("displayName"), StringUtils.isEmpty(personaGiuridica.get("DelegheCarico")) ? null : personaGiuridica.get("DelegheCarico"));
 
-            logger.info("Si controlla che ci sia una delega");
+            logger.info("Si controlla che ci sia una delegaPG");
 
             DelegatePG delegatePG = new DelegatePG();
             delegatePG.setCompanyName(personaGiuridica.get("companyName"));
@@ -451,17 +451,22 @@ public class DeleghePGPagoPATest extends BasePage {
                 response = restDelegation.addDelegationPG(delegateRequestPG, tokenExchange);
 
                 logger.info("Inizio controllo notifica fino a stato accettata");
+
                 if (response == null) {
                     driver.navigate().refresh();
                     //N.B.: Creare metodi per PG se risposte API da /delegator non corrispondono
-                    List<DelegateResponsePF> getResponseList = restDelegation.getDeleghe();
+                    logger.info("faccio chiamata alla delegaPG");
+                    List<DelegateResponsePG> getResponseList = restDelegation.getDeleghePG();
                     if (getResponseList != null) {
-                        logger.info("getResponseList {}", getResponseList);
+                        logger.info("getResponseListPG {}", getResponseList);
                         if (getResponseList != null && !getResponseList.isEmpty()) {
                             getResponseList.forEach(delegate -> {
                                 if (delegate.getDelegate().getDisplayName().equalsIgnoreCase(personaGiuridica.get("displayName"))) {
+                                    logger.info("Selected personaGiuridica dentro equals {}", personaGiuridica.get("displayName"));
                                     mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), delegate.getMandateId());
                                     mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), delegate.getVerificationCode());
+                                    logger.info("Selected delegate id {}", delegate.getMandateId());
+                                    logger.info("Selected getVerificationCode {}", delegate.getVerificationCode());
                                 }
                             });
                         }
@@ -513,7 +518,7 @@ public class DeleghePGPagoPATest extends BasePage {
             logger.info("Inizio controllo notifica fino a stato accettata");
             if (response == null) {
                 driver.navigate().refresh();
-                List<DelegateResponsePF> getResponseList = restDelegation.getDeleghe();
+                List<DelegateResponsePF> getResponseList = restDelegation.getDeleghePF();
                 if (getResponseList != null) {
                     logger.info("getResponseList {}", getResponseList);
                     //DelegateResponsePF selectedDelegate = deleghePGPagoPAPage.getSelectedDelegate(getResponseList, );
@@ -551,7 +556,7 @@ public class DeleghePGPagoPATest extends BasePage {
         logger.info("Si clicca su conferma del pop-up");
         deleghePGPagoPAPage.clickBottoneConfermaDelega();
         if (this.deleghePGPagoPAPage.verificaEsistenzaErroreCodiceSbagliato()) {
-            Assertions.fail("il codice inserito è sbagliato");
+            Assertions.fail("il codice inserito è sbagliato riga 557");
         }
     }
 
@@ -585,6 +590,7 @@ public class DeleghePGPagoPATest extends BasePage {
 
     @And("Si accetta la delega con gruppo {string}")
     public void siAccettaLaDelegaGruppo(String gruppo) {
+        logger.info("Si accetta la delega con gruppo");
         backgroundTest.accettazioneDelegaSceltaGruppo(true, gruppo);
     }
 

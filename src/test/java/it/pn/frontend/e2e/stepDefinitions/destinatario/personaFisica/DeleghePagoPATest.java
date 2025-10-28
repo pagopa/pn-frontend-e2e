@@ -346,7 +346,7 @@ public class DeleghePagoPATest extends BasePage {
             logger.info("Inizio controllo notifica fino a stato accettata");
             if (response == null) {
                 driver.navigate().refresh();
-                List<DelegateResponsePF> getResponseList = restDelegation.getDeleghe();
+                List<DelegateResponsePF> getResponseList = restDelegation.getDeleghePF();
                 if (getResponseList != null) {
                     logger.info("getResponseList {}", getResponseList);
                     //DelegateResponsePF selectedDelegate = deleghePGPagoPAPage.getSelectedDelegate(getResponseList, );

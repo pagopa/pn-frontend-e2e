@@ -22,6 +22,6 @@ public class DelegateResponsePF {
     private String verificationCode;
     private String datefrom;
     private String dateto;
-    private Map<String, String> groups;
-
+//    private Map<String, String> groups;
+private List<Map<String, String>> groups;
 }
