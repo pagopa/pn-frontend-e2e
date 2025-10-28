@@ -126,6 +126,7 @@ public class RestDelegation {
      */
     public void rejectDelegation(String mandateId) throws RestDelegationException {
         try {
+            //N.B. Non usato, in caso cambiare da /mandate/api a bff
             httpClientPG.sendHttpPatchRequest("/mandate/api/v1/mandate/" + mandateId + "/reject", headers);
             logger.info("Delega {} rifiutata con successo", mandateId);
         } catch (IOException e) {
