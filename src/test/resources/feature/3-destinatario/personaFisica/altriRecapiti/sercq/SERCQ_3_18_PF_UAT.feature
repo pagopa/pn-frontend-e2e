@@ -39,6 +39,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Click Annulla
 #      Scenario: 18
+#N.B.: Tasto ha copy diverso, verificare se selettore non è cambiato
     And Si clicca su 'Attiva SEND su IO'
     And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si controlla che IO sia attivo
