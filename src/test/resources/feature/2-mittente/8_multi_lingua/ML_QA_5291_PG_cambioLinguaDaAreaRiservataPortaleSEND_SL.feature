@@ -48,7 +48,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
     And Verifica traduzione testo "Vollmachten des Unternehmens"
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Anschriften"
-    And Verifica traduzione testo "Hier können digitale Anschriften angeben und geändert werden, an die Bescheide für Convivio Spa gesendet werden sollen"
+    And Verifica traduzione testo "Verwalten Sie die digitalen Kontakte, über die Sie rechtsverbindliche Mitteilungen von SEND"
 #    Selezionare Stato della Piattaforma
     When Seleziona voce menu laterale "Plattformstatus"
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND"

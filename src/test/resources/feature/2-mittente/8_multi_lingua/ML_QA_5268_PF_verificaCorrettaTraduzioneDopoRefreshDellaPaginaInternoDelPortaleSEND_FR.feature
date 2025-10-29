@@ -18,6 +18,6 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
     Then Refresh pagina
     And Attesa 2 secondi
     And Verifica traduzione testo "Vos notifications"
-    And Verifica traduzione testo "Vos adresses"
-    And Verifica traduzione testo "Procurations"
+    And Verifica traduzione testo "Notifications"
+    And Verifica traduzione testo "Statut de la plateforme"
     And Chiudi pagina

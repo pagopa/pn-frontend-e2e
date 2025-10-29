@@ -48,7 +48,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     And Verifica traduzione testo "Vollmachten des Unternehmens"
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Anschriften"
-    And Verifica traduzione testo "Hier können digitale Anschriften angeben und geändert werden, an die Bescheide für Convivio Spa gesendet werden sollen"
+    And Verifica traduzione testo "Verwalten Sie die digitalen Kontakte"
 #    Selezionare Stato della Piattaforma
     When Seleziona voce menu laterale "Plattformstatus"
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND"
@@ -64,7 +64,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     And Attesa 1 secondi
     When Seleziona voce menu laterale "Coordonnées"
-    And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
+    And Verifica traduzione testo "sur lesquelles recevoir les communications"
 #    Selezionare Stato della Piattaforma
     And Attesa 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"
