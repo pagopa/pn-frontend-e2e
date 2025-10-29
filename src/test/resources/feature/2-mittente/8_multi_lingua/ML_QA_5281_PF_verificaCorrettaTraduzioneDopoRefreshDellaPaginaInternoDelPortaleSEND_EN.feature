@@ -20,7 +20,7 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
     Then Refresh pagina
     And Attesa 2 secondi
     And Verifica traduzione testo "Notifications"
-    And Verifica traduzione testo "Your addresses"
+    And Verifica traduzione testo "Your contact"
     And Verifica traduzione testo "Delegates"
     And Verifica traduzione testo "Platform status"
     And Chiudi pagina

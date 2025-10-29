@@ -27,7 +27,7 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     And Verifica traduzione testo "Lire les notifications mandatées à Convivio Spa"
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Coordonnées"
-    And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
+    And Verifica traduzione testo "sur lesquelles recevoir les communications"
 #    Selezionare Stato della Piattaforma
     And Attesa 1 secondi
     When Seleziona voce menu laterale "État de la plateforme"

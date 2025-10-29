@@ -19,10 +19,10 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Attesa 2 secondi
     When Seleziona voce menu laterale "Zustellungen"
 #   Verificole traduzioni del portale
-    And Verifica traduzione testo "Zustellungen"
-    And Verifica traduzione testo "Deine Adressen"
+    And Verifica traduzione testo "Deine Zustellungen"
+    And Verifica traduzione testo "Deine Kontaktdaten"
     And Verifica traduzione testo "Vollmachten"
-    And Verifica traduzione testo "Plattformstatus"
+    And Verifica traduzione testo "Status der Plattform"
 #   Verificare traduzione della sezione HP notifiche
     And Verifica traduzione testo "Datum"
     And Verifica traduzione testo "Absender"
@@ -35,6 +35,6 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Deine Vollmachten"
     And Verifica traduzione testo "Eine Vollmacht hinzufügen"
   #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
-    Then Seleziona voce menu laterale "Plattformstatus"
+    Then Seleziona voce menu laterale "Status der Plattform"
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND, zeigt den Verlauf der Fehlfunktionen an und lädt die entsprechenden Bescheinigungen herunter, die gegenüber Dritten angefochten werden können."
     And Chiudi pagina
