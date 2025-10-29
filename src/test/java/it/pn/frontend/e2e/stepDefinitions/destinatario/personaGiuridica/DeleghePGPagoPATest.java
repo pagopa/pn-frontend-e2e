@@ -92,7 +92,6 @@ public class DeleghePGPagoPATest extends BasePage {
     @And("Si visualizza correttamente la pagina Deleghe sezione Deleghe dell impresa")
     public void siVisualizzaCorrettamenteLaPaginaDelegheSezioneDelegheDellImpresa() {
         logger.info("Si controlla che la sezione Deleghe dell'impresa");
-
         delegatiImpresaSection.waitLoadDelegatiImpresaPage();
     }
 
