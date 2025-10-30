@@ -426,7 +426,9 @@ public class DeleghePGPagoPAPage extends BasePage {
         boolean isInvalid = true;
         int attempt = 1;
         int maxAttempts = 7;
-        String stateInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input")).getAttribute("aria-invalid");
+//        String stateInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input")).getAttribute("aria-invalid");
+        String stateInput = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-testid='dialog-content']//input"))).getAttribute("aria-invalid");
         while (attempt < maxAttempts) {
 
             if (!(textboxIsInvalid.equals(stateInput))) {

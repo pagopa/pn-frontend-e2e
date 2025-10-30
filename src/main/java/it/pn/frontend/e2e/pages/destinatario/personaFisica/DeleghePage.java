@@ -301,6 +301,7 @@ public class DeleghePage extends BasePage {
 
     public void clickDelegheDelDelegante(String personaFisica) {
 
+        webTool.waitTime(1);
         By menuLocator = By.id("menu-item" + personaFisica.toLowerCase());
 
         WebElement menuDelegheDelegante = getWebDriverWait(20)

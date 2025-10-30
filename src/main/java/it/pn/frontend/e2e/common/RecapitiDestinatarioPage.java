@@ -1337,7 +1337,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                     By.xpath("//h6[contains(text(), 'domicilio digitale')]")));
             getWebDriverWait(10).withMessage("Impossibile trovare Attivo ").until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Da attivare')]")));
-            getWebDriverWait(10).withMessage("Impossibile Cliccare su Inizia ").until(ExpectedConditions.visibilityOfElementLocated(
+            getWebDriverWait(10).withMessage("Impossibile Cliccare su Inizia nel metodo verificaDaAttivareDomicilioDigitale").until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//button[contains(text(),'Inizia')]")));
         } catch (Exception e) {
             Assertions.fail("Errore in verificaDaAttivareDomicilioDigitale: {}", e);
