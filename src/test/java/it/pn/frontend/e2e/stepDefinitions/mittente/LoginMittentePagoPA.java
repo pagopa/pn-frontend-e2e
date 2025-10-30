@@ -276,7 +276,9 @@ public class LoginMittentePagoPA extends BasePage {
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
-        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+//        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+        acccediAreaRiservataPAPage.bottoneConImgInternalIDP();
+
         if (comune.equalsIgnoreCase("Viggiu")) {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
@@ -284,9 +286,12 @@ public class LoginMittentePagoPA extends BasePage {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
         }
-        loginPAPage.entraConSpid();
+//        loginPAPage.entraConSpid();
+//
+//        confermaDatiSpidPFPage.selezionaConfermaButton();
 
-        confermaDatiSpidPFPage.selezionaConfermaButton();
+        loginPAPage.bottoneAccedi();
+        loginPAPage.bottoneDoIlConsenso();
 
         /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
             condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/

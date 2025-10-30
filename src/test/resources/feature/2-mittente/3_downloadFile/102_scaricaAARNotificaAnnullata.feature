@@ -6,7 +6,7 @@ Feature: Mittente visualizza correttamente la notifica in stato Annulato
 
   Scenario: PN-10245-A - Mittente scarica documento AAR della notifica annullata
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
-    When Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN "NPMK-EKTP-AGAD-202410-N-1"
+    When Nella pagina Piattaforma Notifiche persona fisica inserire il codice IUN "UTLT-LRQV-PKXU-202510-D-1"
     And Cliccare sul bottone Filtra
     And Cliccare sulla notifica restituita
     And Si visualizza correttamente la section Dettaglio Notifica
