@@ -224,13 +224,18 @@ public class LoginMittentePagoPA extends BasePage {
         }
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
-        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+//        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+        acccediAreaRiservataPAPage.bottoneConImgInternalIDP();
 
         loginPAPage.inserisciUtenete(datiMittenteFile.get("user"));
         loginPAPage.inserisciPassword(datiMittenteFile.get("pwd"));
-        loginPAPage.entraConSpid();
 
-        confermaDatiSpidPFPage.selezionaConfermaButton();
+        loginPAPage.bottoneAccedi();
+        loginPAPage.bottoneDoIlConsenso();
+
+//        loginPAPage.entraConSpid();
+
+//        confermaDatiSpidPFPage.selezionaConfermaButton();
 
         /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
             condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/

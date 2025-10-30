@@ -64,4 +64,16 @@ public class AcccediAreaRiservataPAPage extends BasePage {
                 ));
         bottoneConImgPagoPA.click();
     }
+
+    public void bottoneConImgInternalIDP() {
+
+        WebElement bottoneConImgPagoPA = getWebDriverWait(10)
+                .withMessage("Impossibile cliccare su Immagine Internal IDP")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.cssSelector("button[data-testid='idp-button-https://idp.uat.oneid.pagopa.it']")
+                ));
+        bottoneConImgPagoPA.click();
+    }
+
+
 }
