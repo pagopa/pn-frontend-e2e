@@ -15,6 +15,7 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Clicca tasto Accedi OneTrust PG e PF
 #   Verificole traduzioni del portale
     And Verifica traduzione testo "Notifications"
     And Verifica traduzione testo "Your contact"

@@ -14,7 +14,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
     #   Cambio lingua
     And Cambia lingua footer "Francese"
     And Si clicca su prodotto
-
+    And Clicca tasto Accedi OneTrust PG e PF
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Procurations"
     And Verifica traduzione testo "Coordonnées"

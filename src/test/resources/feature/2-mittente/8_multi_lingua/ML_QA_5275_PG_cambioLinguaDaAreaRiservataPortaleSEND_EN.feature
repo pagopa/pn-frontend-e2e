@@ -14,6 +14,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - EN
     #   Cambio lingua
     And Cambia lingua footer "Inglese"
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 2 secondi
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Delegations of authority"

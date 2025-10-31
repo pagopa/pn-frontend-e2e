@@ -12,6 +12,7 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
       | pwd    | test    |
       | comune | Palermo |
     And Click entra su Send Mittente
+    And Clicca tasto Accedi OneTrust PA
     And Si clicca bottone accetta cookies
     #Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nel campo Data inizio si inserisce una data "11/02/2025"
@@ -35,6 +36,7 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nel campo Data inizio si inserisce una data "11/02/2021"
     And Nel campo Data fine si inserisce una data "21/03/2021"
     And Cliccare sul bottone Filtra persona fisica
@@ -48,6 +50,7 @@ Feature: Mittente effetua una ricerca notifiche per Data errata
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
     And Click entra su Send Persona Giuridica
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nel campo Data inizio si inserisce una data "11/02/2021"
     And Nel campo Data fine si inserisce una data "21/03/2021"
     And Cliccare sul bottone Filtra persona giuridica

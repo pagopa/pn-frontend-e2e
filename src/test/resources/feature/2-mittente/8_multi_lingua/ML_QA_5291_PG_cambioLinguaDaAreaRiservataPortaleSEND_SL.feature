@@ -14,6 +14,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - SL
     #   Cambio lingua
     And Cambia lingua footer "Sloveno"
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 2 secondi
     And Seleziona voce menu laterale "Obvestila"
     And Verifica traduzione testo "Prenosi pooblastil"

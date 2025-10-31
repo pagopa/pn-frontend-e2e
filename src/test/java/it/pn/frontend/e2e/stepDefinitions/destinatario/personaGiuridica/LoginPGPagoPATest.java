@@ -153,6 +153,7 @@ public class LoginPGPagoPATest extends BasePage {
             logger.info("Errore durante il login PG: " + e.getMessage());
             throw e;
         }
+
     }
 
     @When("Login portale persona giuridica tramite request method")

@@ -14,6 +14,7 @@ Feature: PG - Verifica corretta traduzione dopo refresh della pagina all'interno
     #   Cambio lingua
     And Cambia lingua footer "Inglese"
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 2 secondi
     And Refresh pagina
     And Attesa 2 secondi

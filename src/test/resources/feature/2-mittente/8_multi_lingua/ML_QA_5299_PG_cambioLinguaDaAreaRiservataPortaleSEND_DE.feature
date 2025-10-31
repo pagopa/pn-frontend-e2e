@@ -14,6 +14,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
 #   Cambio lingua
     When Cambia lingua footer "Tedesco"
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 2 secondi
     And Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"

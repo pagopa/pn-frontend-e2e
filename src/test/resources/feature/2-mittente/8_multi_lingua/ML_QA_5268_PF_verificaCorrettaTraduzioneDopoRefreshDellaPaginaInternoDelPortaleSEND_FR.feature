@@ -17,6 +17,7 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     Then Refresh pagina
     And Attesa 2 secondi
+    And Clicca tasto Accedi OneTrust PG e PF
     And Verifica traduzione testo "Vos notifications"
     And Verifica traduzione testo "Notifications"
     And Verifica traduzione testo "Statut de la plateforme"

@@ -14,6 +14,7 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     #   Cambio lingua
     And Cambia lingua footer "Francese"
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Verifica traduzione testo "Procurations"
     And Verifica traduzione testo "Coordonnées"
     And Verifica traduzione testo "Utilisateurs"

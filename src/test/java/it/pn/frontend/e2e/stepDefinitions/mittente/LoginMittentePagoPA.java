@@ -130,6 +130,8 @@ public class LoginMittentePagoPA extends BasePage {
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
 
+        headerPASection.cliccareTastoAccediOneTrust();
+
         // Imposta un timeout più lungo per il caricamento della pagina
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
 
@@ -145,6 +147,8 @@ public class LoginMittentePagoPA extends BasePage {
             logger.info("Errore durante il login PA:  {} ", e.getMessage());
             throw e;
         }
+
+
     }
 
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di {string}")
@@ -601,5 +605,16 @@ public class LoginMittentePagoPA extends BasePage {
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
         }
+    }
+
+    @And("Clicca tasto Accedi OneTrust PA")
+    public void cliccaTastoAccediOneTrustPA() {
+        headerPASection.cliccareTastoAccediOneTrust();
+    }
+
+    @And("Clicca tasto Accedi OneTrust PG e PF")
+    public void cliccaTastoAccediOneTrustPGePF() {
+        headerPASection.tosSwitch();
+        headerPASection.cliccareTastoAccediOneTrust();
     }
 }
