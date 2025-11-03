@@ -226,6 +226,7 @@ public class BackgroundTest extends BasePage {
     }
 
     public void accettazioneDelegaSceltaGruppo(boolean withGroup, String gruppo) {
+        webTool.waitTime(1);
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();

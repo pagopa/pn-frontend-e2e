@@ -270,6 +270,7 @@ public class LoginMittentePagoPA extends BasePage {
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies section start, before login");
+            webTool.waitTime(1);
             cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();

@@ -81,13 +81,14 @@ public class HeaderPASection extends BasePage {
             accediButton.click();
             logger.info("Cliccato su 'Accedi'");
         } catch (TimeoutException e) {
-            logger.info("Nessun bottone 'Accedi' trovato, continuo...");
+            logger.info("Nessun bottone 'Accedi' trovato, continuo..." + e.getMessage());
         }
     }
 
     public void tosSwitch() {
         try {
-            WebElement switchEl = getWebDriverWait(10).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-testid='tosSwitch']")));
+            WebElement switchEl = getWebDriverWait(10)
+                    .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-testid='tosSwitch']")));
             WebElement input = switchEl.findElement(By.cssSelector("input[type='checkbox']"));
 
             if (!input.isSelected()) {

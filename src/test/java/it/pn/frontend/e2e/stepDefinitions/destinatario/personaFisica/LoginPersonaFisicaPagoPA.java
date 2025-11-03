@@ -19,6 +19,7 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
+import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
@@ -51,6 +52,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     private DataPopulation dataPopulation;
 
     private HeaderPFSection headerPFSection ;
+
+    private HeaderPASection headerPASection;
 
     private NotifichePFPage notifichePFPage;
 
@@ -92,6 +95,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         headerPFSection = new HeaderPFSection(driver);
+        headerPASection = new HeaderPASection(driver);
         notifichePFPage = new NotifichePFPage(driver);
         scegliSpidPFPage = new ScegliSpidPFPage(driver);
         loginSpidPFPage = new LoginSpidPFPage(driver);
@@ -129,6 +133,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 webDriverConfig.getTokentestPFDelegato();
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
+        headerPASection.tosSwitch();
+        headerPASection.cliccareTastoAccediOneTrust();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         try {
             driver.get(urlLogin);
