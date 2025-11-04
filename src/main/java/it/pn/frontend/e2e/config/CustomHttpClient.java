@@ -98,10 +98,6 @@ public class CustomHttpClient<RequestType, ResponseType> {
             if (headers != null) {
                 headers.forEach(this.httpRequest::addHeader);
             }
-            log.info("request headers {}", headers);
-            log.info("request httprequest {}", httpRequest);
-            log.info("request endpoint {}", endpoint);
-            log.info("request requestObject {}", requestObject.toString());
             return client.execute(httpRequest, response -> {
                 final HttpEntity entity;
                 final String responseString;
@@ -110,15 +106,10 @@ public class CustomHttpClient<RequestType, ResponseType> {
                     entity = response.getEntity();
                     responseString = EntityUtils.toString(entity);
                     ResponseType responseObject = gson.fromJson(responseString, responseType);
-                    log.info("Response entity {}", entity);
-                    log.info("Response body: {}", responseObject);
                     return responseObject;
                 } else {
                     entity = response.getEntity();
                     responseString = EntityUtils.toString(entity);
-                    log.info("Response entity {}", entity);
-                    log.error("Response code: {}", response.getCode());
-                    log.error("Response body: {}", responseString);
                     throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
                 }
             });
@@ -246,9 +237,6 @@ public class CustomHttpClient<RequestType, ResponseType> {
                     return responseObject;
                 } else {
                     entity = response.getEntity();
-                    responseString = EntityUtils.toString(entity);
-                    log.error("Response code: " + response.getCode());
-                    log.error("Response body: " + responseString);
                     throw new IOException("Error in HTTP request to " + apiUrl + ": " + response.getCode());
                 }
             });
