@@ -670,7 +670,7 @@ public class ITuoiRecapitiPage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Testo nella TYP Hai trasferito il tuo domicilio digitale su SEND non corretto o non presente")
                 .until(ExpectedConditions.and(
-                                ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//p[contains(text(), 'Riceverai le tue comunicazioni a valore legale al tuo Domicilio digitale su SEND e un messaggio ai recapiti che hai scelto.')]"))),
+                                ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='wizard-feedback-step']//p[contains(text(), 'Riceverai le tue comunicazioni a valore legale al tuo domicilio digitale su SEND e un messaggio ai recapiti che hai scelto.')]"))),
                                 ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button' and contains(text(),'Ok, ho capito')]")))
                         )
                 );

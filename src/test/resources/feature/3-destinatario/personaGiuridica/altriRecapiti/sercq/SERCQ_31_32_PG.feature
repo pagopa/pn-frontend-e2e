@@ -65,7 +65,7 @@ Feature: Rework della pagina dei contatti
     And Verifica della pagina Gestisci il domicilio digitale per PG
     And Click Bottone "Trasferisci su SEND"
     And Verifica della pagina Attiva domicilio digitale su SEND per PG
-    And Verifica testo nella pagina "La piattaforma SEND sostituirà la PEC aziendale come tuo domicilio digitale della tua impresa."
+    And Verifica testo nella pagina "La piattaforma SEND sostituirà la PEC aziendale come domicilio digitale della tua impresa."
     And Click Continua
     And Click Aggiungi email
     And Verifica  Indirizzo email non valido

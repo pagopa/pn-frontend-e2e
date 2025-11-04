@@ -49,7 +49,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone "Personalizza per ente"
     And Verifica della pagina Personalizza il tuo domicilio digitale per ente mittente per PF
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
-    And Seleziona Tipologia "Domicilio Digitale SEND"
+    And Seleziona Tipologia "Domicilio digitale SEND"
     And Click Aggiungi email
     And Verifica  Indirizzo email non valido
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
@@ -61,7 +61,7 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Click Bottone Conferma Personalizza il tuo domicilio digitale per ente
     And Attesa 1 secondi
-    And Verifica della pagina Hai aggiornato il tuo domicilio digitale
+    And Verifica della pagina Hai aggiornato il tuo domicilio digitale per PF
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     #Configurazione domicilio digitale - Fase 2: Scenario 25 (modifica email con DD personalizzato per ente)
@@ -74,7 +74,7 @@ Feature: Rework della pagina dei contatti
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
-    And Seleziona Tipologia "Domicilio Digitale SEND"
+    And Seleziona Tipologia "Domicilio digitale SEND"
     And Spuntare checkbox privacy
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"

@@ -5,7 +5,7 @@ Feature: Rework della pagina dei contatti
   @addressBook1
   @TA_SERCQ_UAT_ON
 
-  Scenario:[SERCQ_3_18_PF_UAT] Attivazione Domicilio Digitale SEND PF - Recapiti di cortesia presenti - Ambiente UAT
+  Scenario:[SERCQ_3_18_PF_UAT] Attivazione Domicilio digitale SEND PF - Recapiti di cortesia presenti - Ambiente UAT
     Given Login Page persona fisica test viene visualizzata
     And Login con persona fisica input
       | user         | pluto-ta               |
@@ -40,6 +40,7 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Click Annulla
 #      Scenario: 18
+#N.B.: Tasto ha copy diverso, verificare se selettore non è cambiato
     And Si clicca su 'Attiva SEND su IO'
     And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si controlla che IO sia attivo
