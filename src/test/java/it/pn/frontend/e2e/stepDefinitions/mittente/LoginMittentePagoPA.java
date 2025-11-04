@@ -174,6 +174,10 @@ public class LoginMittentePagoPA extends BasePage {
         preAccediAreaRiservataPAPage.waitLoadPreAccediAreaRiservataPAPage();
         preAccediAreaRiservataPAPage.selezionaProcediAlLoginButton();
 
+        /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
+            condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
+        webTool.waitTime(3);
+
         // Verifica della presenza dell'URL e dei cookie per proseguire con l'accettazione dei cookie
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -227,6 +231,10 @@ public class LoginMittentePagoPA extends BasePage {
         loginPAPage.entraConSpid();
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
+
+        /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
+            condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
+        webTool.waitTime(3);
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
