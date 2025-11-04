@@ -130,7 +130,7 @@ public class LoginMittentePagoPA extends BasePage {
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
 
-        headerPASection.cliccareTastoAccediOneTrust();
+
 
         // Imposta un timeout più lungo per il caricamento della pagina
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
@@ -140,6 +140,7 @@ public class LoginMittentePagoPA extends BasePage {
             logger.info("Login effettuato con successo");
             webTool.waitTime(10);
             // Attendi che la dashboard sia completamente caricata
+            headerPASection.cliccareTastoAccediOneTrust();
             headerPASection.waitLoadHeaderSection();
             piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         } catch (Exception e) {

@@ -608,12 +608,12 @@ public class ITuoiRecapitiPage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Testo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
                 .until(ExpectedConditions.and(
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Un ente ti invia una notifica su SEND')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica ti viene ')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Un ente invia una notifica su SEND')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica viene')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//a[contains(text(), 'consegnata')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Quando ti arriva una notifica su SEND, ti avvisiamo tramite email e sui canali che preferisci')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Quando arriva una notifica su SEND per la tua impresa, ti avvisiamo tramite email e, se lo desideri, anche via SMS')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Accedi alla notifica')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Apri il dettaglio della notifica digitale sulla piattaforma SEND o, se hai attivato il servizio, direttamente dall’app IO')]")))
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Apri il dettaglio della notifica digitale sulla piattaforma SEND')]")))
                         )
                 );
     }

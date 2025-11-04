@@ -127,9 +127,6 @@ public class LoginPGPagoPATest extends BasePage {
 
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
 
-        headerPASection.tosSwitch();
-        headerPASection.cliccareTastoAccediOneTrust();
-
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         try {
             driver.get(urlLogin);
@@ -138,6 +135,9 @@ public class LoginPGPagoPATest extends BasePage {
             webTool.waitTime(10);
 
             headerPGSection.waitLoadHeaderPGPage();
+
+            headerPASection.tosSwitch();
+            headerPASection.cliccareTastoAccediOneTrust();
 
             if (personaGiuridica.equalsIgnoreCase("delegante")) {
                 logger.info("DELEGANTE: {}", dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());

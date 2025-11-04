@@ -133,14 +133,15 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 webDriverConfig.getTokentestPFDelegato();
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
-        headerPASection.tosSwitch();
-        headerPASection.cliccareTastoAccediOneTrust();
+
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         try {
             driver.get(urlLogin);
             logger.info("Login effettuato con successo");
             webTool.waitTime(10);
             // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+            headerPASection.tosSwitch();
+            headerPASection.cliccareTastoAccediOneTrust();
             headerPFSection.waitLoadHeaderDESection();
             notifichePFPage.waitLoadNotificheDEPage();
             //Salva il token exchange che verrà riusato per ottenere il session token da usare nelle chiamate a API SEND

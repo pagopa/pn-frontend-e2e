@@ -1459,6 +1459,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
 
     public void verificaPagina(String testo) {
+        webTool.waitTime(1);
         getWebDriverWait(25)
                 .withMessage("Non è presente Il testo '" + testo + "'")
                 .until(ExpectedConditions.presenceOfElementLocated(
@@ -1830,6 +1831,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                     .withMessage("Il secondo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
                     .until(ExpectedConditions.or(
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il domicilio digitale SEND')]")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il tuo domicilio digitale SEND')]")),
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'potrebbe ricevere le comunicazioni via raccomandata e')]"))
                     ));
 

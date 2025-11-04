@@ -382,6 +382,7 @@ public class RecapitiPGPagoPaTest extends BasePage {
 
     @And("Seleziona Tipologia {string}")
     public void selezionaTipologia(String tipologia) {
+        webTool.waitTime(1);
         recapitiDestinatarioPage.selezionaTipologia(tipologia);
     }
 
