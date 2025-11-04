@@ -1731,7 +1731,8 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
-                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+//                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+                            (By.xpath("//button[.//*[@data-testid='PowerSettingsNewIcon'] and contains(., 'Disattiva')]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 disattivaButton.click();
                 clickSuConfermaElimina();
@@ -1749,7 +1750,8 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
-                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+//                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+                            (By.xpath("//button[.//*[@data-testid='PowerSettingsNewIcon'] and contains(., 'Disattiva')]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 disattivaButton.click();
                 clickAnnulla();
