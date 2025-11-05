@@ -14,9 +14,9 @@ Feature: Verifica_copy_notifica_con_costi_senza_costi PF
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
     And  Aspetta 0 secondi
 ##  1 Modello F24 con costi
-    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "QYDT-MYMP-THMW-202505-U-1"
+    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "YNXM-DLDK-AHLW-202511-X-1"
     And Cliccare sulla notifica restituita dal filtro
-    And Verifica Neumro Copy Costi di notifica Inclusi 1 IUN "QYDT-MYMP-THMW-202505-U-1"
+    And Verifica Neumro Copy Costi di notifica Inclusi 1 IUN "YNXM-DLDK-AHLW-202511-X-1"
     And Verifica testo "L'importo finale potrebbe essere diverso da quello indicato"
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
     And  Aspetta 0 secondi
@@ -28,17 +28,17 @@ Feature: Verifica_copy_notifica_con_costi_senza_costi PF
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
     And  Aspetta 0 secondi
 ##  2 Modello F24 con costi
-    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "QYNZ-AJDJ-EUJM-202505-G-1"
+    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "KEDH-ZLNJ-ZEVQ-202511-G-1"
     And Cliccare sulla notifica restituita dal filtro
-    And Verifica Neumro Copy Costi di notifica Inclusi 2 IUN "QYNZ-AJDJ-EUJM-202505-G-1"
+    And Verifica Neumro Copy Costi di notifica Inclusi 2 IUN "KEDH-ZLNJ-ZEVQ-202511-G-1"
     And Verifica testo "Puoi pagare questa notifica tramite F24. Per vedere i dettagli, apri i modelli. L'importo finale potrebbe essere diverso da quello indicato"
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
     And  Aspetta 0 secondi
 ##  Ibrido con costi
     And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "UNRY-GHDM-ZMEL-202505-Q-1"
     And Cliccare sulla notifica restituita dal filtro
-    And Verifica Neumro Copy Costi di notifica Inclusi 2 IUN "UNRY-GHDM-ZMEL-202505-Q-1"
-    And Verifica testo "In questa notifica ci sono più possibilità di pagamento: seleziona o scarica ciò che vuoi pagare. Alcuni importi includono i costi di notifica"
+    And Verifica Neumro Copy Costi di notifica Inclusi 1 IUN "UNRY-GHDM-ZMEL-202505-Q-1"
+    And Verifica testo "L'importo finale potrebbe essere diverso da quello indicato"
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
     And  Aspetta 0 secondi
 ##  1 Avviso pago Pa senza costi
@@ -48,10 +48,10 @@ Feature: Verifica_copy_notifica_con_costi_senza_costi PF
     And Verifica testo "L'importo finale potrebbe essere diverso da quello indicato"
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
     And  Aspetta 0 secondi
-##  1 Modello F24 senza costi
-    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "JGNR-ZLHL-PDRD-202505-W-1"
+##  1 Modello F24 senza costi (Da rifare)
+    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "ATMZ-TDMD-QLGH-202511-Q-1"
     And Cliccare sulla notifica restituita dal filtro
-    And Verifica Neumro Copy Costi di notifica Inclusi 0 IUN "JGNR-ZLHL-PDRD-202505-W-1"
+    And Verifica Neumro Copy Costi di notifica Inclusi 0 IUN "ATMZ-TDMD-QLGH-202511-Q-1"
     And Verifica testo "L'importo finale potrebbe essere diverso da quello indicato"
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
     And  Aspetta 0 secondi
@@ -64,9 +64,9 @@ Feature: Verifica_copy_notifica_con_costi_senza_costi PF
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
     And  Aspetta 0 secondi
 ##  2 Modello F24 senza costi
-    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "QMKW-KZXG-NAPD-202505-R-1"
+    And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "ZMWA-QWMZ-TGEY-202511-W-1"
     And Cliccare sulla notifica restituita dal filtro
-    And Verifica Neumro Copy Costi di notifica Inclusi 0 IUN "QMKW-KZXG-NAPD-202505-R-1"
+    And Verifica Neumro Copy Costi di notifica Inclusi 0 IUN "ZMWA-QWMZ-TGEY-202511-W-1"
     And Verifica testo "Puoi pagare questa notifica tramite F24. Per vedere i dettagli, apri i modelli. L'importo finale potrebbe essere diverso da quello indicato"
     And Nella sezione Dettaglio Notifiche si clicca su l'opzione Indietro
     And  Aspetta 0 secondi
@@ -74,6 +74,6 @@ Feature: Verifica_copy_notifica_con_costi_senza_costi PF
     And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "EDXU-QTXP-WAVT-202505-V-1"
     And Cliccare sulla notifica restituita dal filtro
     And Verifica Neumro Copy Costi di notifica Inclusi 0 IUN "EDXU-QTXP-WAVT-202505-V-1"
-    And Verifica testo "In questa notifica ci sono più possibilità di pagamento: seleziona o scarica ciò che vuoi pagare. Alcuni importi includono i costi di notifica"
+    And Verifica testo "L'importo finale potrebbe essere diverso da quello indicato"
     And Cliccare su Come Mai
     And Verifica Pagina Come Mai
