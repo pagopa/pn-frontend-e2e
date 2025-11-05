@@ -296,6 +296,13 @@ public class DeleghePagoPATest extends BasePage {
         leTueDelegheSection.inserireCodiceDelega(getCodiceDelega(nomeConfig));
     }
 
+    @And("Inserisce Codice delega nel pop-up {string}")
+    public void inserireCodiceDelegaNelPopUp(String codice) {
+        logger.info("Inserisce Codice delega nel pop-up");
+        leTueDelegheSection.waitPopUpLoad();
+        leTueDelegheSection.inserireCodiceDelega(codice);
+    }
+
     @And("Si inserisce il codice errato delega nel pop-up {string}")
     public void siInserisceIlCodiceErratoDelegaNelPopUp(String codice) {
         logger.info("Si inserisce il codice per accettare la delega");

@@ -160,6 +160,12 @@ public class BackgroundTest extends BasePage {
         deleghePagoPATest.siCliccaSulBottoneAccetta();
     }
 
+    public void accettaDelegaPG(String codiceDelega) {
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePagoPATest.inserireCodiceDelegaNelPopUp(codiceDelega);
+        deleghePagoPATest.siCliccaSulBottoneAccetta();
+    }
+
     public void loginPFRecapiti(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
         personaFisicaPagoPA.homePageDestinatarioVieneVisualizzataCorrettamente();
