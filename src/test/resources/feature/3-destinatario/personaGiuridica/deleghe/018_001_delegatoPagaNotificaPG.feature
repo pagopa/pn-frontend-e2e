@@ -50,4 +50,4 @@ Feature:Il delegato persona giuridica accede ad una delega
     And Si controlla la pagina delle notifiche delegati di "Convivio Spa"
     And Refresh pagina
     And Si seleziona la notifica
-    And Si controlla che il testo sia nel box pagamento "//button[@data-testid='statusChip-Pagato']"
+    And Si controlla che il testo sia nel box pagamento "//*[@id='status-chip-Pagato']"
