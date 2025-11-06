@@ -3,7 +3,7 @@ Feature:Pagamento notifica
   @PF
   @PagamentoNotificaPF
   @notificaPagataESuccessivamenteAnnullata
-  @NRT_Blocco_2
+#  @NRT_Blocco_2
   Scenario:[NOTIFICA-PAGAMENTO NOTIFICA AVVISO PAGOPA] Verifica testo rimborso su notifica pagata e successivamente annullata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     When Si inizializzano i dati per la notifica

@@ -2,7 +2,7 @@ Feature: Presenza del documento di attestazione opponibile a terzi relativo all'
 
   @PF
   @TA_verificaDocumentoAnnullamentoNotifica_PA_PF
-  @NRT_Blocco_2
+#  @NRT_Blocco_2
 
   Scenario: [ATTESTATO_ANNULLAMENTO_LEGAL_FACT_PA_PF] Mittente - Verifica che sia presente il documento di attestazione opponibile a terzi relativo all'annullamento della notifica
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
