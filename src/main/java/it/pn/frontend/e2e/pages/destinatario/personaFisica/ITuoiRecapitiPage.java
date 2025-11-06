@@ -609,9 +609,9 @@ public class ITuoiRecapitiPage extends BasePage {
                 .withMessage("Testo nella pagina Attiva domicilio digitale su SEND non corretto o non presente Body PF")
                 .until(ExpectedConditions.and(
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Un ente ti invia una notifica su SEND')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica viene')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica ti viene')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//a[contains(text(), 'consegnata')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Quando ti arriva una notifica su SEND, ti avvisiamo tramite email e sui canali che preferisci']"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Quando ti arriva una notifica su SEND, ti avvisiamo tramite email e sui canali che preferisci')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Accedi alla notifica')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Apri il dettaglio della notifica digitale sulla piattaforma SEND')]")))
                         )
