@@ -1,6 +1,7 @@
 Feature: Login pagoPA
 
   @TA_loginMittente
+    @prova_login
   @NRT_Blocco_1
   Scenario: Login pagoPA mittente
     Given Login Page mittente viene visualizzata
@@ -15,6 +16,7 @@ Feature: Login pagoPA
     And Logout da portale mittente
 
   @TA_loginpersonaFisica_x
+  @prova_login
   @NRT_Blocco_1
   Scenario: Login pagoPA persona fisica
     Given Login Page persona fisica test viene visualizzata
@@ -31,6 +33,7 @@ Feature: Login pagoPA
     And Logout da portale persona fisica
 
   @TA_loginpersonaGiuridica
+  @prova_login
   @NRT_Blocco_1
   Scenario: PN-9146 - Login pagoPA persona giuridica
     Given Login Page persona giuridica viene visualizzata

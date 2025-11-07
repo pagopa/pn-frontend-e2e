@@ -36,7 +36,9 @@ public class LoginSpidPFPage extends BasePage {
 
     public void waitLoadLoginSpidDEPage() {
         try {
-            webTool.waitTime(5);
+//            webTool.waitTime(5);
+            //TODO:Andrea
+            webTool.waitTime(1);
 
             getWebDriverWait(40)
                     .withMessage("Il logo SPID non è visibile")

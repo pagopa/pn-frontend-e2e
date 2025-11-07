@@ -244,7 +244,9 @@ public class LoginMittentePagoPA extends BasePage {
 
         /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
             condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
-        webTool.waitTime(3);
+//        webTool.waitTime(3);
+        //TODO:Andrea
+        webTool.waitTime(1);
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -256,7 +258,9 @@ public class LoginMittentePagoPA extends BasePage {
             logger.info("cookies end");
         }
 
-        webTool.waitTime(10);
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));
         selezionaEntePAPage.selezionareComune(datiMittenteFile.get("comune"));
@@ -487,7 +491,9 @@ public class LoginMittentePagoPA extends BasePage {
         logger.info("Home page mittente viene visualizzata correttamente");
 
         headerPASection.waitLoadHeaderSection();
-        webTool.waitTime(10);
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if (areaRiservataPAPage.verificaCodiceFiscale(dataPopulationConfig.getMittente().getCodiceFiscale())) {
             logger.info("Codice fiscale presente");
@@ -496,18 +502,22 @@ public class LoginMittentePagoPA extends BasePage {
         }
 
         // Uso di attesa fissa di 5 secondi - considerare l'uso di WebDriverWait per migliorare la stabilità del test
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            TimeUnit.SECONDS.sleep(5);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        //TODO:Andrea
+        webTool.waitTime(1);
     }
 
     @And("Logout da portale mittente")
     public void logoutDaPortaleMittente() {
         logger.info("Si esce dal portale mittente");
 
-        webTool.waitTime(2);
+//        webTool.waitTime(2);
+        //TODO:Andrea
+        webTool.waitTime(1);
 
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();

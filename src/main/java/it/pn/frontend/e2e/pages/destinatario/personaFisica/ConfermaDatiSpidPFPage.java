@@ -35,7 +35,9 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     }
 
     public void waitLoadConfermaDatiSpidDEPage() {
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
 
         By spidLogoLocator = By.id("idp-logo");
         By alertBoxLocator = By.xpath("//h3[@class='alert-heading']");
@@ -51,22 +53,30 @@ public class ConfermaDatiSpidPFPage extends BasePage {
 
 
     public String leggiNomeUtente() {
-        getWebDriverWait(30).withMessage("nome utente non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'name')]/strong")));
+        getWebDriverWait(30)
+                .withMessage("nome utente non è visibile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'name')]/strong")));
         return element(By.xpath("//li[contains(text(),'name')]/strong")).getText();
     }
 
     public String leggiCognomeUtente() {
-        getWebDriverWait(30).withMessage("cognome utente non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'familyName')]/strong")));
+        getWebDriverWait(30)
+                .withMessage("cognome utente non è visibile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'familyName')]/strong")));
         return element(By.xpath("//li[contains(text(),'familyName')]/strong")).getText();
     }
 
     public String leggiNumeroFiscale() {
-        getWebDriverWait(30).withMessage("codice fiscale utente non è visibile").until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'fiscalNumber')]/strong")));
+        getWebDriverWait(30)
+                .withMessage("codice fiscale utente non è visibile")
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//li[contains(text(),'fiscalNumber')]/strong")));
         return element(By.xpath("//li[contains(text(),'fiscalNumber')]/strong")).getText();
     }
 
     public void selezionaConfermaButton() {
-        getWebDriverWait(30).withMessage("conferma dati spid button non è cliccabile").until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[value='Conferma']")));
+        getWebDriverWait(30)
+                .withMessage("conferma dati spid button non è cliccabile")
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector("input[value='Conferma']")));
         element(By.cssSelector("input[value='Conferma']")).click();
     }
 }

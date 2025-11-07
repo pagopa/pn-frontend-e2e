@@ -307,7 +307,9 @@ public class LoginPGPagoPATest extends BasePage {
         }
         loginPGPagoPAPage.clickInviaButton();
 
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
         autorizzaInvioDatiPGPage.waitLoadAutorizzaInvioDatiPGPage();
         autorizzaInvioDatiPGPage.clickInviaButton();
 
@@ -336,10 +338,14 @@ public class LoginPGPagoPATest extends BasePage {
         headerPGSection.waitLoadHeaderPGPage();
         headerPGSection.clickEsciButton();
         headerPGSection.clickEsciButtonPopUp();
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
         accediAreaRiservataPGPage.waitLoadAccediAreaRiservataPGPage();
 
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
     }
 
     @And("Logout da portale persona giuridica delegante")
