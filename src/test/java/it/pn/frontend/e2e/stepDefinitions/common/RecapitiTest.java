@@ -7,12 +7,16 @@ import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
+import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecapitiTest extends BasePage {
 
@@ -28,6 +32,7 @@ public class RecapitiTest extends BasePage {
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
     private ITuoiRecapitiPage iTuoiRecapitiPage;
+    private WebTool webTool;
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -42,6 +47,7 @@ public class RecapitiTest extends BasePage {
     @PostConstruct
     public void init() {
         logger.info("INIT TEST...: ");
+        webTool = new WebTool(driver);
         recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
         iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
@@ -375,8 +381,71 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.clickScollegaSENDDaIONelPopUpAggiungiITuoiRecapitiEImportante();
     }
 
+    @And("Verifica Indirizzi {string} Non Validi Con Caratteri Speciali per {string}")
+    public void verificaIndirizziNonValidiConCaratteriSpeciali(String tipo, String contesto) {
+        // Ottengo la lista di tutti gli indirizzi non validi (uno per ogni carattere speciale)
+        List<String> indirizziInvalidi = recapitiDestinatarioPage.generateInvalidAddress(tipo);
+        List<String> indirizziAccettati = new ArrayList<>();
+
+        for (String indirizzo : indirizziInvalidi) {
+            // Inserisce l’indirizzo nel campo corretto in base al contesto
+            switch (contesto.toLowerCase()) {
+                case "persona":
+                    recapitiDestinatarioPage.cancellaTesto();
+                    recapitiDestinatarioPage.insertEmailPEC(indirizzo);
+                    break;
+
+                case "ente":
+                    recapitiDestinatarioPage.inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnteCaratteriSpeciali(indirizzo);
+                    break;
+
+                case "homepage":
+                    if ("pec".equalsIgnoreCase(tipo)) {
+                        recapitiDestinatarioPage.insertPEC(indirizzo);
+                    } else {
+                        recapitiDestinatarioPage.insertEmail(indirizzo);
+                    }
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("Contesto non supportato: " + contesto);
+            }
+            webTool.waitTime(2);
+
+            // Verifica se compare il messaggio di errore in base al contesto
+            boolean erroreVisibile;
+            switch (contesto.toLowerCase()) {
+                case "persona":
+                    erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoPecModificatoNonValido(tipo);
+                    break;
+                case "ente":
+                    erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoPecPersonalizzaIlTuoDomicilioPerEnteMittenteNonValido(tipo);
+                    break;
+                case "homepage":
+                    erroreVisibile = recapitiDestinatarioPage.verificaIndirizzoEmailPecNonValido(tipo);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Contesto non supportato: " + contesto);
+            }
+
+            // Se non compare l'errore → l'indirizzo è stato accettato per sbaglio
+            if (!erroreVisibile) {
+                indirizziAccettati.add(indirizzo);
+                logger.error("Il sistema ha accettato un indirizzo non valido: {}", indirizzo);
+            } else {
+                logger.info("Indirizzo non valido correttamente rifiutato: {}", indirizzo);
+            }
+        }
+        // Asserzione finale: il sistema non deve accettare nessun indirizzo non valido
+        Assertions.assertTrue(indirizziAccettati.isEmpty(),
+                "Il sistema ha accettato i seguenti indirizzi non validi: " + indirizziAccettati);
+    }
+
     @And("Verifica Banner Personalizza il tuo domicilio digitale per ente mittente {string}")
     public void verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String testBanner) {
         recapitiDestinatarioPage.verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(testBanner);
+
     }
+
+
 }

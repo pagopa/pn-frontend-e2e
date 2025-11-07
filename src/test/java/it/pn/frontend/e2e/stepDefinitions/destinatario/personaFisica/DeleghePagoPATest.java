@@ -144,6 +144,28 @@ public class DeleghePagoPATest extends BasePage {
 
     }
 
+    @And("Inserire dati errati Nella sezione Le Tue Deleghe")
+    public void inserireDatierratiNellaSezioneLeTueDeleghe(Map<String, String> personaFisica) {
+        logger.info("Nella sezione Le Tue Deleghe inserire i dati");
+
+//        String nome = personaFisica.get("nome");
+//        String cognome = personaFisica.get("cognome");
+        String nome = leTueDelegheSection.generaCodificato(personaFisica.get("nome"),3,3);
+        String cognome = leTueDelegheSection.generaCodificato(personaFisica.get("cognome"),3,3);
+        String codiceFiscale = personaFisica.get("codiceFiscale");
+        String ente = personaFisica.get("ente");
+        logger.info("*-*-*-*-*-* ente: " + ente);
+
+        leTueDelegheSection.selectPersonaFisicaRadioButton();
+
+        leTueDelegheSection.insertNomeCognome(nome, cognome);
+        leTueDelegheSection.inserireCF(codiceFiscale);
+        leTueDelegheSection.selectSoloEntiSelezionati();
+        leTueDelegheSection.waitLoadPage();
+        leTueDelegheSection.selezionaUnEnte(ente);
+
+    }
+
     @And("Nella sezione Le Tue Deleghe verificare che la data sia corretta")
     public void nellaSezioneLeTueDelegheVerificareCheLaDataSiaCorretta() {
         logger.info("Si controlla che la data visualizzata sia corretta");
@@ -165,6 +187,18 @@ public class DeleghePagoPATest extends BasePage {
             default ->
                     Assertions.fail("Impossibile determinare tipo di persona, inserire come input dello step PF o PG");
         }
+    }
+
+    @And("Nella sezione Le Tue Deleghe salvare Nome e Cognome")
+    public void nellaSezioneLeTueDelegheSalvareNomeECognome() {
+        logger.info("Nella sezione Le Tue Deleghe salvare Nome e Cognome");
+        //NUOVA DELEGA
+        String nome = leTueDelegheSection.getNome();
+        String cognome = leTueDelegheSection.getCognome();
+
+        logger.info("Nome e Cognome: " + nome + " " + cognome);
+        dataPopulationConfig.getNuovaDelega().setNome(nome);
+        dataPopulationConfig.getNuovaDelega().setCognome(cognome);
     }
 
     @And("Nella sezione Le Tue Deleghe salvare il codice verifica")
@@ -685,6 +719,15 @@ public class DeleghePagoPATest extends BasePage {
     @Then("Verifica messaggio errore Deleghe {string}")
     public void verificaMessaggioErroreDeleghe(String messaggio) {
         deleghePage.verificaMessaggioErroreDeleghe(messaggio);
+    }
+  
+    @And("Nella sezione Le Tue Deleghe verifica esistenza nome e cognomi Errati {string}")
+    public void nellaSezioneLeTueDelegheVerificaEsistenzaNomeECognomiErrati(String persona) {
+        logger.info("nellaSezioneLeTueDelegheVerificaEsistenzaNomeECognomiErrati");
+        String nome = dataPopulationConfig.getNuovaDelega().getNome();
+        String cognome = dataPopulationConfig.getNuovaDelega().getCognome();
+        logger.info("nellaSezioneLeTueDelegheVerificaEsistenzaNomeECognomiErrati nome e cognome: " + nome + " " + cognome);
+        deleghePage.nellaSezioneLeTueDelegheVerificaEsistenzaNomeECognomiErrati(nome + " " + cognome, persona);
     }
 
     @And("Rimuovi tutti i delegati da i Tuoi Delegati se esistono")

@@ -234,6 +234,46 @@ public class DashboardPage extends BasePage {
 
     }
 
+    public void insertDataCorrettaStartDate() {
+        WebElement dateField = getWebDriverWait(10)
+                .withMessage("Il filtro di data non visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("startDate")));
+        logger.info("Si inserisce una data corretta");
+
+        // Svuota il campo in modo robusto
+        dateField.click();
+        dateField.sendKeys(Keys.CONTROL + "a");
+        dateField.sendKeys(Keys.BACK_SPACE);
+
+        // Calcola la data di 90 giorni fa
+        LocalDate dataDaInserire = LocalDate.now().minusDays(90);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = dataDaInserire.format(formatter);
+
+        // Inserisci la data
+        dateField.sendKeys(formattedDate);
+    }
+    public void insertDataCorrettaEndDate() {
+        WebElement dateField = getWebDriverWait(10)
+                .withMessage("Il filtro di data non visibile")
+                .until(ExpectedConditions.elementToBeClickable(By.id("endDate")));
+
+        logger.info("Si inserisce una data corretta");
+
+        // Svuota il campo in modo robusto
+        dateField.click();
+        dateField.sendKeys(Keys.CONTROL + "a");
+        dateField.sendKeys(Keys.BACK_SPACE);
+
+        // Calcola la data di 90 giorni fa
+        LocalDate dataDaInserire = LocalDate.now().minusDays(90);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = dataDaInserire.format(formatter);
+
+        // Inserisci la data
+        dateField.sendKeys(formattedDate);
+    }
+  
     public void insertDataCorretta() {
         List<WebElement> dateDa = getWebDriverWait(10)
                 .withMessage("Nessun campo data trovato")
@@ -259,6 +299,7 @@ public class DashboardPage extends BasePage {
         webTool.waitTime(1);
         dateField.sendKeys(formattedDate);
         logger.info("Inserita data: {}", formattedDate);
+
 
     }
 
