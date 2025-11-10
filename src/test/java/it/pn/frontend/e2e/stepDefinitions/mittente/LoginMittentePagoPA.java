@@ -138,7 +138,9 @@ public class LoginMittentePagoPA extends BasePage {
         try {
             driver.get(urlLogin);
             logger.info("Login effettuato con successo");
-            webTool.waitTime(10);
+//            webTool.waitTime(10);
+            //TODO:Andrea
+            webTool.waitTime(1);
             // Attendi che la dashboard sia completamente caricata
             headerPASection.cliccareTastoAccediOneTrust();
             headerPASection.waitLoadHeaderSection();
@@ -164,8 +166,9 @@ public class LoginMittentePagoPA extends BasePage {
         driver.get(urlLogin);
         logger.info("Login effettuato con successo");
         // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
-        webTool.waitTime(10);
-
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
         headerPASection.waitLoadHeaderSection();
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
