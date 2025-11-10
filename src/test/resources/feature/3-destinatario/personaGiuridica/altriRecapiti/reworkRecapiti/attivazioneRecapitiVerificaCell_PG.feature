@@ -24,8 +24,8 @@ Feature: Rework della pagina dei contatti
     When Click Bottone "Aggiungi un numero di cellulare"
     And Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3409876543" e si clicca sul bottone avvisami via SMS
     And Si clicca sul bottone del pop-up Annulla
-    And Verifica Pagina "Numero di cellulare"
-    And Verifica Pagina "Recapiti"
+    And Verifica testo nella pagina "Numero di cellulare"
+    And Verifica testo nella pagina "Recapiti"
 ###  REWORK_DOMICILIO_DIGITALE_PF_32
     #And Aspetta 1 secondi
     And Refresh pagina
@@ -33,6 +33,6 @@ Feature: Rework della pagina dei contatti
     When Nella pagina I Tuoi Recapiti si inserisce il numero di telefono "3409876543" e si clicca sul bottone avvisami via SMS
     And Si clicca sul bottone del pop-up ok ho capito
     And Cliccare sul bottone Annulla
-    And Verifica Pagina "Indirizzo email aziendale"
-    And Verifica Pagina "Indirizzo email"
+    And Verifica testo nella pagina "Indirizzo email aziendale"
+    And Verifica testo nella pagina "Indirizzo email"
 

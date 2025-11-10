@@ -33,8 +33,8 @@ Feature: Rework della pagina dei contatti
     And Si visualizza correttamente la pagina Gestisci Il Tuo Dominio Digitale
 ##  REWORK_DOMICILIO_DIGITALE_PF_22
     When Click Bottone "Trasferisci su una PEC"
-    And Verifica Pagina "Trasferisci il domicilio digitale su una PEC"
-    And Verifica Pagina "Inserisci la tua PEC"
+    And Verifica testo nella pagina "Trasferisci il domicilio digitale su una PEC"
+    And Verifica testo nella pagina "Inserisci la tua PEC"
 ##  REWORK_DOMICILIO_DIGITALE_PF_23
     When Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Si visualizza correttamente la pagina Gestisci Il Tuo Dominio Digitale

@@ -36,9 +36,9 @@ Feature: Rework della pagina dei contatti
     When Click Bottone Gestisci
     And Click Bottone "Trasferisci su SEND"
 
-    When Verifica Pagina "Trasferisci il domicilio digitale sulla piattaforma SEND"
-    And Verifica Pagina "Come funziona"
+    When Verifica testo nella pagina "Trasferisci il domicilio digitale sulla piattaforma SEND"
+    And Verifica testo nella pagina "Come funziona"
     ##  REWORK_DOMICILIO_DIGITALE_PG_47
     And Click Bottone Esci PF
-    Then Verifica Pagina "Il tuo domicilio digitale"
-    And Verifica Pagina "Il tuo indirizzo email"
+    Then Verifica testo nella pagina "Il tuo domicilio digitale"
+    And Verifica testo nella pagina "Il tuo indirizzo email"

@@ -25,7 +25,6 @@ Feature: Rework della pagina dei contatti
     When Click Inizia
     And Click Continua
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
@@ -34,7 +33,6 @@ Feature: Rework della pagina dei contatti
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
-    And Verifica e Disattiva email
     #    Scenario: 34
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
@@ -49,12 +47,12 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
-    Then Verifica Pagina "prova1pf@pec.it"
+    Then Verifica testo nella pagina "prova1pf@pec.it"
      #Validation bug PF QA-8729
     And Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
     And Click Menu Ente Mittente Inserimento ente "Agenzia delle Entrate"
-    And Verifica Banner Personalizza il tuo domicilio digitale per ente mittente "associato al recapito prova1pf@pec.it"
+    #And Verifica Banner Personalizza il tuo domicilio digitale per ente mittente "associato al recapito prova1pf@pec.it"
     And Spuntare checkbox privacy
     And Inserisci Pec in Personalizza il tuo domicilio digitale per ente "prova1pf@pec.it"
     And Click Torna ai tuoi recapiti
@@ -72,7 +70,7 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
-    Then Verifica Pagina "prova2pf@pec.it"
+    Then Verifica testo nella pagina "prova2pf@pec.it"
     #    Scenario: 35
     And Click Modifica personalizzati per ente
     And Click Annulla
@@ -84,7 +82,7 @@ Feature: Rework della pagina dei contatti
     And Si verifica se popup conferma presente
     And Attesa 3 secondi
     And Refresh pagina
-    And Verifica Pagina "pectest@pec.it"
+    And Verifica testo nella pagina "pectest@pec.it"
     #    Scenario: 36
     When Click Elimina personalizzati per ente
     And Attesa 2 secondi

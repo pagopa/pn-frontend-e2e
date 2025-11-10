@@ -21,10 +21,10 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
     # Attivazione PEC
     And Click Inizia
     And Click Bottone "Inserisci PEC"
-    Then Verifica Pagina "Usa una PEC come domicilio digitale"
-    And Verifica Pagina "Inserisci la tua PEC"
-    And Verifica Pagina "Quando un ente ti invia una notifica SEND"
-    And Verifica Pagina "Indirizzo PEC"
+    Then Verifica testo nella pagina "Usa una PEC come domicilio digitale"
+    And Verifica testo nella pagina "Inserisci la tua PEC"
+    And Verifica testo nella pagina "Quando un ente ti invia una notifica SEND"
+    And Verifica testo nella pagina "Indirizzo PEC"
     And Si inserisce la Pec della "personaFisica" e si clicca sul bottone Conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"

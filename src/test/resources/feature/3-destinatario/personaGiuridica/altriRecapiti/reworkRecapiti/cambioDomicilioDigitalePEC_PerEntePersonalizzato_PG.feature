@@ -43,16 +43,16 @@ Feature: Rework della pagina dei contatti
 ##  REWORK_DOMICILIO_DIGITALE_PG_50
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
-    And Verifica Pagina "Personalizza il tuo domicilio digitale per ente mittente"
-    And Verifica Pagina "ente e il recapito da associare"
+    And Verifica testo nella pagina "Personalizza il tuo domicilio digitale per ente mittente"
+    And Verifica testo nella pagina "ente e il recapito da associare"
 ##  REWORK_DOMICILIO_DIGITALE_PG_53
     When Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
-    And Verifica Pagina "domicilio digitale"
-    And Verifica Pagina "La piattaforma SEND"
+    And Verifica testo nella pagina "domicilio digitale"
+    And Verifica testo nella pagina "La piattaforma SEND"
 ##  REWORK_DOMICILIO_DIGITALE_PG_54
     When Click Bottone "Personalizza per ente"
     And Click Bottone Esci PG
-    And Verifica Pagina "Il domicilio digitale della tua impresa"
+    And Verifica testo nella pagina "Il domicilio digitale della tua impresa"
     And Verifica Attivazione Domicilio digitale
 ##  REWORK_DOMICILIO_DIGITALE_PG_51
     When Click Bottone Gestisci
@@ -65,17 +65,17 @@ Feature: Rework della pagina dei contatti
 ##  REWORK_DOMICILIO_DIGITALE_PG_52
     When Si visualizza correttamente la pagina di avvenuta attivazione del Domicilio Digitale
     And Click Torna ai tuoi recapiti
-    And Verifica Pagina "Validazione PEC in corso"
+    And Verifica testo nella pagina "Validazione PEC in corso"
 ###  REWORK_DOMICILIO_DIGITALE_PG_56
     #And Aspetta 1 secondi
     And Refresh pagina
     And Click Modifica personalizzati per ente
     And Click Bottone "Annulla"
-    And Verifica Pagina "prova@pec.it"
+    And Verifica testo nella pagina "prova@pec.it"
     And Click Modifica personalizzati per ente
     And Modifica Pec personalizzati per Ente e conferma "pec@pec.pagopa.it"
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "pec@pec.pagopa.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
-    And Verifica Pagina "pec@pec.pagopa.it"
+    And Verifica testo nella pagina "pec@pec.pagopa.it"

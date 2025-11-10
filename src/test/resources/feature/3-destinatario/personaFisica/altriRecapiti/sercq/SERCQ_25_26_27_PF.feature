@@ -41,7 +41,6 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Inizia nel Banner
     And Click Continua
     And Si inserisce l'email della "personaFisica" e si clicca sul bottone avvisami via email
-    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
@@ -50,4 +49,4 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
-    And Verifica Scomparsa Banner Inizia
+    And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato

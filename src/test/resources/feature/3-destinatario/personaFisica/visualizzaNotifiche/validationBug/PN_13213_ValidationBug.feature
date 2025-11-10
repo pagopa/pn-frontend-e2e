@@ -14,6 +14,7 @@ Feature: La persona giuridica aggiunge una nuova delega
       | dev  | KZTL-KLPK-DRZU-202508-N-1 |
       | test | PUGW-RUDZ-VQZR-202508-V-1 |
       | uat  | KZTL-KLPK-DRZU-202508-N-1 |
+    #And Si controlla se la sezione pagamento visualizzata correttamente
     And Si clicca sui radio button del pagamento
     And Cliccare sul bottone Paga
 

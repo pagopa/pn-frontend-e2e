@@ -20,16 +20,16 @@ Feature: Rework della pagina dei contatti
 
     When Click Inizia
     And Click Bottone Esci PG
-    Then Verifica Pagina "Da attivare"
-    And Verifica Pagina "Indirizzo email aziendale"
+    Then Verifica testo nella pagina "Da attivare"
+    And Verifica testo nella pagina "Indirizzo email aziendale"
 
 #REWORK_DOMICILIO_DIGITALE_PG_78
     And Verifica e Disattiva domicilio digitale
     When Click Inizia
-    And Verifica Pagina "Come funziona"
+    And Verifica testo nella pagina "Come funziona"
     And Click Attiva
-    And Verifica Pagina "La tua mail per ricevere aggiornamenti"
+    And Verifica testo nella pagina "La tua mail per ricevere aggiornamenti"
     And Click Bottone Esci PG
-    And Verifica Pagina "Non rischiare di leggere in ritardo le tue notifiche"
+    And Verifica testo nella pagina "Non rischiare di leggere in ritardo le tue notifiche"
     And Click Lo Faro piu tardi
     And Click Torna ai tuoi recapiti

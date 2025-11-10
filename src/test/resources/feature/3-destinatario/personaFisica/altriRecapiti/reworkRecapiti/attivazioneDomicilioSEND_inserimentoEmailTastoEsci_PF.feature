@@ -25,15 +25,15 @@ Feature: Rework della pagina dei contatti
 
     When Click Inizia
     And Click Bottone Esci PF
-    Then Verifica Pagina "Il tuo domicilio digitale"
-    And Verifica Pagina "app IO"
-    And Verifica Pagina "Il tuo indirizzo email"
+    Then Verifica testo nella pagina "Il tuo domicilio digitale"
+    And Verifica testo nella pagina "app IO"
+    And Verifica testo nella pagina "Il tuo indirizzo email"
 #REWORK_DOMICILIO_DIGITALE_PF_78
     When Click Inizia
-    And Verifica Pagina "Come funziona"
+    And Verifica testo nella pagina "Come funziona"
     And Click Attiva
-    And Verifica Pagina "La tua mail per ricevere aggiornamenti"
+    And Verifica testo nella pagina "La tua mail per ricevere aggiornamenti"
     And Click Bottone Esci PF
-    And Verifica Pagina "Non rischiare di leggere in ritardo le tue notifiche"
+    And Verifica testo nella pagina "Non rischiare di leggere in ritardo le tue notifiche"
     And Click Lo Faro piu tardi
     And Click Torna ai tuoi recapiti

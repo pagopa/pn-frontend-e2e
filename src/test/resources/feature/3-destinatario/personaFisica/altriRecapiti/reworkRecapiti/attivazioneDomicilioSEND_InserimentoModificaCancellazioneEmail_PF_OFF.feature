@@ -38,8 +38,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce l'OTP ricevuto via Email
-    And Verifica Pagina "prova@test.it"
-    And Verifica Pagina "ti avvisiamo con una email all"
+    And Verifica testo nella pagina "prova@test.it"
+    And Verifica testo nella pagina "ti avvisiamo con una email all"
 
     #Disattiva email e annullo
     And Attesa 1 secondi
@@ -55,8 +55,8 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova Email "provaemailpf@test.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
-    And Verifica Pagina "provaemailpf@test.it"
-    And Verifica Pagina "ti avvisiamo con una email all"
+    And Verifica testo nella pagina "provaemailpf@test.it"
+    And Verifica testo nella pagina "ti avvisiamo con una email all"
 # Verifica assenza banner email mancante
     And Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
     And Aspetta 10 secondi

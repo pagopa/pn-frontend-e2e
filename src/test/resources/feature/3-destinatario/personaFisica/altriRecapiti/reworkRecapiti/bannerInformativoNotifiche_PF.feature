@@ -24,17 +24,17 @@ Feature: Rework della pagina dei contatti
     And Click Bottone Notifica
     And Click Bottone "Inizia"
 
-    When Verifica Pagina "Attiva domicilio digitale"
-    And Verifica Pagina "Inserisci PEC"
-    And Verifica Pagina "Come funziona"
-    And Verifica Pagina "Accedi alla notifica"
+    When Verifica testo nella pagina "Attiva domicilio digitale"
+    And Verifica testo nella pagina "Inserisci PEC"
+    And Verifica testo nella pagina "Come funziona"
+    And Verifica testo nella pagina "Accedi alla notifica"
 
     When Click link consegnata
-    And Verifica Pagina "Valore giuridico della notifica sul domicilio digitale SEND"
-    And Verifica Pagina "Se scegli SEND come domicilio digitale"
+    And Verifica testo nella pagina "Valore giuridico della notifica sul domicilio digitale SEND"
+    And Verifica testo nella pagina "Se scegli SEND come domicilio digitale"
 
     And Click Bottone "ho capito"
-    Then Verifica Pagina "Attiva domicilio digitale"
-    And Verifica Pagina "Inserisci PEC"
-    And Verifica Pagina "Come funziona"
-    And Verifica Pagina "Accedi alla notifica"
+    Then Verifica testo nella pagina "Attiva domicilio digitale"
+    And Verifica testo nella pagina "Inserisci PEC"
+    And Verifica testo nella pagina "Come funziona"
+    And Verifica testo nella pagina "Accedi alla notifica"

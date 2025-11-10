@@ -24,19 +24,21 @@ Feature: Rework della pagina dei contatti
 
     #    Scenario: 25
     And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
+    And Attesa 1 secondi
+    And Refresh pagina
     And Click Bottone Inizia nel Banner
     And Click Continua
     And Click Bottone Indietro Trasferisci e Personalizza il domicilio digitale
     And Click Annulla
 
 #    Scenario: 27
+    #And Nella pagina Piattaforma Notifiche persona giuridica si clicca solo su notifiche dell' impresa
     And Entro dentro la prima notifica con stato "Avvenuto accesso"
     And Attesa 1 secondi
     And Click Bottone Inizia nel Banner
     And Click Continua
 
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
-    And Si clicca sul bottone del pop-up ok ho capito
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
@@ -44,7 +46,7 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Click Attiva domicilio digitale
     And Click Torna ai tuoi recapiti
-    And Verifica Scomparsa Banner Inizia
+    And Non si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato
 
 
 

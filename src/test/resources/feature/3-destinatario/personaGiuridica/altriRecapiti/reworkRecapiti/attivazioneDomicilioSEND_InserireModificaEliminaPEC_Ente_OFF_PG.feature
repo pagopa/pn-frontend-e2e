@@ -36,7 +36,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "provaa@pec.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
-    Then Verifica Pagina "provaa@pec.it"
+    Then Verifica testo nella pagina "provaa@pec.it"
 ##  REWORK_DOMICILIO_DIGITALE_PG_82
     When Click Bottone Gestisci
     And Click Bottone "Personalizza per ente"
@@ -55,7 +55,7 @@ Feature: Rework della pagina dei contatti
     And Nella pagina I Tuoi Recapiti si recupera il codice OTP della nuova PEC "pec@pec.pagopa.it" tramite chiamata request
     And Nella pagina I Tuoi Recapiti si inserisce il codice OTP
     And Si verifica se popup conferma presente
-    And Verifica Pagina "pec@pec.pagopa.it"
+    And Verifica testo nella pagina "pec@pec.pagopa.it"
 ##  REWORK_DOMICILIO_DIGITALE_PG_84
     When Click Elimina personalizzati per ente
     #And Aspetta 1 secondi

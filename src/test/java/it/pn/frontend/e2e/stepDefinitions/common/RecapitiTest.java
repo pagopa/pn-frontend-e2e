@@ -6,6 +6,7 @@ import it.pn.frontend.e2e.common.BasePage;
 import it.pn.frontend.e2e.common.RecapitiDestinatarioPage;
 import it.pn.frontend.e2e.config.WebDriverConfig;
 import it.pn.frontend.e2e.pages.destinatario.personaFisica.ITuoiRecapitiPage;
+import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.RecapitiPGPage;
 import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
@@ -32,7 +33,11 @@ public class RecapitiTest extends BasePage {
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
     private ITuoiRecapitiPage iTuoiRecapitiPage;
+
+    private RecapitiPGPage recapitiPGPage;
+
     private WebTool webTool;
+
 
     @Autowired
     private WebDriverConfig webDriverConfig;
@@ -50,6 +55,7 @@ public class RecapitiTest extends BasePage {
         webTool = new WebTool(driver);
         recapitiDestinatarioPage = new RecapitiDestinatarioPage(driver);
         iTuoiRecapitiPage = new ITuoiRecapitiPage(driver);
+        recapitiPGPage = new RecapitiPGPage(driver);
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
         backgroundTest.setRecapitiTest(this);
 
@@ -237,10 +243,16 @@ public class RecapitiTest extends BasePage {
         logger.info("Si è su ambiente {} e feature IO non è attiva, si prosegue con il test", variabileAmbiente);
     }
 
-    @And("Si visualizza correttamente il banner di recapito di cortesia mancante")
-    public void siVisualizzaCorrettamenteIlBannerDiDomicilioMancante() {
-        logger.info("Si visualizza correttamente il banner di recapito di cortesia mancante");
-        recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancante();
+    @And("Si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato")
+    public void siVisualizzaCorrettamenteIlBannerDiDomicilioMancanteDDAttivato() {
+        logger.info("Si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato");
+        recapitiDestinatarioPage.checkBannerRecapitoCortesiaMancanteDDAttivato();
+    }
+
+    @And("Non si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato")
+    public void nonSiVisualizzaCorrettamenteIlBannerDiDomicilioMancanteDDAttivato() {
+        logger.info("Non si visualizza correttamente il banner di recapito di cortesia mancante con DD attivato");
+        recapitiDestinatarioPage.checkAssenzaBannerRecapitoCortesiaMancanteDDAttivato();
     }
 
     @And("Si visualizza correttamente il banner di email mancante")
@@ -336,6 +348,11 @@ public class RecapitiTest extends BasePage {
         recapitiDestinatarioPage.clickOkHoCapitoRecapitiPopUp();
     }
 
+    @And("Verifica della presenza della modale Importanza aggiunta contatti")
+    public void verificaPresenzaModaleImportanzaAggiuntaContatti() {
+        recapitiDestinatarioPage.verificaPresenzaModaleImportanzaAggiuntaContatti();
+    }
+
     @And("Verifica presenza Campo obbligatorio")
     public void verificaPresenzaCampoObbligatorio() {
         recapitiDestinatarioPage.verificaPresenzaCampoObbligatorio();
@@ -349,11 +366,6 @@ public class RecapitiTest extends BasePage {
     @And("Verifica  Indirizzo pec non valido")
     public void verificaIndirizzoPecNonValido() {
         recapitiDestinatarioPage.verificaIndirizzoPecNonValido();
-    }
-
-    @And("Verifica Scomparsa Banner Inizia")
-    public void verificaScomparsaBannerInizia() {
-        recapitiDestinatarioPage.verificaScomparsaBannerInizia();
     }
 
     @And("Verifica abilitazione campo email")
@@ -447,5 +459,135 @@ public class RecapitiTest extends BasePage {
 
     }
 
+    @And("Click su bottone Disattiva per il recapito mail")
+    public void clickSuBottoneDisattivaPerIlRecapitoMail() {
+        recapitiDestinatarioPage.clickBottoneDisattivaInSezioneEmailDiCortesia();
+    }
+
+    @Then("Verifica pop-up Non è possibile disattivare l'email")
+    public void verificaNonEPossibileDisattivareEmail() {
+        iTuoiRecapitiPage.checkNonEPossibileDisattivareEmail();
+    }
+
+    @And("Si chiude pop-up Non è possibile disattivare l'email")
+    public void siChiudePopUpNonÈPossibileDisattivareLEmail() {
+        iTuoiRecapitiPage.siChiudeNonEPossibileDisattivareEmail();
+    }
+
+    @And("Si visualizza correttamente il banner di Domicilio Digitale non attivato")
+    public void siVisualizzaCorrettamenteIlBannerDiDomicilioDigitaleNonAttivato() {
+        recapitiDestinatarioPage.checkBannerDomicilioDigitaleNonAttivato();
+    }
+
+    @And("Click su Disattiva Personalizzati per Ente e Annulla")
+    public void clickSuDisattivaPersonalizzatiPerEnte() {
+        recapitiDestinatarioPage.clickSuDisattivaPersonalizzatiPerEnteEAnnulla();
+    }
+
+    @And("Non si visualizzano correttamente i pulsanti modifica, elimina e non è possibile modificare l'email")
+    public void nonSiVisualizzanoCorrettamenteGliElementiPostModifica() {
+        logger.info("Si controlla che non si visualizzano correttamente i pulsanti modifica, elimina e che non è possibile modificare l'email");
+        iTuoiRecapitiPage.checkAssenzaPostModifica();
+    }
+
+    @And("Verifica della pagina Attiva domicilio digitale su SEND per PF")
+    public void verificaDellaPaginaAttivaDomicilioDigitaleSuSENDPF() {
+        iTuoiRecapitiPage.verificaDellaPaginaAttivaDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della pagina Attiva domicilio digitale su SEND per PG")
+    public void verificaDellaPaginaAttivaDomicilioDigitaleSuSENDPG() {
+        recapitiPGPage.verificaDellaPaginaAttivaDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della pagina La tua email per ricevere avvisi sulle notifiche SEND")
+    public void verificaDellaPaginaLaTuaEmailPerRicevereAvvisiSulleNotificheSEND() {
+        recapitiDestinatarioPage.verificaDellaPaginaLaTuaEmailPerRicevereAvvisiSulleNotificheSEND();
+    }
+
+    @And("Verifica della pagina Stai attivando il tuo domicilio digitale su SEND")
+    public void verificaDellaPaginaStaiAttivandoIlTuoDomicilioDigitaleSuSEND() {
+        recapitiDestinatarioPage.verificaDellaPaginaStaiAttivandoIlTuoDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della TYP Hai attivato il tuo domicilio digitale su SEND")
+    public void verificaDellaTYPHaiAttivatoIlTuoDomicilioDigitaleSuSEND() {
+        recapitiDestinatarioPage.verificaDellaTYPHaiAttivatoIlTuoDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della pagina La email aziendale per ricevere avvisi sulle notifiche SEND")
+    public void verificaDellaPaginaLaEmailAziendalePerRicevereAvvisiSulleNotificheSEND() {
+        recapitiPGPage.verificaDellaPaginaLaEmailAziendalePerRicevereAvvisiSulleNotificheSEND();
+    }
+
+    @And("Verifica della presenza della modale Importanza aggiunta contatti aziendali")
+    public void verificaDellaPresenzaDellaModaleImportanzaAggiuntaContattiAziendali() {
+        recapitiPGPage.verificaPresenzaModaleImportanzaAggiuntaContattiAziendali();
+    }
+
+    @And("Verifica della pagina Stai attivando il domicilio digitale su SEND per PG")
+    public void verificaDellaPaginaStaiAttivandoIlDomicilioDigitaleSuSENDPG() {
+        recapitiPGPage.verificaDellaPaginaStaiAttivandoIlDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della TYP Hai attivato il domicilio digitale su SEND per PG")
+    public void verificaDellaTYPHaiAttivatoIlDomicilioDigitaleSuSENDPG() {
+        recapitiPGPage.verificaDellaTYPHaiAttivatoIlDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della pagina Gestisci il tuo domicilio digitale")
+    public void verificaDellaPaginaGestisciIlTuoDomicilioDigitale() {
+        iTuoiRecapitiPage.GestisciIlDomicilioDigitale();
+    }
+
+    @And("Verifica della pagina Gestisci il domicilio digitale per PG")
+    public void verificaDellaPaginaGestisciIlDomicilioDigitalePerPG() {
+        recapitiPGPage.verificaDellaPaginaGestisciIlDomicilioDigitalePerPG();
+    }
+
+    @And("Verifica della pagina Personalizza il tuo domicilio digitale per ente mittente per PF")
+    public void verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittentePF() {
+        iTuoiRecapitiPage.verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittente();
+    }
+
+    @And("Verifica della pagina Personalizza il tuo domicilio digitale per ente mittente per PG")
+    public void verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittentePG() {
+        recapitiPGPage.verificaDellaPaginaPersonalizzaIlTuoDomicilioDigitalePerEnteMittente();
+    }
+
+    @And("Verifica della TYP Trasferimento del domicilio digitale in corso per PF")
+    public void verificaDellaTYPTrasferimentoDelDomicilioDigitaleInCorsoPF() {
+        iTuoiRecapitiPage.verificaDellaTYPTrasferimentoDelDomicilioDigitaleInCorso();
+    }
+
+    @And("Verifica della TYP Hai trasferito il tuo domicilio digitale su SEND")
+    public void verificaDellaTYPHaiTrasferitoIlTuoDomicilioDigitaleSuSEND() {
+        iTuoiRecapitiPage.verificaDellaTYPHaiTrasferitoIlTuoDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della TYP Hai trasferito il domicilio digitale su SEND per PG")
+    public void verificaDellaTYPHaiTrasferitoIlDomicilioDigitaleSuSENDPerPG() {
+        recapitiPGPage.verificaDellaTYPHaiTrasferitoIlDomicilioDigitaleSuSEND();
+    }
+
+    @And("Verifica della pagina Hai aggiornato il tuo domicilio digitale per PF")
+    public void verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitalePF() {
+        iTuoiRecapitiPage.verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale();
+    }
+
+    @And("Verifica della pagina Hai aggiornato il tuo domicilio digitale per PG")
+    public void verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitalePG() {
+        recapitiPGPage.verificaDellaPaginaHaiAggiornatoIlTuoDomicilioDigitale();
+    }
+
+    @And("Verifica della pagina Usa una PEC come domicilio digitale per PF")
+    public void verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePF() {
+        iTuoiRecapitiPage.verificaDellaPaginaUsaUnaPECComeDomicilioDigitale();
+    }
+
+    @And("Verifica della pagina Usa una PEC come domicilio digitale per PG")
+    public void verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePG() {
+        recapitiPGPage.verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePG();
+    }
 
 }

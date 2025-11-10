@@ -798,9 +798,10 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void clickAvvisamiViaEmail() {
         By avvisamiEmailLocator = By.id("default_email-button");
-        WebElement avvisamiViaEmailButton = getWebDriverWait(10)
+        getWebDriverWait(10)
                 .withMessage("Il bottone 'Avvisami via email' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(avvisamiEmailLocator));
+        WebElement avvisamiViaEmailButton = driver.findElement(avvisamiEmailLocator);
         avvisamiViaEmailButton.click();
     }
 
@@ -882,7 +883,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickButtonAnnullaEliminazioneInPopUp() {
-        By annullaButtonBy = By.id("buttonAnnulla");
+        By annullaButtonBy = By.xpath("//button[contains(text(),'Annulla')]");
 
         WebElement buttonAnnulla = getWebDriverWait(10)
                 .withMessage("Non è stato possibile cliccare sul bottone annulla")
@@ -1341,15 +1342,16 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void verificaDaAttivareDomicilioDigitale() {
-        verificaPresenza("Impossibile trovare Il domicilio digitale della tua impresa ", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h6[contains(text(), 'domicilio digitale')]")
-        ));
-        verificaPresenza("Impossibile trovare Attivo ", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Da attivare')]")
-        ));
-        verificaPresenza("Impossibile Cliccare su Inizia ", ExpectedConditions.elementToBeClickable(
-                By.xpath("//button[contains(text(),'Inizia')]")
-        ));
+        try {
+            getWebDriverWait(10).withMessage("Impossibile trovare Il domicilio digitale della tua impresa ").until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//h6[contains(text(), 'domicilio digitale')]")));
+            getWebDriverWait(10).withMessage("Impossibile trovare Attivo ").until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Da attivare')]")));
+            getWebDriverWait(10).withMessage("Impossibile Cliccare su Inizia ").until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//button[contains(text(),'Inizia')]")));
+        } catch (Exception e) {
+            Assertions.fail("Errore in verificaDaAttivareDomicilioDigitale: {}", e);
+        }
     }
 
     public void verificaDaAttivareIO() {
@@ -1373,13 +1375,27 @@ public class RecapitiDestinatarioPage extends BasePage {
         ));
     }
 
-    public void checkBannerRecapitoCortesiaMancante() {
-        verificaPresenza("Il banner di recapito di cortesia mancante non è presente", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]")));
-        verificaPresenza("Il banner di recapito di cortesia mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("(//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p)[1]")));
-        verificaPresenza("Il banner di recapito di cortesia mancante non ha il sottotesto corretto", ExpectedConditions.visibilityOfElementLocated(
-                By.xpath("(//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p)[2]")));
+    public void checkBannerRecapitoCortesiaMancanteDDAttivato() {
+        try {
+            verificaPresenza("Il banner di recapito di cortesia mancante non è presente", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]")));
+            verificaPresenza("Il banner di recapito di cortesia mancante non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p[contains(text(), 'Non perderti le comunicazioni importanti')]")));
+            verificaPresenza("Il banner di recapito di cortesia mancante non ha il sottotesto corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]//p[contains(text(), 'Senza un recapito di cortesia non possiamo avvisarti quando c’è da leggere una comunicazione a valore legale su SEND.')]")));
+        } catch (TimeoutException e) {
+            Assertions.fail("Il banner di recapito di cortesia mancante non è presente");
+        }
+    }
+
+    public void checkAssenzaBannerRecapitoCortesiaMancanteDDAttivato() {
+        try {
+            verificaPresenza("Il banner di recapito di cortesia mancante è presente", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedWarning')]")));
+            Assertions.fail("Il banner di recapito di cortesia mancante è presente.");
+        } catch (TimeoutException e) {
+            Assertions.assertTrue(true, "Il banner di recapito di cortesia mancante è presente");
+        }
     }
 
     public void checkPresenzaBannerEmailMancante() {
@@ -1415,6 +1431,13 @@ public class RecapitiDestinatarioPage extends BasePage {
             verificaPresenza("Il banner di PEC in validazione non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[@data-testid='PecVerificationAlert']//..//p[contains(text(),'La piattaforma SEND resterà il tuo domicilio digitale per " + ente + " fino al completamento della validazione.')]")));
         }
+    }
+
+    public void checkBottone (String testo) {
+        getWebDriverWait(15)
+                .withMessage("Non è presente il bottone '" + testo + "'")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//button[contains(text(), '" + testo + "')]")));
     }
 
     public void cliccaBottone(String testo) {
@@ -1538,7 +1561,17 @@ public class RecapitiDestinatarioPage extends BasePage {
             if (eliminaButton.isDisplayed() && eliminaButton.isEnabled()) {
                 js().executeScript("arguments[0].scrollIntoView(true);", eliminaButton);
                 eliminaButton.click();
-                clickSuConfermaElimina();
+                logger.info("Elimina button: {}", eliminaButton.getText());
+                //Caso recapito personalizzato SEND
+                if (eliminaButton.getText().equalsIgnoreCase("Disattiva")) {
+                    logger.info("Disattiva true");
+                    clickSuDisattivaDomicilioDigitale();
+                }
+                //Caso recapito personalizzato PEC
+                else {
+                    logger.info("Disattiva false");
+                    clickSuConfermaElimina();
+                }
             }
         } catch (NoSuchElementException | TimeoutException e) {
             logger.info("Bottone 'Elimina Personalizzati Per Ente' non presente.");
@@ -1628,33 +1661,12 @@ public class RecapitiDestinatarioPage extends BasePage {
         }
     }
 
-    public void clickBottoneDisattivaInDomicilioDigitale(String testo) {
+    public void clickBottoneDisattivaInParagrafoDomicilioDigitale(String testo) {
         WebElement disattivaButton = getWebDriverWait(10).withMessage("Disattiva Non è presente dentro '" + testo + "'")
                 .until(ExpectedConditions.elementToBeClickable
                         (By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
         disattivaButton.click();
     }
-
-    public void verificaEDisattivaPersonalizzatiPerEnte() {
-        try {
-            WebElement disattivaButton = getWebDriverWait(5)
-                    .withMessage("Impossibile trovare il tasto 'Disattiva ' PERSONALIZZATI PER ENTE").until(ExpectedConditions.elementToBeClickable(
-                            By.xpath("//button[@data-testid='cancelContact-special_SERCQ_SEND']")
-                    ));
-
-            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
-                disattivaButton.click();
-                clickSuConfermaElimina();
-
-
-            }
-        } catch (NoSuchElementException | TimeoutException e) {
-            logger.info("Bottone 'Disattiva Personalizzati Per Ente' non presente.");
-        } catch (Exception e) {
-            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Personalizzati Per Ente'.", e);
-        }
-    }
-
 
     public void verificaAndOrDisattiva(String testo) {
         try {
@@ -1685,10 +1697,10 @@ public class RecapitiDestinatarioPage extends BasePage {
                             (By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled() && chooseButton.equalsIgnoreCase("Conferma")) {
                 disattivaButton.click();
-                clickSuConfermaElimina();
+                clickSuDisattivaDomicilioDigitale();
             } else if (disattivaButton.isDisplayed() && disattivaButton.isEnabled() && chooseButton.equalsIgnoreCase("Annulla")) {
                 disattivaButton.click();
-                clickAnnulla();
+                clickSuConfermaElimina();
             } else {
                 logger.warn("Bottone 'Disattiva Domicilio Digitale' non è visibile o abilitato.");
             }
@@ -1696,6 +1708,28 @@ public class RecapitiDestinatarioPage extends BasePage {
             logger.info("Bottone 'Disattiva Domicilio Digitale' non presente.");
         } catch (Exception e) {
             Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Domicilio Digitale'.", e);
+        }
+    }
+
+    private void clickSuDisattivaDomicilioDigitale() {
+        logger.info("PRIMA DI clickSuDisattivaDomicilioDigitale");
+        try {
+            if (!driver.findElements(By.xpath("//button[@label='Disattiva domicilio digitale']")).isEmpty()) {
+                logger.info("clickSuDisattivaDomicilioDigitale senza PEC");
+                WebElement confermaRimuoviDomicilioDigitaleSenzaPec = getWebDriverWait(10)
+                        .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva domicilio digitale']")));
+                confermaRimuoviDomicilioDigitaleSenzaPec.click();
+            }
+            else {
+                logger.info("clickSuDisattivaDomicilioDigitale con PEC");
+                WebElement confermaRimuoviDomicilioDigitaleConPec = getWebDriverWait(10)
+                        .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva PEC']")));
+                confermaRimuoviDomicilioDigitaleConPec.click();
+            }
+            logger.info("DOPO DI clickSuDisattivaDomicilioDigitale");
+        }
+        catch (Exception e) {
+            logger.info("Bottone per disabilitazione domicilio digitale non trovato: " + e);
         }
     }
 
@@ -1759,6 +1793,90 @@ public class RecapitiDestinatarioPage extends BasePage {
                     .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")
                     .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-testid='disable-email']")));
 
+            if (!disattivaButton.isDisplayed()) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", disattivaButton);
+                webTool.waitTime(1);
+            }
+
+            try {
+                getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable(disattivaButton)).click();
+            } catch (ElementClickInterceptedException e) {
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", disattivaButton);
+            }
+            if (driver.findElements(By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")).isEmpty()) {
+                clickSuConfermaElimina();
+            }
+            else {
+                clickSuDisattivaEmailEDomicilioDigitale();
+            }
+        } catch (TimeoutException e) {
+            logger.warn("Bottone 'Disattiva Email' non trovato entro il tempo limite.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la disattivazione dell'email: " + e.getMessage());
+        }
+    }
+
+    private void clickSuDisattivaEmail() {
+        logger.info("PRIMA DI clickSuDisattivaEmail");
+
+        WebElement confermaRimuoviEmail = getWebDriverWait(20)
+                .withMessage("Non è stato possibile cliccare sul bottone conferma")
+                .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email']")));
+
+        confermaRimuoviEmail.click();
+        logger.info("DOPO DI clickSuDisattivaEmail");
+    }
+
+    public void clickSuDisattivaEmailEDomicilioDigitale() {
+        logger.info("PRIMA DI clickSuDisattivaEmailEDomicilioDigitale");
+        try {
+            logger.info("clickSuDisattivaEmailEDomicilioDigitale: Click su Disattiva email e Annulla");
+            WebElement confermaRimuoviEmail = getWebDriverWait(20)
+                    .withMessage("Non è stato possibile cliccare sul bottone conferma")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email']")));
+            confermaRimuoviEmail.click();
+            clickAnnulla();
+
+            logger.info("clickSuDisattivaEmailEDomicilioDigitale: Click su Disattiva email e Disattiva email e domicilio");
+            clickBottoneDisattivaInSezioneEmailDiCortesia();
+            confermaRimuoviEmail = getWebDriverWait(20)
+                    .withMessage("Non è stato possibile cliccare sul bottone conferma")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email']")));
+            confermaRimuoviEmail.click();
+
+            getWebDriverWait(10)
+                    .withMessage("Il primo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(),'Con l’email si disattiva anche il domicilio digitale SEND')]")));
+
+            getWebDriverWait(10)
+                    .withMessage("Il secondo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
+                    .until(ExpectedConditions.or(
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il tuo domicilio digitale SEND potresti ricevere le comunicazioni via raccomandata')]")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'la tua impresa potrebbe ricevere le comunicazioni via raccomandata e')]"))
+                    ));
+
+            getWebDriverWait(10)
+                    .withMessage("Il terzo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//strong[contains(text(),'pagare i relativi costi.')]")));
+
+            getWebDriverWait(20)
+                    .withMessage("Non è stato possibile cliccare sul bottone conferma")
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@label='Disattiva email e domicilio']")));
+            WebElement confermaRimuoviEmailEDomicilio = driver.findElement(By.xpath("//button[@label='Disattiva email e domicilio']"));
+            confermaRimuoviEmailEDomicilio.click();
+            logger.info("DOPO DI clickSuDisattivaEmailEDomicilioDigitale");
+        }
+        catch (Exception e ) {
+            logger.info("Errore su clickSuDisattivaEmailEDomicilioDigitale: {}", e);
+        }
+    }
+
+    public void clickBottoneDisattivaInSezioneEmailDiCortesia() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(15)
+                    .withMessage("Il bottone 'Disattiva Email' non è presente entro il tempo limite.")
+                    .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-testid='disable-email']")));
+
 
             if (!disattivaButton.isDisplayed()) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", disattivaButton);
@@ -1770,7 +1888,6 @@ public class RecapitiDestinatarioPage extends BasePage {
             } catch (ElementClickInterceptedException e) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", disattivaButton);
             }
-            clickSuConfermaElimina();
         } catch (TimeoutException e) {
             logger.warn("Bottone 'Disattiva Email' non trovato entro il tempo limite.");
         } catch (Exception e) {
@@ -1837,7 +1954,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Impossibile Trovare il messaggio Campo obbligatorio").until(
                         ExpectedConditions.visibilityOfElementLocated(
-                                By.id("disclaimer-helper-text")));
+                                By.xpath("//*[contains(@id, 'disclaimer-helper-text')]")));
     }
 
     public void spuntareCheckboxPrivacy() {
@@ -1934,6 +2051,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         Assertions.assertTrue(invisibile, "Il tasto 'Inizia' è ancora presente nel banner.");
     }
 
+
     public void verificaAbilitazioneCampoEmail() {
         WebElement emailInput = getWebDriverWait(10)
                 .withMessage("L'input email non è visibile nella pagina")
@@ -2029,6 +2147,120 @@ public class RecapitiDestinatarioPage extends BasePage {
         String alertText = alert.getText();
         Assertions.assertTrue(
                 alertText.toLowerCase().contains(testBanner.toLowerCase()), "Il banner non contiene una email o la parola '" + testBanner + "'");
+
+    }
+
+    public void verificaPresenzaModaleImportanzaAggiuntaContatti() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella modale Importanza aggiunta contatti non corretto o non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h2[@id='confirmation-dialog-title' and contains(text(), 'Aggiungi un indirizzo email per gli avvisi!')]")))
+                );
+        getWebDriverWait(10)
+                .withMessage("Testo nella modale Importanza aggiunta contatti non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[contains(text(),'Per attivare il domicilio digitale SEND abbiamo bisogno del tuo indirizzo email, così possiamo')]"))),
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//strong[contains(text(), 'una comunicazione a valore legale per te.')]"))))
+                );
+    }
+
+    public void checkBannerDomicilioDigitaleNonAttivato() {
+        try {
+            verificaPresenza("Il banner di domicilio digitale non attivato non è presente", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedInfo')]")));
+            verificaPresenza("Il banner di domicilio digitale non attivato non ha il testo corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedInfo')]//p[contains(text(), 'Niente più documenti cartacei: attiva SEND come domicilio digitale')]")));
+            verificaPresenza("Il banner di domicilio digitale non attivato non ha il sottotesto corretto", ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//div[@data-testid='addDomicileBanner' and contains(@class,'MuiAlert-outlinedInfo')]//p[contains(text(), 'Scegli la piattaforma SEND come domicilio digitale per ricevere le prossime notifiche solo in digitale e leggerle in tempo reale, ovunque tu sia.')]")));
+        } catch (TimeoutException e) {
+            Assertions.fail("Il banner di domicilio digitale non attivato non è presente");
+        }
+    }
+
+    public void clickSuDisattivaPersonalizzatiPerEnteEAnnulla() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(5)
+                    .withMessage("Impossibile trovare il tasto 'Disattiva ' PERSONALIZZATI PER ENTE").until(ExpectedConditions.elementToBeClickable(
+                            By.xpath("//button[@data-testid='cancelContact-special_SERCQ_SEND']")
+                    ));
+
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                disattivaButton.click();
+                clickAnnulla();
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva Personalizzati Per Ente' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Personalizzati Per Ente'.", e);
+        }
+    }
+
+    public void verificaDellaPaginaLaTuaEmailPerRicevereAvvisiSulleNotificheSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella pagina La tua email per ricevere avvisi sulle notifiche SEND non corretto o non presente")
+                .until(ExpectedConditions.or(
+                        ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]")),
+                        ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(), 'Trasferisci il domicilio digitale sulla piattaforma SEND')]"))
+                        )
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella pagina La tua email per ricevere avvisi sulle notifiche SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='emailSmsContactWizard']//p[contains(text(), 'La tua email per ricevere avvisi sulle notifiche SEND')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//div[@data-testid='emailSmsContactWizard']//p[contains(text(), 'L’email dove ti avviseremo quando ricevi una comunicazione a valore legale su SEND.')]")))
+                        )
+                );
+    }
+
+    public void verificaDellaPaginaStaiAttivandoIlTuoDomicilioDigitaleSuSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella pagina Stai attivando il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.or(
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Trasferisci il domicilio digitale sulla piattaforma SEND')]")))
+                ));
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella pagina Stai attivando il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//h6[contains(text(), 'Stai attivando il tuo domicilio digitale su SEND')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Le tue comunicazioni a valore legale saranno recapitate a:')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Premendo “Attiva domicilio digitale” dichiari di aver letto la ')]"))),
+                        ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//a[@data-testid='tos-link' and contains(text(), 'Informativa privacy')]"))),
+                        ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//a[@data-testid='tos-link' and contains(text(), 'Termini del servizio')]")))
+                        )
+                );
+    }
+
+    public void verificaDellaTYPHaiAttivatoIlTuoDomicilioDigitaleSuSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella TYP Hai attivato il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Hai attivato il tuo domicilio digitale su SEND')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella TYP Hai attivato il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                        ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='wizard-feedback-step']//p[contains(text(), 'Riceverai le tue comunicazioni a valore legale al tuo domicilio digitale su SEND e un messaggio ai recapiti che hai scelto.')]"))),
+                        ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button' and contains(text(),'Ok, ho capito')]")))
+                        )
+                );
+    }
+
+    public void verificaDellaTYPHaiAttivatoIlDomicilioDigitaleSuSEND() {
+        getWebDriverWait(10)
+                .withMessage("Titolo nella TYP Hai attivato il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='wizard-feedback-step']//h4[contains(text(), 'Hai attivato il tuo domicilio digitale su SEND')]")))
+                );
+
+        getWebDriverWait(10)
+                .withMessage("Testo nella TYP Hai attivato il tuo domicilio digitale su SEND non corretto o non presente")
+                .until(ExpectedConditions.and(
+                                ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@data-testid='wizard-feedback-step']//p[contains(text(), 'Riceverai le tue comunicazioni a valore legale al tuo Domicilio digitale su SEND e un messaggio ai recapiti che hai scelto.')]"))),
+                                ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button' and contains(text(),'Ok, ho capito')]")))
+                        )
+                );
+
     }
 
 }

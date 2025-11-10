@@ -56,8 +56,9 @@ Feature: Rework della pagina dei contatti
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Attesa 2 secondi
     And Refresh pagina
-    Then Verifica Pagina "provapf@pec.it"
-#    Scenario:19
+    Then Verifica testo nella pagina "provapf@pec.it"
+#   SERCQ Fase 2: Scenario 19
+#   & Configurazione domicilio digitale - Fase 2: Scenario 18 (Disattivazione Domicilio Digitale PEC)
     And Disattiva domicilio digitale e Annulla
     And Verifica e Disattiva domicilio digitale "Conferma"
 
