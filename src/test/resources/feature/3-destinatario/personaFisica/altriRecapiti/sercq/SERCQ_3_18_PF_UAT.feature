@@ -22,6 +22,7 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
     And Attesa 1 secondi
+    And Refresh pagina
   #    Scenario: 3
     When Click Inizia
     And Click Continua

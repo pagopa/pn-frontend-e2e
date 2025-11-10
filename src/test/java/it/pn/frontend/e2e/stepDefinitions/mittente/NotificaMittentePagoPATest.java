@@ -2521,6 +2521,12 @@ public class NotificaMittentePagoPATest extends BasePage {
     }
 
 
+    @And("Verifica esistenza Pagina non trovata")
+    public void verificaEsistenzaPaginaNonTrovata() {
+        piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
+    }
+
+
     @And("Click Torna alla home")
     public void clickTornaAllaHome() {
         piattaformaNotifichePage.clickTornaAllaHome();

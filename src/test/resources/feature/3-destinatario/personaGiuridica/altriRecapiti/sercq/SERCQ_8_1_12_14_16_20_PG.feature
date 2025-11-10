@@ -19,8 +19,8 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva email
-
-    And Attesa 1 secondi
+   And Attesa 1 secondi
+   And Refresh pagina
 
     When Click Inizia
     And Click Continua

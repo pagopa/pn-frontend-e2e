@@ -462,8 +462,14 @@ public class LoginPGPagoPATest extends BasePage {
                         } else if ("PEC".equalsIgnoreCase(address.getChannelType())) {
                             restContact.removeDigitalAddressLegalPec();
                         }
-                    } else {
-                        restContact.removeDigitalAddressCourtesyEmail();
+                    }
+                    else {
+                        if ("EMAIL".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressCourtesyEmail();
+                        }
+                        else if ("SMS".equalsIgnoreCase(address.getChannelType())) {
+                            restContact.removeDigitalAddressSms();
+                        }
                     }
                 } else {
                     restContact.removeSpecialContact(address);

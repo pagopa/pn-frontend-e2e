@@ -20,6 +20,7 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
     And Verifica e Disattiva cellulare
     And Attesa 1 secondi
+    And Refresh pagina
 #    Scenario: 25
     And Click Notifiche
     And Attesa 1 secondi
