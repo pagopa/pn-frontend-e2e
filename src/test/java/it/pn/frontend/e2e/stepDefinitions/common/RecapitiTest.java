@@ -589,5 +589,5 @@ public class RecapitiTest extends BasePage {
     public void verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePG() {
         recapitiPGPage.verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePG();
     }
- develop
+
 }
