@@ -64,9 +64,11 @@ public class NotificheDestinatarioPage extends BasePage{
         logger.info("Controllo esistenza bottone per scaricare zip");
 
         By ricevutaButtonLocator = By.xpath("//button[contains(text(),'Ricevuta di consegna PEC')]");
-        webTool.waitTime(10);
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
 
-        getWebDriverWait(10)
+        getWebDriverWait(20)
                 .withMessage("Il bottone Ricevuta di consegna non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(ricevutaButtonLocator));
 

@@ -354,7 +354,9 @@ public class BackgroundTest extends BasePage {
 
     public void siEliminaPecEsistenteEAltriRecapitiAssociati() {
         recapitiDestinatarioPage.clickSuEliminaPec();
-        webTool.waitTime(3);
+//        webTool.waitTime(3);
+        //TODO:Andrea
+        webTool.waitTime(1);
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
             recapitiDestinatarioPage.clickSuConfermaElimina();
         } else {
@@ -389,7 +391,9 @@ public class BackgroundTest extends BasePage {
             }
             siInserisceUnaPECConCampoInputVisibile(emailPEC);
         }
-        webTool.waitTime(10);
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
     }
 
     public void checkEmailDiCortesiaPerEliminazioneEInserimento(String emailDiCortesia) {
@@ -408,7 +412,9 @@ public class BackgroundTest extends BasePage {
             }
             aggiuntaEmailDiCortesia(emailDiCortesia);
         }
-        webTool.waitTime(10);
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
     }
 
     public void inserimentoOTPErratoTreVolteEControlloMessaggio(String OTP) {

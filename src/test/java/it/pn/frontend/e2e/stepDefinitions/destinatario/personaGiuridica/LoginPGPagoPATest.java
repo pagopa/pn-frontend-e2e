@@ -132,7 +132,9 @@ public class LoginPGPagoPATest extends BasePage {
             driver.get(urlLogin);
             logger.info("Login effettuato con successo");
 
-            webTool.waitTime(10);
+//            webTool.waitTime(10);
+            //TODO:Andrea
+            webTool.waitTime(1);
 
             headerPGSection.waitLoadHeaderPGPage();
 

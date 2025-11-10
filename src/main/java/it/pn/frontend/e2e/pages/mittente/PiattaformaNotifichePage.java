@@ -577,8 +577,10 @@ public class PiattaformaNotifichePage extends BasePage {
             buttonRighePagine();
             selezionaPage50();
 
-            webTool.waitTime(10);
-            List<WebElement> notifiche = getWebDriverWait(10)
+//            webTool.waitTime(10);
+            //TODO:Andrea
+            webTool.waitTime(1);
+            List<WebElement> notifiche = getWebDriverWait(20)
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
 
 
@@ -615,8 +617,10 @@ public class PiattaformaNotifichePage extends BasePage {
             buttonRighePagine();
             selezionaPage50();
 
-            webTool.waitTime(10);
-            List<WebElement> notifiche = getWebDriverWait(10)
+//            webTool.waitTime(10);
+            //TODO:Andrea
+            webTool.waitTime(1);
+            List<WebElement> notifiche = getWebDriverWait(20)
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
 
 
@@ -1368,8 +1372,10 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean verificaCampiPreliminariNotificaVuoti() {
-        webTool.waitTime(10);
-        preliminaryInformationsForm = getWebDriverWait(60)
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
+        preliminaryInformationsForm = getWebDriverWait(70)
                 .withMessage("Il form preliminaryInformationsForm non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//form[contains(@data-testid,'preliminaryInformationsForm')]")));
         List<WebElement> inputElements = preliminaryInformationsForm.findElements(By.tagName("input"));
@@ -1553,15 +1559,16 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void checkStatoNotifica(String stato) {
         driver.navigate().refresh();
-        webTool.waitTime(10);
-
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
         By firstRowLocator = By.cssSelector("#notificationsTable.body.row:first-child");
-        WebElement notificationLine = getWebDriverWait(10)
+        WebElement notificationLine = getWebDriverWait(20)
                 .withMessage("La tabella notifiche non contiene righe")
                 .until(ExpectedConditions.visibilityOfElementLocated(firstRowLocator));
 
         By chipStatusLocator = By.id("status-chip-" + stato);
-        getWebDriverWait(10)
+        getWebDriverWait(20)
                 .withMessage("La notifica non ha lo stato '" + stato + "'")
                 .until(ExpectedConditions.visibilityOf(notificationLine.findElement(chipStatusLocator)));
 
@@ -1685,9 +1692,10 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void visualizzaTimelineTuttiDestinatari(Map<String, String> destinatari) {
         logger.info("Si clicca 'vedi più dettagli'");
-        webTool.waitTime(10);
-
-        List<WebElement> viewMore = getWebDriverWait(10)
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
+        List<WebElement> viewMore = getWebDriverWait(20)
                 .withMessage("'Vedi più dettagli' non trovato")
                 .until(driver -> {
                     List<WebElement> elements = driver.findElements(By.xpath("//*[@id='more-less-timeline-step']"));

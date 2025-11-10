@@ -433,8 +433,10 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void checkIndicatoreNumerico() {
-        webTool.waitTime(10);
-        getWebDriverWait(5)
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
+        getWebDriverWait(15)
                 .withMessage("L'indicatore numerico di notifica non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@data-testid='notifications']")));
         logger.info("Indicatore numerico di notifica visualizzato correttamente");

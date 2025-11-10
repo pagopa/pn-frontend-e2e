@@ -105,8 +105,9 @@ public class DestinatarioPage extends BasePage {
         By dataFineLocator = By.id("endDate");
 
         try {
-            webTool.waitTime(10);
-
+//            webTool.waitTime(10);
+            //TODO:Andrea
+            webTool.waitTime(1);
             WebElement dataInizioField = getWebDriverWait(10)
                     .withMessage("Il campo 'Data Inizio' non è visibile")
                     .until(ExpectedConditions.visibilityOfElementLocated(dataInizioLocator));

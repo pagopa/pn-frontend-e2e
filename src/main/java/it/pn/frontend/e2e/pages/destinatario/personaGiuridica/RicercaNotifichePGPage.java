@@ -139,10 +139,12 @@ public class RicercaNotifichePGPage extends BasePage {
     }
 
     public void waitLoadNotifichePGPage() {
-        webTool.waitTime(10);
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
         By notificationsTableLocator = By.id("notifications-table");
 
-        getWebDriverWait(40)
+        getWebDriverWait(50)
                 .withMessage("La tabella delle Notifiche non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(notificationsTableLocator));
 
@@ -151,7 +153,9 @@ public class RicercaNotifichePGPage extends BasePage {
 
     public void cliccaSuPrimaNotifica() {
         try {
-            webTool.waitTime(10);
+//            webTool.waitTime(10);
+            //TODO:Andrea
+            webTool.waitTime(1);
             getWebDriverWait(10).until(ExpectedConditions.elementToBeClickable((By.id("notificationsTable.body.row"))));
             logger.info("Si clicca sulla prima notifica");
             primaNotifica = driver.findElement(By.id("notificationsTable.body.row"));

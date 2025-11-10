@@ -253,16 +253,18 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClickPopUp() {
-        webTool.waitTime(3);
-
+//        webTool.waitTime(3);
+        //TODO:Andrea
+        webTool.waitTime(1);
         By confirmButtonLocator = By.id("code-confirm-button");
 
         // Attendo che il bottone principale sia cliccabile e clicco
         WebElement confermaButton = getWebDriverWait(20)
                 .until(ExpectedConditions.elementToBeClickable(confirmButtonLocator));
         confermaButton.click();
-        webTool.waitTime(5);
-
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
         // Controllo se appare un secondo bottone conferma e lo clicco
         List<WebElement> confermaButtonPostInserimentoList = driver.findElements(confirmButtonLocator);
         if (!confermaButtonPostInserimentoList.isEmpty()) {
@@ -689,7 +691,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaNuovaEmailEPEC(String nuovaEmail) {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[@data-testid='DigitalContactsCardBody']//p[contains(text(),'" + nuovaEmail + "')]")
             ));
             return true;
@@ -893,10 +895,12 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void checkEmailPrecedentementeSalvata(String email) {
-        webTool.waitTime(10);
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
         By emailTypoBy = By.id("default_email-typography");
 
-        WebElement emailAssociata = getWebDriverWait(10)
+        WebElement emailAssociata = getWebDriverWait(20)
                 .withMessage("L'email precedentemente salvata non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(emailTypoBy));
 

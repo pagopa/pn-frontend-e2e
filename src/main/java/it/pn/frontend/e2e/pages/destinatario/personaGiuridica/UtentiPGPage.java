@@ -101,11 +101,12 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void clickSezioneUtenti(String testo) {
-        webTool.waitTime(10);
-
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
         By sezioneUtentiLocator = By.xpath("//span[contains(text(),'" + testo + "')]");
 
-        WebElement sezioneUtenti = getWebDriverWait(10)
+        WebElement sezioneUtenti = getWebDriverWait(20)
                 .withMessage("La sezione Utenti con testo '" + testo + "' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(sezioneUtentiLocator));
 
@@ -164,21 +165,23 @@ public class UtentiPGPage extends BasePage {
         By filtraButtonLocator = By.xpath("//button[contains(text(),'Filtra')]");
         By utentiTableLocator = By.id("UsersSearchTableBox");
 
-        webTool.waitTime(15);
+//        webTool.waitTime(15);
+        //TODO:Andrea
+        webTool.waitTime(1);
 
-        getWebDriverWait(10)
+        getWebDriverWait(30)
                 .withMessage("Il titolo 'Utenti' della pagina utenti non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(utentiPageTitleLocator));
-        getWebDriverWait(10)
+        getWebDriverWait(30)
                 .withMessage("Il sottotitolo della pagina utenti non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(sottoTitoloLocator));
-        getWebDriverWait(10)
+        getWebDriverWait(30)
                 .withMessage("Il bottone 'Aggiungi utente' della pagina utenti non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(addUserButtonLocator));
-        getWebDriverWait(10)
+        getWebDriverWait(30)
                 .withMessage("Il bottone 'Filtra' della pagina utenti non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(filtraButtonLocator));
-        getWebDriverWait(10)
+        getWebDriverWait(30)
                 .withMessage("La tabella della pagina utenti non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(utentiTableLocator));
 
@@ -363,11 +366,13 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void waitSuccessMessage() {
-        webTool.waitTime(10);
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
         By successMessageLocator = By.xpath("//p[contains(text(),'Utente aggiunto correttamente')]");
 
         try {
-            WebElement successMessage = getWebDriverWait(10)
+            WebElement successMessage = getWebDriverWait(20)
                     .withMessage("Il messaggio di successo non è visibile")
                     .until(ExpectedConditions.visibilityOfElementLocated(successMessageLocator));
             if (successMessage.isDisplayed()) {

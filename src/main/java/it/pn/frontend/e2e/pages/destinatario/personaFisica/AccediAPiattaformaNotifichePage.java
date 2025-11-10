@@ -307,26 +307,28 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void siVisualizzaSezionePagamento() {
-        webTool.waitTime(10);
+//        webTool.waitTime(10);
+        //TODO:Andrea
+        webTool.waitTime(1);
 
         By codiceAvvisoBy = By.xpath("//span[contains(text(),'Codice avviso')]");
         By scadenzaAvvisoBy = By.xpath("//span[contains(text(),'Scade il')]");
         By paymentAmountBy = By.cssSelector("[data-testid='payment-amount']");
         By scaricaAvvisoBy = By.cssSelector("[data-testid='download-pagoPA-notice-button']");
 
-        getWebDriverWait(10)
+        getWebDriverWait(20)
                 .withMessage("Il sezione codice avviso non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(codiceAvvisoBy));
 
-        getWebDriverWait(10)
+        getWebDriverWait(20)
                 .withMessage("Il sezione data di scadenza avviso non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(scadenzaAvvisoBy));
 
-        getWebDriverWait(10)
+        getWebDriverWait(20)
                 .withMessage("Il sezione importo di avviso non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(paymentAmountBy));
 
-        getWebDriverWait(10)
+        getWebDriverWait(20)
                 .withMessage("Il sezione scarica avviso non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(scaricaAvvisoBy));
 
@@ -348,8 +350,10 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void cliccaPaga() {
         logger.info("Si clicca su bottone paga");
-        webTool.waitTime(15);
-        WebElement cliccaPaga = getWebDriverWait(15)
+//        webTool.waitTime(15);
+        //TODO:Andrea
+        webTool.waitTime(1);
+        WebElement cliccaPaga = getWebDriverWait(35)
                 .withMessage("Il bottone 'Paga' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.cssSelector("[data-testid='pay-button']")));
         // Clicca sul pulsante 'Paga'

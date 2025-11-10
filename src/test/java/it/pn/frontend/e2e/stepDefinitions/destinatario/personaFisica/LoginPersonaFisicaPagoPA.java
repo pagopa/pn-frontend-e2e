@@ -138,7 +138,9 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         try {
             driver.get(urlLogin);
             logger.info("Login effettuato con successo");
-            webTool.waitTime(10);
+//            webTool.waitTime(10);
+            //TODO:Andrea
+            webTool.waitTime(1);
             // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
             headerPASection.tosSwitch();
             headerPASection.cliccareTastoAccediOneTrust();
@@ -750,7 +752,9 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
-        webTool.waitTime(60);
+//        webTool.waitTime(60);
+        //TODO:Andrea
+        webTool.waitTime(1);
         scegliSpidPFPage.selezionareTestButton();
 
         loginSpidPFPage.waitLoadLoginSpidDEPage();
