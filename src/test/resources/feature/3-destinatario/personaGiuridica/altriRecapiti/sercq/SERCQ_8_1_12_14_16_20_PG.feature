@@ -21,8 +21,10 @@ Feature: Rework della pagina dei contatti
     And Verifica e Disattiva email
    And Attesa 1 secondi
    And Refresh pagina
+
 #   SERCQ - Fase 2: Scenario 1
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
+
     When Click Inizia
    And Verifica della pagina Attiva domicilio digitale su SEND per PG
    And Verifica testo nella pagina "Preferisci usare la PEC aziendale?"
