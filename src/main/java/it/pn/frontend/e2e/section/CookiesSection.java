@@ -44,7 +44,7 @@ public class CookiesSection extends BasePage {
     public void selezionaAccettaTuttiButton() {
         try {
             WebElement accettaTuttiButton = getWebDriverWait(60)
-                    .withMessage("Il bottone 'Accetta tutti i cookie' non è cliccabile")
+//                    .withMessage("Il bottone 'Accetta tutti i cookie' non è cliccabile")
                     .until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
             logger.info("Si seleziona 'Accetta tutti i cookie'");
             new Actions(driver).moveToElement(accettaTuttiButton).click().perform();
