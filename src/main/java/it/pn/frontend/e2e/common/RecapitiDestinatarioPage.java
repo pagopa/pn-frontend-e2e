@@ -489,7 +489,9 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            webTool.waitTime(5);
+//            webTool.waitTime(5);
+            //TODO:Andrea
+            webTool.waitTime(1);
             WebElement inputPecField = getWebDriverWait(30)
                     .withMessage("Impossibile trovare input per inserire la nuova PEC")
                     .until(ExpectedConditions.presenceOfElementLocated(By.id("default_pec")));
@@ -578,7 +580,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaEliminazionePEC() {
-        webTool.waitTime(5); // eventuale pausa opzionale
+//        webTool.waitTime(5); // eventuale pausa opzionale
+        //TODO:Andrea
+        webTool.waitTime(1);
         try {
             WebElement pecField = getWebDriverWait(10)
                     .withMessage("Il campo PEC non è presente")
@@ -590,7 +594,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaPresenzaPEC() {
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
         try {
             WebElement pecEmail = getWebDriverWait(10)
                     .withMessage("L'email PEC non è presente")
@@ -602,7 +608,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEnte(String comune) {
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
         WebElement enteField = getWebDriverWait(10)
                 .withMessage("Il campo ente non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("sender")));
@@ -621,7 +629,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuIndirizzoPEC() {
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
         // Aspetta che il campo sia cliccabile e cliccalo
         WebElement tipoIndirizzoField = getWebDriverWait(10)
                 .withMessage("Il campo tipo indirizzo non è cliccabile")
@@ -635,7 +645,9 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertPECAggiuntiva(String emailPec) {
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
         WebElement indirizzoPecField = getWebDriverWait(10)
                 .withMessage("Il campo PEC aggiuntiva non è visibile o cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("s_value")));
@@ -702,11 +714,20 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void eliminaNuovaEmail() {
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
 
-        List<WebElement> eliminaButtonList = driver.findElements(
-                By.xpath("//form[@data-testid='default_pecContact']//button[contains(text(),'Elimina')]")
-        );
+        List<WebElement> eliminaButtonList = getWebDriverWait(10)
+                .withMessage("Nessun bottone 'Elimina' trovato entro il tempo limite")
+                .until(driver -> {
+                    List<WebElement> buttons = driver.findElements(
+                            By.xpath("//form[@data-testid='default_pecContact']//button[contains(text(),'Elimina')]")
+                    );
+                    return buttons.isEmpty() ? null : buttons;
+                });
+
+//        List<WebElement> eliminaButtonList = driver.findElements(
+//                By.xpath("//form[@data-testid='default_pecContact']//button[contains(text(),'Elimina')]")
+//        );
 
         if (!eliminaButtonList.isEmpty()) {
             WebElement ultimoEliminaButton = eliminaButtonList.get(eliminaButtonList.size() - 1);

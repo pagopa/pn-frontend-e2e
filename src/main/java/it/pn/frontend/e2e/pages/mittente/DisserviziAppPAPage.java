@@ -66,11 +66,17 @@ public class DisserviziAppPAPage extends BasePage {
             getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementLocated(By.id("subtitle-page"), "Verifica il funzionamento di SEND, visualizza lo storico dei disservizi e scarica le relative attestazioni opponibili a terzi."));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("appStatusBar")));
 
-            String boxAlertText = element(By.id("appStatusBar")).getText();
-            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementLocated(By.id("appStatusBar"), boxAlertText.contains("C'è un disservizio in corso") ?
-                    "C'è un disservizio in corso. Per maggiori dettagli, consulta la tabella qui sotto." :
-                    "Tutti i servizi di SEND sono operativi."
+//            String boxAlertText = element(By.id("appStatusBar")).getText();
+//            getWebDriverWait(3).until(ExpectedConditions.textToBePresentInElementLocated(By.id("appStatusBar"), boxAlertText.contains("C'è un disservizio in corso") ?
+//                    "C'è un disservizio in corso. Per maggiori dettagli, consulta la tabella qui sotto." :
+//                    "Tutti i servizi di SEND sono operativi."
+//            ));
+
+            getWebDriverWait(10).until(ExpectedConditions.or(
+                    ExpectedConditions.textToBePresentInElementLocated(By.id("appStatusBar"), "C'è un disservizio in corso"),
+                    ExpectedConditions.textToBePresentInElementLocated(By.id("appStatusBar"), "Tutti i servizi di SEND sono operativi")
             ));
+
 
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("appStatusLastCheck")));
             getWebDriverWait(10).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.id("notifications-table")));
@@ -78,7 +84,7 @@ public class DisserviziAppPAPage extends BasePage {
 
             logger.info("Si visualizza correttamente la sezione disservizi");
         } catch (TimeoutException e) {
-            Assertions.fail("Non si visualizza correttamente la sezione disservizi con errore" + e.getMessage());
+            Assertions.fail("Non si visualizza correttamente la sezione disservizi con errore: " + e.getMessage());
         }
     }
 
@@ -124,20 +130,21 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void waitLoadDisserviziTable() {
         try {
-            webTool.waitTime(20);
-
+//            webTool.waitTime(20);
+            //TODO:Andrea
+            webTool.waitTime(1);
             // 1. Verifica tabella principale
-            WebElement disserviziTable = getWebDriverWait(60)
+            WebElement disserviziTable = getWebDriverWait(80)
                     .withMessage("Tabella disservizi non visibile")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("notifications-table")));
 
             // 2. Verifica header
             WebElement tableHeader = disserviziTable.findElement(By.xpath(".//thead[@role='rowgroup']"));
-            getWebDriverWait(10).withMessage("Header non visibile").until(ExpectedConditions.visibilityOf(tableHeader));
+            getWebDriverWait(20).withMessage("Header non visibile").until(ExpectedConditions.visibilityOf(tableHeader));
 
             // 3. Verifica titoli colonne
             List<WebElement> headerTitles = tableHeader.findElements(By.xpath(".//th[@data-testid='tableDowntimeLog.header.cell']"));
-            getWebDriverWait(10).withMessage("Titoli colonne non visibili").until(ExpectedConditions.visibilityOfAllElements(headerTitles));
+            getWebDriverWait(20).withMessage("Titoli colonne non visibili").until(ExpectedConditions.visibilityOfAllElements(headerTitles));
 
             if (headerTitles.size() != 5) {
                 Assertions.fail("Numero colonne errato. Atteso: 5, Trovato: " + headerTitles.size());

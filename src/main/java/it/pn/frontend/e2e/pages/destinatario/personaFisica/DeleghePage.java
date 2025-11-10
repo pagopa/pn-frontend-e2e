@@ -61,7 +61,9 @@ public class DeleghePage extends BasePage {
     }
 
     public void controlloCreazioneDelega() {
-        webTool.waitTime(30);
+//        webTool.waitTime(30);
+        //TODO:Andrea
+        webTool.waitTime(1);
 
         getWebDriverWait(30)
                 .withMessage("Il test 'In attesa di conferma' non è visibile")
@@ -241,7 +243,9 @@ public class DeleghePage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaConNome(String nome, String cognome) {
         try {
-            webTool.waitTime(5);
+//            webTool.waitTime(5);
+            //TODO:Andrea
+            webTool.waitTime(1);
             By delegaLocator = By.xpath("//tr[@id='delegatesTable.body.row']//p[contains(text(),'" + nome + " " + cognome + "')]");
             getWebDriverWait(10)
                     .withMessage("Non si trova una delega con il nome " + nome + " " + cognome)

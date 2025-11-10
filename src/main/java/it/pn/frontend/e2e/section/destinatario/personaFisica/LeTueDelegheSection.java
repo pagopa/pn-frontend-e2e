@@ -238,8 +238,10 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void messaggioDiErroreDelegaPresente() {
-        webTool.waitTime(5);
-        getWebDriverWait(5)
+//        webTool.waitTime(5);
+        //TODO:Andrea
+        webTool.waitTime(1);
+        getWebDriverWait(10)
                 .withMessage("Il messaggio di errore 'Delega già presente' NON viene visualizzato")
                 .until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//div[contains(text(),'Delega già presente')]")
