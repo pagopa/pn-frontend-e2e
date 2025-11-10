@@ -9,13 +9,20 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 
 public class RecapitiDestinatarioPage extends BasePage {
     private final Logger logger = LoggerFactory.getLogger(RecapitiDestinatarioPage.class);
 
+
+    private static final Random random = new Random();
+    private static final char[] INVALID_SPECIAL_CHARS = {
+            '{', '}', '[', ']', '(', ')', '<', '>', ',', ';', ':', '\"', '\'', '`', ' ', '|', '^', '~'
+    };
 
     @FindBy(id = "default_pec-button")
     WebElement attivaButton;
@@ -127,7 +134,8 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .withMessage("Campo input PEC non trovato o non interagibile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("default_pec")));
 
-        insertPec.clear();
+        insertPec.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        insertPec.sendKeys(Keys.DELETE);
         insertPec.sendKeys(emailPEC);
 
         logger.info("Email PEC '{}' inserita con successo.", emailPEC);
@@ -320,10 +328,12 @@ public class RecapitiDestinatarioPage extends BasePage {
         if (!inserimentoMailField.isDisplayed()) {
             js().executeScript("arguments[0].scrollIntoView(true);", inserimentoMailField);
         }
-
-        inserimentoMailField.clear();
+        inserimentoMailField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        inserimentoMailField.sendKeys(Keys.DELETE);
+//        inserimentoMailField.clear();
         inserimentoMailField.sendKeys(email);
         logger.info("Email inserita: {}", email);
+
     }
 
     public void insertPhone(String cellulare) {
@@ -1476,6 +1486,9 @@ public class RecapitiDestinatarioPage extends BasePage {
         WebElement pecInput = getWebDriverWait(20)
                 .withMessage("Impossibile Inserisci PEC")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@data-testid='pec-wizard-input']//input")));
+        webTool.waitTime(1);
+        pecInput.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        pecInput.sendKeys(Keys.DELETE);
         pecInput.sendKeys(emailPec);
     }
 
@@ -1527,6 +1540,17 @@ public class RecapitiDestinatarioPage extends BasePage {
         inputPEC.sendKeys(pecOrEmail);
 
         clickConferma();
+    }
+
+    public void inserisciPecInPersonalizzaIlTuoDomicilioDigitalePerEnteCaratteriSpeciali(String pecOrEmail) {
+        WebElement inputPEC = getWebDriverWait(10)
+                .withMessage("Impossibile inserire Pec o Email")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("s_value")));
+        webTool.waitTime(1);
+        inputPEC.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        inputPEC.sendKeys(Keys.DELETE);
+        inputPEC.sendKeys(pecOrEmail);
+
     }
 
     public void verificaEdEliminaPersonalizzatiPerEnte() {
@@ -1959,6 +1983,75 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
     }
 
+    public boolean verificaIndirizzoEmailPecNonValido(String emailPec) {
+        try {
+            WebElement errore = null;
+            if (emailPec.equalsIgnoreCase("pec")) {
+                errore = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("pec-helper-text")));
+
+            } else {
+                errore = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
+            }
+
+            return errore.getText().toLowerCase().contains("non valido");
+
+        } catch (TimeoutException e) {
+            return false; // Nessun errore visibile
+        }
+    }
+
+    public boolean verificaIndirizzoPecModificatoNonValido(String emailPec) {
+        try {
+            WebElement errore = null;
+            if (emailPec.equalsIgnoreCase("pec")) {
+                errore = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_pec-helper-text")));
+
+            } else {
+                //non cancellare potrenne servire dopo
+//                errore = getWebDriverWait(5)
+//                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
+            }
+
+            return errore.getText().toLowerCase().contains("non valido");
+
+        } catch (TimeoutException e) {
+            return false; // Nessun errore visibile
+        }
+    }
+
+    public boolean verificaIndirizzoPecPersonalizzaIlTuoDomicilioPerEnteMittenteNonValido(String emailPec) {
+        try {
+            WebElement errore = null;
+            if (emailPec.equalsIgnoreCase("pec")) {
+                errore = getWebDriverWait(5)
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("s_value-helper-text")));
+
+            } else {
+                //non cancellare potrenne servire dopo
+//                errore = getWebDriverWait(5)
+//                        .until(ExpectedConditions.visibilityOfElementLocated(By.id("default_email-helper-text")));
+            }
+
+            return errore.getText().toLowerCase().contains("non valido");
+
+        } catch (TimeoutException e) {
+            return false; // Nessun errore visibile
+        }
+    }
+
+    public void verificaScomparsaBannerInizia() {
+        boolean invisibile = getWebDriverWait(10)
+                .withMessage("Il tasto 'Inizia' nel banner è ancora visibile")
+                .until(ExpectedConditions.invisibilityOfElementLocated(
+                        By.xpath("//div[@data-testid='addDomicileBanner']//button[contains(@class, 'MuiButton-root')]")));
+
+        Assertions.assertTrue(invisibile, "Il tasto 'Inizia' è ancora presente nel banner.");
+    }
+
+
     public void verificaAbilitazioneCampoEmail() {
         WebElement emailInput = getWebDriverWait(10)
                 .withMessage("L'input email non è visibile nella pagina")
@@ -1974,7 +2067,6 @@ public class RecapitiDestinatarioPage extends BasePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("sender-helper-text")));
 
         Assertions.assertEquals("Campo obbligatorio", enteHelperText.getText().trim());
-
         // Verifica campo "Tipologia"
         WebElement pecHelperText = getWebDriverWait(10)
                 .withMessage("Messaggio 'Indirizzo PEC non valido' non visibile")
@@ -2010,6 +2102,33 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     }
 
+    public List<String> generateInvalidAddress(String type) {
+        String baseName = "anna";
+        List<String> invalidAddresses = new ArrayList<>();
+
+        for (char invalidChar : INVALID_SPECIAL_CHARS) {
+            // Inserisco ogni carattere non valido in una posizione casuale
+            int insertPos = random.nextInt(baseName.length() + 1);
+            String localPart = baseName.substring(0, insertPos) + invalidChar + baseName.substring(insertPos);
+
+            String fullAddress;
+            switch (type.toLowerCase()) {
+                case "pec":
+                    fullAddress = localPart + "@pec.it";
+                    break;
+                case "email":
+                    fullAddress = localPart + "@gmail.com";
+                    break;
+                default:
+                    throw new IllegalArgumentException("Tipo non supportato: " + type);
+            }
+
+            invalidAddresses.add(fullAddress);
+        }
+
+        return invalidAddresses;
+    }
+
 
     public void clickOkHoCapitoRecapitiPopUp() {
         WebElement dialogButton = getWebDriverWait(40)
@@ -2018,7 +2137,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         dialogButton.click();
 
     }
-
 
     public void verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String testBanner) {
         WebElement alert = getWebDriverWait(20)
@@ -2029,6 +2147,7 @@ public class RecapitiDestinatarioPage extends BasePage {
         String alertText = alert.getText();
         Assertions.assertTrue(
                 alertText.toLowerCase().contains(testBanner.toLowerCase()), "Il banner non contiene una email o la parola '" + testBanner + "'");
+
     }
 
     public void verificaPresenzaModaleImportanzaAggiuntaContatti() {
@@ -2141,5 +2260,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                                 ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button' and contains(text(),'Ok, ho capito')]")))
                         )
                 );
+
     }
+
 }

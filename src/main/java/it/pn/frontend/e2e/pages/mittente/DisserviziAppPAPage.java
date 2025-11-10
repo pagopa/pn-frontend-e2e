@@ -342,7 +342,7 @@ public class DisserviziAppPAPage extends BasePage {
 
     private void performDownloadAttestazione(int indexModifier) {
 
-        //if == o random
+        //if == o scansiono intera lista
         //if  > 0 prendo quello selezionato
         boolean downloadVerificato = false;
         List<WebElement> links = getWebDriverWait(45)

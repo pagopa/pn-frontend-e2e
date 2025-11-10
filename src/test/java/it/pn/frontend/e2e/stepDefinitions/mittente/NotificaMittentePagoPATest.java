@@ -710,6 +710,11 @@ public class NotificaMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.setHooksNew(hooksNew);
         piattaformaNotifichePage.selezionaUltimaPaginaUtilizzandoUnaFrecetta();
     }
+    @And("Nella pagina stato della piattaforma si cambia pagina fino a {int} giorni indietro")
+    public void nellaPaginaStatoDellaPiattaformaSiCambiaPaginaFinoAGiorniIndietro(int giorni) {
+        piattaformaNotifichePage.setHooksNew(hooksNew);
+        piattaformaNotifichePage.nellaPaginaStatoDellaPiattaformaSiCambiaPaginaFinoAGiorniIndietro(giorni);
+    }
 
     @And("Nella pagina stato della piattaforma si cambia pagina")
     public void nellaPaginaStatoDellaPiattaformaSiCambiaPagina() {
@@ -1960,6 +1965,11 @@ public class NotificaMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.verificaPopUpToastErrore(verifica);
     }
 
+    @And("Verifica Pop-up toast di errore")
+    public void verificaPopUpToast() {
+        piattaformaNotifichePage.verificaPopUpToastErrore();
+    }
+
     @And("Verifica Messaggio toast di errore {string}")
     public void verificaMessaggioToastErrore(String verifica) {
         piattaformaNotifichePage.verificaMessaggioToastErrore(verifica);
@@ -2474,6 +2484,23 @@ public class NotificaMittentePagoPATest extends BasePage {
             radioButton.click();
         }
     }
+
+    @And("Verifica esistenza Pagina non trovata")
+    public void verificaEsistenzaPaginaNonTrovata() {
+        piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
+    }
+
+    @And("Inserisci Max Caratteri Input pec portale PA {int}")
+    public void inserisciMaxCaratteriInputPecPortalePA(int maxCaratteri) {
+        piattaformaNotifichePage.inserisciMaxCaratteriInputPecPortalePA(maxCaratteri);
+    }
+
+
+    @And("Verifica errore label pec {string}")
+    public void verificaErroreLabelPec(String erroreLabel) {
+        piattaformaNotifichePage.verificaErrore(erroreLabel);
+    }
+
     @And("Nel portale Send {string} accedere ad una rotta non esistente")
     public void nelPortaleSendAccedereAdUnaRottaNonEsistente(String portal) {
         portal = portal.toLowerCase();
@@ -2497,6 +2524,7 @@ public class NotificaMittentePagoPATest extends BasePage {
     public void verificaEsistenzaPaginaNonTrovata() {
         piattaformaNotifichePage.verificaEsistenzaPaginaNonTrovata();
     }
+
 
     @And("Click Torna alla home")
     public void clickTornaAllaHome() {
