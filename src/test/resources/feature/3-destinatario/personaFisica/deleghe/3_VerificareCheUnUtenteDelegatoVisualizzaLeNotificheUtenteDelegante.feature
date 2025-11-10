@@ -8,6 +8,7 @@ Feature: il delegato accetta la delega
   @DeleghePFPG
   @NRT_Blocco_3
   Scenario: [QA-8819_3] Verificare Che Un Utente Delegato Visualizza Le Notifiche Utente Delegante
+
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica click sul bottone Deleghe
     And Nella pagina Piattaforma Notifiche persona fisica si vede la sezione Deleghe
