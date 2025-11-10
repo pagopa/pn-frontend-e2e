@@ -182,12 +182,12 @@ public class DeleghePage extends BasePage {
     }
 
     public void clickOpzioneRevoca() {
-        revocaButton = getWebDriverWait(30)
-                .withMessage("Il bottone 'Revoca' non è visibile o cliccabile")
+        WebElement clickOpzioneRevoca = getWebDriverWait(20)
+                .withMessage("Il pulsante 'Revoca' con id 'revoke-delegation-button' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button")));
 
-        revocaButton.click();
-        logger.info("Il bottone 'Revoca' è stato cliccato correttamente");
+        clickOpzioneRevoca.click();
+
     }
 
     public void clickMenuPerRifiuto(String nome, String cognome) {
@@ -334,6 +334,20 @@ public class DeleghePage extends BasePage {
         Assertions.assertTrue(testoErrore.contains(messaggio), "Messaggio atteso non trovato. Messaggio rilevato: " + testoErrore);
     }
 
+
+    public void nellaSezioneLeTueDelegheVerificaEsistenzaNomeECognomiErrati(String nomeCompletoAtteso, String persona) {
+        String xpath= "//tr[@data-testid='delegatesBodyRowDesktop']";
+        if(persona.equalsIgnoreCase("PF"))
+            xpath="//tr[@data-testid='delegatesTable.body.row']";
+        List<WebElement> righe = driver.findElements(By.xpath(xpath));
+
+        boolean trovato = righe.stream()
+                .map(r -> r.findElement(By.xpath(".//td[1]//p")).getText().trim())
+                .anyMatch(nome -> nome.equalsIgnoreCase(nomeCompletoAtteso));
+
+        Assertions.assertTrue(trovato, "Nome '" + nomeCompletoAtteso + "' NON trovato nella tabella.");
+    }
+
     public void rimuoviDelegatiPF() {
         List<WebElement> delegati = driver.findElements(By.id("delegatesTable.body.row")); // Take all the rows of the table
         if (!delegati.isEmpty()) {
@@ -352,5 +366,6 @@ public class DeleghePage extends BasePage {
         } else {
             logger.info("Non è stato trovato nessun delegato");
         }
+
     }
 }
