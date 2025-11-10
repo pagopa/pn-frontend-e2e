@@ -122,12 +122,12 @@ public class HelpdeskTest extends BasePage {
         }
     }
 
-//    @And("Si risolve il disservizio new")
-//    public void siRisolveIlDisservizionew() {
-//        if (helpdeskPage.checkIsCreatedDisservizio()) {
-//            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE, Status.RISOLVI_KO);
-//        }
-//    }
+    @And("Si risolve il disservizio new")
+    public void siRisolveIlDisservizionew() {
+        if (helpdeskPage.checkIsCreatedDisservizio()) {
+            helpdeskPage.handleRisolviDisservizionew(Disservice.CREAZIONE_NOTIFICHE, Status.RISOLVI_KO);
+        }
+    }
 
     @And("Si risolve il disservizio new nome test {string}")
     public void siRisolveIlDisservizionew(String nomeTest) {
@@ -380,6 +380,15 @@ public class HelpdeskTest extends BasePage {
         backgroundTest.risoluzioneDisservizioNew(nomeTest);
     }
 
+    @And("Verifica Disservizio")
+    public void verificaDisservizio() {
+        siRisolveIlDisservizionew();
+        helpdeskPage.verificaAlert();
+        Assertions.assertFalse(helpdeskPage.checkIsCreatedDisservizio(), "Disservizio non risolto.");
+
+
+    }
+
     @And("Selezione ottieni notifica")
     public void selezioneOttieniNotifica() {
         logger.info("Selezione ottieni notifica");
@@ -414,5 +423,6 @@ public class HelpdeskTest extends BasePage {
         }
         return codiceIun;
     }
+
 
 }

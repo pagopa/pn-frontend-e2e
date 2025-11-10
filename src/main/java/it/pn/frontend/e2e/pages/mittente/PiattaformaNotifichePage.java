@@ -2179,6 +2179,16 @@ public class PiattaformaNotifichePage extends BasePage {
         Assertions.assertTrue(popup.getText().contains(verifica));
 
     }
+    public void verificaPopUpToastErrore() {
+        //webTool.waitTime(5);
+        WebElement popup = getWebDriverWait(15)
+                .withMessage("Impossibile Trovare alert-api-status")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("alert-api-status")));
+        Assertions.fail("Presenza Pop- UP -> Errore API rilevato: " + popup.getText());
+
+    }
+
+
 
     public void verificaMessaggioToastErrore(String verifica) {
         WebElement toastMessage = getWebDriverWait(10)
@@ -2517,6 +2527,33 @@ public class PiattaformaNotifichePage extends BasePage {
         return false;
     }
 
+    public void inserisciMaxCaratteriInputPecPortalePA(int maxCaratteri) {
+        WebElement input = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il campo di input nell home page destinatari")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                By.id("recipients[0].digitalDomicile")
+        ));
+
+        String testoLungo = "A".repeat(maxCaratteri);
+        input.clear();
+        input.sendKeys(testoLungo);
+
+    }
+
+    public void verificaErrore(String erroreLabel) {
+        WebElement errore = getWebDriverWait(10)
+                .withMessage("Impossibile trovare la label di errroe pec nella home page destinatari")
+                .until(ExpectedConditions.visibilityOfElementLocated(
+                        By.id("recipients[0].digitalDomicile-helper-text")
+                ));
+
+        String testoErrore = errore.getText().trim();
+        Assertions.assertFalse(
+                testoErrore.contains(erroreLabel),
+                "Campo ha generato errore contenente '" + testoErrore );
+
+    }
+
 
     public void verificaEsistenzaPaginaNonTrovata() {
 
@@ -2544,6 +2581,7 @@ public class PiattaformaNotifichePage extends BasePage {
 
         LocalDate referenceDate = LocalDate.now().minusDays(giorni);
 
+
         // Prima riga
         LocalDate firstDate = extractDateFromRow(rows.get(0));
         logger.info("LOGGER firstDate: " + firstDate);
@@ -2552,6 +2590,7 @@ public class PiattaformaNotifichePage extends BasePage {
 //        logger.info("LOGGER lastDate: "+lastDate);
 //
 //        return firstDate.isBefore(referenceDate) || lastDate.isBefore(referenceDate);
+
         return firstDate.isBefore(referenceDate);
     }
 
@@ -2623,4 +2662,5 @@ public class PiattaformaNotifichePage extends BasePage {
         endDateField.sendKeys(date[0]);
         endDateField.sendKeys(Keys.ENTER);
     }
+
 }

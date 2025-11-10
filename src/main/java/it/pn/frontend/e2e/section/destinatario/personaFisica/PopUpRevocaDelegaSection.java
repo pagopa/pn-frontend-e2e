@@ -36,7 +36,7 @@ public class PopUpRevocaDelegaSection extends BasePage {
                 .until(ExpectedConditions.elementToBeClickable(By.id("dialog-action-button")));
     }
 
-    public void clickRevocaLaDelega() {
+   public void clickRevocaLaDelega() {
         revocaDialogAction = getWebDriverWait(10)
                 .withMessage("Il bottone 'Revoca la delega' non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("dialog-confirm-button")));
@@ -46,6 +46,5 @@ public class PopUpRevocaDelegaSection extends BasePage {
                 .withMessage("Il toast di conferma rimozione delega non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-testid='snackBarContainer']")));
     }
-
-
+  
 }
