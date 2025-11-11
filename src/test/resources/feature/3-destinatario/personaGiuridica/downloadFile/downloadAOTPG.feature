@@ -16,6 +16,7 @@ Feature: persona giuridica scarica attestazione opponibile
     And Si clicca sul bottone test
     And Si clicca bottone accetta cookies
     Then Home page mittente viene visualizzata correttamente
+    And Clicca tasto Accedi OneTrust PA
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica

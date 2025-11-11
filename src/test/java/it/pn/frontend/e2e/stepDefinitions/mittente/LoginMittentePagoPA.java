@@ -130,6 +130,8 @@ public class LoginMittentePagoPA extends BasePage {
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
 
+
+
         // Imposta un timeout più lungo per il caricamento della pagina
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
 
@@ -138,6 +140,7 @@ public class LoginMittentePagoPA extends BasePage {
             logger.info("Login effettuato con successo");
             webTool.waitTime(10);
             // Attendi che la dashboard sia completamente caricata
+            headerPASection.cliccareTastoAccediOneTrust();
             headerPASection.waitLoadHeaderSection();
             piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         } catch (Exception e) {
@@ -145,6 +148,8 @@ public class LoginMittentePagoPA extends BasePage {
             logger.info("Errore durante il login PA:  {} ", e.getMessage());
             throw e;
         }
+
+
     }
 
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di {string}")
@@ -224,13 +229,18 @@ public class LoginMittentePagoPA extends BasePage {
         }
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
-        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+//        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+        acccediAreaRiservataPAPage.bottoneConImgInternalIDP();
 
         loginPAPage.inserisciUtenete(datiMittenteFile.get("user"));
         loginPAPage.inserisciPassword(datiMittenteFile.get("pwd"));
-        loginPAPage.entraConSpid();
 
-        confermaDatiSpidPFPage.selezionaConfermaButton();
+        loginPAPage.bottoneAccedi();
+        loginPAPage.bottoneDoIlConsenso();
+
+//        loginPAPage.entraConSpid();
+
+//        confermaDatiSpidPFPage.selezionaConfermaButton();
 
         /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
             condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
@@ -261,6 +271,7 @@ public class LoginMittentePagoPA extends BasePage {
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies section start, before login");
+            webTool.waitTime(1);
             cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -271,7 +282,9 @@ public class LoginMittentePagoPA extends BasePage {
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
-        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+//        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+        acccediAreaRiservataPAPage.bottoneConImgInternalIDP();
+
         if (comune.equalsIgnoreCase("Viggiu")) {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
@@ -279,9 +292,12 @@ public class LoginMittentePagoPA extends BasePage {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
         }
-        loginPAPage.entraConSpid();
+//        loginPAPage.entraConSpid();
+//
+//        confermaDatiSpidPFPage.selezionaConfermaButton();
 
-        confermaDatiSpidPFPage.selezionaConfermaButton();
+        loginPAPage.bottoneAccedi();
+        loginPAPage.bottoneDoIlConsenso();
 
         /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
             condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
@@ -591,5 +607,16 @@ public class LoginMittentePagoPA extends BasePage {
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
         }
+    }
+
+    @And("Clicca tasto Accedi OneTrust PA")
+    public void cliccaTastoAccediOneTrustPA() {
+        headerPASection.cliccareTastoAccediOneTrust();
+    }
+
+    @And("Clicca tasto Accedi OneTrust PG e PF")
+    public void cliccaTastoAccediOneTrustPGePF() {
+        headerPASection.tosSwitch();
+        headerPASection.cliccareTastoAccediOneTrust();
     }
 }

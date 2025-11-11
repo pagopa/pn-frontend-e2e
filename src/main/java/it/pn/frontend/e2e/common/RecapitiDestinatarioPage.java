@@ -1347,7 +1347,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                     By.xpath("//h6[contains(text(), 'domicilio digitale')]")));
             getWebDriverWait(10).withMessage("Impossibile trovare Attivo ").until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Da attivare')]")));
-            getWebDriverWait(10).withMessage("Impossibile Cliccare su Inizia ").until(ExpectedConditions.visibilityOfElementLocated(
+            getWebDriverWait(10).withMessage("Impossibile Cliccare su Inizia nel metodo verificaDaAttivareDomicilioDigitale").until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//button[contains(text(),'Inizia')]")));
         } catch (Exception e) {
             Assertions.fail("Errore in verificaDaAttivareDomicilioDigitale: {}", e);
@@ -1469,6 +1469,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
 
     public void verificaPagina(String testo) {
+        webTool.waitTime(1);
         getWebDriverWait(25)
                 .withMessage("Non è presente Il testo '" + testo + "'")
                 .until(ExpectedConditions.presenceOfElementLocated(
@@ -1755,7 +1756,8 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
-                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+//                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+                            (By.xpath("//button[.//*[@data-testid='PowerSettingsNewIcon'] and contains(., 'Disattiva')]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 disattivaButton.click();
                 clickSuConfermaElimina();
@@ -1773,7 +1775,8 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
-                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+//                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+                            (By.xpath("//button[.//*[@data-testid='PowerSettingsNewIcon'] and contains(., 'Disattiva')]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 disattivaButton.click();
                 clickAnnulla();
@@ -1851,8 +1854,10 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10)
                     .withMessage("Il secondo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
                     .until(ExpectedConditions.or(
-                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il tuo domicilio digitale SEND potresti ricevere le comunicazioni via raccomandata')]")),
-                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'la tua impresa potrebbe ricevere le comunicazioni via raccomandata e')]"))
+
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il domicilio digitale SEND')]")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il tuo domicilio digitale SEND')]")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'potrebbe ricevere le comunicazioni via raccomandata e')]"))
                     ));
 
             getWebDriverWait(10)

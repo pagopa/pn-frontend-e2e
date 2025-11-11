@@ -11,7 +11,9 @@ Feature: PG - Cambio Lingua da SEND a portale Area Riservata - FR
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
+
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
 #   Cambio lingua
     And Cambia lingua footer "Francese"
     Then Seleziona servizio Notifiche Digitale

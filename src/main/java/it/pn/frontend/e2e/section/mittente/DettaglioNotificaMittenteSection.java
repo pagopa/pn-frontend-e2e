@@ -78,6 +78,17 @@ public class DettaglioNotificaMittenteSection extends BasePage {
         piattaformaNotifichePage = new PiattaformaNotifichePage(driver);
     }
 
+    public void siControllaCheNonCiSiaIlCampoNelDettaglioNotifica(String campo) {
+        try {
+            boolean assente = getWebDriverWait(10)
+                    .until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//table[@id='notification-detail-table']//td[contains(text(),'" + campo + "')]")));
+
+            Assertions.assertTrue(assente, "Il campo " + campo + " è presente, ma non dovrebbe esserlo.");
+        } catch (TimeoutException e) {
+            Assertions.fail("Il campo " + campo + " è presente e il test deve fallire.");
+        }
+    }
+
     public void waitLoadDettaglioNotificaSection() {
         getWebDriverWait(20)
                 .withMessage("Impossibile trovare Dettaglio Notifica ")

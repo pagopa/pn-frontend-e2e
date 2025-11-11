@@ -314,7 +314,7 @@ public class GruppiPGPage extends BasePage {
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("description")));
         } else {
             inputField = getWebDriverWait(10)
-                    .withMessage("Il campo nome non è visibile")
+                    .withMessage("Il campo nome non è visibile nel metodo siModificaUnCampoDelGruppo")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
         }
 

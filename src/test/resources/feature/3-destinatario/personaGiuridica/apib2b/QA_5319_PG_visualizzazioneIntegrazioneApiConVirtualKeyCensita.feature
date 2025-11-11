@@ -17,6 +17,7 @@ Feature: Visualizzazione sezione Integrazione API
       | pwd            | test           |
       | ragioneSociale | DivinaCommedia Srl  |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
@@ -34,6 +35,7 @@ Feature: Visualizzazione sezione Integrazione API
       | pwd            | test           |
       | ragioneSociale | DivinaCommedia Srl   |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
     And Click su tasto Genera Chiave Personale

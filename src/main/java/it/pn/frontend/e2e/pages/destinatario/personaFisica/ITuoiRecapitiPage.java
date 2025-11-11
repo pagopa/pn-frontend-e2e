@@ -599,21 +599,21 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void verificaDellaPaginaAttivaDomicilioDigitaleSuSEND() {
         getWebDriverWait(10)
-                .withMessage("Titolo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
+                .withMessage("Titolo nella pagina Attiva domicilio digitale su SEND non corretto o non presente Titolo PF")
                 .until(ExpectedConditions.or(
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Trasferisci il domicilio digitale sulla piattaforma SEND')]")))
                 ));
 
         getWebDriverWait(10)
-                .withMessage("Testo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
+                .withMessage("Testo nella pagina Attiva domicilio digitale su SEND non corretto o non presente Body PF")
                 .until(ExpectedConditions.and(
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Un ente ti invia una notifica su SEND')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica ti viene ')]"))),
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica ti viene')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//a[contains(text(), 'consegnata')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Quando ti arriva una notifica su SEND, ti avvisiamo tramite email e sui canali che preferisci')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Accedi alla notifica')]"))),
-                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Apri il dettaglio della notifica digitale sulla piattaforma SEND o, se hai attivato il servizio, direttamente dall’app IO')]")))
+                        ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Apri il dettaglio della notifica digitale sulla piattaforma SEND')]")))
                         )
                 );
     }

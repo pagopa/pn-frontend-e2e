@@ -15,6 +15,7 @@ import it.pn.frontend.e2e.pages.destinatario.personaGiuridica.*;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaGiuridica.HeaderPGSection;
+import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
@@ -49,6 +50,8 @@ public class LoginPGPagoPATest extends BasePage {
     private WebViewMultiLanguageConfig webViewMultiLanguageConfig;
 
     private HeaderPGSection headerPGSection;
+
+    private HeaderPASection headerPASection;
 
     private AccediAreaRiservataPGPage accediAreaRiservataPGPage;
 
@@ -95,6 +98,7 @@ public class LoginPGPagoPATest extends BasePage {
     public void init() {
         webTool = new WebTool(driver);
         headerPGSection = new HeaderPGSection(driver);
+        headerPASection = new HeaderPASection(driver);
         accediAreaRiservataPGPage = new AccediAreaRiservataPGPage(driver);
         selezionaImpresaPage = new SelezionaImpresaPage(driver);
         piattaformaNotifichePGPAPage = new PiattaformaNotifichePGPAPage(driver);
@@ -122,6 +126,7 @@ public class LoginPGPagoPATest extends BasePage {
         token = personaGiuridica.equalsIgnoreCase("delegante") ? webDriverConfig.getTokentestPGDelegante() : webDriverConfig.getTokentestPGDelegato();
 
         String urlLogin = "https://imprese." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
+
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         try {
             driver.get(urlLogin);
@@ -130,6 +135,9 @@ public class LoginPGPagoPATest extends BasePage {
             webTool.waitTime(10);
 
             headerPGSection.waitLoadHeaderPGPage();
+
+            headerPASection.tosSwitch();
+            headerPASection.cliccareTastoAccediOneTrust();
 
             if (personaGiuridica.equalsIgnoreCase("delegante")) {
                 logger.info("DELEGANTE: {}", dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
@@ -153,6 +161,7 @@ public class LoginPGPagoPATest extends BasePage {
             logger.info("Errore durante il login PG: " + e.getMessage());
             throw e;
         }
+
     }
 
     @When("Login portale persona giuridica tramite request method")

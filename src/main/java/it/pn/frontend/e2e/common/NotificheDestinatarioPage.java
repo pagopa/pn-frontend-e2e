@@ -38,7 +38,6 @@ public class NotificheDestinatarioPage extends BasePage{
         iunInput.sendKeys(codiceIUN);
     }
 
-
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
         try {
             By codiceIUNBy = By.xpath("//td[contains(text(),'" + codiceIUNInserito + "')]");
@@ -46,7 +45,7 @@ public class NotificheDestinatarioPage extends BasePage{
             logger.info("il codice IUN {} è stato trovato", codiceIUNInserito);
             return true;
         } catch (TimeoutException e) {
-            Assertions.fail("Il codice IUN" + codiceIUNInserito + " non è stato trovato con errore:" + e.getMessage());
+            Assertions.fail("Il codice IUN: " + codiceIUNInserito + " non è stato trovato con errore:" + e.getMessage());
         }
         return false;
     }

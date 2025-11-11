@@ -20,6 +20,7 @@ Feature: Login pagoPA Demo1
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Aspetta 10 secondi
+    And Clicca tasto Accedi OneTrust PG e PF
     Then Home page persona fisica viene visualizzata correttamente
 
   @demo
@@ -30,6 +31,7 @@ Feature: Login pagoPA Demo1
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
+    And Clicca tasto Accedi OneTrust PG e PF
 
   @demo
   Scenario: Login pagoPA mittente 1
@@ -51,6 +53,7 @@ Feature: Login pagoPA Demo1
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Aspetta 10 secondi
+    And Clicca tasto Accedi OneTrust PG e PF
     Then Home page persona fisica viene visualizzata correttamente
 
   @demo
@@ -61,6 +64,7 @@ Feature: Login pagoPA Demo1
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
+    And Clicca tasto Accedi OneTrust PG e PF
 
   @demo
   Scenario: Login pagoPA mittente 2
@@ -82,6 +86,7 @@ Feature: Login pagoPA Demo1
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Aspetta 10 secondi
+    And Clicca tasto Accedi OneTrust PG e PF
     Then Home page persona fisica viene visualizzata correttamente
 
   @demo
@@ -92,6 +97,7 @@ Feature: Login pagoPA Demo1
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
+    And Clicca tasto Accedi OneTrust PG e PF
 
 
   @demo
@@ -114,7 +120,9 @@ Feature: Login pagoPA Demo1
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     And Aspetta 10 secondi
+    And Clicca tasto Accedi OneTrust PG e PF
     Then Home page persona fisica viene visualizzata correttamente
+    And Clicca tasto Accedi OneTrust PG e PF
 
   @demo
   Scenario: PN-9146 - Login pagoPA persona giuridica 3

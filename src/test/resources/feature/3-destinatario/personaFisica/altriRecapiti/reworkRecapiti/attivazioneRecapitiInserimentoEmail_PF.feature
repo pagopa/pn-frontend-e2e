@@ -16,6 +16,7 @@ Feature: Rework della pagina dei contatti
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Clicca tasto Accedi OneTrust PG e PF
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
 ##    verificare mancano pezzi inerente a SEND sull'appIO
     And Verifica ed Elimina personalizzati per ente

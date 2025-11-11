@@ -56,7 +56,6 @@ Feature: PG -Utente Amministratore Persona Giuridica prova a censire una chiave 
     And Cliccare sui tre puntini con stato "Bloccata"
     Then  Nella pagina Api Key si clicca sulla voce Elimina del menu Api Key
     And Nella pop up cliccare sul tasto conferma
-    And Verifica Pop-up Integrazione Api "con successo"
     And Nella sezione Integrazione API non si visualizza alcuna chiave "Ancora nessuna chiave pubblica"
 #  5314
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica

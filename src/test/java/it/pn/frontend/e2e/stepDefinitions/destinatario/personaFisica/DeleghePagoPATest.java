@@ -330,6 +330,13 @@ public class DeleghePagoPATest extends BasePage {
         leTueDelegheSection.inserireCodiceDelega(getCodiceDelega(nomeConfig));
     }
 
+    @And("Inserisce Codice delega nel pop-up {string}")
+    public void inserireCodiceDelegaNelPopUp(String codice) {
+        logger.info("Inserisce Codice delega nel pop-up");
+        leTueDelegheSection.waitPopUpLoad();
+        leTueDelegheSection.inserireCodiceDelega(codice);
+    }
+
     @And("Si inserisce il codice errato delega nel pop-up {string}")
     public void siInserisceIlCodiceErratoDelegaNelPopUp(String codice) {
         logger.info("Si inserisce il codice per accettare la delega");
@@ -377,13 +384,32 @@ public class DeleghePagoPATest extends BasePage {
 
             response = restDelegation.addDelegationPF(delegateRequestPF, tokenExchange);
 
-            if (response != null && response.getVerificationCode() != null && !response.getVerificationCode().isEmpty()) {
-                logger.info("Inizio controllo notifica fino a stato accettata");
-
-                mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), response.getMandateId());
-                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), response.getVerificationCode());
+            logger.info("Inizio controllo notifica fino a stato accettata");
+            if (response == null) {
                 driver.navigate().refresh();
-                return;
+                List<DelegateResponsePF> getResponseList = restDelegation.getDeleghePF();
+                if (getResponseList != null) {
+                    logger.info("getResponseList {}", getResponseList);
+                    //DelegateResponsePF selectedDelegate = deleghePGPagoPAPage.getSelectedDelegate(getResponseList, );
+                    if (getResponseList != null && !getResponseList.isEmpty()) {
+                        getResponseList.forEach(delegate -> {
+                            if (delegate.getDelegate().getDisplayName().equalsIgnoreCase(personaFisica.get("displayName"))) {
+                                mandateSingleton.setScenarioMandateId(hooksNew.getScenario(), delegate.getMandateId());
+                                mandateSingleton.setScenarioVerificationCode(mandateSingleton.getMandateId(hooksNew.getScenario()), delegate.getVerificationCode());
+                            }
+                        });
+                    }
+                    if (mandateSingleton.getMandateId(hooksNew.getScenario()) == null) {
+                        Assertions.fail("Non è stato possibile recuperare la delega creata!");
+                    }
+                    else {
+                        logger.info("Selected delegate id {}", mandateSingleton.getMandateId(hooksNew.getScenario()));
+                    }
+                    return;
+                }
+                else {
+                    Assertions.fail("Non è stato possibile recuperare la lista delle deleghe!");
+                }
             } else {
                 logger.warn("Tentativo #{} di attesa risposta. Riprovo...", attempt);
                 webTool.waitTime(3);

@@ -15,6 +15,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
     And Attesa 1 secondi
     And Cambia lingua footer "Francese"
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 3 secondi
     When Seleziona voce menu laterale "Notifications"
     And Seleziona voce menu laterale "Notifications"
@@ -51,7 +52,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - FR
     And Attesa 2 secondi
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Anschriften"
-    And Verifica traduzione testo "Hier können digitale Anschriften angeben und geändert werden, an die Bescheide für Convivio Spa gesendet werden sollen"
+    And Verifica traduzione testo "Verwalten Sie die digitalen Kontakte, über die Sie rechtsverbindliche Mitteilungen von SEND"
 #    Selezionare Stato della Piattaforma
     When Seleziona voce menu laterale "Plattformstatus"
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND"

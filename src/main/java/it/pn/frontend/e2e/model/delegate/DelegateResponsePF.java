@@ -18,10 +18,11 @@ public class DelegateResponsePF {
     private Delegator delegator;
     private DelegatePF delegate;
     private String status;
-    private List<String> visibilityIds;
+//    private List<String> visibilityIds;
+    private List<Map<String, String>> visibilityIds;
     private String verificationCode;
     private String datefrom;
     private String dateto;
-    private Map<String, String> groups;
-
+//    private Map<String, String> groups;
+    private List<Map<String, String>> groups;
 }

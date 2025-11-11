@@ -11,6 +11,7 @@ Feature: Login pagoPA
       | comune | Verona   |
     Then Home page mittente viene visualizzata correttamente
     And Click entra su Send Mittente
+    And Clicca tasto Accedi OneTrust PA
     And Logout da portale mittente
 
   @TA_loginpersonaFisica_x
@@ -25,6 +26,7 @@ Feature: Login pagoPA
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     #And Aspetta 10 secondi
     And Refresh pagina
+    And Clicca tasto Accedi OneTrust PG e PF
     Then Home page persona fisica viene visualizzata correttamente
     And Logout da portale persona fisica
 
@@ -38,5 +40,6 @@ Feature: Login pagoPA
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
     And Click entra su Send Persona Giuridica
+    And Clicca tasto Accedi OneTrust PG e PF
     And Logout da portale persona giuridica
 

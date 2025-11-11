@@ -2563,7 +2563,7 @@ public class PiattaformaNotifichePage extends BasePage {
         getWebDriverWait(10)
                 .withMessage("Impossibile trovare il 'not-found-back-button'")
                 .until(ExpectedConditions
-                .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
+                        .presenceOfElementLocated(By.cssSelector("[data-testid='not-found-back-button']")));
     }
 
     public void clickTornaAllaHome() {
@@ -2574,7 +2574,6 @@ public class PiattaformaNotifichePage extends BasePage {
         buttonTornaAllaHome.click();
     }
 
-
     public boolean verifyDateCondition(long giorni) {
         List<WebElement> rows = driver.findElements(By.cssSelector("tr[data-testid='tableDowntimeLog.row']"));
 
@@ -2582,8 +2581,15 @@ public class PiattaformaNotifichePage extends BasePage {
 
         LocalDate referenceDate = LocalDate.now().minusDays(giorni);
 
+
+        // Prima riga
         LocalDate firstDate = extractDateFromRow(rows.get(0));
         logger.info("LOGGER firstDate: " + firstDate);
+//        // Ultima riga
+//        LocalDate lastDate = extractDateFromRow(rows.get(rows.size() - 1));
+//        logger.info("LOGGER lastDate: "+lastDate);
+//
+//        return firstDate.isBefore(referenceDate) || lastDate.isBefore(referenceDate);
 
         return firstDate.isBefore(referenceDate);
     }
@@ -2601,5 +2607,60 @@ public class PiattaformaNotifichePage extends BasePage {
         return LocalDate.parse(datePart, formatter);
     }
 
+    public void nellaPaginaPiattaformaNotificheSiControllaIlTestoPerErroreSuNotificheSEND(String testo) {
+        getWebDriverWait(2)
+                .withMessage("Testo richiesto per errore su notifiche SEND non è stato trovato")
+                .until(ExpectedConditions
+                        .presenceOfElementLocated(By.xpath("//div[@data-testid='api-error-getSentNotifications']//p[contains(text(),'" + testo + "')]")));
+    }
+
+    public void siControllaCheDataDiInizioEDataDiFineAbbianoTestoPerHelperText(String testo) {
+        getWebDriverWait(10)
+                .withMessage("Testo richiesto per helper text non è stato trovato")
+                .until(ExpectedConditions
+                        .presenceOfAllElementsLocatedBy(By.xpath("//form[@data-testid='filter-form']//p[contains(text(),'" + testo + "')]")));
+
+        List<WebElement> labelTexts = driver.findElements(By.xpath("//form[@data-testid='filter-form']//p[contains(text(),'" + testo + "')]"));
+        int size = labelTexts.size();
+        Assertions.assertEquals(2, size, "Numero di helper text su label " + size + ", diverso da 2");
+    }
+
+    public void siInserisceUnaDataInizio(String data) {
+        getWebDriverWait(10)
+                .withMessage("Il campo Data inizio non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='startDate']")));
+        WebElement startDateField = driver.findElement(By.xpath("//input[@id='startDate']"));
+        logger.info("data inizio {}", data);
+        String[] date = data.split("/");
+        startDateField.click();
+        startDateField.clear();
+        startDateField.sendKeys(Keys.ARROW_RIGHT);
+        startDateField.sendKeys(date[1]);
+        startDateField.sendKeys(Keys.ARROW_RIGHT);
+        startDateField.sendKeys(date[2]);
+        startDateField.sendKeys(Keys.ARROW_LEFT);
+        startDateField.sendKeys(Keys.ARROW_LEFT);
+        startDateField.sendKeys(date[0]);
+        startDateField.sendKeys(Keys.ENTER);
+    }
+
+    public void siInserisceUnaDataFine(String data) {
+        getWebDriverWait(10)
+                .withMessage("Il campo Data fine non è visibile")
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='endDate']")));
+        WebElement endDateField = driver.findElement(By.xpath("//input[@id='endDate']"));
+        logger.info("data date {}", data);
+        String[] date = data.split("/");
+        endDateField.click();
+        endDateField.clear();
+        endDateField.sendKeys(Keys.ARROW_RIGHT);
+        endDateField.sendKeys(date[1]);
+        endDateField.sendKeys(Keys.ARROW_RIGHT);
+        endDateField.sendKeys(date[2]);
+        endDateField.sendKeys(Keys.ARROW_LEFT);
+        endDateField.sendKeys(Keys.ARROW_LEFT);
+        endDateField.sendKeys(date[0]);
+        endDateField.sendKeys(Keys.ENTER);
+    }
 
 }
