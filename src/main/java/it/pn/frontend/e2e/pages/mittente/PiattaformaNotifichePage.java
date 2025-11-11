@@ -2615,6 +2615,13 @@ public class PiattaformaNotifichePage extends BasePage {
                         .presenceOfElementLocated(By.xpath("//div[@data-testid='api-error-getSentNotifications']//p[contains(text(),'" + testo + "')]")));
     }
 
+//    public void siControllaCheDataDiInizioEDataDiFineAbbianoTestoPerHelperText(String testo) {
+//        getWebDriverWait(10)
+//                .withMessage("Testo richiesto per helper text non è stato trovato")
+//                .until(ExpectedConditions
+//                        .presenceOfAllElementsLocatedBy(By.xpath("//form[@data-testid='filter-form']//p[contains(text(),'" + testo + "')]")));
+//        }
+
     public void siControllaCheDataDiInizioEDataDiFineAbbianoTestoPerHelperText(String testo) {
         getWebDriverWait(10)
                 .withMessage("Testo richiesto per helper text non è stato trovato")
@@ -2663,4 +2670,5 @@ public class PiattaformaNotifichePage extends BasePage {
         endDateField.sendKeys(date[0]);
         endDateField.sendKeys(Keys.ENTER);
     }
+
 }

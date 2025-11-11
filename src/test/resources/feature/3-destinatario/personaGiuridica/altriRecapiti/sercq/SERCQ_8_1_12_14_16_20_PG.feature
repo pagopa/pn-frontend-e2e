@@ -19,10 +19,15 @@ Feature: Rework della pagina dei contatti
     And Attesa 1 secondi
     And Refresh pagina
     And Verifica e Disattiva email
+
     And Attesa 1 secondi
     And Refresh pagina
 #   SERCQ - Fase 2: Scenario 1
 #   & Configurazione domicilio digitale - Fase 2: Scenario 14 (Attivazione SERCQ solo tramite email)
+
+   And Attesa 1 secondi
+   And Refresh pagina
+
     When Click Inizia
     And Verifica della pagina Attiva domicilio digitale su SEND per PG
     And Verifica testo nella pagina "Preferisci usare la PEC aziendale?"
@@ -35,18 +40,14 @@ Feature: Rework della pagina dei contatti
     And Click Continua Tab Inserisci un recapito
     And Verifica della presenza della modale Importanza aggiunta contatti aziendali
     And Click Ok ho capito Recapiti
-
 #    Scenario:8
     And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore
     And Nella sezione altri recapiti si clicca sul bottone annulla di popup
-
     And Click Aggiungi email
-
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
     And Nella pagina I Tuoi Recapiti si recupera l'OTP della Email tramite request method "personaGiuridica"
     And Nella pagina I Tuoi Recapiti Persona Giuridica si inserisce l'OTP ricevuto via Email
@@ -128,6 +129,7 @@ Feature: Rework della pagina dei contatti
     And Click Torna ai tuoi recapiti
     When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
     And Verifica e Disattiva domicilio digitale "Annulla"
+
     And Verifica e Disattiva domicilio digitale "Conferma"
 
 #  Configurazione domicilio digitale - Fase 2: Scenario 17 (disattivazione email con DD attivo)
@@ -197,3 +199,5 @@ Feature: Rework della pagina dei contatti
     And Click su bottone Disattiva per il recapito mail
     And Click Annulla
     And Verifica e Disattiva email
+
+

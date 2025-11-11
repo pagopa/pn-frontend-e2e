@@ -2520,7 +2520,6 @@ public class NotificaMittentePagoPATest extends BasePage {
         }
     }
 
-
     @And("Click Torna alla home")
     public void clickTornaAllaHome() {
         piattaformaNotifichePage.clickTornaAllaHome();

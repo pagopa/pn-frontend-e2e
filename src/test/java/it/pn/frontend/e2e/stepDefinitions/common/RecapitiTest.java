@@ -36,6 +36,7 @@ public class RecapitiTest extends BasePage {
     private RecapitiPGPage recapitiPGPage;
     private WebTool webTool;
 
+
     @Autowired
     private WebDriverConfig webDriverConfig;
 
