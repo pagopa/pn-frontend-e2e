@@ -1806,7 +1806,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             } catch (ElementClickInterceptedException e) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", disattivaButton);
             }
-             if (driver.findElements(By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")).isEmpty()) {
+            if (driver.findElements(By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")).isEmpty()) {
                 clickSuConfermaElimina();
             }
             else {
@@ -1854,6 +1854,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10)
                     .withMessage("Il secondo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
                     .until(ExpectedConditions.or(
+
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il domicilio digitale SEND')]")),
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il tuo domicilio digitale SEND')]")),
                             ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'potrebbe ricevere le comunicazioni via raccomandata e')]"))
