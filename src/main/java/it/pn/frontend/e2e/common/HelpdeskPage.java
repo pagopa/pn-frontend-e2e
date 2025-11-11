@@ -144,7 +144,7 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void waitLoadServiceTable() {
-        driver.navigate().refresh();
+        webTool.waitTime(1);
         List<WebElement> services = getWebDriverWait(10)
                 .withMessage("Non è visibile la tabella dei disservizi o i servizi sono meno di 3")
                 .until(d -> {
