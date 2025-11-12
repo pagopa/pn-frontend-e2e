@@ -1607,6 +1607,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickModificaPersonalizzatiPerEnte() {
+        webTool.waitTime(0);
         WebElement modificaPersonalizzatiPerEnte = getWebDriverWait(5)
                 .withMessage("Impossibile trovare il tasto 'Elimina'")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@id, 'modifyContact-')])[1]")));
