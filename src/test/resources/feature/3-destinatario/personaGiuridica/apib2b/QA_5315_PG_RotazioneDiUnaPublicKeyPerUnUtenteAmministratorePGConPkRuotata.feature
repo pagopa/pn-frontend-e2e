@@ -15,7 +15,7 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
 
     Given PG - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
-    And Refresh pagina
+#    And Refresh pagina
     And Attesa 1 secondi
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
@@ -167,7 +167,7 @@ Feature: PG - Rotazione di una public key per un utente Amministratore Persona G
       | view   | Visualizza codice |
 
     And Refresh pagina
-    And Attesa 8 secondi
+    And Attesa 2 secondi
 #  5326
     And Pulisci ambiente virtual keys
 # Inserire una chiave Attiva

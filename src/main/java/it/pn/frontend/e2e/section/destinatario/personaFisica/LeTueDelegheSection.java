@@ -238,8 +238,8 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void messaggioDiErroreDelegaPresente() {
-        webTool.waitTime(5);
-        getWebDriverWait(5)
+        webTool.waitTime(1);
+        getWebDriverWait(10)
                 .withMessage("Il messaggio di errore 'Delega già presente' NON viene visualizzato")
                 .until(ExpectedConditions.visibilityOfElementLocated(
                         By.xpath("//div[contains(text(),'Delega già presente')]")
@@ -433,8 +433,8 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void checkIndicatoreNumerico() {
-        webTool.waitTime(10);
-        getWebDriverWait(5)
+        webTool.waitTime(1);
+        getWebDriverWait(15)
                 .withMessage("L'indicatore numerico di notifica non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@data-testid='notifications']")));
         logger.info("Indicatore numerico di notifica visualizzato correttamente");

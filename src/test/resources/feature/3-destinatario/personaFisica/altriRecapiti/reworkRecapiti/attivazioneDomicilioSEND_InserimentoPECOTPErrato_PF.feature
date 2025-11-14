@@ -13,6 +13,7 @@ Feature:La persona fisica inserisce una OTP sbagliato PEC
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Clicca tasto Accedi OneTrust PG e PF
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Verifica e Disattiva domicilio digitale "Conferma"

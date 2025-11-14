@@ -33,9 +33,7 @@ public class RecapitiTest extends BasePage {
     private RecapitiDestinatarioPage recapitiDestinatarioPage;
 
     private ITuoiRecapitiPage iTuoiRecapitiPage;
-
     private RecapitiPGPage recapitiPGPage;
-
     private WebTool webTool;
 
 
@@ -589,5 +587,4 @@ public class RecapitiTest extends BasePage {
     public void verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePG() {
         recapitiPGPage.verificaDellaPaginaUsaUnaPECComeDomicilioDigitalePG();
     }
-
 }

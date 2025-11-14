@@ -517,21 +517,19 @@ public class ApiKeyPAPage extends BasePage {
     }
 
     public String visualizzaApiKeyInElenco() {
-        webTool.waitTime(10);
+        webTool.waitTime(1);
         WebElement contextMenu = getWebDriverWait(20)
                 .withMessage("Context menu non trovato")
                 .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("//button[@data-testid='contextMenuButton']")));
         contextMenu.click();
-
-        webTool.waitTime(7);
+        webTool.waitTime(1);
         WebElement visualizzaButton = getWebDriverWait(10)
                 .withMessage("Bottone visualizza codice non trovato")
                 .until(ExpectedConditions.elementToBeClickable(
                         By.xpath("//li[@data-testid='buttonView']")));
         visualizzaButton.click();
-
-        webTool.waitTime(7);
+        webTool.waitTime(1);
         WebElement apiKeyField = getWebDriverWait(10)
                 .withMessage("Campo API Key non trovato")
                 .until(ExpectedConditions.visibilityOfElementLocated(

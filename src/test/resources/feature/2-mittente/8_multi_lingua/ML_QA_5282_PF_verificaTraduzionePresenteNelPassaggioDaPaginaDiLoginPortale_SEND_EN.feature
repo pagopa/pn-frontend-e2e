@@ -15,10 +15,11 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Clicca tasto Accedi OneTrust PG e PF
 #   Verificole traduzioni del portale
     And Verifica traduzione testo "Notifications"
-    And Verifica traduzione testo "Your addresses"
-    And Verifica traduzione testo "Delegates"
+    And Verifica traduzione testo "Your contact"
+    And Verifica traduzione testo "Delegations"
     And Verifica traduzione testo "Platform status"
 #   Verificare traduzione della sezione HP notifiche
     And Verifica traduzione testo "Your notifications"
@@ -27,15 +28,15 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Status"
   
 #  Raggiungere la sezione i tuoi recapiti e verificarne le traduzioni
-    When Seleziona voce menu laterale "Your addresses"
+    When Seleziona voce menu laterale "Your contact"
     And Verifica traduzione testo "Addresses"
-    And Verifica traduzione testo "Here you can manage addresses and receive the notifications sent to you by institutions registered with SEND"
+    And Verifica traduzione testo "Manage the digital addresses on which to receive SEND"
     And Verifica traduzione testo "Legal address"
     And Verifica traduzione testo "Email"
 
 #  Raggiungere la sezione deleghe e verificarne la traduzione
 
-    When Seleziona voce menu laterale "Delegates"
+    When Seleziona voce menu laterale "Delegations"
     And Verifica traduzione testo "Here you can manage your delegates and your proxies. The first are the natural or legal"
     And Verifica traduzione testo "Your delegates"
     And Verifica traduzione testo "Your proxies"

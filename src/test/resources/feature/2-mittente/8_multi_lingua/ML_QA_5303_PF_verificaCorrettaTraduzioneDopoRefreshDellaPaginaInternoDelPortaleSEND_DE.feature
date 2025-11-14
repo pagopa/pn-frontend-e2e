@@ -16,10 +16,11 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
       #| lingua       | Tedesco |
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 2 secondi
     Then Refresh pagina
     And Attesa 2 secondi
     And Verifica traduzione testo "Zustellungen"
-    And Verifica traduzione testo "Deine Adressen"
-    And Verifica traduzione testo "Plattformstatus"
+    And Verifica traduzione testo "Deine Kontaktdaten"
+    And Verifica traduzione testo "Status der Plattform"
     And Chiudi pagina

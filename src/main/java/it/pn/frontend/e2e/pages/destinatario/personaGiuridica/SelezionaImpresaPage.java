@@ -30,7 +30,7 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void waitLoadSelezionaImpresaPage() {
-        webTool.waitTime(2);
+        webTool.waitTime(1);
         getWebDriverWait(70)
                 .withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile")
                 .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//h3[contains(text(),'Le tue imprese su SEND')]")));
@@ -41,7 +41,7 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void clickAccediButton() {
-        webTool.waitTime(30);
+        webTool.waitTime(1);
         WebElement accediButton = getWebDriverWait(30)
                 .withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Accedi')]")));

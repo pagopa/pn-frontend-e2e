@@ -2525,6 +2525,21 @@ public class NotificaMittentePagoPATest extends BasePage {
         piattaformaNotifichePage.clickTornaAllaHome();
     }
 
+    @And("Nella pagina Piattaforma Notifiche si controlla il testo per errore su notifiche SEND {string}")
+    public void nellaPaginaPiattaformaNotificheSiControllaIlTestoPerErroreSuNotificheSEND(String testo) {
+        piattaformaNotifichePage.nellaPaginaPiattaformaNotificheSiControllaIlTestoPerErroreSuNotificheSEND(testo);
+    }
+
+    @And("Si controlla che data di inizio e data di fine abbiano testo per helper text {string}")
+    public void siControllaCheDataDiInizioEDataDiFineAbbianoTestoPerHelperText(String testo) {
+        piattaformaNotifichePage.siControllaCheDataDiInizioEDataDiFineAbbianoTestoPerHelperText(testo);
+    }
+
+    @And("Si controlla che non ci sia il campo {string} nel dettaglio notifica")
+    public void siControllaCheNonCiSiaIlCampoNelDettaglioNotifica(String campo) {
+        dettaglioNotificaMittenteSection.siControllaCheNonCiSiaIlCampoNelDettaglioNotifica(campo);
+    }
+
     class EsitoNotifica {
         String statusNotifica;
         AccettazioneRichiestaNotifica accettazioneRichiestaNotifica;

@@ -12,6 +12,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
       | pwd            | test          |
       | ragioneSociale | Vita Nova Sas |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys
@@ -24,6 +25,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
 #  Censire una chiave pubblica per un Operatore
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
 ##    **************************************************************************
@@ -46,6 +48,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
       | pwd            | test          |
       | ragioneSociale | Vita Nova Sas |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
 # #    **************************************************************************
@@ -63,6 +66,7 @@ Feature: PG - Utente con ruolo Amministratore della PG blocca una virtual key di
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
 #  Censire una chiave pubblica per un Operatore
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Verifica stato Chiave Personale "Attiva"

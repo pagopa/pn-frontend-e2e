@@ -10,6 +10,7 @@ Feature: PA invia notifica in lingua differente da quella scelte nelle impostazi
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
     And Click entra su Send Mittente
+    And Clicca tasto Accedi OneTrust PA
     And Home page mittente viene visualizzata correttamente
     And Selezionare da impostazione lingua "Italiano"
 

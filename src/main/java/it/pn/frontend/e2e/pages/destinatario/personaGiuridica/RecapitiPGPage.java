@@ -26,14 +26,14 @@ public class RecapitiPGPage extends BasePage {
 
     public void verificaDellaPaginaAttivaDomicilioDigitaleSuSEND() {
         getWebDriverWait(10)
-                .withMessage("Titolo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
+                .withMessage("Titolo nella pagina Attiva domicilio digitale su SEND non corretto o non presente Titolo PG")
                 .until(ExpectedConditions.or(
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Attiva domicilio digitale su SEND')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//p[contains(text(), 'Trasferisci il domicilio digitale sulla piattaforma SEND')]")))
                 ));
 
         getWebDriverWait(10)
-                .withMessage("Testo nella pagina Attiva domicilio digitale su SEND non corretto o non presente")
+                .withMessage("Testo nella pagina Attiva domicilio digitale su SEND non corretto o non presente Body PG")
                 .until(ExpectedConditions.and(
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'Un ente invia una notifica SEND per')]"))),
                         ExpectedConditions.visibilityOfElementLocated((By.xpath("//ul//li//p[contains(text(), 'La notifica viene ')]"))),

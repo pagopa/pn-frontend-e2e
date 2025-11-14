@@ -426,7 +426,9 @@ public class DeleghePGPagoPAPage extends BasePage {
         boolean isInvalid = true;
         int attempt = 1;
         int maxAttempts = 7;
-        String stateInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input")).getAttribute("aria-invalid");
+//        String stateInput = driver.findElement(By.xpath("//div[@data-testid='dialog-content']//input")).getAttribute("aria-invalid");
+        String stateInput = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-testid='dialog-content']//input"))).getAttribute("aria-invalid");
         while (attempt < maxAttempts) {
 
             if (!(textboxIsInvalid.equals(stateInput))) {
@@ -470,8 +472,7 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void checkTabellaDelegheACaricoDellImpresa() {
-        webTool.waitTime(10);
-
+        webTool.waitTime(1);
         By tableLocator = By.id("notifications-table");
         By menuDelegaLocator = By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']");
         By colonnaNomeLocator = By.xpath("//table[@id='notifications-table']//th[contains(text(),'Nome')]");

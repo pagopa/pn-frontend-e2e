@@ -10,6 +10,7 @@ Feature: Ente figlio e Ente radice
       | pwd    | test    |
       | comune | Viggiu  |
     And Click entra su Send Mittente
+    And Clicca tasto Accedi OneTrust PA
     And Cliccare sulla notifica restituita
     And Salva codice IUN
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
@@ -26,6 +27,7 @@ Feature: Ente figlio e Ente radice
       | comune | Viggiu  |
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
     And Cliccare sulla notifica restituita
+    And Clicca tasto Accedi OneTrust PA
     And Salva codice IUN
     And Si sceglie ente figlio "Comune di Viggiu"
     And Mittente ricerca notifica con IUN salvato
@@ -121,6 +123,7 @@ Feature: Ente figlio e Ente radice
       | comune | Viggiu  |
     And Si sceglie ente figlio "EDILIZIA PRIVATA E SUAP"
     And Click entra su Send Mittente
+    And Clicca tasto Accedi OneTrust PA
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica senza gruppo
@@ -236,6 +239,7 @@ Feature: Ente figlio e Ente radice
       | pwd    | test    |
       | comune | Viggiu  |
     And Click entra su Send Mittente
+    And Clicca tasto Accedi OneTrust PA
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Invia una nuova notifica
     And Si visualizza correttamente la pagina Piattaforma Notifiche section Informazioni preliminari
     Then Nella section Informazioni preliminari si inseriscono i dati della notifica senza gruppo
