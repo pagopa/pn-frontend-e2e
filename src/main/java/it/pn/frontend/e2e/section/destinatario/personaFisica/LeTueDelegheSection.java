@@ -238,8 +238,6 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void messaggioDiErroreDelegaPresente() {
-//        webTool.waitTime(5);
-        //TODO:Andrea
         webTool.waitTime(1);
         getWebDriverWait(10)
                 .withMessage("Il messaggio di errore 'Delega già presente' NON viene visualizzato")
@@ -435,8 +433,6 @@ public class LeTueDelegheSection extends BasePage {
     }
 
     public void checkIndicatoreNumerico() {
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         getWebDriverWait(15)
                 .withMessage("L'indicatore numerico di notifica non è visibile")

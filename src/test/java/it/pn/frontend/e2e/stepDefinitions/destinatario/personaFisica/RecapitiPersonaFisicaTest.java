@@ -112,8 +112,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
     @And("Nella pagina I Tuoi Recapiti si clicca sul bottone conferma")
     public void nellaPaginaITuoiRecapitiSiCliccaSulBottoneConferma() {
         logger.info("Si cerca di cliccare sul bottone conferma");
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         recapitiDestinatarioPage.confermaButtonClick();
     }
@@ -123,8 +121,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         logger.info("Si visualizza correttamente il pop-up di inserimento OTP");
         String url = webDriverConfig.getBaseUrl() + "addresses";
         recapitiDestinatarioPage.waitLoadPopUp();
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         if (verificaChiamataEmail(url)) {
             logger.info("La chiamata per inviare l'otp è stata effettuata");
@@ -194,8 +190,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
 
     @Then("Si visualizza correttamente il messaggio di pec errata")
     public void nellaPaginaITuoiRecapitiSiVisualizzaCorrettamenteIlMessaggioDiPecErrata() {
-//        webTool.waitTime(3);
-        //TODO:Andrea
         webTool.waitTime(1);
         String errorMessageRead = recapitiDestinatarioPage.getPecErrorMessage();
         Assertions.assertEquals("Indirizzo PEC non valido", errorMessageRead, "messaggio di errore letto : '" + errorMessageRead + "' non è uguale a : Indirizzo PEC non valido");
@@ -311,8 +305,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         if (results) {
             String OTP = recuperoOTPRecapiti.getResponseBody();
             iTuoiRecapitiPage.sendOTP(OTP);
-//            webTool.waitTime(10);
-            //TODO:Andrea
             webTool.waitTime(1);
             recapitiDestinatarioPage.confermaButtonClickPopUp();
             if (recapitiDestinatarioPage.waitMessaggioErrore()) {
@@ -789,8 +781,6 @@ public class RecapitiPersonaFisicaTest extends BasePage {
         }
         String pec = dataPopulation.readDataPopulation("personaFisica.yaml").get("additionalEmail").toString();
         driver.navigate().refresh();
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         if (!recapitiDestinatarioPage.verificaNuovaEmailEPEC(pec)) {
             Assertions.fail("La email PEC non è stata associata correttamente");

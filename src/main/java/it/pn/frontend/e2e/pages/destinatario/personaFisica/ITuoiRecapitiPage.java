@@ -248,8 +248,6 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-//            webTool.waitTime(3);
-            //TODO:Andrea
             webTool.waitTime(1);
             WebElement pecInput = getWebDriverWait(10)
                     .withMessage("Il campo email PEC non è visibile")
@@ -393,8 +391,6 @@ public class ITuoiRecapitiPage extends BasePage {
 
     public void siCliccaSulBottoneDelPopUpOkHoCapito() {
         try {
-//            webTool.waitTime(6);
-            //TODO:Andrea
             webTool.waitTime(1);
             logger.info("Metodo: Ok Ho Capito");
 
@@ -415,8 +411,6 @@ public class ITuoiRecapitiPage extends BasePage {
     }
 
     public void siCliccaSulBottoneDelPopUpAnnulla() {
-//        webTool.waitTime(3);
-        //TODO:Andrea
         webTool.waitTime(1);
         WebElement annullaPopUp = getWebDriverWait(30)
                 .withMessage("Non si visualizza il bottone Annulla nel pop-up")

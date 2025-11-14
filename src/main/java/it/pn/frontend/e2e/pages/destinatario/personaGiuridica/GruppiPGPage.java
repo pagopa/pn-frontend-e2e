@@ -288,8 +288,6 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkCampiModificabili() {
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         inputNomeGruppo = getWebDriverWait(20)
                 .withMessage("Non si visualizza correttamente l'input del nome del gruppo")
@@ -319,7 +317,6 @@ public class GruppiPGPage extends BasePage {
                     .withMessage("Il campo nome non è visibile nel metodo siModificaUnCampoDelGruppo")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
         }
-
         inputField.click();
         inputField.clear(); // svuota il campo in modo sicuro
         inputField.sendKeys(modifica);

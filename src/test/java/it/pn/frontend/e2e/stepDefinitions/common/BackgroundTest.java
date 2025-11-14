@@ -354,8 +354,6 @@ public class BackgroundTest extends BasePage {
 
     public void siEliminaPecEsistenteEAltriRecapitiAssociati() {
         recapitiDestinatarioPage.clickSuEliminaPec();
-//        webTool.waitTime(3);
-        //TODO:Andrea
         webTool.waitTime(1);
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
             recapitiDestinatarioPage.clickSuConfermaElimina();
@@ -391,8 +389,6 @@ public class BackgroundTest extends BasePage {
             }
             siInserisceUnaPECConCampoInputVisibile(emailPEC);
         }
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
     }
 
@@ -412,8 +408,6 @@ public class BackgroundTest extends BasePage {
             }
             aggiuntaEmailDiCortesia(emailDiCortesia);
         }
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
     }
 

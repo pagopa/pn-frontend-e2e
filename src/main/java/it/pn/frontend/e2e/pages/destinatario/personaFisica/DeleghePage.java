@@ -61,8 +61,6 @@ public class DeleghePage extends BasePage {
     }
 
     public void controlloCreazioneDelega() {
-//        webTool.waitTime(30);
-        //TODO:Andrea
         webTool.waitTime(1);
 
         getWebDriverWait(30)
@@ -243,8 +241,6 @@ public class DeleghePage extends BasePage {
 
     public boolean siVisualizzaUnaDelegaConNome(String nome, String cognome) {
         try {
-//            webTool.waitTime(5);
-            //TODO:Andrea
             webTool.waitTime(1);
             By delegaLocator = By.xpath("//tr[@id='delegatesTable.body.row']//p[contains(text(),'" + nome + " " + cognome + "')]");
             getWebDriverWait(10)

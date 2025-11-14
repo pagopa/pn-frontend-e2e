@@ -25,8 +25,6 @@ public class AccediAreaRiservataPGPage extends BasePage {
     }
 
     public void waitLoadAccediAreaRiservataPGPage() {
-//        webTool.waitTime(30);
-        //TODO:Andrea
         webTool.waitTime(1);
 
         By titleBy = By.xpath("//h3[contains(text(),'Come vuoi accedere?')]");

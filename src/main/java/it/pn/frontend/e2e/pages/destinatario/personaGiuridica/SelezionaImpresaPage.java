@@ -30,8 +30,6 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void waitLoadSelezionaImpresaPage() {
-//        webTool.waitTime(2);
-        //TODO:Andrea
         webTool.waitTime(1);
         getWebDriverWait(70)
                 .withMessage("Il titolo della pagina Seleziona la tua impresa non è visibile")
@@ -43,8 +41,6 @@ public class SelezionaImpresaPage extends BasePage {
     }
 
     public void clickAccediButton() {
-//        webTool.waitTime(30);
-        //TODO:Andrea
         webTool.waitTime(1);
         WebElement accediButton = getWebDriverWait(30)
                 .withMessage("Il bottone accedi della pagina Seleziona la tua impresa non è cliccabile")

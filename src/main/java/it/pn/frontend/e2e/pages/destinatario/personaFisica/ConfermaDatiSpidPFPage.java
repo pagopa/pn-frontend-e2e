@@ -35,8 +35,6 @@ public class ConfermaDatiSpidPFPage extends BasePage {
     }
 
     public void waitLoadConfermaDatiSpidDEPage() {
-//        webTool.waitTime(5);
-        //TODO:Andrea
         webTool.waitTime(1);
 
         By spidLogoLocator = By.id("idp-logo");

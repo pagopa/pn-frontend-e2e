@@ -40,8 +40,6 @@ public class AutorizzaInvioDatiPGPage extends BasePage {
     }
 
     public void clickInviaButton() {
-//        webTool.waitTime(5); // opzionale, se serve un piccolo delay
-        //TODO:Andrea
         webTool.waitTime(1);
 
         By inviaButtonBy = By.xpath("//button[@name='confirm']");

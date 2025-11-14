@@ -101,8 +101,6 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void clickSezioneUtenti(String testo) {
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         By sezioneUtentiLocator = By.xpath("//span[contains(text(),'" + testo + "')]");
 
@@ -165,8 +163,6 @@ public class UtentiPGPage extends BasePage {
         By filtraButtonLocator = By.xpath("//button[contains(text(),'Filtra')]");
         By utentiTableLocator = By.id("UsersSearchTableBox");
 
-//        webTool.waitTime(15);
-        //TODO:Andrea
         webTool.waitTime(1);
 
         getWebDriverWait(30)
@@ -366,8 +362,6 @@ public class UtentiPGPage extends BasePage {
     }
 
     public void waitSuccessMessage() {
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         By successMessageLocator = By.xpath("//p[contains(text(),'Utente aggiunto correttamente')]");
 

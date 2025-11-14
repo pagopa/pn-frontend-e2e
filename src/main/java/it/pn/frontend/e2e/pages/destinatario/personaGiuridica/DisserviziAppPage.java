@@ -30,8 +30,6 @@ public class DisserviziAppPage extends BasePage {
     }
 
     public void waitLoadStatoDellaPiattaformaPage() {
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         By titlePageLocator = By.id("Stato della piattaforma-page");
         titlePage = getWebDriverWait(20)

@@ -138,8 +138,6 @@ public class LoginMittentePagoPA extends BasePage {
         try {
             driver.get(urlLogin);
             logger.info("Login effettuato con successo");
-//            webTool.waitTime(10);
-            //TODO:Andrea
             webTool.waitTime(1);
             // Attendi che la dashboard sia completamente caricata
             headerPASection.cliccareTastoAccediOneTrust();
@@ -165,9 +163,6 @@ public class LoginMittentePagoPA extends BasePage {
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
         driver.get(urlLogin);
         logger.info("Login effettuato con successo");
-        // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
         headerPASection.waitLoadHeaderSection();
@@ -240,15 +235,6 @@ public class LoginMittentePagoPA extends BasePage {
 
         loginPAPage.bottoneAccedi();
         loginPAPage.bottoneDoIlConsenso();
-
-//        loginPAPage.entraConSpid();
-
-//        confermaDatiSpidPFPage.selezionaConfermaButton();
-
-        /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
-            condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
-//        webTool.waitTime(3);
-        //TODO:Andrea
         webTool.waitTime(1);
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
@@ -260,9 +246,6 @@ public class LoginMittentePagoPA extends BasePage {
             }
             logger.info("cookies end");
         }
-
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));
@@ -494,8 +477,6 @@ public class LoginMittentePagoPA extends BasePage {
         logger.info("Home page mittente viene visualizzata correttamente");
 
         headerPASection.waitLoadHeaderSection();
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if (areaRiservataPAPage.verificaCodiceFiscale(dataPopulationConfig.getMittente().getCodiceFiscale())) {
@@ -503,14 +484,6 @@ public class LoginMittentePagoPA extends BasePage {
         } else {
             logger.info("Codice fiscale non presente o errato");
         }
-
-        // Uso di attesa fissa di 5 secondi - considerare l'uso di WebDriverWait per migliorare la stabilità del test
-//        try {
-//            TimeUnit.SECONDS.sleep(5);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-        //TODO:Andrea
         webTool.waitTime(1);
     }
 
@@ -518,8 +491,6 @@ public class LoginMittentePagoPA extends BasePage {
     public void logoutDaPortaleMittente() {
         logger.info("Si esce dal portale mittente");
 
-//        webTool.waitTime(2);
-        //TODO:Andrea
         webTool.waitTime(1);
 
         headerPASection.waitLoadHeaderSection();

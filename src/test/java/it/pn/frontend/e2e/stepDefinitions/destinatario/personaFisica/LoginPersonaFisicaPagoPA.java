@@ -138,8 +138,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         try {
             driver.get(urlLogin);
             logger.info("Login effettuato con successo");
-//            webTool.waitTime(10);
-            //TODO:Andrea
             webTool.waitTime(1);
             // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
             headerPASection.tosSwitch();
@@ -253,8 +251,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
-//        webTool.waitTime(2);
-        //TODO:Andrea
         webTool.waitTime(1);
     }
 
@@ -331,12 +327,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 httpRequestToken = true;
                 break;
             }
-//            try {
-//                TimeUnit.SECONDS.sleep(5);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-            //TODO:Andrea
             webTool.waitTime(1);
         }
         if (httpRequestToken) {
@@ -344,8 +334,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         } else {
             logger.warn("Http token persona fisica not found");
         }
-//        webTool.waitTime(5);
-        //TODO:Andrea
         webTool.waitTime(1);
         headerPFSection.waitLoadHeaderDESection();
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -353,8 +341,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-//        webTool.waitTime(15);
-        //TODO:Andrea
         webTool.waitTime(1);
         notifichePFPage.waitLoadNotificheDEPage();
 
@@ -364,17 +350,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             logger.info("text field codice iun non presente");
             Assertions.fail("text field codice iun non presente");
         }
-
-//        try {
-//            TimeUnit.SECONDS.sleep(5);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-        //TODO:Andrea
         webTool.waitTime(1);
-
         String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";
-
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
@@ -410,12 +387,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");
                 cookiesSection.selezionaAccettaTuttiButton();
-//                try {
-//                    TimeUnit.SECONDS.sleep(2);
-//                } catch (InterruptedException e) {
-//                    throw new RuntimeException(e);
-//                }
-                //TODO:Andrea
                 webTool.waitTime(1);
                 logger.info("banner dei cookies sparito");
             }
@@ -427,13 +398,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             logger.info("Spid Button nella pagina Come vuoi accedere portale persona fisica non visualizzato");
             Assertions.fail("Spid Button nella pagina Come vuoi accedere portale persona fisica non visualizzato");
         }
-
-//        try {
-//            TimeUnit.SECONDS.sleep(5);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-        //TODO:Andrea
         webTool.waitTime(1);
     }
 
@@ -752,8 +716,6 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
-//        webTool.waitTime(60);
-        //TODO:Andrea
         webTool.waitTime(1);
         scegliSpidPFPage.selezionareTestButton();
 

@@ -68,8 +68,6 @@ public class LoginPGPagoPAPage extends BasePage {
     }
 
     public void clickInviaButton() {
-//        webTool.waitTime(5); // attesa opzionale
-        //TODO:Andrea
         webTool.waitTime(1);
         inviaButton = getWebDriverWait(30)
                 .withMessage("Il bottone 'Invia' non è cliccabile")

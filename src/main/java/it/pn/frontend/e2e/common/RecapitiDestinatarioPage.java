@@ -253,8 +253,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClickPopUp() {
-//        webTool.waitTime(3);
-        //TODO:Andrea
         webTool.waitTime(1);
         By confirmButtonLocator = By.id("code-confirm-button");
 
@@ -262,8 +260,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         WebElement confermaButton = getWebDriverWait(20)
                 .until(ExpectedConditions.elementToBeClickable(confirmButtonLocator));
         confermaButton.click();
-//        webTool.waitTime(5);
-        //TODO:Andrea
         webTool.waitTime(1);
         // Controllo se appare un secondo bottone conferma e lo clicco
         List<WebElement> confermaButtonPostInserimentoList = driver.findElements(confirmButtonLocator);
@@ -489,8 +485,6 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-//            webTool.waitTime(5);
-            //TODO:Andrea
             webTool.waitTime(1);
             WebElement inputPecField = getWebDriverWait(30)
                     .withMessage("Impossibile trovare input per inserire la nuova PEC")
@@ -580,8 +574,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaEliminazionePEC() {
-//        webTool.waitTime(5); // eventuale pausa opzionale
-        //TODO:Andrea
         webTool.waitTime(1);
         try {
             WebElement pecField = getWebDriverWait(10)
@@ -594,8 +586,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaPresenzaPEC() {
-//        webTool.waitTime(5);
-        //TODO:Andrea
         webTool.waitTime(1);
         try {
             WebElement pecEmail = getWebDriverWait(10)
@@ -608,8 +598,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEnte(String comune) {
-//        webTool.waitTime(5);
-        //TODO:Andrea
         webTool.waitTime(1);
         WebElement enteField = getWebDriverWait(10)
                 .withMessage("Il campo ente non è visibile")
@@ -629,8 +617,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuIndirizzoPEC() {
-//        webTool.waitTime(5);
-        //TODO:Andrea
         webTool.waitTime(1);
         // Aspetta che il campo sia cliccabile e cliccalo
         WebElement tipoIndirizzoField = getWebDriverWait(10)
@@ -645,8 +631,6 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertPECAggiuntiva(String emailPec) {
-//        webTool.waitTime(5);
-        //TODO:Andrea
         webTool.waitTime(1);
         WebElement indirizzoPecField = getWebDriverWait(10)
                 .withMessage("Il campo PEC aggiuntiva non è visibile o cliccabile")
@@ -916,15 +900,11 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void checkEmailPrecedentementeSalvata(String email) {
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         By emailTypoBy = By.id("default_email-typography");
-
         WebElement emailAssociata = getWebDriverWait(20)
                 .withMessage("L'email precedentemente salvata non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(emailTypoBy));
-
         if (emailAssociata.getText().equalsIgnoreCase(email)) {
             logger.info("La mail associata risulta uguale alla precedente");
         } else {

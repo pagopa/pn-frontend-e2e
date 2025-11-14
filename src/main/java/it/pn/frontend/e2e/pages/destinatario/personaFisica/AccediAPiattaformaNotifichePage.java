@@ -307,8 +307,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
     }
 
     public void siVisualizzaSezionePagamento() {
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
 
         By codiceAvvisoBy = By.xpath("//span[contains(text(),'Codice avviso')]");
@@ -350,8 +348,6 @@ public class AccediAPiattaformaNotifichePage extends BasePage {
 
     public void cliccaPaga() {
         logger.info("Si clicca su bottone paga");
-//        webTool.waitTime(15);
-        //TODO:Andrea
         webTool.waitTime(1);
         WebElement cliccaPaga = getWebDriverWait(35)
                 .withMessage("Il bottone 'Paga' non è cliccabile")

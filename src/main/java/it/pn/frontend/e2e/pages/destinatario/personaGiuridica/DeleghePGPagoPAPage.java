@@ -472,8 +472,6 @@ public class DeleghePGPagoPAPage extends BasePage {
     }
 
     public void checkTabellaDelegheACaricoDellImpresa() {
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         By tableLocator = By.id("notifications-table");
         By menuDelegaLocator = By.xpath("//table[@id='notifications-table']//following-sibling::td//button[@data-testid='delegationMenuIcon']");

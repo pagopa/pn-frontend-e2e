@@ -130,26 +130,20 @@ public class DisserviziAppPAPage extends BasePage {
 
     public void waitLoadDisserviziTable() {
         try {
-//            webTool.waitTime(20);
-            //TODO:Andrea
             webTool.waitTime(1);
             // 1. Verifica tabella principale
             WebElement disserviziTable = getWebDriverWait(80)
                     .withMessage("Tabella disservizi non visibile")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("notifications-table")));
-
             // 2. Verifica header
             WebElement tableHeader = disserviziTable.findElement(By.xpath(".//thead[@role='rowgroup']"));
             getWebDriverWait(20).withMessage("Header non visibile").until(ExpectedConditions.visibilityOf(tableHeader));
-
             // 3. Verifica titoli colonne
             List<WebElement> headerTitles = tableHeader.findElements(By.xpath(".//th[@data-testid='tableDowntimeLog.header.cell']"));
             getWebDriverWait(20).withMessage("Titoli colonne non visibili").until(ExpectedConditions.visibilityOfAllElements(headerTitles));
-
             if (headerTitles.size() != 5) {
                 Assertions.fail("Numero colonne errato. Atteso: 5, Trovato: " + headerTitles.size());
             }
-
             // 4. Verifica testo titoli
             String[] expectedHeaders = {"Data di inizio", "Data di fine", "Servizio coinvolto", "Attestazioni opponibili a terzi", "Stato"};
             for (int i = 0; i < expectedHeaders.length; i++) {
@@ -157,13 +151,11 @@ public class DisserviziAppPAPage extends BasePage {
                         .withMessage("Titolo colonna " + expectedHeaders[i] + " non corretto")
                         .until(ExpectedConditions.textToBePresentInElement(headerTitles.get(i), expectedHeaders[i]));
             }
-
             // 5. Verifica righe dati
             List<WebElement> rows = disserviziTable.findElements(By.xpath(".//tr[contains(@id, 'tableDowntimeLog.row')]"));
             if (rows.isEmpty()) {
                 Assertions.fail("Nessuna riga di dati trovata");
             }
-
             // 6. Verifica contenuto prime righe
             for (int i = 0; i < Math.min(rows.size(), 3); i++) {
                 List<WebElement> cells = rows.get(i).findElements(By.xpath(".//td[@data-testid='tableDowntimeLog.row.cell']"));
@@ -173,9 +165,7 @@ public class DisserviziAppPAPage extends BasePage {
                             .until(driver -> !cell.getText().trim().isEmpty());
                 }
             }
-
             logger.info("Tabella disservizi visualizzata correttamente");
-
         } catch (TimeoutException e) {
             Assertions.fail("Tabella disservizi non visualizzata: " + e.getMessage());
         }

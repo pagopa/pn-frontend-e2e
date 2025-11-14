@@ -576,9 +576,6 @@ public class PiattaformaNotifichePage extends BasePage {
             verificaEsistenzaTabellaNotifiche();
             buttonRighePagine();
             selezionaPage50();
-
-//            webTool.waitTime(10);
-            //TODO:Andrea
             webTool.waitTime(1);
             List<WebElement> notifiche = getWebDriverWait(20)
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
@@ -616,9 +613,6 @@ public class PiattaformaNotifichePage extends BasePage {
             verificaEsistenzaTabellaNotifiche();
             buttonRighePagine();
             selezionaPage50();
-
-//            webTool.waitTime(10);
-            //TODO:Andrea
             webTool.waitTime(1);
             List<WebElement> notifiche = getWebDriverWait(20)
                     .until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id("notificationsTable.body.row"), 0));
@@ -1316,7 +1310,6 @@ public class PiattaformaNotifichePage extends BasePage {
         codiceIUNTextField = getWebDriverWait(10)
                 .withMessage("Impossibile trovare iunMatch nel metodo getCodiceIunInserito")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("iunMatch")));
-
         return codiceIUNTextField.getText();
     }
 
@@ -1372,8 +1365,6 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public boolean verificaCampiPreliminariNotificaVuoti() {
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         preliminaryInformationsForm = getWebDriverWait(70)
                 .withMessage("Il form preliminaryInformationsForm non è visibile")
@@ -1559,8 +1550,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void checkStatoNotifica(String stato) {
         driver.navigate().refresh();
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         By firstRowLocator = By.cssSelector("#notificationsTable.body.row:first-child");
         WebElement notificationLine = getWebDriverWait(20)
@@ -1692,8 +1681,6 @@ public class PiattaformaNotifichePage extends BasePage {
 
     public void visualizzaTimelineTuttiDestinatari(Map<String, String> destinatari) {
         logger.info("Si clicca 'vedi più dettagli'");
-//        webTool.waitTime(10);
-        //TODO:Andrea
         webTool.waitTime(1);
         List<WebElement> viewMore = getWebDriverWait(20)
                 .withMessage("'Vedi più dettagli' non trovato")
@@ -2386,13 +2373,11 @@ public class PiattaformaNotifichePage extends BasePage {
     }
 
     public void verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault() {
-
         List<WebElement> radioLabels = getWebDriverWait(15)
                 .withMessage("Impossibile trovare nel metodo verificaPresenzaRadionButtonInserimentoAutomaticoAbilitatoDiDefault")
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(
                         By.cssSelector("label[data-testid='physicalAddressLookupRadio.0']")
                 ));
-
         WebElement automaticoInput = null;
         WebElement automaticoLabel = null;
 

@@ -923,8 +923,6 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void inserimentoArcoTemporale() {
-//        webTool.waitTime(60);
-        //TODO:Andrea
         webTool.waitTime(1);
         By calendarButtonLocator = By.xpath("//button[contains(@aria-label, 'Choose date')]");
         WebElement calendarButton = getWebDriverWait(20)
