@@ -50,8 +50,6 @@ public class CookiesSection extends BasePage {
         } catch (TimeoutException e) {
             logger.info("Non è cliccabile il bottone 'Accetta tutti i cookie': " + e.getMessage());
         }
-
     }
-
 
 }
