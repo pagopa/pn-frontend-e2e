@@ -70,4 +70,5 @@ public class CookiesSection extends BasePage {
 
     }
 
+
 }
