@@ -216,15 +216,15 @@ public class LoginMittentePagoPA extends BasePage {
     public void loginConMittente(Map<String, String> datiMittenteFile) {
         logger.info("Si effetua la Login dal portale mittente");
 
-        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriverManager.getCookieConfig().isCookieEnabled()) {
-            logger.info("cookies start");
-            cookiesSection.selezionaAccettaTuttiButton();
+//        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+//                !webDriverManager.getCookieConfig().isCookieEnabled()) {
+//            logger.info("cookies start");
+//            cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
             logger.info("cookies end");
-        }
+//        }
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 //        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
@@ -237,15 +237,15 @@ public class LoginMittentePagoPA extends BasePage {
         loginPAPage.bottoneDoIlConsenso();
         webTool.waitTime(1);
 
-        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
-                !webDriverManager.getCookieConfig().isCookieEnabled()) {
-            logger.info("cookies start");
-            cookiesSection.selezionaAccettaTuttiButton();
+//        if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
+//                !webDriverManager.getCookieConfig().isCookieEnabled()) {
+//            logger.info("cookies start");
+//            cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
             logger.info("cookies end");
-        }
+//        }
         webTool.waitTime(1);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));

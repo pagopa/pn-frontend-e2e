@@ -123,12 +123,12 @@ public class NotifichePGPagoPATest extends BasePage {
 
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridica(String ragioneSociale) {
-        if (!cookieConfig.isCookieEnabled()) {
+//        if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("Si accettano i cookies");
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-        }
+//        }
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(ragioneSociale);
         String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
@@ -280,12 +280,12 @@ public class NotifichePGPagoPATest extends BasePage {
 
     public void siRecuperaBearerToken(String dpFile) {
         logger.info("Si recupera il bearer token");
-        if (!cookieConfig.isCookieEnabled()) {
+//        if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("Si accettano i cookies");
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-        }
+//        }
         piattaformaNotifichePGPAPage.waitLoadPiattaformaNotificaPage(dataPopulationConfig.getPersonaGiuridica().getRagioneSociale());
         try {
             TimeUnit.SECONDS.sleep(5);

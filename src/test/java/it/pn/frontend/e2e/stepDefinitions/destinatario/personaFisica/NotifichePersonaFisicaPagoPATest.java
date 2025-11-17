@@ -96,11 +96,11 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
     @Then("pagina Piattaforma  Notifiche persona fisica viene visualizzata correttamente")
     public void paginaPiattaformaNotificheDestinatarioVieneVisualizzataCorrettamente() {
         headerPFSection.waitLoadHeaderDESection();
-        if (!cookieConfig.isCookieEnabled()) {
+//        if (!cookieConfig.isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
-        }
+//        }
 
         notifichePFPage.waitLoadNotificheDEPage();
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
