@@ -50,7 +50,6 @@ public class CookiesSection extends BasePage {
 //            logger.info("Non è cliccabile il bottone 'Accetta tutti i cookie': " + e.getMessage());
 //        }
 
-
         try {
             getWebDriverWait(60).until(driver -> {
                 List<WebElement> buttons = driver.findElements(By.id("onetrust-accept-btn-handler"));
@@ -68,7 +67,6 @@ public class CookiesSection extends BasePage {
         } catch (TimeoutException e) {
             logger.info("Cookie banner NON presente o non cliccabile, continuo.");
         }
-
 
     }
 
