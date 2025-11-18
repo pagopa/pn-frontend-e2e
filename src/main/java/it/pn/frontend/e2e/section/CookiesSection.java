@@ -38,64 +38,29 @@ public class CookiesSection extends BasePage {
     }
 
     public void selezionaAccettaTuttiButton() {
-//        try {
-//            WebElement accettaTuttiButton = getWebDriverWait(60)
-//                    .until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
-//            logger.info("Si seleziona 'Accetta tutti i cookie'");
-//            new Actions(driver).moveToElement(accettaTuttiButton).click().perform();
-//        } catch (TimeoutException e) {
-//            logger.info("Non è cliccabile il bottone 'Accetta tutti i cookie': " + e.getMessage());
-//        }
-//        try {
-//            getWebDriverWait(60).until(driver -> {
-//                List<WebElement> buttons = driver.findElements(By.id("onetrust-accept-btn-handler"));
-//                if (buttons.isEmpty()) return false;              // non presente, riprova
-//                try {
-//                    buttons.get(0).click();                        // prova a cliccare
-//                    return true;                                   // clic riuscito
-//                } catch (StaleElementReferenceException e) {
-//                    return true;                                   // click ha rimosso il banner → OK
-//                } catch (ElementClickInterceptedException e) {
-//                    return false;                                  // non cliccabile ancora, riprova
-//                }
-//            });
-//            logger.info("Si seleziona 'Accetta tutti' i cookie banner cliccato.");
-//        } catch (TimeoutException e) {
-//            logger.info("Cookie banner NON presente o non cliccabile, continuo.");
-//        }
         try {
             getWebDriverWait(60).until(driver -> {
                 List<WebElement> buttons = driver.findElements(By.id("onetrust-accept-btn-handler"));
                 if (buttons.isEmpty()) return false;
-
                 WebElement btn = buttons.get(0);
-
                 try {
                     if (!btn.isDisplayed() || !btn.isEnabled()) {
                         return false;
                     }
-
                     btn.click();
                     return true;
-
                 } catch (StaleElementReferenceException e) {
                     return true; // il banner è sparito → OK
-
                 } catch (ElementClickInterceptedException e) {
                     return false; // overlay o animazione → riprova
-
                 } catch (ElementNotInteractableException e) {
                     return false; // non ancora interagibile → riprova
                 }
             });
-
             logger.info("Si seleziona 'Accetta tutti' — cookie banner cliccato.");
-
         } catch (TimeoutException e) {
             logger.info("Cookie banner NON presente o non cliccabile, continuo.");
         }
-
-
     }
 
 }
