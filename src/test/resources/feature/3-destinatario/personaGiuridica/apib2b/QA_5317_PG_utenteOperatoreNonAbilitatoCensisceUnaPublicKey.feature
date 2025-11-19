@@ -15,6 +15,7 @@ Feature: Creazione chiave pubblica
       | pwd            | test               |
       | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys
     And Pulisci ambiente public keys
@@ -26,6 +27,7 @@ Feature: Creazione chiave pubblica
       | pwd            | test               |
       | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Nella pagina Integrazione API si controlla che non sia presente il bottone Genera chiave pubblica
     Then Nella sezione Integrazione API non si visualizza alcuna chiave "Per poter creare una chiave personale, un amministratore deve prima abilitare l’integrazione."
@@ -39,6 +41,7 @@ Feature: Creazione chiave pubblica
       | pwd            | test               |
       | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     # Creazione chiave pubblica per scenario
     And Nella pagina Integrazione API si clicca sul bottone Genera chiave pubblica
@@ -55,6 +58,7 @@ Feature: Creazione chiave pubblica
       | pwd            | test               |
       | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Nella pagina Integrazione API si controlla sia presente il bottone Genera chiave personale
     And Click su tasto Genera Chiave Personale
@@ -70,5 +74,6 @@ Feature: Creazione chiave pubblica
       | pwd            | test               |
       | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     Then Si visualizza correttamente la lista delle Api Key generate PG

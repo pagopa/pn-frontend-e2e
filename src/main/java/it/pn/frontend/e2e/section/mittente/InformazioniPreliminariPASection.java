@@ -51,6 +51,7 @@ public class InformazioniPreliminariPASection extends BasePage {
     }
 
     public void waitLoadInformazioniPreliminariPASection() {
+        webTool.waitTime(1);
         By numeroProtocolloBy = By.id("paProtocolNumber");
         By oggettoNotificaBy = By.id("paProtocolNumber"); // probabilmente qui serve un id diverso
         By descrizioneBy = By.id("paProtocolNumber");      // probabilmente qui serve un id diverso

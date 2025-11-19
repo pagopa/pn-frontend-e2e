@@ -11,6 +11,7 @@ Feature: PA Verifica presenza banner che ricorda all’utente della PA di allega
       | url | https://selfcare.test.notifichedigitali.it |
     When Login con mittente Comune di "Viggiu"
     And Click entra su Send Mittente
+    And Clicca tasto Accedi OneTrust PA
     And Home page mittente viene visualizzata correttamente
 
     And Selezionare da impostazione lingua "Francese"

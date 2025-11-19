@@ -210,6 +210,13 @@ public class NotifichePGPagoPATest extends BasePage {
         driver.navigate().refresh();
     }
 
+    @And("Nella sezione Deleghe si accetta la delega PG")
+    public void nellaSezioneDelegheSiAccettaLaDelegaPG() {
+        logger.info("nellaSezioneDelegheSiAccettaLaDelega");
+        backgroundTest.accettaDelegaPG(dataPopulationConfig.getNuovaDelegaPg().getCodiceDelega());
+        driver.navigate().refresh();
+    }
+
     @And("Si visualizza correttamente la Pagina Notifiche persona giuridica sezione notifiche delegate {string}")
     public void siVisualizzaCorrettamenteLaPaginaNotifichePersonaGiuridicaSezioneNotificheDelegate(String ragioneSociale) {
         piattaformaNotifichePGPAPage.waitLoadSezioneNotificheDelegate(ragioneSociale);

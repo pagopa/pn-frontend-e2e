@@ -130,14 +130,17 @@ public class LoginMittentePagoPA extends BasePage {
         // Si effettua il login con token exchange
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
 
+
+
         // Imposta un timeout più lungo per il caricamento della pagina
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
 
         try {
             driver.get(urlLogin);
             logger.info("Login effettuato con successo");
-            webTool.waitTime(10);
+            webTool.waitTime(1);
             // Attendi che la dashboard sia completamente caricata
+            headerPASection.cliccareTastoAccediOneTrust();
             headerPASection.waitLoadHeaderSection();
             piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
         } catch (Exception e) {
@@ -145,6 +148,8 @@ public class LoginMittentePagoPA extends BasePage {
             logger.info("Errore durante il login PA:  {} ", e.getMessage());
             throw e;
         }
+
+
     }
 
     @Given("PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard Comune di {string}")
@@ -158,9 +163,7 @@ public class LoginMittentePagoPA extends BasePage {
         String urlLogin = "https://selfcare." + environment + ".notifichedigitali.it/#selfCareToken=" + token;
         driver.get(urlLogin);
         logger.info("Login effettuato con successo");
-        // Attesa statica di 10 secondi - considerare l'uso di WebDriverWait per migliorare l'efficienza
-        webTool.waitTime(10);
-
+        webTool.waitTime(1);
         // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
         headerPASection.waitLoadHeaderSection();
         piattaformaNotifichePage.waitLoadPiattaformaNotifichePAPage();
@@ -224,17 +227,15 @@ public class LoginMittentePagoPA extends BasePage {
         }
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
-        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+//        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+        acccediAreaRiservataPAPage.bottoneConImgInternalIDP();
 
         loginPAPage.inserisciUtenete(datiMittenteFile.get("user"));
         loginPAPage.inserisciPassword(datiMittenteFile.get("pwd"));
-        loginPAPage.entraConSpid();
 
-        confermaDatiSpidPFPage.selezionaConfermaButton();
-
-        /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
-            condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
-        webTool.waitTime(3);
+        loginPAPage.bottoneAccedi();
+        loginPAPage.bottoneDoIlConsenso();
+        webTool.waitTime(1);
 
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
@@ -245,8 +246,7 @@ public class LoginMittentePagoPA extends BasePage {
             }
             logger.info("cookies end");
         }
-
-        webTool.waitTime(10);
+        webTool.waitTime(1);
         selezionaEntePAPage.waitLoadSelezionaEntePAPage();
         selezionaEntePAPage.cercaComune(datiMittenteFile.get("comune"));
         selezionaEntePAPage.selezionareComune(datiMittenteFile.get("comune"));
@@ -261,6 +261,7 @@ public class LoginMittentePagoPA extends BasePage {
         if (driver.getCurrentUrl().contains(webDriverConfig.getUrlSelfCare()) ||
                 !webDriverManager.getCookieConfig().isCookieEnabled()) {
             logger.info("cookies section start, before login");
+            webTool.waitTime(1);
             cookiesSection.selezionaAccettaTuttiButton();
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
@@ -271,7 +272,9 @@ public class LoginMittentePagoPA extends BasePage {
         acccediAreaRiservataPAPage.waitLoadLoginPageMittente();
         acccediAreaRiservataPAPage.selezionareSpidButton();
 
-        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+//        acccediAreaRiservataPAPage.bottoneConImgPagoPA();
+        acccediAreaRiservataPAPage.bottoneConImgInternalIDP();
+
         if (comune.equalsIgnoreCase("Viggiu")) {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittenteViggiu());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittenteViggiu());
@@ -279,9 +282,12 @@ public class LoginMittentePagoPA extends BasePage {
             loginPAPage.inserisciUtenete(webDriverConfig.getUserMittente());
             loginPAPage.inserisciPassword(webDriverConfig.getPwdMittente());
         }
-        loginPAPage.entraConSpid();
+//        loginPAPage.entraConSpid();
+//
+//        confermaDatiSpidPFPage.selezionaConfermaButton();
 
-        confermaDatiSpidPFPage.selezionaConfermaButton();
+        loginPAPage.bottoneAccedi();
+        loginPAPage.bottoneDoIlConsenso();
 
         /*  Si mette un tempo di attesa per consentire una corretta ridirezione all'url di selfcare,
             condizione per il controllo sulla comparsa della sezione dei cookie dopo il login*/
@@ -471,27 +477,21 @@ public class LoginMittentePagoPA extends BasePage {
         logger.info("Home page mittente viene visualizzata correttamente");
 
         headerPASection.waitLoadHeaderSection();
-        webTool.waitTime(10);
+        webTool.waitTime(1);
         areaRiservataPAPage.waitLoadAreaRiservataPAPage();
         if (areaRiservataPAPage.verificaCodiceFiscale(dataPopulationConfig.getMittente().getCodiceFiscale())) {
             logger.info("Codice fiscale presente");
         } else {
             logger.info("Codice fiscale non presente o errato");
         }
-
-        // Uso di attesa fissa di 5 secondi - considerare l'uso di WebDriverWait per migliorare la stabilità del test
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        webTool.waitTime(1);
     }
 
     @And("Logout da portale mittente")
     public void logoutDaPortaleMittente() {
         logger.info("Si esce dal portale mittente");
 
-        webTool.waitTime(2);
+        webTool.waitTime(1);
 
         headerPASection.waitLoadHeaderSection();
         headerPASection.selezionaEsciButton();
@@ -591,5 +591,16 @@ public class LoginMittentePagoPA extends BasePage {
                 Assertions.fail("Ambiente non valido o non trovato!");
             }
         }
+    }
+
+    @And("Clicca tasto Accedi OneTrust PA")
+    public void cliccaTastoAccediOneTrustPA() {
+        headerPASection.cliccareTastoAccediOneTrust();
+    }
+
+    @And("Clicca tasto Accedi OneTrust PG e PF")
+    public void cliccaTastoAccediOneTrustPGePF() {
+        headerPASection.tosSwitch();
+        headerPASection.cliccareTastoAccediOneTrust();
     }
 }

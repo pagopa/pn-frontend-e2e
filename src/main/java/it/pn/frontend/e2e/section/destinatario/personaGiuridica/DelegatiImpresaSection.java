@@ -187,9 +187,30 @@ public class DelegatiImpresaSection extends BasePage {
                 try {
                     js().executeScript("arguments[0].click();", menuIcon);
                     // Attesa e click su "Revoca delega"
-                    WebElement revokeButton = getWebDriverWait(40)
-                            .withMessage("Bottone Revoca Delega non cliccabile")
-                            .until(ExpectedConditions.elementToBeClickable(By.id("reject-delegation-button")));
+//                    WebElement revokeButton = getWebDriverWait(40)
+//                            .withMessage("Bottone Revoca Delega non cliccabile")
+//                            .until(ExpectedConditions.elementToBeClickable(By.id("reject-delegation-button"))) // Rifiuta
+//                            .until(ExpectedConditions.elementToBeClickable(By.id("revoke-delegation-button"))); // revoca
+                      WebElement revokeButton =  getWebDriverWait(40)
+                            .withMessage("Nessuno dei bottoni 'Rifiuta' o 'Revoca' è cliccabile")
+                            .until(driver -> {
+                                try {
+                                    WebElement reject = driver.findElement(By.id("reject-delegation-button"));
+                                    if (reject.isDisplayed() && reject.isEnabled()) return reject;
+                                } catch (NoSuchElementException ignored) {
+                                    logger.info("Bottone Rifiuta Delega non cliccabile in Deleghe a carico dell impresa");
+                                }
+
+                                try {
+                                    WebElement revoke = driver.findElement(By.id("revoke-delegation-button"));
+                                    if (revoke.isDisplayed() && revoke.isEnabled()) return revoke;
+                                } catch (NoSuchElementException ignored) {
+                                    logger.info("Bottone Revoca Delega non cliccabile in Delegati dall impresa");
+                                }
+
+                                return null;
+                            });
+
                     revokeButton.click();
                     // Attesa e click sul pulsante di conferma nel pop-up
                     WebElement dialogButton = getWebDriverWait(40)

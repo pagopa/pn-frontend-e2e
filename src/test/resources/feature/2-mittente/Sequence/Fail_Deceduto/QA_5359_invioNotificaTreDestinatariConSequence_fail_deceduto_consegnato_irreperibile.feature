@@ -17,6 +17,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
       | name         | Giuseppe Maria         |
       | familyName   | Garibaldi              |
       | fiscalNumber | TINIT-GRBGPP87L04L741X |
+    And Clicca tasto Accedi OneTrust PG e PF
     And Si visualizza correttamente la pagina Piattaforma Notifiche persona fisica
     And Rimuovi tutti i recapiti se esistono
     Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard

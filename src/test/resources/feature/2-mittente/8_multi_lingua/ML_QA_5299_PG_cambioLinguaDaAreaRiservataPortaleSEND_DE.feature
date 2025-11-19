@@ -14,6 +14,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
 #   Cambio lingua
     When Cambia lingua footer "Tedesco"
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 2 secondi
     And Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"
@@ -26,7 +27,7 @@ Feature: PG - Cambio Lingua da Area Riservata a portale SEND - DE
     And Verifica traduzione testo "Vollmachten des Unternehmens"
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Anschriften"
-    And Verifica traduzione testo "Hier können digitale Anschriften angeben und geändert werden, an die Bescheide für Convivio Spa gesendet werden sollen"
+    And Verifica traduzione testo "Verwalten Sie die digitalen Kontakte"
 #    Selezionare Stato della Piattaforma
     When Seleziona voce menu laterale "Plattformstatus"
     And Verifica traduzione testo "Überprüft die Funktionsweise von SEND"

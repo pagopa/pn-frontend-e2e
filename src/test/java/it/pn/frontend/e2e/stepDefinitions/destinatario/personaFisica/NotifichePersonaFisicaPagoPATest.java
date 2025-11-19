@@ -526,6 +526,17 @@ public class NotifichePersonaFisicaPagoPATest extends BasePage {
         else
             Assertions.fail("Nessuna chiave valida per gli ambienti di esecuzione!");
     }
+
+    @And("Nella pagina Piattaforma Notifiche mittente si accede alla notifica con codice IUN specifico")
+    public void nellaPaginaPiattaformaNotificheMittenteSiAccedeAllaNotificaConCodiceIUNSpecifico(Map<String, String> codiciIUN) {
+        String env = webDriverConfig.getEnvironment();
+        if (codiciIUN.containsKey("dev") || codiciIUN.containsKey("test") || codiciIUN.containsKey("uat")) {
+            this.driver.get("https://selfcare." + env + ".notifichedigitali.it/dashboard/" + codiciIUN.get(env) + "/dettaglio");
+            webTool.waitTime(5);
+        }
+        else
+            Assertions.fail("Nessuna chiave valida per gli ambienti di esecuzione!");
+    }
 }
 
 

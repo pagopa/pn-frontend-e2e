@@ -73,4 +73,35 @@ public class HeaderPASection extends BasePage {
             Assertions.fail("Il secondo bottone Esci non cliccabile PA con errore: " + e.getMessage());
         }
     }
+
+    public void cliccareTastoAccediOneTrust() {
+        try {
+            WebElement accediButton = getWebDriverWait(15)
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath("//button[normalize-space()='Accedi']")));
+            accediButton.click();
+            logger.info("Cliccato su 'Accedi'");
+        } catch (TimeoutException e) {
+            logger.info("Nessun bottone 'Accedi' trovato, continuo..." + e.getMessage());
+        }
+    }
+
+    public void tosSwitch() {
+        try {
+            WebElement switchEl = getWebDriverWait(10)
+                    .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[data-testid='tosSwitch']")));
+            WebElement input = switchEl.findElement(By.cssSelector("input[type='checkbox']"));
+
+            if (!input.isSelected()) {
+                switchEl.click();
+                logger.info("Switch 'tosSwitch' attivato");
+            } else {
+                logger.info("Switch 'tosSwitch' già attivo");
+            }
+
+        } catch (TimeoutException e) {
+            logger.info("Switch 'tosSwitch' non trovato, continuo...");
+        }
+
+
+    }
 }

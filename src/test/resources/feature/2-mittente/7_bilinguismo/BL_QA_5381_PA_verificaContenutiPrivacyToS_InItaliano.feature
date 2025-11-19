@@ -12,6 +12,7 @@ Feature: PA PA Verifica contenuti Privacy e ToS in Italiano
 
     When Login con mittente Comune di "Viggiu"
     And Click entra su Send Mittente
+    And Clicca tasto Accedi OneTrust PA
     And Si clicca bottone accetta cookies
     And Home page mittente viene visualizzata correttamente
 

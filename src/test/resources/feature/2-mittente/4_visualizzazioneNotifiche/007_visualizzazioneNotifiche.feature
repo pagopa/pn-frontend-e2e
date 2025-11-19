@@ -40,7 +40,9 @@ Feature: Mittente visualizza correttamente la pagina notifiche
       | pwd            | test             |
       | ragioneSociale | Comune di Milano |
     Then Home page persona giuridica viene visualizzata correttamente
+
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Si seleziona la notifica
 
 

@@ -36,7 +36,7 @@ public class SelezionaEntePAPage extends BasePage {
 
     public void waitLoadSelezionaEntePAPage() {
         try {
-            webTool.waitTime(30);
+            webTool.waitTime(1);
 
             getWebDriverWait(80)
                     .withMessage("Elenco dei comuni Ente non sono visibili entro il tempo previsto")

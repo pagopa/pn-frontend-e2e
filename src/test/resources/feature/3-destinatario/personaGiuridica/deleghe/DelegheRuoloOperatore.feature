@@ -14,6 +14,7 @@ Feature:Deleghe lato ruolo operatore
       | pwd            | test               |
       | ragioneSociale | DivinaCommedia Srl |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     Then Home page persona giuridica ruolo operatore viene visualizzata correttamente
       | ragioneSociale | DivinaCommedia Srl |
 
@@ -36,6 +37,7 @@ Feature:Deleghe lato ruolo operatore
       | pwd            | test              |
       | ragioneSociale | Convivio Spa      |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     Then Home page persona giuridica ruolo operatore viene visualizzata correttamente
       | ragioneSociale | Convivio Spa |
     And Cliccare sulla notifica restituita

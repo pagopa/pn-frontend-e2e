@@ -14,7 +14,7 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
     #   Cambio lingua
     And Cambia lingua footer "Francese"
     And Si clicca su prodotto
-
+    And Clicca tasto Accedi OneTrust PG e PF
     When Nella Pagina Notifiche persona giuridica si clicca su utenti "Utilisateurs"
     And Verifica traduzione testo "Recherche par nom"
     And Verifica traduzione testo "utilisateurs qui peuvent lire les notifications de Convivio Spa"

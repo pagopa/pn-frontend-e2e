@@ -144,7 +144,7 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void waitLoadServiceTable() {
-
+        webTool.waitTime(1);
         List<WebElement> services = getWebDriverWait(10)
                 .withMessage("Non è visibile la tabella dei disservizi o i servizi sono meno di 3")
                 .until(d -> {
@@ -923,8 +923,7 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void inserimentoArcoTemporale() {
-        webTool.waitTime(60);
-
+        webTool.waitTime(1);
         By calendarButtonLocator = By.xpath("//button[contains(@aria-label, 'Choose date')]");
         WebElement calendarButton = getWebDriverWait(20)
                 .until(ExpectedConditions.elementToBeClickable(calendarButtonLocator));

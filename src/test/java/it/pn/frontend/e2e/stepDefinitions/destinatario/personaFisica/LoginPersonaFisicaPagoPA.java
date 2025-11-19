@@ -19,6 +19,7 @@ import it.pn.frontend.e2e.pages.mittente.PiattaformaNotifichePage;
 import it.pn.frontend.e2e.rest.RestContact;
 import it.pn.frontend.e2e.section.CookiesSection;
 import it.pn.frontend.e2e.section.destinatario.personaFisica.HeaderPFSection;
+import it.pn.frontend.e2e.section.mittente.HeaderPASection;
 import it.pn.frontend.e2e.utility.DataPopulation;
 import it.pn.frontend.e2e.utility.WebTool;
 import jakarta.annotation.PostConstruct;
@@ -51,6 +52,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
     private DataPopulation dataPopulation;
 
     private HeaderPFSection headerPFSection ;
+
+    private HeaderPASection headerPASection;
 
     private NotifichePFPage notifichePFPage;
 
@@ -92,6 +95,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         logger.info("INIT TEST...: ");
         webTool = new WebTool(driver);
         headerPFSection = new HeaderPFSection(driver);
+        headerPASection = new HeaderPASection(driver);
         notifichePFPage = new NotifichePFPage(driver);
         scegliSpidPFPage = new ScegliSpidPFPage(driver);
         loginSpidPFPage = new LoginSpidPFPage(driver);
@@ -129,12 +133,15 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 webDriverConfig.getTokentestPFDelegato();
         // Si effettua il login con token exchange
         String urlLogin = "https://cittadini." + environment + ".notifichedigitali.it/#token=" + token;
+
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         try {
             driver.get(urlLogin);
             logger.info("Login effettuato con successo");
-            webTool.waitTime(10);
+            webTool.waitTime(1);
             // Si visualizza la dashboard e si verifica che gli elementi base siano presenti (header e title della pagina)
+            headerPASection.tosSwitch();
+            headerPASection.cliccareTastoAccediOneTrust();
             headerPFSection.waitLoadHeaderDESection();
             notifichePFPage.waitLoadNotificheDEPage();
             //Salva il token exchange che verrà riusato per ottenere il session token da usare nelle chiamate a API SEND
@@ -244,7 +251,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
 
         confermaDatiSpidPFPage.selezionaConfermaButton();
         headerPFSection.waitUrlToken();
-        webTool.waitTime(2);
+        webTool.waitTime(1);
     }
 
     @When("Login con persona fisica input")
@@ -320,25 +327,21 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
                 httpRequestToken = true;
                 break;
             }
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            webTool.waitTime(1);
         }
         if (httpRequestToken) {
             logger.info("Http token persona fisica found");
         } else {
             logger.warn("Http token persona fisica not found");
         }
-        webTool.waitTime(5);
+        webTool.waitTime(1);
         headerPFSection.waitLoadHeaderDESection();
         if (!webDriverManager.getCookieConfig().isCookieEnabled()) {
             if (cookiesSection.waitLoadCookiesPage()) {
                 cookiesSection.selezionaAccettaTuttiButton();
             }
         }
-        webTool.waitTime(15);
+        webTool.waitTime(1);
         notifichePFPage.waitLoadNotificheDEPage();
 
         if (notifichePFPage.verificaPresenzaCodiceIunTextField()) {
@@ -347,15 +350,8 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             logger.info("text field codice iun non presente");
             Assertions.fail("text field codice iun non presente");
         }
-
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+        webTool.waitTime(1);
         String urlChiamata = webDriverConfig.getBaseUrl() + "notifications/received?";
-
         int codiceRispostaChiamataApi = getCodiceRispostaChiamataApi(urlChiamata);
         if (codiceRispostaChiamataApi != 200 && codiceRispostaChiamataApi != 0) {
             Assertions.fail("TA_QA: La chiamata, " + urlChiamata + " è andata in errore");
@@ -391,11 +387,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             if (cookiesSection.waitLoadCookiesPage()) {
                 logger.info("banner dei cookies visualizzato");
                 cookiesSection.selezionaAccettaTuttiButton();
-                try {
-                    TimeUnit.SECONDS.sleep(2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                webTool.waitTime(1);
                 logger.info("banner dei cookies sparito");
             }
         }
@@ -406,12 +398,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
             logger.info("Spid Button nella pagina Come vuoi accedere portale persona fisica non visualizzato");
             Assertions.fail("Spid Button nella pagina Come vuoi accedere portale persona fisica non visualizzato");
         }
-
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        webTool.waitTime(1);
     }
 
     private boolean readHttpRequest() {
@@ -729,7 +716,7 @@ public class LoginPersonaFisicaPagoPA extends BasePage{
         }
 
         scegliSpidPFPage.waitLoadScegliSpidDEPage();
-        webTool.waitTime(60);
+        webTool.waitTime(1);
         scegliSpidPFPage.selezionareTestButton();
 
         loginSpidPFPage.waitLoadLoginSpidDEPage();

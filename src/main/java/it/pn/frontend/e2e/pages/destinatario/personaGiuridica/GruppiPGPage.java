@@ -288,17 +288,17 @@ public class GruppiPGPage extends BasePage {
     }
 
     public void checkCampiModificabili() {
-        webTool.waitTime(10);
-        inputNomeGruppo = getWebDriverWait(10)
+        webTool.waitTime(1);
+        inputNomeGruppo = getWebDriverWait(20)
                 .withMessage("Non si visualizza correttamente l'input del nome del gruppo")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
-        inputDescrizioneGruppo = getWebDriverWait(10)
+        inputDescrizioneGruppo = getWebDriverWait(20)
                 .withMessage("Non si visualizza correttamente l'input della descrizione del gruppo")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("description")));
-        selectSelezioneMembri = getWebDriverWait(10)
+        selectSelezioneMembri = getWebDriverWait(20)
                 .withMessage("Non si visualizza correttamente l'input per la selezione dei membri del gruppo")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("members-select")));
-        WebElement inputSelectProdotti = getWebDriverWait(10)
+        WebElement inputSelectProdotti = getWebDriverWait(20)
                 .withMessage("Non si legge correttamente la proprietà dell'input per la selezione dei prodotti del gruppo")
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@value='SEND - Notifiche Digitali']")));
         Assertions.assertEquals("true", inputSelectProdotti.getAttribute("disabled"),
@@ -314,10 +314,9 @@ public class GruppiPGPage extends BasePage {
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("description")));
         } else {
             inputField = getWebDriverWait(10)
-                    .withMessage("Il campo nome non è visibile")
+                    .withMessage("Il campo nome non è visibile nel metodo siModificaUnCampoDelGruppo")
                     .until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
         }
-
         inputField.click();
         inputField.clear(); // svuota il campo in modo sicuro
         inputField.sendKeys(modifica);

@@ -17,6 +17,7 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo ruota una vi
       | pwd            | test           |
       | ragioneSociale | Vita Nova Sas  |
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
 #  Censire una chiave pubblica per un Operatore
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente public keys
@@ -39,7 +40,7 @@ Feature: PG - Utente della PG con ruolo di amministratore di gruppo ruota una vi
       | pwd            | test          |
       | ragioneSociale | Vita Nova Sas |
     And Si clicca su prodotto
-
+    And Clicca tasto Accedi OneTrust PG e PF
 #    Cliccando sulla CTA “Genera chiave personale”
     When Nella pagina Piattaforma Notifiche persona giuridica click sul bottone Integrazione API
     And Pulisci ambiente virtual keys

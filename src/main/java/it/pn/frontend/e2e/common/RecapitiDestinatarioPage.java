@@ -253,16 +253,14 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void confermaButtonClickPopUp() {
-        webTool.waitTime(3);
-
+        webTool.waitTime(1);
         By confirmButtonLocator = By.id("code-confirm-button");
 
         // Attendo che il bottone principale sia cliccabile e clicco
         WebElement confermaButton = getWebDriverWait(20)
                 .until(ExpectedConditions.elementToBeClickable(confirmButtonLocator));
         confermaButton.click();
-        webTool.waitTime(5);
-
+        webTool.waitTime(1);
         // Controllo se appare un secondo bottone conferma e lo clicco
         List<WebElement> confermaButtonPostInserimentoList = driver.findElements(confirmButtonLocator);
         if (!confermaButtonPostInserimentoList.isEmpty()) {
@@ -487,7 +485,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public void cancellaTesto() {
         try {
-            webTool.waitTime(5);
+            webTool.waitTime(1);
             WebElement inputPecField = getWebDriverWait(30)
                     .withMessage("Impossibile trovare input per inserire la nuova PEC")
                     .until(ExpectedConditions.presenceOfElementLocated(By.id("default_pec")));
@@ -576,7 +574,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaEliminazionePEC() {
-        webTool.waitTime(5); // eventuale pausa opzionale
+        webTool.waitTime(1);
         try {
             WebElement pecField = getWebDriverWait(10)
                     .withMessage("Il campo PEC non è presente")
@@ -588,7 +586,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public boolean siControllaPresenzaPEC() {
-        webTool.waitTime(5);
+        webTool.waitTime(1);
         try {
             WebElement pecEmail = getWebDriverWait(10)
                     .withMessage("L'email PEC non è presente")
@@ -600,7 +598,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertEnte(String comune) {
-        webTool.waitTime(5);
+        webTool.waitTime(1);
         WebElement enteField = getWebDriverWait(10)
                 .withMessage("Il campo ente non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("sender")));
@@ -619,7 +617,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickSuIndirizzoPEC() {
-        webTool.waitTime(5);
+        webTool.waitTime(1);
         // Aspetta che il campo sia cliccabile e cliccalo
         WebElement tipoIndirizzoField = getWebDriverWait(10)
                 .withMessage("Il campo tipo indirizzo non è cliccabile")
@@ -633,7 +631,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void insertPECAggiuntiva(String emailPec) {
-        webTool.waitTime(5);
+        webTool.waitTime(1);
         WebElement indirizzoPecField = getWebDriverWait(10)
                 .withMessage("Il campo PEC aggiuntiva non è visibile o cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("s_value")));
@@ -689,7 +687,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     public boolean verificaNuovaEmailEPEC(String nuovaEmail) {
         try {
-            getWebDriverWait(10).until(ExpectedConditions.visibilityOfElementLocated(
+            getWebDriverWait(20).until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//div[@data-testid='DigitalContactsCardBody']//p[contains(text(),'" + nuovaEmail + "')]")
             ));
             return true;
@@ -700,11 +698,20 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void eliminaNuovaEmail() {
-        webTool.waitTime(5);
+//        webTool.waitTime(5);
 
-        List<WebElement> eliminaButtonList = driver.findElements(
-                By.xpath("//form[@data-testid='default_pecContact']//button[contains(text(),'Elimina')]")
-        );
+        List<WebElement> eliminaButtonList = getWebDriverWait(10)
+                .withMessage("Nessun bottone 'Elimina' trovato entro il tempo limite")
+                .until(driver -> {
+                    List<WebElement> buttons = driver.findElements(
+                            By.xpath("//form[@data-testid='default_pecContact']//button[contains(text(),'Elimina')]")
+                    );
+                    return buttons.isEmpty() ? null : buttons;
+                });
+
+//        List<WebElement> eliminaButtonList = driver.findElements(
+//                By.xpath("//form[@data-testid='default_pecContact']//button[contains(text(),'Elimina')]")
+//        );
 
         if (!eliminaButtonList.isEmpty()) {
             WebElement ultimoEliminaButton = eliminaButtonList.get(eliminaButtonList.size() - 1);
@@ -893,13 +900,11 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void checkEmailPrecedentementeSalvata(String email) {
-        webTool.waitTime(10);
+        webTool.waitTime(1);
         By emailTypoBy = By.id("default_email-typography");
-
-        WebElement emailAssociata = getWebDriverWait(10)
+        WebElement emailAssociata = getWebDriverWait(20)
                 .withMessage("L'email precedentemente salvata non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(emailTypoBy));
-
         if (emailAssociata.getText().equalsIgnoreCase(email)) {
             logger.info("La mail associata risulta uguale alla precedente");
         } else {
@@ -1347,7 +1352,7 @@ public class RecapitiDestinatarioPage extends BasePage {
                     By.xpath("//h6[contains(text(), 'domicilio digitale')]")));
             getWebDriverWait(10).withMessage("Impossibile trovare Attivo ").until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//h6[contains(text(), 'domicilio digitale')]//following::span[contains(text(), 'Da attivare')]")));
-            getWebDriverWait(10).withMessage("Impossibile Cliccare su Inizia ").until(ExpectedConditions.visibilityOfElementLocated(
+            getWebDriverWait(10).withMessage("Impossibile Cliccare su Inizia nel metodo verificaDaAttivareDomicilioDigitale").until(ExpectedConditions.visibilityOfElementLocated(
                     By.xpath("//button[contains(text(),'Inizia')]")));
         } catch (Exception e) {
             Assertions.fail("Errore in verificaDaAttivareDomicilioDigitale: {}", e);
@@ -1469,6 +1474,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
 
     public void verificaPagina(String testo) {
+        webTool.waitTime(1);
         getWebDriverWait(25)
                 .withMessage("Non è presente Il testo '" + testo + "'")
                 .until(ExpectedConditions.presenceOfElementLocated(
@@ -1581,6 +1587,7 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
     public void clickModificaPersonalizzatiPerEnte() {
+        webTool.waitTime(0);
         WebElement modificaPersonalizzatiPerEnte = getWebDriverWait(5)
                 .withMessage("Impossibile trovare il tasto 'Elimina'")
                 .until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[contains(@id, 'modifyContact-')])[1]")));
@@ -1667,6 +1674,27 @@ public class RecapitiDestinatarioPage extends BasePage {
                         (By.xpath("//h6[contains(text(), '" + testo + "')]/ancestor::div[contains(@class, 'MuiCardHeader-root')]//following-sibling::div//button[contains(text(), 'Disattiva')]")));
         disattivaButton.click();
     }
+
+    public void verificaEDisattivaPersonalizzatiPerEnte() {
+        try {
+            WebElement disattivaButton = getWebDriverWait(5)
+                    .withMessage("Impossibile trovare il tasto 'Disattiva ' PERSONALIZZATI PER ENTE").until(ExpectedConditions.elementToBeClickable(
+                            By.xpath("//button[@data-testid='cancelContact-special_SERCQ_SEND']")
+                    ));
+
+            if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
+                disattivaButton.click();
+                clickSuConfermaElimina();
+
+
+            }
+        } catch (NoSuchElementException | TimeoutException e) {
+            logger.info("Bottone 'Disattiva Personalizzati Per Ente' non presente.");
+        } catch (Exception e) {
+            Assertions.fail("Errore inaspettato durante la ricerca o il click sul bottone 'Disattiva Personalizzati Per Ente'.", e);
+        }
+    }
+
 
     public void verificaAndOrDisattiva(String testo) {
         try {
@@ -1755,7 +1783,8 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
-                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+//                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+                            (By.xpath("//button[.//*[@data-testid='PowerSettingsNewIcon'] and contains(., 'Disattiva')]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 disattivaButton.click();
                 clickSuConfermaElimina();
@@ -1773,7 +1802,8 @@ public class RecapitiDestinatarioPage extends BasePage {
         try {
             WebElement disattivaButton = getWebDriverWait(10).withMessage("Non è presente dentro AppIO 'Disattiva'")
                     .until(ExpectedConditions.elementToBeClickable
-                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+//                            (By.xpath("//button[contains(@class, 'MuiButton-sizeSmall') and .//*[@data-testid='PowerSettingsNewIcon']]")));
+                            (By.xpath("//button[.//*[@data-testid='PowerSettingsNewIcon'] and contains(., 'Disattiva')]")));
             if (disattivaButton.isDisplayed() && disattivaButton.isEnabled()) {
                 disattivaButton.click();
                 clickAnnulla();
@@ -1803,7 +1833,7 @@ public class RecapitiDestinatarioPage extends BasePage {
             } catch (ElementClickInterceptedException e) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", disattivaButton);
             }
-            if (driver.findElements(By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")).isEmpty()) {
+             if (driver.findElements(By.xpath("//*[@data-testid='legalContacts']//button[.//*[@data-testid='PowerSettingsNewIcon']]")).isEmpty()) {
                 clickSuConfermaElimina();
             }
             else {
@@ -1851,8 +1881,9 @@ public class RecapitiDestinatarioPage extends BasePage {
             getWebDriverWait(10)
                     .withMessage("Il secondo controllo sul testo della modale per la disattivazione di email e domicilio non è corretto")
                     .until(ExpectedConditions.or(
-                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il tuo domicilio digitale SEND potresti ricevere le comunicazioni via raccomandata')]")),
-                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'la tua impresa potrebbe ricevere le comunicazioni via raccomandata e')]"))
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il domicilio digitale SEND')]")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'Se scegli di disattivare il tuo domicilio digitale SEND')]")),
+                            ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[contains(text(),'potrebbe ricevere le comunicazioni via raccomandata e')]"))
                     ));
 
             getWebDriverWait(10)
@@ -2051,7 +2082,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         Assertions.assertTrue(invisibile, "Il tasto 'Inizia' è ancora presente nel banner.");
     }
 
-
     public void verificaAbilitazioneCampoEmail() {
         WebElement emailInput = getWebDriverWait(10)
                 .withMessage("L'input email non è visibile nella pagina")
@@ -2138,6 +2168,7 @@ public class RecapitiDestinatarioPage extends BasePage {
 
     }
 
+
     public void verificaBannerPersonalizzaIlTuoDomicilioDigitalePerEnteMittente(String testBanner) {
         WebElement alert = getWebDriverWait(20)
                 .withMessage("Impossibile trovare il Banner nella pagina Personalizza il tuo domicilio digitale per ente mittente ")
@@ -2147,7 +2178,6 @@ public class RecapitiDestinatarioPage extends BasePage {
         String alertText = alert.getText();
         Assertions.assertTrue(
                 alertText.toLowerCase().contains(testBanner.toLowerCase()), "Il banner non contiene una email o la parola '" + testBanner + "'");
-
     }
 
     public void verificaPresenzaModaleImportanzaAggiuntaContatti() {
@@ -2260,7 +2290,5 @@ public class RecapitiDestinatarioPage extends BasePage {
                                 ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//button[@data-testid='wizard-feedback-button' and contains(text(),'Ok, ho capito')]")))
                         )
                 );
-
     }
-
 }

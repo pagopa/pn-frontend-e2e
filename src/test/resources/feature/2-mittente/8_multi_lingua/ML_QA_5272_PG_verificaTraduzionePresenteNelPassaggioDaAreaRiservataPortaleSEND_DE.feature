@@ -14,6 +14,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
 #   Cambio lingua
     And Cambia lingua footer "Tedesco"
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
 
     When Seleziona voce menu laterale "Bescheide"
     And Verifica traduzione testo "Vollmachten"

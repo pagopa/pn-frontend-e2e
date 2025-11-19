@@ -34,6 +34,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | familyName   | Non Valido             |
       | fiscalNumber | TINIT-NNVFNC80A01H501G |
     And Aspetta 200 secondi
+    And Clicca tasto Accedi OneTrust PG e PF
     And Si seleziona la notifica destinatario
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
 

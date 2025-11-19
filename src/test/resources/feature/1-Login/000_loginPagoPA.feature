@@ -1,6 +1,7 @@
 Feature: Login pagoPA
 
   @TA_loginMittente
+    @prova_login
   @NRT_Blocco_1
   Scenario: Login pagoPA mittente
     Given Login Page mittente viene visualizzata
@@ -11,9 +12,11 @@ Feature: Login pagoPA
       | comune | Verona   |
     Then Home page mittente viene visualizzata correttamente
     And Click entra su Send Mittente
+    And Clicca tasto Accedi OneTrust PA
     And Logout da portale mittente
 
   @TA_loginpersonaFisica_x
+  @prova_login
   @NRT_Blocco_1
   Scenario: Login pagoPA persona fisica
     Given Login Page persona fisica test viene visualizzata
@@ -25,10 +28,12 @@ Feature: Login pagoPA
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
     #And Aspetta 10 secondi
     And Refresh pagina
+    And Clicca tasto Accedi OneTrust PG e PF
     Then Home page persona fisica viene visualizzata correttamente
     And Logout da portale persona fisica
 
   @TA_loginpersonaGiuridica
+  @prova_login
   @NRT_Blocco_1
   Scenario: PN-9146 - Login pagoPA persona giuridica
     Given Login Page persona giuridica viene visualizzata
@@ -38,5 +43,6 @@ Feature: Login pagoPA
       | ragioneSociale | Convivio Spa   |
     Then Home page persona giuridica viene visualizzata correttamente
     And Click entra su Send Persona Giuridica
+    And Clicca tasto Accedi OneTrust PG e PF
     And Logout da portale persona giuridica
 
