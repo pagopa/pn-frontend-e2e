@@ -371,10 +371,6 @@ public class HelpdeskTest extends BasePage {
         backgroundTest.risoluzioneDisservizio();
     }
 
-//    @And("Risoluzione disservizio new su portale helpdesk")
-//    public void risoluzioneDisservizioNewSuPortaleHelpdesk() {
-//        backgroundTest.risoluzioneDisservizioNew();
-//    }
     @And("Risoluzione disservizio new su portale helpdesk nome test {string}")
     public void risoluzioneDisservizioNewSuPortaleHelpdesk(String nomeTest) {
         backgroundTest.risoluzioneDisservizioNew(nomeTest);
