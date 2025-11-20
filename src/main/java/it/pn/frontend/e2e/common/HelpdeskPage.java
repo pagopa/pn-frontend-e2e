@@ -368,26 +368,37 @@ public class HelpdeskPage extends BasePage {
 
 
     public boolean checkIsCreatedDisservizio() {
+//        try {
+//            List<WebElement> dateElements = getWebDriverWait(10)
+//                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-field='data']")));
+//
+//            if (!dateElements.isEmpty() && dateElements.size() > 1) {
+//                WebElement secondDateElement = dateElements.get(1);
+//                String text = secondDateElement.getText();
+//                logger.info("TEXT: {}",text);
+//                if (text != null && !text.trim().isEmpty()) {
+//                    logger.info("Disservizio già in corso rilevato.");
+//                    return true;
+//                }
+//            }
+//            logger.info("Nessun disservizio in corso.");
+//            return false;
+//
+//        } catch (TimeoutException e) {
+//            logger.warn("Nessun disservizio trovato: timeout durante l'attesa degli elementi.");
+//            return false;
+//        }
         try {
-            List<WebElement> dateElements = getWebDriverWait(10)
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-field='data']")));
+            WebElement row = getWebDriverWait(10).until(d ->
+                    d.findElement(By.xpath("//div[@role='row'][.//p[text()='Creazione Notifiche']]"))
+            );
 
-            if (!dateElements.isEmpty() && dateElements.size() > 1) {
-                WebElement secondDateElement = dateElements.get(1);
-                String text = secondDateElement.getText();
-                logger.info("TEXT: {}",text);
-                if (text != null && !text.trim().isEmpty()) {
-                    logger.info("Disservizio già in corso rilevato.");
-                    return true;
-                }
-            }
-            logger.info("Nessun disservizio in corso.");
-            return false;
+            return row.findElements(By.id("KO-insert")).isEmpty();
 
         } catch (TimeoutException e) {
-            logger.warn("Nessun disservizio trovato: timeout durante l'attesa degli elementi.");
             return false;
         }
+
     }
 
     public void clickSezioneRicerca() {
