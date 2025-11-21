@@ -353,7 +353,6 @@ public class HelpdeskPage extends BasePage {
                     return elements.isEmpty() ? null : elements; // restituisce null finché la lista è vuota
                 });
 
-
         for (WebElement riga : righeServizi) {
             List<WebElement> nomeServizioList = riga.findElements(By.xpath(".//p[text()='" + disservizio.getValue() + "']"));
             if (!nomeServizioList.isEmpty()) {
@@ -362,39 +361,15 @@ public class HelpdeskPage extends BasePage {
                 return !dataServizioList.isEmpty() && !dataServizioList.get(0).getText().isEmpty();
             }
         }
-
         return false;
     }
 
-
     public boolean checkIsCreatedDisservizio() {
-//        try {
-//            List<WebElement> dateElements = getWebDriverWait(10)
-//                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-field='data']")));
-//
-//            if (!dateElements.isEmpty() && dateElements.size() > 1) {
-//                WebElement secondDateElement = dateElements.get(1);
-//                String text = secondDateElement.getText();
-//                logger.info("TEXT: {}",text);
-//                if (text != null && !text.trim().isEmpty()) {
-//                    logger.info("Disservizio già in corso rilevato.");
-//                    return true;
-//                }
-//            }
-//            logger.info("Nessun disservizio in corso.");
-//            return false;
-//
-//        } catch (TimeoutException e) {
-//            logger.warn("Nessun disservizio trovato: timeout durante l'attesa degli elementi.");
-//            return false;
-//        }
         try {
             WebElement row = getWebDriverWait(10).until(d ->
                     d.findElement(By.xpath("//div[@role='row'][.//p[text()='Creazione Notifiche']]"))
             );
-
             return row.findElements(By.id("KO-insert")).isEmpty();
-
         } catch (TimeoutException e) {
             return false;
         }
