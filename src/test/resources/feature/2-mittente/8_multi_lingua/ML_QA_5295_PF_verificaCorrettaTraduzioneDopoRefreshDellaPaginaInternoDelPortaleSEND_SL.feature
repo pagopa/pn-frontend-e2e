@@ -15,10 +15,11 @@ Feature: PF - Verifica corretta traduzione dopo refresh della pagina all'interno
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 2 secondi
     Then Refresh pagina
     And Attesa 2 secondi
-    And Verifica traduzione testo "Vaši kontaktni podatki"
+    And Verifica traduzione testo "Tvoji kontaktni podatki"
     And Verifica traduzione testo "Pooblastila"
-    And Verifica traduzione testo "Stanje platforme"
+    And Verifica traduzione testo "Status platforme"
     And Chiudi pagina

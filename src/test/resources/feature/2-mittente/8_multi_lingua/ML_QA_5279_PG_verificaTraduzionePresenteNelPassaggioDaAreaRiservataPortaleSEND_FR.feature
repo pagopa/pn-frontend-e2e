@@ -14,7 +14,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
     #   Cambio lingua
     And Cambia lingua footer "Francese"
     And Si clicca su prodotto
-
+    And Clicca tasto Accedi OneTrust PG e PF
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Procurations"
     And Verifica traduzione testo "Coordonnées"
@@ -29,7 +29,7 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
     And Verifica traduzione testo "Lire les notifications mandatées à Convivio Spa"
 ##  Raggiungere la sezione Recapiti e verificarne la traduzione
     When Seleziona voce menu laterale "Coordonnées"
-    And Verifica traduzione testo "Ici, vous pouvez indiquer et modifier les coordonnées numériques auxquelles Convivio Spa"
+    And Verifica traduzione testo "les coordonnées numériques sur lesquelles recevoir les communications à valeur légale de SEND"
 #    Selezionare Stato della Piattaforma
     When Seleziona voce menu laterale "État de la plateforme"
     And Verifica traduzione testo "Il vérifie le fonctionnement de SEND, affiche l"

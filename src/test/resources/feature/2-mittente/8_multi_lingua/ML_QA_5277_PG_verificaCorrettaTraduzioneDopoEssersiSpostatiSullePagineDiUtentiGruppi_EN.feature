@@ -14,7 +14,7 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
     #   Cambio lingua
     And Cambia lingua footer "Inglese"
     And Si clicca su prodotto
-
+    And Clicca tasto Accedi OneTrust PG e PF
     When Nella Pagina Notifiche persona giuridica si clicca su utenti "Users"
     And Verifica traduzione testo "Search by name"
     And Verifica traduzione testo "Name"

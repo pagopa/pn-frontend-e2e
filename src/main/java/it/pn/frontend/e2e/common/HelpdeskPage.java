@@ -144,7 +144,7 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void waitLoadServiceTable() {
-
+        webTool.waitTime(1);
         List<WebElement> services = getWebDriverWait(10)
                 .withMessage("Non è visibile la tabella dei disservizi o i servizi sono meno di 3")
                 .until(d -> {
@@ -353,7 +353,6 @@ public class HelpdeskPage extends BasePage {
                     return elements.isEmpty() ? null : elements; // restituisce null finché la lista è vuota
                 });
 
-
         for (WebElement riga : righeServizi) {
             List<WebElement> nomeServizioList = riga.findElements(By.xpath(".//p[text()='" + disservizio.getValue() + "']"));
             if (!nomeServizioList.isEmpty()) {
@@ -362,32 +361,19 @@ public class HelpdeskPage extends BasePage {
                 return !dataServizioList.isEmpty() && !dataServizioList.get(0).getText().isEmpty();
             }
         }
-
         return false;
     }
 
-
     public boolean checkIsCreatedDisservizio() {
         try {
-            List<WebElement> dateElements = getWebDriverWait(10)
-                    .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@data-field='data']")));
-
-            if (!dateElements.isEmpty() && dateElements.size() > 1) {
-                WebElement secondDateElement = dateElements.get(1);
-                String text = secondDateElement.getText();
-                logger.info("TEXT: {}",text);
-                if (text != null && !text.trim().isEmpty()) {
-                    logger.info("Disservizio già in corso rilevato.");
-                    return true;
-                }
-            }
-            logger.info("Nessun disservizio in corso.");
-            return false;
-
+            WebElement row = getWebDriverWait(10).until(d ->
+                    d.findElement(By.xpath("//div[@role='row'][.//p[text()='Creazione Notifiche']]"))
+            );
+            return row.findElements(By.id("KO-insert")).isEmpty();
         } catch (TimeoutException e) {
-            logger.warn("Nessun disservizio trovato: timeout durante l'attesa degli elementi.");
             return false;
         }
+
     }
 
     public void clickSezioneRicerca() {
@@ -923,8 +909,7 @@ public class HelpdeskPage extends BasePage {
     }
 
     public void inserimentoArcoTemporale() {
-        webTool.waitTime(60);
-
+        webTool.waitTime(1);
         By calendarButtonLocator = By.xpath("//button[contains(@aria-label, 'Choose date')]");
         WebElement calendarButton = getWebDriverWait(20)
                 .until(ExpectedConditions.elementToBeClickable(calendarButtonLocator));

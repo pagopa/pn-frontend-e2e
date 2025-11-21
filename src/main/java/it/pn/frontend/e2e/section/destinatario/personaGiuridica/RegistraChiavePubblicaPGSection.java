@@ -43,7 +43,7 @@ public class RegistraChiavePubblicaPGSection extends BasePage {
 
     public void insertNome(String nome) {
         inputNome = getWebDriverWait(10)
-                .withMessage("Il campo nome non è visibile")
+                .withMessage("Il campo nome non è visibile nel metodo insertNome")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("name")));
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yy");
         String dateFormat = df.format(new Date());

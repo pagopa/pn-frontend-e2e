@@ -38,7 +38,6 @@ public class NotificheDestinatarioPage extends BasePage{
         iunInput.sendKeys(codiceIUN);
     }
 
-
     public boolean verificaCodiceIUN(String codiceIUNInserito) {
         try {
             By codiceIUNBy = By.xpath("//td[contains(text(),'" + codiceIUNInserito + "')]");
@@ -46,7 +45,7 @@ public class NotificheDestinatarioPage extends BasePage{
             logger.info("il codice IUN {} è stato trovato", codiceIUNInserito);
             return true;
         } catch (TimeoutException e) {
-            Assertions.fail("Il codice IUN" + codiceIUNInserito + " non è stato trovato con errore:" + e.getMessage());
+            Assertions.fail("Il codice IUN: " + codiceIUNInserito + " non è stato trovato con errore:" + e.getMessage());
         }
         return false;
     }
@@ -65,9 +64,9 @@ public class NotificheDestinatarioPage extends BasePage{
         logger.info("Controllo esistenza bottone per scaricare zip");
 
         By ricevutaButtonLocator = By.xpath("//button[contains(text(),'Ricevuta di consegna PEC')]");
-        webTool.waitTime(10);
+        webTool.waitTime(1);
 
-        getWebDriverWait(10)
+        getWebDriverWait(20)
                 .withMessage("Il bottone Ricevuta di consegna non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(ricevutaButtonLocator));
 

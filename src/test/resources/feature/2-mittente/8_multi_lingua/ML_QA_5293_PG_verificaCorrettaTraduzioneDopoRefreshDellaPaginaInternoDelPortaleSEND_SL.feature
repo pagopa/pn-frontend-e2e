@@ -14,6 +14,7 @@ Feature: PG -  PG - Verifica corretta traduzione dopo refresh della pagina all'i
     #   Cambio lingua
     And Cambia lingua footer "Sloveno"
     And Si clicca su prodotto
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 2 secondi
     And Refresh pagina
     And Attesa 3 secondi

@@ -11,10 +11,11 @@ Feature: PG - Verifica traduzione presente nel passaggio da Area Riservata a por
       | user           | DanteAlighieri |
       | pwd            | test           |
       | ragioneSociale | Convivio Spa   |
+
     #   Cambio lingua
     And Cambia lingua footer "Inglese"
     And Si clicca su prodotto
-
+    And Clicca tasto Accedi OneTrust PG e PF
     When Seleziona voce menu laterale "Notifications"
     And Verifica traduzione testo "Delegations of authority"
     And Verifica traduzione testo "Contact details"

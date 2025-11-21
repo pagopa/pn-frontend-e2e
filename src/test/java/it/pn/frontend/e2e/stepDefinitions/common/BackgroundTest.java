@@ -160,6 +160,12 @@ public class BackgroundTest extends BasePage {
         deleghePagoPATest.siCliccaSulBottoneAccetta();
     }
 
+    public void accettaDelegaPG(String codiceDelega) {
+        deleghePagoPATest.siSceglieOpzioneAccetta();
+        deleghePagoPATest.inserireCodiceDelegaNelPopUp(codiceDelega);
+        deleghePagoPATest.siCliccaSulBottoneAccetta();
+    }
+
     public void loginPFRecapiti(String nomeFileLogin) {
         personaFisicaPagoPA.loginPortaleDelegatoTramiteRequestMethod(nomeFileLogin);
         personaFisicaPagoPA.homePageDestinatarioVieneVisualizzataCorrettamente();
@@ -226,6 +232,7 @@ public class BackgroundTest extends BasePage {
     }
 
     public void accettazioneDelegaSceltaGruppo(boolean withGroup, String gruppo) {
+        webTool.waitTime(1);
         deleghePagoPATest.siSceglieOpzioneAccetta();
         deleghePGPagoPATest.siInserisceIlCodiceDellaDelegaACaricoDellImpresaNellaModale();
         deleghePGPagoPATest.nellaSezioneDelegheSiCliccaSulBottoneConfermaCodice();
@@ -320,14 +327,6 @@ public class BackgroundTest extends BasePage {
         helpdeskTest.siVerificaLaCreazioneDelDisservizio();
     }
 
-//    public void risoluzioneDisservizioNew() {
-//        helpdeskTest.loginHelpdeskConUtenteTest();
-//        helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
-//        helpdeskTest.clickSuCardMonitoraggioPiattaforma();
-//        helpdeskTest.siVisualizzaCorrettamenteHomeMonitoraggio();
-//        helpdeskTest.siRisolveIlDisservizionew();
-//        helpdeskTest.siVerificaLaCreazioneDelDisservizio();
-//    }
     public void risoluzioneDisservizioNew(String nomeTest) {
         helpdeskTest.loginHelpdeskConUtenteTest();
         helpdeskTest.siVisualizzaCorrettamenteHomeHelpdesk();
@@ -347,7 +346,7 @@ public class BackgroundTest extends BasePage {
 
     public void siEliminaPecEsistenteEAltriRecapitiAssociati() {
         recapitiDestinatarioPage.clickSuEliminaPec();
-        webTool.waitTime(3);
+        webTool.waitTime(1);
         if (recapitiDestinatarioPage.waitLoadPopUpElimina().equalsIgnoreCase("Rimuovi PEC")) {
             recapitiDestinatarioPage.clickSuConfermaElimina();
         } else {
@@ -382,7 +381,7 @@ public class BackgroundTest extends BasePage {
             }
             siInserisceUnaPECConCampoInputVisibile(emailPEC);
         }
-        webTool.waitTime(10);
+        webTool.waitTime(1);
     }
 
     public void checkEmailDiCortesiaPerEliminazioneEInserimento(String emailDiCortesia) {
@@ -401,7 +400,7 @@ public class BackgroundTest extends BasePage {
             }
             aggiuntaEmailDiCortesia(emailDiCortesia);
         }
-        webTool.waitTime(10);
+        webTool.waitTime(1);
     }
 
     public void inserimentoOTPErratoTreVolteEControlloMessaggio(String OTP) {

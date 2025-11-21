@@ -44,6 +44,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | name         | Ada                    |
       | familyName   | Lovelace               |
       | fiscalNumber | TINIT-LVLDAA85T50G702B |
+    And Clicca tasto Accedi OneTrust PG e PF
     And Cliccare sulla notifica restituita
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"
 #    And Logout da portale persona fisica
@@ -65,6 +66,7 @@ Feature: Mittente genera una notifica che non prevede pagamento
       | name         | Ada                    |
       | familyName   | Lovelace               |
       | fiscalNumber | TINIT-LVLDAA85T50G702B |
+    And Clicca tasto Accedi OneTrust PG e PF
     And Nella pagina piattaforma notifiche destinatario si effettua la ricerca per codice IUN "RZVD-VGVL-XZLK-202410-X-1"
     And Si clicca la notifica ricercata
     Then Si verifica che la notifica abbia lo stato "Destinatario irreperibile"

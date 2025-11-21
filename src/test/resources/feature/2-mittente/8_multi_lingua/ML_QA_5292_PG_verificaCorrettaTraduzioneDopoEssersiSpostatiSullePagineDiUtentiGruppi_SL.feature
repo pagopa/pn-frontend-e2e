@@ -14,7 +14,7 @@ Feature: PG -  Verifica corretta traduzione dopo essersi spostati sulle pagine d
     #   Cambio lingua
     And Cambia lingua footer "Sloveno"
     And Si clicca su prodotto
-
+    And Clicca tasto Accedi OneTrust PG e PF
     When Nella Pagina Notifiche persona giuridica si clicca su utenti "Uporabniki"
     And Verifica traduzione testo "Išči po imenu"
     And Verifica traduzione testo "kdo lahko bere obvestila"

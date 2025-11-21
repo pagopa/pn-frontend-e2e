@@ -14,6 +14,7 @@ Feature: Rework della pagina dei contatti
       | name         | Rossi                  |
       | familyName   | Pluto                  |
       | fiscalNumber | TINIT-AAAAAA00A00A000B |
+    And Clicca tasto Accedi OneTrust PG e PF
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Verifica e Disattiva domicilio digitale "Conferma"

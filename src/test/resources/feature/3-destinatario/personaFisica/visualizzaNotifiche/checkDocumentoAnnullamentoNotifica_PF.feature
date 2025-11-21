@@ -32,7 +32,9 @@ Feature: Presenza del documento di attestazione opponibile a terzi relativo all'
     And Si annulla la notifica
     And Si controlla la comparsa del pop up di conferma annullamento
     And Si verifica che la notifica abbia lo stato "Annullata"
-    And Aspetta 120 secondi
+#    And Aspetta 120 secondi
+    And Attesa 150 secondi
+    And Refresh pagina
     And Si visualizza correttamente la section Dettaglio Notifica annullata
     Then PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca

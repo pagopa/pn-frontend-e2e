@@ -18,6 +18,7 @@ Feature: Rework della pagina dei contatti
 #      | name         | Rossi                  |
 #      | familyName   | Pippo                  |
 #      | fiscalNumber | TINIT-AAAAAA00A00A000A |
+    And Clicca tasto Accedi OneTrust PG e PF
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone I Tuoi Recapiti
     And Verifica ed Elimina personalizzati per ente
     And Aspetta 1 secondi
