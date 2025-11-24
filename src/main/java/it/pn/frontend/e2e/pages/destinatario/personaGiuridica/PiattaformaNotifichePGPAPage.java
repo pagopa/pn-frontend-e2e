@@ -481,17 +481,28 @@ public class PiattaformaNotifichePGPAPage extends BasePage {
         }
     }
 
+    //    public void clickNotificheENotificheImpresa() {
+//
+//        WebElement notificheButton = getWebDriverWait(10)
+//                .withMessage("Impossibile cliccare su Notifiche")
+//                .until(ExpectedConditions.visibilityOfElementLocated(By.id("side-item-Notifiche")));
+//        notificheButton.click();
+//
+//        WebElement notificheImpresaButton = getWebDriverWait(10)
+//                .withMessage("Impossibile cliccare su notifiche dell'impresa")
+//                .until(ExpectedConditions.elementToBeClickable(By.id("menu-item(notifiche dell'impresa)")));
+//        js().executeScript("arguments[0].click();", notificheImpresaButton);
+//    }
     public void clickNotificheENotificheImpresa() {
-
         WebElement notificheButton = getWebDriverWait(10)
-                .withMessage("Impossibile cliccare su Notifiche")
-                .until(ExpectedConditions.visibilityOfElementLocated(By.id("side-item-Notifiche")));
+                .until(ExpectedConditions.elementToBeClickable(By.id("side-item-Notifiche")));
         notificheButton.click();
 
-        WebElement notificheImpresaButton = getWebDriverWait(10)
-                .withMessage("Impossibile cliccare su notifiche dell'impresa")
-                .until(ExpectedConditions.elementToBeClickable(By.id("menu-item(notifiche dell'impresa)")));
-        js().executeScript("arguments[0].click();", notificheImpresaButton);
+        By notificheImpresa = By.id("side-item-Notifiche dell'impresa");
+        WebElement voceNotificheImpresa = getWebDriverWait(10)
+                .until(ExpectedConditions.presenceOfElementLocated(notificheImpresa));
+        js().executeScript("arguments[0].click();", voceNotificheImpresa);
     }
+
 
 }
