@@ -15,25 +15,26 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
       | name         | Gaio Giulio            |
       | familyName   | Cesare                 |
       | fiscalNumber | TINIT-CSRGGL44L13H501E |
+    And Clicca tasto Accedi OneTrust PG e PF
     And Attesa 2 secondi
     And Refresh pagina
     And Attesa 2 secondi
     When Seleziona voce menu laterale "Obvestila"
 #   Verificole traduzioni del portale
-    And Verifica traduzione testo "Vaši kontaktni podatki"
+    And Verifica traduzione testo "Tvoji kontaktni podatki"
     And Verifica traduzione testo "Pooblastila"
-    And Verifica traduzione testo "Stanje platforme"
+    And Verifica traduzione testo "Status platforme"
 #   Verificare traduzione della sezione HP notifiche
     And Verifica traduzione testo "Datum"
     And Verifica traduzione testo "Pošiljatelj"
     And Verifica traduzione testo "Zadeva"
     And Verifica traduzione testo "Država"
 #  Raggiungere la sezione i tuoi recapiti e verificarne le traduzioni
-    When Seleziona voce menu laterale "Vaši kontaktni podatki"
-    And Verifica traduzione testo "Kontaktni podatki"
-    And Verifica traduzione testo "Tukaj lahko upravljate kontaktne podatke, na katere boste prejemali obvestila"
-    And Verifica traduzione testo "Uradna dostava"
-    And Verifica traduzione testo "E-pošta"
+    When Seleziona voce menu laterale "Tvoji kontaktni podatki"
+    And Verifica traduzione testo "Tvoji kontaktni podatki"
+    And Verifica traduzione testo "Upravljajte digitalne kontaktne podatke, na katere boste prejemali komunikacije SEND"
+    And Verifica traduzione testo "digitalno"
+    And Verifica traduzione testo "poštni naslov"
   #  Raggiungere la sezione deleghe e verificarne la traduzione
 
     When Seleziona voce menu laterale "Pooblastila"
@@ -43,6 +44,6 @@ Feature: PF - Verifica traduzione presente nel passaggio da pagina di Login a po
     And Verifica traduzione testo "Dodajte prenos pooblastila"
 
   #  Navigare nella sezione Stato della piattaforma e verificarne le traduzioni
-    Then Seleziona voce menu laterale "Stanje platforme"
+    Then Seleziona voce menu laterale "Status platforme"
     And Verifica traduzione testo "Preverite delovanje SEND, oglejte si zgodovino motenj in prenesite povezana potrdila, ki so izvršljiva proti tretjim osebam. Vsako potrdilo potrjuje motnjo"
     And Chiudi pagina

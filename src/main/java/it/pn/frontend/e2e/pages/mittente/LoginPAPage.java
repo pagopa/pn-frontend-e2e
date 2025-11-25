@@ -55,6 +55,27 @@ public class LoginPAPage extends BasePage {
 
     }
 
+    public void bottoneAccedi() {
+        WebElement accediButton = getWebDriverWait(10)
+                .withMessage("Il bottone 'Accedi' non è cliccabile entro il timeout")
+                .until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[.//span[text()='Accedi']]")
+        ));
+        accediButton.click();
+
+    }
+
+    public void bottoneDoIlConsenso() {
+        WebElement consensoButton =
+                getWebDriverWait(10)
+                .withMessage("Il bottone 'Do il consenso' non è cliccabile entro il timeout")
+                .until(ExpectedConditions.elementToBeClickable(
+                        By.xpath("//button[.//span[text()='Do il consenso']]")
+                ));
+
+        consensoButton.click();
+    }
+
     public void selezionaInviaDati() {
         logger.info("Si seleziona il bottone Invia");
         WebElement inviaButton = getWebDriverWait(30)

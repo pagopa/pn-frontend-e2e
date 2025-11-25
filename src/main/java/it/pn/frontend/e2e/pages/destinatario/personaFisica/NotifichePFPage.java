@@ -348,6 +348,7 @@ public class NotifichePFPage extends BasePage {
 
     public void siSceglieUnaPaginaDiversaConNumeroESiFiltra(String iun) {
 
+        webTool.waitTime(1);
         WebElement numeroPaginaTreButton = getWebDriverWait(30)
                 .withMessage("La terza pagina delle notifiche non è visibile")
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("page3")));

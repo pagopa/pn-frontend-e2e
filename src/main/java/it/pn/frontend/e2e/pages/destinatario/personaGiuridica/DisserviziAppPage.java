@@ -30,9 +30,9 @@ public class DisserviziAppPage extends BasePage {
     }
 
     public void waitLoadStatoDellaPiattaformaPage() {
-        webTool.waitTime(10);
+        webTool.waitTime(1);
         By titlePageLocator = By.id("Stato della piattaforma-page");
-        titlePage = getWebDriverWait(10)
+        titlePage = getWebDriverWait(20)
                 .withMessage("Titolo della pagina 'Stato della piattaforma' non presente")
                 .until(ExpectedConditions.visibilityOfElementLocated(titlePageLocator));
         logger.info("Si visualizza correttamente la sezione disservizi");

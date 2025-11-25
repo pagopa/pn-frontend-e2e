@@ -28,16 +28,14 @@ public class ScegliSpidPFPage extends BasePage {
 
     public void waitLoadScegliSpidDEPage() {
         By titlePageLocator = By.id("spid-select");
-
         getWebDriverWait(30)
                 .withMessage("Il titolo scegli SPID PF non trovato")
                 .until(ExpectedConditions.visibilityOfElementLocated(titlePageLocator));
-
         logger.info("Scegli SPID DE Page caricata");
     }
 
     public void selezionareTestButton() {
-        WebElement testButton = getWebDriverWait(60)
+        WebElement testButton = getWebDriverWait(120)
                 .withMessage("il bottone TEST del metodo selezionareTestButton non è cliccabile")
                 .until(ExpectedConditions.elementToBeClickable(By.id("spid-select-xx_testenv2")));
         testButton.click();

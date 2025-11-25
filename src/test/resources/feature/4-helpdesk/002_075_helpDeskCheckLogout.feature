@@ -8,4 +8,3 @@ Feature: Utente helpdesk dopo il login effettua il logout
     And Si visualizza correttamente home Helpdesk
     And Nella Home di helpdesk utente clicca su logout
     Then visualizzazione corretta pagina di login
-

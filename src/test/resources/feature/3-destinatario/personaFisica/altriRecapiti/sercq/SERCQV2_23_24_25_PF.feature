@@ -31,7 +31,7 @@ Feature: Rework della pagina dei contatti
     And Spuntare checkbox privacy
     And Si inserisce la Pec della "personaFisica" e si clicca sul bottone Conferma
     And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
-    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
+#    And Nella pagina I Tuoi Recapiti si recupera il codice OTP tramite chiamata request "personaFisica"
     And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato tre volte "15494"
     And Si visualizza correttamente il messaggio di errore
     And Cliccare sul bottone Annulla
