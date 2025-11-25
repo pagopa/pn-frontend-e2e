@@ -1327,13 +1327,40 @@ public class RecapitiDestinatarioPage extends BasePage {
     }
 
 
+    //    public void clickInizia() {
+//        WebElement button = getWebDriverWait(5).withMessage("Impossibile Cliccare su Inizia").
+//                until(ExpectedConditions.elementToBeClickable(
+//                        By.xpath("//div[@data-testid='legalContacts']//button[contains(@class,'MuiButton-containedPrimary')]")
+//                ));
+//        button.click();
+//    }
     public void clickInizia() {
-        WebElement button = getWebDriverWait(5).withMessage("Impossibile Cliccare su Inizia").
-                until(ExpectedConditions.elementToBeClickable(
-                        By.xpath("//div[@data-testid='legalContacts']//button[contains(@class,'MuiButton-containedPrimary')]")
-                ));
-        button.click();
+
+        By buttonLocator = By.xpath(
+                "//div[@data-testid='legalContacts']//button[contains(@class,'MuiButton-containedPrimary')]"
+        );
+
+        // 1. Aspetto che il bottone sia visibile (NON cliccabile)
+        WebElement button = getWebDriverWait(10)
+                .withMessage("Impossibile trovare il bottone Inizia")
+                .until(ExpectedConditions.visibilityOfElementLocated(buttonLocator));
+
+        // 2. Aspetto eventuali overlay o animazioni MUI
+        waitForNoOverlay();
+
+        // 3. Click via JS (il + affidabile per MUI)
+        js().executeScript("arguments[0].click();", button);
     }
+
+    public void waitForNoOverlay() {
+        getWebDriverWait(5).until(driver -> {
+            List<WebElement> overlays = driver.findElements(
+                    By.cssSelector(".MuiBackdrop-root, .MuiModal-backdrop, .mui-fixed")
+            );
+            return overlays.stream().noneMatch(WebElement::isDisplayed);
+        });
+    }
+
 
     public void clickAttiva() {
         WebElement button = getWebDriverWait(5).withMessage("Impossibile Cliccare su Attiva")
