@@ -2,6 +2,7 @@ Feature:Controllo dati notifica annullata
 
 
   @ControlloNotificaAnnullata
+  @NRT_Q4B
   Scenario:[NOTIFICA-ANNULLATA] Verifica caratteristiche notifica annullata
   Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
   And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca

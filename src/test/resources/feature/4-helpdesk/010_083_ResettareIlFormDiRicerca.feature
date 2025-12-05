@@ -3,6 +3,7 @@ Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
   @ResettareFormDiRicerca
   @NRT_Blocco_3
   @helpDesk
+  @NRT_Q4B
   Scenario: PN-9614 - Resettare il form di ricerca
     Given Login helpdesk con utente test
     And Si visualizza correttamente home Helpdesk

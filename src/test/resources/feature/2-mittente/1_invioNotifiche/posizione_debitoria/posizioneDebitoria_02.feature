@@ -4,6 +4,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
   @TA_PosizioneDebitoria_02
   @TA_PosizioneDebitoria_ON
   @NRT_Blocco_1
+  @NRT_Q4B
   Scenario: [Posizione_Debitoria_02] - l’utente sceglie di non inserire pagamenti durante l’invio notifica, e si viene rediretti allo step di inserimento degli allegati della notifica.
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
 #    And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo

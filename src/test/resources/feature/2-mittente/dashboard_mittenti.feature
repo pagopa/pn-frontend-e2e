@@ -60,6 +60,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
 
   @VisualizzazioneGraficoModalitaInvio
+  @NRT_Q4B
   Scenario: PN-12042 - Dashboard mittenti - Visualizzazione grafico relativo alle Notifiche per modalità di invio
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
@@ -73,6 +74,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
 
   @VisualizzareGraficiRelativiDatiFiltrati
+  @NRT_Q4B
   Scenario: PN-12043 - Dashboard mittenti - Notifiche digitali - Applicare filtri disponibili e visualizzare i grafici relativi ai dati filtrati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche
@@ -114,6 +116,7 @@ Feature: Mittente invia una notifica digitale al destinatario con indirizzo forn
 
 
   @ApplicazioneFiltroGraficiElevataDati
+  @NRT_Q4B
   Scenario: PN-12047 - Dashboard mittenti - Applicazione filtro grafici con PA che restituisce una quantità elevata di dati
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche

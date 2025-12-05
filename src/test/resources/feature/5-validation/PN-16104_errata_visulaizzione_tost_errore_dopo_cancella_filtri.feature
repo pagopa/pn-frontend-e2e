@@ -2,6 +2,7 @@ Feature: il mittente fa una ricerca combinata tra stato e arco temporale  con ne
 
   @TA_PN-16104_errata_visulaizzione_tost_errore_dopo_cancella_filtri_PA
     @NRT_VALIDATION
+  @NRT_Q4B
   Scenario Outline: PN-16104 errata_visulaizzione_tost_errore_dopo_cancella_filtri_PA
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche cliccare sul bottone Statistiche

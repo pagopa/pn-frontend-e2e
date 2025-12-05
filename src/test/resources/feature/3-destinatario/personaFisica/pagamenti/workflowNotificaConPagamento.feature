@@ -88,6 +88,7 @@ Feature:Controllo dati notifica con pagamento
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-pagoPA-notice-button']"
 
   @ControlloNotificaConPagamentoPF
+  @NRT_Q4B
   Scenario:[NOTIFICA-MULTIDESTINATARIO- AVVISO PAGO-PA COSTI NON INCLUSI] Verifica testo avviso pago pa e notifica senza costi inclusi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
@@ -102,6 +103,7 @@ Feature:Controllo dati notifica con pagamento
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-pagoPA-notice-button']"
 
   @ControlloNotificaConPagamentoPF
+  @NRT_Q4B
   Scenario:[NOTIFICA-MULTIDESTINATARIO- AVVISO PAGO-PA E F24 COSTI INCLUSI] Verifica testo avviso pago pa con anche f24 e notifica con costi inclusi
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca
@@ -146,6 +148,7 @@ Feature:Controllo dati notifica con pagamento
     And Si controlla che il testo sia nel box pagamento "//button[@data-testid='download-f24-button']"
 
   @ControlloNotificaConPagamentoPF
+  @NRT_Q4B
   Scenario:[NOTIFICA-MONODESTINATARIO- AVVISO PAGO-PA] Verifica codice avviso pago-pa notifica pagata
     Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche del destinatario si visualizzano correttamente i filtri di ricerca

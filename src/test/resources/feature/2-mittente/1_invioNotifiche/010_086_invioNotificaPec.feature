@@ -4,6 +4,7 @@ Feature: Mittente genera una notifica tramite destinatario con pec
   @mittente
   @invioNotifiche_07
   @NRT_Blocco_1
+  @NRT_Q4B
   Scenario: PN-9644 - Mittente genera una notifica tramite destinatario con pec
     Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
     And Nella pagina Piattaforma Notifiche si recupera l ultimo numero protocollo

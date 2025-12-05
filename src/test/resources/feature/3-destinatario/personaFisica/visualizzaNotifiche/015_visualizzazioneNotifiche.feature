@@ -2,7 +2,7 @@ Feature: La persona fisica visualizza la sezione notifiche
 
   @TA_PFvisualizzaNotifiche_015
   @NRT_Blocco_2
-
+  @NRT_Q4B
   Scenario:PN-9184 - La persona fisica visualizza la sezione notifiche
     Given PF - Si effettua la login tramite token exchange come "delegato", e viene visualizzata la dashboard
     When Nella pagina Piattaforma Notifiche persona fisica si clicca sul bottone Notifiche
