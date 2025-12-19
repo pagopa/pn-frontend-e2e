@@ -1,11 +1,12 @@
 package it.pn.frontend.e2e.presentation.dom.reader;
 
-import org.openqa.selenium.WebElement;
+import it.pn.frontend.e2e.presentation.dom.parser.ParsedNode;
 
 import java.util.List;
 
 public interface IDOMReader {
-    WebElement readBySelector(String selector);
-    List<WebElement> readAllBySelector(String selector);
+    ParsedNode readBySelector(String selector);
+    List<ParsedNode> readAllBySelector(String selector);
+    IDOMReader withRoot(String rootSelector);
 }
 

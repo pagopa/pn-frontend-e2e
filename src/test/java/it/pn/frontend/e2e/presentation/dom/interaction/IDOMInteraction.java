@@ -2,6 +2,8 @@ package it.pn.frontend.e2e.presentation.dom.interaction;
 
 public interface IDOMInteraction {
 
+    IDOMInteraction withRoot(String rootSelector);
+
     /** Click su un elemento identificato da un selettore CSS/XPath */
     void click(String selector);
 

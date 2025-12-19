@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.presentation.aop;
+package it.pn.frontend.e2e.presentation.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
