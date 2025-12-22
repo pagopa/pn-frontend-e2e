@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.presentation.test;
+package it.pn.frontend.e2e.presentation.test.architecture;
 
 import it.pn.frontend.e2e.presentation.core.adapter.IPresentationApiAdapter;
 

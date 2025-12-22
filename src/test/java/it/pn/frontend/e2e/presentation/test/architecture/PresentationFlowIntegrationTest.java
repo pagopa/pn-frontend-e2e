@@ -1,7 +1,6 @@
-package it.pn.frontend.e2e.presentation.test;
+package it.pn.frontend.e2e.presentation.test.architecture;
 
 import it.pn.frontend.e2e.presentation.core.adapter.IPresentationApiAdapter;
-import it.pn.frontend.e2e.presentation.core.binder.IPresentationBinder;
 import it.pn.frontend.e2e.presentation.core.binder.PresentationBinder;
 import it.pn.frontend.e2e.presentation.core.capability.dispatcher.CapabilityDispatcher;
 import org.junit.jupiter.api.Test;
@@ -26,11 +25,11 @@ class PresentationFlowIntegrationTest {
         PresentationBinder<IPresentationApiAdapter> binder =
                 new PresentationBinder<>(adapter, dispatcher);
 
-        TestPresentationApiAdapter api =
-                binder.bind(TestPresentationApiAdapter.class);
+        TestCapability capability =
+                binder.bind(TestCapability.class);
 
         // WHEN
-        String result = api.sayHello("Mario");
+        String result = capability.sayHello("Mario");
 
         // THEN
         assertEquals("Hello Mario", result);
