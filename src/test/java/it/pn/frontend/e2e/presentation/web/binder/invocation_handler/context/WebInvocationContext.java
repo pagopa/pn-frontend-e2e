@@ -1,19 +1,18 @@
-package it.pn.frontend.e2e.presentation.web.binder.invocation_handler.model;
+package it.pn.frontend.e2e.presentation.web.binder.invocation_handler.context;
 
 import it.pn.frontend.e2e.presentation.core.adapter.IPresentationApiAdapter;
-import it.pn.frontend.e2e.presentation.core.binder.invocation_handler.model.InvocationContext;
+import it.pn.frontend.e2e.presentation.core.binder.invocation_handler.context.BaseInvocationContext;
 import lombok.Getter;
 
 import java.lang.reflect.Method;
 
-@Getter
-public class WebInvocationContext extends InvocationContext {
 
+@Getter
+public class WebInvocationContext extends BaseInvocationContext {
     protected final String selector;
 
     public WebInvocationContext(Object proxy, Method method, Object[] args, IPresentationApiAdapter adapter, Class<?> boundType, String selector) {
         super(proxy, method, args, adapter, boundType);
         this.selector = selector;
     }
-
 }

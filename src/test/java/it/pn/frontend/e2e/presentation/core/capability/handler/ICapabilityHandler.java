@@ -1,10 +1,8 @@
 package it.pn.frontend.e2e.presentation.core.capability.handler;
 
-import it.pn.frontend.e2e.presentation.core.binder.invocation_handler.model.InvocationContext;
+import it.pn.frontend.e2e.presentation.core.binder.invocation_handler.context.BaseInvocationContext;
 
-import java.lang.reflect.Method;
-
-public interface ICapabilityHandler<R> {
-    boolean support(Method method, Class<?> boundType);
-    R handle(InvocationContext ctx);
+public interface ICapabilityHandler<Context extends BaseInvocationContext> {
+    boolean canHandle(Context context);
+    Object handle(Context context);
 }

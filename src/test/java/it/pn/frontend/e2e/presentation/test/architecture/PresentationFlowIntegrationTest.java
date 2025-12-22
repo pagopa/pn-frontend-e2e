@@ -1,8 +1,12 @@
 package it.pn.frontend.e2e.presentation.test.architecture;
 
-import it.pn.frontend.e2e.presentation.core.adapter.IPresentationApiAdapter;
-import it.pn.frontend.e2e.presentation.core.binder.PresentationBinder;
+
 import it.pn.frontend.e2e.presentation.core.capability.dispatcher.CapabilityDispatcher;
+import it.pn.frontend.e2e.presentation.test.architecture.web.TestCapability;
+import it.pn.frontend.e2e.presentation.test.architecture.web.TestCapabilityHandler;
+import it.pn.frontend.e2e.presentation.test.architecture.web.TestWebPresentationApiAdapter;
+import it.pn.frontend.e2e.presentation.web.binder.WebPresentationBinder;
+import it.pn.frontend.e2e.presentation.web.binder.invocation_handler.context.WebInvocationContext;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -13,17 +17,17 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class PresentationFlowIntegrationTest {
 
     @Test
-    void shouldInterceptMethodThroughProxyAndCapability() {
+    void webShouldInterceptMethodThroughProxyAndCapability() {
 
         // GIVEN
-        TestPresentationApiAdapter adapter = new TestPresentationApiAdapter();
+        TestWebPresentationApiAdapter adapter = new TestWebPresentationApiAdapter();
         TestCapabilityHandler handler = new TestCapabilityHandler();
 
-        CapabilityDispatcher dispatcher =
-                new CapabilityDispatcher(List.of(handler));
+        CapabilityDispatcher<WebInvocationContext> dispatcher =
+                new CapabilityDispatcher<>(List.of(handler));
 
-        PresentationBinder<IPresentationApiAdapter> binder =
-                new PresentationBinder<>(adapter, dispatcher);
+        WebPresentationBinder binder =
+                new WebPresentationBinder(adapter, dispatcher);
 
         TestCapability capability =
                 binder.bind(TestCapability.class);
