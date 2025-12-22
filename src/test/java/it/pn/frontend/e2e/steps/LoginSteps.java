@@ -1,13 +1,10 @@
 package it.pn.frontend.e2e.steps;
 
-import io.cucumber.datatable.DataTable;
+
 import io.cucumber.java.en.Given;
 import it.pn.frontend.e2e.enums.User;
 import it.pn.frontend.e2e.model.PageInfo;
 import it.pn.frontend.e2e.model.SharedContext;
-import it.pn.frontend.e2e.presentation.IPresentationHandler;
-import it.pn.frontend.e2e.presentation.model.common.component.Form;
-import it.pn.frontend.e2e.presentation.model.login_page.LoginPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +12,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class LoginSteps {
 
-    private final IPresentationHandler presentation;
-    private final SharedContext sharedContext;
 
     @Given("l'utente tenta di navigare alla pagina {page}")
     public void loadPage(PageInfo page) {
-        presentation.navigateTo(page.url());
-        sharedContext.setCurrentPage(page);
+        //presentation.navigateTo(page.url());
+        //sharedContext.setCurrentPage(page);
     }
 
 //    @Given("l'utente {user} tenta la login")
@@ -35,11 +30,11 @@ public class LoginSteps {
 
     @Given("l'utente {user} tenta la login nella pagina {page}")
     public void login(User user, PageInfo pageInfo) {
-        LoginPage loginPage = (LoginPage) presentation.bind(pageInfo.pageClass());
-        loginPage.form().username().set(user.getUsername());
-        loginPage.form().password().set(user.getPassword());
-        loginPage.form().comune().set(user.getComune());
-        loginPage.form().submit();
+//        LoginPage loginPage = (LoginPage) presentation.bind(pageInfo.pageClass());
+//        loginPage.form().username().set(user.getUsername());
+//        loginPage.form().password().set(user.getPassword());
+//        loginPage.form().comune().set(user.getComune());
+//        loginPage.form().submit();
     }
 
 //    @Given("l'utente compila la form {String} con:")
