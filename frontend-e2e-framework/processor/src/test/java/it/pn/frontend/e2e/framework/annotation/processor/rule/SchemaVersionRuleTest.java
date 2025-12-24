@@ -1,0 +1,49 @@
+package it.pn.frontend.e2e.framework.annotation.processor.rule;
+
+import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.validator.result.ValidationResult;
+import it.pn.frontend.e2e.framework.core.domain.descriptor.DomainDescriptor;
+import org.junit.jupiter.api.Test;
+
+import javax.annotation.processing.Messager;
+import javax.tools.Diagnostic;
+
+import static org.mockito.ArgumentMatchers.contains;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+
+class SchemaVersionRuleTest {
+
+    @Test
+    void shouldFailWhenSchemaVersionIsUnsupported() {
+        DomainDescriptor d = new DomainDescriptor();
+        d.schemaVersion = 2;
+        d.domainId = "test";
+
+        SchemaVersionRule rule = new SchemaVersionRule(1);
+        Messager messager = mock(Messager.class);
+        ValidationResult result = new ValidationResult();
+
+        rule.apply(d, messager, result);
+
+        verify(messager).printMessage(
+                eq(Diagnostic.Kind.ERROR),
+                contains("Unsupported schemaVersion")
+        );
+        assert(result.hasErrors());
+    }
+
+    @Test
+    void shouldPassWhenSchemaVersionMatches() {
+        DomainDescriptor d = new DomainDescriptor();
+        d.schemaVersion = 1;
+
+        SchemaVersionRule rule = new SchemaVersionRule(1);
+        Messager messager = mock(Messager.class);
+        ValidationResult result = new ValidationResult();
+
+        rule.apply(d, messager, result);
+
+        verifyNoInteractions(messager);
+        assert(!result.hasErrors());
+    }
+}

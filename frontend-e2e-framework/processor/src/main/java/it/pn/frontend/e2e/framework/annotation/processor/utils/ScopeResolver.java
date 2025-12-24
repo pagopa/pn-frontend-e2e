@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.framework.annotation.processor.loader;
+package it.pn.frontend.e2e.framework.annotation.processor.utils;
 
 import it.pn.frontend.e2e.framework.core.domain.descriptor.DomainDescriptor;
 import it.pn.frontend.e2e.framework.core.domain.descriptor.ScopeDescriptor;

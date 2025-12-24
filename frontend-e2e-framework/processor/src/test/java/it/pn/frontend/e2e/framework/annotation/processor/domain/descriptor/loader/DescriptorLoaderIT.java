@@ -1,0 +1,47 @@
+package it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.loader;
+
+import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.parser.json.JsonDomainDescriptorParser;
+import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.validator.factory.DefaultDomainDescriptorValidatorFactory;
+import it.pn.frontend.e2e.framework.core.domain.descriptor.DomainDescriptor;
+import org.junit.jupiter.api.Test;
+
+import javax.annotation.processing.Messager;
+import javax.tools.Diagnostic;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
+
+class DescriptorLoaderIT {
+
+    @Test
+    void shouldLoadValidDescriptorsAndSkipInvalidOnes() {
+        DescriptorLoader loader =
+                new DescriptorLoader(
+                        new JsonDomainDescriptorParser(
+                                new com.fasterxml.jackson.databind.ObjectMapper()
+                        ),
+                        new DefaultDomainDescriptorValidatorFactory()
+                );
+
+        Messager messager = mock(Messager.class);
+
+        List<DomainDescriptor> domains =
+                loader.loadAll(
+                        getClass().getClassLoader(),
+                        messager
+                );
+
+        // solo quello valido deve essere caricato
+        assertEquals(1, domains.size());
+        assertEquals("payments", domains.get(0).domainId);
+
+        // errori segnalati
+        verify(messager, atLeastOnce()).printMessage(
+                eq(Diagnostic.Kind.ERROR),
+                anyString()
+        );
+    }
+}
