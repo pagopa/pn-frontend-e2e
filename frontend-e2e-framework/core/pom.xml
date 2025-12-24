@@ -13,9 +13,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>presentation-core</artifactId>
+    <artifactId>core</artifactId>
 
-    <name>presentation-core</name>
+    <name>core</name>
     <description>Channel-agnostic presentation core</description>
 
     <dependencies>

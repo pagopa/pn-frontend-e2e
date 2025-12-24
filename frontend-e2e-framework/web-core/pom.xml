@@ -13,9 +13,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>presentation-web-core</artifactId>
+    <artifactId>web-core</artifactId>
 
-    <name>presentation-web-core</name>
+    <name>web-core</name>
     <description>Web presentation core for frontend e2e framework</description>
 
     <dependencies>
@@ -23,13 +23,13 @@
         <!-- Annotazioni del framework -->
         <dependency>
             <groupId>it.frontend.e2e.framework</groupId>
-            <artifactId>presentation-annotations</artifactId>
+            <artifactId>annotations</artifactId>
         </dependency>
 
         <!-- Core -->
         <dependency>
             <groupId>it.frontend.e2e.framework</groupId>
-            <artifactId>presentation-core</artifactId>
+            <artifactId>core</artifactId>
         </dependency>
 
         <!-- AutoService: SOLO annotazioni -->

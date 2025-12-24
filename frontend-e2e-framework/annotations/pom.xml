@@ -13,10 +13,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>presentation-annotations</artifactId>
+    <artifactId>annotations</artifactId>
     <packaging>jar</packaging>
 
-    <name>presentation-annotations</name>
+    <name>annotations</name>
     <description>Annotations for frontend e2e framework</description>
 
 </project>

@@ -27,14 +27,14 @@
 
         <dependency>
             <groupId>it.frontend.e2e.framework</groupId>
-            <artifactId>presentation-web-core</artifactId>
+            <artifactId>web-core</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>it.frontend.e2e.framework</groupId>
-            <artifactId>presentation-annotations</artifactId>
+            <artifactId>annotations</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>

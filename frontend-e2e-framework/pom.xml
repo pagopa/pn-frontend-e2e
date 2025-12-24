@@ -30,25 +30,25 @@
             <!-- Moduli interni del framework -->
             <dependency>
                 <groupId>it.frontend.e2e.framework</groupId>
-                <artifactId>presentation-annotations</artifactId>
+                <artifactId>annotations</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>it.frontend.e2e.framework</groupId>
-                <artifactId>presentation-core</artifactId>
+                <artifactId>core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>it.frontend.e2e.framework</groupId>
-                <artifactId>presentation-web-core</artifactId>
+                <artifactId>web-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>it.frontend.e2e.framework</groupId>
-                <artifactId>presentation-processor</artifactId>
+                <artifactId>processor</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -77,10 +77,10 @@
 
     <!-- MODULI DEL FRAMEWORK -->
     <modules>
-        <module>presentation-annotations</module>
-        <module>presentation-processor</module>
-        <module>presentation-core</module>
-        <module>presentation-web-core</module>
+        <module>annotations</module>
+        <module>processor</module>
+        <module>core</module>
+        <module>web-core</module>
     </modules>
 
     <!-- PLUGIN MANAGEMENT (versioni/config base) -->

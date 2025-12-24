@@ -13,10 +13,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>presentation-processor</artifactId>
+    <artifactId>processor</artifactId>
     <packaging>jar</packaging>
 
-    <name>presentation-processor</name>
+    <name>processor</name>
     <description>Annotation processor for @Selector</description>
 
     <properties>
@@ -28,13 +28,13 @@
         <!-- API annotazioni del framework -->
         <dependency>
             <groupId>it.frontend.e2e.framework</groupId>
-            <artifactId>presentation-annotations</artifactId>
+            <artifactId>annotations</artifactId>
         </dependency>
 
         <!-- Core -->
         <dependency>
             <groupId>it.frontend.e2e.framework</groupId>
-            <artifactId>presentation-core</artifactId>
+            <artifactId>core</artifactId>
         </dependency>
 
         <!-- AutoService: annotazioni -->
