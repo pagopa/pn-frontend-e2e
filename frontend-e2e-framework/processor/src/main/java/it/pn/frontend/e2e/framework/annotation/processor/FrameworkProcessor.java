@@ -5,7 +5,7 @@ import com.google.auto.service.AutoService;
 import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.loader.DescriptorLoader;
 import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.parser.json.JsonDomainDescriptorParser;
 import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.validator.factory.DefaultDomainDescriptorValidatorFactory;
-import it.pn.frontend.e2e.framework.annotation.processor.utils.ScopeResolver;
+import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.resolution.scope.ScopeResolver;
 import it.pn.frontend.e2e.framework.annotation.processor.rule.engine.RuleEngine;
 import it.pn.frontend.e2e.framework.core.domain.descriptor.ConstraintDescriptor;
 import it.pn.frontend.e2e.framework.core.domain.descriptor.DomainDescriptor;
