@@ -2,10 +2,10 @@ package it.pn.frontend.e2e.framework.core.adapter;
 
 import it.pn.frontend.e2e.framework.core.adapter.model.AssertionAction;
 import it.pn.frontend.e2e.framework.core.adapter.model.PresentationElement;
-import it.pn.frontend.e2e.framework.core.model.locator.Locator;
-import it.pn.frontend.e2e.framework.core.model.locator.LocatorType;
-import it.pn.frontend.e2e.framework.core.model.selector.Selector;
-import it.pn.frontend.e2e.framework.core.model.selector.SelectorType;
+import it.pn.frontend.e2e.framework.core.adapter.model.locator.Locator;
+import it.pn.frontend.e2e.framework.core.adapter.model.locator.LocatorType;
+import it.pn.frontend.e2e.framework.core.adapter.model.selector.Selector;
+import it.pn.frontend.e2e.framework.core.adapter.model.selector.SelectorType;
 
 import java.util.List;
 

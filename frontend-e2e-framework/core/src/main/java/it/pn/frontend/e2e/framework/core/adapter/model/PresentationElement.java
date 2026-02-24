@@ -1,7 +1,7 @@
 package it.pn.frontend.e2e.framework.core.adapter.model;
 
-import it.pn.frontend.e2e.framework.core.model.locator.Locator;
-import it.pn.frontend.e2e.framework.core.model.locator.LocatorType;
+import it.pn.frontend.e2e.framework.core.adapter.model.locator.Locator;
+import it.pn.frontend.e2e.framework.core.adapter.model.locator.LocatorType;
 import lombok.Getter;
 import lombok.Setter;
 
