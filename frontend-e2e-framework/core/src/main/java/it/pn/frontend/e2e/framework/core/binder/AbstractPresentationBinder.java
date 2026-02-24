@@ -25,7 +25,7 @@ public abstract class AbstractPresentationBinder<ApiAdapter extends IPresentatio
         if (!type.isInterface())
             throw new IllegalArgumentException(type.getName() + " is not an interface.");
 
-        Class<?> resolved = resolveGeneratedType(type);
+        Class<?> resolved = resolveClass(type);
 
         return (T) Proxy.newProxyInstance(
                 type.getClassLoader(),
@@ -34,10 +34,11 @@ public abstract class AbstractPresentationBinder<ApiAdapter extends IPresentatio
         );
     }
 
-    private Class<?> resolveGeneratedType(Class<?> requested) {
-        String genName = requested.getName() + "$Gen";
+    private Class<?> resolveClass(Class<?> requested) {
+        String className = requested.getName();
+
         try {
-            return Class.forName(genName, false, requested.getClassLoader());
+            return Class.forName(className, false, requested.getClassLoader());
         } catch (ClassNotFoundException ignored) {
             return requested;
         }
