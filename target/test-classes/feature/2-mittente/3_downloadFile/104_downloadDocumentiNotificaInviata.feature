@@ -1,0 +1,36 @@
+Feature: il mittente download attestazione notifica presa in carico
+
+  @TA_MittenteDownloadDocumentiNotificaInviata
+  @DownloadFileMittente
+  @NRT_Blocco_1
+  Scenario: PN-11678 - il mittente download documenti di una notifica inviata da oltre 120 giorni
+    Given PA - Si effettua la login tramite token exchange, e viene visualizzata la dashboard
+    When Nella pagina Piattaforma Notifiche selezionare la voce 'stato della piattaforma'
+    Then Si visualizza correttamente la pagina dello 'stato della piattaforma' di mittente
+    And Si visualizza correttamente la tabella dei disservizi
+    And Nella pagina stato della piattaforma si cambia il numero elementi visualizzati attraverso il filtro
+    And Nella pagina stato della piattaforma si cambia pagina utilizzando una freccetta fino alla pagina 18
+    And Attesa 3 secondi
+    And Download file attestazione disservizio
+
+    And Nella pagina Piattaforma Notifiche selezionare la voce 'Notifiche'
+    And Nella pagina Piattaforma Notifiche mittente inserire un arco temporale di maggiore di 120 giorni
+    And Cliccare sul bottone Filtra
+    And Cliccare sulla notifica restituita
+    And Salva codice IUN
+    And Login helpdesk con utente test
+    And Si visualizza correttamente home Helpdesk
+    When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
+    And visualizzazione corretta pagina ricerca ed estrazione dati
+    And Selezione ottieni notifica
+
+    And viene inserito codice IUN salvato
+
+    And controllo messaggio di successo
+    And controllo password
+    And controllo link per scaricare zip e scarico file
+    And Attendi secondi "5"
+    And Refresh pagina
+    And Inserisco la password ed estraggo il file zip
+    And Controllo sia presente documento "dati.txt"
+    And Si elimina file estratto

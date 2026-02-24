@@ -1,0 +1,21 @@
+Feature: Utente helpdesk visualizza pagina sezione ricerca ed estrazione dati
+
+  @ResettareFormDiRicerca
+  @NRT_Blocco_3
+  @helpDesk
+  Scenario: PN-9614 - Resettare il form di ricerca
+    Given Login helpdesk con utente test
+    And Si visualizza correttamente home Helpdesk
+    When Nella Home di helpdesk utente clicca su sezione ricerca ed estrazione dati
+    And visualizzazione corretta pagina ricerca ed estrazione dati
+    And Selezione ottieni log completi
+    And viene inserito numero ticket
+    And viene inserito codice IUN senza ricerca "IUN1"
+    And Cliccare sul bottone ricerca
+    And controllo messaggio di successo
+    And Si clicca sul bottone resetta filtri
+    And Si verifica che i campi sono puliti
+
+
+
+

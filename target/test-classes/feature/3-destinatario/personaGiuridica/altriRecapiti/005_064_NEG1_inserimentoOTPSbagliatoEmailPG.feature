@@ -1,0 +1,22 @@
+Feature: la persona giuridica inserisce un OTP email sbagliato
+
+#  @TestSuite_VECCHI
+#  @PG
+#  @TA_inserimentoOTPErratoEmailPG
+#  @recapitiPG
+#  @mittente_x1
+#  @addressBook2
+#  @recapitiPFPG
+    #  TEST PREVISTI in rework-sezione-recapiti-fase-2  [REWORK_DOMICILIO_DIGITALE_PG_70]
+  Scenario: PN-9155-D63 - La persona giuridica inserisce un OTP email sbagliato
+    Given PG - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Rimuovi tutti i recapiti se esistono
+    When Nella pagina Piattaforma Notifiche persona giuridica si clicca sul bottone I Tuoi Recapiti
+    And Si visualizza correttamente la pagina Recapiti persona giuridica
+    And Nella pagina I Tuoi Recapiti si controlla che non ci sia già una email
+    And Si inserisce l'email della "personaGiuridica" e si clicca sul bottone avvisami via email
+    And Nella pagina I Tuoi Recapiti si visualizza correttamente il pop-up di inserimento OTP
+    And Nella pagina I Tuoi Recapiti si inserisce OTP sbagliato "15494"
+    And Nella pagina I Tuoi Recapiti clicca sul bottone conferma
+    And Si visualizza correttamente il messaggio di errore
+    Then Cliccare sul bottone Annulla

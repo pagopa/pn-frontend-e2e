@@ -1,0 +1,43 @@
+Feature:Controllo dati notifica
+
+  @TA_PFvisualizzaNotifiche
+  @CheckNotificaConDocumentiAllegatiPF1
+  @NRT_Blocco_2
+  Scenario: [TA-FE VISUALIZZAZIONE DETTAGLI DI NOTIFICA] - PF visualizza Notifica mono destinatario non ancora pagata solo con avviso PagoPa e assenza del PDF relativo al bollettino
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    And Nella pagina Piattaforma Notifiche del destinatario si filtra per codice IUN "YRUZ-NYXJ-DAJK-202405-N-1"
+    And Cliccare sul bottone Filtra del delegato
+    When La persona fisica clicca sulla notifica restituita
+    And Si controlla la presenza di codice avviso
+
+
+  @CheckDownloadMultiF24PF
+  Scenario: [TA-FE INVIO DI UNA NOTIFICA A PERSONA FISICA E CONTROLLO DOWNLOAD F24] - Mittente invia una notifica e persona fisica effettua download di piú f24
+    Given PF - Si effettua la login tramite token exchange come "delegante", e viene visualizzata la dashboard
+    When Si inizializzano i dati per la notifica
+      | modello         | 890                |
+      | documenti       | 1                  |
+      | oggettoNotifica | Pagamento rata IMU |
+      | costiNotifica   | true               |
+    And Si aggiunge un destinatario alla notifica
+      | at                | Presso           |
+      | indirizzo         | VIA ROMA 20      |
+      | dettagliIndirizzo | Scala b          |
+      | codicePostale     | 20147            |
+      | comune            | Milano           |
+      | dettagliComune    | Milano           |
+      | provincia         | MI               |
+      | stato             | Italia           |
+      | nomeCognome       | Gaio Giulio      |
+      | codiceFiscale     | CSRGGL44L13H501E |
+      | tipoDestinatario  | PF               |
+      | domicilioDigitale | test@test.com    |
+      | avvisoPagoPa      | 0                |
+      | F24               | 2                |
+    Then Creo in background una notifica per destinatario tramite API REST
+    And Si seleziona la notifica destinatario
+    And Si attende completamento notifica "Consegnata"
+    #click due volte sullo stesso bottone perché dopo il download elimina sempre l ultimo bottone cliccato
+    And Si clicca sul modello F24 destinatario numero 1
+    And Si clicca sul modello F24 destinatario numero 1
+#    And Logout da portale persona fisica

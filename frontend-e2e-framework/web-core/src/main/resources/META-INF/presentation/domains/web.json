@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "domainId": "web",
+
+  "entities": {
+    "Page": "it.pn.frontend.e2e.framework.web.domain.ui.Page",
+    "Component": "it.pn.frontend.e2e.framework.web.domain.ui.Component",
+    "DomNode": "it.pn.frontend.e2e.framework.web.domain.ui.DomNode"
+  },
+
+  "scopes": {
+    "pages": { "subtypesOf": "it.pn.frontend.e2e.framework.web.domain.ui.Page" },
+    "components": { "subtypesOf": "it.pn.frontend.e2e.framework.web.domain.ui.Component" },
+    "domNodes": { "subtypesOf": "it.pn.frontend.e2e.framework.web.domain.ui.DomNode" }
+  },
+
+  "constraints": [
+    {
+      "id": "web-page-must-have-pageinfo",
+      "scope": "pages",
+      "mustHaveAnnotation": "it.pn.frontend.e2e.framework.web.domain.annotation.PageInfo",
+      "severity": "ERROR",
+      "message": "Ogni @Page deve avere @PageInfo"
+    }
+  ]
+}
