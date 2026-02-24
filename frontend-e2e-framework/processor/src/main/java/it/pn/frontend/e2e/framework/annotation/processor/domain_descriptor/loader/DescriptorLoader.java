@@ -2,9 +2,7 @@ package it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.load
 
 
 import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.parser.DomainDescriptorParser;
-import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.parser.json.JsonDomainDescriptorParser;
 import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.validator.DomainDescriptorValidator;
-import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.validator.factory.DefaultDomainDescriptorValidatorFactory;
 import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.validator.factory.DomainDescriptorValidatorFactory;
 import it.pn.frontend.e2e.framework.core.meta.Descriptor;
 
@@ -30,15 +28,6 @@ public final class DescriptorLoader {
                             DomainDescriptorValidatorFactory validatorFactory) {
         this.parser = parser;
         this.validatorFactory = validatorFactory;
-    }
-
-    public static DescriptorLoader defaultLoader() {
-        return new DescriptorLoader(
-                new JsonDomainDescriptorParser(
-                        new com.fasterxml.jackson.databind.ObjectMapper()
-                ),
-                new DefaultDomainDescriptorValidatorFactory()
-        );
     }
 
     public List<Descriptor> loadAll(ClassLoader classLoader, Messager messager) {
