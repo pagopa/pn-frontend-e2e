@@ -1,23 +1,9 @@
 package it.pn.frontend.e2e.framework.core.binder;
 
-import it.pn.frontend.e2e.framework.core.adapter.IPresentationApiAdapter;
-import it.pn.frontend.e2e.framework.core.binder.invocation_handler.context.BaseInvocationContext;
-import it.pn.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
-public abstract class AbstractPresentationBinder<ApiAdapter extends IPresentationApiAdapter, Context extends BaseInvocationContext>
-        implements IPresentationBinder {
-
-    protected final ApiAdapter adapter;
-    protected final ICapabilityDispatcher<Context> dispatcher;
-
-    protected AbstractPresentationBinder(ApiAdapter adapter, ICapabilityDispatcher<Context> dispatcher) {
-        this.adapter = adapter;
-        this.dispatcher = dispatcher;
-    }
-
+public abstract class AbstractPresentationBinder implements IPresentationBinder {
 
     @Override
     @SuppressWarnings("unchecked")
