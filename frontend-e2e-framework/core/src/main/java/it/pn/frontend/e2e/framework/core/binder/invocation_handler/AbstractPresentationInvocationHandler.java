@@ -1,24 +1,18 @@
 package it.pn.frontend.e2e.framework.core.binder.invocation_handler;
 
-import it.pn.frontend.e2e.framework.core.adapter.IPresentationApiAdapter;
 import it.pn.frontend.e2e.framework.core.binder.invocation_handler.context.BaseInvocationContext;
 import it.pn.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
+import lombok.RequiredArgsConstructor;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-
-public abstract class AbstractPresentationInvocationHandler<ApiAdapter extends IPresentationApiAdapter, Context extends BaseInvocationContext>
-        implements InvocationHandler {
+public abstract class AbstractPresentationInvocationHandler<Context extends BaseInvocationContext> implements InvocationHandler {
 
     protected final ICapabilityDispatcher<Context> dispatcher;
-    protected final ApiAdapter adapter;
-    protected final Class<?> boundType;
 
-    protected AbstractPresentationInvocationHandler(ICapabilityDispatcher<Context> dispatcher, ApiAdapter adapter, Class<?> boundType) {
+    protected AbstractPresentationInvocationHandler(ICapabilityDispatcher<Context> dispatcher) {
         this.dispatcher = dispatcher;
-        this.adapter = adapter;
-        this.boundType = boundType;
     }
 
     @Override
