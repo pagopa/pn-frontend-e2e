@@ -8,22 +8,19 @@ import java.lang.annotation.Target;
 import java.lang.annotation.*;
 
 /**
- * Marks a DomNode selector method and declares behavior capabilities
- * to be merged into the generated return type.
+ * Annotates a PresentationElement and specifies the selector to locate it.
+ *
+ * <p>This annotation can be applied to methods or interfaces to define
+ * the selector string needed to identify the element during test execution.</p>
  */
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.SOURCE) // keep it for runtime usage too (binder can read it)
+@Target({ElementType.METHOD, ElementType.TYPE})
+@Retention(RetentionPolicy.SOURCE)
 @Documented
 public @interface Selector {
-
-    /** CSS/XPath/etc selector string (domain-specific) */
-    String value();
-
     /**
-     * Capability interfaces whose methods should become available on the return type.
-     * Must be interfaces.
+     * The selector string to locate the element.
      */
-    Class<?>[] capabilities() default {};
+    String value();
 }
 
 
