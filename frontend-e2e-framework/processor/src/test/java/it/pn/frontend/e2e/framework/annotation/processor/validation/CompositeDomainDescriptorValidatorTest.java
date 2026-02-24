@@ -1,6 +1,6 @@
 package it.pn.frontend.e2e.framework.annotation.processor.validation;
 
-import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.validator.CompositeDomainDescriptorValidator;
+import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.validator.CompositeDomainDescriptorValidator;
 import it.pn.frontend.e2e.framework.annotation.processor.rule.ConstraintsRule;
 import it.pn.frontend.e2e.framework.annotation.processor.rule.DomainIdRule;
 import it.pn.frontend.e2e.framework.annotation.processor.rule.ScopesRule;

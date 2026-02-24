@@ -2,10 +2,10 @@ package it.pn.frontend.e2e.framework.annotation.processor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auto.service.AutoService;
-import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.loader.DescriptorLoader;
-import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.parser.json.JsonDomainDescriptorParser;
-import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.validator.factory.DefaultDomainDescriptorValidatorFactory;
-import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.resolution.scope.ScopeResolver;
+import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.loader.DescriptorLoader;
+import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.parser.json.JsonDomainDescriptorParser;
+import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.validator.factory.DefaultDomainDescriptorValidatorFactory;
+import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.resolution.scope.ScopeResolver;
 import it.pn.frontend.e2e.framework.annotation.processor.rule.engine.RuleEngine;
 import it.pn.frontend.e2e.framework.core.meta.model.Constraint;
 import it.pn.frontend.e2e.framework.core.meta.Descriptor;

@@ -1,8 +1,8 @@
 package it.pn.frontend.e2e.framework.annotation.processor.validation;
 
-import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.validator.DomainDescriptorValidator;
-import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.validator.factory.DefaultDomainDescriptorValidatorFactory;
-import it.pn.frontend.e2e.framework.annotation.processor.domain.descriptor.validator.factory.DomainDescriptorValidatorFactory;
+import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.validator.DomainDescriptorValidator;
+import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.validator.factory.DefaultDomainDescriptorValidatorFactory;
+import it.pn.frontend.e2e.framework.annotation.processor.domain_descriptor.validator.factory.DomainDescriptorValidatorFactory;
 import it.pn.frontend.e2e.framework.core.meta.Descriptor;
 import org.junit.jupiter.api.Test;
 
