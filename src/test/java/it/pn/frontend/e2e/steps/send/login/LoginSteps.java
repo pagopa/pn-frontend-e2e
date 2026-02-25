@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.steps.login;
+package it.pn.frontend.e2e.steps.send.login;
 
 
 import io.cucumber.java.en.Given;
@@ -8,7 +8,7 @@ import it.pn.frontend.e2e.framework.web.WebPresentationGateway;
 import it.pn.frontend.e2e.model.PageInfo;
 import it.pn.frontend.e2e.model.SharedContext;
 
-import it.pn.frontend.e2e.steps.login.page.LoginPage;
+import it.pn.frontend.e2e.steps.send.login.page.LoginPage;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

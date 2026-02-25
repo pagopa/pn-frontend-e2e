@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.steps.login.page;
+package it.pn.frontend.e2e.steps.send.login.page;
 
 import it.pn.frontend.e2e.framework.annotation.Selector;
 
