@@ -20,6 +20,12 @@
 
     <dependencies>
 
+        <!-- Annotazioni del framework -->
+        <dependency>
+            <groupId>it.frontend.e2e.framework</groupId>
+            <artifactId>annotations</artifactId>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
