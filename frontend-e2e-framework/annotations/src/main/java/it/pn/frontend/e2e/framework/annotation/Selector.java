@@ -14,7 +14,7 @@ import java.lang.annotation.*;
  * the selector string needed to identify the element during test execution.</p>
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Selector {
     /**
