@@ -13,7 +13,6 @@
 
     <properties>
         <cucumber.version>7.14.0</cucumber.version>
-        <selenium.version>4.34.0</selenium.version>
         <spring.version>6.1.6</spring.version>
         <junit.platform.version>1.10.2</junit.platform.version>
         <slf4j.version>2.0.12</slf4j.version>
@@ -112,18 +111,6 @@
             <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- ========================= -->
-        <!-- (OPZIONALE) SELENIUM -->
-        <!-- ========================= -->
-        <!--
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>${selenium.version}</version>
-            <scope>test</scope>
-        </dependency>
-        -->
 
         <dependency>
             <groupId>org.junit.platform</groupId>
