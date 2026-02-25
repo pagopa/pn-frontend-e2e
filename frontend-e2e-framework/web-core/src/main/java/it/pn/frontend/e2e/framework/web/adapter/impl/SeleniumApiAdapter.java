@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.framework.web.adapter.selenium;
+package it.pn.frontend.e2e.framework.web.adapter.impl;
 
 import it.pn.frontend.e2e.framework.core.adapter.model.AssertionAction;
 import it.pn.frontend.e2e.framework.core.adapter.model.PresentationElement;
