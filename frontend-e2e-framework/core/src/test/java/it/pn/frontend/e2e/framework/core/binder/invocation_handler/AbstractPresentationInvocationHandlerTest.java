@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.framework.core.binder.invocation_handler;
 
+import it.pn.frontend.e2e.framework.core.adapter.model.selector.Selector;
 import it.pn.frontend.e2e.framework.core.binder.invocation_handler.context.BaseInvocationContext;
 import it.pn.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import org.junit.jupiter.api.BeforeEach;
@@ -124,9 +125,11 @@ class AbstractPresentationInvocationHandlerTest {
         }
 
         @Override
-        protected BaseInvocationContext createContext(Object proxy, Method method, Object[] args) {
+        protected BaseInvocationContext createContext(Object proxy, Method method, Object[] args, String selecotorValue) {
             Method mockMethod = mock(Method.class);
-            return new BaseInvocationContext(mockMethod);
+            Selector mockSelector = mock(Selector.class);
+
+            return new BaseInvocationContext(mockMethod, mockSelector);
         }
     }
 
