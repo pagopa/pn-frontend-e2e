@@ -9,23 +9,27 @@ import it.pn.frontend.e2e.framework.core.adapter.model.selector.SelectorType;
 
 import java.util.List;
 
-public interface IPresentationApiAdapter {
+public interface IPresentationApiAdapter<
+        E extends PresentationElement,
+        S extends Selector<? extends SelectorType>,
+        L extends Locator<? extends LocatorType>
+        >  {
 
     // Operazioni di ricerca
-    <T extends PresentationElement> T findElement(Selector<? extends SelectorType> selector);
-    <T extends PresentationElement> T findElementAndAssert(Selector<? extends SelectorType> selector, AssertionAction<PresentationElement> assertion);
-    <T extends PresentationElement> List<T> findElements(Selector<? extends SelectorType> selector);
-    <T extends PresentationElement> List<T> findElementsAndAssert(Selector<? extends SelectorType> selector, AssertionAction<PresentationElement> assertion);
+    E findElement(S selector);
+    E findElementAndAssert(S selector, AssertionAction<PresentationElement> assertion);
+    List<E> findElements(S selector);
+    List<E> findElementsAndAssert(S selector, AssertionAction<PresentationElement> assertion);
 
     // Operazioni di interazione
-    void click(Selector<? extends SelectorType> selector);
-    void clickAndAssert(Selector<? extends SelectorType> selector, AssertionAction<PresentationElement> assertion);
-    void sendText(Selector<? extends SelectorType> selector, String text);
-    void sendTextAndAssert(Selector<? extends SelectorType> selector, String text, AssertionAction<PresentationElement> assertion);
-    void clear(Selector<? extends SelectorType> selector);
-    void clearAndAssert(Selector<? extends SelectorType> selector, AssertionAction<PresentationElement> assertion);
+    void click(S selector);
+    void clickAndAssert(S selector, AssertionAction<PresentationElement> assertion);
+    void sendText(S selector, String text);
+    void sendTextAndAssert(S selector, String text, AssertionAction<PresentationElement> assertion);
+    void clear(S selector);
+    void clearAndAssert(S selector, AssertionAction<PresentationElement> assertion);
 
-    default void sendTextAndAssert(Selector<? extends SelectorType> selector, String text) {
+    default void sendTextAndAssert(S selector, String text) {
         sendText(selector, text);
         getTextAndAssert(selector, actualText -> {
             if (!actualText.equals(text)) {
@@ -34,7 +38,7 @@ public interface IPresentationApiAdapter {
         });
     }
 
-    default void clearAndAssert(Selector<? extends SelectorType> selector) {
+    default void clearAndAssert(S selector) {
         clear(selector);
         getTextAndAssert(selector, actualText -> {
             if (!actualText.isEmpty()) {
@@ -44,22 +48,22 @@ public interface IPresentationApiAdapter {
     }
 
     // Operazioni di verifica
-    boolean isDisplayed(Selector<? extends SelectorType> selector);
-    boolean isEnabled(Selector<? extends SelectorType> selector);
-    String getText(Selector<? extends SelectorType> selector);
-    String getTextAndAssert(Selector<? extends SelectorType> selector, AssertionAction<String> assertion);
+    boolean isDisplayed(S selector);
+    boolean isEnabled(S selector);
+    String getText(S selector);
+    String getTextAndAssert(S selector, AssertionAction<String> assertion);
 
     // Operazioni di attesa
-    void waitForElement(Selector<? extends SelectorType> selector, long timeoutSeconds);
-    void waitUntilElementDisappears(Selector<? extends SelectorType> selector, long timeoutSeconds);
+    void waitForElement(S selector, long timeoutSeconds);
+    void waitUntilElementDisappears(S selector, long timeoutSeconds);
 
     // Operazioni di navigazione
     Locator<? extends  LocatorType> getLocation();
     Locator<? extends  LocatorType> getLocationAndAssert(AssertionAction<Locator<? extends  LocatorType>> assertion);
-    void navigateTo(Locator<? extends LocatorType> locator);
-    void navigateToAndAssert(Locator<? extends LocatorType> locator, AssertionAction<Locator<? extends  LocatorType>> assertion);
+    void navigateTo(L locator);
+    void navigateToAndAssert(L locator, AssertionAction<Locator<? extends  LocatorType>> assertion);
 
-    default void navigateToAndCheck(Locator<? extends LocatorType> locator) {
+    default void navigateToAndCheck(L locator) {
         navigateToAndAssert(locator, actualLocator -> {
             if (!actualLocator.getLocation().equals(locator.getLocation())) {
                 throw new AssertionError("Expected location: " + locator.getLocation() + ", but got: " + actualLocator.getLocation());
