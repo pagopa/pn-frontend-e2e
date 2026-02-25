@@ -13,6 +13,11 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <properties>
+        <selenium.version>4.34.0</selenium.version>
+    </properties>
+
+
     <artifactId>web-core</artifactId>
 
     <name>web-core</name>
@@ -43,6 +48,14 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Selenium -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+            <scope>compile</scope>
         </dependency>
 
     </dependencies>
