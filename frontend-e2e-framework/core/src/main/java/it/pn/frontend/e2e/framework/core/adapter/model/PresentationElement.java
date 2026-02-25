@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PresentationElement {
+public class PresentationElement implements IPresentationElement{
 
     private Locator<? extends LocatorType> locator;
     private String elementType;
