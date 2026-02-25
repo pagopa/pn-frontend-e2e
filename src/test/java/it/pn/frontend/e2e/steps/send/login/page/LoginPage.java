@@ -14,6 +14,6 @@ public interface LoginPage extends Page {
 
     }
 
-    @Selector(value = "#login-form", capabilities = {Readable.class})
+    @Selector(value = "#login-form")
     LoginForm form();
 }

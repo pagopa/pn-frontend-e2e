@@ -1,41 +1,39 @@
 package it.pn.frontend.e2e.steps.send.mittenti;
 
-import io.cucumber.java.PendingException;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.pn.frontend.e2e.framework.web.WebPresentationGateway;
-import it.pn.frontend.e2e.framework.web.domain.ui.Component;
-import it.pn.frontend.e2e.framework.web.domain.ui.Page;
+import it.pn.frontend.e2e.framework.web.domain.Page;
+import it.pn.frontend.e2e.model.PageInfo;
+import it.pn.frontend.e2e.steps.send.FakeAuthenticator;
+import it.pn.frontend.e2e.steps.send.IAuthenticator;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
-import org.springframework.beans.factory.annotation.Value;
 
 @RequiredArgsConstructor
 public class MittentiSteps {
 
     private final WebPresentationGateway uiGateway;
     private Page page;
-    @Value("pn.bearer-token.tokentestMittente") private String token;
-
-    @When("naviga alla pagina {string} tramite la route {string}")
-    public void navigateTo(Class<? extends Component> page, String path) {
-        //page = uiGateway.bind(page);
-        uiGateway.navigateTo(path);
-    }
-
-    @Then("la pagina deve caricarsi correttamente")
-    public void laPaginaDeveCaricarsiCorrettamente() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
 
     @Given("l'utente è un {string} di {string}")
     public void login(String role, String pa) {
         // Inizializzare un bean Auth
-        // Auth auth = Auth.of(role,pa,fake);
-        // Authenticator auth = new Authentcator(auth);
-        boolean isLogged = true;
-        Assertions.assertTrue(isLogged);
+        //Auth auth = Auth.of(role,pa,fake);
+        IAuthenticator auth = new FakeAuthenticator(role, pa);
+        Assertions.assertTrue(auth.isAuthenticated());
     }
+
+    @When("naviga alla pagina {page}")
+    public void navigateTo(PageInfo pageInfo) {
+        this.page = (Page) uiGateway.bind(pageInfo.pageClass());
+        uiGateway.navigateTo(page.getUrl());
+    }
+
+    @Then("la pagina deve caricarsi correttamente")
+    public void laPaginaDeveCaricarsiCorrettamente() {
+        this.page.assertLoaded();
+    }
+
 }
