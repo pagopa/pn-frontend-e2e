@@ -1,18 +1,15 @@
 package it.frontend.e2e.framework.core.presentation_binder;
 
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
-import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
-import it.frontend.e2e.framework.core.model.Location;
-import it.frontend.e2e.framework.core.model.Selector;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-public abstract class AbstractBinderInvocationHandler<S extends Selector, L extends Location, E extends AbstractPresentationElement<S,L>> implements InvocationHandler {
+public abstract class AbstractBinderInvocationHandler implements InvocationHandler {
 
-    protected final ICapabilityDispatcher<S,L,E> dispatcher;
+    protected final ICapabilityDispatcher dispatcher;
 
-    protected AbstractBinderInvocationHandler(ICapabilityDispatcher<S,L,E> dispatcher) {
+    protected AbstractBinderInvocationHandler(ICapabilityDispatcher dispatcher) {
         this.dispatcher = dispatcher;
     }
 
