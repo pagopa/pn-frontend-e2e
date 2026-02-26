@@ -1,13 +1,17 @@
 package it.frontend.e2e.framework.core.presentation_binder;
 
+import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
+import it.frontend.e2e.framework.core.model.Location;
+import it.frontend.e2e.framework.core.model.Selector;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
-public abstract class AbstractBinder implements IBinder {
+public abstract class AbstractBinder<S extends Selector, L extends Location> implements IBinder<S, L> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T bind(Class<T> type) {
+    public <T extends AbstractPresentationElement<S,L>> T bind(Class<T> type) {
         if (!type.isInterface())
             throw new IllegalArgumentException(type.getName() + " is not an interface.");
 
