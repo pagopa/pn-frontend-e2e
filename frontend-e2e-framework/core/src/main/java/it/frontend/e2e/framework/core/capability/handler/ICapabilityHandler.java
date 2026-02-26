@@ -1,13 +1,8 @@
 package it.frontend.e2e.framework.core.capability.handler;
 
-import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
-import it.frontend.e2e.framework.core.model.Location;
-import it.frontend.e2e.framework.core.model.Selector;
-
 import java.lang.reflect.Method;
-import java.util.Optional;
 
-public interface ICapabilityHandler<S extends Selector, L extends Location, E extends AbstractPresentationElement<S,L>> {
+public interface ICapabilityHandler {
     boolean canHandle(Method method);
-    Optional<E> handle(S selector, L location);
+    <T> T handle(Method method);
 }
