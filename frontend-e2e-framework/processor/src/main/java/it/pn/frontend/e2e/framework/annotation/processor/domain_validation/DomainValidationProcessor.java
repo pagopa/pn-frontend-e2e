@@ -6,8 +6,9 @@ import it.pn.frontend.e2e.framework.annotation.processor.domain_validation.rule.
 import it.pn.frontend.e2e.framework.annotation.processor.domain_validation.utils.DescriptorLoader;
 import it.pn.frontend.e2e.framework.annotation.processor.domain_validation.utils.descriptor_parser.json.JsonDomainDescriptorParser;
 import it.pn.frontend.e2e.framework.annotation.processor.domain_validation.utils.scope_resolver.ScopeResolver;
+import it.pn.frontend.e2e.framework.core.meta.Constraint;
 import it.pn.frontend.e2e.framework.core.meta.Descriptor;
-import it.pn.frontend.e2e.framework.core.meta.model.Constraint;
+
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;

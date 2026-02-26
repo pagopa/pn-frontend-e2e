@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.framework.annotation.processor.domain_validation.util
 
 import it.pn.frontend.e2e.framework.annotation.processor.domain_validation.utils.scope_resolver.strategy.ScopeResolutionStrategy;
 import it.pn.frontend.e2e.framework.annotation.processor.domain_validation.utils.scope_resolver.strategy.subtypesOf.SubtypesOfResolutionStrategy;
-import it.pn.frontend.e2e.framework.core.meta.model.Scope;
+import it.pn.frontend.e2e.framework.core.meta.Scope;
 
 public final class ScopeResolutionStrategyFactory {
 

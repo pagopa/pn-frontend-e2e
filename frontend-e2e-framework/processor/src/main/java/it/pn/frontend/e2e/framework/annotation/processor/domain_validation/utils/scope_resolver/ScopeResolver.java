@@ -3,7 +3,7 @@ package it.pn.frontend.e2e.framework.annotation.processor.domain_validation.util
 import it.pn.frontend.e2e.framework.annotation.processor.domain_validation.utils.scope_resolver.strategy.ScopeResolutionStrategy;
 import it.pn.frontend.e2e.framework.annotation.processor.domain_validation.utils.scope_resolver.strategy.factory.ScopeResolutionStrategyFactory;
 import it.pn.frontend.e2e.framework.core.meta.Descriptor;
-import it.pn.frontend.e2e.framework.core.meta.model.Scope;
+import it.pn.frontend.e2e.framework.core.meta.Scope;
 
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
