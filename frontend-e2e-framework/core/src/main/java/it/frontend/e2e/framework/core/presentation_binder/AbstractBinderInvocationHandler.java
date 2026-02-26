@@ -19,8 +19,14 @@ public abstract class AbstractBinderInvocationHandler implements InvocationHandl
         if (method.isDefault())
             return InvocationHandler.invokeDefault(proxy, method, args);
 
-        if (method.getDeclaringClass() == Object.class)
-            return method.invoke(this, args);
+        if (method.getDeclaringClass() == Object.class) {
+            return switch (method.getName()) {
+                case "equals" -> proxy == args[0];
+                case "hashCode" -> System.identityHashCode(proxy);
+                case "toString" -> proxy.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(proxy));
+                default -> method.invoke(this, args);
+            };
+        }
 
         return dispatcher.dispatch(method);
     }
