@@ -4,7 +4,7 @@ package it.pn.frontend.e2e.steps.send.login;
 import io.cucumber.java.en.Given;
 import it.pn.frontend.e2e.enums.User;
 
-import it.pn.frontend.e2e.framework.web.WebPresentationGateway;
+import it.frontend.e2e.framework.web.WebPresentationGateway;
 import it.pn.frontend.e2e.model.PageInfo;
 import it.pn.frontend.e2e.model.SharedContext;
 

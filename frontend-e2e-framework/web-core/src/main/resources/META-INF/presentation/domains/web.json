@@ -3,22 +3,22 @@
   "domainId": "web",
 
   "entities": {
-    "Page": "it.pn.frontend.e2e.framework.web.domain.ui.Page",
-    "Component": "it.pn.frontend.e2e.framework.web.domain.ui.Component",
-    "DomNode": "it.pn.frontend.e2e.framework.web.domain.ui.DomNode"
+    "Page": "it.frontend.e2e.framework.web.domain.Page",
+    "Component": "it.frontend.e2e.framework.web.domain.Component",
+    "DomNode": "it.frontend.e2e.framework.web.domain.DomNode"
   },
 
   "scopes": {
-    "pages": { "subtypesOf": "it.pn.frontend.e2e.framework.web.domain.ui.Page" },
-    "components": { "subtypesOf": "it.pn.frontend.e2e.framework.web.domain.ui.Component" },
-    "domNodes": { "subtypesOf": "it.pn.frontend.e2e.framework.web.domain.ui.DomNode" }
+    "pages": { "subtypesOf": "it.frontend.e2e.framework.web.domain.Page" },
+    "components": { "subtypesOf": "it.frontend.e2e.framework.web.domain.Component" },
+    "domNodes": { "subtypesOf": "it.frontend.e2e.framework.web.domain.DomNode" }
   },
 
   "constraints": [
     {
       "id": "web-page-must-have-pageinfo",
       "scope": "pages",
-      "mustHaveAnnotation": "it.pn.frontend.e2e.framework.web.domain.annotation.PageInfo",
+      "mustHaveAnnotation": "it.frontend.e2e.framework.web.annotation.PageInfo",
       "severity": "ERROR",
       "message": "Ogni @Page deve avere @PageInfo"
     }

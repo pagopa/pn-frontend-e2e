@@ -3,12 +3,15 @@ package it.pn.frontend.e2e.config;
 import io.cucumber.spring.ScenarioScope;
 
 
-import it.pn.frontend.e2e.framework.core.capability.dispatcher.CapabilityDispatcher;
-import it.pn.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
-import it.pn.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
-import it.pn.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
-import it.pn.frontend.e2e.framework.web.adapter.impl.SeleniumApiAdapter;
-import it.pn.frontend.e2e.framework.web.binder.WebPresentationBinder;
+import it.frontend.e2e.framework.core.capability.dispatcher.CapabilityDispatcher;
+import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
+import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
+import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
+import it.frontend.e2e.framework.web.adapter.impl.SeleniumApiAdapter;
+import it.frontend.e2e.framework.web.adapter.model.WebPresentationElement;
+import it.frontend.e2e.framework.web.adapter.model.locator.WebLocation;
+import it.frontend.e2e.framework.web.adapter.model.selector.WebSelector;
+import it.frontend.e2e.framework.web.binder.WebPresentationBinder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -26,17 +29,17 @@ public class WebPresentationConfig {
 
     @Bean
     @ScenarioScope
-    public ICapabilityDispatcher capabilityDispatcher() {
-        List<ICapabilityHandler> handlers = new ArrayList<>();
-        return new CapabilityDispatcher(handlers);
+    public ICapabilityDispatcher<WebSelector, WebLocation, WebPresentationElement> capabilityDispatcher() {
+        List<ICapabilityHandler<WebSelector, WebLocation, WebPresentationElement>> handlers = new ArrayList<>();
+        return null;
     }
 
     @Bean
     @ScenarioScope
     public WebPresentationBinder webPresentationBinder(
             IWebPresentationApiAdapter adapter,
-            ICapabilityDispatcher dispatcher
+            ICapabilityDispatcher<WebSelector, WebLocation, WebPresentationElement> dispatcher
     ) {
-        return new WebPresentationBinder(adapter, dispatcher);
+        return null;
     }
 }

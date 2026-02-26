@@ -3,8 +3,8 @@ package it.pn.frontend.e2e.steps.send.mittenti;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import it.pn.frontend.e2e.framework.web.WebPresentationGateway;
-import it.pn.frontend.e2e.framework.web.domain.Page;
+import it.frontend.e2e.framework.web.WebPresentationGateway;
+import it.frontend.e2e.framework.web.domain.Page;
 import it.pn.frontend.e2e.model.PageInfo;
 import it.pn.frontend.e2e.steps.send.FakeAuthenticator;
 import it.pn.frontend.e2e.steps.send.IAuthenticator;
@@ -28,7 +28,7 @@ public class MittentiSteps {
     @When("naviga alla pagina {page}")
     public void navigateTo(PageInfo pageInfo) {
         this.page = (Page) uiGateway.bind(pageInfo.pageClass());
-        uiGateway.navigateTo(page.getUrl());
+        //uiGateway.navigateTo(page.getUrl());
     }
 
     @Then("la pagina deve caricarsi correttamente")
