@@ -20,23 +20,11 @@ public abstract class AbstractBinder<
         if (!type.isInterface())
             throw new IllegalArgumentException(type.getName() + " is not an interface.");
 
-        Class<?> resolved = resolveClass(type);
-
         return (T) Proxy.newProxyInstance(
                 type.getClassLoader(),
-                new Class<?>[]{resolved},
+                new Class<?>[]{type},
                 getInvocationHandler(type)
         );
-    }
-
-    private Class<?> resolveClass(Class<?> requested) {
-        String className = requested.getName();
-
-        try {
-            return Class.forName(className, false, requested.getClassLoader());
-        } catch (ClassNotFoundException ignored) {
-            return requested;
-        }
     }
 
     /**
