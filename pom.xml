@@ -156,14 +156,14 @@
                         <!-- Framework Processor -->
                         <path>
                             <groupId>it.frontend.e2e.framework</groupId>
-                            <artifactId>presentation-processor</artifactId>
+                            <artifactId>processor</artifactId>
                             <version>1.0-SNAPSHOT</version>
                         </path>
 
                         <!-- Web core -->
                         <path>
                             <groupId>it.frontend.e2e.framework</groupId>
-                            <artifactId>presentation-web-core</artifactId>
+                            <artifactId>web-core</artifactId>
                             <version>1.0-SNAPSHOT</version>
                         </path>
                     </annotationProcessorPaths>
