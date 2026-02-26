@@ -1,26 +1,14 @@
 package it.pn.frontend.e2e.framework.web.binder;
 
-import it.pn.frontend.e2e.framework.core.binder.AbstractPresentationBinder;
-import it.pn.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
-import it.pn.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
-import it.pn.frontend.e2e.framework.web.binder.invocation_handler.WebPresentationInvocationHandler;
-import it.pn.frontend.e2e.framework.web.binder.invocation_handler.context.WebInvocationContext;
+
+import it.pn.frontend.e2e.framework.core.presentation_binder.AbstractBinder;
 
 import java.lang.reflect.InvocationHandler;
 
-public class WebPresentationBinder extends AbstractPresentationBinder<IWebPresentationApiAdapter, WebInvocationContext> {
-
-    public WebPresentationBinder(IWebPresentationApiAdapter adapter, ICapabilityDispatcher dispatcher) {
-        super(adapter, dispatcher);
-    }
+public class WebPresentationBinder extends AbstractBinder {
 
     @Override
-    protected InvocationHandler createInvocationHandler(Class<?> boundType) {
-        return new WebPresentationInvocationHandler(
-                dispatcher,
-                adapter,
-                boundType,
-                ""
-        );
+    protected InvocationHandler getInvocationHandler(Class<?> boundType) {
+        return null;
     }
 }

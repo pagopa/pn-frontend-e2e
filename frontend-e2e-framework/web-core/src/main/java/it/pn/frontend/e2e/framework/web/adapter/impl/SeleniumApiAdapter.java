@@ -1,7 +1,6 @@
 package it.pn.frontend.e2e.framework.web.adapter.impl;
 
-import it.pn.frontend.e2e.framework.core.adapter.model.AssertionAction;
-import it.pn.frontend.e2e.framework.core.adapter.model.PresentationElement;
+import it.pn.frontend.e2e.framework.core.assertion.AssertionAction;
 import it.pn.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.pn.frontend.e2e.framework.web.adapter.model.WebPresentationElement;
 import it.pn.frontend.e2e.framework.web.adapter.model.locator.WebLocation;
@@ -21,7 +20,7 @@ public class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     }
 
     @Override
-    public Optional<WebPresentationElement> findElementAndAssert(WebSelector selector, AssertionAction<PresentationElement> assertion) {
+    public Optional<WebPresentationElement> findElementAndAssert(WebSelector selector, AssertionAction<WebPresentationElement> assertion) {
         return Optional.empty();
     }
 
@@ -31,7 +30,7 @@ public class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     }
 
     @Override
-    public Optional<List<WebPresentationElement>> findElementsAndAssert(WebSelector selector, AssertionAction<PresentationElement> assertion) {
+    public Optional<List<WebPresentationElement>> findElementsAndAssert(WebSelector selector, AssertionAction<WebPresentationElement> assertion) {
         return Optional.empty();
     }
 
@@ -41,7 +40,7 @@ public class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     }
 
     @Override
-    public void clickAndAssert(WebSelector selector, AssertionAction<PresentationElement> assertion) {
+    public void clickAndAssert(WebSelector selector, AssertionAction<WebPresentationElement> assertion) {
 
     }
 
@@ -51,7 +50,7 @@ public class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     }
 
     @Override
-    public void sendTextAndAssert(WebSelector selector, String text, AssertionAction<PresentationElement> assertion) {
+    public void sendTextAndAssert(WebSelector selector, String text, AssertionAction<WebPresentationElement> assertion) {
 
     }
 
@@ -61,7 +60,7 @@ public class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     }
 
     @Override
-    public void clearAndAssert(WebSelector selector, AssertionAction<PresentationElement> assertion) {
+    public void clearAndAssert(WebSelector selector, AssertionAction<WebPresentationElement> assertion) {
 
     }
 
