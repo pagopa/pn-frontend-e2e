@@ -1,10 +1,9 @@
-package it.pn.frontend.e2e.framework.core.presentation_binder.invocation_handler;
+package it.pn.frontend.e2e.framework.core.presentation_binder;
 
 import it.pn.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.pn.frontend.e2e.framework.core.model.AbstractPresentationElement;
 import it.pn.frontend.e2e.framework.core.model.Location;
 import it.pn.frontend.e2e.framework.core.model.Selector;
-import it.pn.frontend.e2e.framework.core.presentation_binder.AbstractBinderInvocationHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
