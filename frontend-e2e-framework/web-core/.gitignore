@@ -1,33 +1,50 @@
-HELP.md
+#######################################
+# Maven
+#######################################
+
+# Build output
 target/
+
+# Maven Wrapper (tieni solo i file necessari)
 .mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+#######################################
+# Java
+#######################################
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Compiled class files
+*.class
+
+# Logs
+*.log
+
+#######################################
+# IntelliJ IDEA
+#######################################
+
+.idea/
 *.iml
-*.ipr
+out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+#######################################
+# Eclipse / STS
+#######################################
 
-### VS Code ###
+.project
+.classpath
+.settings/
+.springBeans
+.sts4-cache/
+
+#######################################
+# VS Code
+#######################################
+
 .vscode/
+
+#######################################
+# OS files
+#######################################
+
+.DS_Store
+Thumbs.db
