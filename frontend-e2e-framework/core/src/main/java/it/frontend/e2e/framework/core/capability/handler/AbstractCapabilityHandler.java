@@ -15,14 +15,14 @@ public abstract class AbstractCapabilityHandler<
         C extends Capability<S, L, E>
         > implements ICapabilityHandler {
 
-    protected final C capabilityClass;
+    protected final Class<C> capabilityClass;
 
-    protected AbstractCapabilityHandler(C capabilityClass) {
+    protected AbstractCapabilityHandler(Class<C> capabilityClass) {
         this.capabilityClass = capabilityClass;
     }
 
     @Override
     public boolean canHandle(Method method) {
-        return method.getDeclaringClass().equals(capabilityClass.getClass());
+        return method.getDeclaringClass().equals(capabilityClass);
     }
 }

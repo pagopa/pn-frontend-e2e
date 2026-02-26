@@ -23,35 +23,18 @@ class CapabilityDispatcherTest {
         void action();
     }
 
-    private static final class TestCapabilityDispatcher
-            extends CapabilityDispatcher<TestSelector, TestLocation, TestElement> {
-        private final TestSelector selector;
-        private final TestLocation location;
+    private static final class TestCapabilityDispatcher extends CapabilityDispatcher {
 
-        private TestCapabilityDispatcher(List<ICapabilityHandler<TestSelector, TestLocation, TestElement>> handlers,
-                                         TestSelector selector,
-                                         TestLocation location) {
+        private TestCapabilityDispatcher(List<ICapabilityHandler> handlers) {
             super(handlers);
-            this.selector = selector;
-            this.location = location;
-        }
-
-        @Override
-        protected TestSelector getSelector(Method method) {
-            return selector;
-        }
-
-        @Override
-        protected TestLocation getLocation(Method method) {
-            return location;
         }
     }
 
     @Mock
-    private ICapabilityHandler<TestSelector, TestLocation, TestElement> firstHandler;
+    private ICapabilityHandler firstHandler;
 
     @Mock
-    private ICapabilityHandler<TestSelector, TestLocation, TestElement> secondHandler;
+    private ICapabilityHandler secondHandler;
 
     private TestCapabilityDispatcher dispatcher;
     private Method actionMethod;
@@ -61,12 +44,12 @@ class CapabilityDispatcherTest {
     @BeforeEach
     void setUp() throws NoSuchMethodException {
         MockitoAnnotations.openMocks(this);
-        List<ICapabilityHandler<TestSelector, TestLocation, TestElement>> handlers = new ArrayList<>();
+        List<ICapabilityHandler> handlers = new ArrayList<>();
         handlers.add(firstHandler);
         handlers.add(secondHandler);
         selector = new TestSelector();
         location = new TestLocation();
-        dispatcher = new TestCapabilityDispatcher(handlers, selector, location);
+        dispatcher = new TestCapabilityDispatcher(handlers);
         actionMethod = TestCapability.class.getMethod("action");
     }
 
@@ -75,15 +58,15 @@ class CapabilityDispatcherTest {
     void shouldDelegateToFirstHandlerWhenItCanHandle() {
         TestElement expectedElement = new TestElement(selector, location);
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
-        when(firstHandler.handle(selector, location)).thenReturn(Optional.of(expectedElement));
+        when(firstHandler.handle(actionMethod)).thenReturn(Optional.of(expectedElement));
 
         Optional<TestElement> result = dispatcher.dispatch(actionMethod);
 
         assertTrue(result.isPresent());
         assertSame(expectedElement, result.get());
         verify(firstHandler).canHandle(actionMethod);
-        verify(firstHandler).handle(selector, location);
-        verify(secondHandler, never()).handle(any(), any());
+        verify(firstHandler).handle(actionMethod);
+        verify(secondHandler, never()).handle(any());
     }
 
     @Test
@@ -92,16 +75,16 @@ class CapabilityDispatcherTest {
         TestElement expectedElement = new TestElement(selector, location);
         when(firstHandler.canHandle(actionMethod)).thenReturn(false);
         when(secondHandler.canHandle(actionMethod)).thenReturn(true);
-        when(secondHandler.handle(selector, location)).thenReturn(Optional.of(expectedElement));
+        when(secondHandler.handle(actionMethod)).thenReturn(Optional.of(expectedElement));
 
         Optional<TestElement> result = dispatcher.dispatch(actionMethod);
 
         assertTrue(result.isPresent());
         assertSame(expectedElement, result.get());
         verify(firstHandler).canHandle(actionMethod);
-        verify(firstHandler, never()).handle(any(), any());
+        verify(firstHandler, never()).handle(any());
         verify(secondHandler).canHandle(actionMethod);
-        verify(secondHandler).handle(selector, location);
+        verify(secondHandler).handle(actionMethod);
     }
 
     @Test
@@ -117,14 +100,14 @@ class CapabilityDispatcherTest {
 
         assertTrue(exception.getMessage().contains("No handler for"));
         assertTrue(exception.getMessage().contains(TestCapability.class.getSimpleName()));
-        verify(firstHandler, never()).handle(any(), any());
-        verify(secondHandler, never()).handle(any(), any());
+        verify(firstHandler, never()).handle(any());
+        verify(secondHandler, never()).handle(any());
     }
 
     @Test
     @DisplayName("dovrebbe gestire lista vuota di handler")
     void shouldHandleEmptyHandlerList() {
-        dispatcher = new TestCapabilityDispatcher(new ArrayList<>(), selector, location);
+        dispatcher = new TestCapabilityDispatcher(new ArrayList<>());
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
@@ -138,12 +121,12 @@ class CapabilityDispatcherTest {
     @DisplayName("dovrebbe restituire Optional.empty se l'handler restituisce empty")
     void shouldReturnEmptyOptionalIfHandlerReturnsEmpty() {
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
-        when(firstHandler.handle(selector, location)).thenReturn(Optional.empty());
+        when(firstHandler.handle(actionMethod)).thenReturn(Optional.empty());
 
         Optional<? extends Object> result = dispatcher.dispatch(actionMethod);
 
         assertTrue(result.isEmpty());
-        verify(firstHandler).handle(selector, location);
+        verify(firstHandler).handle(actionMethod);
     }
 
     @Test
@@ -151,7 +134,7 @@ class CapabilityDispatcherTest {
     void shouldPropagateExceptionsFromHandlers() {
         RuntimeException expectedException = new RuntimeException("handler error");
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
-        when(firstHandler.handle(selector, location)).thenThrow(expectedException);
+        when(firstHandler.handle(actionMethod)).thenThrow(expectedException);
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
@@ -159,6 +142,6 @@ class CapabilityDispatcherTest {
         );
 
         assertEquals(expectedException, exception);
-        verify(firstHandler).handle(selector, location);
+        verify(firstHandler).handle(actionMethod);
     }
 }

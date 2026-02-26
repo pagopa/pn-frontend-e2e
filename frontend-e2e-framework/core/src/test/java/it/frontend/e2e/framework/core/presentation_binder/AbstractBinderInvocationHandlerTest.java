@@ -28,17 +28,16 @@ class AbstractBinderInvocationHandlerTest {
         Optional<TestElement> elementWithArg(String value);
     }
 
-    private static final class ConcreteInvocationHandler
-            extends AbstractBinderInvocationHandler<TestSelector, TestLocation, TestElement> {
-        private ConcreteInvocationHandler(ICapabilityDispatcher<TestSelector, TestLocation, TestElement> dispatcher) {
+    private static final class ConcreteInvocationHandler extends AbstractBinderInvocationHandler {
+        private ConcreteInvocationHandler(ICapabilityDispatcher dispatcher) {
             super(dispatcher);
         }
     }
 
     @Mock
-    private ICapabilityDispatcher<TestSelector, TestLocation, TestElement> dispatcher;
+    private ICapabilityDispatcher dispatcher;
 
-    private AbstractBinderInvocationHandler<TestSelector, TestLocation, TestElement> handler;
+    private AbstractBinderInvocationHandler handler;
 
     @BeforeEach
     void setUp() {
