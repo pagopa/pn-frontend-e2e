@@ -7,11 +7,11 @@ import it.pn.frontend.e2e.framework.web.binder.invocation_handler.context.WebInv
 
 import java.lang.reflect.Method;
 
-public class WebPresentationInvocationHandler extends AbstractPresentationInvocationHandler<IWebPresentationApiAdapter, WebInvocationContext> {
+public class WebPresentationInvocationHandler extends AbstractPresentationInvocationHandler<WebInvocationContext> {
 
     private final String selector;
 
-    public WebPresentationInvocationHandler(ICapabilityDispatcher<WebInvocationContext> dispatcher, IWebPresentationApiAdapter adapter, Class<?> boundType,  String selector) {
+    public WebPresentationInvocationHandler(ICapabilityDispatcher dispatcher, IWebPresentationApiAdapter adapter, Class<?> boundType, String selector) {
         super(dispatcher, adapter, boundType);
         this.selector = selector;
     }

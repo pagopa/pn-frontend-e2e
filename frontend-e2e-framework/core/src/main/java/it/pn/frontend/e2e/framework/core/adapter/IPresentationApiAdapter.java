@@ -1,33 +1,32 @@
 package it.pn.frontend.e2e.framework.core.adapter;
 
-import it.pn.frontend.e2e.framework.core.adapter.model.AssertionAction;
-import it.pn.frontend.e2e.framework.core.adapter.model.PresentationElement;
-import it.pn.frontend.e2e.framework.core.adapter.model.locator.Locator;
-import it.pn.frontend.e2e.framework.core.adapter.model.locator.LocatorType;
-import it.pn.frontend.e2e.framework.core.adapter.model.selector.Selector;
-import it.pn.frontend.e2e.framework.core.adapter.model.selector.SelectorType;
+import it.pn.frontend.e2e.framework.core.assertion.AssertionAction;
+import it.pn.frontend.e2e.framework.core.model.AbstractPresentationElement;
+import it.pn.frontend.e2e.framework.core.model.Location;
+import it.pn.frontend.e2e.framework.core.model.Selector;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IPresentationApiAdapter<
-        E extends PresentationElement,
-        S extends Selector<? extends SelectorType>,
-        L extends Locator<? extends LocatorType>
+        E extends AbstractPresentationElement<S, L>,
+        S extends Selector,
+        L extends Location
         >  {
 
     // Operazioni di ricerca
-    E findElement(S selector);
-    E findElementAndAssert(S selector, AssertionAction<PresentationElement> assertion);
-    List<E> findElements(S selector);
-    List<E> findElementsAndAssert(S selector, AssertionAction<PresentationElement> assertion);
+    Optional<E> findElement(S selector);
+    Optional<E> findElementAndAssert(S selector, AssertionAction<E> assertion);
+    Optional<List<E>> findElements(S selector);
+    Optional<List<E>> findElementsAndAssert(S selector, AssertionAction<E> assertion);
 
     // Operazioni di interazione
     void click(S selector);
-    void clickAndAssert(S selector, AssertionAction<PresentationElement> assertion);
+    void clickAndAssert(S selector, AssertionAction<E> assertion);
     void sendText(S selector, String text);
-    void sendTextAndAssert(S selector, String text, AssertionAction<PresentationElement> assertion);
+    void sendTextAndAssert(S selector, String text, AssertionAction<E> assertion);
     void clear(S selector);
-    void clearAndAssert(S selector, AssertionAction<PresentationElement> assertion);
+    void clearAndAssert(S selector, AssertionAction<E> assertion);
 
     default void sendTextAndAssert(S selector, String text) {
         sendText(selector, text);
@@ -50,23 +49,23 @@ public interface IPresentationApiAdapter<
     // Operazioni di verifica
     boolean isDisplayed(S selector);
     boolean isEnabled(S selector);
-    String getText(S selector);
-    String getTextAndAssert(S selector, AssertionAction<String> assertion);
+    Optional<String> getText(S selector);
+    Optional<String> getTextAndAssert(S selector, AssertionAction<String> assertion);
 
     // Operazioni di attesa
     void waitForElement(S selector, long timeoutSeconds);
     void waitUntilElementDisappears(S selector, long timeoutSeconds);
 
     // Operazioni di navigazione
-    Locator<? extends  LocatorType> getLocation();
-    Locator<? extends  LocatorType> getLocationAndAssert(AssertionAction<Locator<? extends  LocatorType>> assertion);
+    L getLocation();
+    L getLocationAndAssert(AssertionAction<L> assertion);
     void navigateTo(L locator);
-    void navigateToAndAssert(L locator, AssertionAction<Locator<? extends  LocatorType>> assertion);
+    void navigateToAndAssert(L locator, AssertionAction<L> assertion);
 
     default void navigateToAndCheck(L locator) {
         navigateToAndAssert(locator, actualLocator -> {
-            if (!actualLocator.getLocation().equals(locator.getLocation())) {
-                throw new AssertionError("Expected location: " + locator.getLocation() + ", but got: " + actualLocator.getLocation());
+            if (!actualLocator.equals(locator)) {
+                throw new AssertionError("Expected location: " + locator + ", but got: " + actualLocator);
             }
         });
     }

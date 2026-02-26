@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationHandler;
 
 public class WebPresentationBinder extends AbstractPresentationBinder<IWebPresentationApiAdapter, WebInvocationContext> {
 
-    public WebPresentationBinder(IWebPresentationApiAdapter adapter, ICapabilityDispatcher<WebInvocationContext> dispatcher) {
+    public WebPresentationBinder(IWebPresentationApiAdapter adapter, ICapabilityDispatcher dispatcher) {
         super(adapter, dispatcher);
     }
 

@@ -9,7 +9,6 @@ import it.pn.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
 import it.pn.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.pn.frontend.e2e.framework.web.adapter.impl.SeleniumApiAdapter;
 import it.pn.frontend.e2e.framework.web.binder.WebPresentationBinder;
-import it.pn.frontend.e2e.framework.web.binder.invocation_handler.context.WebInvocationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -27,16 +26,16 @@ public class WebPresentationConfig {
 
     @Bean
     @ScenarioScope
-    public ICapabilityDispatcher<WebInvocationContext> capabilityDispatcher() {
-        List<ICapabilityHandler<WebInvocationContext>> handlers = new ArrayList<>();
-        return new CapabilityDispatcher<>(handlers);
+    public ICapabilityDispatcher capabilityDispatcher() {
+        List<ICapabilityHandler> handlers = new ArrayList<>();
+        return new CapabilityDispatcher(handlers);
     }
 
     @Bean
     @ScenarioScope
     public WebPresentationBinder webPresentationBinder(
             IWebPresentationApiAdapter adapter,
-            ICapabilityDispatcher<WebInvocationContext> dispatcher
+            ICapabilityDispatcher dispatcher
     ) {
         return new WebPresentationBinder(adapter, dispatcher);
     }

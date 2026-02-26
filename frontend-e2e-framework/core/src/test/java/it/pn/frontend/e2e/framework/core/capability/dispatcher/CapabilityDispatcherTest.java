@@ -1,15 +1,19 @@
 package it.pn.frontend.e2e.framework.core.capability.dispatcher;
 
-import it.pn.frontend.e2e.framework.core.binder.invocation_handler.context.BaseInvocationContext;
 import it.pn.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
+import it.pn.frontend.e2e.framework.core.model.AbstractPresentationElement;
+import it.pn.frontend.e2e.framework.core.model.Location;
+import it.pn.frontend.e2e.framework.core.model.Selector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -17,166 +21,158 @@ import static org.mockito.Mockito.*;
 @DisplayName("CapabilityDispatcher")
 class CapabilityDispatcherTest {
 
-    @Mock
-    private ICapabilityHandler<BaseInvocationContext> firstHandler;
+    private interface TestCapability {
+        void action();
+    }
+
+    private static final class TestSelector implements Selector {
+    }
+
+    private static final class TestLocation implements Location {
+    }
+
+    private static final class TestElement extends AbstractPresentationElement<TestSelector, TestLocation> {
+        private TestElement(TestSelector selector, TestLocation location) {
+            super(selector, location);
+        }
+    }
+
+    private static final class TestCapabilityDispatcher
+            extends CapabilityDispatcher<TestSelector, TestLocation, TestElement> {
+        private final TestSelector selector;
+        private final TestLocation location;
+
+        private TestCapabilityDispatcher(List<ICapabilityHandler<TestSelector, TestLocation, TestElement>> handlers,
+                                         TestSelector selector,
+                                         TestLocation location) {
+            super(handlers);
+            this.selector = selector;
+            this.location = location;
+        }
+
+        @Override
+        protected TestSelector getSelector(Method method) {
+            return selector;
+        }
+
+        @Override
+        protected TestLocation getLocation(Method method) {
+            return location;
+        }
+    }
 
     @Mock
-    private ICapabilityHandler<BaseInvocationContext> secondHandler;
+    private ICapabilityHandler<TestSelector, TestLocation, TestElement> firstHandler;
 
     @Mock
-    private BaseInvocationContext context;
+    private ICapabilityHandler<TestSelector, TestLocation, TestElement> secondHandler;
 
-    private CapabilityDispatcher<BaseInvocationContext> dispatcher;
+    private TestCapabilityDispatcher dispatcher;
+    private Method actionMethod;
+    private TestSelector selector;
+    private TestLocation location;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws NoSuchMethodException {
         MockitoAnnotations.openMocks(this);
-        List<ICapabilityHandler<BaseInvocationContext>> handlers = new ArrayList<>();
+        List<ICapabilityHandler<TestSelector, TestLocation, TestElement>> handlers = new ArrayList<>();
         handlers.add(firstHandler);
         handlers.add(secondHandler);
-        dispatcher = new CapabilityDispatcher<>(handlers);
+        selector = new TestSelector();
+        location = new TestLocation();
+        dispatcher = new TestCapabilityDispatcher(handlers, selector, location);
+        actionMethod = TestCapability.class.getMethod("action");
     }
 
     @Test
-    @DisplayName("dovrebbe delegare al primo handler quando può gestire il context")
+    @DisplayName("dovrebbe delegare al primo handler quando può gestire il method")
     void shouldDelegateToFirstHandlerWhenItCanHandle() {
-        Object expectedResult = "result";
-        when(firstHandler.canHandle(context)).thenReturn(true);
-        when(firstHandler.handle(context)).thenReturn(expectedResult);
+        TestElement expectedElement = new TestElement(selector, location);
+        when(firstHandler.canHandle(actionMethod)).thenReturn(true);
+        when(firstHandler.handle(selector, location)).thenReturn(Optional.of(expectedElement));
 
-        Object result = dispatcher.dispatch(context);
+        Optional<TestElement> result = dispatcher.dispatch(actionMethod);
 
-        assertEquals(expectedResult, result);
-        verify(firstHandler).canHandle(context);
-        verify(firstHandler).handle(context);
-        verify(secondHandler, never()).handle(any());
+        assertTrue(result.isPresent());
+        assertSame(expectedElement, result.get());
+        verify(firstHandler).canHandle(actionMethod);
+        verify(firstHandler).handle(selector, location);
+        verify(secondHandler, never()).handle(any(), any());
     }
 
     @Test
     @DisplayName("dovrebbe delegare al secondo handler quando il primo non può gestire")
     void shouldDelegateToSecondHandlerWhenFirstCannotHandle() {
-        Object expectedResult = "result";
-        when(firstHandler.canHandle(context)).thenReturn(false);
-        when(secondHandler.canHandle(context)).thenReturn(true);
-        when(secondHandler.handle(context)).thenReturn(expectedResult);
+        TestElement expectedElement = new TestElement(selector, location);
+        when(firstHandler.canHandle(actionMethod)).thenReturn(false);
+        when(secondHandler.canHandle(actionMethod)).thenReturn(true);
+        when(secondHandler.handle(selector, location)).thenReturn(Optional.of(expectedElement));
 
-        Object result = dispatcher.dispatch(context);
+        Optional<TestElement> result = dispatcher.dispatch(actionMethod);
 
-        assertEquals(expectedResult, result);
-        verify(firstHandler).canHandle(context);
-        verify(firstHandler, never()).handle(any());
-        verify(secondHandler).canHandle(context);
-        verify(secondHandler).handle(context);
+        assertTrue(result.isPresent());
+        assertSame(expectedElement, result.get());
+        verify(firstHandler).canHandle(actionMethod);
+        verify(firstHandler, never()).handle(any(), any());
+        verify(secondHandler).canHandle(actionMethod);
+        verify(secondHandler).handle(selector, location);
     }
 
     @Test
-    @DisplayName("dovrebbe lanciare eccezione quando nessun handler può gestire il context")
+    @DisplayName("dovrebbe lanciare eccezione quando nessun handler può gestire il method")
     void shouldThrowExceptionWhenNoHandlerCanHandle() {
-        when(firstHandler.canHandle(context)).thenReturn(false);
-        when(secondHandler.canHandle(context)).thenReturn(false);
+        when(firstHandler.canHandle(actionMethod)).thenReturn(false);
+        when(secondHandler.canHandle(actionMethod)).thenReturn(false);
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
-                () -> dispatcher.dispatch(context)
+                () -> dispatcher.dispatch(actionMethod)
         );
 
         assertTrue(exception.getMessage().contains("No handler for"));
-        verify(firstHandler, never()).handle(any());
-        verify(secondHandler, never()).handle(any());
-    }
-
-    @Test
-    @DisplayName("dovrebbe sostituire gli handler esistenti con nuovi handler")
-    void shouldReplaceExistingHandlersWithNewHandlers() {
-        ICapabilityHandler<BaseInvocationContext> newHandler = mock(ICapabilityHandler.class);
-        List<ICapabilityHandler<?>> newHandlers = List.of(newHandler);
-        Object expectedResult = "new result";
-
-        when(newHandler.canHandle(context)).thenReturn(true);
-        when(newHandler.handle(context)).thenReturn(expectedResult);
-
-        dispatcher.setHandlers(newHandlers);
-        Object result = dispatcher.dispatch(context);
-
-        assertEquals(expectedResult, result);
-        assertEquals(1, dispatcher.getHandlers().size());
-        verify(newHandler).handle(context);
-        verify(firstHandler, never()).canHandle(any());
-        verify(secondHandler, never()).canHandle(any());
+        assertTrue(exception.getMessage().contains(TestCapability.class.getSimpleName()));
+        verify(firstHandler, never()).handle(any(), any());
+        verify(secondHandler, never()).handle(any(), any());
     }
 
     @Test
     @DisplayName("dovrebbe gestire lista vuota di handler")
     void shouldHandleEmptyHandlerList() {
-        dispatcher = new CapabilityDispatcher<>(new ArrayList<>());
+        dispatcher = new TestCapabilityDispatcher(new ArrayList<>(), selector, location);
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
-                () -> dispatcher.dispatch(context)
+                () -> dispatcher.dispatch(actionMethod)
         );
 
         assertTrue(exception.getMessage().contains("No handler for"));
     }
 
     @Test
-    @DisplayName("dovrebbe restituire null se l'handler restituisce null")
-    void shouldReturnNullIfHandlerReturnsNull() {
-        when(firstHandler.canHandle(context)).thenReturn(true);
-        when(firstHandler.handle(context)).thenReturn(null);
+    @DisplayName("dovrebbe restituire Optional.empty se l'handler restituisce empty")
+    void shouldReturnEmptyOptionalIfHandlerReturnsEmpty() {
+        when(firstHandler.canHandle(actionMethod)).thenReturn(true);
+        when(firstHandler.handle(selector, location)).thenReturn(Optional.empty());
 
-        Object result = dispatcher.dispatch(context);
+        Optional<? extends Object> result = dispatcher.dispatch(actionMethod);
 
-        assertNull(result);
-        verify(firstHandler).handle(context);
+        assertTrue(result.isEmpty());
+        verify(firstHandler).handle(selector, location);
     }
 
     @Test
     @DisplayName("dovrebbe propagare eccezioni dagli handler")
     void shouldPropagateExceptionsFromHandlers() {
         RuntimeException expectedException = new RuntimeException("handler error");
-        when(firstHandler.canHandle(context)).thenReturn(true);
-        when(firstHandler.handle(context)).thenThrow(expectedException);
+        when(firstHandler.canHandle(actionMethod)).thenReturn(true);
+        when(firstHandler.handle(selector, location)).thenThrow(expectedException);
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> dispatcher.dispatch(context)
+                () -> dispatcher.dispatch(actionMethod)
         );
 
         assertEquals(expectedException, exception);
-        verify(firstHandler).handle(context);
-    }
-
-    @Test
-    @DisplayName("dovrebbe svuotare la lista esistente prima di aggiungere nuovi handler")
-    void shouldClearExistingListBeforeAddingNewHandlers() {
-        ICapabilityHandler<BaseInvocationContext> newHandler = mock(ICapabilityHandler.class);
-
-        dispatcher.setHandlers(List.of(newHandler));
-
-        assertEquals(1, dispatcher.getHandlers().size());
-        assertFalse(dispatcher.getHandlers().contains(firstHandler));
-        assertFalse(dispatcher.getHandlers().contains(secondHandler));
-    }
-
-    @Test
-    @DisplayName("dovrebbe mantenere l'ordine degli handler durante la sostituzione")
-    void shouldMaintainHandlerOrderDuringReplacement() {
-        ICapabilityHandler<BaseInvocationContext> handler1 = mock(ICapabilityHandler.class);
-        ICapabilityHandler<BaseInvocationContext> handler2 = mock(ICapabilityHandler.class);
-        ICapabilityHandler<BaseInvocationContext> handler3 = mock(ICapabilityHandler.class);
-
-        dispatcher.setHandlers(List.of(handler1, handler2, handler3));
-
-        assertEquals(3, dispatcher.getHandlers().size());
-        assertEquals(handler1, dispatcher.getHandlers().get(0));
-        assertEquals(handler2, dispatcher.getHandlers().get(1));
-        assertEquals(handler3, dispatcher.getHandlers().get(2));
-    }
-
-    @Test
-    @DisplayName("dovrebbe gestire context null")
-    void shouldHandleNullContext() {
-        assertThrows(NullPointerException.class, () -> dispatcher.dispatch(null));
+        verify(firstHandler).handle(selector, location);
     }
 }
-

@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.framework.core.meta.model;
+package it.pn.frontend.e2e.framework.core.meta;
 
 public final class Constraint {
     public String id;

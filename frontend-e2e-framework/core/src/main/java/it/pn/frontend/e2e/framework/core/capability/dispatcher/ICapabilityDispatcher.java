@@ -1,11 +1,12 @@
 package it.pn.frontend.e2e.framework.core.capability.dispatcher;
 
-import it.pn.frontend.e2e.framework.core.binder.invocation_handler.context.BaseInvocationContext;
-import it.pn.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
+import it.pn.frontend.e2e.framework.core.model.AbstractPresentationElement;
+import it.pn.frontend.e2e.framework.core.model.Location;
+import it.pn.frontend.e2e.framework.core.model.Selector;
 
-import java.util.List;
+import java.lang.reflect.Method;
+import java.util.Optional;
 
-public interface ICapabilityDispatcher<Context extends BaseInvocationContext> {
-    Object dispatch(Context ctx);
-    void setHandlers(List<ICapabilityHandler<?>> newHandlers);
+public interface ICapabilityDispatcher<S extends Selector, L extends Location, E extends AbstractPresentationElement<S,L>> {
+    Optional<E> dispatch(Method method);
 }

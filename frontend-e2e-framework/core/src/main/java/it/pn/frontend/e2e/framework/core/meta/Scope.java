@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.framework.core.meta.model;
+package it.pn.frontend.e2e.framework.core.meta;
 
 import javax.lang.model.element.ElementKind;
 import java.util.Set;

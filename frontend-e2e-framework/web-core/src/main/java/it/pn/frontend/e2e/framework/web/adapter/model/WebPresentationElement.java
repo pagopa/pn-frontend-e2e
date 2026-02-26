@@ -2,6 +2,7 @@ package it.pn.frontend.e2e.framework.web.adapter.model;
 
 
 import it.pn.frontend.e2e.framework.core.adapter.model.PresentationElement;
+import it.pn.frontend.e2e.framework.core.adapter.model.location.Location;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +16,8 @@ public class WebPresentationElement extends PresentationElement {
     private String text;
     private Map<String, String> attributes;
     private List<WebPresentationElement> children;
+
+    public WebPresentationElement(Location location, String elementType, String name) {
+        super(location, elementType, name);
+    }
 }

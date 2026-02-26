@@ -1,9 +1,9 @@
-package it.pn.frontend.e2e.framework.core.binder;
+package it.pn.frontend.e2e.framework.core.presentation_binder;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
-public abstract class AbstractPresentationBinder implements IPresentationBinder {
+public abstract class AbstractBinder implements IBinder {
 
     @Override
     @SuppressWarnings("unchecked")
@@ -16,7 +16,7 @@ public abstract class AbstractPresentationBinder implements IPresentationBinder 
         return (T) Proxy.newProxyInstance(
                 type.getClassLoader(),
                 new Class<?>[]{resolved},
-                createInvocationHandler(type)
+                getInvocationHandler(type)
         );
     }
 
@@ -33,6 +33,6 @@ public abstract class AbstractPresentationBinder implements IPresentationBinder 
     /**
      * Hook method: implemented by domain-specific binders (web, mobile, mock).
      */
-    protected abstract InvocationHandler createInvocationHandler(Class<?> boundType);
+    protected abstract InvocationHandler getInvocationHandler(Class<?> boundType);
 }
 

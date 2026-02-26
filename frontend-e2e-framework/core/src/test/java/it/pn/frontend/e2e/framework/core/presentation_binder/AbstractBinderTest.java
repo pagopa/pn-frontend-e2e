@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.framework.core.binder;
+package it.pn.frontend.e2e.framework.core.presentation_binder;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -9,16 +9,16 @@ import java.lang.reflect.Proxy;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("AbstractPresentationBinder")
-class AbstractPresentationBinderTest {
+class AbstractBinderTest {
 
-    private static class TestBinder extends AbstractPresentationBinder {
+    private static class TestBinder extends AbstractBinder {
         @Override
-        protected InvocationHandler createInvocationHandler(Class<?> boundType) {
+        protected InvocationHandler getInvocationHandler(Class<?> boundType) {
             return (proxy, method, args) -> null;
         }
     }
 
-    private final AbstractPresentationBinder binder = new TestBinder();
+    private final AbstractBinder binder = new TestBinder();
 
     @Test
     @DisplayName("dovrebbe creare un proxy per un'interfaccia valida")

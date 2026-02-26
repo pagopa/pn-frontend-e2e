@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.framework.core.adapter.model;
+package it.pn.frontend.e2e.framework.core.assertion;
 
 @FunctionalInterface
 public interface AssertionAction<T> {

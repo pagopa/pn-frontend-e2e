@@ -2,121 +2,116 @@ package it.pn.frontend.e2e.framework.web.adapter.impl;
 
 import it.pn.frontend.e2e.framework.core.adapter.model.AssertionAction;
 import it.pn.frontend.e2e.framework.core.adapter.model.PresentationElement;
-import it.pn.frontend.e2e.framework.core.adapter.model.locator.Locator;
-import it.pn.frontend.e2e.framework.core.adapter.model.locator.LocatorType;
-import it.pn.frontend.e2e.framework.core.adapter.model.selector.Selector;
-import it.pn.frontend.e2e.framework.core.adapter.model.selector.SelectorType;
 import it.pn.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
+import it.pn.frontend.e2e.framework.web.adapter.model.WebPresentationElement;
+import it.pn.frontend.e2e.framework.web.adapter.model.locator.WebLocation;
+import it.pn.frontend.e2e.framework.web.adapter.model.selector.WebSelector;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
+import java.util.Optional;
 
 public class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     private WebDriver driver = new ChromeDriver();
 
     @Override
-    public void navigateTo(String url) {
-        driver.get(url);
+    public Optional<WebPresentationElement> findElement(WebSelector selector) {
+        return Optional.empty();
     }
 
     @Override
-    public <T extends PresentationElement> T findElement(Selector<? extends SelectorType> selector) {
-        return null;
+    public Optional<WebPresentationElement> findElementAndAssert(WebSelector selector, AssertionAction<PresentationElement> assertion) {
+        return Optional.empty();
     }
 
     @Override
-    public <T extends PresentationElement> T findElementAndAssert(Selector<? extends SelectorType> selector, AssertionAction<PresentationElement> assertion) {
-        return null;
+    public Optional<List<WebPresentationElement>> findElements(WebSelector selector) {
+        return Optional.empty();
     }
 
     @Override
-    public <T extends PresentationElement> List<T> findElements(Selector<? extends SelectorType> selector) {
-        return List.of();
+    public Optional<List<WebPresentationElement>> findElementsAndAssert(WebSelector selector, AssertionAction<PresentationElement> assertion) {
+        return Optional.empty();
     }
 
     @Override
-    public <T extends PresentationElement> List<T> findElementsAndAssert(Selector<? extends SelectorType> selector, AssertionAction<PresentationElement> assertion) {
-        return List.of();
-    }
-
-    @Override
-    public void click(Selector<? extends SelectorType> selector) {
+    public void click(WebSelector selector) {
 
     }
 
     @Override
-    public void clickAndAssert(Selector<? extends SelectorType> selector, AssertionAction<PresentationElement> assertion) {
+    public void clickAndAssert(WebSelector selector, AssertionAction<PresentationElement> assertion) {
 
     }
 
     @Override
-    public void sendText(Selector<? extends SelectorType> selector, String text) {
+    public void sendText(WebSelector selector, String text) {
 
     }
 
     @Override
-    public void sendTextAndAssert(Selector<? extends SelectorType> selector, String text, AssertionAction<PresentationElement> assertion) {
+    public void sendTextAndAssert(WebSelector selector, String text, AssertionAction<PresentationElement> assertion) {
 
     }
 
     @Override
-    public void clear(Selector<? extends SelectorType> selector) {
+    public void clear(WebSelector selector) {
 
     }
 
     @Override
-    public void clearAndAssert(Selector<? extends SelectorType> selector, AssertionAction<PresentationElement> assertion) {
+    public void clearAndAssert(WebSelector selector, AssertionAction<PresentationElement> assertion) {
 
     }
 
     @Override
-    public boolean isDisplayed(Selector<? extends SelectorType> selector) {
+    public boolean isDisplayed(WebSelector selector) {
         return false;
     }
 
     @Override
-    public boolean isEnabled(Selector<? extends SelectorType> selector) {
+    public boolean isEnabled(WebSelector selector) {
         return false;
     }
 
     @Override
-    public String getText(Selector<? extends SelectorType> selector) {
-        return "";
+    public Optional<String> getText(WebSelector selector) {
+        return Optional.empty();
     }
 
     @Override
-    public String getTextAndAssert(Selector<? extends SelectorType> selector, AssertionAction<String> assertion) {
-        return "";
+    public Optional<String> getTextAndAssert(WebSelector selector, AssertionAction<String> assertion) {
+        return Optional.empty();
     }
 
     @Override
-    public void waitForElement(Selector<? extends SelectorType> selector, long timeoutSeconds) {
-
-    }
-
-    @Override
-    public void waitUntilElementDisappears(Selector<? extends SelectorType> selector, long timeoutSeconds) {
+    public void waitForElement(WebSelector selector, long timeoutSeconds) {
 
     }
 
     @Override
-    public Locator<? extends LocatorType> getLocation() {
+    public void waitUntilElementDisappears(WebSelector selector, long timeoutSeconds) {
+
+    }
+
+    @Override
+    public WebLocation getLocation() {
         return null;
     }
 
     @Override
-    public Locator<? extends LocatorType> getLocationAndAssert(AssertionAction<Locator<? extends LocatorType>> assertion) {
+    public WebLocation getLocationAndAssert(AssertionAction<WebLocation> assertion) {
         return null;
     }
 
     @Override
-    public void navigateTo(Locator<? extends LocatorType> locator) {
+    public void navigateTo(WebLocation locator) {
 
     }
 
     @Override
-    public void navigateToAndAssert(Locator<? extends LocatorType> locator, AssertionAction<Locator<? extends LocatorType>> assertion) {
+    public void navigateToAndAssert(WebLocation locator, AssertionAction<WebLocation> assertion) {
 
     }
 }
