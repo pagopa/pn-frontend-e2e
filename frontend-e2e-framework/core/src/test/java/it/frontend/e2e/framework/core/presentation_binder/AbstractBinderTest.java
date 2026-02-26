@@ -1,24 +1,41 @@
 package it.frontend.e2e.framework.core.presentation_binder;
 
+import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
+import it.frontend.e2e.framework.core.model.Location;
+import it.frontend.e2e.framework.core.model.Selector;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("AbstractPresentationBinder")
 class AbstractBinderTest {
 
-    private static class TestBinder extends AbstractBinder {
+    private static final class TestSelector implements Selector {
+    }
+
+    private static final class TestLocation implements Location {
+    }
+
+    private static final class TestElement extends AbstractPresentationElement<TestSelector, TestLocation> {
+        private TestElement(TestSelector selector, TestLocation location) {
+            super(selector, location);
+        }
+    }
+
+    private static class TestBinder extends AbstractBinder<TestSelector, TestLocation, TestElement> {
         @Override
         protected InvocationHandler getInvocationHandler(Class<?> boundType) {
             return (proxy, method, args) -> null;
         }
     }
 
-    private final AbstractBinder binder = new TestBinder();
+    private final AbstractBinder<TestSelector, TestLocation, TestElement> binder = new TestBinder();
 
     @Test
     @DisplayName("dovrebbe creare un proxy per un'interfaccia valida")
@@ -73,20 +90,25 @@ class AbstractBinderTest {
         assertThrows(NullPointerException.class, () -> binder.bind(null));
     }
 
-    interface TestInterface {
+    interface TestInterface extends Capability<TestSelector, TestLocation, TestElement> {
         void testMethod();
     }
 
-    interface FirstInterface {
+    interface FirstInterface extends Capability<TestSelector, TestLocation, TestElement> {
         void firstMethod();
     }
 
-    interface SecondInterface {
+    interface SecondInterface extends Capability<TestSelector, TestLocation, TestElement> {
         void secondMethod();
     }
 
-    static class ConcreteClass {
+    static class ConcreteClass implements Capability<TestSelector, TestLocation, TestElement> {
         void concreteMethod() {}
+
+        @Override
+        public Optional<TestElement> get() {
+            return Optional.empty();
+        }
     }
 }
 
