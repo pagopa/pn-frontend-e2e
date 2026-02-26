@@ -1,9 +1,7 @@
 package it.frontend.e2e.framework.core.presentation_binder;
 
 import it.frontend.e2e.framework.core.capability.Capability;
-import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
-import it.frontend.e2e.framework.core.model.Location;
-import it.frontend.e2e.framework.core.model.Selector;
+import it.frontend.e2e.framework.core.model.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -15,18 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("AbstractPresentationBinder")
 class AbstractBinderTest {
-
-    private static final class TestSelector implements Selector {
-    }
-
-    private static final class TestLocation implements Location {
-    }
-
-    private static final class TestElement extends AbstractPresentationElement<TestSelector, TestLocation> {
-        private TestElement(TestSelector selector, TestLocation location) {
-            super(selector, location);
-        }
-    }
 
     private static class TestBinder extends AbstractBinder<TestSelector, TestLocation, TestElement> {
         @Override

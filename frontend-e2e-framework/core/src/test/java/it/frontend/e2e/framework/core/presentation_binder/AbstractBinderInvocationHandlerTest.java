@@ -1,9 +1,7 @@
 package it.frontend.e2e.framework.core.presentation_binder;
 
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
-import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
-import it.frontend.e2e.framework.core.model.Location;
-import it.frontend.e2e.framework.core.model.Selector;
+import it.frontend.e2e.framework.core.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,18 +26,6 @@ class AbstractBinderInvocationHandlerTest {
         Optional<TestElement> element();
 
         Optional<TestElement> elementWithArg(String value);
-    }
-
-    private static final class TestSelector implements Selector {
-    }
-
-    private static final class TestLocation implements Location {
-    }
-
-    private static final class TestElement extends AbstractPresentationElement<TestSelector, TestLocation> {
-        private TestElement(TestSelector selector, TestLocation location) {
-            super(selector, location);
-        }
     }
 
     private static final class ConcreteInvocationHandler
