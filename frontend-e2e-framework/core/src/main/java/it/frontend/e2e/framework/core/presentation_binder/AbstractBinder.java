@@ -1,5 +1,6 @@
 package it.frontend.e2e.framework.core.presentation_binder;
 
+import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
 import it.frontend.e2e.framework.core.model.Location;
 import it.frontend.e2e.framework.core.model.Selector;
@@ -7,11 +8,15 @@ import it.frontend.e2e.framework.core.model.Selector;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
-public abstract class AbstractBinder<S extends Selector, L extends Location> implements IBinder<S, L> {
+public abstract class AbstractBinder<
+        S extends Selector,
+        L extends Location,
+        E extends AbstractPresentationElement<S,L>
+        > implements IBinder<S, L, E> {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends AbstractPresentationElement<S,L>> T bind(Class<T> type) {
+    public <T extends Capability<S,L,E>> T bind(Class<T> type) {
         if (!type.isInterface())
             throw new IllegalArgumentException(type.getName() + " is not an interface.");
 
