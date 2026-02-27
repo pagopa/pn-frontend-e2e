@@ -1,8 +1,8 @@
-package it.frontend.e2e.framework.core.presentation_binder;
+package it.frontend.e2e.framework.core.binder;
 
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.model.*;
-import it.frontend.e2e.framework.core.presentation_binder.impl.TestInvocationHandler;
+import it.frontend.e2e.framework.core.binder.impl.TestInvocationHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

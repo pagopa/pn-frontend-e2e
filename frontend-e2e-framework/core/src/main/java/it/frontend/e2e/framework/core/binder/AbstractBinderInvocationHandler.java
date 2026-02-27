@@ -1,4 +1,4 @@
-package it.frontend.e2e.framework.core.presentation_binder;
+package it.frontend.e2e.framework.core.binder;
 
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 

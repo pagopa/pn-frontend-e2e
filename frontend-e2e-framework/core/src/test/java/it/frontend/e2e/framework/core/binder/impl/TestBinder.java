@@ -1,4 +1,4 @@
-package it.frontend.e2e.framework.core.presentation_binder.impl;
+package it.frontend.e2e.framework.core.binder.impl;
 
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
@@ -8,7 +8,7 @@ import it.frontend.e2e.framework.core.capability.handler.TestCapabilityHandler;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
 import it.frontend.e2e.framework.core.model.TestSelector;
-import it.frontend.e2e.framework.core.presentation_binder.AbstractBinder;
+import it.frontend.e2e.framework.core.binder.AbstractBinder;
 
 import java.lang.reflect.InvocationHandler;
 import java.util.List;

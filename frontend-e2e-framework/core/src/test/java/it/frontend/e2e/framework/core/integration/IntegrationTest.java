@@ -1,7 +1,7 @@
 package it.frontend.e2e.framework.core.integration;
 
 import it.frontend.e2e.framework.core.capability.core.TestCapability;
-import it.frontend.e2e.framework.core.presentation_binder.impl.TestBinder;
+import it.frontend.e2e.framework.core.binder.impl.TestBinder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

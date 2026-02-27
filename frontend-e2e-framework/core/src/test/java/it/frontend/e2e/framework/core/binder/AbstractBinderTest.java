@@ -1,12 +1,11 @@
-package it.frontend.e2e.framework.core.presentation_binder;
+package it.frontend.e2e.framework.core.binder;
 
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.model.*;
-import it.frontend.e2e.framework.core.presentation_binder.impl.TestBinder;
+import it.frontend.e2e.framework.core.binder.impl.TestBinder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 import java.util.Optional;
 
