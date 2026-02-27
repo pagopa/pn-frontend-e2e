@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.capability.handler;
 
-import it.frontend.e2e.framework.core.capability.Gettable;
+import it.frontend.e2e.framework.core.capability.core.Gettable;
 import it.frontend.e2e.framework.core.capability.dispatcher.handler.AbstractCapabilityHandler;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
@@ -24,7 +24,7 @@ class AbstractCapabilityHandlerTest {
         void differentAction();
     }
 
-    private static class TestCapabilityHandler extends AbstractCapabilityHandler<TestSelector, TestLocation, TestElement, TestCapability> {
+    private static class TestCapabilityHandler extends AbstractCapabilityHandler<TestCapability> {
 
         protected TestCapabilityHandler() {
             super(TestCapability.class);
@@ -36,7 +36,7 @@ class AbstractCapabilityHandlerTest {
         }
     }
 
-    private static class DifferentCapabilityHandler extends AbstractCapabilityHandler<TestSelector, TestLocation, TestElement, DifferentCapability> {
+    private static class DifferentCapabilityHandler extends AbstractCapabilityHandler<DifferentCapability> {
 
         protected DifferentCapabilityHandler() {
             super(DifferentCapability.class);

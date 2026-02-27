@@ -1,6 +1,5 @@
 package it.frontend.e2e.framework.core.capability.core;
 
-import it.frontend.e2e.framework.core.capability.Gettable;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
 import it.frontend.e2e.framework.core.model.TestSelector;

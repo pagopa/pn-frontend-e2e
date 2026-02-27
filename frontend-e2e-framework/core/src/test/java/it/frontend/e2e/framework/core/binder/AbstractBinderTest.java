@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.binder;
 
-import it.frontend.e2e.framework.core.capability.Gettable;
+import it.frontend.e2e.framework.core.capability.core.Gettable;
 import it.frontend.e2e.framework.core.model.*;
 import it.frontend.e2e.framework.core.binder.impl.TestBinder;
 import org.junit.jupiter.api.Test;

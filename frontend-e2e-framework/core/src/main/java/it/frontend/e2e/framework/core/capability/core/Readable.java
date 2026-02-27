@@ -1,7 +1,6 @@
 package it.frontend.e2e.framework.core.capability.core;
 
 import it.frontend.e2e.framework.core.assertion.AssertionAction;
-import it.frontend.e2e.framework.core.capability.Gettable;
 import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
 import it.frontend.e2e.framework.core.model.Location;
 import it.frontend.e2e.framework.core.model.Selector;

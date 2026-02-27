@@ -2,7 +2,6 @@ package it.frontend.e2e.framework.core.capability.handler;
 
 import it.frontend.e2e.framework.core.capability.core.TestCapability;
 import it.frontend.e2e.framework.core.capability.dispatcher.handler.AbstractCapabilityHandler;
-import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
 import it.frontend.e2e.framework.core.model.TestSelector;
 
@@ -10,7 +9,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Optional;
 
-public class TestCapabilityHandler extends AbstractCapabilityHandler<TestSelector, TestLocation, TestElement, TestCapability> {
+public class TestCapabilityHandler extends AbstractCapabilityHandler<TestCapability> {
 
     public TestCapabilityHandler() {
         super(TestCapability.class);

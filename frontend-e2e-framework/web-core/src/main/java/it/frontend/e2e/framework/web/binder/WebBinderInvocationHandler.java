@@ -5,7 +5,7 @@ import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatche
 
 public class WebBinderInvocationHandler extends AbstractBinderInvocationHandler {
 
-    protected WebBinderInvocationHandler(ICapabilityDispatcher dispatcher) {
+    public WebBinderInvocationHandler(ICapabilityDispatcher dispatcher) {
         super(dispatcher);
     }
 }
