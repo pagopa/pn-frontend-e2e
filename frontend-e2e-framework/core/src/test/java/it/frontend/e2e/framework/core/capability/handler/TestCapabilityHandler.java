@@ -2,8 +2,6 @@ package it.frontend.e2e.framework.core.capability.handler;
 
 import it.frontend.e2e.framework.core.capability.core.TestCapability;
 import it.frontend.e2e.framework.core.capability.dispatcher.handler.AbstractCapabilityHandler;
-import it.frontend.e2e.framework.core.model.TestLocation;
-import it.frontend.e2e.framework.core.model.TestSelector;
 
 import java.lang.reflect.Method;
 import java.util.List;

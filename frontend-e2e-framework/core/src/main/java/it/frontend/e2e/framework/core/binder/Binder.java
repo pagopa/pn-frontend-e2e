@@ -1,12 +1,18 @@
 package it.frontend.e2e.framework.core.binder;
 
 import it.frontend.e2e.framework.core.capability.core.Gettable;
+import it.frontend.e2e.framework.core.capability.dispatcher.CapabilityDispatcher;
+import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
+import it.frontend.e2e.framework.core.capability.dispatcher.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
 import it.frontend.e2e.framework.core.model.Location;
 import it.frontend.e2e.framework.core.model.Selector;
+import lombok.Getter;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
+import java.util.List;
+
 
 public class Binder<
         S extends Selector,
@@ -14,10 +20,15 @@ public class Binder<
         E extends AbstractPresentationElement<S,L>
         > implements IBinder<S, L, E> {
 
-    private final BinderInvocationHandler invocationHandler;
+    @Getter
+    private final List<ICapabilityHandler> handlers;
+    private final InvocationHandler invocationHandler;
 
-    public Binder(BinderInvocationHandler invocationHandler) {
-        this.invocationHandler = invocationHandler;
+    public Binder(List<ICapabilityHandler> handlers) {
+        this.handlers = handlers;
+
+        ICapabilityDispatcher dispatcher = new CapabilityDispatcher(handlers);
+        this.invocationHandler = new BinderInvocationHandler(dispatcher);
     }
 
     @Override

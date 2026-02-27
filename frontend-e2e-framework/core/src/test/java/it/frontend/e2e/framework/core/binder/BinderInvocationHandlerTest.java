@@ -1,8 +1,10 @@
 package it.frontend.e2e.framework.core.binder;
 
-import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
-import it.frontend.e2e.framework.core.model.*;
 import it.frontend.e2e.framework.core.binder.impl.TestInvocationHandler;
+import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
+import it.frontend.e2e.framework.core.model.TestElement;
+import it.frontend.e2e.framework.core.model.TestLocation;
+import it.frontend.e2e.framework.core.model.TestSelector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

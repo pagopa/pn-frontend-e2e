@@ -1,13 +1,12 @@
 package it.frontend.e2e.framework.annotation.processor.domain_validation.utils;
 
-import it.frontend.e2e.framework.annotation.processor.domain_validation.utils.descriptor_parser.json.JsonDomainDescriptorParser;
 import it.frontend.e2e.framework.annotation.processor.domain_validation.factory.DomainValidatorFactory;
+import it.frontend.e2e.framework.annotation.processor.domain_validation.utils.descriptor_parser.json.JsonDomainDescriptorParser;
 import it.frontend.e2e.framework.core.meta.Descriptor;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.processing.Messager;
 import javax.tools.Diagnostic;
-
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

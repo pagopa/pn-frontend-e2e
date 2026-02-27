@@ -1,9 +1,9 @@
 package it.frontend.e2e.framework.annotation.processor.domain_validation.utils;
 
 
+import it.frontend.e2e.framework.annotation.processor.domain_validation.factory.IDomainValidatorFactory;
 import it.frontend.e2e.framework.annotation.processor.domain_validation.utils.descriptor_parser.DomainDescriptorParser;
 import it.frontend.e2e.framework.annotation.processor.domain_validation.validator.IDomainValidator;
-import it.frontend.e2e.framework.annotation.processor.domain_validation.factory.IDomainValidatorFactory;
 import it.frontend.e2e.framework.core.meta.Descriptor;
 
 import javax.annotation.processing.Messager;

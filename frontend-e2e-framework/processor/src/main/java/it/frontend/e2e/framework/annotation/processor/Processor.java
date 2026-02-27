@@ -9,8 +9,8 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Main annotation processor that delegates to multiple specialized processors.

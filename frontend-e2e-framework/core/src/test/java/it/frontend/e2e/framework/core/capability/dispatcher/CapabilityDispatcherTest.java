@@ -1,9 +1,11 @@
 package it.frontend.e2e.framework.core.capability.dispatcher;
 
 import it.frontend.e2e.framework.core.capability.core.Gettable;
-import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.handler.ICapabilityHandler;
-import it.frontend.e2e.framework.core.model.*;
+import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
+import it.frontend.e2e.framework.core.model.TestElement;
+import it.frontend.e2e.framework.core.model.TestLocation;
+import it.frontend.e2e.framework.core.model.TestSelector;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @DisplayName("CapabilityDispatcher")
-class AbstractCapabilityDispatcherTest {
+class CapabilityDispatcherTest {
 
     private interface ActionCapability extends Gettable<TestSelector, TestLocation, TestElement> {
         void action();

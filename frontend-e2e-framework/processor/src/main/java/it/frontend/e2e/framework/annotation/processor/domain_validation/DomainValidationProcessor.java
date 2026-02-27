@@ -9,7 +9,6 @@ import it.frontend.e2e.framework.annotation.processor.domain_validation.utils.sc
 import it.frontend.e2e.framework.core.meta.Constraint;
 import it.frontend.e2e.framework.core.meta.Descriptor;
 
-
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;

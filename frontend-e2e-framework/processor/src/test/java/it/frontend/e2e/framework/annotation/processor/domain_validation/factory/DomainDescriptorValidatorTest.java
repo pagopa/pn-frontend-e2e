@@ -1,9 +1,9 @@
 package it.frontend.e2e.framework.annotation.processor.domain_validation.factory;
 
-import it.frontend.e2e.framework.annotation.processor.domain_validation.validator.DomainValidator;
 import it.frontend.e2e.framework.annotation.processor.domain_validation.rule.impl.ConstraintsRule;
 import it.frontend.e2e.framework.annotation.processor.domain_validation.rule.impl.DomainIdRule;
 import it.frontend.e2e.framework.annotation.processor.domain_validation.rule.impl.ScopesRule;
+import it.frontend.e2e.framework.annotation.processor.domain_validation.validator.DomainValidator;
 import it.frontend.e2e.framework.core.meta.Descriptor;
 import org.junit.jupiter.api.Test;
 

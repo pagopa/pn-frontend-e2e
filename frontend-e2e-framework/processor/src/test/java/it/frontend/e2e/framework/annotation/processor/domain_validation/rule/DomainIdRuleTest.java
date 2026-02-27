@@ -3,10 +3,10 @@ package it.frontend.e2e.framework.annotation.processor.domain_validation.rule;
 import it.frontend.e2e.framework.annotation.processor.domain_validation.result.ValidationResult;
 import it.frontend.e2e.framework.annotation.processor.domain_validation.rule.impl.DomainIdRule;
 import it.frontend.e2e.framework.core.meta.Descriptor;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.processing.Messager;
 import javax.tools.Diagnostic;
-import org.junit.jupiter.api.Test;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
