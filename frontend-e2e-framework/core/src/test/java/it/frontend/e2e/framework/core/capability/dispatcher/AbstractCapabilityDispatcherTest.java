@@ -1,5 +1,7 @@
 package it.frontend.e2e.framework.core.capability.dispatcher;
 
+import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.core.model.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,17 +19,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @DisplayName("CapabilityDispatcher")
-class CapabilityDispatcherTest {
+class AbstractCapabilityDispatcherTest {
 
-    private interface TestCapability {
+    private interface ActionCapability extends Capability<TestSelector, TestLocation, TestElement> {
         void action();
-    }
-
-    private static final class TestCapabilityDispatcher extends CapabilityDispatcher {
-
-        private TestCapabilityDispatcher(List<ICapabilityHandler> handlers) {
-            super(handlers);
-        }
     }
 
     @Mock
@@ -50,7 +45,7 @@ class CapabilityDispatcherTest {
         selector = new TestSelector();
         location = new TestLocation();
         dispatcher = new TestCapabilityDispatcher(handlers);
-        actionMethod = TestCapability.class.getMethod("action");
+        actionMethod = ActionCapability.class.getMethod("action");
     }
 
     @Test
@@ -99,7 +94,7 @@ class CapabilityDispatcherTest {
         );
 
         assertTrue(exception.getMessage().contains("No handler for"));
-        assertTrue(exception.getMessage().contains(TestCapability.class.getSimpleName()));
+        assertTrue(exception.getMessage().contains(ActionCapability.class.getSimpleName()));
         verify(firstHandler, never()).handle(any());
         verify(secondHandler, never()).handle(any());
     }
