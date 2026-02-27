@@ -1,16 +1,10 @@
 package it.pn.frontend.e2e.config;
 
 import io.cucumber.spring.ScenarioScope;
-
-
-import it.frontend.e2e.framework.core.capability.dispatcher.CapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.adapter.impl.SeleniumApiAdapter;
-import it.frontend.e2e.framework.web.adapter.model.WebPresentationElement;
-import it.frontend.e2e.framework.web.adapter.model.locator.WebLocation;
-import it.frontend.e2e.framework.web.adapter.model.selector.WebSelector;
 import it.frontend.e2e.framework.web.binder.WebPresentationBinder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +23,8 @@ public class WebPresentationConfig {
 
     @Bean
     @ScenarioScope
-    public ICapabilityDispatcher<WebSelector, WebLocation, WebPresentationElement> capabilityDispatcher() {
-        List<ICapabilityHandler<WebSelector, WebLocation, WebPresentationElement>> handlers = new ArrayList<>();
+    public ICapabilityDispatcher capabilityDispatcher() {
+        List<ICapabilityHandler> handlers = new ArrayList<>();
         return null;
     }
 
@@ -38,7 +32,7 @@ public class WebPresentationConfig {
     @ScenarioScope
     public WebPresentationBinder webPresentationBinder(
             IWebPresentationApiAdapter adapter,
-            ICapabilityDispatcher<WebSelector, WebLocation, WebPresentationElement> dispatcher
+            ICapabilityDispatcher dispatcher
     ) {
         return null;
     }
