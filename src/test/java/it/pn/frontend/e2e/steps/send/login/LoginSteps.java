@@ -19,14 +19,10 @@ public class LoginSteps {
         uiGateway.navigateTo(page.location());
     }
 
-//    @Given("l'utente {user} tenta la login")
-//    public void compileForm(User user) {
-//        LoginPage loginPage = (LoginPage) presentation.parse(sharedContext.getCurrentPage().pageClass());
-//        loginPage.username().set(user.getUsername());
-//        loginPage.password().set(user.getPassword());
-//        loginPage.comune().set(user.getComune());
-//        loginPage.login();
-//    }
+    @Given("l'utente {user} tenta la login")
+    public void compileForm(User user) {
+
+    }
 
     @Given("l'utente {user} tenta la login nella pagina {page}")
     public void login(User user, PageInfo pageInfo) {

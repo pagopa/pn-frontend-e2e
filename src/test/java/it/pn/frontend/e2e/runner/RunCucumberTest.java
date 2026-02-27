@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.run;
+package it.pn.frontend.e2e.runner;
 
 
 import org.junit.platform.suite.api.*;

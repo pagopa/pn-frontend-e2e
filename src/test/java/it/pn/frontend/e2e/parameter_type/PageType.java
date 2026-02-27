@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.enums.parameter_type;
+package it.pn.frontend.e2e.parameter_type;
 
 import io.cucumber.java.ParameterType;
 import it.frontend.e2e.framework.web.model.WebLocation;
