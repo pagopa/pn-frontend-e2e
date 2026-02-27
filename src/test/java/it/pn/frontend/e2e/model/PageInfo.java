@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.model;
 
-import it.frontend.e2e.framework.web.capability.core.Gettable;
+import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.web.model.WebLocation;
 
-public record PageInfo(String url, Class<? extends Gettable> pageClass){}
+public record PageInfo(WebLocation location, Class<? extends Capability> pageClass){}

@@ -27,7 +27,7 @@ public class MittentiSteps {
 
     @When("naviga alla pagina {page}")
     public void navigateTo(PageInfo pageInfo) {
-        this.page = (Page) uiGateway.bind(pageInfo.pageClass());
+        //this.page = (Page) uiGateway.bind(pageInfo.pageClass());
         //uiGateway.navigateTo(page.getUrl());
     }
 

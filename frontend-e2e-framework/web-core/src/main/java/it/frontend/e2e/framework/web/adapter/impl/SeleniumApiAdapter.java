@@ -106,7 +106,7 @@ public class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public void navigateTo(WebLocation locator) {
-
+        driver.get(locator.getLocation());
     }
 
     @Override

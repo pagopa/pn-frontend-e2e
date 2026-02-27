@@ -9,7 +9,6 @@ import it.pn.frontend.e2e.steps.send.login.page.LoginPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Component
 @RequiredArgsConstructor
 public class LoginSteps {
 
@@ -17,8 +16,7 @@ public class LoginSteps {
 
     @Given("l'utente tenta di navigare alla pagina {page}")
     public void loadPage(PageInfo page) {
-        //presentation.navigateTo(page.url());
-        //sharedContext.setCurrentPage(page);
+        uiGateway.navigateTo(page.location());
     }
 
 //    @Given("l'utente {user} tenta la login")
@@ -32,8 +30,8 @@ public class LoginSteps {
 
     @Given("l'utente {user} tenta la login nella pagina {page}")
     public void login(User user, PageInfo pageInfo) {
-        LoginPage loginPage = uiGateway.bind(LoginPage.class);
-        loginPage.form().get();
+//        LoginPage loginPage = uiGateway.bind(LoginPage.class);
+//        loginPage.form().get();
 //        LoginPage loginPage = (LoginPage) presentation.bind(pageInfo.pageClass());
 //        loginPage.form().username().set(user.getUsername());
 //        loginPage.form().password().set(user.getPassword());
