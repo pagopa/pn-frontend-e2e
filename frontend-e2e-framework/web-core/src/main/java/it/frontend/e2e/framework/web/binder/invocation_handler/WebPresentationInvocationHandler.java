@@ -6,9 +6,9 @@ import it.frontend.e2e.framework.web.adapter.model.WebPresentationElement;
 import it.frontend.e2e.framework.web.adapter.model.locator.WebLocation;
 import it.frontend.e2e.framework.web.adapter.model.selector.WebSelector;
 
-public class WebPresentationInvocationHandler extends AbstractBinderInvocationHandler<WebSelector, WebLocation, WebPresentationElement> {
+public class WebPresentationInvocationHandler extends AbstractBinderInvocationHandler {
 
-    protected WebPresentationInvocationHandler(ICapabilityDispatcher<WebSelector, WebLocation, WebPresentationElement> dispatcher) {
+    protected WebPresentationInvocationHandler(ICapabilityDispatcher dispatcher) {
         super(dispatcher);
     }
 }
