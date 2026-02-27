@@ -14,6 +14,12 @@ public abstract class AbstractBinder<
         E extends AbstractPresentationElement<S,L>
         > implements IBinder<S, L, E> {
 
+    private final InvocationHandler invocationHandler;
+
+    public AbstractBinder(InvocationHandler invocationHandler) {
+        this.invocationHandler = invocationHandler;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Gettable<S,L,E>> T bind(Class<T> type) {
@@ -23,13 +29,8 @@ public abstract class AbstractBinder<
         return (T) Proxy.newProxyInstance(
                 type.getClassLoader(),
                 new Class<?>[]{type},
-                getInvocationHandler(type)
+                invocationHandler
         );
     }
-
-    /**
-     * Hook method: implemented by domain-specific binders (web, mobile, mock).
-     */
-    protected abstract <T extends Gettable<S,L,E>> InvocationHandler getInvocationHandler(Class<T> boundType);
 }
 

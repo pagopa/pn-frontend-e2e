@@ -1,6 +1,8 @@
 package it.frontend.e2e.framework.core.binder;
 
+import it.frontend.e2e.framework.core.binder.impl.TestInvocationHandler;
 import it.frontend.e2e.framework.core.capability.core.Gettable;
+import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
 import it.frontend.e2e.framework.core.model.*;
 import it.frontend.e2e.framework.core.binder.impl.TestBinder;
 import org.junit.jupiter.api.Test;
@@ -14,7 +16,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("AbstractPresentationBinder")
 class AbstractBinderTest {
 
-    private final AbstractBinder<TestSelector, TestLocation, TestElement> binder = new TestBinder();
+    private final AbstractBinder<TestSelector, TestLocation, TestElement> binder;
+
+    public AbstractBinderTest() {
+        TestCapabilityDispatcher dispatcher = new TestCapabilityDispatcher();
+        TestInvocationHandler invocationHandler = new TestInvocationHandler(dispatcher);
+        binder = new TestBinder(invocationHandler);
+    }
 
     @Test
     @DisplayName("dovrebbe creare un proxy per un'interfaccia valida")
