@@ -13,7 +13,7 @@ public class FrameworkConfig {
 
     @Bean
     public IWebPresentationApiAdapter webPresentationApiAdapter() {
-        return new SeleniumApiAdapter();
+        return SeleniumApiAdapter.getInstance();
     }
 
     @Bean
