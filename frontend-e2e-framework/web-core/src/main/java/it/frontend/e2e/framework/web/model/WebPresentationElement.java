@@ -1,9 +1,7 @@
-package it.frontend.e2e.framework.web.adapter.model;
+package it.frontend.e2e.framework.web.model;
 
 
 import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
-import it.frontend.e2e.framework.web.adapter.model.locator.WebLocation;
-import it.frontend.e2e.framework.web.adapter.model.selector.WebSelector;
 import lombok.Getter;
 import lombok.Setter;
 

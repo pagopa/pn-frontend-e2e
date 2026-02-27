@@ -2,9 +2,9 @@ package it.frontend.e2e.framework.web.adapter.impl;
 
 import it.frontend.e2e.framework.core.assertion.AssertionAction;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
-import it.frontend.e2e.framework.web.adapter.model.WebPresentationElement;
-import it.frontend.e2e.framework.web.adapter.model.locator.WebLocation;
-import it.frontend.e2e.framework.web.adapter.model.selector.WebSelector;
+import it.frontend.e2e.framework.web.model.WebPresentationElement;
+import it.frontend.e2e.framework.web.model.WebLocation;
+import it.frontend.e2e.framework.web.model.WebSelector;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
