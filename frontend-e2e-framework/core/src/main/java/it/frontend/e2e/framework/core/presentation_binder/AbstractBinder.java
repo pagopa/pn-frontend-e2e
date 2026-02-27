@@ -30,6 +30,6 @@ public abstract class AbstractBinder<
     /**
      * Hook method: implemented by domain-specific binders (web, mobile, mock).
      */
-    protected abstract InvocationHandler getInvocationHandler(Class<?> boundType);
+    protected abstract <T extends Capability<S,L,E>> InvocationHandler getInvocationHandler(Class<T> boundType);
 }
 

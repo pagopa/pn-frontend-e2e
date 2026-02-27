@@ -1,5 +1,6 @@
 package it.frontend.e2e.framework.core.presentation_binder.impl;
 
+import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
@@ -14,15 +15,15 @@ import java.util.List;
 
 public class TestBinder extends AbstractBinder<TestSelector, TestLocation, TestElement> {
 
-    @Override
-    protected InvocationHandler getInvocationHandler(Class<?> boundType) {
-        ICapabilityDispatcher dispatcher = new TestCapabilityDispatcher(getHandlers());
-        return new TestInvocationHandler(dispatcher);
-    }
-
     private List<ICapabilityHandler> getHandlers() {
         return List.of(
                 new TestCapabilityHandler()
         );
+    }
+
+    @Override
+    protected <T extends Capability<TestSelector, TestLocation, TestElement>> InvocationHandler getInvocationHandler(Class<T> boundType) {
+        ICapabilityDispatcher dispatcher = new TestCapabilityDispatcher(getHandlers());
+        return new TestInvocationHandler(dispatcher);
     }
 }
