@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.binder.impl;
 
-import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.core.capability.Gettable;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
@@ -22,7 +22,7 @@ public class TestBinder extends AbstractBinder<TestSelector, TestLocation, TestE
     }
 
     @Override
-    protected <T extends Capability<TestSelector, TestLocation, TestElement>> InvocationHandler getInvocationHandler(Class<T> boundType) {
+    protected <T extends Gettable<TestSelector, TestLocation, TestElement>> InvocationHandler getInvocationHandler(Class<T> boundType) {
         ICapabilityDispatcher dispatcher = new TestCapabilityDispatcher(getHandlers());
         return new TestInvocationHandler(dispatcher);
     }

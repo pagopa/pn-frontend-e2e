@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.capability.dispatcher;
 
-import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.core.capability.Gettable;
 import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.core.model.*;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 @DisplayName("CapabilityDispatcher")
 class AbstractCapabilityDispatcherTest {
 
-    private interface ActionCapability extends Capability<TestSelector, TestLocation, TestElement> {
+    private interface ActionCapability extends Gettable<TestSelector, TestLocation, TestElement> {
         void action();
     }
 

@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.capability.handler;
 
-import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.core.capability.Gettable;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
 import it.frontend.e2e.framework.core.model.TestSelector;
@@ -14,12 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("AbstractCapabilityHandler")
 class AbstractCapabilityHandlerTest {
 
-    private interface TestCapability extends Capability<TestSelector, TestLocation, TestElement> {
+    private interface TestCapability extends Gettable<TestSelector, TestLocation, TestElement> {
         void action();
         void anotherAction();
     }
 
-    private interface DifferentCapability extends Capability<TestSelector, TestLocation, TestElement> {
+    private interface DifferentCapability extends Gettable<TestSelector, TestLocation, TestElement> {
         void differentAction();
     }
 

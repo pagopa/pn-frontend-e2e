@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.binder;
 
-import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.core.capability.Gettable;
 import it.frontend.e2e.framework.core.model.*;
 import it.frontend.e2e.framework.core.binder.impl.TestBinder;
 import org.junit.jupiter.api.Test;
@@ -69,19 +69,19 @@ class AbstractBinderTest {
         assertThrows(NullPointerException.class, () -> binder.bind(null));
     }
 
-    interface TestInterface extends Capability<TestSelector, TestLocation, TestElement> {
+    interface TestInterface extends Gettable<TestSelector, TestLocation, TestElement> {
         void testMethod();
     }
 
-    interface FirstInterface extends Capability<TestSelector, TestLocation, TestElement> {
+    interface FirstInterface extends Gettable<TestSelector, TestLocation, TestElement> {
         void firstMethod();
     }
 
-    interface SecondInterface extends Capability<TestSelector, TestLocation, TestElement> {
+    interface SecondInterface extends Gettable<TestSelector, TestLocation, TestElement> {
         void secondMethod();
     }
 
-    static class ConcreteClass implements Capability<TestSelector, TestLocation, TestElement> {
+    static class ConcreteClass implements Gettable<TestSelector, TestLocation, TestElement> {
         void concreteMethod() {}
 
         @Override

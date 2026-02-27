@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.binder;
 
-import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.core.capability.Gettable;
 import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
 import it.frontend.e2e.framework.core.model.Location;
 import it.frontend.e2e.framework.core.model.Selector;
@@ -16,7 +16,7 @@ public abstract class AbstractBinder<
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Capability<S,L,E>> T bind(Class<T> type) {
+    public <T extends Gettable<S,L,E>> T bind(Class<T> type) {
         if (!type.isInterface())
             throw new IllegalArgumentException(type.getName() + " is not an interface.");
 
@@ -30,6 +30,6 @@ public abstract class AbstractBinder<
     /**
      * Hook method: implemented by domain-specific binders (web, mobile, mock).
      */
-    protected abstract <T extends Capability<S,L,E>> InvocationHandler getInvocationHandler(Class<T> boundType);
+    protected abstract <T extends Gettable<S,L,E>> InvocationHandler getInvocationHandler(Class<T> boundType);
 }
 
