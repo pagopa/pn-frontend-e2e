@@ -11,8 +11,21 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.List;
 import java.util.Optional;
 
-public class SeleniumApiAdapter implements IWebPresentationApiAdapter {
-    private WebDriver driver = new ChromeDriver();
+public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
+
+    private static final class Holder {
+        private static final SeleniumApiAdapter INSTANCE = new SeleniumApiAdapter();
+    }
+
+    public static SeleniumApiAdapter getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    private final WebDriver driver;
+
+    private SeleniumApiAdapter() {
+        this.driver = new ChromeDriver();
+    }
 
     @Override
     public Optional<WebPresentationElement> findElement(WebSelector selector) {
