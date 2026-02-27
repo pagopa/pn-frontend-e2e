@@ -5,8 +5,8 @@ import it.frontend.e2e.framework.core.capability.dispatcher.handler.ICapabilityH
 
 import java.util.List;
 
-public class WebCapabilityDispatcher extends DefaultCapabilityDispatcher {
-    public WebCapabilityDispatcher(List<ICapabilityHandler> handlers) {
+public class DefaultWebCapabilityDispatcher extends DefaultCapabilityDispatcher {
+    public DefaultWebCapabilityDispatcher(List<ICapabilityHandler> handlers) {
         super(handlers);
     }
 }
