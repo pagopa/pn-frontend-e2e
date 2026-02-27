@@ -1,7 +1,7 @@
 package it.frontend.e2e.framework.web.domain;
 
-import it.frontend.e2e.framework.web.capability.WebCapability;
+import it.frontend.e2e.framework.web.capability.Gettable;
 
-public interface DomNode extends WebCapability {
+public interface DomNode extends Gettable {
     boolean assertLoaded();
 }
