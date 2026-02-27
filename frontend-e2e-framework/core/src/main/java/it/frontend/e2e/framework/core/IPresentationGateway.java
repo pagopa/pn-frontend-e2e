@@ -7,5 +7,5 @@ import it.frontend.e2e.framework.core.model.Selector;
 import it.frontend.e2e.framework.core.binder.IBinder;
 
 public interface IPresentationGateway<S extends Selector, L extends Location, E extends AbstractPresentationElement<S,L>>
-        extends IPresentationApiAdapter<E, S, L>, IBinder {
+        extends IPresentationApiAdapter<S, L, E>, IBinder<S, L, E> {
 }
