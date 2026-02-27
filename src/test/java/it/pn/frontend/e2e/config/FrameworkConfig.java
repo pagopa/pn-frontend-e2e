@@ -1,5 +1,6 @@
 package it.pn.frontend.e2e.config;
 
+import it.frontend.e2e.framework.web.WebPresentationGateway;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.adapter.impl.SeleniumApiAdapter;
 import it.frontend.e2e.framework.web.binder.WebBinder;
@@ -18,5 +19,10 @@ public class FrameworkConfig {
     @Bean
     public WebBinder webPresentationBinder() {
         return new WebBinder(WebHandlers.getDefault());
+    }
+
+    @Bean
+    public WebPresentationGateway webPresentationGateway(IWebPresentationApiAdapter api, WebBinder binder) {
+        return new WebPresentationGateway(api, binder);
     }
 }
