@@ -5,7 +5,6 @@ import io.cucumber.java.en.Given;
 import it.frontend.e2e.framework.web.WebPresentationGateway;
 import it.pn.frontend.e2e.enums.User;
 import it.pn.frontend.e2e.model.PageInfo;
-import it.pn.frontend.e2e.model.SharedContext;
 import it.pn.frontend.e2e.steps.send.login.page.LoginPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Component;
 public class LoginSteps {
 
     private final WebPresentationGateway uiGateway;
-    private final SharedContext sharedContext;
 
     @Given("l'utente tenta di navigare alla pagina {page}")
     public void loadPage(PageInfo page) {
