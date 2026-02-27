@@ -2,6 +2,7 @@ package it.frontend.e2e.framework.core.presentation_binder;
 
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.model.*;
+import it.frontend.e2e.framework.core.presentation_binder.impl.TestBinder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -13,13 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("AbstractPresentationBinder")
 class AbstractBinderTest {
-
-    private static class TestBinder extends AbstractBinder<TestSelector, TestLocation, TestElement> {
-        @Override
-        protected InvocationHandler getInvocationHandler(Class<?> boundType) {
-            return (proxy, method, args) -> null;
-        }
-    }
 
     private final AbstractBinder<TestSelector, TestLocation, TestElement> binder = new TestBinder();
 

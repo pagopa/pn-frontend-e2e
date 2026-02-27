@@ -2,6 +2,7 @@ package it.frontend.e2e.framework.core.presentation_binder;
 
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.model.*;
+import it.frontend.e2e.framework.core.presentation_binder.impl.TestInvocationHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,12 +29,6 @@ class AbstractBinderInvocationHandlerTest {
         Optional<TestElement> elementWithArg(String value);
     }
 
-    private static final class ConcreteInvocationHandler extends AbstractBinderInvocationHandler {
-        private ConcreteInvocationHandler(ICapabilityDispatcher dispatcher) {
-            super(dispatcher);
-        }
-    }
-
     @Mock
     private ICapabilityDispatcher dispatcher;
 
@@ -42,7 +37,7 @@ class AbstractBinderInvocationHandlerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        handler = new ConcreteInvocationHandler(dispatcher);
+        handler = new TestInvocationHandler(dispatcher);
     }
 
     @Test

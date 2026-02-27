@@ -1,0 +1,28 @@
+package it.frontend.e2e.framework.core.presentation_binder.impl;
+
+import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
+import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
+import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
+import it.frontend.e2e.framework.core.capability.handler.TestCapabilityHandler;
+import it.frontend.e2e.framework.core.model.TestElement;
+import it.frontend.e2e.framework.core.model.TestLocation;
+import it.frontend.e2e.framework.core.model.TestSelector;
+import it.frontend.e2e.framework.core.presentation_binder.AbstractBinder;
+
+import java.lang.reflect.InvocationHandler;
+import java.util.List;
+
+public class TestBinder extends AbstractBinder<TestSelector, TestLocation, TestElement> {
+
+    @Override
+    protected InvocationHandler getInvocationHandler(Class<?> boundType) {
+        ICapabilityDispatcher dispatcher = new TestCapabilityDispatcher(getHandlers());
+        return new TestInvocationHandler(dispatcher);
+    }
+
+    private List<ICapabilityHandler> getHandlers() {
+        return List.of(
+                new TestCapabilityHandler()
+        );
+    }
+}
