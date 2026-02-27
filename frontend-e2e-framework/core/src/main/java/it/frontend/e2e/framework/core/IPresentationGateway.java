@@ -6,6 +6,6 @@ import it.frontend.e2e.framework.core.model.Location;
 import it.frontend.e2e.framework.core.model.Selector;
 import it.frontend.e2e.framework.core.binder.IBinder;
 
-public interface IPresentationGateway<E extends AbstractPresentationElement<S,L>, S extends Selector, L extends Location>
+public interface IPresentationGateway<S extends Selector, L extends Location, E extends AbstractPresentationElement<S,L>>
         extends IPresentationApiAdapter<E, S, L>, IBinder {
 }
