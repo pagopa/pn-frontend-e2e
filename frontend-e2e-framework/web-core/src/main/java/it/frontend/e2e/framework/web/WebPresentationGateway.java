@@ -12,7 +12,7 @@ import lombok.experimental.Delegate;
 
 @RequiredArgsConstructor
 public class WebPresentationGateway implements IPresentationGateway<WebSelector, WebLocation, WebPresentationElement> {
-    @Delegate(types = SeleniumApiAdapter.class)
+    @Delegate
     private final IWebPresentationApiAdapter adapter;
 
     @Delegate
