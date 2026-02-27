@@ -7,10 +7,10 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 @Getter
-public class CapabilityDispatcher implements ICapabilityDispatcher {
+public class DefaultCapabilityDispatcher implements ICapabilityDispatcher {
     protected final List<ICapabilityHandler> handlers;
 
-    public CapabilityDispatcher(List<ICapabilityHandler> handlers) {
+    public DefaultCapabilityDispatcher(List<ICapabilityHandler> handlers) {
         this.handlers = handlers;
     }
 

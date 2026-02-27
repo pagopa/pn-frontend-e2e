@@ -1,7 +1,7 @@
 package it.frontend.e2e.framework.core.binder;
 
 import it.frontend.e2e.framework.core.capability.core.Gettable;
-import it.frontend.e2e.framework.core.capability.dispatcher.CapabilityDispatcher;
+import it.frontend.e2e.framework.core.capability.dispatcher.DefaultCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
@@ -27,7 +27,7 @@ public class DefaultBinder<
     public DefaultBinder(List<ICapabilityHandler> handlers) {
         this.handlers = handlers;
 
-        ICapabilityDispatcher dispatcher = new CapabilityDispatcher(handlers);
+        ICapabilityDispatcher dispatcher = new DefaultCapabilityDispatcher(handlers);
         this.invocationHandler = new DefaultBinderInvocationHandler(dispatcher);
     }
 

@@ -2,7 +2,7 @@ package it.frontend.e2e.framework.core.capability.dispatcher;
 
 import it.frontend.e2e.framework.core.capability.core.Gettable;
 import it.frontend.e2e.framework.core.capability.dispatcher.handler.ICapabilityHandler;
-import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
+import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestDefaultCapabilityDispatcher;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
 import it.frontend.e2e.framework.core.model.TestSelector;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @DisplayName("CapabilityDispatcher")
-class CapabilityDispatcherTest {
+class DefaultCapabilityDispatcherTest {
 
     private interface ActionCapability extends Gettable<TestSelector, TestLocation, TestElement> {
         void action();
@@ -33,7 +33,7 @@ class CapabilityDispatcherTest {
     @Mock
     private ICapabilityHandler secondHandler;
 
-    private TestCapabilityDispatcher dispatcher;
+    private TestDefaultCapabilityDispatcher dispatcher;
     private Method actionMethod;
     private TestSelector selector;
     private TestLocation location;
@@ -46,7 +46,7 @@ class CapabilityDispatcherTest {
         handlers.add(secondHandler);
         selector = new TestSelector();
         location = new TestLocation();
-        dispatcher = new TestCapabilityDispatcher(handlers);
+        dispatcher = new TestDefaultCapabilityDispatcher(handlers);
         actionMethod = ActionCapability.class.getMethod("action");
     }
 
@@ -104,7 +104,7 @@ class CapabilityDispatcherTest {
     @Test
     @DisplayName("dovrebbe gestire lista vuota di handler")
     void shouldHandleEmptyHandlerList() {
-        dispatcher = new TestCapabilityDispatcher(new ArrayList<>());
+        dispatcher = new TestDefaultCapabilityDispatcher(new ArrayList<>());
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
