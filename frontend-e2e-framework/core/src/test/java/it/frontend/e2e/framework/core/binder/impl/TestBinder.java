@@ -3,7 +3,7 @@ package it.frontend.e2e.framework.core.binder.impl;
 import it.frontend.e2e.framework.core.capability.Gettable;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestCapabilityDispatcher;
-import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
+import it.frontend.e2e.framework.core.capability.dispatcher.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.core.capability.handler.TestCapabilityHandler;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;

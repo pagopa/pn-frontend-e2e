@@ -2,7 +2,7 @@ package it.pn.frontend.e2e.config;
 
 import io.cucumber.spring.ScenarioScope;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
-import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
+import it.frontend.e2e.framework.core.capability.dispatcher.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.adapter.impl.SeleniumApiAdapter;
 import it.frontend.e2e.framework.web.binder.WebBinder;
