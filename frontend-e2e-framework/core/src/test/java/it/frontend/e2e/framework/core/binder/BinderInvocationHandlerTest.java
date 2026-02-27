@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @DisplayName("AbstractPresentationInvocationHandler")
-class AbstractBinderInvocationHandlerTest {
+class BinderInvocationHandlerTest {
 
     public interface TestInterface {
         default String defaultMethod() {
@@ -32,7 +32,7 @@ class AbstractBinderInvocationHandlerTest {
     @Mock
     private ICapabilityDispatcher dispatcher;
 
-    private AbstractBinderInvocationHandler handler;
+    private BinderInvocationHandler handler;
 
     @BeforeEach
     void setUp() {

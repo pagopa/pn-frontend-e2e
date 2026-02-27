@@ -14,11 +14,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("AbstractPresentationBinder")
-class AbstractBinderTest {
+class BinderTest {
 
-    private final AbstractBinder<TestSelector, TestLocation, TestElement> binder;
+    private final Binder<TestSelector, TestLocation, TestElement> binder;
 
-    public AbstractBinderTest() {
+    public BinderTest() {
         TestCapabilityDispatcher dispatcher = new TestCapabilityDispatcher();
         TestInvocationHandler invocationHandler = new TestInvocationHandler(dispatcher);
         binder = new TestBinder(invocationHandler);

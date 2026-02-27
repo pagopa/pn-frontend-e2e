@@ -5,11 +5,11 @@ import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatche
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-public abstract class AbstractBinderInvocationHandler implements InvocationHandler {
+public class BinderInvocationHandler implements InvocationHandler {
 
     protected final ICapabilityDispatcher dispatcher;
 
-    protected AbstractBinderInvocationHandler(ICapabilityDispatcher dispatcher) {
+    protected BinderInvocationHandler(ICapabilityDispatcher dispatcher) {
         this.dispatcher = dispatcher;
     }
 

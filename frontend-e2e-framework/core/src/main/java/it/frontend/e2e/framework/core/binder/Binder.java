@@ -8,15 +8,15 @@ import it.frontend.e2e.framework.core.model.Selector;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
-public abstract class AbstractBinder<
+public class Binder<
         S extends Selector,
         L extends Location,
         E extends AbstractPresentationElement<S,L>
         > implements IBinder<S, L, E> {
 
-    private final InvocationHandler invocationHandler;
+    private final BinderInvocationHandler invocationHandler;
 
-    public AbstractBinder(InvocationHandler invocationHandler) {
+    public Binder(BinderInvocationHandler invocationHandler) {
         this.invocationHandler = invocationHandler;
     }
 
