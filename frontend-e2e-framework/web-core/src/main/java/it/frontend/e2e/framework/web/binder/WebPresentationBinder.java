@@ -1,8 +1,7 @@
 package it.frontend.e2e.framework.web.binder;
 
-
+import it.frontend.e2e.framework.core.binder.AbstractBinder;
 import it.frontend.e2e.framework.core.capability.Capability;
-import it.frontend.e2e.framework.core.presentation_binder.AbstractBinder;
 import it.frontend.e2e.framework.web.adapter.model.WebPresentationElement;
 import it.frontend.e2e.framework.web.adapter.model.locator.WebLocation;
 import it.frontend.e2e.framework.web.adapter.model.selector.WebSelector;
