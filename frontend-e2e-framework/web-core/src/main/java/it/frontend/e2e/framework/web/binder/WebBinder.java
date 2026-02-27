@@ -8,7 +8,7 @@ import it.frontend.e2e.framework.web.model.WebSelector;
 
 import java.lang.reflect.InvocationHandler;
 
-public class WebPresentationBinder extends AbstractBinder<WebSelector, WebLocation, WebPresentationElement> {
+public class WebBinder extends AbstractBinder<WebSelector, WebLocation, WebPresentationElement> {
 
     @Override
     protected <T extends Gettable<WebSelector, WebLocation, WebPresentationElement>> InvocationHandler getInvocationHandler(Class<T> aClass) {
