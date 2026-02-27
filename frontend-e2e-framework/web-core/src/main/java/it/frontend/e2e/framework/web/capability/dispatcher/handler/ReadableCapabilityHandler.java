@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 
 public class ReadableCapabilityHandler extends AbstractCapabilityHandler<Readable> {
 
-    protected ReadableCapabilityHandler() {
+    public ReadableCapabilityHandler() {
         super(Readable.class);
     }
 
