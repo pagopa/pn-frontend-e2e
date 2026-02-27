@@ -14,7 +14,7 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 
 
-public class Binder<
+public class DefaultBinder<
         S extends Selector,
         L extends Location,
         E extends AbstractPresentationElement<S,L>
@@ -24,11 +24,11 @@ public class Binder<
     private final List<ICapabilityHandler> handlers;
     private final InvocationHandler invocationHandler;
 
-    public Binder(List<ICapabilityHandler> handlers) {
+    public DefaultBinder(List<ICapabilityHandler> handlers) {
         this.handlers = handlers;
 
         ICapabilityDispatcher dispatcher = new CapabilityDispatcher(handlers);
-        this.invocationHandler = new BinderInvocationHandler(dispatcher);
+        this.invocationHandler = new DefaultBinderInvocationHandler(dispatcher);
     }
 
     @Override

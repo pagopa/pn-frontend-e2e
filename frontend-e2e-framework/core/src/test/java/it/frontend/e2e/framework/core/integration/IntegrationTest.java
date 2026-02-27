@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.integration;
 
-import it.frontend.e2e.framework.core.binder.impl.TestBinder;
+import it.frontend.e2e.framework.core.binder.impl.TestDefaultBinder;
 import it.frontend.e2e.framework.core.capability.core.TestCapability;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("IntegrationTest")
 class IntegrationTest {
 
-    private final TestBinder testBinder = new TestBinder();
+    private final TestDefaultBinder testBinder = new TestDefaultBinder();
 
     @Test
     @DisplayName("dovrebbe essere possibile il binding di una capability ed invoke un metodo con tipo di ritorno void")

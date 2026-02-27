@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.binder;
 
-import it.frontend.e2e.framework.core.binder.impl.TestInvocationHandler;
+import it.frontend.e2e.framework.core.binder.impl.TestInvocationHandlerDefault;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @DisplayName("AbstractPresentationInvocationHandler")
-class BinderInvocationHandlerTest {
+class DefaultDefaultBinderInvocationHandlerTest {
 
     public interface TestInterface {
         default String defaultMethod() {
@@ -34,12 +34,12 @@ class BinderInvocationHandlerTest {
     @Mock
     private ICapabilityDispatcher dispatcher;
 
-    private BinderInvocationHandler handler;
+    private DefaultBinderInvocationHandler handler;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        handler = new TestInvocationHandler(dispatcher);
+        handler = new TestInvocationHandlerDefault(dispatcher);
     }
 
     @Test
