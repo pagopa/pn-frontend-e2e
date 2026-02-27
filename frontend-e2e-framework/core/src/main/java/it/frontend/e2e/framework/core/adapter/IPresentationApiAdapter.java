@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IPresentationApiAdapter<
-        E extends AbstractPresentationElement<S, L>,
         S extends Selector,
-        L extends Location
+        L extends Location,
+        E extends AbstractPresentationElement<S, L>
         >  {
 
     // Operazioni di ricerca
