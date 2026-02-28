@@ -3,10 +3,10 @@ package it.pn.frontend.e2e.steps.send.login.page;
 import it.frontend.e2e.framework.annotation.Selector;
 import it.frontend.e2e.framework.core.capability.core.Clickable;
 import it.frontend.e2e.framework.web.capability.core.Readable;
-import it.frontend.e2e.framework.web.domain.*;
+import it.frontend.e2e.framework.web.domain.Component;
+import it.frontend.e2e.framework.web.domain.Page;
 import it.pn.frontend.e2e.enums.User;
 import it.pn.frontend.e2e.steps.send.login.component.OneIdLoginForm;
-import it.pn.frontend.e2e.steps.send.login.component.OneIdPrivacyDialog;
 
 public interface OneIdPage extends Page {
 

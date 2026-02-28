@@ -20,12 +20,15 @@ public interface OneIdLoginForm extends Component {
     @Selector("//*[@id=\"consent-form\"]")
     OneIdPrivacyDialog oneIdPrivacyDialog();
 
+    OneTrustBanner oneTrustBanner();
+
     default void loginWith(User user) {
         this.username().writeAndAssert(user.getUsername());
         this.password().writeAndAssert(user.getPassword());
         this.submit().click();
 
         oneIdPrivacyDialog().accept();
+        oneTrustBanner().accept();
     }
 }
 
