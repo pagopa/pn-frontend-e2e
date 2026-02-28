@@ -57,6 +57,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         return dispatcher.dispatch(method, args, ctx.selector());
     }
 
+    // TODO: questo va reso astratto e fatto override negli handlar specifici oppure basta override.
     private static String compose(String parent, String child) {
         if (parent == null || parent.isBlank()) return child;
 
@@ -79,7 +80,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         Selector onType = method.getReturnType().getAnnotation(Selector.class);
         if (onType != null) return onType.value();
 
-        throw new IllegalStateException("Missing @Selector for " + method);
+        return "";
     }
 
 }

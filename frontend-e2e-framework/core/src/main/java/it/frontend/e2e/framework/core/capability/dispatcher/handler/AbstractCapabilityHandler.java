@@ -14,6 +14,7 @@ public abstract class AbstractCapabilityHandler<C extends Capability> implements
 
     @Override
     public boolean canHandle(Method method) {
-        return method.getDeclaringClass().equals(capabilityClass);
+        Class<?> dc = method.getDeclaringClass();
+        return capabilityClass.isAssignableFrom(dc) || dc.isAssignableFrom(capabilityClass);
     }
 }

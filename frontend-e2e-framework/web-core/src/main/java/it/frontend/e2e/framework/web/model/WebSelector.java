@@ -44,6 +44,16 @@ public class WebSelector implements Selector {
     }
 
     /**
+     * Factory method statico per creare un WebSelector
+     * @param selector la stringa del selettore web
+     * @return una nuova istanza di WebSelector
+     * @throws IllegalArgumentException se il selettore non è valido
+     */
+    public static WebSelector of(String selector) {
+        return new WebSelector(selector);
+    }
+
+    /**
      * Rileva il tipo di selettore in base al formato della stringa
      * @param selector la stringa del selettore
      * @return il tipo di selettore rilevato

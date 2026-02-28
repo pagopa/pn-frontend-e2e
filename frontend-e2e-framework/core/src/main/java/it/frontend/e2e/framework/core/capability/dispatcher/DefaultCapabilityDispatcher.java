@@ -20,7 +20,7 @@ public class DefaultCapabilityDispatcher implements ICapabilityDispatcher {
                 .filter(h -> h.canHandle(method))
                 .findFirst()
                 .orElseThrow(() ->
-                        new IllegalStateException("No handler for " + method.getDeclaringClass().getSimpleName())
+                        new IllegalStateException("No handler for " + method.getDeclaringClass().getName())
                 )
                 .handle(method, args, selector);
     }
