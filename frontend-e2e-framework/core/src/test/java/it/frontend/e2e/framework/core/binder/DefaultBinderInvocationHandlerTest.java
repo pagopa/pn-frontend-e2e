@@ -51,7 +51,7 @@ class DefaultBinderInvocationHandlerTest {
         Object result = handler.invoke(proxy, defaultMethod, new Object[]{});
 
         assertEquals("default", result);
-        verify(dispatcher, never()).dispatch(any(), any());
+        verify(dispatcher, never()).dispatch(any(), any(), eq(""));
     }
 
     @Test
@@ -63,7 +63,7 @@ class DefaultBinderInvocationHandlerTest {
         Object result = handler.invoke(proxy, toStringMethod, new Object[]{});
 
         assertNotNull(result);
-        verify(dispatcher, never()).dispatch(any(), any());
+        verify(dispatcher, never()).dispatch(any(), any(), eq(""));
     }
 
   @Test
@@ -75,12 +75,12 @@ class DefaultBinderInvocationHandlerTest {
       Optional<TestElement> expectedResult = Optional.of(expectedElement);
       Object[] args = null;
 
-      when(dispatcher.dispatch(method, args)).thenReturn(expectedResult);
+      when(dispatcher.dispatch(method, args,"")).thenReturn(expectedResult);
 
       Object result = handler.invoke(proxy, method, args);
 
       assertEquals(expectedResult, result);
-      verify(dispatcher, times(1)).dispatch(method, args);
+      verify(dispatcher, times(1)).dispatch(method, args,"");
   }
 
     @Test
@@ -90,12 +90,12 @@ class DefaultBinderInvocationHandlerTest {
         Method method = TestInterface.class.getMethod("elementWithArg", String.class);
         Optional<TestElement> expectedResult = Optional.empty();
 
-        when(dispatcher.dispatch(eq(method), any())).thenReturn(expectedResult);
+        when(dispatcher.dispatch(eq(method), any(), eq(""))).thenReturn(expectedResult);
 
         Object result = handler.invoke(proxy, method, new Object[]{"value"});
 
         assertEquals(expectedResult, result);
-        verify(dispatcher, times(1)).dispatch(eq(method), any());
+        verify(dispatcher, times(1)).dispatch(eq(method), any(), eq(""));
     }
 
         @Test
@@ -105,7 +105,7 @@ class DefaultBinderInvocationHandlerTest {
             Method method = TestInterface.class.getMethod("element");
             RuntimeException exception = new RuntimeException("dispatcher error");
 
-            when(dispatcher.dispatch(method, null)).thenThrow(exception);
+            when(dispatcher.dispatch(method, null, "")).thenThrow(exception);
 
             assertThrows(RuntimeException.class, () ->
                     handler.invoke(proxy, method, null)

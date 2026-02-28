@@ -57,7 +57,7 @@ class DefaultCapabilityDispatcherTest {
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
         when(firstHandler.handle(actionMethod, null)).thenReturn(Optional.of(expectedElement));
 
-        Optional<TestElement> result = dispatcher.dispatch(actionMethod, null);
+        Optional<TestElement> result = dispatcher.dispatch(actionMethod, null,"");
 
         assertTrue(result.isPresent());
         assertSame(expectedElement, result.get());
@@ -74,7 +74,7 @@ class DefaultCapabilityDispatcherTest {
         when(secondHandler.canHandle(actionMethod)).thenReturn(true);
         when(secondHandler.handle(actionMethod, null)).thenReturn(Optional.of(expectedElement));
 
-        Optional<TestElement> result = dispatcher.dispatch(actionMethod, null);
+        Optional<TestElement> result = dispatcher.dispatch(actionMethod, null,"");
 
         assertTrue(result.isPresent());
         assertSame(expectedElement, result.get());
@@ -92,7 +92,7 @@ class DefaultCapabilityDispatcherTest {
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
-                () -> dispatcher.dispatch(actionMethod, null)
+                () -> dispatcher.dispatch(actionMethod, null,"")
         );
 
         assertTrue(exception.getMessage().contains("No handler for"));
@@ -108,7 +108,7 @@ class DefaultCapabilityDispatcherTest {
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
-                () -> dispatcher.dispatch(actionMethod, null)
+                () -> dispatcher.dispatch(actionMethod, null,"")
         );
 
         assertTrue(exception.getMessage().contains("No handler for"));
@@ -120,7 +120,7 @@ class DefaultCapabilityDispatcherTest {
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
         when(firstHandler.handle(actionMethod, null)).thenReturn(Optional.empty());
 
-        Optional<? extends Object> result = dispatcher.dispatch(actionMethod, null);
+        Optional<? extends Object> result = dispatcher.dispatch(actionMethod, null,"");
 
         assertTrue(result.isEmpty());
         verify(firstHandler).handle(actionMethod, null);
@@ -135,7 +135,7 @@ class DefaultCapabilityDispatcherTest {
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> dispatcher.dispatch(actionMethod, null)
+                () -> dispatcher.dispatch(actionMethod, null, "")
         );
 
         assertEquals(expectedException, exception);

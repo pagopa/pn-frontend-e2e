@@ -54,7 +54,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         }
 
         // Gestione dei metodi delle capability
-        return dispatcher.dispatch(method, args);
+        return dispatcher.dispatch(method, args, ctx.selector());
     }
 
     private static String compose(String parent, String child) {

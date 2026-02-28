@@ -15,7 +15,7 @@ public class DefaultCapabilityDispatcher implements ICapabilityDispatcher {
     }
 
     @Override
-    public <T> T dispatch(Method method, Object[] args) {
+    public <T> T dispatch(Method method, Object[] args, String selector) {
         return handlers.stream()
                 .filter(h -> h.canHandle(method))
                 .findFirst()
