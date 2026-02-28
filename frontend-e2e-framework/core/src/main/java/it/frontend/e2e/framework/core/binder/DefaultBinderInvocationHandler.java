@@ -75,7 +75,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         Selector onMethod = method.getAnnotation(Selector.class);
         if (onMethod != null) return onMethod.value();
 
-        // fallback: selector sul return type (es. AuthArea)
+        // fallback: selector sul return type
         Selector onType = method.getReturnType().getAnnotation(Selector.class);
         if (onType != null) return onType.value();
 
