@@ -4,5 +4,5 @@ import java.lang.reflect.Method;
 
 public interface ICapabilityHandler {
     boolean canHandle(Method method);
-    <T> T handle(Method method);
+    <T> T handle(Method method, Object[] args);
 }

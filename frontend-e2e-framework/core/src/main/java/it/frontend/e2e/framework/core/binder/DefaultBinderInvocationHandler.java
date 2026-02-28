@@ -28,6 +28,6 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
             };
         }
 
-        return dispatcher.dispatch(method);
+        return dispatcher.dispatch(method, args);
     }
 }

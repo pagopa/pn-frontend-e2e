@@ -12,7 +12,7 @@ public class ReadableCapabilityHandler extends AbstractCapabilityHandler<Readabl
     }
 
     @Override
-    public <T> T handle(Method method) {
+    public <T> T handle(Method method, Object[] args) {
         return null;
     }
 }

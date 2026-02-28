@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @DisplayName("AbstractPresentationInvocationHandler")
-class DefaultDefaultBinderInvocationHandlerTest {
+class DefaultBinderInvocationHandlerTest {
 
     public interface TestInterface {
         default String defaultMethod() {
@@ -51,7 +51,7 @@ class DefaultDefaultBinderInvocationHandlerTest {
         Object result = handler.invoke(proxy, defaultMethod, new Object[]{});
 
         assertEquals("default", result);
-        verify(dispatcher, never()).dispatch(any());
+        verify(dispatcher, never()).dispatch(any(), any());
     }
 
     @Test
@@ -63,24 +63,25 @@ class DefaultDefaultBinderInvocationHandlerTest {
         Object result = handler.invoke(proxy, toStringMethod, new Object[]{});
 
         assertNotNull(result);
-        verify(dispatcher, never()).dispatch(any());
+        verify(dispatcher, never()).dispatch(any(), any());
     }
 
-    @Test
-    @DisplayName("dovrebbe delegare al dispatcher l'implementazione dei metodi custom")
-    void shouldDispatchCustomMethods() throws Throwable {
-        TestInterface proxy = createProxyInstance();
-        Method method = TestInterface.class.getMethod("element");
-        TestElement expectedElement = new TestElement(new TestSelector(), new TestLocation());
-        Optional<TestElement> expectedResult = Optional.of(expectedElement);
+  @Test
+  @DisplayName("dovrebbe delegare al dispatcher l'implementazione dei metodi custom")
+  void shouldDispatchCustomMethods() throws Throwable {
+      TestInterface proxy = createProxyInstance();
+      Method method = TestInterface.class.getMethod("element");
+      TestElement expectedElement = new TestElement(new TestSelector(), new TestLocation());
+      Optional<TestElement> expectedResult = Optional.of(expectedElement);
+      Object[] args = null;
 
-        when(dispatcher.dispatch(method)).thenReturn(expectedResult);
+      when(dispatcher.dispatch(method, args)).thenReturn(expectedResult);
 
-        Object result = handler.invoke(proxy, method, new Object[]{});
+      Object result = handler.invoke(proxy, method, args);
 
-        assertEquals(expectedResult, result);
-        verify(dispatcher, times(1)).dispatch(method);
-    }
+      assertEquals(expectedResult, result);
+      verify(dispatcher, times(1)).dispatch(method, args);
+  }
 
     @Test
     @DisplayName("dovrebbe gestire metodi con argomenti")
@@ -89,27 +90,27 @@ class DefaultDefaultBinderInvocationHandlerTest {
         Method method = TestInterface.class.getMethod("elementWithArg", String.class);
         Optional<TestElement> expectedResult = Optional.empty();
 
-        when(dispatcher.dispatch(method)).thenReturn(expectedResult);
+        when(dispatcher.dispatch(eq(method), any())).thenReturn(expectedResult);
 
         Object result = handler.invoke(proxy, method, new Object[]{"value"});
 
         assertEquals(expectedResult, result);
-        verify(dispatcher, times(1)).dispatch(method);
+        verify(dispatcher, times(1)).dispatch(eq(method), any());
     }
 
-    @Test
-    @DisplayName("dovrebbe propagare eccezioni dal dispatcher")
-    void shouldPropagateDispatcherExceptions() throws Throwable {
-        TestInterface proxy = createProxyInstance();
-        Method method = TestInterface.class.getMethod("element");
-        RuntimeException exception = new RuntimeException("dispatcher error");
+        @Test
+        @DisplayName("dovrebbe propagare eccezioni dal dispatcher")
+        void shouldPropagateDispatcherExceptions() throws Throwable {
+            TestInterface proxy = createProxyInstance();
+            Method method = TestInterface.class.getMethod("element");
+            RuntimeException exception = new RuntimeException("dispatcher error");
 
-        when(dispatcher.dispatch(method)).thenThrow(exception);
+            when(dispatcher.dispatch(method, null)).thenThrow(exception);
 
-        assertThrows(RuntimeException.class, () ->
-                handler.invoke(proxy, method, new Object[]{})
-        );
-    }
+            assertThrows(RuntimeException.class, () ->
+                    handler.invoke(proxy, method, null)
+            );
+        }
 
     private TestInterface createProxyInstance() {
         return (TestInterface) Proxy.newProxyInstance(

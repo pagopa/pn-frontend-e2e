@@ -15,13 +15,13 @@ public class DefaultCapabilityDispatcher implements ICapabilityDispatcher {
     }
 
     @Override
-    public <T> T dispatch(Method method) {
+    public <T> T dispatch(Method method, Object[] args) {
         return handlers.stream()
                 .filter(h -> h.canHandle(method))
                 .findFirst()
                 .orElseThrow(() ->
                         new IllegalStateException("No handler for " + method.getDeclaringClass().getSimpleName())
                 )
-                .handle(method);
+                .handle(method, args);
     }
 }

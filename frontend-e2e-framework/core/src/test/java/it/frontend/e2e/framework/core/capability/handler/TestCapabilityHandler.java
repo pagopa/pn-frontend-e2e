@@ -14,7 +14,7 @@ public class TestCapabilityHandler extends AbstractCapabilityHandler<TestCapabil
     }
 
     @Override
-    public <T> T handle(Method method) {
+    public <T> T handle(Method method, Object[] args) {
 
         return switch (method.getName()) {
             case "action" -> {
