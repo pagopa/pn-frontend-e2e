@@ -31,9 +31,9 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
             };
         }
 
-        // RICORSIONE: se il return type è un DomainElement -> nuovo proxy dello stesso framework
         Class<?> rt = method.getReturnType();
 
+        // RICORSIONE: se il return type è un DomainElement -> nuovo proxy dello stesso framework
         if (DomainElement.class.isAssignableFrom(rt)) {
             return Proxy.newProxyInstance(
                     rt.getClassLoader(),
@@ -42,6 +42,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
             );
         }
 
+        // RICORSIONE: se il return type è una Capability -> nuovo proxy dello stesso framework
         if (Capability.class.isAssignableFrom(rt)) {
             if (!rt.isInterface()) {
                 throw new IllegalStateException("Capability must be an interface: " + rt.getName());
@@ -54,6 +55,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
             );
         }
 
+        // Gestione dei metodi delle capability
         return dispatcher.dispatch(method, args);
     }
 }
