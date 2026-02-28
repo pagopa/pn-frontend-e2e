@@ -3,7 +3,7 @@ package it.pn.frontend.e2e.enums;
 import lombok.Getter;
 
 public enum User {
-    GROSSINI("grossini", "test", "Comune di Palermo");
+    GROSSINI("Grossini", "test", "Comune di Palermo");
 
     @Getter private final String username;
     @Getter private final String password;
@@ -17,7 +17,7 @@ public enum User {
 
     public static User fromUsername(String username) {
         for (User u : values()) {
-            if (u.username.equals(username)) {
+            if (u.username.equalsIgnoreCase(username)) {
                 return u;
             }
         }
