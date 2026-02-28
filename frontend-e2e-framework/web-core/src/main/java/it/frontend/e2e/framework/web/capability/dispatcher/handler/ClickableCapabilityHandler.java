@@ -14,6 +14,12 @@ public class ClickableCapabilityHandler extends AbstractCapabilityHandler<Clicka
 
     @Override
     public <T> T handle(Method method, Object[] args) {
-        return null;
+        switch (method.getName()) {
+            case "click" -> {
+                System.out.println("Clicked!");
+                return null;
+            }
+            default -> throw new UnsupportedOperationException("Method " + method.getName() + " is not supported by " + capabilityClass.getSimpleName());
+        }
     }
 }
