@@ -31,7 +31,7 @@ class AbstractCapabilityHandlerTest {
         }
 
         @Override
-        public <T> T handle(Method method, Object[] args) {
+        public <T> T handle(Method method, Object[] args, String selector) {
             return null;
         }
     }
@@ -43,7 +43,7 @@ class AbstractCapabilityHandlerTest {
         }
 
         @Override
-        public <T> T handle(Method method, Object[] args) {
+        public <T> T handle(Method method, Object[] args, String selector) {
             return null;
         }
     }

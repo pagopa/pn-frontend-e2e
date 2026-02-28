@@ -12,7 +12,7 @@ public class GettableCapabilityHandler extends AbstractCapabilityHandler<Gettabl
     }
 
     @Override
-    public <T> T handle(Method method, Object[] args) {
+    public <T> T handle(Method method, Object[] args, String selector) {
         return null;
     }
 }

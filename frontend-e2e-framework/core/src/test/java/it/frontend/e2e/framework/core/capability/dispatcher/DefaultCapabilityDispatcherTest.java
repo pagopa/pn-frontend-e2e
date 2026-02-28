@@ -55,15 +55,15 @@ class DefaultCapabilityDispatcherTest {
     void shouldDelegateToFirstHandlerWhenItCanHandle() {
         TestElement expectedElement = new TestElement(selector, location);
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
-        when(firstHandler.handle(actionMethod, null)).thenReturn(Optional.of(expectedElement));
+        when(firstHandler.handle(actionMethod, null, "")).thenReturn(Optional.of(expectedElement));
 
         Optional<TestElement> result = dispatcher.dispatch(actionMethod, null,"");
 
         assertTrue(result.isPresent());
         assertSame(expectedElement, result.get());
         verify(firstHandler).canHandle(actionMethod);
-        verify(firstHandler).handle(actionMethod, null);
-        verify(secondHandler, never()).handle(actionMethod, null);
+        verify(firstHandler).handle(actionMethod, null, "");
+        verify(secondHandler, never()).handle(actionMethod, null, "");
     }
 
     @Test
@@ -72,16 +72,16 @@ class DefaultCapabilityDispatcherTest {
         TestElement expectedElement = new TestElement(selector, location);
         when(firstHandler.canHandle(actionMethod)).thenReturn(false);
         when(secondHandler.canHandle(actionMethod)).thenReturn(true);
-        when(secondHandler.handle(actionMethod, null)).thenReturn(Optional.of(expectedElement));
+        when(secondHandler.handle(actionMethod, null, "")).thenReturn(Optional.of(expectedElement));
 
         Optional<TestElement> result = dispatcher.dispatch(actionMethod, null,"");
 
         assertTrue(result.isPresent());
         assertSame(expectedElement, result.get());
         verify(firstHandler).canHandle(actionMethod);
-        verify(firstHandler, never()).handle(actionMethod, null);
+        verify(firstHandler, never()).handle(actionMethod, null, "");
         verify(secondHandler).canHandle(actionMethod);
-        verify(secondHandler).handle(actionMethod, null);
+        verify(secondHandler).handle(actionMethod, null, "");
     }
 
     @Test
@@ -97,8 +97,8 @@ class DefaultCapabilityDispatcherTest {
 
         assertTrue(exception.getMessage().contains("No handler for"));
         assertTrue(exception.getMessage().contains(ActionCapability.class.getSimpleName()));
-        verify(firstHandler, never()).handle(actionMethod, null);
-        verify(secondHandler, never()).handle(actionMethod, null);
+        verify(firstHandler, never()).handle(actionMethod, null, "");
+        verify(secondHandler, never()).handle(actionMethod, null, "");
     }
 
     @Test
@@ -118,12 +118,12 @@ class DefaultCapabilityDispatcherTest {
     @DisplayName("dovrebbe restituire Optional.empty se l'handler restituisce empty")
     void shouldReturnEmptyOptionalIfHandlerReturnsEmpty() {
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
-        when(firstHandler.handle(actionMethod, null)).thenReturn(Optional.empty());
+        when(firstHandler.handle(actionMethod, null, "")).thenReturn(Optional.empty());
 
         Optional<? extends Object> result = dispatcher.dispatch(actionMethod, null,"");
 
         assertTrue(result.isEmpty());
-        verify(firstHandler).handle(actionMethod, null);
+        verify(firstHandler).handle(actionMethod, null, "");
     }
 
     @Test
@@ -131,7 +131,7 @@ class DefaultCapabilityDispatcherTest {
     void shouldPropagateExceptionsFromHandlers() {
         RuntimeException expectedException = new RuntimeException("handler error");
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
-        when(firstHandler.handle(actionMethod, null)).thenThrow(expectedException);
+        when(firstHandler.handle(actionMethod, null, "")).thenThrow(expectedException);
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
@@ -139,6 +139,6 @@ class DefaultCapabilityDispatcherTest {
         );
 
         assertEquals(expectedException, exception);
-        verify(firstHandler).handle(actionMethod, null);
+        verify(firstHandler).handle(actionMethod, null, "");
     }
 }

@@ -13,7 +13,7 @@ public class ClickableCapabilityHandler extends AbstractCapabilityHandler<Clicka
     }
 
     @Override
-    public <T> T handle(Method method, Object[] args) {
+    public <T> T handle(Method method, Object[] args, String selector) {
         switch (method.getName()) {
             case "click" -> {
                 System.out.println("Clicked!");

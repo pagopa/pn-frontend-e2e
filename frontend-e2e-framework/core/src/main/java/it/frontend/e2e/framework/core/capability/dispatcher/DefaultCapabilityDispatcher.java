@@ -22,6 +22,6 @@ public class DefaultCapabilityDispatcher implements ICapabilityDispatcher {
                 .orElseThrow(() ->
                         new IllegalStateException("No handler for " + method.getDeclaringClass().getSimpleName())
                 )
-                .handle(method, args);
+                .handle(method, args, selector);
     }
 }
