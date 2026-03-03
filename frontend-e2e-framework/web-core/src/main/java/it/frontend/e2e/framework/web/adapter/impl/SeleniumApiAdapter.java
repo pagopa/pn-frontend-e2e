@@ -20,17 +20,9 @@ import java.util.Optional;
 
 public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
-    private static final class Holder {
-        private static final SeleniumApiAdapter INSTANCE = new SeleniumApiAdapter();
-    }
-
-    public static SeleniumApiAdapter getInstance() {
-        return Holder.INSTANCE;
-    }
-
     private final WebDriver driver;
 
-    private SeleniumApiAdapter() {
+    public SeleniumApiAdapter() {
         ChromeOptions options = new ChromeOptions();
 
         // Disable password manager + weak/compromised password warnings
