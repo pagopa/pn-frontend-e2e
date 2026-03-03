@@ -6,10 +6,10 @@ import it.frontend.e2e.framework.web.domain.Component;
 
 public interface OneIdPrivacyDialog extends Component {
 
-    @Selector("//*[@id=\"consent-form\"]/div[2]/button[2]")
+    @Selector("/div[2]/button[2]")
     Clickable acceptButton();
 
-    @Selector("//*[@id=\"consent-form\"]/div[2]/button[1]")
+    @Selector("/div[2]/button[1]")
     Clickable rejectButton();
 
     default void accept(){
