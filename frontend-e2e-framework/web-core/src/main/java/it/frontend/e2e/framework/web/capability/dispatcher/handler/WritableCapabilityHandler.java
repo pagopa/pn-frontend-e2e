@@ -1,23 +1,17 @@
 package it.frontend.e2e.framework.web.capability.dispatcher.handler;
 
 import it.frontend.e2e.framework.core.assertion.AssertionAction;
-import it.frontend.e2e.framework.core.capability.dispatcher.handler.AbstractCapabilityHandler;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
-import it.frontend.e2e.framework.web.adapter.impl.SeleniumApiAdapter;
-
 import it.frontend.e2e.framework.web.capability.core.Writable;
 import it.frontend.e2e.framework.web.model.WebSelector;
 
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-public class WritableCapabilityHandler extends AbstractCapabilityHandler<Writable> {
+public class WritableCapabilityHandler extends AbstractWebCapabilityHandler<Writable> {
 
-    private final IWebPresentationApiAdapter adapter;
-
-    public WritableCapabilityHandler() {
-        // Tipo generico <Writable> viene estratto automaticamente
-        adapter = SeleniumApiAdapter.getInstance();
+    public WritableCapabilityHandler(IWebPresentationApiAdapter adapter) {
+        super(adapter);
     }
 
     @Override
