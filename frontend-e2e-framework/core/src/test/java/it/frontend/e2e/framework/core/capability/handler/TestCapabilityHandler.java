@@ -10,7 +10,7 @@ import java.util.Optional;
 public class TestCapabilityHandler extends AbstractCapabilityHandler<TestCapability> {
 
     public TestCapabilityHandler() {
-        super(TestCapability.class);
+        // Tipo generico <TestCapability> viene estratto automaticamente
     }
 
     @Override

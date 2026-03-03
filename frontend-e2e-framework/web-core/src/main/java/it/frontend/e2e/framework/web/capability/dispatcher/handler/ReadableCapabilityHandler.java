@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 public class ReadableCapabilityHandler extends AbstractCapabilityHandler<Readable> {
 
     public ReadableCapabilityHandler() {
-        super(Readable.class);
+        // Tipo generico <Readable> viene estratto automaticamente
     }
 
     @Override

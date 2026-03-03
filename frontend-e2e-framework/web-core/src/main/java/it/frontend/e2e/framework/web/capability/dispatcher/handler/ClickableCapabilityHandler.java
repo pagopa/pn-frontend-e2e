@@ -14,7 +14,7 @@ public class ClickableCapabilityHandler extends AbstractCapabilityHandler<Clicka
     private final IWebPresentationApiAdapter adapter;
 
     public ClickableCapabilityHandler() {
-        super(Clickable.class);
+        // Tipo generico <Clickable> viene estratto automaticamente
         adapter = SeleniumApiAdapter.getInstance();
     }
 

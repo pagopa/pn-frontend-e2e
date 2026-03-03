@@ -38,7 +38,7 @@ class AbstractCapabilityHandlerTest {
     private static class TestCapabilityHandler extends AbstractCapabilityHandler<TestCapability> {
 
         protected TestCapabilityHandler() {
-            super(TestCapability.class);
+            // Tipo generico <TestCapability> viene estratto automaticamente
         }
 
         @Override
@@ -50,7 +50,7 @@ class AbstractCapabilityHandlerTest {
     private static class DifferentCapabilityHandler extends AbstractCapabilityHandler<DifferentCapability> {
 
         protected DifferentCapabilityHandler() {
-            super(DifferentCapability.class);
+            // Tipo generico <DifferentCapability> viene estratto automaticamente
         }
 
         @Override
@@ -62,7 +62,7 @@ class AbstractCapabilityHandlerTest {
     private static class ExtendedTestCapabilityHandler extends AbstractCapabilityHandler<ExtendedTestCapability> {
 
         protected ExtendedTestCapabilityHandler() {
-            super(ExtendedTestCapability.class);
+            // Tipo generico <ExtendedTestCapability> viene estratto automaticamente
         }
 
         @Override
@@ -74,7 +74,7 @@ class AbstractCapabilityHandlerTest {
     private static class UnrelatedCapabilityHandler extends AbstractCapabilityHandler<UnrelatedCapability> {
 
         protected UnrelatedCapabilityHandler() {
-            super(UnrelatedCapability.class);
+            // Tipo generico <UnrelatedCapability> viene estratto automaticamente
         }
 
         @Override
@@ -256,13 +256,11 @@ class AbstractCapabilityHandlerTest {
 
         @Test
         @DisplayName("dovrebbe rifiutare metodo null")
-        void shouldThrowExceptionForNullMethod() {
+        void shouldRejectNullMethod() {
             handler = new TestCapabilityHandler();
+            Method nullMethod = null;
 
-            assertThrows(Exception.class, () -> {
-                Method nullMethod = null;
-                handler.canHandle(nullMethod);
-            });
+            assertFalse(handler.canHandle(nullMethod));
         }
     }
 

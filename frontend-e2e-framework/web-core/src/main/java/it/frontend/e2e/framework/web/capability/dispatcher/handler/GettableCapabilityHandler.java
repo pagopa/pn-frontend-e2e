@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 public class GettableCapabilityHandler extends AbstractCapabilityHandler<Gettable> {
 
     public GettableCapabilityHandler() {
-        super(Gettable.class);
+        // Tipo generico <Gettable> viene estratto automaticamente
     }
 
     @Override

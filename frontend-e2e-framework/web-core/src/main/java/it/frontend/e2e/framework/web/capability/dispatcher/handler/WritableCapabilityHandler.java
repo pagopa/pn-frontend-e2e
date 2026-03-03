@@ -16,7 +16,7 @@ public class WritableCapabilityHandler extends AbstractCapabilityHandler<Writabl
     private final IWebPresentationApiAdapter adapter;
 
     public WritableCapabilityHandler() {
-        super(Writable.class);
+        // Tipo generico <Writable> viene estratto automaticamente
         adapter = SeleniumApiAdapter.getInstance();
     }
 
