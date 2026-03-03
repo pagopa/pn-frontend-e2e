@@ -57,15 +57,13 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         return dispatcher.dispatch(method, args, ctx.selector());
     }
 
-    // TODO: questo va reso astratto e fatto override negli handlar specifici oppure basta override.
-    private static String compose(String parent, String child) {
+    public static String compose(String parent, String child) {
         if (parent == null || parent.isBlank()) return child;
 
         // "assoluto"
-        if (child.startsWith("//") || child.startsWith("(//") || child.startsWith(".//") || child.startsWith("//*[@"))
+        if (child.startsWith("//") || child.startsWith("(//") || child.startsWith(".//"))
             return child;
 
-        // i selector dei figli in questo momento iniziano con "/div[...]" e sono relativi al parent
         if (child.startsWith("/"))
             return parent + child;
 
