@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("AbstractPresentationBinder")
 class DefaultBinderTest {
 
-    private final DefaultBinder<TestSelector, TestLocation, TestElement> defaultBinder = new TestDefaultBinder();;
+    private final DefaultBinder defaultBinder = new TestDefaultBinder();;
 
     @Test
     @DisplayName("dovrebbe creare un proxy per un'interfaccia valida")

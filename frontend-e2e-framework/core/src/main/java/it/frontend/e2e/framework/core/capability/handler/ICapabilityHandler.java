@@ -1,4 +1,4 @@
-package it.frontend.e2e.framework.core.capability.dispatcher.handler;
+package it.frontend.e2e.framework.core.capability.handler;
 
 import java.lang.reflect.Method;
 

@@ -1,12 +1,9 @@
 package it.frontend.e2e.framework.core.binder;
 
-import it.frontend.e2e.framework.core.capability.core.Gettable;
+import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.capability.dispatcher.DefaultCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
-import it.frontend.e2e.framework.core.capability.dispatcher.handler.ICapabilityHandler;
-import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
-import it.frontend.e2e.framework.core.model.Location;
-import it.frontend.e2e.framework.core.model.Selector;
+import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
 import lombok.Getter;
 
 import java.lang.reflect.InvocationHandler;
@@ -14,11 +11,7 @@ import java.lang.reflect.Proxy;
 import java.util.List;
 
 
-public class DefaultBinder<
-        S extends Selector,
-        L extends Location,
-        E extends AbstractPresentationElement<S,L>
-        > implements IBinder<S, L, E> {
+public class DefaultBinder implements IBinder {
 
     @Getter
     private final List<ICapabilityHandler> handlers;
@@ -33,7 +26,7 @@ public class DefaultBinder<
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T extends Gettable<S,L,E>> T bind(Class<T> type) {
+    public <T extends Capability> T bind(Class<T> type) {
         if (!type.isInterface())
             throw new IllegalArgumentException(type.getName() + " is not an interface.");
 

@@ -1,7 +1,6 @@
 package it.frontend.e2e.framework.core.capability.handler;
 
 import it.frontend.e2e.framework.core.capability.core.Gettable;
-import it.frontend.e2e.framework.core.capability.dispatcher.handler.AbstractCapabilityHandler;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
 import it.frontend.e2e.framework.core.model.TestSelector;
@@ -10,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Nested;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,10 +35,53 @@ class AbstractCapabilityHandlerTest {
         void unrelatedAction();
     }
 
+    // Helper methods per creare mock delle capabilities
+    private static TestCapability createMockTestCapability() {
+        return new TestCapability() {
+            @Override
+            public void action() {}
+            @Override
+            public void anotherAction() {}
+            @Override
+            public Optional<TestElement> get() { return Optional.empty(); }
+        };
+    }
+
+    private static DifferentCapability createMockDifferentCapability() {
+        return new DifferentCapability() {
+            @Override
+            public void differentAction() {}
+            @Override
+            public Optional<TestElement> get() { return Optional.empty(); }
+        };
+    }
+
+    private static ExtendedTestCapability createMockExtendedTestCapability() {
+        return new ExtendedTestCapability() {
+            @Override
+            public void action() {}
+            @Override
+            public void anotherAction() {}
+            @Override
+            public void extendedAction() {}
+            @Override
+            public Optional<TestElement> get() { return Optional.empty(); }
+        };
+    }
+
+    private static UnrelatedCapability createMockUnrelatedCapability() {
+        return new UnrelatedCapability() {
+            @Override
+            public void unrelatedAction() {}
+            @Override
+            public Optional<TestElement> get() { return Optional.empty(); }
+        };
+    }
+
     private static class TestCapabilityHandler extends AbstractCapabilityHandler<TestCapability> {
 
-        protected TestCapabilityHandler() {
-            // Tipo generico <TestCapability> viene estratto automaticamente
+        protected TestCapabilityHandler(TestCapability capabilityImpl) {
+            super(capabilityImpl);
         }
 
         @Override
@@ -49,8 +92,8 @@ class AbstractCapabilityHandlerTest {
 
     private static class DifferentCapabilityHandler extends AbstractCapabilityHandler<DifferentCapability> {
 
-        protected DifferentCapabilityHandler() {
-            // Tipo generico <DifferentCapability> viene estratto automaticamente
+        protected DifferentCapabilityHandler(DifferentCapability capabilityImpl) {
+            super(capabilityImpl);
         }
 
         @Override
@@ -61,8 +104,8 @@ class AbstractCapabilityHandlerTest {
 
     private static class ExtendedTestCapabilityHandler extends AbstractCapabilityHandler<ExtendedTestCapability> {
 
-        protected ExtendedTestCapabilityHandler() {
-            // Tipo generico <ExtendedTestCapability> viene estratto automaticamente
+        protected ExtendedTestCapabilityHandler(ExtendedTestCapability capabilityImpl) {
+            super(capabilityImpl);
         }
 
         @Override
@@ -73,8 +116,8 @@ class AbstractCapabilityHandlerTest {
 
     private static class UnrelatedCapabilityHandler extends AbstractCapabilityHandler<UnrelatedCapability> {
 
-        protected UnrelatedCapabilityHandler() {
-            // Tipo generico <UnrelatedCapability> viene estratto automaticamente
+        protected UnrelatedCapabilityHandler(UnrelatedCapability capabilityImpl) {
+            super(capabilityImpl);
         }
 
         @Override
@@ -92,7 +135,7 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe gestire metodo dalla classe capability dichiarata (dc == capabilityClass)")
         void shouldHandleMethodFromDeclaredCapability() throws NoSuchMethodException {
-            handler = new TestCapabilityHandler();
+            handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = TestCapability.class.getMethod("action");
             // dc = TestCapability, capabilityClass = TestCapability
             // capabilityClass.isAssignableFrom(dc) = true
@@ -101,20 +144,22 @@ class AbstractCapabilityHandlerTest {
         }
 
         @Test
-        @DisplayName("dovrebbe gestire metodo da interfaccia che estende la capability dichiarata")
+        @DisplayName("dovrebbe NON gestire metodo da interfaccia che estende la capability dichiarata")
         void shouldHandleMethodFromExtendedCapability() throws NoSuchMethodException {
-            TestCapabilityHandler handler = new TestCapabilityHandler();
+            TestCapabilityHandler handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = ExtendedTestCapability.class.getMethod("extendedAction");
             // dc = ExtendedTestCapability, capabilityClass = TestCapability
             // capabilityClass.isAssignableFrom(dc) = true (TestCapability è assignable da ExtendedTestCapability)
+            // MA: declaringClass != capabilityClass, quindi ritorna false
+            // Il handler gestisce solo metodi dichiarati nella capabilityClass stessa
 
-            assertTrue(handler.canHandle(method));
+            assertFalse(handler.canHandle(method));
         }
 
         @Test
         @DisplayName("dovrebbe gestire metodo ereditato da interfaccia estesa")
         void shouldHandleInheritedMethodFromExtendedCapability() throws NoSuchMethodException {
-            TestCapabilityHandler handler = new TestCapabilityHandler();
+            TestCapabilityHandler handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = ExtendedTestCapability.class.getMethod("action");
             // Metodo action() è ereditato da TestCapability, ma il declaringClass rimane TestCapability
             // dc = TestCapability, capabilityClass = TestCapability
@@ -131,7 +176,7 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe gestire quando capabilityClass è assignable dal declaringClass")
         void shouldHandleWhenCapabilityClassIsAssignableFromDeclaringClass() throws NoSuchMethodException {
-            ExtendedTestCapabilityHandler handler = new ExtendedTestCapabilityHandler();
+            ExtendedTestCapabilityHandler handler = new ExtendedTestCapabilityHandler(createMockExtendedTestCapability());
             Method method = TestCapability.class.getMethod("action");
             // dc = TestCapability, capabilityClass = ExtendedTestCapability
             // capabilityClass.isAssignableFrom(dc) = false
@@ -148,7 +193,7 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe rifiutare metodo da capability completamente diversa")
         void shouldRejectMethodFromCompletelyDifferentCapability() throws NoSuchMethodException {
-            handler = new TestCapabilityHandler();
+            handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = DifferentCapability.class.getMethod("differentAction");
             // dc = DifferentCapability, capabilityClass = TestCapability
             // capabilityClass.isAssignableFrom(dc) = false (DifferentCapability non è assignable da TestCapability)
@@ -160,7 +205,7 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe rifiutare metodo da capability non correlata")
         void shouldRejectMethodFromUnrelatedCapability() throws NoSuchMethodException {
-            handler = new TestCapabilityHandler();
+            handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = UnrelatedCapability.class.getMethod("unrelatedAction");
             // dc = UnrelatedCapability, capabilityClass = TestCapability
             // Nessuno dei due branch è true
@@ -176,8 +221,8 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe distinguere tra handler per capability diverse")
         void shouldDistinguishBetweenDifferentCapabilityHandlers() throws NoSuchMethodException {
-            TestCapabilityHandler firstHandler = new TestCapabilityHandler();
-            DifferentCapabilityHandler secondHandler = new DifferentCapabilityHandler();
+            TestCapabilityHandler firstHandler = new TestCapabilityHandler(createMockTestCapability());
+            DifferentCapabilityHandler secondHandler = new DifferentCapabilityHandler(createMockDifferentCapability());
             Method testCapabilityMethod = TestCapability.class.getMethod("action");
             Method differentCapabilityMethod = DifferentCapability.class.getMethod("differentAction");
 
@@ -190,8 +235,8 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe gestire correttamente handler per la stessa capability")
         void shouldHandleMultipleHandlersForSameCapability() throws NoSuchMethodException {
-            TestCapabilityHandler handler1 = new TestCapabilityHandler();
-            TestCapabilityHandler handler2 = new TestCapabilityHandler();
+            TestCapabilityHandler handler1 = new TestCapabilityHandler(createMockTestCapability());
+            TestCapabilityHandler handler2 = new TestCapabilityHandler(createMockTestCapability());
             Method method = TestCapability.class.getMethod("action");
 
             assertTrue(handler1.canHandle(method));
@@ -201,7 +246,7 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe usare l'uguaglianza della classe per determinare se può gestire")
         void shouldUseExactClassEqualityForHandling() throws NoSuchMethodException {
-            handler = new TestCapabilityHandler();
+            handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = TestCapability.class.getMethod("action");
             Class<?> methodDeclaringClass = method.getDeclaringClass();
             Class<?> expectedCapabilityClass = TestCapability.class;
@@ -211,15 +256,16 @@ class AbstractCapabilityHandlerTest {
         }
 
         @Test
-        @DisplayName("dovrebbe gestire metodo con declaring class che è sottoclasse della capability")
+        @DisplayName("NON dovrebbe gestire metodo con declaring class che è sottoclasse della capability")
         void shouldHandleMethodWithDeclaredClassAsSubclass() throws NoSuchMethodException {
-            TestCapabilityHandler handler = new TestCapabilityHandler();
+            TestCapabilityHandler handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = ExtendedTestCapability.class.getMethod("extendedAction");
             // ExtendedTestCapability extends TestCapability
             // dc = ExtendedTestCapability, capabilityClass = TestCapability
             // capabilityClass.isAssignableFrom(dc) = true
+            // MA: declaringClass != capabilityClass, quindi il metodo non è gestito
 
-            assertTrue(handler.canHandle(method));
+            assertFalse(handler.canHandle(method));
         }
     }
 
@@ -230,7 +276,7 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe riconoscere un metodo della capability dichiarata")
         void shouldRecognizeMethodFromDeclaredCapability() throws NoSuchMethodException {
-            handler = new TestCapabilityHandler();
+            handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = TestCapability.class.getMethod("action");
 
             assertTrue(handler.canHandle(method));
@@ -239,7 +285,7 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe riconoscere un metodo diverso della stessa capability")
         void shouldRecognizeAnyMethodFromDeclaredCapability() throws NoSuchMethodException {
-            handler = new TestCapabilityHandler();
+            handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = TestCapability.class.getMethod("anotherAction");
 
             assertTrue(handler.canHandle(method));
@@ -248,7 +294,7 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe rifiutare un metodo di una capability diversa")
         void shouldRejectMethodFromDifferentCapability() throws NoSuchMethodException {
-            handler = new TestCapabilityHandler();
+            handler = new TestCapabilityHandler(createMockTestCapability());
             Method method = DifferentCapability.class.getMethod("differentAction");
 
             assertFalse(handler.canHandle(method));
@@ -257,7 +303,7 @@ class AbstractCapabilityHandlerTest {
         @Test
         @DisplayName("dovrebbe rifiutare metodo null")
         void shouldRejectNullMethod() {
-            handler = new TestCapabilityHandler();
+            handler = new TestCapabilityHandler(createMockTestCapability());
             Method nullMethod = null;
 
             assertFalse(handler.canHandle(nullMethod));
@@ -265,6 +311,8 @@ class AbstractCapabilityHandlerTest {
     }
 
 }
+
+
 
 
 

@@ -1,7 +1,7 @@
 package it.frontend.e2e.framework.core.capability.handler;
 
 import it.frontend.e2e.framework.core.capability.core.TestCapability;
-import it.frontend.e2e.framework.core.capability.dispatcher.handler.AbstractCapabilityHandler;
+import it.frontend.e2e.framework.core.model.TestElement;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -9,8 +9,31 @@ import java.util.Optional;
 
 public class TestCapabilityHandler extends AbstractCapabilityHandler<TestCapability> {
 
-    public TestCapabilityHandler() {
-        // Tipo generico <TestCapability> viene estratto automaticamente
+    public TestCapabilityHandler(TestCapability capabilityImpl) {
+        super(capabilityImpl);
+    }
+
+    // Helper method per creare un'implementazione mock di TestCapability
+    public static TestCapability createMock() {
+        return new TestCapability() {
+            @Override
+            public void action() {}
+
+            @Override
+            public List<?> getList() {
+                return List.of();
+            }
+
+            @Override
+            public Optional<?> getOptional() {
+                return Optional.empty();
+            }
+
+            @Override
+            public Optional<TestElement> get() {
+                return Optional.empty();
+            }
+        };
     }
 
     @Override

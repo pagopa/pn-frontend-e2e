@@ -1,15 +1,12 @@
 package it.frontend.e2e.framework.core.binder.impl;
 
 import it.frontend.e2e.framework.core.binder.DefaultBinder;
-import it.frontend.e2e.framework.core.capability.dispatcher.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestDefaultCapabilityDispatcher;
-import it.frontend.e2e.framework.core.model.TestElement;
-import it.frontend.e2e.framework.core.model.TestLocation;
-import it.frontend.e2e.framework.core.model.TestSelector;
+import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
 
 import java.util.List;
 
-public class TestDefaultBinder extends DefaultBinder<TestSelector, TestLocation, TestElement> {
+public class TestDefaultBinder extends DefaultBinder {
 
     public TestDefaultBinder(List<ICapabilityHandler> handlers) {
         super(handlers);
