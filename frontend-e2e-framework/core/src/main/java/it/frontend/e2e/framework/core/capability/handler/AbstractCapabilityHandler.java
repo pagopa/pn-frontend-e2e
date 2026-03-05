@@ -139,6 +139,7 @@ public abstract class AbstractCapabilityHandler<C extends Capability> implements
             );
         }
     }
+
     private static MethodHandle buildInvoker(Class<?> capabilityClass, Method interfaceOrSuperMethod) {
         try {
             // Prova a trovare il metodo "equivalente" sulla capability concreta
