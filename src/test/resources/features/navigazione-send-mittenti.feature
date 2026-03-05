@@ -5,10 +5,10 @@ Feature: Navigazione portale SEND Mittenti
 
   @fakeLogin @realLogin
   Scenario Outline: [] Verifica la raggiungibilità delle pagine
-    Given l'utente è un "admin" di "Comune di Milano"
+    Given l'utente è un "admin" di "Comune di Verona"
     When naviga alla pagina <Pagina>
     Then la pagina deve caricarsi correttamente
 
     Examples:
       | Pagina    |
-      | LoginPage |
+      | Dashboard |

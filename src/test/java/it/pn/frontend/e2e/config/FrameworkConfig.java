@@ -27,7 +27,7 @@ public class FrameworkConfig {
         return List.of(
                 new ClickableCapabilityHandler(adapter),
                 new GettableCapabilityHandler(),
-                new ReadableCapabilityHandler(),
+                new ReadableCapabilityHandler(adapter),
                 new WritableCapabilityHandler(adapter)
         );
     }

@@ -4,10 +4,10 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.frontend.e2e.framework.web.WebPresentationGateway;
-import it.frontend.e2e.framework.web.domain.Page;
 import it.pn.frontend.e2e.model.PageInfo;
 import it.pn.frontend.e2e.steps.send.FakeAuthenticator;
 import it.pn.frontend.e2e.steps.send.IAuthenticator;
+import it.pn.frontend.e2e.steps.send.login.component.OneTrustBanner;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 
@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Assertions;
 public class MittentiSteps {
 
     private final WebPresentationGateway uiGateway;
-    private Page page;
 
     @Given("l'utente è un {string} di {string}")
     public void login(String role, String pa) {
@@ -27,13 +26,15 @@ public class MittentiSteps {
 
     @When("naviga alla pagina {page}")
     public void navigateTo(PageInfo pageInfo) {
-        //this.page = (Page) uiGateway.bind(pageInfo.pageClass());
-        //uiGateway.navigateTo(page.getUrl());
+        uiGateway.navigateTo(pageInfo.location());
+        OneTrustBanner banner = uiGateway.bind(OneTrustBanner.class);
+        banner.accept();
     }
 
     @Then("la pagina deve caricarsi correttamente")
     public void laPaginaDeveCaricarsiCorrettamente() {
-//        this.page.assertLoaded();
+       Dashboard dashboardPage = uiGateway.bind(Dashboard.class);
+       dashboardPage.assertLoaded();
     }
 
 }

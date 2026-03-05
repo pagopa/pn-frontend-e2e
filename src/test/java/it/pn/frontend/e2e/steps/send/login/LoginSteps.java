@@ -21,14 +21,18 @@ public class LoginSteps {
 
     @Given("l'utente {user} effettua l'accesso a SelfCare con autenticazione SPID")
     public void spidAuth(User user) {
+        // Setto l'utente corrente originario dallo step per poterlo utilizzare nei passaggi successivi
         this.user = user;
+
+        // L'utente digita l'url di selfcare nel browser e preme invio
         uiGateway.navigateTo(WebLocation.of(slefcareUrl));
 
+        // Viene effettuato il binding "logico" tra la pagina attuale caricata nel browser
         OneIdPage oneId = uiGateway.bind(OneIdPage.class);
         oneId.loginWithSpid(user);
     }
 
-    @When("l'utente accede alla dashboard selezionado {string}")
+    @When("l'utente accede alla dashboard selezionando {string}")
     public void selectPa(String comune) {
         DashboardPartySelectionPage partyPage = uiGateway.bind(DashboardPartySelectionPage.class);
         partyPage.selectComune(comune);
