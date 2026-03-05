@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class PageType {
 
-    @Value("${url.dashboard}")
+    @Value("${url.selfcare.notifiche.dashboard}")
     private String mittentiBaseUrl;
 
     @Value("${token.mittente}")
