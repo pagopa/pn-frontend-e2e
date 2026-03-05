@@ -1,22 +1,19 @@
-package it.frontend.e2e.framework.web.adapter.impl;
+package it.frontend.e2e.framework.web.adapter.selenium;
 
 import it.frontend.e2e.framework.core.assertion.AssertionAction;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
+import it.frontend.e2e.framework.web.adapter.model.BrowserSettings;
 import it.frontend.e2e.framework.web.model.WebLocation;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
 import it.frontend.e2e.framework.web.model.WebSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
@@ -25,25 +22,12 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     private final WebDriver driver;
 
     public SeleniumApiAdapter() {
-        ChromeOptions options = new ChromeOptions();
+        this(BrowserSettings.defaults());
+    }
 
-        // Disable password manager + weak/compromised password warnings
-        Map<String, Object> prefs = new HashMap<>();
-        prefs.put("credentials_enable_service", false);
-        prefs.put("profile.password_manager_enabled", false);
-        prefs.put("profile.password_manager_leak_detection", false);
-
-        options.setExperimentalOption("prefs", prefs);
-
-        // Disable various Chrome UI interruptions
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-save-password-bubble");
-
-        // (optional) keep test profile isolated
-        // options.addArguments("--incognito");
-        // options.addArguments("--user-data-dir=/tmp/selenium-chrome-profile");
-
-        this.driver = new ChromeDriver(options);
+    public SeleniumApiAdapter(BrowserSettings settings) {
+        BrowserSettings safeSettings = settings == null ? BrowserSettings.defaults() : settings;
+        this.driver = WebDriverFactory.create(safeSettings.browser(), safeSettings);
     }
 
     @Override
@@ -91,10 +75,10 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
         element.sendKeys(text);
     }
 
-  @Override
-  public void sendTextAndAssert(WebSelector selector, String text, AssertionAction<WebPresentationElement> assertion) {
+    @Override
+    public void sendTextAndAssert(WebSelector selector, String text, AssertionAction<WebPresentationElement> assertion) {
 
-  }
+    }
 
     @Override
     public void clear(WebSelector selector) {

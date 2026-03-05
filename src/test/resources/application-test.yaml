@@ -1,3 +1,9 @@
+selenium:
+  browser: chrome
+  headless: false
+  arguments:
+    - --window-size=1920,1080
+
 url:
   selfcare:
     notifiche:
