@@ -19,13 +19,13 @@ import java.util.List;
 @TestConfiguration
 public class FrameworkConfig {
 
-    @Value("${selenium.browser:chrome}")
+    @Value("${channel.web.browser:chrome}")
     private String browser;
 
-    @Value("${selenium.headless:false}")
+    @Value("${channel.web.headless:false}")
     private boolean headless;
 
-    @Value("${selenium.arguments:}")
+    @Value("${channel.web.arguments:}")
     private List<String> browserArguments;
 
     @Bean
