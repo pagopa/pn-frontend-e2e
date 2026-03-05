@@ -10,6 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
+    private static final long DEFAULT_WAIT_TIMEOUT_SECONDS = 50;
     private final WebDriver driver;
 
     public SeleniumApiAdapter() {
@@ -46,7 +48,16 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public Optional<WebPresentationElement> findElement(WebSelector selector) {
-        return Optional.empty();
+        try {
+            WebElement webElement = findWebElement(selector);
+            WebPresentationElement element = new WebPresentationElement(selector, null);
+            element.setText(webElement.getText());
+            element.setTag(webElement.getTagName());
+            //element.setAttributes(webElement.getDomAttributes());
+            return Optional.of(element);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -107,7 +118,12 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public Optional<String> getText(WebSelector selector) {
-        return Optional.empty();
+        try {
+            WebElement element = findWebElement(selector);
+            return Optional.of(element.getText());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
     @Override
@@ -117,17 +133,7 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public void waitForElement(WebSelector selector, long timeoutSeconds) {
-
-        String selectorValue = selector.getSelector();
-
-        var by = switch (selector.getSelectorType()) {
-            case ID -> new By.ById(selectorValue);
-            case XPATH -> new By.ByXPath(selectorValue);
-            case CSS_QUERY, CSS_SELECTOR -> new By.ByCssSelector(selectorValue);
-        };
-
-        new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
-                .until(driver -> driver.findElement(by));
+        findWebElement(selector, timeoutSeconds);
     }
 
     @Override
@@ -155,13 +161,20 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     }
 
-    private WebElement findWebElement(WebSelector selector) {
+    private WebElement findWebElement(WebSelector selector, long timeoutSeconds) {
         String selectorValue = selector.getSelector();
 
-        return switch (selector.getSelectorType()) {
-            case ID -> driver.findElement(new By.ById(selectorValue));
-            case XPATH -> driver.findElement(new By.ByXPath(selectorValue));
-            case CSS_QUERY, CSS_SELECTOR -> driver.findElement(new By.ByCssSelector(selectorValue));
+        var by = switch (selector.getSelectorType()) {
+            case ID -> new By.ById(selectorValue);
+            case XPATH -> new By.ByXPath(selectorValue);
+            case CSS_QUERY, CSS_SELECTOR -> new By.ByCssSelector(selectorValue);
         };
+
+        return new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
+                .until(ExpectedConditions.presenceOfElementLocated(by));
+    }
+
+    private WebElement findWebElement(WebSelector selector) {
+        return findWebElement(selector, DEFAULT_WAIT_TIMEOUT_SECONDS);
     }
 }
