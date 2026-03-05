@@ -16,21 +16,18 @@ public class WritableImpl<T> implements Writable<T> {
     @Override
     public void write(T value) {
         WebSelector webSelector = WebSelector.of(CapabilityContext.selector());
-        adapter.waitForElement(webSelector, 10);
         adapter.sendText(webSelector, value.toString());
     }
 
     @Override
     public void writeAndAssert(T value) {
         WebSelector webSelector = WebSelector.of(CapabilityContext.selector());
-        adapter.waitForElement(webSelector, 10);
         adapter.sendTextAndAssert(webSelector, value.toString());
     }
 
     @Override
     public void writeAndAssert(T value, AssertionAction<WebPresentationElement> assertionAction) {
         WebSelector webSelector = WebSelector.of(CapabilityContext.selector());
-        adapter.waitForElement(webSelector, 10);
         adapter.sendTextAndAssert(webSelector, value.toString(), assertionAction);
     }
 }
