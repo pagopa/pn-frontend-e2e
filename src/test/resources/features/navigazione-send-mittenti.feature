@@ -3,8 +3,7 @@ Feature: Navigazione portale SEND Mittenti
   voglio navigare il portare SEND Mittenti
   così posso verificare che ogni pagina sia raggiungibile
 
-  @fakeLogin @realLogin
-  Scenario Outline: [] Verifica la raggiungibilità delle pagine
+  Scenario Outline: [LOAD_PAGE] Verifica la raggiungibilità delle pagine
     Given l'utente è un "admin" di "Comune di Verona"
     When naviga alla pagina <Pagina>
     Then la pagina deve caricarsi correttamente
