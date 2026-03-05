@@ -1,6 +1,8 @@
 url:
-  base: https://selfcare.test.notifichedigitali.it
-  dashboard: ${url.base}/dashboard
+  selfcare:
+    notifiche:
+      base: https://selfcare.test.notifichedigitali.it
+      dashboard: ${url.selfcare.notifiche.base}/dashboard
 
 token:
   mittente: ${pn.bearer-token.tokentestMittente}

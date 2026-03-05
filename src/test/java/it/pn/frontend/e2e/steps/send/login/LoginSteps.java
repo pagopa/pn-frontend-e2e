@@ -16,7 +16,7 @@ public class LoginSteps {
     private final WebPresentationGateway uiGateway;
     private User user;
 
-    @Value("${url.test.selfcare.notifiche}")
+    @Value("${url.selfcare.notifiche.base}")
     private String slefcareUrl;
 
     @Given("l'utente {user} effettua l'accesso a SelfCare con autenticazione SPID")

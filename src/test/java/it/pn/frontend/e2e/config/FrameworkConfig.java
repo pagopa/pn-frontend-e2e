@@ -9,12 +9,12 @@ import it.frontend.e2e.framework.web.capability.handler.ClickableCapabilityHandl
 import it.frontend.e2e.framework.web.capability.handler.GettableCapabilityHandler;
 import it.frontend.e2e.framework.web.capability.handler.ReadableCapabilityHandler;
 import it.frontend.e2e.framework.web.capability.handler.WritableCapabilityHandler;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-@Configuration
+@TestConfiguration
 public class FrameworkConfig {
 
     @Bean
