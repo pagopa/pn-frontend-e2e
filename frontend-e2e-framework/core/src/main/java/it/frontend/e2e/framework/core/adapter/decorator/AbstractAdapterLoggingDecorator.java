@@ -153,7 +153,7 @@ public abstract class AbstractAdapterLoggingDecorator<
     @Override
     public void waitForElement(S selector, long timeoutSeconds) {
         long startTime = System.currentTimeMillis();
-        logger.logInfo("Waiting for element: " + selector + " | Timeout: " + timeoutSeconds + "s");
+        logger.logDebug("Waiting for element: " + selector + " | Timeout: " + timeoutSeconds + "s");
         try {
             wrappedAdapter.waitForElement(selector, timeoutSeconds);
             long duration = System.currentTimeMillis() - startTime;
