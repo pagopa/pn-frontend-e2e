@@ -33,15 +33,18 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
         this.driver = WebDriverFactory.create(safeSettings.browser(), safeSettings);
     }
 
+    SeleniumApiAdapter(WebDriver driver) {
+        if (driver == null) {
+            throw new IllegalArgumentException("driver cannot be null");
+        }
+        this.driver = driver;
+    }
+
     @Override
     public Optional<WebPresentationElement> findElement(WebSelector selector) {
         try {
             WebElement webElement = findWebElement(selector);
-            WebPresentationElement element = new WebPresentationElement(selector, null);
-            element.setText(webElement.getText());
-            element.setTag(webElement.getTagName());
-            element.setAttributes(readAttributes(webElement));
-            return Optional.of(element);
+            return Optional.of(toPresentationElement(selector, webElement));
         } catch (Exception e) {
             return Optional.empty();
         }
@@ -49,17 +52,29 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public Optional<WebPresentationElement> findElementAndAssert(WebSelector selector, AssertionAction<WebPresentationElement> assertion) {
-        return Optional.empty();
+        Optional<WebPresentationElement> element = findElement(selector);
+        element.ifPresent(found -> applyAssertion(found, assertion));
+        return element;
     }
 
     @Override
     public Optional<List<WebPresentationElement>> findElements(WebSelector selector) {
-        return Optional.empty();
+        try {
+            List<WebElement> webElements = findWebElements(selector);
+            List<WebPresentationElement> elements = webElements.stream()
+                    .map(webElement -> toPresentationElement(selector, webElement))
+                    .toList();
+            return Optional.of(elements);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
     @Override
     public Optional<List<WebPresentationElement>> findElementsAndAssert(WebSelector selector, AssertionAction<WebPresentationElement> assertion) {
-        return Optional.empty();
+        Optional<List<WebPresentationElement>> elements = findElements(selector);
+        elements.ifPresent(foundElements -> foundElements.forEach(found -> applyAssertion(found, assertion)));
+        return elements;
     }
 
     @Override
@@ -69,7 +84,8 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public void clickAndAssert(WebSelector selector, AssertionAction<WebPresentationElement> assertion) {
-
+        click(selector);
+        findElement(selector).ifPresent(found -> applyAssertion(found, assertion));
     }
 
     @Override
@@ -80,27 +96,37 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public void sendTextAndAssert(WebSelector selector, String text, AssertionAction<WebPresentationElement> assertion) {
-
+        sendText(selector, text);
+        findElement(selector).ifPresent(found -> applyAssertion(found, assertion));
     }
 
     @Override
     public void clear(WebSelector selector) {
-
+        findWebElement(selector).clear();
     }
 
     @Override
     public void clearAndAssert(WebSelector selector, AssertionAction<WebPresentationElement> assertion) {
-
+        clear(selector);
+        findElement(selector).ifPresent(found -> applyAssertion(found, assertion));
     }
 
     @Override
     public boolean isDisplayed(WebSelector selector) {
-        return false;
+        try {
+            return findWebElement(selector).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public boolean isEnabled(WebSelector selector) {
-        return false;
+        try {
+            return findWebElement(selector).isEnabled();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -115,7 +141,9 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public Optional<String> getTextAndAssert(WebSelector selector, AssertionAction<String> assertion) {
-        return Optional.empty();
+        Optional<String> text = getText(selector);
+        text.ifPresent(found -> applyAssertion(found, assertion));
+        return text;
     }
 
     @Override
@@ -125,17 +153,20 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public void waitUntilElementDisappears(WebSelector selector, long timeoutSeconds) {
-
+        new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
+                .until(ExpectedConditions.invisibilityOfElementLocated(toBy(selector)));
     }
 
     @Override
     public WebLocation getLocation() {
-        return null;
+        return WebLocation.of(driver.getCurrentUrl());
     }
 
     @Override
     public WebLocation getLocationAndAssert(AssertionAction<WebLocation> assertion) {
-        return null;
+        WebLocation location = getLocation();
+        applyAssertion(location, assertion);
+        return location;
     }
 
     @Override
@@ -145,24 +176,51 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public void navigateToAndAssert(WebLocation locator, AssertionAction<WebLocation> assertion) {
-
+        navigateTo(locator);
+        WebLocation current = getLocation();
+        applyAssertion(current, assertion);
     }
 
     private WebElement findWebElement(WebSelector selector, long timeoutSeconds) {
-        String selectorValue = selector.getSelector();
-
-        var by = switch (selector.getSelectorType()) {
-            case ID -> new By.ById(selectorValue);
-            case XPATH -> new By.ByXPath(selectorValue);
-            case CSS_QUERY, CSS_SELECTOR -> new By.ByCssSelector(selectorValue);
-        };
-
         return new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
-                .until(ExpectedConditions.presenceOfElementLocated(by));
+                .until(ExpectedConditions.presenceOfElementLocated(toBy(selector)));
+    }
+
+    private List<WebElement> findWebElements(WebSelector selector, long timeoutSeconds) {
+        return new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
+                .until(ExpectedConditions.presenceOfAllElementsLocatedBy(toBy(selector)));
     }
 
     private WebElement findWebElement(WebSelector selector) {
         return findWebElement(selector, DEFAULT_WAIT_TIMEOUT_SECONDS);
+    }
+
+    private List<WebElement> findWebElements(WebSelector selector) {
+        return findWebElements(selector, DEFAULT_WAIT_TIMEOUT_SECONDS);
+    }
+
+    private By toBy(WebSelector selector) {
+        String selectorValue = selector.getSelector();
+
+        return switch (selector.getSelectorType()) {
+            case ID -> new By.ById(selectorValue);
+            case XPATH -> new By.ByXPath(selectorValue);
+            case CSS_QUERY, CSS_SELECTOR -> new By.ByCssSelector(selectorValue);
+        };
+    }
+
+    private WebPresentationElement toPresentationElement(WebSelector selector, WebElement webElement) {
+        WebPresentationElement element = new WebPresentationElement(selector, getLocation());
+        element.setText(webElement.getText());
+        element.setTag(webElement.getTagName());
+        element.setAttributes(readAttributes(webElement));
+        return element;
+    }
+
+    private <T> void applyAssertion(T value, AssertionAction<T> assertion) {
+        if (assertion != null) {
+            assertion.assertOn(value);
+        }
     }
 
     private Map<String, String> readAttributes(WebElement element) {
