@@ -49,7 +49,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
             String childSel = resolveSelector(method);
             String fullSel = compose(ctx.selector(), childSel);
 
-            logger.logDebug("Binding recursive element: " + rt.getSimpleName() +
+            logger.logInfo("Binding recursive element: " + rt.getSimpleName() +
                     " | From: " + method.getDeclaringClass().getSimpleName() +
                     " | Selector: " + fullSel);
 
