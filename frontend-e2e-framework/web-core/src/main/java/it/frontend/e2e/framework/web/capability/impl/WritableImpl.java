@@ -8,10 +8,11 @@ import it.frontend.e2e.framework.web.model.WebPresentationElement;
 import it.frontend.e2e.framework.web.model.WebSelector;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class WritableImpl<T> implements Writable<T> {
+public class WritableImpl<T> extends AbstractCapabilityImpl implements Writable<T> {
 
-    private final IWebPresentationApiAdapter adapter;
+    public WritableImpl(IWebPresentationApiAdapter adapter) {
+        super(adapter);
+    }
 
     @Override
     public void write(T value) {

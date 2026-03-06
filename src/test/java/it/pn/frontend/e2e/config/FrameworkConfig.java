@@ -38,7 +38,7 @@ public class FrameworkConfig {
     public List<ICapabilityHandler> capabilityHandlers(IWebPresentationApiAdapter adapter) {
         return List.of(
                 new ClickableCapabilityHandler(adapter),
-                new GettableCapabilityHandler(),
+                new GettableCapabilityHandler(adapter),
                 new ReadableCapabilityHandler(adapter),
                 new WritableCapabilityHandler(adapter)
         );

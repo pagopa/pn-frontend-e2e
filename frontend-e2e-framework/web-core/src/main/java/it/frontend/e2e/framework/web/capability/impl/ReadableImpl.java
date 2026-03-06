@@ -8,10 +8,11 @@ import it.frontend.e2e.framework.web.model.WebPresentationElement;
 import it.frontend.e2e.framework.web.model.WebSelector;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class ReadableImpl<T extends WebPresentationElement> implements Readable<T> {
+public class ReadableImpl<T extends WebPresentationElement> extends AbstractCapabilityImpl implements Readable<T> {
 
-    private final IWebPresentationApiAdapter adapter;
+    public ReadableImpl(IWebPresentationApiAdapter adapter) {
+        super(adapter);
+    }
 
     @Override
     @SuppressWarnings("unchecked")

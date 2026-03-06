@@ -13,3 +13,7 @@ url:
 
 token:
   mittente: ${pn.bearer-token.tokentestMittente}
+
+logging:
+  level:
+    E2E-Framework: DEBUG

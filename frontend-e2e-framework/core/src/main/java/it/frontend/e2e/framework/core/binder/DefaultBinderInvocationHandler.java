@@ -3,6 +3,8 @@ package it.frontend.e2e.framework.core.binder;
 import it.frontend.e2e.framework.annotation.Selector;
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
+import it.frontend.e2e.framework.core.logging.ILogger;
+import it.frontend.e2e.framework.core.logging.Slf4jLogger;
 import it.frontend.e2e.framework.core.model.DomainElement;
 
 import java.lang.reflect.InvocationHandler;
@@ -13,6 +15,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
 
     protected final ICapabilityDispatcher dispatcher;
     private final BindContext ctx;
+    private final ILogger logger = new Slf4jLogger();
 
     public DefaultBinderInvocationHandler(ICapabilityDispatcher dispatcher) {
         this.dispatcher = dispatcher;
@@ -46,6 +49,10 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
             String childSel = resolveSelector(method);
             String fullSel = compose(ctx.selector(), childSel);
 
+            logger.logDebug("Binding recursive element: " + rt.getSimpleName() +
+                    " | From: " + method.getDeclaringClass().getSimpleName() +
+                    " | Selector: " + fullSel);
+
             return Proxy.newProxyInstance(
                     rt.getClassLoader(),
                     new Class<?>[]{rt},
@@ -54,6 +61,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         }
 
         // Gestione dei metodi delle capability
+        logger.logDebug("Dispatching capability method: " + method.getName() + " | Selector: " + ctx.selector());
         return dispatcher.dispatch(method, args, ctx.selector());
     }
 

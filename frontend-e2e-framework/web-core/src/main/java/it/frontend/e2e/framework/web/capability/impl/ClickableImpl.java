@@ -6,10 +6,11 @@ import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.model.WebSelector;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class ClickableImpl implements Clickable {
+public class ClickableImpl extends AbstractCapabilityImpl implements Clickable {
 
-    private final IWebPresentationApiAdapter adapter;
+    public ClickableImpl(IWebPresentationApiAdapter adapter) {
+        super(adapter);
+    }
 
     @Override
     public void click() {
