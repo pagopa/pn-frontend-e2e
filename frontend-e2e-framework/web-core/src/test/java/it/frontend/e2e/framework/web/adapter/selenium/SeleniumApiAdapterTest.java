@@ -101,7 +101,7 @@ class SeleniumApiAdapterTest {
         WebDriver driver = mock(WebDriver.class, withSettings().extraInterfaces(JavascriptExecutor.class));
         when(driver.findElement(any(By.class))).thenThrow(new NoSuchElementException("not found"));
 
-        SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver);
+        SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver, 1);
 
         assertFalse(adapter.isDisplayed(WebSelector.of("missingId")));
     }

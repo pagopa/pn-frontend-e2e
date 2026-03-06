@@ -21,7 +21,7 @@ import java.util.Optional;
 
 public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
-    private static final long DEFAULT_WAIT_TIMEOUT_SECONDS = 50;
+    private static long DEFAULT_WAIT_TIMEOUT_SECONDS = 50;
     private final WebDriver driver;
 
     public SeleniumApiAdapter() {
@@ -31,6 +31,14 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     public SeleniumApiAdapter(BrowserSettings settings) {
         BrowserSettings safeSettings = settings == null ? BrowserSettings.defaults() : settings;
         this.driver = WebDriverFactory.create(safeSettings.browser(), safeSettings);
+    }
+
+    SeleniumApiAdapter(WebDriver driver, long defaultWaitTimeoutSeconds) {
+        if (driver == null) {
+            throw new IllegalArgumentException("driver cannot be null");
+        }
+        this.driver = driver;
+        DEFAULT_WAIT_TIMEOUT_SECONDS = defaultWaitTimeoutSeconds;
     }
 
     SeleniumApiAdapter(WebDriver driver) {
