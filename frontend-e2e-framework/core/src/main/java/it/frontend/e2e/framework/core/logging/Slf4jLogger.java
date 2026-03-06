@@ -9,7 +9,7 @@ public class Slf4jLogger implements ILogger {
     @Override
     public void logAction(String selector, String actionType, String details) {
         String detailsStr = details != null && !details.isBlank() ? " | Details: " + details : "";
-        logger.info("[ACTION] {} | Type: {}{}", selector, actionType, detailsStr);
+        logger.info("[ACTION] Type: {}{} | {}", actionType, detailsStr, selector);
     }
 
     @Override
