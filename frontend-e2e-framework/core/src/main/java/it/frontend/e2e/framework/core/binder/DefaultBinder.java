@@ -24,6 +24,11 @@ public class DefaultBinder implements IBinder {
         this.invocationHandler = new DefaultBinderInvocationHandler(dispatcher);
     }
 
+    public DefaultBinder(InvocationHandler invocationHandler, List<ICapabilityHandler> handlers) {
+        this.handlers = handlers;
+        this.invocationHandler = invocationHandler;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public <T extends Capability> T bind(Class<T> type) {

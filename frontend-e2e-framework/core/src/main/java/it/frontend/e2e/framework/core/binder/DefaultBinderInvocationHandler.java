@@ -65,7 +65,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         return dispatcher.dispatch(method, args, ctx.selector());
     }
 
-    public static String compose(String parent, String child) {
+    public String compose(String parent, String child) {
         if (parent == null || parent.isBlank()) return child;
 
         // "assoluto"
