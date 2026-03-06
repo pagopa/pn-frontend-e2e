@@ -7,13 +7,16 @@ import it.frontend.e2e.framework.web.model.WebLocation;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
 import it.frontend.e2e.framework.web.model.WebSelector;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
@@ -37,7 +40,7 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
             WebPresentationElement element = new WebPresentationElement(selector, null);
             element.setText(webElement.getText());
             element.setTag(webElement.getTagName());
-            //element.setAttributes(webElement.getDomAttributes());
+            element.setAttributes(readAttributes(webElement));
             return Optional.of(element);
         } catch (Exception e) {
             return Optional.empty();
@@ -160,5 +163,30 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     private WebElement findWebElement(WebSelector selector) {
         return findWebElement(selector, DEFAULT_WAIT_TIMEOUT_SECONDS);
+    }
+
+    private Map<String, String> readAttributes(WebElement element) {
+        if (!(driver instanceof JavascriptExecutor js)) {
+            return Map.of();
+        }
+
+        Object raw = js.executeScript(
+                "const attrs = arguments[0].attributes;" +
+                        "const out = {};" +
+                        "for (let i =0; i < attrs.length; i++) {" +
+                        " out[attrs[i].name] = attrs[i].value;" +
+                        "}" +
+                        "return out;",
+                element );
+
+        if (raw instanceof Map<?, ?> map) {
+            Map<String, String> attributes = new LinkedHashMap<>();
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                attributes.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()));
+            }
+            return attributes;
+        }
+
+        return Map.of();
     }
 }
