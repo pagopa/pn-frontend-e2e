@@ -4,7 +4,7 @@ import it.frontend.e2e.framework.core.model.Selector;
 import lombok.Getter;
 
 @Getter
-public class WebSelector implements Selector {
+public class XPathSelector implements Selector {
 
     /**
      * Enum per rappresentare i tipi di selettore web supportati
@@ -31,7 +31,7 @@ public class WebSelector implements Selector {
      * @param selector la stringa del selettore web
      * @throws IllegalArgumentException se il selettore non è valido
      */
-    public WebSelector(String selector) {
+    public XPathSelector(String selector) {
         if (selector == null || selector.trim().isEmpty()) {
             throw new IllegalArgumentException("Il selettore non puo essere null o vuoto");
         }
@@ -47,8 +47,8 @@ public class WebSelector implements Selector {
      * @return una nuova istanza di WebSelector
      * @throws IllegalArgumentException se il selettore non è valido
      */
-    public static WebSelector of(String selector) {
-        return new WebSelector(selector);
+    public static XPathSelector of(String selector) {
+        return new XPathSelector(selector);
     }
 
     /**

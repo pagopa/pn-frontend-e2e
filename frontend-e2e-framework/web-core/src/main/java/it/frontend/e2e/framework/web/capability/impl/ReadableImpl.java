@@ -5,8 +5,7 @@ import it.frontend.e2e.framework.core.capability.context.CapabilityContext;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.capability.core.Readable;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
-import it.frontend.e2e.framework.web.model.WebSelector;
-import lombok.RequiredArgsConstructor;
+import it.frontend.e2e.framework.web.model.XPathSelector;
 
 public class ReadableImpl<T extends WebPresentationElement> extends AbstractCapabilityImpl implements Readable<T> {
 
@@ -17,21 +16,21 @@ public class ReadableImpl<T extends WebPresentationElement> extends AbstractCapa
     @Override
     @SuppressWarnings("unchecked")
     public T read() {
-        WebSelector webSelector = WebSelector.of(CapabilityContext.selector());
-        return (T) adapter.findElement(webSelector).orElse(null);
+        XPathSelector xPathSelector = XPathSelector.of(CapabilityContext.selector());
+        return (T) adapter.findElement(xPathSelector).orElse(null);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public T readAndAssert() {
-        WebSelector webSelector = WebSelector.of(CapabilityContext.selector());
-        return (T) adapter.findElement(webSelector).orElseThrow(
+        XPathSelector xPathSelector = XPathSelector.of(CapabilityContext.selector());
+        return (T) adapter.findElement(xPathSelector).orElseThrow(
                 () -> {
                     String errorMsg = String.format(
                             "Element not found for selector: %s. " +
                             "Check if selector is correct or element is present in DOM. " +
                             "Consider increasing wait timeout if page loads slowly.",
-                            webSelector
+                            xPathSelector
                     );
                     return new RuntimeException(errorMsg);
                 }
