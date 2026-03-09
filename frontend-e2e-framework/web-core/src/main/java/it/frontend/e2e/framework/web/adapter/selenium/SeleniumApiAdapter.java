@@ -141,7 +141,7 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     public Optional<String> getText(WebSelector selector) {
         try {
             WebElement element = findWebElement(selector);
-            return Optional.of(element.getText());
+            return Optional.of(resolveElementText(element));
         } catch (Exception e) {
             return Optional.empty();
         }
@@ -219,10 +219,24 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     private WebPresentationElement toPresentationElement(WebSelector selector, WebElement webElement) {
         WebPresentationElement element = new WebPresentationElement(selector, getLocation());
-        element.setText(webElement.getText());
+        element.setText(resolveElementText(webElement));
         element.setTag(webElement.getTagName());
         element.setAttributes(readAttributes(webElement));
         return element;
+    }
+
+    private String resolveElementText(WebElement element) {
+        String tagName = element.getTagName();
+        if (tagName != null) {
+            String normalizedTag = tagName.toLowerCase();
+            if ("input".equals(normalizedTag) || "textarea".equals(normalizedTag)) {
+                String value = element.getAttribute("value");
+                return value == null ? "" : value;
+            }
+        }
+
+        String text = element.getText();
+        return text == null ? "" : text;
     }
 
     private <T> void applyAssertion(T value, AssertionAction<T> assertion) {
