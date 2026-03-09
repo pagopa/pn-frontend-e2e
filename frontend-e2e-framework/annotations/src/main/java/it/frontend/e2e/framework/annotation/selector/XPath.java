@@ -1,4 +1,4 @@
-package it.frontend.e2e.framework.annotation;
+package it.frontend.e2e.framework.annotation.selector;
 
 import java.lang.annotation.*;
 
@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Selector {
+public @interface XPath {
     /**
      * The selector string to locate the element.
      */

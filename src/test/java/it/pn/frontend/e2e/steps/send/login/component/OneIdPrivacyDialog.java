@@ -1,15 +1,15 @@
 package it.pn.frontend.e2e.steps.send.login.component;
 
-import it.frontend.e2e.framework.annotation.Selector;
+import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.capability.core.Clickable;
 import it.frontend.e2e.framework.web.domain.Component;
 
 public interface OneIdPrivacyDialog extends Component {
 
-    @Selector("/div[2]/button[2]")
+    @XPath("/div[2]/button[2]")
     Clickable acceptButton();
 
-    @Selector("/div[2]/button[1]")
+    @XPath("/div[2]/button[1]")
     Clickable rejectButton();
 
     default void accept(){

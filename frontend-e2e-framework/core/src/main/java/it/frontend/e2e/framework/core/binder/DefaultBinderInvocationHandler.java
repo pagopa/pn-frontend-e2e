@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.binder;
 
-import it.frontend.e2e.framework.annotation.Selector;
+import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.logging.ILogger;
@@ -79,11 +79,11 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
     }
 
     private static String resolveSelector(Method method) {
-        Selector onMethod = method.getAnnotation(Selector.class);
+        XPath onMethod = method.getAnnotation(XPath.class);
         if (onMethod != null) return onMethod.value();
 
         // fallback: selector sul return type
-        Selector onType = method.getReturnType().getAnnotation(Selector.class);
+        XPath onType = method.getReturnType().getAnnotation(XPath.class);
         if (onType != null) return onType.value();
 
         return "";

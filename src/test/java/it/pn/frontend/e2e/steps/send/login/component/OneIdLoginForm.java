@@ -1,6 +1,6 @@
 package it.pn.frontend.e2e.steps.send.login.component;
 
-import it.frontend.e2e.framework.annotation.Selector;
+import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.capability.core.Clickable;
 import it.frontend.e2e.framework.web.capability.core.Writable;
 import it.frontend.e2e.framework.web.domain.Component;
@@ -8,16 +8,16 @@ import it.pn.frontend.e2e.enums.User;
 
 public interface OneIdLoginForm extends Component {
 
-    @Selector("//*[@id=\"username\"]")
+    @XPath("//*[@id=\"username\"]")
     Writable<String> username();
 
-    @Selector("//*[@id=\"password\"]")
+    @XPath("//*[@id=\"password\"]")
     Writable<String> password();
 
-    @Selector("//*[@id=\"login-form\"]/div[4]/button[1]")
+    @XPath("//*[@id=\"login-form\"]/div[4]/button[1]")
     Clickable submit();
 
-    @Selector("//*[@id=\"consent-form\"]")
+    @XPath("//*[@id=\"consent-form\"]")
     OneIdPrivacyDialog oneIdPrivacyDialog();
 
     OneTrustBanner oneTrustBanner();

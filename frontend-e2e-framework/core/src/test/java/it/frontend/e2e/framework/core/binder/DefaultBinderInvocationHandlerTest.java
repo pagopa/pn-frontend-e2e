@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.core.binder;
 
-import it.frontend.e2e.framework.annotation.Selector;
+import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.binder.impl.TestInvocationHandlerDefault;
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
@@ -36,7 +36,7 @@ class DefaultBinderInvocationHandlerTest {
     }
 
     public interface TestDomainElement extends DomainElement {
-        @Selector("/child")
+        @XPath("/child")
         TestChildElement child();
     }
 
@@ -49,7 +49,7 @@ class DefaultBinderInvocationHandlerTest {
     }
 
     public interface TestWithSelectorOnMethod {
-        @Selector("/button[@id='submit']")
+        @XPath("/button[@id='submit']")
         TestDomainElement button();
     }
 
@@ -57,7 +57,7 @@ class DefaultBinderInvocationHandlerTest {
         TestAnnotatedElement element();
     }
 
-    @Selector("/annotated")
+    @XPath("/annotated")
     public interface TestAnnotatedElement extends DomainElement {
         String getValue();
     }
@@ -485,27 +485,27 @@ class DefaultBinderInvocationHandlerTest {
     }
 
     public interface TestAbsoluteSelector extends DomainElement {
-        @Selector("//div[@class='absolute']")
+        @XPath("//div[@class='absolute']")
         TestChildElement absoluteElement();
     }
 
     public interface TestParenthesisSelector extends DomainElement {
-        @Selector("(//div[@id='test'])[1]")
+        @XPath("(//div[@id='test'])[1]")
         TestChildElement parenElement();
     }
 
     public interface TestDotSlashSelector extends DomainElement {
-        @Selector(".//span[@class='relative']")
+        @XPath(".//span[@class='relative']")
         TestChildElement dotElement();
     }
 
     public interface TestAnyAttributeSelector extends DomainElement {
-        @Selector("//*[@data-testid='element']")
+        @XPath("//*[@data-testid='element']")
         TestChildElement anyAttrElement();
     }
 
     public interface TestNoLeadingSlashSelector extends DomainElement {
-        @Selector("child")
+        @XPath("child")
         TestChildElement childElement();
     }
 
