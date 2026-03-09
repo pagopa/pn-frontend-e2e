@@ -2,6 +2,7 @@ package it.frontend.e2e.framework.annotation.processor;
 
 import com.google.auto.service.AutoService;
 import it.frontend.e2e.framework.annotation.processor.domain_validation.DomainValidationProcessor;
+import it.frontend.e2e.framework.annotation.processor.xpath.XPathProcessor;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -24,6 +25,7 @@ public final class Processor extends AbstractProcessor {
     private static final Logger LOGGER = Logger.getLogger(Processor.class.getName());
 
     private final List<javax.annotation.processing.Processor> processors = List.of(
+            new XPathProcessor(),
             new DomainValidationProcessor()
     );
 
@@ -48,14 +50,9 @@ public final class Processor extends AbstractProcessor {
         boolean result = true;
 
         for (javax.annotation.processing.Processor processor : processors) {
-            try {
-                LOGGER.log(Level.FINE, "Processing annotations with: " + processor.getClass().getName());
-                boolean processorResult = processor.process(annotations, roundEnv);
-                result = result && processorResult;
-            } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Error during processing with: " + processor.getClass().getName(), e);
-                result = false;
-            }
+            LOGGER.log(Level.FINE, "Processing annotations with: " + processor.getClass().getName());
+            boolean processorResult = processor.process(annotations, roundEnv);
+            result = result && processorResult;
         }
 
         return result;
