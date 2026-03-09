@@ -7,10 +7,10 @@ import it.frontend.e2e.framework.web.domain.Component;
 @XPath("//*[@id=\"onetrust-banner-sdk\"]")
 public interface OneTrustBanner extends Component {
 
-    @XPath("//*[@id=\"onetrust-accept-btn-handler\"]")
+    @XPath(".//*[@id=\"onetrust-accept-btn-handler\"]")
     Clickable acceptButton();
 
-    @XPath("//*[@id=\"onetrust-reject-all-handler\"]")
+    @XPath(".//*[@id=\"onetrust-reject-all-handler\"]")
     Clickable rejectButton();
 
     default void accept(){
