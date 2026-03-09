@@ -66,16 +66,21 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         return dispatcher.dispatch(method, args, ctx.selector());
     }
 
+    /**
+     * Si assume che il parent sia un xPath valido o vuoto, e che il child sia un xpath relativo o vuoto. La composizione è una semplice concatenazione.
+     */
     public String compose(String parent, String child) {
         if (parent == null || parent.isBlank()) return child;
+        if (child == null || child.isBlank()) return parent;
 
-        // "assoluto"
-        if (child.startsWith("//") || child.startsWith("(//") || child.startsWith(".//"))
-            return child;
+        parent = parent.trim();
+        child = child.trim();
 
-        if (child.startsWith("/"))
-            return parent + child;
+        if (child.startsWith("./")) {
+            child = child.substring(2);
+        }
 
+        if (parent.endsWith("/")) return parent + child;
         return parent + "/" + child;
     }
 
