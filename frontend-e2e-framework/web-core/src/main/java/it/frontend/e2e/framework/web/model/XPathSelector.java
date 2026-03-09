@@ -19,7 +19,7 @@ public class XPathSelector implements Selector {
         }
 
         this.selector = selector.trim();
-        validateXPath(this.selector);
+        validate(this.selector);
     }
 
     /**
@@ -35,7 +35,7 @@ public class XPathSelector implements Selector {
     /**
      * Valida un XPath
      */
-    private void validateXPath(String selector) {
+    public void validate(String selector) {
         if (!isXPathNotation(selector)) {
             throw new IllegalArgumentException(
                 String.format("Il selettore '%s' non e valido. Sono supportati solo XPath", selector)
