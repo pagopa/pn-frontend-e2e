@@ -3,6 +3,7 @@ package it.pn.frontend.e2e.parameter_type;
 import io.cucumber.java.ParameterType;
 import it.frontend.e2e.framework.web.model.WebLocation;
 import it.pn.frontend.e2e.model.PageInfo;
+import it.pn.frontend.e2e.steps.send.login.page.NuovaNotificaPage;
 import it.pn.frontend.e2e.steps.send.login.page.OneIdPage;
 import it.pn.frontend.e2e.steps.send.mittenti.Dashboard;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,11 +16,12 @@ public class PageType {
     @Value("${token.mittente}")
     private String token;
 
-    @ParameterType("LoginPage|Dashboard")
+    @ParameterType("LoginPage|Dashboard|NuovaNotifica")
     public PageInfo page(String page) {
         return switch (page) {
             case "LoginPage" -> new PageInfo(WebLocation.of(null), OneIdPage.class);
             case "Dashboard" -> new PageInfo(WebLocation.of(mittentiBaseUrl+"#selfCareToken="+token), Dashboard.class);
+            case "NuovaNotifica" -> new PageInfo(WebLocation.of(mittentiBaseUrl+"/nuova-notifica"+"#selfCareToken="+token), NuovaNotificaPage.class);
             default -> throw new IllegalArgumentException("Invalid page");
         };
     }

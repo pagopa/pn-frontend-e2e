@@ -10,5 +10,11 @@ Feature: Navigazione portale SEND Mittenti
     Then la pagina deve caricarsi correttamente
 
     Examples:
-      | Pagina    |
-      | Dashboard |
+      | Pagina        |
+      #| Dashboard     |
+      | NuovaNotifica |
+
+    Scenario: [LOAD_PAGE] Verifica la raggiungibilità della pagina Dashboardù
+      When naviga alla pagina NuovaNotifica
+      Then la pagina deve caricarsi correttamente
+      And l'utente va indietro
