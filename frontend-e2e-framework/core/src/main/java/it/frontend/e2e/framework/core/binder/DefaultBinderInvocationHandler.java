@@ -1,6 +1,7 @@
 package it.frontend.e2e.framework.core.binder;
 
 import it.frontend.e2e.framework.annotation.selector.XPath;
+import it.frontend.e2e.framework.core.binder.context.BindContext;
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.logging.ILogger;
