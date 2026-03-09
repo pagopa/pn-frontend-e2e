@@ -10,7 +10,6 @@ import it.pn.frontend.e2e.steps.send.login.component.OneIdLoginForm;
 
 public interface OneIdPage extends Page {
 
-    @XPath("//*[@id=\"root\"]/div/div[2]")
     interface AuthArea extends Component {
 
         interface ProviderDialog extends Component {
@@ -22,10 +21,10 @@ public interface OneIdPage extends Page {
             }
         }
 
-        @XPath("/div[1]/div/h3")
+        @XPath("//*[@id=\"root\"]/div/div[2]/div[1]/div/h3")
         Readable<String> header();
 
-        @XPath("/div[3]/div[1]")
+        @XPath("//*[@id=\"root\"]/div/div[2]/div[3]/div[1]")
         Clickable spidButton();
 
         ProviderDialog providerDialog();
