@@ -14,27 +14,21 @@ class XPathSelectorTest {
     @DisplayName("accetta un XPath assoluto")
     void shouldAcceptAbsoluteXPath() {
         XPathSelector selector = new XPathSelector("//div[@id='root']");
-
         assertEquals("//div[@id='root']", selector.getSelector());
-        assertEquals(XPathSelector.SelectorType.XPATH, selector.getSelectorType());
     }
 
     @Test
     @DisplayName("accetta un XPath relativo")
     void shouldAcceptRelativeXPath() {
         XPathSelector selector = new XPathSelector(".//button[@type='submit']");
-
         assertEquals(".//button[@type='submit']", selector.getSelector());
-        assertEquals(XPathSelector.SelectorType.XPATH, selector.getSelectorType());
     }
 
     @Test
     @DisplayName("trim del selettore")
     void shouldTrimSelector() {
         XPathSelector selector = new XPathSelector("  /div[1]/span  ");
-
         assertEquals("/div[1]/span", selector.getSelector());
-        assertEquals(XPathSelector.SelectorType.XPATH, selector.getSelectorType());
     }
 
     @Test

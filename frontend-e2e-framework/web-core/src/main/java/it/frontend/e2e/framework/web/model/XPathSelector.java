@@ -6,25 +6,7 @@ import lombok.Getter;
 @Getter
 public class XPathSelector implements Selector {
 
-    /**
-     * Enum per rappresentare i tipi di selettore web supportati
-     */
-    public enum SelectorType {
-        XPATH("XPath");
-
-        private final String displayName;
-
-        SelectorType(String displayName) {
-            this.displayName = displayName;
-        }
-
-        public String getDisplayName() {
-            return displayName;
-        }
-    }
-
     private final String selector;
-    private final SelectorType selectorType;
 
     /**
      * Costruisce un WebSelector analizzando automaticamente il tipo di selettore
@@ -38,7 +20,6 @@ public class XPathSelector implements Selector {
 
         this.selector = selector.trim();
         validateXPath(this.selector);
-        this.selectorType = SelectorType.XPATH;
     }
 
     /**
@@ -86,6 +67,6 @@ public class XPathSelector implements Selector {
 
     @Override
     public String toString() {
-        return String.format("WebSelector{selector='%s', type=%s}", selector, selectorType.getDisplayName());
+        return String.format("XPathSelector{selector='%s'}", selector);
     }
 }
