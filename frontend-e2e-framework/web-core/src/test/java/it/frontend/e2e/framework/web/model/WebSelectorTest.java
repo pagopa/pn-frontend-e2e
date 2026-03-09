@@ -3,14 +3,16 @@ package it.frontend.e2e.framework.web.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("WebSelector")
 class WebSelectorTest {
 
     @Test
-    @DisplayName("dovrebbe riconoscere correttamente un XPath che inizia con //")
-    void shouldRecognizeXPathStartingWithSlashes() {
+    @DisplayName("accetta un XPath assoluto")
+    void shouldAcceptAbsoluteXPath() {
         WebSelector selector = new WebSelector("//div[@id='root']");
 
         assertEquals("//div[@id='root']", selector.getSelector());
@@ -18,220 +20,58 @@ class WebSelectorTest {
     }
 
     @Test
-    @DisplayName("dovrebbe riconoscere correttamente un XPath che inizia con parentesi")
-    void shouldRecognizeXPathStartingWithParenthesis() {
-        WebSelector selector = new WebSelector("(//div[@id='root'])");
+    @DisplayName("accetta un XPath relativo")
+    void shouldAcceptRelativeXPath() {
+        WebSelector selector = new WebSelector(".//button[@type='submit']");
 
-        assertEquals("(//div[@id='root'])", selector.getSelector());
+        assertEquals(".//button[@type='submit']", selector.getSelector());
         assertEquals(WebSelector.SelectorType.XPATH, selector.getSelectorType());
     }
 
     @Test
-    @DisplayName("dovrebbe riconoscere correttamente un ID semplice")
-    void shouldRecognizeSimpleId() {
-        WebSelector selector = new WebSelector("myElement");
+    @DisplayName("trim del selettore")
+    void shouldTrimSelector() {
+        WebSelector selector = new WebSelector("  /div[1]/span  ");
 
-        assertEquals("myElement", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.ID, selector.getSelectorType());
+        assertEquals("/div[1]/span", selector.getSelector());
+        assertEquals(WebSelector.SelectorType.XPATH, selector.getSelectorType());
     }
 
     @Test
-    @DisplayName("dovrebbe riconoscere correttamente un ID con trattini e underscore")
-    void shouldRecognizeIdWithDashesAndUnderscore() {
-        WebSelector selector = new WebSelector("my-element_id");
-
-        assertEquals("my-element_id", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.ID, selector.getSelectorType());
+    @DisplayName("rifiuta selettori non XPath")
+    void shouldRejectNonXPathSelectors() {
+        assertThrows(IllegalArgumentException.class, () -> new WebSelector("myElement"));
+        assertThrows(IllegalArgumentException.class, () -> new WebSelector("#root > div"));
+        assertThrows(IllegalArgumentException.class, () -> new WebSelector("div.container"));
     }
 
     @Test
-    @DisplayName("dovrebbe riconoscere correttamente un ID numerico")
-    void shouldRecognizeNumericId() {
-        WebSelector selector = new WebSelector("element123");
-
-        assertEquals("element123", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.ID, selector.getSelectorType());
+    @DisplayName("rifiuta parentesi non bilanciate")
+    void shouldRejectUnbalancedParentheses() {
+        assertThrows(IllegalArgumentException.class, () -> new WebSelector("(//div[@id='root']"));
     }
 
     @Test
-    @DisplayName("dovrebbe riconoscere correttamente un CSS Query con classe singola")
-    void shouldRecognizeSingleClassCssQuery() {
-        WebSelector selector = new WebSelector(".myClass");
-
-        assertEquals(".myClass", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.CSS_QUERY, selector.getSelectorType());
+    @DisplayName("rifiuta parentesi quadre non bilanciate")
+    void shouldRejectUnbalancedBrackets() {
+        assertThrows(IllegalArgumentException.class, () -> new WebSelector("//div[@id='root'"));
     }
 
     @Test
-    @DisplayName("dovrebbe riconoscere correttamente un CSS Query con ID")
-    void shouldRecognizeIdCssQuery() {
-        WebSelector selector = new WebSelector("#root");
-
-        assertEquals("#root", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.CSS_QUERY, selector.getSelectorType());
+    @DisplayName("rifiuta null o stringhe vuote")
+    void shouldRejectNullOrBlankSelector() {
+        assertThrows(IllegalArgumentException.class, () -> new WebSelector(null));
+        assertThrows(IllegalArgumentException.class, () -> new WebSelector(""));
+        assertThrows(IllegalArgumentException.class, () -> new WebSelector("   "));
     }
 
     @Test
-    @DisplayName("dovrebbe riconoscere correttamente un CSS Query con tag HTML")
-    void shouldRecognizeTagNameCssQuery() {
-        WebSelector selector = new WebSelector("div");
-
-        assertEquals("div", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.CSS_QUERY, selector.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe riconoscere correttamente un CSS Selector complesso con combinatore >")
-    void shouldRecognizeComplexCssSelectorWithChildCombinator() {
-        WebSelector selector = new WebSelector("#root > div > div.MuiGrid-root");
-
-        assertEquals("#root > div > div.MuiGrid-root", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.CSS_SELECTOR, selector.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe riconoscere correttamente un CSS Selector con combinatore +")
-    void shouldRecognizeComplexCssSelectorWithAdjacentCombinator() {
-        WebSelector selector = new WebSelector("div + p");
-
-        assertEquals("div + p", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.CSS_SELECTOR, selector.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe riconoscere correttamente un CSS Selector con combinatore ~")
-    void shouldRecognizeComplexCssSelectorWithGeneralSiblingCombinator() {
-        WebSelector selector = new WebSelector("div ~ p");
-
-        assertEquals("div ~ p", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.CSS_SELECTOR, selector.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe riconoscere correttamente un CSS Selector MUI complesso")
-    void shouldRecognizeComplexMuiCssSelector() {
-        WebSelector selector = new WebSelector("#root > div > div.MuiGrid-root.MuiGrid-container.MuiGrid-direction-xs-column.css-pmjnd8");
-
-        assertEquals("#root > div > div.MuiGrid-root.MuiGrid-container.MuiGrid-direction-xs-column.css-pmjnd8", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.CSS_SELECTOR, selector.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe trimmare gli spazi vuoti dal selettore")
-    void shouldTrimWhitespace() {
-        WebSelector selector = new WebSelector("  myElement  ");
-
-        assertEquals("myElement", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.ID, selector.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe lanciare eccezione quando il selettore è null")
-    void shouldThrowExceptionWhenSelectorIsNull() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new WebSelector(null)
-        );
-    }
-
-    @Test
-    @DisplayName("dovrebbe lanciare eccezione quando il selettore è vuoto")
-    void shouldThrowExceptionWhenSelectorIsEmpty() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new WebSelector("")
-        );
-    }
-
-    @Test
-    @DisplayName("dovrebbe lanciare eccezione quando il selettore è solo spazi")
-    void shouldThrowExceptionWhenSelectorIsOnlyWhitespace() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new WebSelector("   ")
-        );
-    }
-
-    @Test
-    @DisplayName("dovrebbe lanciare eccezione quando il selettore non è valido")
-    void shouldThrowExceptionWhenSelectorIsInvalid() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new WebSelector("@#$%^&*()")
-        );
-    }
-
-    @Test
-    @DisplayName("dovrebbe lanciare eccezione quando XPath ha parentesi non bilanciate")
-    void shouldThrowExceptionWhenXPathHasUnbalancedParentheses() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new WebSelector("//div[@id='root'")
-        );
-    }
-
-    @Test
-    @DisplayName("dovrebbe lanciare eccezione quando CSS Selector ha parentesi quadre non bilanciate")
-    void shouldThrowExceptionWhenCssSelectorHasUnbalancedBrackets() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> new WebSelector("div[class='test'")
-        );
-    }
-
-    @Test
-    @DisplayName("dovrebbe restituire una stringa di rappresentazione significativa")
-    void shouldReturnMeaningfulToString() {
+    @DisplayName("toString include valore e tipo")
+    void shouldRenderToString() {
         WebSelector selector = new WebSelector("//div[@id='root']");
-        String toString = selector.toString();
+        String text = selector.toString();
 
-        assertTrue(toString.contains("//div[@id='root']"));
-        assertTrue(toString.contains("XPath"));
-    }
-
-    @Test
-    @DisplayName("dovrebbe preservare il tipo di selettore per due istanze diverse dello stesso selettore")
-    void shouldPreserveSelectorTypeForDifferentInstances() {
-        WebSelector selector1 = new WebSelector("#myId");
-        WebSelector selector2 = new WebSelector("#myId");
-
-        assertEquals(selector1.getSelectorType(), selector2.getSelectorType());
-        assertEquals(WebSelector.SelectorType.CSS_QUERY, selector1.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe gestire XPath con attributi multipli")
-    void shouldHandleXPathWithMultipleAttributes() {
-        WebSelector selector = new WebSelector("//div[@id='root'][@class='container']");
-
-        assertEquals("//div[@id='root'][@class='container']", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.XPATH, selector.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe gestire XPath con funzioni XPath")
-    void shouldHandleXPathWithFunctions() {
-        WebSelector selector = new WebSelector("//div[contains(@id, 'root')]");
-
-        assertEquals("//div[contains(@id, 'root')]", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.XPATH, selector.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe gestire CSS Query con tag e classe combinati")
-    void shouldHandleCssQueryWithTagAndClass() {
-        WebSelector selector = new WebSelector("div.container");
-
-        assertEquals("div.container", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.CSS_QUERY, selector.getSelectorType());
-    }
-
-    @Test
-    @DisplayName("dovrebbe gestire CSS Selector con attributi")
-    void shouldHandleCssSelectorWithAttributes() {
-        WebSelector selector = new WebSelector("div[data-test='value']");
-
-        assertEquals("div[data-test='value']", selector.getSelector());
-        assertEquals(WebSelector.SelectorType.CSS_QUERY, selector.getSelectorType());
+        assertTrue(text.contains("//div[@id='root']"));
+        assertTrue(text.contains("XPath"));
     }
 }

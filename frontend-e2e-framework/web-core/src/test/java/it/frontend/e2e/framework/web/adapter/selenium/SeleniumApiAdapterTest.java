@@ -44,7 +44,7 @@ class SeleniumApiAdapterTest {
         when(js.executeScript(anyString(), eq(webElement))).thenReturn(Map.of("id", "login-btn", "class", "primary"));
 
         SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver);
-        WebSelector selector = WebSelector.of("loginButton");
+        WebSelector selector = WebSelector.of("//button[@id='login-btn']");
 
         Optional<WebPresentationElement> found = adapter.findElement(selector);
 
@@ -64,7 +64,7 @@ class SeleniumApiAdapterTest {
         when(driver.findElement(any(By.class))).thenReturn(webElement);
 
         SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver);
-        WebSelector selector = WebSelector.of("username");
+        WebSelector selector = WebSelector.of("//input[@id='username']");
 
         adapter.click(selector);
         adapter.sendText(selector, "mario.rossi");
@@ -84,7 +84,7 @@ class SeleniumApiAdapterTest {
         when(webElement.getText()).thenReturn("Codice OTP");
 
         SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver);
-        WebSelector selector = WebSelector.of("otpLabel");
+        WebSelector selector = WebSelector.of("//label[@id='otp-label']");
         @SuppressWarnings("unchecked")
         AssertionAction<String> assertion = mock(AssertionAction.class);
 
@@ -103,7 +103,7 @@ class SeleniumApiAdapterTest {
 
         SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver, 1);
 
-        assertFalse(adapter.isDisplayed(WebSelector.of("missingId")));
+        assertFalse(adapter.isDisplayed(WebSelector.of("//*[@id='missingId']")));
     }
 
     @Test
@@ -116,7 +116,7 @@ class SeleniumApiAdapterTest {
 
         SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver);
 
-        adapter.waitUntilElementDisappears(WebSelector.of("toastMessage"), 1);
+        adapter.waitUntilElementDisappears(WebSelector.of("//*[@id='toast-message']"), 1);
 
         verify(driver).findElement(any(By.class));
     }
@@ -156,7 +156,7 @@ class SeleniumApiAdapterTest {
         when(js.executeScript(anyString(), eq(second))).thenReturn(Map.of("data-id", "2"));
 
         SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver);
-        Optional<List<WebPresentationElement>> elements = adapter.findElements(WebSelector.of("li.item"));
+        Optional<List<WebPresentationElement>> elements = adapter.findElements(WebSelector.of("//li[@class='item']"));
 
         assertTrue(elements.isPresent());
         assertEquals(2, elements.get().size());

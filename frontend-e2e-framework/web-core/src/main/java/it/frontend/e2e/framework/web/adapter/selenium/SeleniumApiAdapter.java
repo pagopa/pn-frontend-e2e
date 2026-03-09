@@ -208,13 +208,7 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     }
 
     private By toBy(WebSelector selector) {
-        String selectorValue = selector.getSelector();
-
-        return switch (selector.getSelectorType()) {
-            case ID -> new By.ById(selectorValue);
-            case XPATH -> new By.ByXPath(selectorValue);
-            case CSS_QUERY, CSS_SELECTOR -> new By.ByCssSelector(selectorValue);
-        };
+        return new By.ByXPath(selector.getSelector());
     }
 
     private WebPresentationElement toPresentationElement(WebSelector selector, WebElement webElement) {
