@@ -3,7 +3,7 @@ package it.frontend.e2e.framework.web.adapter.selenium;
 import it.frontend.e2e.framework.core.assertion.AssertionAction;
 import it.frontend.e2e.framework.web.model.WebLocation;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
-import it.frontend.e2e.framework.web.model.XPathSelector;
+import it.frontend.e2e.framework.core.model.selector.XPathSelector;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;

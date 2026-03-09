@@ -1,5 +1,6 @@
 package it.frontend.e2e.framework.web.model;
 
+import it.frontend.e2e.framework.core.model.selector.XPathSelector;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,5 @@
-package it.frontend.e2e.framework.web.model;
+package it.frontend.e2e.framework.core.model.selector;
 
-import it.frontend.e2e.framework.core.model.Selector;
 import lombok.Getter;
 
 @Getter

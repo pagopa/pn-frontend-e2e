@@ -5,7 +5,7 @@ import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.adapter.model.BrowserSettings;
 import it.frontend.e2e.framework.web.model.WebLocation;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
-import it.frontend.e2e.framework.web.model.XPathSelector;
+import it.frontend.e2e.framework.core.model.selector.XPathSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

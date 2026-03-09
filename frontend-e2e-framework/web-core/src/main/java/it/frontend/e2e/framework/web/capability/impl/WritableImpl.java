@@ -5,7 +5,7 @@ import it.frontend.e2e.framework.core.capability.context.CapabilityContext;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.capability.core.Writable;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
-import it.frontend.e2e.framework.web.model.XPathSelector;
+import it.frontend.e2e.framework.core.model.selector.XPathSelector;
 
 public class WritableImpl<T> extends AbstractCapabilityImpl implements Writable<T> {
 

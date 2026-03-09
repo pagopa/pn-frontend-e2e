@@ -5,7 +5,7 @@ import it.frontend.e2e.framework.core.capability.context.CapabilityContext;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.capability.core.Readable;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
-import it.frontend.e2e.framework.web.model.XPathSelector;
+import it.frontend.e2e.framework.core.model.selector.XPathSelector;
 
 public class ReadableImpl<T extends WebPresentationElement> extends AbstractCapabilityImpl implements Readable<T> {
 
