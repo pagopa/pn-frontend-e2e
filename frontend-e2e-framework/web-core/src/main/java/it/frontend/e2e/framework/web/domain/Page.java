@@ -1,6 +1,6 @@
 package it.frontend.e2e.framework.web.domain;
 
-public interface Page extends Component {
+public interface Page extends DomNode {
     default void assertLoaded() {
         throw new UnsupportedOperationException("Method assertLoaded() not implemented for " + this.getClass().getName());
     }
