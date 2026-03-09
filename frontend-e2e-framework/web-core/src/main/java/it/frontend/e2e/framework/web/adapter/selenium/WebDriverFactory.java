@@ -2,6 +2,7 @@ package it.frontend.e2e.framework.web.adapter.selenium;
 
 import it.frontend.e2e.framework.web.adapter.enums.Browser;
 import it.frontend.e2e.framework.web.adapter.model.BrowserSettings;
+import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -39,6 +40,7 @@ public final class WebDriverFactory {
 
     private static WebDriver createChromeDriver(BrowserSettings settings) {
         ChromeOptions options = new ChromeOptions();
+        options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE);
 
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("credentials_enable_service", false);
@@ -59,6 +61,8 @@ public final class WebDriverFactory {
 
     private static WebDriver createFirefoxDriver(BrowserSettings settings) {
         FirefoxOptions options = new FirefoxOptions();
+        options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE);
+
         if (settings.headless()) {
             options.addArguments("-headless");
         }
@@ -68,6 +72,8 @@ public final class WebDriverFactory {
 
     private static WebDriver createEdgeDriver(BrowserSettings settings) {
         EdgeOptions options = new EdgeOptions();
+        options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE);
+
         if (settings.headless()) {
             options.addArguments(CHROME_HEADLESS_ARG);
         }
@@ -78,6 +84,8 @@ public final class WebDriverFactory {
     @SuppressWarnings("unused")
     private static WebDriver createSafariDriver(BrowserSettings settings) {
         SafariOptions options = new SafariOptions();
+        options.setUnhandledPromptBehaviour(UnexpectedAlertBehaviour.IGNORE);
+
         // Nota: Safari non supporta nativamente la modalità headless tramite WebDriver.
         // La modalità headless richiede l'uso di Safari Technology Preview o configurazioni speciali.
         // Gli argomenti extra vengono ignorati da Safari poiché non li supporta come Chrome/Firefox.
