@@ -47,7 +47,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
 
         // RICORSIONE: se il return type è un DomainElement o è una Capability -> nuovo proxy dello stesso framework
         if (DomainElement.class.isAssignableFrom(rt) || Capability.class.isAssignableFrom(rt)) {
-            String childSel = resolveSelector(method);
+            String childSel = resolveXPath(method);
             String fullSel = compose(ctx.selector(), childSel);
 
             logger.logInfo("Binding recursive element: " + rt.getSimpleName() +
@@ -79,7 +79,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         return parent + "/" + child;
     }
 
-    private static String resolveSelector(Method method) {
+    private static String resolveXPath(Method method) {
         XPath onMethod = method.getAnnotation(XPath.class);
         if (onMethod != null) return onMethod.value();
 
