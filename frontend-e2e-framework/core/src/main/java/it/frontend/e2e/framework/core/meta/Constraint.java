@@ -4,6 +4,7 @@ public final class Constraint {
     public String id;
     public String scope;
     public String mustHaveAnnotation;
+    public String mustNotHaveAnnotation;
     public String severity;
     public String message;
 }

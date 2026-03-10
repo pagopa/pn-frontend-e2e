@@ -44,6 +44,25 @@ public final class RuleEngine {
         }
     }
 
+    public void applyMustNotHaveAnnotation(Constraint constraint, Set<TypeElement> targets) {
+        TypeElement annotationType =
+                elements.getTypeElement(constraint.mustNotHaveAnnotation);
+
+        if (annotationType == null) {
+            messager.printMessage(
+                    Diagnostic.Kind.ERROR,
+                    "Annotation not found: " + constraint.mustNotHaveAnnotation
+            );
+            return;
+        }
+
+        for (TypeElement target : targets) {
+            if (hasAnnotation(target, annotationType)) {
+                report(constraint, target);
+            }
+        }
+    }
+
     private boolean hasAnnotation(TypeElement element, TypeElement annotationType) {
         for (AnnotationMirror mirror : element.getAnnotationMirrors()) {
             if (types.isSameType(

@@ -55,6 +55,9 @@ public class DomainValidationProcessor extends AbstractProcessor {
 
                 if (constraint.mustHaveAnnotation != null)
                     ruleEngine.applyMustHaveAnnotation(constraint, targets);
+
+                if (constraint.mustNotHaveAnnotation != null)
+                    ruleEngine.applyMustNotHaveAnnotation(constraint, targets);
             }
         }
 

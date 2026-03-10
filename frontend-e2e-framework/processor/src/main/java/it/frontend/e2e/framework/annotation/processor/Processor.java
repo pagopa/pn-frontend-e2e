@@ -25,8 +25,8 @@ public final class Processor extends AbstractProcessor {
     private static final Logger LOGGER = Logger.getLogger(Processor.class.getName());
 
     private final List<javax.annotation.processing.Processor> processors = List.of(
-            new XPathProcessor(),
-            new DomainValidationProcessor()
+            new DomainValidationProcessor(),
+            new XPathProcessor()
     );
 
     @Override

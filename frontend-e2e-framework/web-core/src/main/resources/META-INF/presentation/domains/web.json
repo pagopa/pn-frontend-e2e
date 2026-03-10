@@ -15,5 +15,12 @@
   },
 
   "constraints": [
+    {
+      "id": "web-page-must-not-have-xpath-annotation",
+      "scope": "pages",
+      "mustNotHaveAnnotation": "it.frontend.e2e.framework.annotation.selector.XPath",
+      "severity": "ERROR",
+      "message": "Page must not have @XPath annotation, because it is not a Component. Use @Url annotation instead."
+    }
   ]
 }
