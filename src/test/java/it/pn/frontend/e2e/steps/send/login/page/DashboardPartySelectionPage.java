@@ -1,10 +1,12 @@
 package it.pn.frontend.e2e.steps.send.login.page;
 
+import it.frontend.e2e.framework.annotation.location.web.Url;
 import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.capability.core.Clickable;
 import it.frontend.e2e.framework.web.capability.core.Writable;
 import it.frontend.e2e.framework.web.domain.Page;
 
+@Url("sottoinsieme di ${url.selfcare.notifiche.base}")
 public interface DashboardPartySelectionPage extends Page {
 
     @XPath("//*[@id=\"search\"]")
