@@ -1,15 +1,9 @@
 package it.pn.frontend.e2e.config;
 
-import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.web.WebPresentationGateway;
-import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.adapter.model.BrowserSettings;
 import it.frontend.e2e.framework.web.adapter.selenium.SeleniumApiAdapter;
-import it.frontend.e2e.framework.web.binder.WebBinder;
-import it.frontend.e2e.framework.web.capability.handler.ClickableCapabilityHandler;
-import it.frontend.e2e.framework.web.capability.handler.GettableCapabilityHandler;
-import it.frontend.e2e.framework.web.capability.handler.ReadableCapabilityHandler;
-import it.frontend.e2e.framework.web.capability.handler.WritableCapabilityHandler;
+import it.frontend.e2e.framework.web.config.WebSuiteBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -29,28 +23,11 @@ public class FrameworkConfig {
     private List<String> browserArguments;
 
     @Bean
-    public IWebPresentationApiAdapter webPresentationApiAdapter() {
+    public WebPresentationGateway webPresentationGateway() {
         BrowserSettings settings = BrowserSettings.of(browser, headless, browserArguments);
-        return new SeleniumApiAdapter(settings);
-    }
 
-    @Bean
-    public List<ICapabilityHandler> capabilityHandlers(IWebPresentationApiAdapter adapter) {
-        return List.of(
-                new ClickableCapabilityHandler(adapter),
-                new GettableCapabilityHandler(adapter),
-                new ReadableCapabilityHandler(adapter),
-                new WritableCapabilityHandler(adapter)
-        );
-    }
-
-    @Bean
-    public WebBinder webPresentationBinder(List<ICapabilityHandler> handlers) {
-        return new WebBinder(handlers);
-    }
-
-    @Bean
-    public WebPresentationGateway webPresentationGateway(IWebPresentationApiAdapter api, WebBinder binder) {
-        return new WebPresentationGateway(api, binder);
+        return WebSuiteBuilder.builder()
+                .withAdapter(() -> new SeleniumApiAdapter(settings))
+                .build();
     }
 }

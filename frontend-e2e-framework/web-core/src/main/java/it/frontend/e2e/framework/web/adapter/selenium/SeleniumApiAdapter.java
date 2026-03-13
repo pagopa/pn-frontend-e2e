@@ -24,10 +24,6 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     private static long DEFAULT_WAIT_TIMEOUT_SECONDS = 50;
     private final WebDriver driver;
 
-    public SeleniumApiAdapter() {
-        this(BrowserSettings.defaults());
-    }
-
     public SeleniumApiAdapter(BrowserSettings settings) {
         BrowserSettings safeSettings = settings == null ? BrowserSettings.defaults() : settings;
         this.driver = WebDriverFactory.create(safeSettings.browser(), safeSettings);

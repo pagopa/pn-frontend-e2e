@@ -3,6 +3,7 @@ package it.frontend.e2e.framework.core.binder;
 import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.binder.context.BindContext;
 import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.core.capability.dispatcher.DefaultCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.logging.ILogger;
 import it.frontend.e2e.framework.core.logging.Slf4jLogger;
@@ -14,13 +15,16 @@ import java.lang.reflect.Proxy;
 
 public class DefaultBinderInvocationHandler implements InvocationHandler {
 
-    protected final ICapabilityDispatcher dispatcher;
+    private final ICapabilityDispatcher dispatcher;
     private final BindContext ctx;
     private final ILogger logger = new Slf4jLogger();
 
+    public DefaultBinderInvocationHandler() {
+        this(new DefaultCapabilityDispatcher(), BindContext.root());
+    }
+
     public DefaultBinderInvocationHandler(ICapabilityDispatcher dispatcher) {
-        this.dispatcher = dispatcher;
-        this.ctx = BindContext.root();
+        this(dispatcher, BindContext.root());
     }
 
     public DefaultBinderInvocationHandler(ICapabilityDispatcher dispatcher, BindContext ctx) {
@@ -36,19 +40,19 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
 
         if (method.getDeclaringClass() == Object.class) {
             return switch (method.getName()) {
-                case "equals" -> proxy == args[0];
+                case "equals"   -> proxy == args[0];
                 case "hashCode" -> System.identityHashCode(proxy);
                 case "toString" -> proxy.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(proxy));
-                default -> method.invoke(this, args);
+                default -> throw new UnsupportedOperationException("Object method not supported: " + method.getName());
             };
         }
 
         Class<?> rt = method.getReturnType();
 
-        // RICORSIONE: se il return type è un DomainElement o è una Capability -> nuovo proxy dello stesso framework
+        // RICORSIONE: se il return type è un DomainElement o una Capability -> nuovo proxy dello stesso framework
         if (DomainElement.class.isAssignableFrom(rt) || Capability.class.isAssignableFrom(rt)) {
             String childSel = resolveXPath(method);
-            String fullSel = compose(ctx.selector(), childSel);
+            String fullSel  = compose(ctx.selector(), childSel);
 
             logger.logInfo("Binding recursive element: " + rt.getSimpleName() +
                     " | From: " + method.getDeclaringClass().getSimpleName() +
@@ -66,19 +70,14 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         return dispatcher.dispatch(method, args, ctx.selector());
     }
 
-    /**
-     * Si assume che il parent sia un xPath valido o vuoto, e che il child sia un xpath relativo o vuoto. La composizione è una semplice concatenazione.
-     */
     public String compose(String parent, String child) {
         if (parent == null || parent.isBlank()) return child;
-        if (child == null || child.isBlank()) return parent;
+        if (child  == null || child.isBlank())  return parent;
 
         parent = parent.trim();
-        child = child.trim();
+        child  = child.trim();
 
-        if (child.startsWith("./")) {
-            child = child.substring(2);
-        }
+        if (child.startsWith("./")) child = child.substring(2);
 
         if (parent.endsWith("/")) return parent + child;
         return parent + "/" + child;
@@ -88,11 +87,9 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         XPath onMethod = method.getAnnotation(XPath.class);
         if (onMethod != null) return onMethod.value();
 
-        // fallback: selector sul return type
         XPath onType = method.getReturnType().getAnnotation(XPath.class);
         if (onType != null) return onType.value();
 
         return "";
     }
-
 }
