@@ -4,6 +4,8 @@ import it.frontend.e2e.framework.core.model.location.Location;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
+import java.net.URL;
+
 @Value
 @AllArgsConstructor(staticName = "of")
 public class Url implements Location {
@@ -11,6 +13,6 @@ public class Url implements Location {
 
     @Override
     public void validate(String location) {
-
+        throw new UnsupportedOperationException("Method validate() not implemented for " + this.getClass().getName());
     }
 }
