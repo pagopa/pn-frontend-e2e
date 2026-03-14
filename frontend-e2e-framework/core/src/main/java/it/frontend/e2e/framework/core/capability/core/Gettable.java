@@ -2,7 +2,7 @@ package it.frontend.e2e.framework.core.capability.core;
 
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
-import it.frontend.e2e.framework.core.model.Location;
+import it.frontend.e2e.framework.core.model.location.Location;
 import it.frontend.e2e.framework.core.model.selector.Selector;
 
 import java.util.Optional;

@@ -5,7 +5,7 @@ import it.frontend.e2e.framework.core.assertion.AssertionAction;
 import it.frontend.e2e.framework.core.logging.ILogger;
 import it.frontend.e2e.framework.core.logging.Slf4jLogger;
 import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
-import it.frontend.e2e.framework.core.model.Location;
+import it.frontend.e2e.framework.core.model.location.Location;
 import it.frontend.e2e.framework.core.model.selector.Selector;
 
 import java.util.List;
