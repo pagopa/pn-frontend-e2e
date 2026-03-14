@@ -37,7 +37,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         if (method.isDefault())
-            return InvocationHandler.invokeDefault(proxy, method, args);
+            return handleDefaultMethod(proxy, method, args);
 
         if (method.getDeclaringClass() == Object.class) {
             return switch (method.getName()) {
@@ -63,16 +63,28 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
             return Proxy.newProxyInstance(
                     rt.getClassLoader(),
                     new Class<?>[]{rt},
-                    new DefaultBinderInvocationHandler(dispatcher, new BindContext(scope))
+                    getInvocationHandlerFor(method, rt, new BindContext(scope))
             );
         }
 
         // Gestione dei metodi delle capability
-        logger.logDebug("Dispatching capability method: " + method.getName() + " | Selector: " + ctx.scope().selector());
-        return dispatcher.dispatch(method, args, ctx.scope());
+        return resolveCapabilityMethod(method, args, ctx);
     }
 
-    public String compose(String parent, String child) {
+    protected Object handleDefaultMethod(Object proxy, Method method, Object[] args) throws Throwable {
+        return InvocationHandler.invokeDefault(proxy, method, args);
+    }
+
+    protected InvocationHandler getInvocationHandlerFor(Method method, Class<?> returnType, BindContext bindContext) {
+        return new DefaultBinderInvocationHandler(this.dispatcher, bindContext);
+    }
+
+    protected <T> T resolveCapabilityMethod(Method method, Object[] args, BindContext bindContext ) {
+        logger.logDebug("Dispatching capability method: " + method.getName() + " | " + bindContext.toString());
+        return dispatcher.dispatch(method, args, bindContext.scope());
+    }
+
+    protected String compose(String parent, String child) {
         if (parent == null || parent.isBlank()) return child;
         if (child  == null || child.isBlank())  return parent;
 
