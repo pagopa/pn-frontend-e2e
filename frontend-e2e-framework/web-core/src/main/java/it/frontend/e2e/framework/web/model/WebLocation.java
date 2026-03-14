@@ -8,4 +8,9 @@ import lombok.Value;
 @AllArgsConstructor(staticName = "of")
 public class WebLocation implements Location {
     String location;
+
+    @Override
+    public void validate(String location) {
+
+    }
 }
