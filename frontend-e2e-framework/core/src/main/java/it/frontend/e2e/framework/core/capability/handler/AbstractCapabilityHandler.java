@@ -2,6 +2,7 @@ package it.frontend.e2e.framework.core.capability.handler;
 
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.capability.context.CapabilityContext;
+import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
 import lombok.Getter;
 
 import java.lang.invoke.MethodHandle;
@@ -56,11 +57,11 @@ public abstract class AbstractCapabilityHandler<C extends Capability> implements
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T handle(Method method, Object[] args, String selector) {
+    public <T> T handle(Method method, Object[] args, CapabilityScope scope) {
         if (method == null) throw new IllegalArgumentException("method is null");
 
         Object[] safeArgs = (args != null) ? args : new Object[0];
-        CapabilityContext.pushSelector(selector);
+        CapabilityContext.push(scope);
 
         try {
             MethodHandle mh = introspection.invokers.computeIfAbsent(method, m -> buildInvoker(capabilityClass, m));

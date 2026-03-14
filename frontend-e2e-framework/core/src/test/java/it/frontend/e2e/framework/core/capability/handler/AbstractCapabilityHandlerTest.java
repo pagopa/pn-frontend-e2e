@@ -1,5 +1,6 @@
 package it.frontend.e2e.framework.core.capability.handler;
 
+import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
 import it.frontend.e2e.framework.core.capability.core.Gettable;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
@@ -85,7 +86,7 @@ class AbstractCapabilityHandlerTest {
         }
 
         @Override
-        public <T> T handle(Method method, Object[] args, String selector) {
+        public <T> T handle(Method method, Object[] args, CapabilityScope scope) {
             return null;
         }
     }
@@ -97,7 +98,7 @@ class AbstractCapabilityHandlerTest {
         }
 
         @Override
-        public <T> T handle(Method method, Object[] args, String selector) {
+        public <T> T handle(Method method, Object[] args, CapabilityScope scope) {
             return null;
         }
     }
@@ -109,7 +110,7 @@ class AbstractCapabilityHandlerTest {
         }
 
         @Override
-        public <T> T handle(Method method, Object[] args, String selector) {
+        public <T> T handle(Method method, Object[] args, CapabilityScope scope) {
             return null;
         }
     }
@@ -121,7 +122,7 @@ class AbstractCapabilityHandlerTest {
         }
 
         @Override
-        public <T> T handle(Method method, Object[] args, String selector) {
+        public <T> T handle(Method method, Object[] args, CapabilityScope scope) {
             return null;
         }
     }
@@ -311,11 +312,3 @@ class AbstractCapabilityHandlerTest {
     }
 
 }
-
-
-
-
-
-
-
-

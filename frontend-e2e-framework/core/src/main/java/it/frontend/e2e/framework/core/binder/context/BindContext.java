@@ -1,5 +1,7 @@
 package it.frontend.e2e.framework.core.binder.context;
 
-public record BindContext(String selector) {
-    public static BindContext root() { return new BindContext(""); }
+import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
+
+public record BindContext(CapabilityScope scope) {
+    public static BindContext root() { return new BindContext(new CapabilityScope("", "")); }
 }

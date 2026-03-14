@@ -9,6 +9,8 @@ import it.frontend.e2e.framework.core.model.DomainElement;
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
 import it.frontend.e2e.framework.core.model.TestSelector;
+import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -72,10 +74,19 @@ class DefaultBinderInvocationHandlerTest {
 
     private DefaultBinderInvocationHandler handler;
 
+    private AutoCloseable mocks;
+
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        mocks = MockitoAnnotations.openMocks(this);
         handler = new TestInvocationHandlerDefault(dispatcher);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        if (mocks != null) {
+            mocks.close();
+        }
     }
 
     @Test
@@ -87,7 +98,7 @@ class DefaultBinderInvocationHandlerTest {
         Object result = handler.invoke(proxy, defaultMethod, new Object[]{});
 
         assertEquals("default", result);
-        verify(dispatcher, never()).dispatch(any(), any(), eq(""));
+        verify(dispatcher, never()).dispatch(any(), any(), eq(scope("")));
     }
 
     @Test
@@ -99,25 +110,25 @@ class DefaultBinderInvocationHandlerTest {
         Object result = handler.invoke(proxy, toStringMethod, new Object[]{});
 
         assertNotNull(result);
-        verify(dispatcher, never()).dispatch(any(), any(), eq(""));
+        verify(dispatcher, never()).dispatch(any(), any(), eq(scope("")));
     }
 
     @Test
     @DisplayName("dovrebbe delegare al dispatcher l'implementazione dei metodi custom")
     void shouldDispatchCustomMethods() throws Throwable {
-          TestInterface proxy = createProxyInstance();
-          Method method = TestInterface.class.getMethod("element");
-          TestElement expectedElement = new TestElement(new TestSelector(), new TestLocation());
-          Optional<TestElement> expectedResult = Optional.of(expectedElement);
-          Object[] args = null;
+        TestInterface proxy = createProxyInstance();
+        Method method = TestInterface.class.getMethod("element");
+        TestElement expectedElement = new TestElement(new TestSelector(), new TestLocation());
+        Optional<TestElement> expectedResult = Optional.of(expectedElement);
+        Object[] args = null;
 
-          when(dispatcher.dispatch(method, args,"")).thenReturn(expectedResult);
+        when(dispatcher.dispatch(method, args, scope(""))).thenReturn(expectedResult);
 
-          Object result = handler.invoke(proxy, method, args);
+        Object result = handler.invoke(proxy, method, args);
 
-          assertEquals(expectedResult, result);
-          verify(dispatcher, times(1)).dispatch(method, args,"");
-      }
+        assertEquals(expectedResult, result);
+        verify(dispatcher, times(1)).dispatch(method, args, scope(""));
+    }
 
     @Test
     @DisplayName("dovrebbe gestire metodi con argomenti")
@@ -126,12 +137,12 @@ class DefaultBinderInvocationHandlerTest {
         Method method = TestInterface.class.getMethod("elementWithArg", String.class);
         Optional<TestElement> expectedResult = Optional.empty();
 
-        when(dispatcher.dispatch(eq(method), any(), eq(""))).thenReturn(expectedResult);
+        when(dispatcher.dispatch(eq(method), any(), eq(scope("")))).thenReturn(expectedResult);
 
         Object result = handler.invoke(proxy, method, new Object[]{"value"});
 
         assertEquals(expectedResult, result);
-        verify(dispatcher, times(1)).dispatch(eq(method), any(), eq(""));
+        verify(dispatcher, times(1)).dispatch(eq(method), any(), eq(scope("")));
     }
 
     @Test
@@ -141,7 +152,7 @@ class DefaultBinderInvocationHandlerTest {
         Method method = TestInterface.class.getMethod("element");
         RuntimeException exception = new RuntimeException("dispatcher error");
 
-        when(dispatcher.dispatch(method, null, "")).thenThrow(exception);
+        when(dispatcher.dispatch(method, null, scope(""))).thenThrow(exception);
 
         assertThrows(RuntimeException.class, () ->
                 handler.invoke(proxy, method, null)
@@ -176,7 +187,7 @@ class DefaultBinderInvocationHandlerTest {
             Object result = handler.invoke(proxy, hashCodeMethod, new Object[]{});
 
             assertNotNull(result);
-            assertTrue(result instanceof Integer);
+            assertInstanceOf(Integer.class, result);
             verify(dispatcher, never()).dispatch(any(), any(), any());
         }
 
@@ -189,7 +200,7 @@ class DefaultBinderInvocationHandlerTest {
             Object result = handler.invoke(proxy, toStringMethod, new Object[]{});
 
             assertNotNull(result);
-            assertTrue(result instanceof String);
+            assertInstanceOf(String.class, result);
             assertTrue(((String) result).contains("@"));
             verify(dispatcher, never()).dispatch(any(), any(), any());
         }
@@ -219,26 +230,16 @@ class DefaultBinderInvocationHandlerTest {
 
         @Test
         @DisplayName("dovrebbe creare proxy ricorsivo per Capability")
-        void shouldCreateRecursiveProxyForCapability() throws Throwable {
-            TestCapability proxy = (TestCapability) Proxy.newProxyInstance(
-                    TestCapability.class.getClassLoader(),
-                    new Class[]{TestCapability.class},
-                    handler
-            );
-
-            Method clickMethod = TestCapability.class.getMethod("click");
-            // Per le capability con return type void, verrebbe comunque chiamato il dispatcher
-            // ma verifichiamo che il codice non sollevi eccezioni per i Capability return types
-
-            // Capability extends interface, quindi se un metodo ritorna Capability viene creato proxy
-            // In questo caso click() non ritorna Capability, quindi verrà dispatchato
+        void shouldCreateRecursiveProxyForCapability() {
+            // Questo test documenta il caso void-return su capability; non serve invocare variabili locali.
+            assertDoesNotThrow(() -> TestCapability.class.getMethod("click"));
         }
 
         @Test
         @DisplayName("dovrebbe comporre correttamente i selector nei proxy ricorsivi")
         void shouldComposeSelectorsInRecursiveProxies() throws Throwable {
             // Crea handler con un contesto iniziale
-            BindContext parentCtx = new BindContext("/parent");
+            BindContext parentCtx = new BindContext(scope("/parent"));
             DefaultBinderInvocationHandler handlerWithContext =
                     new DefaultBinderInvocationHandler(dispatcher, parentCtx);
 
@@ -299,7 +300,7 @@ class DefaultBinderInvocationHandlerTest {
         }
 
         @Test
-        @DisplayName("dovrebbe ritornare stringa vuota quando non c'è selector")
+        @DisplayName("dovrebbe ritornare stringa vuota quando non c'e selector")
         void shouldReturnEmptyStringWhenNoSelector() throws Throwable {
             TestNoSelector proxy = (TestNoSelector) Proxy.newProxyInstance(
                     TestNoSelector.class.getClassLoader(),
@@ -310,12 +311,12 @@ class DefaultBinderInvocationHandlerTest {
             Method getDataMethod = TestNoSelector.class.getMethod("getData");
 
             // getData ritorna String, quindi verrà dispatchato con selector vuoto
-            when(dispatcher.dispatch(eq(getDataMethod), any(), eq(""))).thenReturn("data");
+            when(dispatcher.dispatch(eq(getDataMethod), any(), eq(scope("")))).thenReturn("data");
 
             Object result = handler.invoke(proxy, getDataMethod, null);
 
             assertEquals("data", result);
-            verify(dispatcher).dispatch(eq(getDataMethod), any(), eq(""));
+            verify(dispatcher).dispatch(eq(getDataMethod), any(), eq(scope("")));
         }
     }
 
@@ -324,9 +325,9 @@ class DefaultBinderInvocationHandlerTest {
     class ComposeSelectorTests {
 
         @Test
-        @DisplayName("dovrebbe ritornare child quando parent è null")
+        @DisplayName("dovrebbe ritornare child quando parent e null")
         void shouldReturnChildWhenParentIsNull() throws Throwable {
-            BindContext ctx = new BindContext(null);
+            BindContext ctx = new BindContext(scope(null));
             DefaultBinderInvocationHandler handlerWithNullCtx =
                     new DefaultBinderInvocationHandler(dispatcher, ctx);
 
@@ -344,9 +345,9 @@ class DefaultBinderInvocationHandlerTest {
         }
 
         @Test
-        @DisplayName("dovrebbe ritornare child quando parent è blank")
+        @DisplayName("dovrebbe ritornare child quando parent e blank")
         void shouldReturnChildWhenParentIsBlank() throws Throwable {
-            BindContext ctx = new BindContext("");
+            BindContext ctx = new BindContext(scope(""));
             DefaultBinderInvocationHandler handlerWithBlankCtx =
                     new DefaultBinderInvocationHandler(dispatcher, ctx);
 
@@ -366,7 +367,7 @@ class DefaultBinderInvocationHandlerTest {
         @Test
         @DisplayName("dovrebbe gestire selector assoluto con //")
         void shouldHandleAbsoluteSelectorWithDoubleSlash() throws Throwable {
-            BindContext ctx = new BindContext("/parent");
+            BindContext ctx = new BindContext(scope("/parent"));
             DefaultBinderInvocationHandler handlerWithCtx =
                     new DefaultBinderInvocationHandler(dispatcher, ctx);
 
@@ -387,7 +388,7 @@ class DefaultBinderInvocationHandlerTest {
         @Test
         @DisplayName("dovrebbe concatenare parent e child con /")
         void shouldConcatenateParentAndChildWithSlash() throws Throwable {
-            BindContext ctx = new BindContext("/parent");
+            BindContext ctx = new BindContext(scope("/parent"));
             DefaultBinderInvocationHandler handlerWithCtx =
                     new DefaultBinderInvocationHandler(dispatcher, ctx);
 
@@ -407,7 +408,7 @@ class DefaultBinderInvocationHandlerTest {
         @Test
         @DisplayName("dovrebbe gestire selector assoluto con (//")
         void shouldHandleAbsoluteSelectorWithParenthesisDoubleSlash() throws Throwable {
-            BindContext ctx = new BindContext("/parent");
+            BindContext ctx = new BindContext(scope("/parent"));
             DefaultBinderInvocationHandler handlerWithCtx =
                     new DefaultBinderInvocationHandler(dispatcher, ctx);
 
@@ -427,7 +428,7 @@ class DefaultBinderInvocationHandlerTest {
         @Test
         @DisplayName("dovrebbe gestire selector assoluto con .//")
         void shouldHandleAbsoluteSelectorWithDotDoubleSlash() throws Throwable {
-            BindContext ctx = new BindContext("/parent");
+            BindContext ctx = new BindContext(scope("/parent"));
             DefaultBinderInvocationHandler handlerWithCtx =
                     new DefaultBinderInvocationHandler(dispatcher, ctx);
 
@@ -447,7 +448,7 @@ class DefaultBinderInvocationHandlerTest {
         @Test
         @DisplayName("dovrebbe gestire selector assoluto con //*[@")
         void shouldHandleAbsoluteSelectorWithAnyAttribute() throws Throwable {
-            BindContext ctx = new BindContext("/parent");
+            BindContext ctx = new BindContext(scope("/parent"));
             DefaultBinderInvocationHandler handlerWithCtx =
                     new DefaultBinderInvocationHandler(dispatcher, ctx);
 
@@ -467,7 +468,7 @@ class DefaultBinderInvocationHandlerTest {
         @Test
         @DisplayName("dovrebbe concatenare parent e child quando child non inizia con /")
         void shouldConcatenateParentAndChildWhenChildDoesNotStartWithSlash() throws Throwable {
-            BindContext ctx = new BindContext("/parent");
+            BindContext ctx = new BindContext(scope("/parent"));
             DefaultBinderInvocationHandler handlerWithCtx =
                     new DefaultBinderInvocationHandler(dispatcher, ctx);
 
@@ -516,5 +517,9 @@ class DefaultBinderInvocationHandlerTest {
                 new Class[]{TestInterface.class},
                 handler
         );
+    }
+
+    private static CapabilityScope scope(String selector) {
+        return new CapabilityScope(selector, "");
     }
 }

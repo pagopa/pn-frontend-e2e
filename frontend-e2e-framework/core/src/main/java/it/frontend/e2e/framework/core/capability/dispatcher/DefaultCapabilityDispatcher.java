@@ -1,5 +1,6 @@
 package it.frontend.e2e.framework.core.capability.dispatcher;
 
+import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
 import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.core.config.SuiteContext;
 import lombok.Getter;
@@ -22,13 +23,13 @@ public class DefaultCapabilityDispatcher implements ICapabilityDispatcher {
     }
 
     @Override
-    public <T> T dispatch(Method method, Object[] args, String selector) {
+    public <T> T dispatch(Method method, Object[] args, CapabilityScope scope) {
         return handlers.stream()
                 .filter(h -> h.canHandle(method))
                 .findFirst()
                 .orElseThrow(() ->
                         new IllegalStateException("No handler for " + method.getDeclaringClass().getName())
                 )
-                .handle(method, args, selector);
+                .handle(method, args, scope);
     }
 }

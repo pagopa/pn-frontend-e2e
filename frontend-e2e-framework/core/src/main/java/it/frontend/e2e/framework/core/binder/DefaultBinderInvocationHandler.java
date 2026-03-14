@@ -3,6 +3,7 @@ package it.frontend.e2e.framework.core.binder;
 import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.binder.context.BindContext;
 import it.frontend.e2e.framework.core.capability.Capability;
+import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
 import it.frontend.e2e.framework.core.capability.dispatcher.DefaultCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.logging.ILogger;
@@ -52,7 +53,8 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         // RICORSIONE: se il return type è un DomainElement o una Capability -> nuovo proxy dello stesso framework
         if (DomainElement.class.isAssignableFrom(rt) || Capability.class.isAssignableFrom(rt)) {
             String childSel = resolveXPath(method);
-            String fullSel  = compose(ctx.selector(), childSel);
+            String fullSel  = compose(ctx.scope().selector(), childSel);
+            CapabilityScope scope = new CapabilityScope(fullSel, "");
 
             logger.logInfo("Binding recursive element: " + rt.getSimpleName() +
                     " | From: " + method.getDeclaringClass().getSimpleName() +
@@ -61,13 +63,13 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
             return Proxy.newProxyInstance(
                     rt.getClassLoader(),
                     new Class<?>[]{rt},
-                    new DefaultBinderInvocationHandler(dispatcher, new BindContext(fullSel))
+                    new DefaultBinderInvocationHandler(dispatcher, new BindContext(scope))
             );
         }
 
         // Gestione dei metodi delle capability
-        logger.logDebug("Dispatching capability method: " + method.getName() + " | Selector: " + ctx.selector());
-        return dispatcher.dispatch(method, args, ctx.selector());
+        logger.logDebug("Dispatching capability method: " + method.getName() + " | Selector: " + ctx.scope().selector());
+        return dispatcher.dispatch(method, args, ctx.scope());
     }
 
     public String compose(String parent, String child) {

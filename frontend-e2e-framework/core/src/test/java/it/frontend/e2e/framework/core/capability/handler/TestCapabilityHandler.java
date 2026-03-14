@@ -1,5 +1,6 @@
 package it.frontend.e2e.framework.core.capability.handler;
 
+import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
 import it.frontend.e2e.framework.core.capability.core.TestCapability;
 import it.frontend.e2e.framework.core.model.TestElement;
 
@@ -37,7 +38,8 @@ public class TestCapabilityHandler extends AbstractCapabilityHandler<TestCapabil
     }
 
     @Override
-    public <T> T handle(Method method, Object[] args, String selector) {
+    @SuppressWarnings("unchecked")
+    public <T> T handle(Method method, Object[] args, CapabilityScope scope) {
 
         return switch (method.getName()) {
             case "action" -> {

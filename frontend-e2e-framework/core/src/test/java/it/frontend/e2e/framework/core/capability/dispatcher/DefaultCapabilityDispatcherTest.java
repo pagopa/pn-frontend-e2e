@@ -6,6 +6,8 @@ import it.frontend.e2e.framework.core.capability.dispatcher.impl.TestDefaultCapa
 import it.frontend.e2e.framework.core.model.TestElement;
 import it.frontend.e2e.framework.core.model.TestLocation;
 import it.frontend.e2e.framework.core.model.TestSelector;
+import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,68 +39,78 @@ class DefaultCapabilityDispatcherTest {
     private Method actionMethod;
     private TestSelector selector;
     private TestLocation location;
+    private CapabilityScope scope;
+    private AutoCloseable mocks;
 
     @BeforeEach
     void setUp() throws NoSuchMethodException {
-        MockitoAnnotations.openMocks(this);
+        mocks = MockitoAnnotations.openMocks(this);
         List<ICapabilityHandler> handlers = new ArrayList<>();
         handlers.add(firstHandler);
         handlers.add(secondHandler);
         selector = new TestSelector();
         location = new TestLocation();
+        scope = new CapabilityScope("", "");
         dispatcher = new TestDefaultCapabilityDispatcher(handlers);
         actionMethod = ActionCapability.class.getMethod("action");
     }
 
+    @AfterEach
+    void tearDown() throws Exception {
+        if (mocks != null) {
+            mocks.close();
+        }
+    }
+
     @Test
-    @DisplayName("dovrebbe delegare al primo handler quando può gestire il method")
+    @DisplayName("dovrebbe delegare al primo handler quando puo gestire il method")
     void shouldDelegateToFirstHandlerWhenItCanHandle() {
         TestElement expectedElement = new TestElement(selector, location);
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
-        when(firstHandler.handle(actionMethod, null, "")).thenReturn(Optional.of(expectedElement));
+        when(firstHandler.handle(actionMethod, null, scope)).thenReturn(Optional.of(expectedElement));
 
-        Optional<TestElement> result = dispatcher.dispatch(actionMethod, null,"");
+        Optional<TestElement> result = dispatcher.dispatch(actionMethod, null, scope);
 
         assertTrue(result.isPresent());
         assertSame(expectedElement, result.get());
         verify(firstHandler).canHandle(actionMethod);
-        verify(firstHandler).handle(actionMethod, null, "");
-        verify(secondHandler, never()).handle(actionMethod, null, "");
+        verify(firstHandler).handle(actionMethod, null, scope);
+        verify(secondHandler, never()).handle(actionMethod, null, scope);
     }
 
     @Test
-    @DisplayName("dovrebbe delegare al secondo handler quando il primo non può gestire")
+    @DisplayName("dovrebbe delegare al secondo handler quando il primo non puo gestire")
     void shouldDelegateToSecondHandlerWhenFirstCannotHandle() {
         TestElement expectedElement = new TestElement(selector, location);
         when(firstHandler.canHandle(actionMethod)).thenReturn(false);
         when(secondHandler.canHandle(actionMethod)).thenReturn(true);
-        when(secondHandler.handle(actionMethod, null, "")).thenReturn(Optional.of(expectedElement));
+        when(secondHandler.handle(actionMethod, null, scope)).thenReturn(Optional.of(expectedElement));
 
-        Optional<TestElement> result = dispatcher.dispatch(actionMethod, null,"");
+        Optional<TestElement> result = dispatcher.dispatch(actionMethod, null, scope);
 
         assertTrue(result.isPresent());
         assertSame(expectedElement, result.get());
         verify(firstHandler).canHandle(actionMethod);
-        verify(firstHandler, never()).handle(actionMethod, null, "");
+        verify(firstHandler, never()).handle(actionMethod, null, scope);
         verify(secondHandler).canHandle(actionMethod);
-        verify(secondHandler).handle(actionMethod, null, "");
+        verify(secondHandler).handle(actionMethod, null, scope);
     }
 
     @Test
-    @DisplayName("dovrebbe lanciare eccezione quando nessun handler può gestire il method")
+    @DisplayName("dovrebbe lanciare eccezione quando nessun handler puo gestire il method")
     void shouldThrowExceptionWhenNoHandlerCanHandle() {
         when(firstHandler.canHandle(actionMethod)).thenReturn(false);
         when(secondHandler.canHandle(actionMethod)).thenReturn(false);
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
-                () -> dispatcher.dispatch(actionMethod, null,"")
+                () -> dispatcher.dispatch(actionMethod, null, scope)
         );
 
         assertTrue(exception.getMessage().contains("No handler for"));
         assertTrue(exception.getMessage().contains(ActionCapability.class.getSimpleName()));
-        verify(firstHandler, never()).handle(actionMethod, null, "");
-        verify(secondHandler, never()).handle(actionMethod, null, "");
+        verify(firstHandler, never()).handle(actionMethod, null, scope);
+        verify(secondHandler, never()).handle(actionMethod, null, scope);
     }
 
     @Test
@@ -108,7 +120,7 @@ class DefaultCapabilityDispatcherTest {
 
         IllegalStateException exception = assertThrows(
                 IllegalStateException.class,
-                () -> dispatcher.dispatch(actionMethod, null,"")
+                () -> dispatcher.dispatch(actionMethod, null, scope)
         );
 
         assertTrue(exception.getMessage().contains("No handler for"));
@@ -118,12 +130,12 @@ class DefaultCapabilityDispatcherTest {
     @DisplayName("dovrebbe restituire Optional.empty se l'handler restituisce empty")
     void shouldReturnEmptyOptionalIfHandlerReturnsEmpty() {
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
-        when(firstHandler.handle(actionMethod, null, "")).thenReturn(Optional.empty());
+        when(firstHandler.handle(actionMethod, null, scope)).thenReturn(Optional.empty());
 
-        Optional<? extends Object> result = dispatcher.dispatch(actionMethod, null,"");
+        Optional<?> result = dispatcher.dispatch(actionMethod, null, scope);
 
         assertTrue(result.isEmpty());
-        verify(firstHandler).handle(actionMethod, null, "");
+        verify(firstHandler).handle(actionMethod, null, scope);
     }
 
     @Test
@@ -131,14 +143,14 @@ class DefaultCapabilityDispatcherTest {
     void shouldPropagateExceptionsFromHandlers() {
         RuntimeException expectedException = new RuntimeException("handler error");
         when(firstHandler.canHandle(actionMethod)).thenReturn(true);
-        when(firstHandler.handle(actionMethod, null, "")).thenThrow(expectedException);
+        when(firstHandler.handle(actionMethod, null, scope)).thenThrow(expectedException);
 
         RuntimeException exception = assertThrows(
                 RuntimeException.class,
-                () -> dispatcher.dispatch(actionMethod, null, "")
+                () -> dispatcher.dispatch(actionMethod, null, scope)
         );
 
         assertEquals(expectedException, exception);
-        verify(firstHandler).handle(actionMethod, null, "");
+        verify(firstHandler).handle(actionMethod, null, scope);
     }
 }

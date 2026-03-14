@@ -6,22 +6,34 @@ import java.util.Deque;
 public class CapabilityContext {
     private CapabilityContext() {}
 
-    private static final ThreadLocal<Deque<String>> SELECTOR_STACK =
+    private static final ThreadLocal<Deque<CapabilityScope>> STACK =
             ThreadLocal.withInitial(ArrayDeque::new);
 
-    public static void pushSelector(String selector) {
-        SELECTOR_STACK.get().push(selector);
+    public static void push(CapabilityScope scope) {
+        STACK.get().push(scope);
     }
 
     public static String selector() {
-        return SELECTOR_STACK.get().peek();
+        CapabilityScope current = STACK.get().peek();
+        return current != null ? current.selector() : null;
+    }
+
+    public static String location() {
+        CapabilityScope current = STACK.get().peek();
+        return current != null ? current.location() : null;
+    }
+
+    public static void pop() {
+        Deque<CapabilityScope> d = STACK.get();
+        if (!d.isEmpty()) {
+            d.pop();
+        }
+        if (d.isEmpty()) {
+            STACK.remove();
+        }
     }
 
     public static void popSelector() {
-        Deque<String> d = SELECTOR_STACK.get();
-        d.pop();
-        if (d.isEmpty()) {
-            SELECTOR_STACK.remove();
-        }
+        pop();
     }
 }
