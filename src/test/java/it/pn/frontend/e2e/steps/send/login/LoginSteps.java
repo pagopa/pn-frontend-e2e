@@ -3,7 +3,7 @@ package it.pn.frontend.e2e.steps.send.login;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import it.frontend.e2e.framework.web.WebPresentationGateway;
-import it.frontend.e2e.framework.web.model.WebLocation;
+import it.frontend.e2e.framework.web.model.Url;
 import it.pn.frontend.e2e.enums.User;
 import it.pn.frontend.e2e.steps.send.login.page.DashboardPartySelectionPage;
 import it.pn.frontend.e2e.steps.send.login.page.OneIdPage;
@@ -25,7 +25,7 @@ public class LoginSteps {
         this.user = user;
 
         // L'utente digita l'url di selfcare nel browser e preme invio
-        uiGateway.navigateTo(WebLocation.of(slefcareUrl));
+        uiGateway.navigateTo(Url.of(slefcareUrl));
 
         // Viene effettuato il binding "logico" tra la pagina attuale caricata nel browser
         OneIdPage oneId = uiGateway.bind(OneIdPage.class);

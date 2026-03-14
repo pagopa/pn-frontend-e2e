@@ -11,13 +11,13 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class WebPresentationElement extends AbstractPresentationElement<XPathSelector, WebLocation> {
+public class WebPresentationElement extends AbstractPresentationElement<XPathSelector, Url> {
     private String tag;
     private String text;
     private Map<String, String> attributes;
     private List<WebPresentationElement> children;
 
-    public WebPresentationElement(XPathSelector selector, WebLocation location) {
+    public WebPresentationElement(XPathSelector selector, Url location) {
         super(selector, location);
     }
 }

@@ -1,7 +1,7 @@
 package it.frontend.e2e.framework.web.adapter.selenium;
 
 import it.frontend.e2e.framework.core.assertion.AssertionAction;
-import it.frontend.e2e.framework.web.model.WebLocation;
+import it.frontend.e2e.framework.web.model.Url;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
 import it.frontend.e2e.framework.core.model.selector.XPathSelector;
 import org.junit.jupiter.api.DisplayName;
@@ -53,7 +53,7 @@ class SeleniumApiAdapterTest {
         assertEquals("button", found.get().getTag());
         assertEquals("login-btn", found.get().getAttributes().get("id"));
         assertEquals("primary", found.get().getAttributes().get("class"));
-        assertEquals("https://example.test/login", found.get().getLocation().getLocation());
+        assertEquals("https://example.test/login", found.get().getLocation().getUrl());
     }
 
     @Test
@@ -128,9 +128,9 @@ class SeleniumApiAdapterTest {
         when(driver.getCurrentUrl()).thenReturn("https://example.test/dashboard");
 
         SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver);
-        WebLocation expected = WebLocation.of("https://example.test/dashboard");
+        Url expected = Url.of("https://example.test/dashboard");
         @SuppressWarnings("unchecked")
-        AssertionAction<WebLocation> assertion = mock(AssertionAction.class);
+        AssertionAction<Url> assertion = mock(AssertionAction.class);
 
         adapter.navigateToAndAssert(expected, assertion);
 

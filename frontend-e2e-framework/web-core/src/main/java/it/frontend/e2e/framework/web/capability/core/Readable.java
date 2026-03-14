@@ -1,8 +1,8 @@
 package it.frontend.e2e.framework.web.capability.core;
 
-import it.frontend.e2e.framework.web.model.WebLocation;
+import it.frontend.e2e.framework.web.model.Url;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
 import it.frontend.e2e.framework.core.model.selector.XPathSelector;
 
-public interface Readable<T> extends it.frontend.e2e.framework.core.capability.core.Readable<T, XPathSelector, WebLocation, WebPresentationElement> {
+public interface Readable<T> extends it.frontend.e2e.framework.core.capability.core.Readable<T, XPathSelector, Url, WebPresentationElement> {
 }

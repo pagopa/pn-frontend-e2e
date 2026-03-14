@@ -3,7 +3,7 @@ package it.frontend.e2e.framework.web.adapter.selenium;
 import it.frontend.e2e.framework.core.assertion.AssertionAction;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.adapter.model.BrowserSettings;
-import it.frontend.e2e.framework.web.model.WebLocation;
+import it.frontend.e2e.framework.web.model.Url;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
 import it.frontend.e2e.framework.core.model.selector.XPathSelector;
 import org.openqa.selenium.By;
@@ -162,26 +162,26 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     }
 
     @Override
-    public WebLocation getLocation() {
-        return WebLocation.of(driver.getCurrentUrl());
+    public Url getLocation() {
+        return Url.of(driver.getCurrentUrl());
     }
 
     @Override
-    public WebLocation getLocationAndAssert(AssertionAction<WebLocation> assertion) {
-        WebLocation location = getLocation();
+    public Url getLocationAndAssert(AssertionAction<Url> assertion) {
+        Url location = getLocation();
         applyAssertion(location, assertion);
         return location;
     }
 
     @Override
-    public void navigateTo(WebLocation locator) {
-        driver.get(locator.getLocation());
+    public void navigateTo(Url locator) {
+        driver.get(locator.getUrl());
     }
 
     @Override
-    public void navigateToAndAssert(WebLocation locator, AssertionAction<WebLocation> assertion) {
+    public void navigateToAndAssert(Url locator, AssertionAction<Url> assertion) {
         navigateTo(locator);
-        WebLocation current = getLocation();
+        Url current = getLocation();
         applyAssertion(current, assertion);
     }
 
