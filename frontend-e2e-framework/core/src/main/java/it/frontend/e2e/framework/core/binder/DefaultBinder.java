@@ -49,13 +49,13 @@ public class DefaultBinder implements IBinder {
         return new BindContext(scope);
     }
 
-    protected static String resolveTypeXPath(Class<?> iface) {
+    protected String resolveTypeXPath(Class<?> iface) {
         XPath onType = iface.getAnnotation(XPath.class);
         if (onType != null) return onType.value();
         return "";
     }
 
-    protected static String resolveTypeLocation(Class<?> iface) {
+    protected String resolveTypeLocation(Class<?> iface) {
         return "";
     }
 }

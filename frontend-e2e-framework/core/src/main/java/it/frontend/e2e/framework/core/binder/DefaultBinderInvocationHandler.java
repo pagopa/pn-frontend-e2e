@@ -4,7 +4,6 @@ import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.binder.context.BindContext;
 import it.frontend.e2e.framework.core.capability.Capability;
 import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
-import it.frontend.e2e.framework.core.capability.dispatcher.DefaultCapabilityDispatcher;
 import it.frontend.e2e.framework.core.capability.dispatcher.ICapabilityDispatcher;
 import it.frontend.e2e.framework.core.logging.ILogger;
 import it.frontend.e2e.framework.core.logging.Slf4jLogger;
@@ -16,13 +15,9 @@ import java.lang.reflect.Proxy;
 
 public class DefaultBinderInvocationHandler implements InvocationHandler {
 
-    private final ICapabilityDispatcher dispatcher;
+    protected final ICapabilityDispatcher dispatcher;
     private final BindContext ctx;
     private final ILogger logger = new Slf4jLogger();
-
-    public DefaultBinderInvocationHandler() {
-        this(new DefaultCapabilityDispatcher(), BindContext.root());
-    }
 
     public DefaultBinderInvocationHandler(ICapabilityDispatcher dispatcher) {
         this(dispatcher, BindContext.root());
@@ -53,8 +48,8 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         // RICORSIONE: se il return type è un DomainElement o una Capability -> nuovo proxy dello stesso framework
         if (DomainElement.class.isAssignableFrom(rt) || Capability.class.isAssignableFrom(rt)) {
             String childSel = resolveXPath(method);
-            String fullSel  = compose(ctx.scope().selector(), childSel);
-            CapabilityScope scope = new CapabilityScope(fullSel, "");
+            String fullSel  = compose(ctx.getScope().selector(), childSel);
+            CapabilityScope scope = new CapabilityScope(fullSel, ctx.getScope().location());
 
             logger.logInfo("Binding recursive element: " + rt.getSimpleName() +
                     " | From: " + method.getDeclaringClass().getSimpleName() +
@@ -81,7 +76,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
 
     protected <T> T resolveCapabilityMethod(Method method, Object[] args, BindContext bindContext ) {
         logger.logDebug("Dispatching capability method: " + method.getName() + " | " + bindContext.toString());
-        return dispatcher.dispatch(method, args, bindContext.scope());
+        return dispatcher.dispatch(method, args, bindContext.getScope());
     }
 
     protected String compose(String parent, String child) {
