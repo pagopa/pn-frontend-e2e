@@ -1,9 +1,6 @@
 package it.frontend.e2e.framework.web.capability.handler.factory;
 
-import it.frontend.e2e.framework.web.capability.handler.ClickableCapabilityHandler;
-import it.frontend.e2e.framework.web.capability.handler.GettableCapabilityHandler;
-import it.frontend.e2e.framework.web.capability.handler.ReadableCapabilityHandler;
-import it.frontend.e2e.framework.web.capability.handler.WritableCapabilityHandler;
+import it.frontend.e2e.framework.web.capability.handler.*;
 
 import java.util.List;
 
@@ -14,7 +11,8 @@ public class WebCapabilityHandlerFactory  {
                 ClickableCapabilityHandler::new,
                 GettableCapabilityHandler::new,
                 WritableCapabilityHandler::new,
-                ReadableCapabilityHandler::new
+                ReadableCapabilityHandler::new,
+                LocatableCapabilityHanlder::new
         );
     }
 }
