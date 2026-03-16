@@ -4,14 +4,15 @@ import it.frontend.e2e.framework.core.adapter.IPresentationApiAdapter;
 import it.frontend.e2e.framework.core.capability.handler.ICapabilityHandler;
 import it.frontend.e2e.framework.core.model.AbstractPresentationElement;
 import it.frontend.e2e.framework.core.model.location.Location;
+import it.frontend.e2e.framework.core.model.location.resolver.ILocationResolver;
 import it.frontend.e2e.framework.core.model.selector.Selector;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class SuiteConfiguration<
         S extends Selector,
         L extends Location,
@@ -20,4 +21,5 @@ public class SuiteConfiguration<
         > {
     private final List<ICapabilityHandler> capabilityHandlers;
     private final List<A> presentationApiAdapters;
+    private ILocationResolver<L> locationResolver;
 }

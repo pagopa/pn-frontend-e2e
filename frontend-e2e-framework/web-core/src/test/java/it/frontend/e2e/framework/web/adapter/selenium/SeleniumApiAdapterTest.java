@@ -1,7 +1,7 @@
 package it.frontend.e2e.framework.web.adapter.selenium;
 
 import it.frontend.e2e.framework.core.assertion.AssertionAction;
-import it.frontend.e2e.framework.web.model.Url;
+import it.frontend.e2e.framework.web.model.location.Url;
 import it.frontend.e2e.framework.web.model.WebPresentationElement;
 import it.frontend.e2e.framework.core.model.selector.XPathSelector;
 import org.junit.jupiter.api.DisplayName;
