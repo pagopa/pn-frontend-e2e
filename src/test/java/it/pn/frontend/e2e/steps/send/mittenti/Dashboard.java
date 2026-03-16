@@ -6,7 +6,7 @@ import it.frontend.e2e.framework.web.capability.core.Readable;
 import it.frontend.e2e.framework.web.domain.Page;
 import org.assertj.core.api.Assertions;
 
-@Url("${url.selfcare.notifiche.base}/dashboard")
+@Url("${url.selfcare.notifiche.base}/dashboard#selfCareToken=${token.mittente}")
 public interface Dashboard extends Page {
 
     @XPath("//*[@id=\"Notifiche-page\"]")

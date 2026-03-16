@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.frontend.e2e.framework.web.WebPresentationGateway;
+import it.frontend.e2e.framework.web.domain.Page;
 import it.pn.frontend.e2e.model.PageInfo;
 import it.pn.frontend.e2e.steps.send.FakeAuthenticator;
 import it.pn.frontend.e2e.steps.send.IAuthenticator;
@@ -25,8 +26,10 @@ public class MittentiSteps {
     }
 
     @When("naviga alla pagina {page}")
-    public void navigateTo(PageInfo pageInfo) {
-        uiGateway.navigateTo(pageInfo.location());
+    public void navigateTo(Class<? extends Page> page) {
+        Page p = uiGateway.bind(page);
+        p.navigateTo();
+
         OneTrustBanner banner = uiGateway.bind(OneTrustBanner.class);
         banner.accept();
     }
