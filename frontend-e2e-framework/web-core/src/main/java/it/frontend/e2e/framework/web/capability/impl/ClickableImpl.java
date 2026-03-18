@@ -11,7 +11,6 @@ public class ClickableImpl extends AbstractCapabilityImpl implements Clickable {
 
     @Override
     public void click() {
-        adapter.waitForElement(xPathSelector.get(), 10);
         adapter.click(xPathSelector.get());
     }
 }
