@@ -38,6 +38,18 @@ class DefaultBinderInvocationHandlerTest {
         Optional<TestElement> elementWithArg(String value);
     }
 
+    public interface TestOptionalInterface {
+        Optional<TestDomainElement> optionalDomainElement();
+
+        Optional<TestCapability> optionalCapability();
+
+        Optional<?> optionalWildcard();
+
+        Optional<String> optionalString();
+
+        Optional<TestBestEffortDomainElement> optionalBestEffortDomainElement();
+    }
+
     public interface TestDomainElement extends DomainElement {
         @XPath("/child")
         TestChildElement child();
@@ -67,6 +79,16 @@ class DefaultBinderInvocationHandlerTest {
 
     public interface TestNoSelector extends DomainElement {
         String getData();
+    }
+
+    public interface TestBestEffortDomainElement extends DomainElement {
+        TestCapability capability();
+
+        String read();
+
+        default void clickInsideDefaultMethod() {
+            capability().click();
+        }
     }
 
     @Mock
@@ -146,10 +168,14 @@ class DefaultBinderInvocationHandlerTest {
     }
 
     @Test
-    @DisplayName("dovrebbe propagare eccezioni dal dispatcher")
+    @DisplayName("dovrebbe propagare eccezioni dal dispatcher per metodi non Optional")
     void shouldPropagateDispatcherExceptions() throws Throwable {
-        TestInterface proxy = createProxyInstance();
-        Method method = TestInterface.class.getMethod("element");
+        TestNoSelector proxy = (TestNoSelector) Proxy.newProxyInstance(
+                TestNoSelector.class.getClassLoader(),
+                new Class[]{TestNoSelector.class},
+                handler
+        );
+        Method method = TestNoSelector.class.getMethod("getData");
         RuntimeException exception = new RuntimeException("dispatcher error");
 
         when(dispatcher.dispatch(method, null, scope(""))).thenThrow(exception);
@@ -486,6 +512,116 @@ class DefaultBinderInvocationHandlerTest {
         }
     }
 
+    @Nested
+    @DisplayName("Test Optional binding")
+    class OptionalBindingTests {
+
+        @Test
+        @DisplayName("dovrebbe fare bind ricorsivo per Optional<DomainElement>")
+        void shouldCreateRecursiveProxyForOptionalDomainElement() throws Throwable {
+            TestOptionalInterface proxy = createOptionalProxyInstance();
+            Method method = TestOptionalInterface.class.getMethod("optionalDomainElement");
+
+            Object result = handler.invoke(proxy, method, null);
+
+            assertInstanceOf(Optional.class, result);
+            Optional<?> optionalResult = (Optional<?>) result;
+            assertTrue(optionalResult.isPresent());
+            assertTrue(Proxy.isProxyClass(optionalResult.get().getClass()));
+            verify(dispatcher, never()).dispatch(any(), any(), any());
+        }
+
+        @Test
+        @DisplayName("dovrebbe fare bind ricorsivo per Optional<Capability>")
+        void shouldCreateRecursiveProxyForOptionalCapability() throws Throwable {
+            TestOptionalInterface proxy = createOptionalProxyInstance();
+            Method method = TestOptionalInterface.class.getMethod("optionalCapability");
+
+            Object result = handler.invoke(proxy, method, null);
+
+            assertInstanceOf(Optional.class, result);
+            Optional<?> optionalResult = (Optional<?>) result;
+            assertTrue(optionalResult.isPresent());
+            assertTrue(Proxy.isProxyClass(optionalResult.get().getClass()));
+            verify(dispatcher, never()).dispatch(any(), any(), any());
+        }
+
+        @Test
+        @DisplayName("dovrebbe delegare Optional<?> al dispatcher senza errori")
+        void shouldDelegateWildcardOptionalToDispatcher() throws Throwable {
+            TestOptionalInterface proxy = createOptionalProxyInstance();
+            Method method = TestOptionalInterface.class.getMethod("optionalWildcard");
+            Optional<?> expected = Optional.empty();
+
+            when(dispatcher.dispatch(method, null, scope(""))).thenReturn(expected);
+
+            Object result = handler.invoke(proxy, method, null);
+
+            assertEquals(expected, result);
+            verify(dispatcher, times(1)).dispatch(method, null, scope(""));
+        }
+
+        @Test
+        @DisplayName("dovrebbe wrappare il risultato non-Optional in Optional per tipi non bindabili")
+        void shouldWrapNonOptionalDispatcherResultForNonBindableOptional() throws Throwable {
+            TestOptionalInterface proxy = createOptionalProxyInstance();
+            Method method = TestOptionalInterface.class.getMethod("optionalString");
+
+            when(dispatcher.dispatch(method, null, scope(""))).thenReturn("value");
+
+            Object result = handler.invoke(proxy, method, null);
+
+            assertEquals(Optional.of("value"), result);
+            verify(dispatcher, times(1)).dispatch(method, null, scope(""));
+        }
+
+        @Test
+        @DisplayName("dovrebbe ritornare Optional.empty quando il dispatcher lancia eccezioni su un metodo Optional")
+        void shouldReturnEmptyWhenDispatcherThrowsForOptionalMethod() throws Throwable {
+            TestInterface proxy = createProxyInstance();
+            Method method = TestInterface.class.getMethod("element");
+            RuntimeException exception = new RuntimeException("dispatcher error");
+
+            when(dispatcher.dispatch(method, null, scope(""))).thenThrow(exception);
+
+            Object result = handler.invoke(proxy, method, null);
+
+            assertEquals(Optional.empty(), result);
+        }
+
+        @Test
+        @DisplayName("dovrebbe non propagare eccezioni runtime dentro default method su proxy nato da Optional")
+        void shouldNotPropagateRuntimeExceptionInsideDefaultMethodForOptionalProxy() throws Throwable {
+            TestOptionalInterface proxy = createOptionalProxyInstance();
+            Method method = TestOptionalInterface.class.getMethod("optionalBestEffortDomainElement");
+            Method clickMethod = TestCapability.class.getMethod("click");
+
+            when(dispatcher.dispatch(eq(clickMethod), isNull(), eq(scope("")))).thenThrow(new RuntimeException("boom"));
+
+            Optional<?> optionalResult = (Optional<?>) handler.invoke(proxy, method, null);
+
+            assertTrue(optionalResult.isPresent());
+            TestBestEffortDomainElement element = (TestBestEffortDomainElement) optionalResult.get();
+            assertDoesNotThrow(element::clickInsideDefaultMethod);
+        }
+
+        @Test
+        @DisplayName("dovrebbe ritornare fallback null per ritorni object quando il dispatcher fallisce su proxy Optional")
+        void shouldReturnNullFallbackWhenDispatcherFailsOnOptionalProxy() throws Throwable {
+            TestOptionalInterface proxy = createOptionalProxyInstance();
+            Method method = TestOptionalInterface.class.getMethod("optionalBestEffortDomainElement");
+            Method readMethod = TestBestEffortDomainElement.class.getMethod("read");
+
+            when(dispatcher.dispatch(eq(readMethod), isNull(), eq(scope("")))).thenThrow(new RuntimeException("boom"));
+
+            Optional<?> optionalResult = (Optional<?>) handler.invoke(proxy, method, null);
+
+            assertTrue(optionalResult.isPresent());
+            TestBestEffortDomainElement element = (TestBestEffortDomainElement) optionalResult.get();
+            assertNull(element.read());
+        }
+    }
+
     public interface TestAbsoluteSelector extends DomainElement {
         @XPath("//div[@class='absolute']")
         TestChildElement absoluteElement();
@@ -515,6 +651,14 @@ class DefaultBinderInvocationHandlerTest {
         return (TestInterface) Proxy.newProxyInstance(
                 TestInterface.class.getClassLoader(),
                 new Class[]{TestInterface.class},
+                handler
+        );
+    }
+
+    private TestOptionalInterface createOptionalProxyInstance() {
+        return (TestOptionalInterface) Proxy.newProxyInstance(
+                TestOptionalInterface.class.getClassLoader(),
+                new Class[]{TestOptionalInterface.class},
                 handler
         );
     }
