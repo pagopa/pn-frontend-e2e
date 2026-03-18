@@ -1,14 +1,21 @@
 package it.frontend.e2e.framework.core.binder.context;
 
 import it.frontend.e2e.framework.core.capability.context.CapabilityScope;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-@Getter
 public class BindContext {
     private final CapabilityScope scope;
-    public static BindContext root() { return new BindContext(new CapabilityScope("", "")); }
+
+    public BindContext(CapabilityScope scope) {
+        this.scope = scope;
+    }
+
+    public static BindContext root() {
+        return new BindContext(new CapabilityScope("", ""));
+    }
+
+    public CapabilityScope getScope() {
+        return scope;
+    }
 
     @Override
     public String toString() {
