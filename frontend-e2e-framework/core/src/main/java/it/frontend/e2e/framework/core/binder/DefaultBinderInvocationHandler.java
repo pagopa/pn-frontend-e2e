@@ -20,7 +20,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
 
     protected final ICapabilityDispatcher dispatcher;
     private final BindContext ctx;
-    private final boolean optionalBestEffort;
+    private final boolean shouldSuppressExceptionForOptionalWrapper;
     private final ILogger logger = new Slf4jLogger();
 
     public DefaultBinderInvocationHandler(ICapabilityDispatcher dispatcher) {
@@ -31,10 +31,10 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
         this(dispatcher, ctx, false);
     }
 
-    private DefaultBinderInvocationHandler(ICapabilityDispatcher dispatcher, BindContext ctx, boolean optionalBestEffort) {
+    private DefaultBinderInvocationHandler(ICapabilityDispatcher dispatcher, BindContext ctx, boolean shouldSuppressExceptionForOptionalWrapper) {
         this.dispatcher = dispatcher;
         this.ctx = ctx;
-        this.optionalBestEffort = optionalBestEffort;
+        this.shouldSuppressExceptionForOptionalWrapper = shouldSuppressExceptionForOptionalWrapper;
     }
 
     @Override
@@ -52,11 +52,11 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
             if (TypeUtils.isOptionalReturn(method)) return WrapperBinder.bindOptional(this, method, args);
 
             Class<?> rt = method.getReturnType();
-            if (isBindableType(rt)) return bindRecursive(method, rt, optionalBestEffort);
+            if (isBindableType(rt)) return bindRecursive(method, rt, shouldSuppressExceptionForOptionalWrapper);
 
             return resolveCapabilityMethod(method, args, ctx);
         } catch (RuntimeException ex) {
-            if (!optionalBestEffort) {
+            if (!shouldSuppressExceptionForOptionalWrapper) {
                 throw ex;
             }
             logger.logDebug("Best-effort Optional invocation failed for method: " + method.getName() + " -> fallback");
@@ -69,7 +69,7 @@ public class DefaultBinderInvocationHandler implements InvocationHandler {
     }
 
     protected InvocationHandler getInvocationHandlerFor(Method method, Class<?> returnType, BindContext bindContext) {
-        return new DefaultBinderInvocationHandler(this.dispatcher, bindContext, optionalBestEffort);
+        return new DefaultBinderInvocationHandler(this.dispatcher, bindContext, shouldSuppressExceptionForOptionalWrapper);
     }
 
     public <T> T resolveCapabilityMethod(Method method, Object[] args, BindContext bindContext ) {
