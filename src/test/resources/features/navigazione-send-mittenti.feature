@@ -10,7 +10,9 @@ Feature: Navigazione portale SEND Mittenti
     Then la pagina deve caricarsi correttamente
 
     Examples:
-      | Pagina    |
-      | Dashboard |
-      | APIKey    |
-      | Statistics    |
+      | Pagina          |
+      | Dashboard       |
+      | APIKey          |
+      | NewAPIKey       |
+      | Statistics      |
+      | PlatformStatus  |

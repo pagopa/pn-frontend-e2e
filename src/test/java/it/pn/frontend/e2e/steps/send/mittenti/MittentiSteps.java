@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Assertions;
 @RequiredArgsConstructor
 public class MittentiSteps {
 
-    private final WebPresentationGateway uiGateway;
+    private final WebPresentationGateway browser;
     private Class<? extends Page> currentPage;
 
     @Given("l'utente è un {string} di {string}")
@@ -29,11 +29,11 @@ public class MittentiSteps {
     @When("naviga alla pagina {page}")
     public void navigateTo(Class<? extends Page> page) {
         currentPage = page;
-        Page p = uiGateway.bind(page);
+        Page p = browser.bind(page);
         p.navigateTo();
 
         try {
-            OneTrustBanner banner = uiGateway.bind(OneTrustBanner.class);
+            OneTrustBanner banner = browser.bind(OneTrustBanner.class);
             banner.accept();
         } catch (Exception e) {
             // banner non presente → ok
@@ -42,8 +42,7 @@ public class MittentiSteps {
 
     @Then("la pagina deve caricarsi correttamente")
     public void laPaginaDeveCaricarsiCorrettamente() {
-       Page nextPage = uiGateway.bind(currentPage);
-       nextPage.assertLoaded();
+       browser.bind(currentPage).assertLoaded();
     }
 
 }
