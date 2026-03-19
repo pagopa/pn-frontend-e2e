@@ -13,3 +13,4 @@ Feature: Navigazione portale SEND Mittenti
       | Pagina    |
       | Dashboard |
       | APIKey    |
+      | Statistics    |
