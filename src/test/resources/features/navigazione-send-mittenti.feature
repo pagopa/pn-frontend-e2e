@@ -12,3 +12,4 @@ Feature: Navigazione portale SEND Mittenti
     Examples:
       | Pagina    |
       | Dashboard |
+      | APIKey    |
