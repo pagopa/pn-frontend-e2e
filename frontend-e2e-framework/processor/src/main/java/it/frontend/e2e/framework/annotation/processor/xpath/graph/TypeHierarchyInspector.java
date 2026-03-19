@@ -17,6 +17,7 @@ public class TypeHierarchyInspector {
 
     private static final String DOMAIN_ELEMENT_CLASS = "it.frontend.e2e.framework.core.model.DomainElement";
     private static final String CAPABILITY_CLASS = "it.frontend.e2e.framework.core.model.Capability";
+    private static final String OPTIONAL_CLASS = "java.util.Optional";
 
     private final Types types;
     private final Elements elements;
@@ -40,6 +41,10 @@ public class TypeHierarchyInspector {
             return null;
         }
 
+        if (isOptional(declaredType)) {
+            return getOptionalInnerTypeElement(declaredType);
+        }
+
         Element element = declaredType.asElement();
         return element instanceof TypeElement ? (TypeElement) element : null;
     }
@@ -57,6 +62,29 @@ public class TypeHierarchyInspector {
                 && !method.getModifiers().contains(Modifier.STATIC)
                 && method.getParameters().isEmpty()
                 && method.getReturnType().getKind() != TypeKind.VOID;
+    }
+
+    private boolean isOptional(DeclaredType type) {
+        Element element = type.asElement();
+        if (!(element instanceof TypeElement typeElement)) {
+            return false;
+        }
+        return OPTIONAL_CLASS.equals(typeElement.getQualifiedName().toString());
+    }
+
+    private TypeElement getOptionalInnerTypeElement(DeclaredType optionalType) {
+        List<? extends TypeMirror> typeArguments = optionalType.getTypeArguments();
+        if (typeArguments.size() != 1) {
+            return null;
+        }
+
+        TypeMirror innerType = typeArguments.get(0);
+        if (!(innerType instanceof DeclaredType innerDeclaredType)) {
+            return null;
+        }
+
+        Element innerElement = innerDeclaredType.asElement();
+        return innerElement instanceof TypeElement ? (TypeElement) innerElement : null;
     }
 
     private boolean isSubtype(TypeElement type, String fqcn) {
