@@ -44,7 +44,7 @@ public final class WebDriverFactory {
         ChromeOptions options = new ChromeOptions();
         Path tempProfile = null;
         try {
-            tempProfile = Files.createTempDirectory("selenium-profile");
+            tempProfile = Files.createTempDirectory("chrome-profile");
             options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException(e);
