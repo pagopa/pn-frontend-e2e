@@ -83,7 +83,11 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public void click(XPathSelector selector) {
-        findWebElement(selector).click();
+        WebElement element = findInteractableElement(selector, DEFAULT_WAIT_TIMEOUT_SECONDS);
+        ((JavascriptExecutor) driver).executeScript(
+            "arguments[0].scrollIntoView({block: 'center'});", element
+        );
+        element.click();
     }
 
     @Override
@@ -94,7 +98,13 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
 
     @Override
     public void sendText(XPathSelector selector, String text) {
-        WebElement element = findWebElement(selector);
+        WebElement element = findInteractableElement(selector, DEFAULT_WAIT_TIMEOUT_SECONDS);
+        ((JavascriptExecutor) driver).executeScript(
+            "arguments[0].scrollIntoView({block: 'center'});", element
+        );
+        ((JavascriptExecutor) driver).executeScript(
+            "arguments[0].focus();", element   // ← focus without click
+        );
         element.sendKeys(text);
     }
 
@@ -188,6 +198,12 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     private WebElement findWebElement(XPathSelector selector, long timeoutSeconds) {
         return new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
                 .until(ExpectedConditions.presenceOfElementLocated(toBy(selector)));
+    }
+
+    // for interaction operations — waits for full interactability
+    private WebElement findInteractableElement(XPathSelector selector, long timeoutSeconds) {
+        return new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds))
+                .until(ExpectedConditions.elementToBeClickable(toBy(selector)));
     }
 
     private List<WebElement> findWebElements(XPathSelector selector, long timeoutSeconds) {

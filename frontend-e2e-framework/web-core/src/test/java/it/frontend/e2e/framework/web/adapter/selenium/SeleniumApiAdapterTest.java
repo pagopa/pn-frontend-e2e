@@ -60,8 +60,15 @@ class SeleniumApiAdapterTest {
     @DisplayName("click, sendText e clear delegano al WebElement")
     void shouldDelegateInteractionMethodsToWebElement() {
         WebDriver driver = mock(WebDriver.class, withSettings().extraInterfaces(JavascriptExecutor.class));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         WebElement webElement = mock(WebElement.class);
+
         when(driver.findElement(any(By.class))).thenReturn(webElement);
+        // ✅ mock the conditions elementToBeClickable checks
+        when(webElement.isDisplayed()).thenReturn(true);
+        when(webElement.isEnabled()).thenReturn(true);
+        // ✅ mock JS scroll and focus calls
+        when(js.executeScript(anyString(), eq(webElement))).thenReturn(null);
 
         SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver);
         XPathSelector selector = XPathSelector.of("//input[@id='username']");

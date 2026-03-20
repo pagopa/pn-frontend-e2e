@@ -6,6 +6,19 @@ Feature: Navigazione portale SEND Mittenti
 
   Scenario Outline: [LOAD_PAGE] Verifica la raggiungibilità delle pagine
     Given l'utente è un "admin" di "Comune di Verona"
+    When naviga alla pagina <Pagina>
+    Then la pagina deve caricarsi correttamente
+
+    Examples:
+      | Pagina          |
+      | Dashboard       |
+      | APIKey          |
+      | NewAPIKey       |
+      | Statistics      |
+      | PlatformStatus  |
+
+  Scenario Outline: [LOAD_PAGE_DETAILS] Verifica la raggiungibilità delle pagine
+    Given l'utente è un "admin" di "Comune di Verona"
     When naviga alla pagina <Lista> e va alla pagina <Dettagli> di dettaglio della prima istanza
     Then la pagina deve caricarsi correttamente
 

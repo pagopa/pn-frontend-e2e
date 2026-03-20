@@ -5,6 +5,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import it.frontend.e2e.framework.web.WebPresentationGateway;
 import it.frontend.e2e.framework.web.domain.Page;
+import it.pn.frontend.e2e.config.ScenarioContext;
 import it.pn.frontend.e2e.steps.common.ListPage;
 import it.pn.frontend.e2e.steps.send.FakeAuthenticator;
 import it.pn.frontend.e2e.steps.send.IAuthenticator;
@@ -17,6 +18,7 @@ public class MittentiSteps {
 
     private final WebPresentationGateway browser;
     private Page currentPage;
+    private final ScenarioContext scenarioContext;
 
     @Given("l'utente è un {string} di {string}")
     public void login(String role, String pa) {
@@ -30,6 +32,7 @@ public class MittentiSteps {
     public void navigateTo(Class<? extends Page> page) {
         currentPage = browser.bind(page);
         currentPage.navigateTo();
+        scenarioContext.setObject("currentPage", currentPage);
 
         try {
             OneTrustBanner banner = browser.bind(OneTrustBanner.class);
@@ -55,11 +58,12 @@ public class MittentiSteps {
 
         Page details = browser.bind(detailsPage);
         currentPage = details;
+        scenarioContext.setObject("currentPage", currentPage);
     }
 
     @Then("la pagina deve caricarsi correttamente")
     public void laPaginaDeveCaricarsiCorrettamente() {
-       currentPage.assertLoaded();
+       scenarioContext.getObject("currentPage", Page.class).assertLoaded();
     }
 
 }
