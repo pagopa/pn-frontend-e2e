@@ -19,6 +19,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public final class WebDriverFactory {
 
@@ -44,7 +45,7 @@ public final class WebDriverFactory {
         ChromeOptions options = new ChromeOptions();
         Path tempProfile = null;
         try {
-            tempProfile = Files.createTempDirectory("chrome-profile");
+            tempProfile = Files.createTempDirectory("chrome-profile-" + UUID.randomUUID());
             options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException(e);
