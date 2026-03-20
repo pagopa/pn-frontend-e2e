@@ -13,6 +13,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +42,13 @@ public final class WebDriverFactory {
 
     private static WebDriver createChromeDriver(BrowserSettings settings) {
         ChromeOptions options = new ChromeOptions();
+        Path tempProfile = null;
+        try {
+            tempProfile = Files.createTempDirectory("selenium-profile");
+            options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("credentials_enable_service", false);
