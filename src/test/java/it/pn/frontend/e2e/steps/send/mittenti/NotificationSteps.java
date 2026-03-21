@@ -37,5 +37,10 @@ public class NotificationSteps {
             "010101P",
             "test-TA-FE-TEST"
         );
+
+        browser.click(page.groupOptionSelector("test-TA-FE-TEST"));
+
+        page.continueButton().click();
+
     }
 }

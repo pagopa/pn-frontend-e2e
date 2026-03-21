@@ -3,6 +3,8 @@ package it.pn.frontend.e2e.steps.send.mittenti.page;
 import it.frontend.e2e.framework.annotation.location.web.Url;
 import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.capability.core.Clickable;
+import it.frontend.e2e.framework.core.model.selector.XPathSelector;
+import it.frontend.e2e.framework.web.WebPresentationGateway;
 import it.frontend.e2e.framework.web.capability.core.Readable;
 import it.frontend.e2e.framework.web.capability.core.Writable;
 import it.frontend.e2e.framework.web.domain.Page;
@@ -20,17 +22,6 @@ public interface NotificationCreate extends Page {
     @XPath("//*[@id=\"subject\"]")
     Writable<String> subject();
 
-   /*
-       // Language radio — selects "Italian" (value="it")
-    @XPath("//input[@name='lang'][@value='it']")
-    Clickable selectLanguageItalian();
-
-    // Language radio — selects "Italian and another language" (value="other")
-    @XPath("//input[@name='lang'][@value='other']")
-    Clickable selectLanguageOther();
-
-    
-
     @XPath("//input[@id='abstract']")
     Writable<String> description();
 
@@ -40,35 +31,20 @@ public interface NotificationCreate extends Page {
     @XPath("//input[@id='taxonomyCode']")
     Writable<String> taxonomyCode();
 
-    // Physical communication type radios
-    @XPath("//input[@name='physicalCommunicationType'][@value='REGISTERED_LETTER_890']")
-    Clickable selectModel890();
-
-    @XPath("//input[@name='physicalCommunicationType'][@value='AR_REGISTERED_LETTER']")
-    Clickable selectRegisteredLetter();
-
     // Group combobox — clicks to open the dropdown
     @XPath("//*[@id='group']")
     Clickable openGroupDropdown();
-
-    // Selects a specific group option by visible text
-    @XPath("//*[@role='option'][normalize-space()='${group.name}']")
-    Clickable groupOption();
+ 
+    // ✅ XPath construction stays in the page — no browser needed
+    default XPathSelector groupOptionSelector(String groupName) {
+        return XPathSelector.of(
+            "//*[@role='option'][normalize-space()='" + groupName + "']"
+        );
+    }
 
     // Continue button
     @XPath("//*[@data-testid='step-submit']")
     Clickable continueButton();
- selectLanguageItalian().click();
-        subject().write(subject);
-        protocolNumber().write(protocol);
-        taxonomyCode().write(taxonomy);
-        selectModel890().click();
-        openGroupDropdown().click();
-        groupOption().click();       // ${group.name} resolved via ScenarioContext
-        continueButton().click();
-    
-   
-   */
 
     default void fillAndSubmit(
             String subject,
@@ -76,8 +52,11 @@ public interface NotificationCreate extends Page {
             String taxonomy,
             String groupName
     ) {
-        
-      subject().write(subject);
+      
+        subject().write(subject);
+        protocolNumber().write(protocol);
+        taxonomyCode().write(taxonomy);
+        openGroupDropdown().click();
     }
 
     @Override
