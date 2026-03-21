@@ -7,7 +7,6 @@ import it.frontend.e2e.framework.web.capability.core.Readable;
 import it.frontend.e2e.framework.web.capability.core.Writable;
 import it.frontend.e2e.framework.web.domain.Page;
 import it.pn.frontend.e2e.model.NotificationData;
-
 import org.assertj.core.api.Assertions;
 
 @Url("${url.selfcare.notifiche.base}/dashboard/nuova-notifica#selfCareToken=${token.mittente}")

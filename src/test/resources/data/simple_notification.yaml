@@ -2,7 +2,7 @@
 
 notification:
   subject: "Test Notification Subject"
-  protocolNumber: "PROT-2026-{counter}"
+  protocolNumber: "PROT-2026-{timestamp}"
   taxonomyCode: "010101P"
   group: "test-TA-FE-TEST"
   language: "it"

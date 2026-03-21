@@ -12,13 +12,22 @@ import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationDebtPosition;
 import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationDetails;
 import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationDocumentation;
 import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationRecipients;
+import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationSuccess;
 import it.pn.frontend.e2e.steps.send.mittenti.pages.PlatformStatus;
 import it.pn.frontend.e2e.steps.send.mittenti.pages.Statistics;
 
 public class PageType {
 
-    @ParameterType("LoginPage|Dashboard|APIKey|NewAPIKey|Statistics|PlatformStatus|NotificationDetails|APIKeyDetails|NotificationCreate|NotificationRecipients|NotificationDebtPosition|NotificationDocumentation")
-    public Class<? extends Page> page(String page) {
+    @ParameterType(
+        "LoginPage|Dashboard|APIKey"            + "|" +
+        "NewAPIKey|Statistics|PlatformStatus"   + "|" +
+        "NotificationDetail|APIKeyDetails"      + "|" +
+        "NotificationCreate"           + "|" +
+        "NotificationRecipients"       + "|" +
+        "NotificationDebtPosition"     + "|" +
+        "NotificationDocumentation"    + "|" +
+        "NotificationSuccess"
+)    public Class<? extends Page> page(String page) {
         return switch (page) {
             case "LoginPage" -> OneIdPage.class;
             case "Dashboard" -> Dashboard.class;
@@ -32,6 +41,7 @@ public class PageType {
             case "NotificationDebtPosition" -> NotificationDebtPosition.class;
             case "NotificationDocumentation" -> NotificationDocumentation.class;
             case "NotificationRecipients" -> NotificationRecipients.class;
+            case "NotificationSuccess" -> NotificationSuccess.class;
             default -> throw new IllegalArgumentException("Invalid page");
         };
     }

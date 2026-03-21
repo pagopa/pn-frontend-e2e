@@ -8,7 +8,9 @@ import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationCreate;
 import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationDebtPosition;
 import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationDocumentation;
 import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationRecipients;
+import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationSuccess;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.RequiredArgsConstructor;
 
@@ -72,5 +74,12 @@ public class NotificationSteps {
                 .getObject("notification", NotificationData.class);
         scenarioContext.getObject("currentPage", NotificationDocumentation.class)
                        .uploadAndSubmit(data);
+    }
+
+    @Then("la notifica è stata inviata con successo")
+    public void assertNotificationSentSuccessfully() {
+        NotificationSuccess successPage = browser.bind(NotificationSuccess.class);
+        successPage.assertLoaded();
+        scenarioContext.setObject("currentPage", successPage);
     }
 }
