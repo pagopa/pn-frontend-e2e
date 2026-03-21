@@ -115,6 +115,14 @@ public final class SeleniumApiAdapter implements IWebPresentationApiAdapter {
     }
 
     @Override
+    public void sendFile(XPathSelector selector, String absolutePath) {
+        // file inputs: presenceOfElementLocated, no scroll, no focus, just sendKeys
+        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(DEFAULT_WAIT_TIMEOUT_SECONDS))
+                .until(ExpectedConditions.presenceOfElementLocated(toBy(selector)));
+        element.sendKeys(absolutePath);
+    }
+
+    @Override
     public void clear(XPathSelector selector) {
         findWebElement(selector).clear();
     }

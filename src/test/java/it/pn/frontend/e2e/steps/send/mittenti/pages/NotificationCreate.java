@@ -1,13 +1,14 @@
-package it.pn.frontend.e2e.steps.send.mittenti.page;
+package it.pn.frontend.e2e.steps.send.mittenti.pages;
 
 import it.frontend.e2e.framework.annotation.location.web.Url;
 import it.frontend.e2e.framework.annotation.selector.XPath;
 import it.frontend.e2e.framework.core.capability.core.Clickable;
 import it.frontend.e2e.framework.core.model.selector.XPathSelector;
-import it.frontend.e2e.framework.web.WebPresentationGateway;
 import it.frontend.e2e.framework.web.capability.core.Readable;
 import it.frontend.e2e.framework.web.capability.core.Writable;
 import it.frontend.e2e.framework.web.domain.Page;
+import it.pn.frontend.e2e.model.NotificationData;
+
 import org.assertj.core.api.Assertions;
 
 @Url("${url.selfcare.notifiche.base}/dashboard/nuova-notifica#selfCareToken=${token.mittente}")
@@ -35,28 +36,23 @@ public interface NotificationCreate extends Page {
     @XPath("//*[@id='group']")
     Clickable openGroupDropdown();
  
-    // ✅ XPath construction stays in the page — no browser needed
-    default XPathSelector groupOptionSelector(String groupName) {
-        return XPathSelector.of(
-            "//*[@role='option'][normalize-space()='" + groupName + "']"
-        );
-    }
-
     // Continue button
     @XPath("//*[@data-testid='step-submit']")
     Clickable continueButton();
 
-    default void fillAndSubmit(
-            String subject,
-            String protocol,
-            String taxonomy,
-            String groupName
-    ) {
-      
-        subject().write(subject);
-        protocolNumber().write(protocol);
-        taxonomyCode().write(taxonomy);
+    default void fillFields(NotificationData data) {
+        //selectLanguageItalian().click();
+        subject().write(data.getSubject());
+        protocolNumber().write(data.getProtocolNumber());
+        taxonomyCode().write(data.getTaxonomyCode());
+        //selectModel890().click();
         openGroupDropdown().click();
+    }
+
+    default XPathSelector groupOptionSelector(String groupName) {
+        return XPathSelector.of(
+            "//*[@role='option'][normalize-space()='" + groupName + "']"
+        );
     }
 
     @Override

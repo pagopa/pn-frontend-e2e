@@ -26,6 +26,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.withSettings;
+import static org.mockito.Mockito.never;
 
 @DisplayName("SeleniumApiAdapter")
 class SeleniumApiAdapterTest {
@@ -170,5 +171,28 @@ class SeleniumApiAdapterTest {
         assertEquals("Uno", elements.get().get(0).getText());
         assertEquals("2", elements.get().get(1).getAttributes().get("data-id"));
     }
+
+    @Test
+    @DisplayName("upload delega al WebElement tramite sendKeys con il percorso del file")
+    void shouldDelegateFileUploadToWebElement() {
+        WebDriver driver = mock(WebDriver.class, withSettings().extraInterfaces(JavascriptExecutor.class));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement webElement = mock(WebElement.class);
+
+        when(driver.findElement(any(By.class))).thenReturn(webElement);
+        // ✅ file inputs are always visible/enabled — elementToBeClickable works
+        when(webElement.isDisplayed()).thenReturn(true);
+        when(webElement.isEnabled()).thenReturn(true);
+        when(js.executeScript(anyString(), eq(webElement))).thenReturn(null);
+
+        SeleniumApiAdapter adapter = new SeleniumApiAdapter(driver);
+        XPathSelector selector = XPathSelector.of("//input[@id='file-input']");
+
+        adapter.sendFile(selector, "/absolute/path/to/test-attachment.pdf");
+
+        // ✅ sendKeys called with the file path — no click, no scroll needed
+        verify(webElement).sendKeys("/absolute/path/to/test-attachment.pdf");
+        verify(webElement, never()).click();  // ← file inputs must NOT be clicked
+}
 }
 

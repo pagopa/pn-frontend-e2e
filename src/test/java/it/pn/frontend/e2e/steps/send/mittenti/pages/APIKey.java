@@ -1,4 +1,4 @@
-package it.pn.frontend.e2e.steps.send.mittenti.page;
+package it.pn.frontend.e2e.steps.send.mittenti.pages;
 
 import it.frontend.e2e.framework.annotation.location.web.Url;
 import it.frontend.e2e.framework.annotation.selector.XPath;

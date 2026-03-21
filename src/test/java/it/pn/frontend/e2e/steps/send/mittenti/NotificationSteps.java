@@ -1,46 +1,76 @@
 package it.pn.frontend.e2e.steps.send.mittenti;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import it.frontend.e2e.framework.web.WebPresentationGateway;
-import it.frontend.e2e.framework.web.domain.Page;
 import it.pn.frontend.e2e.config.ScenarioContext;
-import it.pn.frontend.e2e.steps.common.ListPage;
-import it.pn.frontend.e2e.steps.send.FakeAuthenticator;
-import it.pn.frontend.e2e.steps.send.IAuthenticator;
-import it.pn.frontend.e2e.steps.send.login.component.OneTrustBanner;
-import it.pn.frontend.e2e.steps.send.mittenti.page.NotificationCreate;
+import it.pn.frontend.e2e.factory.NotificationFactory;
+import it.pn.frontend.e2e.model.NotificationData;
+import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationCreate;
+import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationDebtPosition;
+import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationDocumentation;
+import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationRecipients;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import lombok.RequiredArgsConstructor;
-import org.junit.jupiter.api.Assertions;
-import org.openqa.selenium.JavascriptExecutor;
 
 @RequiredArgsConstructor
 public class NotificationSteps {
 
     private final WebPresentationGateway browser;
-    private Page currentPage;
     private final ScenarioContext scenarioContext;
+    private final NotificationFactory notificationFactory;
+
+    @Given("una notifica di tipo {string}")
+    public void loadNotificationTemplate(String templateName) {
+        NotificationData notification = notificationFactory.load(templateName);
+        scenarioContext.setObject("notification", notification);
+    }
 
     @When("compila il form con i dati della notifica")
     public void fillNotificationForm() {
-        NotificationCreate page = scenarioContext.getObject("currentPage", NotificationCreate.class);
-        currentPage = page;
+        NotificationData data = scenarioContext
+                .getObject("notification", NotificationData.class);
+        NotificationCreate page = scenarioContext
+                .getObject("currentPage", NotificationCreate.class);
 
-        // Store group name in ScenarioContext so ${group.name} is resolved
-        scenarioContext.set("group.name", "test-TA-FE-TEST");
-
-
-        page.fillAndSubmit(
-            "Test notification subject",
-            "PROT-2026-001",
-            "010101P",
-            "test-TA-FE-TEST"
-        );
-
-        browser.click(page.groupOptionSelector("test-TA-FE-TEST"));
+        page.fillFields(data);
+        browser.click(page.groupOptionSelector(data.getGroup()));
 
         page.continueButton().click();
 
+        NotificationRecipients nextPage = browser.bind(NotificationRecipients.class);
+        nextPage.assertLoaded();
+        scenarioContext.setObject("currentPage", nextPage);
+    }
+
+    @When("compila i dati del destinatario")
+    public void fillRecipientForm() {
+        NotificationData data = scenarioContext
+                .getObject("notification", NotificationData.class);
+        scenarioContext.getObject("currentPage", NotificationRecipients.class)
+                       .fillAndSubmit(data);
+       
+        NotificationDebtPosition nextPage = browser.bind(NotificationDebtPosition.class);
+        nextPage.assertLoaded();
+        scenarioContext.setObject("currentPage", nextPage);
+    }
+
+    @When("seleziona la posizione debitoria")
+    public void selectDebtPosition() {
+        NotificationData data = scenarioContext
+                .getObject("notification", NotificationData.class);
+        scenarioContext.getObject("currentPage", NotificationDebtPosition.class)
+                       .selectPaymentTypeAndSubmit(data.getPaymentType());
+        
+        NotificationDocumentation nextPage = browser.bind(NotificationDocumentation.class);
+        nextPage.assertLoaded();
+        scenarioContext.setObject("currentPage", nextPage);
+    }
+
+    @When("carica il documento allegato")
+    public void uploadDocument() {
+        NotificationData data = scenarioContext
+                .getObject("notification", NotificationData.class);
+        scenarioContext.getObject("currentPage", NotificationDocumentation.class)
+                       .uploadAndSubmit(data);
     }
 }

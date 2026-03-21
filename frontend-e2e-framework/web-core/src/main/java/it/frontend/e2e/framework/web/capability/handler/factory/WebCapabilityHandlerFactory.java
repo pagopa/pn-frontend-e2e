@@ -12,7 +12,8 @@ public class WebCapabilityHandlerFactory  {
                 GettableCapabilityHandler::new,
                 WritableCapabilityHandler::new,
                 ReadableCapabilityHandler::new,
-                LocatableCapabilityHanlder::new
+                LocatableCapabilityHanlder::new,
+                UploadableCapabilityHandler::new 
         );
     }
 }

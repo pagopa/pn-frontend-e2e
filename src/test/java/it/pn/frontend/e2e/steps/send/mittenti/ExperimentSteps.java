@@ -6,8 +6,8 @@ import it.frontend.e2e.framework.web.WebPresentationGateway;
 import it.frontend.e2e.framework.web.domain.Page;
 import it.pn.frontend.e2e.steps.common.ListPage;
 import it.pn.frontend.e2e.steps.send.login.component.OneTrustBanner;
-import it.pn.frontend.e2e.steps.send.mittenti.page.Dashboard;
-import it.pn.frontend.e2e.steps.send.mittenti.page.NotificationDetails;
+import it.pn.frontend.e2e.steps.send.mittenti.pages.Dashboard;
+import it.pn.frontend.e2e.steps.send.mittenti.pages.NotificationDetails;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

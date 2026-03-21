@@ -6,6 +6,8 @@ import it.frontend.e2e.framework.web.capability.handler.ClickableCapabilityHandl
 import it.frontend.e2e.framework.web.capability.handler.GettableCapabilityHandler;
 import it.frontend.e2e.framework.web.capability.handler.ReadableCapabilityHandler;
 import it.frontend.e2e.framework.web.capability.handler.WritableCapabilityHandler;
+import it.frontend.e2e.framework.web.capability.handler.LocatableCapabilityHanlder;
+import it.frontend.e2e.framework.web.capability.handler.UploadableCapabilityHandler;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ class WebCapabilityHandlerFactoryTest {
     void shouldReturnDefaultFactoriesInExpectedOrder() {
         List<IWebCapabilityHandlerSupplier> defaults = WebCapabilityHandlerFactory.defaults();
 
-        assertEquals(5, defaults.size());
+        assertEquals(6, defaults.size());
 
         IWebPresentationApiAdapter adapter = mock(IWebPresentationApiAdapter.class);
         List<ICapabilityHandler> handlers = defaults.stream()
@@ -34,5 +36,7 @@ class WebCapabilityHandlerFactoryTest {
         assertInstanceOf(GettableCapabilityHandler.class, handlers.get(1));
         assertInstanceOf(WritableCapabilityHandler.class, handlers.get(2));
         assertInstanceOf(ReadableCapabilityHandler.class, handlers.get(3));
+        assertInstanceOf(LocatableCapabilityHanlder.class, handlers.get(4));
+        assertInstanceOf(UploadableCapabilityHandler.class, handlers.get(5));
     }
 }

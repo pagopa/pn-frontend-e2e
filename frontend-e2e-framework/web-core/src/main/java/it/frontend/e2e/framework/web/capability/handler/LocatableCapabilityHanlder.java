@@ -4,6 +4,7 @@ import it.frontend.e2e.framework.core.capability.core.Locatable;
 import it.frontend.e2e.framework.core.capability.handler.AbstractCapabilityHandler;
 import it.frontend.e2e.framework.web.adapter.IWebPresentationApiAdapter;
 import it.frontend.e2e.framework.web.capability.impl.LocatableCapabilityImpl;
+import it.frontend.e2e.framework.web.capability.handler.UploadableCapabilityHandler;
 
 public class LocatableCapabilityHanlder extends AbstractCapabilityHandler<Locatable> {
 

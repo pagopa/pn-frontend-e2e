@@ -151,6 +151,12 @@ public abstract class AbstractAdapterLoggingDecorator<
     }
 
     @Override
+    public void sendFile(S selector, String text) {
+        logger.logAction(selector.toString(), "SEND_FILE", "Text: " + text);
+        wrappedAdapter.sendFile(selector, text);
+    }
+
+    @Override
     public void waitForElement(S selector, long timeoutSeconds) {
         long startTime = System.currentTimeMillis();
         logger.logDebug("Waiting for element: " + selector + " | Timeout: " + timeoutSeconds + "s");

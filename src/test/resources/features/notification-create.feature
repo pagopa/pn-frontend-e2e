@@ -1,12 +1,13 @@
 @createNotification
-Feature: Creazione di una notifica dal portale SEND Mittenti
-  In qualità di un utente di una PA
-  voglio creare una nuova Notifica
+Feature: Creazione nuova notifica
 
-  Scenario: [CREATE_NOTICE] Crea una nuova notifica
+  Scenario: [CREATE_NOTIFICATION] Crea e invia una notifica semplice
     Given l'utente è un "admin" di "Comune di Verona"
+    And una notifica di tipo "simple_notification"
     When naviga alla pagina NotificationCreate
-    Then la pagina deve caricarsi correttamente
     And compila il form con i dati della notifica
-   # Then naviga alla pagina NotificationCreate
+    And compila i dati del destinatario
+    And seleziona la posizione debitoria
+    And carica il documento allegato
+    Then la notifica è stata inviata con successo
     
