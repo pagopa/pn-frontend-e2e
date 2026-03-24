@@ -47,6 +47,8 @@ public final class WebDriverFactory {
         try {
             tempProfile = Files.createTempDirectory("chrome-profile-" + UUID.randomUUID());
             options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath());
+            options.addArguments("--enable-logging", "--v=1");
+            options.addArguments("--log-path=/tmp/chrome.log");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
