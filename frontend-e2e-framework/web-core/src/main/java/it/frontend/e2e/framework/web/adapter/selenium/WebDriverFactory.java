@@ -43,15 +43,12 @@ public final class WebDriverFactory {
 
     private static WebDriver createChromeDriver(BrowserSettings settings) {
         ChromeOptions options = new ChromeOptions();
-        Path tempProfile = null;
-        try {
-            tempProfile = Files.createTempDirectory("chrome-profile-" + UUID.randomUUID());
-            options.addArguments("--user-data-dir=" + tempProfile.toAbsolutePath());
-            options.addArguments("--enable-logging", "--v=1");
-            options.addArguments("--log-path=/tmp/chrome.log");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        String userDataDir = "/tmp/chrome-" + UUID.randomUUID();
+        options.addArguments("--user-data-dir=" + userDataDir);
+
+        options.addArguments("--enable-logging", "--v=1");
+        options.addArguments("--log-path=/tmp/chrome.log");
 
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("credentials_enable_service", false);
@@ -61,6 +58,8 @@ public final class WebDriverFactory {
 
         options.addArguments("--disable-notifications");
         options.addArguments("--disable-save-password-bubble");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
 
         if (settings.headless()) {
             options.addArguments(CHROME_HEADLESS_ARG);
@@ -69,6 +68,7 @@ public final class WebDriverFactory {
 
         return new ChromeDriver(options);
     }
+
 
     private static WebDriver createFirefoxDriver(BrowserSettings settings) {
         FirefoxOptions options = new FirefoxOptions();
