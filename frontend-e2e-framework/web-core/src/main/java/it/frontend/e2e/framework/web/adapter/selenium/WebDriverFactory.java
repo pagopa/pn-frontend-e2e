@@ -60,6 +60,7 @@ public final class WebDriverFactory {
         options.addArguments("--disable-save-password-bubble");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080");
 
         if (settings.headless()) {
             options.addArguments(CHROME_HEADLESS_ARG);
